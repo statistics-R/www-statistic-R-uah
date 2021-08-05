@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Course materials</title>
@@ -13,6 +13,7 @@
     </image>
     
     <item>
+<<<<<<< Updated upstream
       <title>Things you should know for Exam 1</title>
       <link>/resource/exam1/</link>
       <pubDate>Wed, 30 Sep 2020 00:00:00 +0000</pubDate>
@@ -128,6 +129,8 @@
     </item>
     
     <item>
+=======
+>>>>>>> Stashed changes
       <title>Installing R, RStudio, tidyverse, and tinytex</title>
       <link>/resource/install/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
@@ -148,6 +151,7 @@
 &lt;li&gt;
 &lt;p&gt;Click on &amp;ldquo;Download R for &lt;code&gt;XXX&lt;/code&gt;&amp;rdquo;, where &lt;code&gt;XXX&lt;/code&gt; is either Mac or Windows:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/install/install-r-links.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+<<<<<<< Updated upstream
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;If you use macOS, scroll down to the first &lt;code&gt;.pkg&lt;/code&gt; file in the list of files (in this picture, it&amp;rsquo;s &lt;code&gt;R-4.0.0.pkg&lt;/code&gt;; as of right now, the current version is also 4.0.0) and download it.&lt;/p&gt;
@@ -2855,74 +2859,65 @@ simple_dag &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;
 &lt;/ul&gt;
 &lt;p&gt;According to the DAG, malaria risk is caused by income, temperatures, health, insecticide resistance, and mosquito net use. People who live in hotter regions, have lower incomes, have worse health, are surrounded by mosquitoes with high resistance to insecticide, and who do not use mosquito nets are at higher risk of contracting malaria than those who do not. Mosquito net use is caused by income, nighttime temperatures, health, the number of people living in the house, and eligibility for the free net program. People who live in areas that are cooler at night, have higher incomes, have better health, have more people in the home, and are eligible for free government nets are more likely to regularly use nets than those who do not. The DAG also shows that eligibility for the free net program is caused by income and household size, since households must meet specific thresholds to qualify.&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s download the dataset, put in a folder named &lt;code&gt;data&lt;/code&gt;, and load it:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/data/mosquito_nets.csv&#34;&gt;&lt;i class=&#34;fas fa-table&#34;&gt;&lt;/i&gt; &lt;code&gt;mosquito_nets.csv&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Load the data.&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# It&amp;#39;d be a good idea to click on the &amp;#34;mosquito_nets.csv&amp;#34; object in the&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# Environment panel in RStudio to see what the data looks like after you load it&lt;/span&gt;
-mosquito_nets &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data/mosquito_nets.csv&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can use this data to check if the relationships defined by our DAG reflect reality. Recall that &lt;em&gt;d&lt;/em&gt;-separation implies that nodes are statistically independent of each other and do not transfer associational information. If you draw the mosquito net DAG with dagitty.net, or if you run &lt;code&gt;impliedConditionalIndependencies()&lt;/code&gt; in R, you can see a list of all the implied conditional independencies.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;impliedConditionalIndependencies&lt;/span&gt;(mosquito_dag)
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ hlth | incm&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ mlr_ | hlth, incm, net, tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ hshl&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ incm&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ mlr_ | hlth, incm, net, tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## incm _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## incm _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## net _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## rsst _||_ tmpr&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;_||_&lt;/code&gt; symbol in the output here is the &lt;code&gt;\(\perp\)&lt;/code&gt; symbol, which means &amp;ldquo;independent of&amp;rdquo;. The &lt;code&gt;|&lt;/code&gt; in the output means &amp;ldquo;given&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;In the interest of space, we will not verify all these implied independencies, but we can test a few of them:&lt;/p&gt;
+=======
+>>>>>>> Stashed changes
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Health} \perp \text{Household members}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Health is independent of household member count&amp;rdquo;&lt;/em&gt;.) Health should be independent of the number of people in each household. In the data, the two variables should not be correlated. This is indeed the case:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;health, mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;household)
-&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 9.8e-05&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;p&gt;If you use macOS, scroll down to the first &lt;code&gt;.pkg&lt;/code&gt; file in the list of files (in this picture, it&amp;rsquo;s &lt;code&gt;R-4.0.0.pkg&lt;/code&gt;; as of right now, the current version is also 4.0.0) and download it.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-mac.png&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Income} \perp \text{Insecticide resistance}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Income is independent of insecticide resistance&amp;rdquo;&lt;/em&gt;.) Income should be independent of insecticide resistance. This is again true:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;income, mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;resistance)
-&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 0.014&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Malaria risk} \perp \text{Household members}\ |\ \text{Health, Income, Bed net use, Temperature}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Malaria risk is independent of house member count given health, income, bed net use, and temperature&amp;rdquo;&lt;/em&gt;.) Malaria risk should be independent of the number of household members given similar levels of health, income, mosquito net use, and nighttime temperatures. We cannot use &lt;code&gt;cor()&lt;/code&gt; to test this implication, since there are many variables involved, but we can use a regression model to check if the number of household members is significantly related to malaria risk. It is not significant ($t = -0.17$, &lt;code&gt;\(p = 0.863\)&lt;/code&gt;), which means the two are independent, as expected.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lm&lt;/span&gt;(malaria_risk &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; household &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; health &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; income &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; net &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; temperature,
-   data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mosquito_nets) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  broom&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tidy&lt;/span&gt;()
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 6 x 5&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   term        estimate std.error statistic   p.value&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1 (Intercept)  76.2      0.966      78.9   0.       &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 2 household    -0.0155   0.0893     -0.173 8.63e-  1&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 3 health        0.148    0.0107     13.9   9.75e- 42&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 4 income       -0.0751   0.00104   -72.6   0.       &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 5 netTRUE     -10.4      0.266     -39.2   2.63e-241&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 6 temperature   1.01     0.0310     32.5   1.88e-181&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;p&gt;If you use Windows, click &amp;ldquo;base&amp;rdquo; (or click on the bolded &amp;ldquo;install R for the first time&amp;rdquo; link) and download it.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-windows.png&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We can check all the other conditional independencies to see if the DAG captures the reality of the full system of factors that influence mosquito net use and malaria risk. If there are substantial and significant correlations between nodes that should be independent, there is likely an issue with the specification of the DAG. Return to the theory of how the phenomena are generated and refine the DAG more.&lt;/p&gt;
-&lt;h3 id=&#34;mosquito-net-adjustment-sets&#34;&gt;Mosquito net adjustment sets&lt;/h3&gt;
-&lt;p&gt;There is a direct path between mosquito net use and the risk of malaria, but the effect is not causally identified due to several other open paths. We can either list out all the paths and find which open paths have arrows pointing backwards into the mosquito net node (run &lt;code&gt;paths(mosquito_dag)&lt;/code&gt; to see these results), or we can let R find the appropriate adjustment sets automatically:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;adjustmentSets&lt;/span&gt;(mosquito_dag)
-&lt;span style=&#34;color:#75715e&#34;&gt;## { health, income, temperature }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Based on the relationships between all the nodes in the DAG, adjusting for health, income, and temperature is enough to close all backdoors and identify the relationship between net use and malaria risk. Importantly, we do not need to worry about any of the nodes related to the government program for free nets, since those nodes are not &lt;em&gt;d&lt;/em&gt;-connected to malaria risk. We only need to worry about confounding relationships.&lt;/p&gt;
-&lt;p&gt;We can confirm this graphically with &lt;code&gt;ggdag_adjustment_set()&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ggdag_adjustment_set&lt;/span&gt;(mosquito_dag, shadow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,
-                     use_labels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label&amp;#34;&lt;/span&gt;, text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_dag&lt;/span&gt;()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/05-practico_files/figure-html/plot-mosquito-adjustment-fake-1.png&#34; width=&#34;75%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Double click on the downloaded file (check your &lt;code&gt;Downloads&lt;/code&gt; folder). Click yes through all the prompts to install like any other program.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If you use macOS, &lt;a href=&#34;https://www.xquartz.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;download and install XQuartz&lt;/a&gt;. You do not need to do this on Windows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;install-rstudio&#34;&gt;Install RStudio&lt;/h3&gt;
+&lt;p&gt;Next, you need to install RStudio, the nicer graphical user interface (GUI) for R (the dashboard). Once R and RStudio are both installed, you can ignore R and only use RStudio. RStudio will use R automatically and you won&amp;rsquo;t ever have to interact with it directly.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go to the free download location on RStudio&amp;rsquo;s website: &lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/#download&#34;&gt;https://www.rstudio.com/products/rstudio/download/#download&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The website should automatically detect your operating system (macOS or Windows) and show a big download button for it:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-rstudio1.png&#34; width=&#34;50%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If not, scroll down a little to the large table and choose the version of RStudio that matches your operating system.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-rstudio2.png&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Double click on the downloaded file (again, check your &lt;code&gt;Downloads&lt;/code&gt; folder). Click yes through all the prompts to install like any other program.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Double click on RStudio to run it (check your applications folder or start menu).&lt;/p&gt;
+&lt;h3 id=&#34;install-tidyverse&#34;&gt;Install &lt;code&gt;tidyverse&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;R packages are easy to install with RStudio. Select the packages panel, click on &amp;ldquo;Install,&amp;rdquo; type the name of the package you want to install, and press enter.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-package-panel.png&#34; width=&#34;40%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This can sometimes be tedious when you&amp;rsquo;re installing lots of packages, though. &lt;a href=&#34;https://www.tidyverse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;The tidyverse&lt;/a&gt;, for instance, consists of dozens of packages (including &lt;strong&gt;ggplot2&lt;/strong&gt;) that all work together. Rather than install each individually, you can install a single magical package and get them all at the same time.&lt;/p&gt;
+&lt;p&gt;Go to the packages panel in RStudio, click on &amp;ldquo;Install,&amp;rdquo; type &amp;ldquo;tidyverse&amp;rdquo;, and press enter. You&amp;rsquo;ll see a bunch of output in the RStudio console as all the tidyverse packages are installed.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/install/install-r-tidyverse.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Notice also that RStudio will generate a line of code for you and run it: &lt;code&gt;install.packages(&amp;quot;tidyverse&amp;quot;)&lt;/code&gt;. You can also just paste and run this instead of using the packages panel.&lt;/p&gt;
+&lt;h3 id=&#34;install-tinytex&#34;&gt;Install &lt;code&gt;tinytex&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;When you knit to PDF, R uses a special scientific typesetting program named LaTeX (pronounced &amp;ldquo;lay-tek&amp;rdquo; or &amp;ldquo;lah-tex&amp;rdquo;; for goofy nerdy reasons, the x is technically the &amp;ldquo;ch&amp;rdquo; sound in &amp;ldquo;Bach&amp;rdquo;, but most people just say it as &amp;ldquo;k&amp;rdquo;—saying &amp;ldquo;layteks&amp;rdquo; is frowned on for whatever reason).&lt;/p&gt;
+&lt;p&gt;LaTeX is neat and makes pretty documents, but it&amp;rsquo;s a huge program—&lt;a href=&#34;https://tug.org/mactex/mactex-download.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the macOS version, for instance, is nearly 4 GB&lt;/a&gt;! To make life easier, there&amp;rsquo;s &lt;a href=&#34;https://yihui.org/tinytex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;an R package named &lt;strong&gt;tinytex&lt;/strong&gt;&lt;/a&gt; that installs a minimal LaTeX program and that automatically deals with differences between macOS and Windows.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s how to install &lt;strong&gt;tinytex&lt;/strong&gt; so you can knit to pretty PDFs:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Use the Packages in panel in RStudio to install &lt;strong&gt;tinytex&lt;/strong&gt; like you did above with &lt;strong&gt;tidyverse&lt;/strong&gt;. Alternatively, run &lt;code&gt;install.packages(&amp;quot;tinytex&amp;quot;)&lt;/code&gt; in the console.&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;tinytex::install_tinytex()&lt;/code&gt; in the console.&lt;/li&gt;
+&lt;li&gt;Wait for a bit while R downloads and installs everything you need.&lt;/li&gt;
+&lt;li&gt;The end! You should now be able to knit to PDF.&lt;/li&gt;
+&lt;/ol&gt;
 </description>
     </item>
     
     <item>
+<<<<<<< Updated upstream
       <title>Transformación estructura datos</title>
       <link>/content/05-content/</link>
       <pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
@@ -3198,70 +3193,42 @@ simple_dag &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;
 &lt;/ul&gt;
 &lt;p&gt;According to the DAG, malaria risk is caused by income, temperatures, health, insecticide resistance, and mosquito net use. People who live in hotter regions, have lower incomes, have worse health, are surrounded by mosquitoes with high resistance to insecticide, and who do not use mosquito nets are at higher risk of contracting malaria than those who do not. Mosquito net use is caused by income, nighttime temperatures, health, the number of people living in the house, and eligibility for the free net program. People who live in areas that are cooler at night, have higher incomes, have better health, have more people in the home, and are eligible for free government nets are more likely to regularly use nets than those who do not. The DAG also shows that eligibility for the free net program is caused by income and household size, since households must meet specific thresholds to qualify.&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s download the dataset, put in a folder named &lt;code&gt;data&lt;/code&gt;, and load it:&lt;/p&gt;
+=======
+      <title>R</title>
+      <link>/resource/r/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/resource/r/</guid>
+      <description>&lt;h2 id=&#34;learning-r&#34;&gt;Learning R&lt;/h2&gt;
+&lt;p&gt;I highly recommend subscribing to the &lt;a href=&#34;https://rweekly.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Weekly newsletter&lt;/a&gt;. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.&lt;/p&gt;
+&lt;p&gt;Searching for help with R on Google can sometimes be tricky because the program name is a single letter. Google is generally smart enough to figure out what you mean when you search for &amp;ldquo;r scatterplot&amp;rdquo;, but if it does struggle, try searching for &amp;ldquo;rstats&amp;rdquo; instead (e.g. &amp;ldquo;rstats scatterplot&amp;rdquo;).&lt;/p&gt;
+&lt;p&gt;If you use Twitter, post R-related questions and content with &lt;a href=&#34;https://twitter.com/search?q=%23rstats&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;#rstats&lt;/a&gt;. The community there is exceptionally generous and helpful. Also check out &lt;a href=&#34;https://stackoverflow.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StackOverflow&lt;/a&gt; (a Q&amp;amp;A site with hundreds of thousands of answers to all sorts of programming questions) and &lt;a href=&#34;https://community.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RStudio Community&lt;/a&gt; (a forum specifically designed for people using RStudio and the tidyverse (i.e. you)).&lt;/p&gt;
+&lt;p&gt;These resources are also really really helpful:&lt;/p&gt;
+>>>>>>> Stashed changes
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/data/mosquito_nets.csv&#34;&gt;&lt;i class=&#34;fas fa-table&#34;&gt;&lt;/i&gt; &lt;code&gt;mosquito_nets.csv&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://r4ds.had.co.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;R for Data Science&lt;/strong&gt;&lt;/a&gt;: A free online book for learning the basics of R and the tidyverse.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;R and RStudio cheat sheets&lt;/strong&gt;&lt;/a&gt;: A large collection of simple cheat sheets for RStudio, &lt;strong&gt;ggplot2&lt;/strong&gt;, and other R-related things.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stat545.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Stat 545&lt;/strong&gt;&lt;/a&gt;: &lt;a href=&#34;https://twitter.com/JennyBryan&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Jenny Bryan&lt;/a&gt; at RStudio has an entire introductory course in R, visualization, and data analysis online.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www2.stat.duke.edu/courses/Fall17/sta112.01/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;STA 112FS: Data Science&lt;/strong&gt;&lt;/a&gt;: &lt;a href=&#34;https://twitter.com/minebocek&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Mine Çetinkaya-Rundel&lt;/a&gt; at the University of Edinburgh / Duke University has an entire introductory course in R, visualization, and data science online.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://cslu.ohsu.edu/~bedricks/courses/cs631/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;CSE 631: Principles &amp;amp; Practice of Data Visualization&lt;/strong&gt;&lt;/a&gt;: Yet another introductory course for R and ggplot2 by &lt;a href=&#34;https://twitter.com/apreshill&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Alison Presmanes Hill&lt;/a&gt; at RStudio.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Load the data.&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# It&amp;#39;d be a good idea to click on the &amp;#34;mosquito_nets.csv&amp;#34; object in the&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# Environment panel in RStudio to see what the data looks like after you load it&lt;/span&gt;
-mosquito_nets &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;read_csv&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data/mosquito_nets.csv&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can use this data to check if the relationships defined by our DAG reflect reality. Recall that &lt;em&gt;d&lt;/em&gt;-separation implies that nodes are statistically independent of each other and do not transfer associational information. If you draw the mosquito net DAG with dagitty.net, or if you run &lt;code&gt;impliedConditionalIndependencies()&lt;/code&gt; in R, you can see a list of all the implied conditional independencies.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;impliedConditionalIndependencies&lt;/span&gt;(mosquito_dag)
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ hlth | incm&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ mlr_ | hlth, incm, net, tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## elgb _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ hshl&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hlth _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ incm&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ mlr_ | hlth, incm, net, tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## hshl _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## incm _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## incm _||_ tmpr&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## net _||_ rsst&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## rsst _||_ tmpr&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;_||_&lt;/code&gt; symbol in the output here is the &lt;code&gt;\(\perp\)&lt;/code&gt; symbol, which means &amp;ldquo;independent of&amp;rdquo;. The &lt;code&gt;|&lt;/code&gt; in the output means &amp;ldquo;given&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;In the interest of space, we will not verify all these implied independencies, but we can test a few of them:&lt;/p&gt;
+&lt;h2 id=&#34;r-in-the-wild&#34;&gt;R in the wild&lt;/h2&gt;
+&lt;p&gt;A popular (and increasingly standard) way for sharing your analyses and visualizations is to post an annotated explanation of your process somewhere online. RStudio allows you to publish knitted HTML files directly to &lt;a href=&#34;http://rpubs.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RPubs&lt;/a&gt;, but you can also post your output to a blog or other type of website.^[If you want to be really fancy, you can use &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;blogdown&lt;/a&gt;, which makes a complete website with R Markdown files. That&amp;rsquo;s actually how this site is built (&lt;a href=&#34;https://github.com/andrewheiss/datavizm20.classes.andrewheiss.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;see the source code&lt;/a&gt;). You can build your own site &lt;a href=&#34;https://apreshill.rbind.io/post/up-and-running-with-blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;with this tutorial&lt;/a&gt;.] Reading these kinds of posts is one of the best ways to learn R, since they walk you through each step of the process &lt;em&gt;and&lt;/em&gt; show the code and output.&lt;/p&gt;
+&lt;p&gt;Here are some of the best examples I&amp;rsquo;ve come across:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Health} \perp \text{Household members}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Health is independent of household member count&amp;rdquo;&lt;/em&gt;.) Health should be independent of the number of people in each household. In the data, the two variables should not be correlated. This is indeed the case:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;health, mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;household)
-&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 9.8e-05&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Income} \perp \text{Insecticide resistance}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Income is independent of insecticide resistance&amp;rdquo;&lt;/em&gt;.) Income should be independent of insecticide resistance. This is again true:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;income, mosquito_nets&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;resistance)
-&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 0.014&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;\(\text{Malaria risk} \perp \text{Household members}\ |\ \text{Health, Income, Bed net use, Temperature}\)&lt;/code&gt;: (Read as &lt;em&gt;&amp;ldquo;Malaria risk is independent of house member count given health, income, bed net use, and temperature&amp;rdquo;&lt;/em&gt;.) Malaria risk should be independent of the number of household members given similar levels of health, income, mosquito net use, and nighttime temperatures. We cannot use &lt;code&gt;cor()&lt;/code&gt; to test this implication, since there are many variables involved, but we can use a regression model to check if the number of household members is significantly related to malaria risk. It is not significant ($t = -0.17$, &lt;code&gt;\(p = 0.863\)&lt;/code&gt;), which means the two are independent, as expected.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;lm&lt;/span&gt;(malaria_risk &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; household &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; health &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; income &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; net &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; temperature,
-   data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mosquito_nets) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
-  broom&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tidy&lt;/span&gt;()
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 6 x 5&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   term        estimate std.error statistic   p.value&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1 (Intercept)  76.2      0.966      78.9   0.       &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 2 household    -0.0155   0.0893     -0.173 8.63e-  1&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 3 health        0.148    0.0107     13.9   9.75e- 42&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 4 income       -0.0751   0.00104   -72.6   0.       &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 5 netTRUE     -10.4      0.266     -39.2   2.63e-241&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 6 temperature   1.01     0.0310     32.5   1.88e-181&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://varianceexplained.org/r/trump-tweets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Text analysis of Trump&amp;rsquo;s tweets confirms he writes only the (angrier) Android half&lt;/a&gt; (with a &lt;a href=&#34;http://varianceexplained.org/r/trump-followup/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;follow-up&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/bob_ross.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bob Ross - Joy of Painting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/bechdel.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bechdel analysis using the tidyverse&lt;/a&gt;: There are also a bunch of other examples &lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;using data from FiveThirtyEight&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://rpubs.com/Jwhitman/Final_Project&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sexism on the Silver Screen: Exploring film&amp;rsquo;s gender divide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://soc301s2017.netlify.com/group_projects/group5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comparison of Quentin Tarantino Movies by Box Office and the Bechdel Test&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/who-came-to-vote/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Who came to vote in Utah&amp;rsquo;s caucuses?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/health-care-indicators/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Health care indicators in Utah counties&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/song-lyrics-across/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Song lyrics across the United States&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.karawoo.com/2016/09/22/A-decade-ish-of-listening-to-Sigur-Ros&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A decade (ish) of listening to Sigur Rós&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://rpubs.com/ry_lisa_elana/chicago&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;When is Tom peeping these days?&lt;/a&gt;: There are a also bunch of final projects from other R and data visualization classes &lt;a href=&#34;http://soc301s2017.netlify.com/group-projects/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://rudeboybert.github.io/MATH116/PS/final_project/final_project_outline.html#past_examples&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mapping Fall Foliage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/07/25/r%E2%81%B6-general-attys-distributions/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;General (Attys) Distributions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/06/18/r%E2%81%B6-disproving-approval/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Disproving Approval&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;We can check all the other conditional independencies to see if the DAG captures the reality of the full system of factors that influence mosquito net use and malaria risk. If there are substantial and significant correlations between nodes that should be independent, there is likely an issue with the specification of the DAG. Return to the theory of how the phenomena are generated and refine the DAG more.&lt;/p&gt;
-&lt;h3 id=&#34;mosquito-net-adjustment-sets&#34;&gt;Mosquito net adjustment sets&lt;/h3&gt;
-&lt;p&gt;There is a direct path between mosquito net use and the risk of malaria, but the effect is not causally identified due to several other open paths. We can either list out all the paths and find which open paths have arrows pointing backwards into the mosquito net node (run &lt;code&gt;paths(mosquito_dag)&lt;/code&gt; to see these results), or we can let R find the appropriate adjustment sets automatically:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;adjustmentSets&lt;/span&gt;(mosquito_dag)
-&lt;span style=&#34;color:#75715e&#34;&gt;## { health, income, temperature }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Based on the relationships between all the nodes in the DAG, adjusting for health, income, and temperature is enough to close all backdoors and identify the relationship between net use and malaria risk. Importantly, we do not need to worry about any of the nodes related to the government program for free nets, since those nodes are not &lt;em&gt;d&lt;/em&gt;-connected to malaria risk. We only need to worry about confounding relationships.&lt;/p&gt;
-&lt;p&gt;We can confirm this graphically with &lt;code&gt;ggdag_adjustment_set()&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ggdag_adjustment_set&lt;/span&gt;(mosquito_dag, shadow &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,
-                     use_labels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;label&amp;#34;&lt;/span&gt;, text &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;theme_dag&lt;/span&gt;()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/04-practico_files/figure-html/plot-mosquito-adjustment-fake-1.png&#34; width=&#34;75%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -4865,6 +4832,7 @@ faux_data &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;s
 &lt;span style=&#34;color:#75715e&#34;&gt;## 4 10.913 5.341 31.88&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;## 5  8.221 4.039 18.14&lt;/span&gt;
 &lt;span style=&#34;color:#75715e&#34;&gt;## 6 10.095 4.517 17.43&lt;/span&gt;
+<<<<<<< Updated upstream
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# Check averages and standard deviations&lt;/span&gt;
 faux_data &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -5422,230 +5390,31 @@ $$&lt;/p&gt;
 \text{freshman GPA} = \beta_0 + \beta_1 \text{SAT total} + \beta_2 \text{sex} + \epsilon
 $$&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;model_sat_sex &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lm&lt;/span&gt;(gpa_fy &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; sat_total &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sex, data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sat_gpa)
+=======
+>>>>>>> Stashed changes
 
-&lt;span style=&#34;color:#a6e22e&#34;&gt;tidy&lt;/span&gt;(model_sat_sex, conf.int &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 3 x 7&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   term        estimate std.error statistic  p.value conf.low conf.high&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1 (Intercept)  -0.0269   0.149      -0.181 8.57e- 1  -0.319     0.265 &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 2 sat_total     0.0255   0.00145    17.6   1.14e-60   0.0227    0.0284&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 3 sexMale      -0.274    0.0414     -6.62  6.05e-11  -0.355    -0.193&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, stuff gets interesting. The intercept ($\beta_0$) is once again nonsensical—females with a 0 score on their SAT would have a -0.027 college GPA on average. There&amp;rsquo;s a positive effect with our &lt;code&gt;\(\beta_1\)&lt;/code&gt; (or &lt;code&gt;sat_total&lt;/code&gt;), since controlling for sex, a one percentile point increase in SAT scores is associated with a 0.026 point increase in freshman GPA, on average. If we control for SAT scores, males see an average drop of 0.274 points ($\beta_2$) in their college GPAs.&lt;/p&gt;
-&lt;p&gt;The combination of these two variables, however, doesn&amp;rsquo;t boost the model&amp;rsquo;s explanatory power that much. The adjusted &lt;code&gt;\(R^2\)&lt;/code&gt; (which we must look at because we&amp;rsquo;re using more than one explanatory variable) is 0.243, meaning that the model explains a little over 24% of the variation in college GPAs.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;glance&lt;/span&gt;(model_sat_sex)
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 1 x 12&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC deviance df.residual  nobs&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##       &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1     0.245         0.243 0.644      162. 1.44e-61     2  -978. 1964. 1983.     414.         997  1000&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;college-gpa--sat--high-school-gpa--sex&#34;&gt;College GPA ~ SAT + high school GPA + sex&lt;/h4&gt;
-&lt;p&gt;Finally we can see what the effect of SAT scores, high school GPA, and sex is on college GPAs all at the same time, using the following model:&lt;/p&gt;
-&lt;p&gt;$$
-\text{freshman GPA} = \beta_0 + \beta_1 \text{SAT total} + \beta_2 \text{high school GPA} + \beta_3 \text{sex} + \epsilon
-$$&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;model_sat_hs_sex &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lm&lt;/span&gt;(gpa_fy &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; sat_total &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; gpa_hs &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sex, data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sat_gpa)
+&lt;span style=&#34;color:#75715e&#34;&gt;# Check averages and standard deviations&lt;/span&gt;
+faux_data &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;# Convert to long/tidy so we can group and summarize&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_longer&lt;/span&gt;(cols &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;everything&lt;/span&gt;(), names_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;variable&amp;#34;&lt;/span&gt;, values_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(variable) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarize&lt;/span&gt;(mean &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(value),
+            sd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sd&lt;/span&gt;(value))
+&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 3 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;##   variable  mean    sd&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;##   &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;## 1 A        10.2   2.08&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;## 2 B         5.02  1.00&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;## 3 C        20.8   5.01&lt;/span&gt;
 
-&lt;span style=&#34;color:#a6e22e&#34;&gt;tidy&lt;/span&gt;(model_sat_hs_sex, conf.int &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 4 x 7&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   term        estimate std.error statistic  p.value conf.low conf.high&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1 (Intercept)  -0.836    0.148       -5.63 2.35e- 8  -1.13     -0.544 &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 2 sat_total     0.0158   0.00150     10.5  9.72e-25   0.0129    0.0188&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 3 gpa_hs        0.545    0.0394      13.8  6.61e-40   0.467     0.622 &lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 4 sexMale      -0.143    0.0391      -3.66 2.66e- 4  -0.220    -0.0664&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can say the following things about these results:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Yet again, the intercept ($\beta_0$) can be safely ignored. Here it means that a female with a 0.0 high school GPA and an SAT score of 0 would have a college GPA of -0.84, on average. That&amp;rsquo;s pretty impossible.&lt;/li&gt;
-&lt;li&gt;The &lt;code&gt;\(\beta_1\)&lt;/code&gt; coefficient for &lt;code&gt;sat_total&lt;/code&gt; indicates that taking into account high school GPA and sex, a one percentile point increase in a student&amp;rsquo;s SAT score is associated with a 0.016 point increase in their college GPA, on average.&lt;/li&gt;
-&lt;li&gt;Controlling for SAT scores and sex, a one point increase in high school GPA is associated with a 0.545 point (this is &lt;code&gt;\(\beta_2\)&lt;/code&gt;) increase in college GPA, on average. This coefficient is lower than the 0.74 point coefficient we found previously. That&amp;rsquo;s because SAT scores and sex soaked up some of high school GPA&amp;rsquo;s explanatory power.&lt;/li&gt;
-&lt;li&gt;Taking SAT scores and high school GPAs into account, males have a 0.143 point lower GPA in college, on average (this is &lt;code&gt;\(\beta_3\)&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;As always, the adjusted &lt;code&gt;\(R^2\)&lt;/code&gt; shows us how well the model fits overall (again, we have to look at the adjusted &lt;code&gt;\(R^2\)&lt;/code&gt; because we have more than one explanatory variable). In this case, the model explains 36.5% of the variation in college GPA, which is higher than any of the previous models (but not phenomenal, in the end).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;glance&lt;/span&gt;(model_sat_hs_sex)
-&lt;span style=&#34;color:#75715e&#34;&gt;## # A tibble: 1 x 12&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC deviance df.residual  nobs&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;##       &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;       &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;## 1     0.367         0.365 0.590      192. 2.67e-98     3  -890. 1790. 1815.     347.         996  1000&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;which-model-best-predicts-freshman-gpa-how-do-you-know&#34;&gt;Which model best predicts freshman GPA? How do you know?&lt;/h4&gt;
-&lt;p&gt;As you&amp;rsquo;ve learned in previous stats classes, adjusted &lt;code&gt;\(R^2\)&lt;/code&gt; generally shows the strength of a model&amp;rsquo;s fit, or how well the model will predict future values of the outcome variable. If we compare the adjusted &lt;code&gt;\(R^2\)&lt;/code&gt; for each of the models, we see that the &amp;ldquo;best&amp;rdquo; model is the last one.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# The modelsummary() function takes a bunch of different regression models and&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# puts them in a neat side-by-side table. In a normal report or analysis, you&amp;#39;d&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# include all of these once instead of going one by one like we did above.&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;modelsummary&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(model_sat_gpa, model_sat_gpa_types, model_sat_gpa_hs,
-                  model_sat_sex, model_sat_hs_sex))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table class=&#34;table&#34; style=&#34;width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style=&#34;text-align:left;&#34;&gt;   &lt;/th&gt;
-   &lt;th style=&#34;text-align:center;&#34;&gt; Model 1 &lt;/th&gt;
-   &lt;th style=&#34;text-align:center;&#34;&gt; Model 2 &lt;/th&gt;
-   &lt;th style=&#34;text-align:center;&#34;&gt; Model 3 &lt;/th&gt;
-   &lt;th style=&#34;text-align:center;&#34;&gt; Model 4 &lt;/th&gt;
-   &lt;th style=&#34;text-align:center;&#34;&gt; Model 5 &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; (Intercept) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.002 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.007 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.091 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -0.027 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -0.836 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.152) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.152) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.118) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.149) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.148) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; sat_total &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.024 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.026 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.016 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.001) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.001) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.002) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; sat_verbal &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.025 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.003) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; sat_math &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.022 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.003) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; gpa_hs &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.743 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.545 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.036) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; (0.039) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; sexMale &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -0.274 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -0.143 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;box-shadow: 0px 1px&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;box-shadow: 0px 1px&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;box-shadow: 0px 1px&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;box-shadow: 0px 1px&#34;&gt;  &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;box-shadow: 0px 1px&#34;&gt; (0.041) &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;box-shadow: 0px 1px&#34;&gt; (0.039) &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; Num.Obs. &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1000 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1000 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1000 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1000 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1000 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; R2 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.212 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.212 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.295 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.245 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.367 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; R2 Adj. &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.211 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.211 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.295 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.243 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 0.365 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; AIC &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 2004.8 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 2006.4 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1893.0 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1963.8 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1790.2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; BIC &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 2019.5 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 2026.0 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1907.7 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1983.4 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 1814.8 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; Log.Lik. &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -999.382 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -999.189 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -943.477 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -977.904 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; -890.108 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style=&#34;text-align:left;&#34;&gt; F &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 268.270 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 134.244 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 418.071 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 161.762 &lt;/td&gt;
-   &lt;td style=&#34;text-align:center;&#34;&gt; 192.141 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;This is real data about real students, &lt;a href=&#34;https://www.dartmouth.edu/~chance/course/Syllabi/Princeton96/Class12.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;compiled and cleaned by a professor at Dartmouth.&lt;/a&gt; &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# Check correlations&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;A, faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;B)
+&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 0.808&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;A, faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;C)
+&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 0.301&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cor&lt;/span&gt;(faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;B, faux_data&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;C)
+&lt;span style=&#34;color:#75715e&#34;&gt;## [1] 0.4598&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;faux&lt;/strong&gt; can do a ton of other things too, so make sure you check out &lt;a href=&#34;https://debruine.github.io/faux/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the documentation and all the articles with examples here&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
@@ -6703,364 +6472,6 @@ PUT CHUNK HERE
     </item>
     
     <item>
-      <title>Using Markdown</title>
-      <link>/resource/markdown/</link>
-      <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
-      <guid>/resource/markdown/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://daringfireball.net/projects/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Markdown&lt;/a&gt; is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like &lt;a href=&#34;https://pandoc.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandoc&lt;/a&gt; to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. (&lt;a href=&#34;https://pandoc.org/MANUAL.html#option--to&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;see the full list of output types here&lt;/a&gt;)&lt;/p&gt;
-&lt;h2 id=&#34;basic-markdown-formatting&#34;&gt;Basic Markdown formatting&lt;/h2&gt;
-&lt;table&gt;
-&lt;colgroup&gt;
-&lt;col width=&#34;40%&#34; /&gt;
-&lt;col width=&#34;21%&#34; /&gt;
-&lt;col width=&#34;38%&#34; /&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;Type…&lt;/th&gt;
-&lt;th&gt;…or…&lt;/th&gt;
-&lt;th&gt;…to get&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;pre&gt;Some text in a paragraph.&lt;br&gt;
-More text in the next paragraph. Always
-use empty lines between paragraphs.&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;p&gt;Some text in a paragraph.&lt;/p&gt;
-&lt;p&gt;More text in the next paragraph. Always
-use empty lines between paragraphs.&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;code&gt;*Italic*&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;_Italic_&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;em&gt;Italic&lt;/em&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;code&gt;**Bold**&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;__Bold__&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;Bold&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;code&gt;# Heading 1&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;h1 class=&#34;smaller-h1&#34;&gt;
-Heading 1
-&lt;/h1&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;code&gt;## Heading 2&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;h2 class=&#34;smaller-h2&#34;&gt;
-Heading 2
-&lt;/h2&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;code&gt;### Heading 3&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;h3 class=&#34;smaller-h3&#34;&gt;
-Heading 3
-&lt;/h3&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;(Go up to heading level 6 with &lt;code&gt;######&lt;/code&gt;)&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;code&gt;[Link text](http://www.example.com)&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;a href=&#34;http://www.example.com&#34;&gt;Link text&lt;/a&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;code&gt;![Image caption](/path/to/image.png)&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;img src=&#34;/img/mstile-144x144.png&#34; title=&#34;fig:&#34; alt=&#34;Class logo&#34; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;`&lt;code&gt;Inline code` with backticks&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;Inline code&lt;/code&gt; with backticks&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;code&gt;&amp;gt; Blockquote&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;blockquote&gt;
-&lt;p&gt;Blockquote&lt;/p&gt;
-&lt;/blockquote&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;pre&gt;- Things in
-- an unordered
-- list&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;&lt;pre&gt;* Things in
-* an unordered
-* list&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;&lt;ul&gt;
-&lt;li&gt;Things in&lt;/li&gt;
-&lt;li&gt;an unordered&lt;/li&gt;
-&lt;li&gt;list&lt;/li&gt;
-&lt;/ul&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;pre&gt;1. Things in
-2. an ordered
-3. list&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;&lt;pre&gt;1) Things in
-2) an ordered
-3) list&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;Things in&lt;/li&gt;
-&lt;li&gt;an ordered&lt;/li&gt;
-&lt;li&gt;list&lt;/li&gt;
-&lt;/ol&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;&lt;pre&gt;Horizontal line
-&lt;p&gt;&amp;mdash;&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
-&lt;td&gt;&lt;pre&gt;Horizontal line
-&lt;p&gt;***&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
-&lt;td&gt;&lt;p&gt;Horizontal line&lt;/p&gt;
-&lt;hr /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
-&lt;p&gt;Markdown uses LaTeX to create fancy mathematical equations. There are like a billion little options and features available for math equations—you can find &lt;a href=&#34;http://www.malinc.se/math/latex/basiccodeen.php&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;helpful examples of the the most common basic commands here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;You can use math in two different ways: inline or in a display block. To use math inline, wrap it in single dollar signs, like &lt;code&gt;\$y = mx + b\$&lt;/code&gt;:&lt;/p&gt;
-&lt;table&gt;
-&lt;colgroup&gt;
-&lt;col width=&#34;52%&#34; /&gt;
-&lt;col width=&#34;47%&#34; /&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;Type…&lt;/th&gt;
-&lt;th&gt;…to get&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;&lt;pre&gt;Based on the DAG, the regression model for
-estimating the effect of education on wages
-is &amp;dollar;\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon&amp;dollar;, or
-&amp;dollar;\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon&amp;dollar;.&lt;/pre&gt;&lt;/td&gt;
-&lt;td&gt;Based on the DAG, the regression model for
-estimating the effect of education on wages
-is &lt;span class=&#34;math inline&#34;&gt;\(\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon\)&lt;/span&gt;, or
-&lt;span class=&#34;math inline&#34;&gt;\(\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon\)&lt;/span&gt;.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;To put an equation on its own line in a display block, wrap it in double dollar signs, like this:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Type…&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;The quadratic equation was an important part of high school math:
-
-$$
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-$$
-
-But now we just use computers to solve for $x$.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The quadratic equation was an important part of high school math:&lt;/p&gt;
-&lt;p&gt;$$
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-$$&lt;/p&gt;
-&lt;p&gt;But now we just use computers to solve for &lt;code&gt;\(x\)&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;p&gt;Because dollar signs are used to indicate math equations, you can&amp;rsquo;t just use dollar signs like normal if you&amp;rsquo;re writing about actual dollars. For instance, if you write &lt;code&gt;This book costs \$5.75 and this other costs \$40&lt;/code&gt;, Markdown will treat everything that comes between the dollar signs as math, like so: &amp;ldquo;This book costs $5.75 and this other costs $40&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;To get around that, put a backslash (&lt;code&gt;\&lt;/code&gt;) in front of the dollar signs, so that &lt;code&gt;This book costs \\\$5.75 and this other costs \\\$40&lt;/code&gt; becomes &amp;ldquo;This book costs &lt;span&gt;$5.75&lt;/span&gt; and this other costs &lt;span&gt;$40&lt;/span&gt;&amp;rdquo;.&lt;/p&gt;
-&lt;h2 id=&#34;tables&#34;&gt;Tables&lt;/h2&gt;
-&lt;p&gt;There are 4 different ways to hand-create tables in Markdown—I say &amp;ldquo;hand-create&amp;rdquo; because it&amp;rsquo;s normally way easier to use R to generate these things with packages like &lt;a href=&#34;https://rapporter.github.io/pander/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;pander&lt;/strong&gt;&lt;/a&gt; (use &lt;code&gt;pandoc.table()&lt;/code&gt;) or &lt;strong&gt;knitr&lt;/strong&gt; (use &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown-cookbook/kable.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;kable()&lt;/code&gt;&lt;/a&gt;). The two most common are simple tables and pipe tables. &lt;a href=&#34;https://pandoc.org/MANUAL.html#tables&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;You should look at the full documentation here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;For simple tables, type…&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;  Right     Left     Center     Default
--------     ------ ----------   -------
-     12     12        12            12
-    123     123       123          123
-      1     1          1             1
-
-Table: Caption goes here
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Right     Left     Center     Default&lt;/p&gt;
-&lt;hr&gt;
-&lt;pre&gt;&lt;code&gt; 12     12        12            12
-123     123       123          123
-  1     1          1             1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Table: Caption goes here&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;For pipe tables, type…&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;| Right | Left | Default | Center |
-|------:|:-----|---------|:------:|
-|   12  |  12  |    12   |    12  |
-|  123  |  123 |   123   |   123  |
-|    1  |    1 |     1   |     1  |
-
-Table: Caption goes here
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;Right&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;Left&lt;/th&gt;
-&lt;th&gt;Default&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Center&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;12&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;12&lt;/td&gt;
-&lt;td&gt;12&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;123&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;123&lt;/td&gt;
-&lt;td&gt;123&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;123&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;1&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Table: Caption goes here&lt;/p&gt;
-&lt;h2 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h2&gt;
-&lt;p&gt;There are two different ways to add footnotes (&lt;a href=&#34;https://pandoc.org/MANUAL.html#footnotes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;see here for complete documentation&lt;/a&gt;): regular and inline.&lt;/p&gt;
-&lt;p&gt;Regular notes need (1) an identifier and (2) the actual note. The identifier can be whatever you want. Some people like to use numbers like &lt;code&gt;[^1]&lt;/code&gt;, but if you ever rearrange paragraphs or add notes before #1, the numbering will be wrong (in your Markdown file, not in the output; everything will be correct in the output). Because of that, I prefer to use some sort of text label:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Type…&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Here is a footnote reference[^1] and here is another [^note-on-dags].
-
-[^1]: This is a note.
-
-[^note-on-dags]: DAGs are neat. 
-
-And here&amp;#39;s more of the document.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Here is a footnote reference&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; and here is another.&lt;a href=&#34;#fn2&#34; class=&#34;footnote-ref&#34; id=&#34;fnref2&#34;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;And here&amp;rsquo;s more of the document.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;This is a note.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;DAGs are neat.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;p&gt;You can also use inline footnotes with &lt;code&gt;^[Text of the note goes here]&lt;/code&gt;, which are often easier because you don&amp;rsquo;t need to worry about identifiers:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Type…&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Causal inference is neat.^[But it can be hard too!]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Causal inference is neat.&lt;a href=&#34;#fn3&#34; class=&#34;footnote-ref&#34; id=&#34;fnref3&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;hr /&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;But it can be hard too!&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;front-matter&#34;&gt;Front matter&lt;/h2&gt;
-&lt;p&gt;You can include a special section at the top of a Markdown document that contains metadata (or data about your document) like the title, date, author, etc. This section uses a special simple syntax named &lt;a href=&#34;https://learn.getgrav.org/16/advanced/yaml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YAML&lt;/a&gt; (or &amp;ldquo;YAML Ain&amp;rsquo;t Markup Language&amp;rdquo;) that follows this basic outline: &lt;code&gt;setting: value for setting&lt;/code&gt;. Here&amp;rsquo;s an example YAML metadata section. Note that it must start and end with three dashes (&lt;code&gt;---&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
-&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Title of your document&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;January 13, 2020&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your name&amp;#34;&lt;/span&gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can put the values inside quotes (like the date and name in the example above), or you can leave them outside of quotes (like the title in the example above). I typically use quotes just to be safe—if the value you&amp;rsquo;re using has a colon (&lt;code&gt;:&lt;/code&gt;) in it, it&amp;rsquo;ll confuse Markdown since it&amp;rsquo;ll be something like &lt;code&gt;title: My cool title: a subtitle&lt;/code&gt;, which has two colons. It&amp;rsquo;s better to do this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
-&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;My cool title: a subtitle&amp;#34;&lt;/span&gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use quotes inside one of the values (e.g. your document is &lt;code&gt;An evaluation of &amp;quot;scare quotes&amp;quot;&lt;/code&gt;), you can use single quotes instead:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
-&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;An evaluation of &amp;#34;scare quotes&amp;#34;&amp;#39;&lt;/span&gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;citations&#34;&gt;Citations&lt;/h2&gt;
-&lt;p&gt;One of the most powerful features of Markdown + pandoc is the ability to automatically cite things and generate bibliographies. to use citations, you need to create a &lt;a href=&#34;http://www.bibtex.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;BibTeX file&lt;/a&gt; (ends in &lt;code&gt;.bib&lt;/code&gt;) that contains a database of the things you want to cite. You can do this with bibliography managers designed to work with BibTeX directly (like &lt;a href=&#34;https://bibdesk.sourceforge.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;BibDesk&lt;/a&gt; on macOS), or you can use &lt;a href=&#34;https://www.zotero.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Zotero&lt;/a&gt; (macOS and Windows) to export a &lt;code&gt;.bib&lt;/code&gt; file. You can &lt;a href=&#34;/resource/citations/&#34;&gt;download an example &lt;code&gt;.bib&lt;/code&gt; file of all the readings from this class here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Complete details for using citations can be found here&lt;/a&gt;. In brief, you need to do three things:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Add a &lt;code&gt;bibliography:&lt;/code&gt; entry to the YAML metadata:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
-&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Title of your document&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;January 13, 2020&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your name&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;bibliography&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;name_of_file.bib&lt;/span&gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Choose a citation style based on a CSL file. The default is Chicago author-date, but you can choose from 2,000+ &lt;a href=&#34;https://github.com/citation-style-language/styles&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;at this repository&lt;/a&gt;. Download the CSL file, put it in your project folder, and add an entry to the YAML metadata (or provide a URL to the online version):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
-&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Title of your document&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;January 13, 2020&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Your name&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;bibliography&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;name_of_file.bib&lt;/span&gt;
-&lt;span style=&#34;color:#f92672&#34;&gt;csl&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl&amp;#34;&lt;/span&gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Some of the most common CSLs are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-author-date.csl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chicago author-date&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-note-bibliography.csl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chicago note-bibliography&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-fullnote-bibliography.csl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chicago full note-bibliography&lt;/a&gt; (no shortened notes or ibids)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;APA 7th edition&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/modern-language-association.csl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;MLA 8th edition&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Cite things in your document. &lt;a href=&#34;https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Check the documentation for full details of how to do this&lt;/a&gt;. Essentially, you use &lt;code&gt;@citationkey&lt;/code&gt; inside square brackets (&lt;code&gt;[]&lt;/code&gt;):&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Type…&lt;/th&gt;
-&lt;th&gt;…to get…&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Causal inference is neat [@Rohrer:2018; @AngristPischke:2015].&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Causal inference is neat (Rohrer 2018; Angrist and Pischke 2015).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Causal inference is neat [see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;Angrist and Pischke say causal inference is neat [-@AngristPischke:2015; see also @Rohrer:2018].&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;@AngristPischke:2015 [chapter 1] say causal inference is neat, and @Rohrer:2018 agrees.&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;After compiling, you should have a perfectly formatted bibliography added to the end of your document too:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Angrist, Joshua D., and Jörn-Steffen Pischke. 2015. &lt;em&gt;Mastering ’Metrics: The Path from Cause to Effect.&lt;/em&gt; Princeton, NJ: Princeton University Press.&lt;/p&gt;
-&lt;p&gt;Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” &lt;em&gt;Advances in Methods and Practices in Psychological Science&lt;/em&gt; 1 (1): 27–42. &lt;a href=&#34;https://doi.org/10.1177/2515245917745629&#34;&gt;https://doi.org/10.1177/2515245917745629&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;other-references&#34;&gt;Other references&lt;/h2&gt;
-&lt;p&gt;These websites have additional details and examples and practice tools:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://commonmark.org/help/tutorial/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;CommonMark&amp;rsquo;s Markdown tutorial&lt;/strong&gt;&lt;/a&gt;: A quick interactive Markdown tutorial.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.markdowntutorial.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown tutorial&lt;/strong&gt;&lt;/a&gt;: Another interactive tutorial to practice using Markdown.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://packetlife.net/media/library/16/Markdown.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown cheatsheet&lt;/strong&gt;&lt;/a&gt;: Useful one-page reminder of Markdown syntax.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://plain-text.co/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;The Plain Person’s Guide to Plain Text Social Science&lt;/strong&gt;&lt;/a&gt;: A comprehensive explanation and tutorial about why you should write data-based reports in Markdown.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Using R Markdown</title>
       <link>/resource/rmarkdown/</link>
       <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
@@ -7196,6 +6607,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Clases&lt;/td&gt;
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Prácticos&lt;/td&gt;
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Tareas&lt;/td&gt;
+            &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Talleres&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7214,6 +6626,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7225,11 +6641,14 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/01-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/01-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/weekly-check-in/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/resource/install/&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
@@ -7241,11 +6660,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/02-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/02-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/01-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
@@ -7264,6 +6687,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
@@ -7275,12 +6702,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/03-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/03-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/resource/data/&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
@@ -7288,16 +6718,19 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;strong&gt;30 Agosto&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 4)&lt;/small&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.3 Transformación y selección de variables&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/content/04-content/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/example/04-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
@@ -7310,11 +6743,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/05-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/05-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/02-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7333,6 +6770,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
@@ -7347,8 +6788,12 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/example/rstudio-tidyverse/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/03-problem-set/&#34;&gt;
+                    href=&#34;/assignment/06-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-2&#34;&gt;
@@ -7367,6 +6812,9 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/resource/zotero/&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7385,6 +6833,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7396,11 +6848,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/07-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/07-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/04-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
@@ -7412,11 +6868,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/08-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/08-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
@@ -7436,6 +6896,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
@@ -7447,11 +6911,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/09-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/09-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
@@ -7464,11 +6932,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/10-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/10-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/05-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-2&#34;&gt;
@@ -7487,6 +6959,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
@@ -7498,11 +6974,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/content/11-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/rstudio-tidyverse/&#34;&gt;
+                    href=&#34;/example/11-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
@@ -7522,6 +7002,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7539,6 +7023,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/06-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; fake-header-table&#34;&gt;
@@ -7549,6 +7037,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Clases&lt;/td&gt;
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Prácticos&lt;/td&gt;
             &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Tareas&lt;/td&gt;
+            &lt;td style=&#34;width:8%;text-align:center&#34; class=&#34;mid-table-header&#34;&gt;Talleres&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7566,6 +7055,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/weekly-check-in/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7583,6 +7076,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/01-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7600,6 +7097,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/02-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7617,6 +7118,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/03-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7634,6 +7139,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/04-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7651,6 +7160,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/05-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
@@ -7668,6 +7181,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/assignment/06-problem-set/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
 
     &lt;/tbody&gt;
@@ -7853,8 +7370,8 @@ Puedes descargar el programa apretando el siguiente botón:
 &lt;div id=&#34;iii.-evaluación-de-aprendizajes&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;III. Evaluación de aprendizajes&lt;/h1&gt;
 &lt;p&gt;Las evaluaciones del curso se componen de &lt;strong&gt;tareas&lt;/strong&gt; (70% de la nota final) y la &lt;strong&gt;entrega de una investigación&lt;/strong&gt; (30% de la nota final), en dónde en ambos casos la/el estudiante deberá seleccionar datos y temas de interés de modo de acercar la aplicación del software a contextos de investigación propios de la/el estudiante. En concreto, cada evaluación consiste en:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Tareas&lt;/strong&gt; (&lt;em&gt;70% de la nota final&lt;/em&gt;): consisten en evaluaciones parciales temáticas que buscan poner en práctica los aprendizajes expuestos en la sesión de clases y herramientas reforzadas en los prácticos. &lt;strong&gt;El promedio de notas las de tareas será calculado solo con las cuatro mejores entregas&lt;/strong&gt; a partir de la Tarea 1 (&lt;em&gt;25% c/u&lt;/em&gt;)&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2. Investigación final&lt;/strong&gt; (&lt;em&gt;30% de la nota final&lt;/em&gt;): consiste en una evaluación final que aplica los conocimientos y herramientas entregadas a lo largo de curso, a un proyecto de investigación de elección por el/la estudiante.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Tareas&lt;/strong&gt; (&lt;em&gt;70% de la nota final&lt;/em&gt;): consisten en evaluaciones parciales temáticas que buscan poner en práctica los aprendizajes expuestos en la sesión de clases y herramientas reforzadas en los prácticos. &lt;strong&gt;El promedio de notas las de tareas será calculado solo con las cuatro mejores entregas&lt;/strong&gt; a partir de la Tarea 1 (&lt;em&gt;25% c/u&lt;/em&gt;)&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;. La evaluación es &lt;strong&gt;individual&lt;/strong&gt; o en &lt;strong&gt;parejas&lt;/strong&gt; (la misma durante todo el semestre).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Investigación final&lt;/strong&gt; (&lt;em&gt;30% de la nota final&lt;/em&gt;): consiste en una evaluación final que aplica los conocimientos y herramientas entregadas a lo largo de curso, a un proyecto de investigación de elección por el/la estudiante. La evaluación es &lt;strong&gt;individual&lt;/strong&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;iv.-calendario-de-actividades&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;IV. Calendario de actividades&lt;/h1&gt;
