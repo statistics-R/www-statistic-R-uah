@@ -54,12 +54,10 @@ example:
 assignment:
   - name: Información general
     weight: 1
-  - name: Other projects
-    weight: 2
   - name: Tareas
+    weight: 2
+  - name: Proyecto final
     weight: 3
-  - name: Evaluation
-    weight: 4
 resource:
   - name: Resources
     weight: 1
