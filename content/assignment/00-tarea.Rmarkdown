@@ -1,12 +1,12 @@
 ---
-title: "Background and theory"
-linktitle: "Background and theory"
+title: "Tarea 0. R y Github"
+linktitle: "0: R y Github"
 date: "2021-02-01"
 due_date: "2021-02-01"
 due_time: "11:59 PM"
 menu:
   assignment:
-    parent: Evaluation
+    parent: Tareas
     weight: 1
 type: docs
 toc: true
