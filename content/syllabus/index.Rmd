@@ -129,7 +129,7 @@ El software que se utilizará principalmente será R y su interfaz RStudio. Ahor
 
 <i class="fab fa-slack"></i> [Guía de uso de slack](https://slack.com/intl/es-cl/help/articles/360059928654-C%C3%B3mo-usar-Slack--tu-gu%C3%ADa-de-inicio-r%C3%A1pido)
 
-<i class="fab fa-slack"></i> [Unirse a slack de curso](https://join.slack.com/t/learn-r-uah/shared_invite/zt-sh9uysuu-IzEG8~u5k2YYGWgpAFTRFA)
+<i class="fab fa-slack"></i> [Unirse a slack de curso](https://join.slack.com/t/learn-r-uah/shared_invite/zt-txn66o9i-tZsLzmE4k7hW90QVKChCAQ)
 
 **4. GitHub** <i class="fab fa-github"></i>
 
