@@ -17,7 +17,11 @@
       <link>/example/01-practico/</link>
       <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
       <guid>/example/01-practico/</guid>
-      <description>&lt;h2 id=&#34;1-github&#34;&gt;1. Github&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h2&gt;
+&lt;p&gt;EL objetivo del práctico es comprender el uso, los conceptos básicos y el flujo de GitHub, para poder desarrollar las tareas y objetivos del curso a través de GitHub Classroom. Por ello, el presente práctico será una guía de instalación, registro y uso de las plataformas a usar en el curso.&lt;/p&gt;
+&lt;p&gt;Previo a esto, deben ver el &lt;a href=&#34;https://youtu.be/Zj8yL-nx9vM&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial de instalación de R&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ahora aprenderemos a colaborar y resolver las tareas.&lt;/p&gt;
+&lt;h2 id=&#34;1-github&#34;&gt;1. GitHub&lt;/h2&gt;
 &lt;p&gt;Es un sistema de control de versiones en línea que rastrea los cambios de códigos, facilita la colaboración y el acceso abierto. En este curso será un programa esencial para el desarrollo tanto de clases como prácticos, por lo que en este práctico vamos a aprender a utilizarlo repasando aspectos básicos. Esto además será profundizado y detallado en clases.&lt;/p&gt;
 &lt;h3 id=&#34;ventajas&#34;&gt;Ventajas:&lt;/h3&gt;
 &lt;p&gt;Las principales ventajas son:&lt;/p&gt;
@@ -177,7 +181,7 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/concepclav.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;5-learn-r-uah&#34;&gt;5. Learn-R-UAH&lt;/h2&gt;
+&lt;h2 id=&#34;6-learn-r-uah&#34;&gt;6. Learn-R-UAH&lt;/h2&gt;
 &lt;h3 id=&#34;pasos-para-las-dinámicas-del-curso&#34;&gt;Pasos para las dinámicas del curso&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -198,24 +202,57 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Resolver una tarea&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;a. La tarea se encuentra en un archivo llamado &lt;code&gt;*README*&lt;/code&gt; con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.&lt;/p&gt;
-&lt;p&gt;b. Una vez leido deberán ir a Tarea 0 y responder las preguntas correspondientes&lt;/p&gt;
+&lt;p&gt;a. Ahora resolveremos la &lt;strong&gt;Tarea 0&lt;/strong&gt; en conjunto, una vez abierto el &lt;a href=&#34;https://classroom.github.com/classrooms/86887318-learn-r-uah-2021&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositorio         clonado&lt;/a&gt;, recuerden que es en este repositorio donde deben completar y subir la tarea&lt;/p&gt;
+&lt;p&gt;b. La tarea se encuentra en un archivo llamado &lt;code&gt;*README*&lt;/code&gt; con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.&lt;/p&gt;
+&lt;p&gt;c. Una vez leido deberán ir al final del archivo en &lt;strong&gt;Tarea 0&lt;/strong&gt; y responder las preguntas correspondientes&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/paso5tarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Tarea 0&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Víncula tu cuenta en github classroom&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Deja una imágen en el repositorio creado para esta tarea&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 3: Responde a lo siguiente&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Explica en máximo 10 líneas las diferencias entre R y Rstudio&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;R:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;¿Con qué comando puedes &lt;strong&gt;subir&lt;/strong&gt; los cambios del repositorio local al remoto?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;R:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;¿Con qué comando puedes &lt;strong&gt;guardar&lt;/strong&gt; los cambios que has hecho en el proyecto?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;R:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;5&#34;&gt;
 &lt;li&gt;Subir una tarea&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;a. Una vez listo, deberán &lt;em&gt;&lt;strong&gt;subir&lt;/strong&gt;&lt;/em&gt; la tarea al repositorio remoto a través de GitHub Desktop&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/paso6tarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
-&lt;ol start=&#34;5&#34;&gt;
+&lt;ol start=&#34;6&#34;&gt;
 &lt;li&gt;Recibir comentarios&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;a. Les llegará un correo con los comentarios y retroalimentación de su tarea&lt;/p&gt;
-&lt;h2 id=&#34;6-learn-r-youtube&#34;&gt;6. Learn R Youtube&lt;/h2&gt;
+&lt;h2 id=&#34;7-learn-r-youtube&#34;&gt;7. Learn R Youtube&lt;/h2&gt;
 &lt;p&gt;Recuerden que el &lt;a href=&#34;https://www.youtube.com/watch?v=Zj8yL-nx9vM&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;video de asociado a este práctico&lt;/a&gt; y muchos más podrán encontrarlos en el &lt;a href=&#34;https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;canal de youtube del curso&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
 &lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;https://www.youtube.com/watch?v=Zj8yL-nx9vM&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/div&gt;
-&lt;h2 id=&#34;7-reporte-de-progreso&#34;&gt;7. Reporte de progreso&lt;/h2&gt;
+&lt;h2 id=&#34;8-reporte-de-progreso&#34;&gt;8. Reporte de progreso&lt;/h2&gt;
 &lt;p&gt;¡Recuerda rellenar tu reporte de progreso! En &lt;a href=&#34;https://learn-r.formr.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://learn-r.formr.org/&lt;/a&gt;. Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
 </description>
     </item>
