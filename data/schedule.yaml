@@ -13,7 +13,7 @@ lessons:
     date: "9 Agosto"
     content: "01-content"
     example: "01-practico"
-    assignment: "weekly-check-in"
+    assignment: "00-tarea"
     resource: "install"
     bg: 1
 
@@ -22,7 +22,7 @@ lessons:
     date: "16 Agosto"
     content: "02-content"
     example: "02-practico"
-    assignment: "01-problem-set"
+    assignment: "01-tarea"
     bg: 1
     bottomborder: True
 
@@ -51,7 +51,7 @@ lessons:
     session: "Sesión 5"
     date: "6 Septiembre"
     content: "05-content"
-    assignment: "02-problem-set"
+    assignment: "02-tarea"
     example: "05-practico"
     bg: 2
     bottomborder: True
@@ -61,13 +61,13 @@ lessons:
     date_start: "13 Septiembre"
     date_end: "20 Septiembre"
     bg: 1
-
+    
   - title: '3.1 Análisis descriptivos univariados: medidas de tendencia central, dispersión y frecuencias<br>3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA'
     session: "Sesión 6"
     date: "13 Septiembre"
     content: "06-content"
-    example: "rstudio-tidyverse"
-    assignment: "06-practico"
+    example: "06-practico"
+    assignment: "03-tarea"
     bg: 1
     bottomborder: True
 
@@ -141,7 +141,7 @@ lessons:
 
   - title: '<i class="fas fa-dice-six"></i> **Entrega final**'
     date: "22 Noviembre"
-    assignment: "06-problem-set"
+    assignment: "final-project"
     bg: 3
     bottomborder: True
 
@@ -150,42 +150,42 @@ lessons:
 
   - title: '<i class="fas fa-square"></i> **Tarea 0: Colaborando en Github**'
     date: "9 Agosto-13 Agosto"
-    assignment: "weekly-check-in"
+    assignment: "00-tarea"
     bg: 3
     bottomborder: True
  
   - title: '<i class="fas fa-dice-one"></i> **Tarea 1: Reporte en Rmarkdown**'
     date: "16 Agosto-20 Agosto"
-    assignment: "01-problem-set"
+    assignment: "01-tarea"
     bg: 3
     bottomborder: True
  
   - title: '<i class="fas fa-dice-two"></i> **Tarea 2: Procesamiento de datos**'
     date: "6 Septiembre-10 septiembre"
-    assignment: "02-problem-set"
+    assignment: "02-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 3: Análisis descriptivo**'
     date: "13 Septiembre-17 septiembre"
-    assignment: "03-problem-set"
+    assignment: "03-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 4: Muestras complejas**'
     date: "27 Septiembre-1 octubre"
-    assignment: "04-problem-set"
+    assignment: "04-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 5: Regresiones en R**'
     date: "25 octubre-29 octubre"
-    assignment: "05-problem-set"
+    assignment: "05-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-six"></i> **Entrega investigación final**'
     date: "22 Noviembre"
-    assignment: "06-problem-set"
+    assignment: "final-project"
     bg: 3
     bottomborder: True
