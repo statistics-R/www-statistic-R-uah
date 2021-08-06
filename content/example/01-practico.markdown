@@ -12,8 +12,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-
 ## 1. Github
 
 Es un sistema de control de versiones en línea que rastrea los cambios de códigos, facilita la colaboración y el acceso abierto. En este curso será un programa esencial para el desarrollo tanto de clases como prácticos, por lo que en este práctico vamos a aprender a utilizarlo repasando aspectos básicos. Esto además será profundizado y detallado en clases.
@@ -42,20 +40,26 @@ Es una plataforma de Github que facilita la interacción y aprendizaje entre est
 - Pasos para ingresar a Github classroom
 
 1. Crear cuenta: 
-1. Dirigirse al [Link](https://n9.cl/954ne ) 
 
-<img src="../www-learn-R-uah/static/img/example/create.png" width="60%" />
+2. Dirigirse al [Link](https://n9.cl/954ne ) 
 
-1. Clickear en “Crea una cuenta”
-1. Introduce tu correo electrónico 
-1. Crea una contraseña
-1. Introduce el nombre de usuario (similar a su nombre)
-1. Clickear en Crear una cuenta
+<img src="/img/example/create.png" width="60%" />
 
-<img src="../www-learn-R-uah/static/img/example/capt.png" width="60%" />
+3. Clickear en “Crea una cuenta”
 
-1. Ve al correo electrónico que pusiste anteriormente 
-1. Copia el código e introdúcelo en la página
+4. Introduce tu correo electrónico 
+
+5. Crea una contraseña
+
+6. Introduce el nombre de usuario (similar a su nombre)
+
+7. Clickear en Crear una cuenta
+
+<img src="/img/example/capt.png" width="60%" />
+
+8. Ve al correo electrónico que pusiste anteriormente 
+
+9. Copia el código e introdúcelo en la página
 
 
 {{< div "note" >}}
@@ -71,7 +75,7 @@ a. Instalar Github Desktop
 
 b. Dirigirse a [Link](https://desktop.github.com/) 
 
-<img src="../www-learn-R-uah/static/img/example/deskdown.png" width="60%" />
+<img src="/img/example/deskdown.png" width="60%" />
 
 c. Crea una carpeta para los contenidos del curso
 
@@ -106,7 +110,7 @@ d. Vincula la dirección de la carpeta
 
 - **Add existing repository**: incorpora un repositorio existente
 
-<img src="../www-learn-R-uah/static/img/example/con1desk.png" width="60%" />
+<img src="/img/example/con1desk.png" width="60%" />
 
 - **Open the repository in Rstudio**: Abre todo el proyecto en Rstudio
 
@@ -118,7 +122,7 @@ d. Vincula la dirección de la carpeta
 
 - **Push origin**: manda los cambios al repositorio en línea
 
-<img src="../www-learn-R-uah/static/img/example/con2desk.jpg" width="60%" />
+<img src="/img/example/con2desk.jpg" width="60%" />
 
 
 ## 5. Conceptos claves de Github
@@ -141,7 +145,7 @@ d. Vincula la dirección de la carpeta
 
 - **Pull requests**: Es una forma de solicitar que sean incorporados los cambios que has hecho desde un repositorio local, al repositorio original.
 
-<img src="../www-learn-R-uah/static/img/example/concepclav.png" width="60%" />
+<img src="/img/example/concepclav.png" width="60%" />
 
 ## 5. Learn-R-UAH
 
@@ -152,20 +156,21 @@ d. Vincula la dirección de la carpeta
 2. Ingresa el [link](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021)
 
   a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un _**repositorio**_ que contendrá la *información* y las *instrucciones* de la tarea.
+
   
-<img src="../www-learn-R-uah/static/img/example/ingrestarea.png" width="60%" />
+<img src="/img/example/ingrestarea.png" width="60%" />
   
   b. Para eso deben ir a _**GitHub Desktop**_, _**clonar** el respositiorio desde internet_.
   
-<img src="../www-learn-R-uah/static/img/example/paso2tarea.png" width="60%" />
+<img src="/img/example/paso2tarea.png" width="60%" />
   
   c. Luego deben escoger el repositorio de la tarea, escoger la carpeta en la que se encontrará y clonarlo
   
-<img src="../www-learn-R-uah/static/img/example/paso3tarea.png" width="60%" />
+<img src="/img/example/paso3tarea.png" width="60%" />
   
   d. Después deben abrir el repositorio creado a través de _**RStudio**_, ahí verán el mismo contenido pero en un archivo _**.md**_ 
 
-<img src="../www-learn-R-uah/static/img/example/paso4tarea.png" width="60%" />
+<img src="/img/example/paso4tarea.png" width="60%" />
   
 3. Resolver una tarea
 
@@ -173,14 +178,14 @@ d. Vincula la dirección de la carpeta
  
   b. Una vez leido deberán ir a Tarea 0 y responder las preguntas correspondientes
   
-<img src="../www-learn-R-uah/static/img/example/paso5tarea.png" width="60%" />
+<img src="/img/example/paso5tarea.png" width="60%" />
   
   
 4. Subir una tarea
 
   a. Una vez listo, deberán _**subir**_ la tarea al repositorio remoto a través de GitHub Desktop
   
-<img src="../www-learn-R-uah/static/img/example/paso6tarea.png" width="60%" />
+<img src="/img/example/paso6tarea.png" width="60%" />
 
 5. Recibir comentarios 
 
@@ -196,3 +201,5 @@ Recuerden que el [video de asociado a este práctico](https://www.youtube.com/wa
 
 
 ## 7. Reporte de progreso
+
+¡Recuerda rellenar tu reporte de progreso! En [https://learn-r.formr.org/](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.

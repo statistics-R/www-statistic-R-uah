@@ -40,24 +40,30 @@ Es una plataforma de Github que facilita la interacción y aprendizaje entre est
 - Pasos para ingresar a Github classroom
 
 1. Crear cuenta: 
-1. Dirigirse al [Link](https://n9.cl/954ne ) 
+
+2. Dirigirse al [Link](https://n9.cl/954ne ) 
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/create.png", error = FALSE)
+    knitr::include_graphics("/img/example/create.png", error = FALSE)
 ```
 
-1. Clickear en “Crea una cuenta”
-1. Introduce tu correo electrónico 
-1. Crea una contraseña
-1. Introduce el nombre de usuario (similar a su nombre)
-1. Clickear en Crear una cuenta
+3. Clickear en “Crea una cuenta”
+
+4. Introduce tu correo electrónico 
+
+5. Crea una contraseña
+
+6. Introduce el nombre de usuario (similar a su nombre)
+
+7. Clickear en Crear una cuenta
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/capt.png", error = FALSE)
+    knitr::include_graphics("/img/example/capt.png", error = FALSE)
 ```
 
-1. Ve al correo electrónico que pusiste anteriormente 
-1. Copia el código e introdúcelo en la página
+8. Ve al correo electrónico que pusiste anteriormente 
+
+9. Copia el código e introdúcelo en la página
 
 
 {{< div "note" >}}
@@ -74,7 +80,7 @@ a. Instalar Github Desktop
 b. Dirigirse a [Link](https://desktop.github.com/) 
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/deskdown.png", error = FALSE)
+    knitr::include_graphics("/img/example/deskdown.png", error = FALSE)
 ```
 
 c. Crea una carpeta para los contenidos del curso
@@ -111,7 +117,7 @@ d. Vincula la dirección de la carpeta
 - **Add existing repository**: incorpora un repositorio existente
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/con1desk.png", error = FALSE)
+    knitr::include_graphics("/img/example/con1desk.png", error = FALSE)
 ```
 
 - **Open the repository in Rstudio**: Abre todo el proyecto en Rstudio
@@ -125,7 +131,7 @@ d. Vincula la dirección de la carpeta
 - **Push origin**: manda los cambios al repositorio en línea
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/con2desk.jpg", error = FALSE)
+    knitr::include_graphics("/img/example/con2desk.jpg", error = FALSE)
 ```
 
 
@@ -150,7 +156,7 @@ d. Vincula la dirección de la carpeta
 - **Pull requests**: Es una forma de solicitar que sean incorporados los cambios que has hecho desde un repositorio local, al repositorio original.
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/concepclav.png", error = FALSE)
+    knitr::include_graphics("/img/example/concepclav.png", error = FALSE)
 ```
 
 ## 5. Learn-R-UAH
@@ -162,27 +168,28 @@ d. Vincula la dirección de la carpeta
 2. Ingresa el [link](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021)
 
   a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un _**repositorio**_ que contendrá la *información* y las *instrucciones* de la tarea.
+
   
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/ingrestarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/ingrestarea.png", error = FALSE)
 ```
   
   b. Para eso deben ir a _**GitHub Desktop**_, _**clonar** el respositiorio desde internet_.
   
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/paso2tarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/paso2tarea.png", error = FALSE)
 ```
   
   c. Luego deben escoger el repositorio de la tarea, escoger la carpeta en la que se encontrará y clonarlo
   
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/paso3tarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/paso3tarea.png", error = FALSE)
 ``` 
   
   d. Después deben abrir el repositorio creado a través de _**RStudio**_, ahí verán el mismo contenido pero en un archivo _**.md**_ 
 
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/paso4tarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/paso4tarea.png", error = FALSE)
 ``` 
   
 3. Resolver una tarea
@@ -192,7 +199,7 @@ d. Vincula la dirección de la carpeta
   b. Una vez leido deberán ir a Tarea 0 y responder las preguntas correspondientes
   
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/paso5tarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/paso5tarea.png", error = FALSE)
 ``` 
   
   
@@ -201,7 +208,7 @@ d. Vincula la dirección de la carpeta
   a. Una vez listo, deberán _**subir**_ la tarea al repositorio remoto a través de GitHub Desktop
   
 ```{r, echo=FALSE, out.width="60%"}
-    knitr::include_graphics("../www-learn-R-uah/static/img/example/paso6tarea.png", error = FALSE)
+    knitr::include_graphics("/img/example/paso6tarea.png", error = FALSE)
 ``` 
 
 5. Recibir comentarios 
@@ -218,3 +225,5 @@ Recuerden que el [video de asociado a este práctico](https://www.youtube.com/wa
 
 
 ## 7. Reporte de progreso
+
+¡Recuerda rellenar tu reporte de progreso! En [https://learn-r.formr.org/](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.
