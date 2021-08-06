@@ -4,12 +4,17 @@
   
   <url>
     <loc>/resource/</loc>
-    <lastmod>2021-01-04T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+<<<<<<< Updated upstream
     <loc>/content/</loc>
     <lastmod>2021-11-08T00:00:00+00:00</lastmod>
+=======
+    <loc>/example/</loc>
+    <lastmod>2021-08-23T00:00:00+00:00</lastmod>
+>>>>>>> Stashed changes
   </url>
   
   <url>
@@ -23,18 +28,8 @@
   </url>
   
   <url>
-    <loc>/resource/exam1/</loc>
-    <lastmod>2020-09-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/resource/install/</loc>
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/resource/exam2/</loc>
-    <lastmod>2020-11-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -42,6 +37,7 @@
   </url>
   
   <url>
+<<<<<<< Updated upstream
     <loc>/resource/style/</loc>
   </url>
   
@@ -144,23 +140,24 @@
   </url>
   
   <url>
+=======
+>>>>>>> Stashed changes
     <loc>/example/01-datos/</loc>
     <lastmod>2021-08-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+<<<<<<< Updated upstream
     <loc>/content/03-content/</loc>
     <lastmod>2021-08-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/example/03-practico/</loc>
+=======
+    <loc>/</loc>
+>>>>>>> Stashed changes
     <lastmod>2021-08-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/example/02-practico/</loc>
-    <lastmod>2021-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -246,11 +243,6 @@
   <url>
     <loc>/assignment/01-problem-set/</loc>
     <lastmod>2021-01-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/resource/markdown/</loc>
-    <lastmod>2020-01-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
