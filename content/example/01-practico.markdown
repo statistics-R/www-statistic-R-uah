@@ -14,7 +14,7 @@ editor_options:
 
 ## 0. Objetivo del práctico
 
-EL objetivo del práctico es comprender el uso, los conceptos básicos y el flujo de GitHub, para poder desarrollar las tareas y objetivos del curso a través de GitHub Classroom. Por ello, el presente práctico será una guía de instalación, registro y uso de las plataformas a usar en el curso.
+El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, utilizaremos GitHub que es una plataforma que permite alojar los .Rprojects y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos **GitHub***ClassRoom* para que ustedes puedan subir sus tareas. 
 
 Previo a esto, deben ver el [Tutorial de instalación de R](https://youtu.be/Zj8yL-nx9vM). 
 
@@ -44,7 +44,7 @@ Pero la plataforma central en el curso será **GitHub Classroom**
 
 ## 2. Github Classroom
 
-Es una plataforma de Github que facilita la interacción y aprendizaje entre estudiantes y profesores. Esta plataforma la usaremos a lo largo del curso, principalmente porque permite estudiantes trabajen individual y colectivamente usando los repositorios de github. En esta plataforma entregarán sus trabajos, recibirán comentarios y retroalimentaciones pudiendo trabajar colaborativamente.
+Es una plataforma de Github que facilita la interacción y aprendizaje entre estudiantes y profesores. Esta plataforma la usaremos a lo largo del curso, principalmente porque permite estudiantes trabajen individual y colectivamente usando los repositorios de github. En esta plataforma entregarán sus tareas, recibirán comentarios y retroalimentaciones pudiendo trabajar colaborativamente.
 
 - Pasos para ingresar a Github classroom
 
@@ -156,20 +156,20 @@ d. Vincula la dirección de la carpeta
 
 <img src="/img/example/concepclav.png" width="60%" />
 
-## 6. Learn-R-UAH
+## 6. GitHub Class Room del curso (learn-R-UAH)
 
-### Pasos para las dinámicas del curso
+**Pasos para las dinámicas del curso**
 
-1. Recibir una tarea 
+### 6.1 Recibir una tarea 
 
-2. Ingresa el [link](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021)
+### 6.2 Ingresa el [link](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021)
 
   a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un _**repositorio**_ que contendrá la *información* y las *instrucciones* de la tarea.
 
   
 <img src="/img/example/ingrestarea.png" width="60%" />
   
-  b. Para eso deben ir a _**GitHub Desktop**_, _**clonar** el respositiorio desde internet_.
+  b. Para eso deben ir a _**GitHub Desktop**_, _**clonar** el respositorio desde internet_.
   
 <img src="/img/example/paso2tarea.png" width="60%" />
   
@@ -181,7 +181,7 @@ d. Vincula la dirección de la carpeta
 
 <img src="/img/example/paso4tarea.png" width="60%" />
   
-3. Resolver una tarea
+### 6.3 Resolver una tarea
 
   a. Ahora resolveremos la **Tarea 0** en conjunto, una vez abierto el [repositorio         clonado](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021), recuerden que es en este repositorio donde deben completar y subir la tarea
 
@@ -191,39 +191,22 @@ d. Vincula la dirección de la carpeta
   
 <img src="/img/example/paso5tarea.png" width="60%" />
   
-4. Tarea 0
+### 6.4 Tarea 0
 
-* Paso 1: Víncula tu cuenta en github classroom
+¡Puedes ver las instrucciones de la [tarea en el siguiente link](../assignment/00-tarea) o en [GitHub Class Room](https://classroom.github.com/classrooms/86887318-learn-r-uah-2021)
 
-* Paso 2: Deja una imágen en el repositorio creado para esta tarea
-
-* Paso 3: Responde a lo siguiente
-
-* Explica en máximo 10 líneas las diferencias entre R y Rstudio
-
-- R:
-
-* ¿Con qué comando puedes **subir** los cambios del repositorio local al remoto?
-
-- R:
-
-* ¿Con qué comando puedes **guardar** los cambios que has hecho en el proyecto?
-
-- R:
-
-
-5. Subir una tarea
+### 6.5 Subir una tarea
 
   a. Una vez listo, deberán _**subir**_ la tarea al repositorio remoto a través de GitHub Desktop
   
 <img src="/img/example/paso6tarea.png" width="60%" />
 
-6. Recibir comentarios 
+### 6.6 Recibir comentarios 
 
   a. Les llegará un correo con los comentarios y retroalimentación de su tarea
   
 
-## 7. Learn R Youtube
+## 7. Video tutorial en Youtube
 
 Recuerden que el [video de asociado a este práctico](https://www.youtube.com/watch?v=Zj8yL-nx9vM) y muchos más podrán encontrarlos en el [canal de youtube del curso](https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg)
 
