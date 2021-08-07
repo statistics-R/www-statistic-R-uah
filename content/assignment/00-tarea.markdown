@@ -17,7 +17,7 @@ editor_options:
 
 # Instrucciones
 
-Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la [Tarea N°0 hacer click aquí](https://classroom.github.com/a/Mh3me9e0). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
+Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/Mh3me9e0). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
 
 ## Objetivo de la tarea y resultados del aprendizaje
 
@@ -33,7 +33,7 @@ Su página de perfil le dice a la gente la historia de su trabajo a través de l
 
 Sí... estas escribiendo en algo que parece una consola. Este *texto plano* te permite escribir y comunicar sin restricciones de software. Markdown se abre en todos los editores de texto, y no requiere ser pagado (como en Word). También se pueden incorporar imágenes, **remarcar** palabras o hacerlas *cursivas*. Aprenderemos de esto la próxima sesión, pero si te quieres adelantar [revisa esto](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax).
 
-## 1. Git and GitHub :octocat:
+## 1. Git and GitHub <i class="fab fa-github"></i>
 
 Git es un **sistema de control de versiones distribuido (VCS)**, lo que significa que es una herramienta útil para rastrear fácilmente los cambios en su código, colaborar y compartir. Con Git puede realizar un seguimiento de los cambios que realiza en su proyecto para que siempre tenga un registro de lo que ha trabajado y pueda volver fácilmente a una versión anterior si es necesario. También facilita el trabajo con otras personas: ¡varios grupos de personas pueden trabajar juntas en el mismo proyecto y fusionar sus cambios en una fuente final!
 
@@ -96,15 +96,14 @@ R:
 
 2. ¿Cuál es la diferencia entre R y RStudio?
 
-R: 
-
-3. ¿Cuál es el paso inicial para empezar a trabajar en un proyecto?
 
 R:
 
-4. ¿Con qué comando puedes **subir** los cambios del repositorio local al remoto?
+3. ¿Con qué comando puedes **subir** los cambios del repositorio local al remoto?
 
-5. En este repositorio, deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo "sociologo-preferido.jpg"
+4. Crea un .Rproject llamado 00-tarea.Rproject
+
+5. En el repositorio, crea una carpeta llamada "imagenes". Dentro de esta carpeta deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo "sociologo-preferido.jpg"
 
 
 ## Recursos
