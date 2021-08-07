@@ -5,7 +5,7 @@
     <link>/assignment/</link>
       <atom:link href="/assignment/index.xml" rel="self" type="application/rss+xml" />
     <description>Sobre las evaluaciones</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 01 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 09 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Sobre las evaluaciones</title>
@@ -13,55 +13,85 @@
     </image>
     
     <item>
-      <title>Tarea 0. R y Github</title>
+      <title>Tarea 0. Colaborando en GitHub</title>
       <link>/assignment/00-tarea/</link>
-      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/00-tarea/</guid>
-      <description>&lt;p&gt;For your &lt;a href=&#34;/assignment/final-project/&#34;&gt;final project&lt;/a&gt;, you will conduct an evaluation for a social program of your choosing. In this assignment, you will explore the program&amp;rsquo;s background, history, purpose, and theory.&lt;/p&gt;
-&lt;p&gt;If you decide to use a different program for your final project, that&amp;rsquo;s okay! This assignment doesn&amp;rsquo;t have to be related to your final program, but it would be helpful—a more polished version of this assignment can be included as part of your final project.&lt;/p&gt;
-&lt;h2 id=&#34;instructions&#34;&gt;Instructions&lt;/h2&gt;
-&lt;p&gt;You need to complete the four sections listed below. Ideally you should type this in R Markdown and knit your document to HTML or Word or PDF, but you can also write in Word if you want (though your final project will need to be in R Markdown, and this would give you practice).^[And if you want to be super brave, try using &lt;a href=&#34;/resource/markdown/#citations&#34;&gt;R Markdown&amp;rsquo;s citation system&lt;/a&gt;!]&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;I&amp;rsquo;ve created an R Markdown template you can use here:&lt;/strong&gt; &lt;a href=&#34;/projects/background-theory.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;background-theory.zip&lt;/code&gt;&lt;/a&gt;. It&amp;rsquo;s also &lt;a href=&#34;https://rstudio.cloud/spaces/112607/project/2062895&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;available on RStudio.cloud&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;You can draw your impact theory and logic model charts by hand or with something like &lt;a href=&#34;https://www.diagrams.net/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Diagrams.net&lt;/a&gt;, &lt;a href=&#34;https://www.lucidchart.com/pages/home&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Lucidchart&lt;/a&gt;, or &lt;a href=&#34;https://creately.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Creately&lt;/a&gt;. Export the image as a PNG, place it in the same directory as your R Markdown file, and include the image with Markdown.&lt;/p&gt;
-&lt;p&gt;The syntax for adding an image in Markdown is fairly simple. Importantly, it is not R code, so &lt;em&gt;don&amp;rsquo;t&lt;/em&gt; try putting it in an R chunk. Just type this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-md&#34; data-lang=&#34;md&#34;&gt;![&lt;span style=&#34;color:#f92672&#34;&gt;Image caption&lt;/span&gt;](&lt;span style=&#34;color:#a6e22e&#34;&gt;/path/to/image.png&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Submit this assignment as a PDF or Word file on iCollege.&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;assignment-outline&#34;&gt;Assignment outline&lt;/h2&gt;
-&lt;h3 id=&#34;1-program-background-and-purpose&#34;&gt;1: Program background and purpose&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;(≈350 words)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Provide in-depth background about the program. Include details about (1) when it was started, (2) why it was started, (3) what it was designed to address in society. If the program hasn’t started yet, explain why it’s under consideration. Make sure you cite your sources appropriately! (In the past, some students have just copied/pasted text from a program&amp;rsquo;s website; don&amp;rsquo;t do that! Describe and analyze the program&amp;rsquo;s background!)&lt;/p&gt;
-&lt;h3 id=&#34;2-program-theory&#34;&gt;2: Program theory&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;(≈400 words)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Explain and explore the program’s underlying theory. Sometimes programs will explain why they exist in a mission statement, but often they don’t and you have to infer the theory from what the program looks like when implemented. What did the program designers plan on occurring? Was this theory based on existing research? If so, cite it.&lt;/p&gt;
-&lt;p&gt;Include a simple impact theory graph showing the program’s basic activities and outcomes. Recall from class and your reading that this is focused primarily on the theory and mechanisms, not on the implementation of the program.&lt;/p&gt;
-&lt;h3 id=&#34;3-logic-model&#34;&gt;3: Logic model&lt;/h3&gt;
-&lt;p&gt;List every possible input, activity, output, and outcome for the program and provide a brief 1–2 sentence description of each.&lt;/p&gt;
-&lt;h4 id=&#34;inputs&#34;&gt;Inputs&lt;/h4&gt;
+      <description>&lt;h1 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h1&gt;
+&lt;p&gt;Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la &lt;a href=&#34;https://classroom.github.com/a/Mh3me9e0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°0 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo-de-la-tarea-y-resultados-del-aprendizaje&#34;&gt;Objetivo de la tarea y resultados del aprendizaje&lt;/h2&gt;
+&lt;p&gt;El objetivo de esta tarea es ser una breve introducción a GitHub. Para ello debes leer la siguiente guía y responder algunas preguntas. Luego de responder esas preguntas debes hacer &amp;ldquo;push&amp;rdquo; a tu tarea.&lt;/p&gt;
+&lt;h1 id=&#34;básicos-antes-de-iniciar&#34;&gt;Básicos: antes de iniciar&lt;/h1&gt;
+&lt;h2 id=&#34;perfil-de-usuario&#34;&gt;Perfil de usuario&lt;/h2&gt;
+&lt;p&gt;Su página de perfil le dice a la gente la historia de su trabajo a través de los repositorios que le interesan, las contribuciones que ha hecho y las conversaciones que ha tenido. No olvides que tu cuenta de GitHub te permite acceder a &lt;em&gt;RStudio Cloud&lt;/em&gt; y a otros beneficios como estudiante.&lt;/p&gt;
+&lt;h2 id=&#34;usando-markdown-en-github-y-pronto-en-r&#34;&gt;Usando markdown en GitHub (¡y pronto en R!)&lt;/h2&gt;
+&lt;p&gt;Sí&amp;hellip; estas escribiendo en algo que parece una consola. Este &lt;em&gt;texto plano&lt;/em&gt; te permite escribir y comunicar sin restricciones de software. Markdown se abre en todos los editores de texto, y no requiere ser pagado (como en Word). También se pueden incorporar imágenes, &lt;strong&gt;remarcar&lt;/strong&gt; palabras o hacerlas &lt;em&gt;cursivas&lt;/em&gt;. Aprenderemos de esto la próxima sesión, pero si te quieres adelantar &lt;a href=&#34;https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;revisa esto&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;1-git-and-github-octocat&#34;&gt;1. Git and GitHub :octocat:&lt;/h2&gt;
+&lt;p&gt;Git es un &lt;strong&gt;sistema de control de versiones distribuido (VCS)&lt;/strong&gt;, lo que significa que es una herramienta útil para rastrear fácilmente los cambios en su código, colaborar y compartir. Con Git puede realizar un seguimiento de los cambios que realiza en su proyecto para que siempre tenga un registro de lo que ha trabajado y pueda volver fácilmente a una versión anterior si es necesario. También facilita el trabajo con otras personas: ¡varios grupos de personas pueden trabajar juntas en el mismo proyecto y fusionar sus cambios en una fuente final!&lt;/p&gt;
+&lt;p&gt;GitHub es una forma de usar el mismo poder de Git todo en línea con una interfaz fácil de usar. Se utiliza en todo el mundo del software y más allá para colaborar y mantener el historial de proyectos.&lt;/p&gt;
+&lt;h2 id=&#34;2-el-flujo-de-github&#34;&gt;2. El flujo de GitHub&lt;/h2&gt;
+&lt;p&gt;El flujo de trabajo en  GitHub permite experimentar y colaborar en sus proyectos fácilmente, sin el riesgo de perder su trabajo anterior. Revisemos sus partes:&lt;/p&gt;
+&lt;h3 id=&#34;21--repositorios&#34;&gt;2.1  Repositorios&lt;/h3&gt;
+&lt;p&gt;Un repositorio es donde ocurre el trabajo de su proyecto; como la carpeta de su proyecto. Contiene todos los archivos y el historial de revisiones de su proyecto. Puede trabajar solo dentro de un repositorio o invitar a otros a colaborar con usted en esos archivos.&lt;/p&gt;
+&lt;p&gt;Dentro de los repositorios encontrarás los archivos &lt;strong&gt;README.md&lt;/strong&gt; (o léame). Estos archivos de extensión &lt;em&gt;markdown&lt;/em&gt; (.md) indican información general o básica de su proyecto.&lt;/p&gt;
+&lt;p&gt;Para obtener más información sobre los repositorios, lea &lt;a href=&#34;https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-repositories&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Creating, Cloning, and Archiving Repositories&lt;/a&gt; y &lt;a href=&#34;https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;About README&amp;rsquo;s&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;22--clonar&#34;&gt;2.2  Clonar&lt;/h3&gt;
+&lt;p&gt;Cuando se crea un repositorio con GitHub, se almacena de forma remota en la nube. &lt;strong&gt;Puede clonar un repositorio para crear una copia local en su computadora y luego usar GitHub Desktop para sincronizar los dos&lt;/strong&gt;. Para obtener más información sobre la clonación, lea &lt;a href=&#34;https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;clonación de un repositorio&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;23-commit-y-push&#34;&gt;2.3 Commit y Push&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Commit&lt;/strong&gt; y &lt;strong&gt;Push&lt;/strong&gt; es la forma en que puede agregar los cambios que realizó en su computador local al repositorio remoto en GitHub. De esa manera, la profesora y/o compañeras/os de curso pueden ver su último trabajo cuando está listo para compartirlo.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Something&lt;/li&gt;
-&lt;li&gt;Something else&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;El &amp;ldquo;commit&amp;rdquo;: mensaje descriptivo &amp;ldquo;útil&amp;rdquo; para recordar y comunicar el cambio que se hizo (eg. &amp;ldquo;Agregué análisis descriptivo&amp;rdquo; o &amp;ldquo;Edité los gráficos&amp;rdquo;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;El &amp;ldquo;push&amp;rdquo;:  comando que permite subir el cambio una vez que hayas confirmado que quieres subir este cambio. En un push puedes tener varios &amp;ldquo;commits&amp;rdquo; de un proyecto.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;activities&#34;&gt;Activities&lt;/h4&gt;
+&lt;h3 id=&#34;24-otros-términos-del-flujo&#34;&gt;2.4 Otros términos del flujo&lt;/h3&gt;
+&lt;p&gt;Los siguientes conceptos no los utilizaremos en el curso, pero de todas formas nunca está demás conocerlos.&lt;/p&gt;
+&lt;h4 id=&#34;branches&#34;&gt;Branches&lt;/h4&gt;
+&lt;p&gt;Son ramas de los repositorios.  Uno puede tomar el &amp;ldquo;tronco&amp;rdquo; principal de un proyecto-repositorio (&lt;em&gt;main&lt;/em&gt; o &lt;em&gt;master&lt;/em&gt;) y experimentar con él mientras otros también lo hacen. Una vez que quieres mostrar los cambios o tests que hiciste en el repositorio, puedes solicitar su revisión a través de un &lt;em&gt;pull request&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Para obtener más información sobre los branches, lea &lt;a href=&#34;https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;About Branches&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;forks&#34;&gt;Forks&lt;/h4&gt;
+&lt;p&gt;Un Fork es otra forma de copiar un repositorio, pero generalmente se usa cuando desea copiar un proyecto o contribuir en este. Esto le permite experimentar libremente con los cambios sin afectar el proyecto original y es muy popular cuando se contribuye a proyectos de software de código abierto. Para obtener más información sobre Forks, lea &lt;a href=&#34;https://docs.github.com/en/github/getting-started-with-github/fork-a-repo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;Fork a repo&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;pull-requests&#34;&gt;Pull requests&lt;/h4&gt;
+&lt;p&gt;Ya lo mencionábamos. Cuando trabajamos con &amp;ldquo;branches&amp;rdquo; (ramas) utilizamos las &amp;ldquo;pull request&amp;rdquo; o solicitdes para informar a otros sobre los cambios que desea realizar y solicitar sus comentarios. Dentro de estas solicitudes se pueden discutir y revisar cada uno de los cambios.&lt;/p&gt;
+&lt;p&gt;Una vez que una solicitud  está lista para usarse, se puede fusionar en su rama principal (&lt;em&gt;merge to master&lt;/em&gt;). Para obtener más información sobre las solicitudes de estracción, lea &lt;a href=&#34;https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;About Pull Requests&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;tarea-0&#34;&gt;Tarea 0&lt;/h2&gt;
+&lt;p&gt;Luego de leer esta breve introducción, debes contestar esta guía:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;¿Cuál es tu nombre?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;R:&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;¿Cuál es la diferencia entre R y RStudio?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;R:&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;¿Cuál es el paso inicial para empezar a trabajar en un proyecto?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;R:&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;¿Con qué comando puedes &lt;strong&gt;subir&lt;/strong&gt; los cambios del repositorio local al remoto?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En este repositorio, deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo &amp;ldquo;sociologo-preferido.jpg&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;p&gt;¿Quiéres aprender más? Siempre es posible. Te dejamos unos documentos adicionales&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Something&lt;/li&gt;
-&lt;li&gt;Something else&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://www.youtube.com/watch?v=w3jLJU7DT5E&amp;amp;feature=youtu.be&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Un breve video que explica qué es GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://docs.github.com/en/github/getting-started-with-github/git-and-github-learning-resources&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Recursos de aprendizaje de Git y GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://guides.github.com/introduction/flow/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprender el flujo de GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;outputs&#34;&gt;Outputs&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Something&lt;/li&gt;
-&lt;li&gt;Something else&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;outcomes&#34;&gt;Outcomes&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Something&lt;/li&gt;
-&lt;li&gt;Something else&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;diagram&#34;&gt;Diagram&lt;/h4&gt;
-&lt;p&gt;Use flowchart software to connect the inputs, activities, outputs, and outcomes and create a complete logic model. Remember that inputs will always feed into activities, and that activities always produce outputs (that&amp;rsquo;s the whole purpose of an activity: convert an input to an output). Include this as a figure.&lt;/p&gt;
-&lt;h3 id=&#34;4-analysis&#34;&gt;4: Analysis&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;(≈150 words)&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;Evaluate how well the logic model relates to the program theory. Do the inputs, activities, and outputs have a logical, well-grounded connection to the intended outcomes? Under ideal conditions, would the components of the program lead to changes or lasting effects?&lt;/p&gt;
 </description>
     </item>
     

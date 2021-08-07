@@ -19,7 +19,7 @@
   
   <url>
     <loc>/assignment/</loc>
-    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
+    <lastmod>2021-08-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -29,6 +29,11 @@
   
   <url>
     <loc>/resource/r/</loc>
+  </url>
+  
+  <url>
+    <loc>/assignment/00-tarea/</loc>
+    <lastmod>2021-08-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -44,11 +49,6 @@
   <url>
     <loc>/</loc>
     <lastmod>2021-08-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/00-tarea/</loc>
-    <lastmod>2021-02-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
