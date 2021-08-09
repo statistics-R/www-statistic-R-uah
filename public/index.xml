@@ -132,7 +132,7 @@
       <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/00-tarea/</guid>
       <description>&lt;h1 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h1&gt;
-&lt;p&gt;Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la &lt;a href=&#34;https://classroom.github.com/a/Mh3me9e0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°0 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/Mh3me9e0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°0 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;objetivo-de-la-tarea-y-resultados-del-aprendizaje&#34;&gt;Objetivo de la tarea y resultados del aprendizaje&lt;/h2&gt;
 &lt;p&gt;El objetivo de esta tarea es ser una breve introducción a GitHub. Para ello debes leer la siguiente guía y responder algunas preguntas. Luego de responder esas preguntas debes hacer &amp;ldquo;push&amp;rdquo; a tu tarea.&lt;/p&gt;
 &lt;h1 id=&#34;básicos-antes-de-iniciar&#34;&gt;Básicos: antes de iniciar&lt;/h1&gt;
@@ -140,7 +140,7 @@
 &lt;p&gt;Su página de perfil le dice a la gente la historia de su trabajo a través de los repositorios que le interesan, las contribuciones que ha hecho y las conversaciones que ha tenido. No olvides que tu cuenta de GitHub te permite acceder a &lt;em&gt;RStudio Cloud&lt;/em&gt; y a otros beneficios como estudiante.&lt;/p&gt;
 &lt;h2 id=&#34;usando-markdown-en-github-y-pronto-en-r&#34;&gt;Usando markdown en GitHub (¡y pronto en R!)&lt;/h2&gt;
 &lt;p&gt;Sí&amp;hellip; estas escribiendo en algo que parece una consola. Este &lt;em&gt;texto plano&lt;/em&gt; te permite escribir y comunicar sin restricciones de software. Markdown se abre en todos los editores de texto, y no requiere ser pagado (como en Word). También se pueden incorporar imágenes, &lt;strong&gt;remarcar&lt;/strong&gt; palabras o hacerlas &lt;em&gt;cursivas&lt;/em&gt;. Aprenderemos de esto la próxima sesión, pero si te quieres adelantar &lt;a href=&#34;https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;revisa esto&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;1-git-and-github-octocat&#34;&gt;1. Git and GitHub :octocat:&lt;/h2&gt;
+&lt;h2 id=&#34;1-git-and-github-i-classfab-fa-githubi&#34;&gt;1. Git and GitHub &lt;i class=&#34;fab fa-github&#34;&gt;&lt;/i&gt;&lt;/h2&gt;
 &lt;p&gt;Git es un &lt;strong&gt;sistema de control de versiones distribuido (VCS)&lt;/strong&gt;, lo que significa que es una herramienta útil para rastrear fácilmente los cambios en su código, colaborar y compartir. Con Git puede realizar un seguimiento de los cambios que realiza en su proyecto para que siempre tenga un registro de lo que ha trabajado y pueda volver fácilmente a una versión anterior si es necesario. También facilita el trabajo con otras personas: ¡varios grupos de personas pueden trabajar juntas en el mismo proyecto y fusionar sus cambios en una fuente final!&lt;/p&gt;
 &lt;p&gt;GitHub es una forma de usar el mismo poder de Git todo en línea con una interfaz fácil de usar. Se utiliza en todo el mundo del software y más allá para colaborar y mantener el historial de proyectos.&lt;/p&gt;
 &lt;h2 id=&#34;2-el-flujo-de-github&#34;&gt;2. El flujo de GitHub&lt;/h2&gt;
@@ -182,15 +182,14 @@
 &lt;/ol&gt;
 &lt;p&gt;R:&lt;/p&gt;
 &lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;¿Cuál es el paso inicial para empezar a trabajar en un proyecto?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;R:&lt;/p&gt;
-&lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;
 &lt;p&gt;¿Con qué comando puedes &lt;strong&gt;subir&lt;/strong&gt; los cambios del repositorio local al remoto?&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;En este repositorio, deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo &amp;ldquo;sociologo-preferido.jpg&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;Crea un .Rproject llamado 00-tarea.Rproject&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el repositorio, crea una carpeta llamada &amp;ldquo;imagenes&amp;rdquo;. Dentro de esta carpeta deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo &amp;ldquo;sociologo-preferido.jpg&amp;rdquo;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
