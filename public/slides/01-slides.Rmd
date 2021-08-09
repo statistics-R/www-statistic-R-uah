@@ -1,19 +1,23 @@
 ---
-title: "Evaluation and the causal revolution"
-author: "Andrew Heiss"
+title: "Análisis de datos estadísticos en R"
+author: "Valentina Andrade"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
+    self_contained: true
     lib_dir: "libs"
     chakra: "libs/remark-latest.min.js"
     css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
     seal: false
+    includes:
+      after_body: "html/insert-logo.html"
     anchor_sections: false
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
+      beforeInit: "libs/macros.js"
       navigation:
         scroll: false
 editor_options: 
@@ -26,24 +30,34 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
 ```
 
 ```{r packages-data, include=FALSE}
-library(tidyverse)
-library(ggdag)
+pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
+theme_set(theme_sjplot2())
+uah <- readRDS(url("https://github.com/learn-R/formR/raw/main/output/data-surveys.rds")) %>%   filter(university == "UAH" & rut !="")
+datos <- dplyr::select(uah, id, rut, day, use_r, reason)
 ```
 
 ```{r xaringanExtra, echo=FALSE}
-xaringanExtra::use_xaringan_extra(c("tile_view"))
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe"))
 ```
 
-class: center middle main-title section-title-7
+class: center middle main-title section-title-1 top-logo
 
-# Evaluation and the<br>causal revolution
+.small[
+# Herramientas para el uso de R
+]
 
 .class-info[
+<br>
+**Sesión N° 1**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
 
-**Session 1**
-
-.light[PMAP 8521: Program evaluation<br>
-Andrew Young School of Policy Studies
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
 ]
 
 ]
@@ -51,291 +65,482 @@ Andrew Young School of Policy Studies
 ---
 
 name: outline
+class: title title-inv-1
+
+# Contenidos
+
+--
+
+.box-1.medium.sp-after-half[R **enviroment**]
+
+--
+
+.box-3.medium.sp-after-half[R **consulta**]
+
+--
+
+.box-7.medium.sp-after-half[R **comunicación**]
+
+--
+
+.box-6.medium.sp-after-half[Detalles del curso]
+
+---
+name: outline
 class: title title-inv-8
 
-# Plan for today
+# Introducción
+
+.box-8.medium.sp-after-half[¿Y no bastaba aprender SPSS?]
 
 --
-
-.box-5.medium.sp-after-half[Data science and public service]
-
---
-
-.box-3.medium.sp-after-half[Evidence, evaluation, and causation]
-
---
-
-.box-6.medium.sp-after-half[Class details]
+.center[
+![](https://64.media.tumblr.com/fd06b6c228042758ca3fdbc739921bcb/tumblr_mqlyveFRp61s9zc2po1_500.gifv)
+]
 
 ---
+name: outline
+class: title title-inv-8
 
+# Introducción
+
+.box-8.medium.sp-after-half[El contexto del curso]
+
+--
+
+.pull-left.box-1.center[Mayor uso de R en las ciencias <br>
+
+También en las **ciencias sociales**]
+
+--
+
+.pull-right.box-7.center[Las universidades incluyen cada vez más este software y otros en sus planes de estudio]
+
+---
+name: outline
+class: title title-inv-8
+
+.center[
+![](img/01/carreras.jpg)
+]
+
+---
+name: outline
+class: title title-inv-8
+
+# Razones: empleabilidad
+
+.pull-left.code[
+
+.box-8[Ustedes en datos]
+
+.small[
+```{r razones, echo = F, fig.width=20, fig.height=15}
+uah %>% select(1:number_reporte) %>% 
+  group_by(reason) %>% 
+  summarise(n = n()) %>% 
+  mutate(prop = n/sum(n)*100) %>% 
+  ggplot(aes(x = reorder(reason, -prop), y = prop, fill = reason)) +
+  geom_bar(stat = "identity", color = "black") +
+  geom_text(aes(label = paste0(round(prop,1), "%")), vjust=-0.25, size = 16) +
+  labs(x = "", y = "%", title = "Razón principal para tomar el curso") + 
+  guides(fill = F) + theme(text = element_text(size = 50)) +
+  scale_fill_futurama()
+```
+]]
+--
+
+.pull-right.code[
+
+.box-2[Ustedes en la vida real]
+.center[
+<figure>
+  <img src="img/01/empleabilidad.jpg" alt="Nate Breznau again" width="70%">
+</figure>]
+]
+---
+name: outline
+class: title title-inv-8
+
+.small[
+# El tema de fondo: crisis de la reproducibilidad
+]
+
+.pull-left.code[
+<figure>
+  <img src="img/01/repro-ine.jpg" alt="INE" width="90%">
+</figure>
+]
+
+--
+
+.pull-right.code[
+<figure>
+  <img src="img/01/repro-manza-brooks.jpg" alt="Nate Breznau again" width="90%">
+</figure>
+]
+
+--
+
+.pull-middle-8[
+&nbsp;
+
+.box-inv-1[El conocimiento como un [**bien común**](https://www.youtube.com/watch?v=ukdnX2clG9M)]
+]
+
+---
+name: outline
+class: center middle section-title section-title-8 animated fadeIn
+
+
+# ¿Qué tiene que ver todo esto con R? 🤔
+
+---
+name: outline
+class: title title-inv-8
+
+.small[
+# R: una herramienta para la ciencia abierta
+]
+
+.pull-right[.box-2[**libre**] .box-3[**gratis**]]
+
+- Una herramienta de "ambiente" (*R enviroment*): 
+
+--
+
+- Cada vez más uso en Chile 🇨🇱
+
+--
+
+- Pero no necesariamente con un propósito de "ciencia abierta" 👎
+
+---
+name: outline
+class: title title-inv-8
+
+.small[
+# Experiencia tradicional sobre R
+]
+.center[
+```{r wordcloud, echo = F}
+set.seed(191247329)
+
+before <- uah %>% select(1:number_reporte) %>% 
+  pivot_longer(cols =c(beforer_1:beforer_7), names_to = "number_mention", values_to = "beforer") %>%
+  filter(!is.na(beforer)) %>% 
+  group_by(beforer) %>% 
+  summarise(n = n()) %>%
+  arrange(-n) %>% 
+  ungroup() %>%
+  mutate(beforer1 = beforer) %>% 
+  column_to_rownames(var = "beforer1")
+
+wordcloud2::wordcloud2(before)
+```
+*Tal como ustedes mismos la cuentan*]
+---
+name: outline
+class: title title-inv-8
+
+.small[
+# R: una herramienta para la ciencia abierta
+]
+.box-7-inv[La colaboración y trabajo en equipo **facilita el aprendizaje**]
+
+.small.center[
+<figure>
+  <img src="img/01/equipo.gif"width="40%">
+</figure>
+]
+---
+name: outline
+class: title title-inv-8
+.small[
+# Componente humano: el equipo del curso
+
+.center[
+<figure>
+  <img src="img/01/team-learn-r.gif"width="40%">
+</figure>
+]
+
+]
+---
+name: outline
+class: title title-inv-8
+
+.small[
+# Componente técnico: [*rOpensci*](https://ropensci.org/)
+
+.center[
+<figure>
+  <img src="img/01/ropensci.gif"width="50%">
+</figure>
+]
+
+]
+
+---
 layout: false
 name: ds-ps
-class: center middle section-title section-title-5 animated fadeIn
+class: center middle section-title section-title-1 animated fadeIn
 
-# Data science and<br>public service
+.center[
+<figure>
+  <img src="https://c.tenor.com/Ws34sHrHC-8AAAAC/monsters-inc-sully.gif" width="50%">
+</figure>
+]
+
+# ¡ Vamos a conocerlas!
+---
+layout: false
+name: ds-ps
+class: center middle section-title section-title-1 animated fadeIn
+
+# 1. R<br>enviroment
+
+---
+name: ds-ps
+class: title title-1
+
+# 1.1 ¿Qué es R?
+
+.center[Muchas/os piensan que es un programa estadístico]
+
+--
+
+.box-inv-1[R es un **lenguaje** y un **ambiente** dentro del cual técnicas **estadísticas pueden ser implementadas**]
+
+--
+
+.box-inv-7[El concepto *enviroment* intenta darnos la idea de un sistema coherente y planificado]
+
+---
+class: title title-1
+
+# 1.1 ¿Qué es R?
+
+.box-1[R enviroment características:]
+
+--
+
+.box-3[ (1) Facilta manipulación y almacenaje de datos]
+
+--
+.box-4[ (2) Permite cálculos y visualización de datos]
+
+--
+.box-5[ (3) Es coherente y capaz de integrarse con otras herramientas]
+
+--
+
+.box-6[ (4) Simple, pero capaz de realizar procedimientos complejos]
+
+--
+
+.box-7[ (5) Gracias a la colaboración, sus potenciales pueden ser extendidos a partir de **paquetes**]
 
 ---
 
-class: title title-5
-
-# Data and government
-
-.pull-left-3.center[
-<figure>
-  <img src="img/01/usds.png" alt="US Digital Service" title="US Digital Service" width="90%">
-</figure>
-]
-
---
-
-.pull-middle-3.center[
-<figure>
-  <img src="img/01/dj-patil.jpg" alt="DJ Patil" title="DJ Patil" width="100%">
-  <figcaption>DJ Patil</figcaption>
-</figure>
-]
-
---
-
-.pull-right-3[
-&nbsp;
-
-.box-inv-5["To responsibly unleash the power of data to benefit all Americans"]
-]
+class: bg-full
+background-image: url("img/01/terminal-r.jpg")
 
 ???
-
-DJ Patil, ["What Makes a Radical and Revolutionary Technology?](https://www.youtube.com/watch?v=UOoMzaWOQJA)
 
 ---
 
 .center[
-<figure>
-  <img src="img/01/ddji.png" alt="Obama's Data-Driven Justice Initiative" title="Obama's Data-Driven Justice Initiative" width="70%">
-</figure>
+![](img/01/ver-consola.jpg)
 ]
+---
+name: ds-ps
+class: center middle section-title section-title-1 animated fadeIn
 
-???
-
-11.4 million people + 23 days
-
-Data shared between agencies - arresting officer checks database, sees if person has been cycling, sees if they need mental health services
-
-Two jails in Florida closed after this
-
-https://obamawhitehouse.archives.gov/the-press-office/2016/06/30/fact-sheet-launching-data-driven-justice-initiative-disrupting-cycle
+.box-1-inv.large[# Tranquilidad, espera un segundo . . . 🥁]
 
 ---
+name: ds-ps
+class: center middle section-title section-title-1 animated fadeIn
 
-.center[
-<figure>
-  <img src="img/01/nola.jpg" alt="New Orleans hackathon" title="New Orleans hackathon" width="70%">
-</figure>
+.small[
+.box-1-inv.large[# ¡RStudio!]
+
+![](img/01/rstudio-logo.png)
+
+.box-inv-3[el IDE (*integrated development enviroment*) para R]
 ]
-
 ---
+class: title title-1
 
-class: bg-full
-background-image: url("img/01/open-city-all.png")
+# 1.1 RStudio
 
-???
-
-http://us-cities.survey.okfn.org/
-
----
-
-class: bg-full
-background-image: url("img/01/open-city-atl.png")
-
-???
-
-http://us-cities.survey.okfn.org/place/atlanta
-
----
-
-class: bg-full
-background-image: url("img/01/dataset-search.png")
-
-???
-
-https://datasetsearch.research.google.com/
-
----
-
-class: middle
-
-.box-5.large[How do you use all this data<br>to make the world better?]
-
----
-
-class: middle
-
-.box-5.large[Analyze it and<br>uncover insights!]
-
-.box-inv-5[(and take this class!)]
-
----
-
-layout: true
-class: title title-5
-
----
-
-# What is "statistics"?
-
-&nbsp;
-
-.box-inv-5.medium[Collecting and analyzing data from a representative sample in order to make inferences about a whole population]
-
----
-
-# What is "data science"?
-
-.box-inv-5.medium.sp-after[Turning raw data into<br>understanding, insight,<br>and knowledge]
-
---
-
-.pull-left-3[
-.box-5.medium[&emsp;Collect&emsp;]
-]
-
-.pull-middle-3[
-.box-5.medium[&emsp;Analyze&emsp;]
-]
-
-.pull-right-3[
-.box-5.medium[Communicate]
-]
-
----
-
-# What's the difference?
+-  Integra lenguaje R con diferentes herramientas para facilitar su uso:
 
 .pull-left.center[
+.box-inv-2[(1) Consola]
 <figure>
-  <img src="img/01/ds-venn.png" alt="Data science Venn diagram" title="Data science Venn diagram" width="90%">
+  <img src="img/01/consola.jpg">
 </figure>
 ]
 
-.pull-right[
-.box-inv-5.medium[Collect]
+.pull-left.center[
+.box-inv-2[(2) Editor de sintaxis (código)]
+<figure>
+  <img src="img/01/script.jpg">
+</figure>
+]
 
-.box-inv-5.medium[Analyze]
 
-.box-5.medium[Communicate]
+---
+class: title title-1
+
+# 1.1 RStudio
+
+.pull-left.small[
+.box-inv-2[(3) Enviroment ]
+<figure>
+  <img src="img/01/enviroment.jpg">
+</figure>
+]
+
+.pull-right.small[
+.box-inv-2[(4) Workspace]
+<figure>
+  <img src="img/01/files.jpg">
+</figure>
 ]
 
 ---
+class: title title-1
 
-# What is "program evaluation"?
+# 1.1 RStudio
 
-.box-inv-5.medium[Measuring the effect of<br>social programs on society]
-
-.pull-left[
-.box-5[.medium[**Data science**]<br>(data + statistics +<br>communication)]
-]
-
-.pull-right[
-.box-5[.medium[**Causal inference**]<br>(DAGs + econometrics)]
+.pull-middle.small[
+.box-inv-2[(5) Plot, debugging (bugs o errores), historia]
+<figure>
+  <img src="img/01/plots.jpg">
+</figure>
 ]
 
 ---
+name: ds-ps
+class: center middle section-title section-title-1 animated fadeIn
 
+.small[
+.box-1-inv.large[# ¡Vamos a conocerlo!]
+
+.box-inv-1[ Opción (1) con RStudio: [descargar el zip en el sitio del curso]((https://learn-r-uah.netlify.app/content/01-content/)]
+]
+
+.box-inv-1[ Opción (2) con RStudio Cloud: [ir al RStudio del curso]((https://rstudio.cloud/spaces/60366/join?access_code=iSzSuF94ZXVUL53mJEyhOvtKVAActaw0nQ8S%2FxAB)]
+
+
+---
 layout: false
 name: evidence-evaluation-causation
 class: center middle section-title section-title-3 animated fadeIn
 
-# Evidence, evaluation,<br>and causation
+# ¡Para tantas preguntas, *casi* **siempre** hay respuestas!
 
 ---
+layout: false
+name: evidence-evaluation-causation
+class: center middle section-title section-title-3 animated fadeIn
 
+# 2. R consulta
+
+---
 layout: true
 class: title title-3
 
 ---
 
-# Evidence-based medicine
+# Una de las claves para aprender R
 
 .center[
 <figure>
-  <img src="img/01/salk.jpg" alt="Salk trials" title="Salk trials" width="60%">
+  <img src="img/01/learning-r.png" width="60%">
 </figure>
 ]
 
+---
+
+# R consultas
+
+.box-inv-3.medium[Gracias a su carácter abierto y colaborativo]
+
+--
+
+.box-inv-3.medium.sp-after[Existe una **gran** comunidad de usuarios que contestan dudas ]
+
+--
+
+.box-3.medium[O incluso que hacen talleres masivos]
+
 ???
 
-Polio shots administered blindly with placebo - kids didn't know, doctor didn't know (double blind) - effect found
+Rladies, userR
 
-Why not just use those who didn't get a shot as the control group? Why placebo? Kids who opted out were poor (which actually had a lower incidence rate), so you can't compare them with the rich (which had higher incidence rate)
+---
+# 2.1 ¿Dónde consultar en R? 
+.box-inv-3[(o mejor dicho **buscar respuestas**)]
 
-All drugs get the safety and efficacy requirement and double blind RCTs after that
+--
 
-https://www.npr.org/sections/health-shots/2020/05/22/860789014/the-race-for-a-polio-vaccine-differed-from-the-quest-to-prevent-coronavirus
+.pull-left-code[<figure>
+  <img src="img/01/stackoverflow.png" width="30%">
+</figure>
+.box-inv-3.small[Stackoverflow ➡ sobre códigos en general]]
+
+--
+
+.pull-left-code[<figure>
+  <img src="img/01/rstudiocom-logo.png" width="30%">
+</figure>
+.box-inv-3.small[RStudio Community ➡ más específica]]
+
+--
+
+.pull-right-code[
+.box-inv-3.small[CRAN ➡ Archivo de R, consulta sobre paquetes y documentación]
+]
+
+--
+
+???
+
+- https://stackoverflow.com/
+
+-- https://stackoverflow.com/questions/33026167/reading-sav-file-into-r
+
+- https://community.rstudio.com/t/help-with-filter-and-select-function/15843
+
+- https://cran.r-project.org/: abordaremos este más la próxima sesión/ y rdocumentation
 
 ---
 
-# Modern evidence-based medicine
-
-.box-inv-3.medium[Apply evidence to clinical<br>treatment decisions]
+# Ventajas
 
 --
 
-.box-inv-3.medium.sp-after[Move away from clinical judgment<br>and "craft knowledge"]
+.box-inv-3.medium[(1) Las preguntas y respuestas están evaluadas]
 
 --
 
-.box-3.medium[Is this good?]
+.box-inv-3.medium[(2) Las preguntas y respuestas son reproducibles]
+
+--
+
+.box-inv-3.medium[(3) Las preguntas y respuestas tienen fecha]
+
+--
+
+.box-inv-6.medium[Desventaja : están en inglés]
+
 
 ???
 
-No, this isn’t the greatest. Push for evidence-based practice can crowd out clinical judgment, which is valuable – we can’t ignore it or dismiss it
-
-Doctors have seen things in the past. Lady Sybil in Downton Abbey and preeclampsia - family doctor knew more about the condition and Sybil—he had intuition and experience—but he was ignored
-
----
-
-# Evidence-based policy
-
---
-
-.box-inv-3.medium[RAND health insurance study]
-
---
-
-.box-inv-3.medium[Oregon Medicaid expansion]
-
---
-
-.box-inv-3.medium[HUD's Moving to Opportunity]
-
---
-
-.box-inv-3.medium[Tennessee STAR]
-
-???
-
-- RAND: In a large-scale, multiyear experiment, participants who paid for a share of their health care used fewer health services than a comparison group given free care. It concluded that cost sharing reduced "inappropriate or unnecessary" medical care (overutilization), but also reduced "appropriate or needed" medical care.
-- Oregon: ongoing
-- MTO: Researchers found that voucher recipients lived in lower-crime neighborhoods and generally had better units than the control group families, but the experiment had no impact on earnings or educational attainment. It did, however, have unexpected results in health and happiness. Parents in families who moved to low-poverty areas had lower rates of obesity and depression, and positive impacts on behavior and outlook among young women (but not young men)
-- STAR: smaller class sizes lead to better outcomes
-
----
-
-# Policy evidence industry
-
---
-
-.box-inv-3.medium[Jameel Poverty Action Lab (J-PAL)]
-
---
-
-.box-inv-3.medium[Campbell Collaboration]
-
-???
-
-- https://www.povertyactionlab.org/
-- https://campbellcollaboration.org/
 
 ---
 
@@ -343,21 +548,22 @@ layout: false
 
 &nbsp;
 
-.box-3.large[Should we have evidence for<br>every policy or program?]
+.box-3.large[¿Dónde **evitar** preguntar y buscar respuestas?]
 
 --
 
-.box-inv-3.medium[**No!**]
-
---
-
-.box-inv-3[Science vs. art/craft/intuition]
+.box-inv-3.medium[Esto se llama *"usted no lo haga"*]
 
 ---
+layout: true
+class: title title-3
+
+---
+# Ustedes no lo hagan 😥
 
 .pull-left.center[
 <figure>
-  <img src="img/01/ellie-smoking.png" alt="No RCTs for smoking" title="No RCTs for smoking" width="100%">
+  <img src="img/01/pregunta-facebook.jpg"  width="100%">
 </figure>
 ]
 
@@ -365,472 +571,244 @@ layout: false
 
 .pull-right.center[
 <figure>
-  <img src="img/01/drink-id.jpg" alt="Drink ID sign" title="Drink ID sign" width="70%">
+  <img src="img/01/preguntas-facebook.jpg" width="100%">
 </figure>
 ]
+
+
+---
+
+# Acompáñenme a ver esta triste historia 😥
+
+.center[
+<figure>
+  <img src="img/01/pregunta-tristehistoria.jpg" width="100%">
+</figure>
+]
+
 
 ???
 
-https://twitter.com/epiellie/status/1017622949799571456?s=12
+https://mail.google.com/mail/u/0/#search/formspree/FMfcgzGkXdCRnlcDCRmwQXXpbHzhtzdJ
 
-In the 1970s, experts were saying that reducing the drinking age would be fine - 26 states did - created a natural quasi-experiment for researchers - Cook then found that highway fatalities increase by 10% for 18–20-year-olds. That wouldn't have been possible without legislators inadvertently performing the experiment, paving the way for better science 
+---
+# En síntesis
 
-So knowledge flows between the two sides - use innovation from administrators as the basis for better science 
+✅ Parta por buscar su error y consulta
+
+✅ Prefiera stackoverflow y RStudio Community
+
+✅ Si aún tienes dudas pregúntale a alguien especializado. 
+
+✅ Se lo más específico posible, 🙏 envíes pantallazos🙏
 
 
 ---
-
-&nbsp;
-
-.box-3.large[Where does program evaluation<br>fit with all this?]
-
---
-
-.box-inv-3[It's a method for collecting evidence<br>for policies and programs]
-
----
-
-layout: true
-class: title title-3
-
----
-
-# Types of evaluation
-
-.pull-left.center[
-<figure>
-  <img src="img/01/rossi.jpg" alt="Rossi, Evaluation" title="Rossi, Evaluation" width="75%">
-</figure>
-]
-
-.pull-right[
-.box-inv-3[Needs assessment]
-
-.box-inv-3[Design and<br>theory assessment]
-
-.box-inv-3[Process evaluation<br>and monitoring]
-
-.box-inv-3[Impact evaluation]
-
-.box-inv-3[Efficiency evaluation (CBA)]
-]
-
----
-
 layout: false
-
-.center[
-<figure>
-  <img src="img/01/psd-logic-model.png" alt="PSD logic model" title="PSD logic model" width="70%">
-</figure>
-]
-
----
-
-layout: true
-class: title title-3
-
----
-
-# Theories of change
-
-.center[
-<figure>
-  <img src="img/01/psd-impact-theory.png" alt="PSD impact theory" title="PSD impact theory" width="100%">
-</figure>
-]
-
-.box-inv-3[Impact evaluation!]
-
----
-
-layout: false
-
-.center[
-<figure>
-  <img src="img/01/wb-eval.jpg" alt="Impact Evaluation in Practice" title="Impact Evaluation in Practice" width="40%">
-</figure>
-]
-
----
-
-class: title title-3
-
-# Theory → impact
-
-<figure>
-  <img src="img/01/psd-program-effect.png" alt="Program effect" title="Program effect" width="100%">
-</figure>
-
----
-
-class: middle
-
-<figure>
-  <img src="img/01/psd-results.png" alt="PSD program effect" title="PSD program effect" width="100%">
-</figure>
-
----
-
 name: evidence-evaluation-causation1
-
-.center[
-<figure>
-  <img src="img/01/godwins-law.png" alt="Godwin's Law" title="Godwin's Law" width="50%">
-</figure>
-]
-
-???
-
-https://en.wikipedia.org/wiki/Godwin%27s_law
-
----
-
-class: title title-3
-
-# Godwin's Law for statistics
-
---
-
-.box-inv-3.medium[Correlation does not<br>imply causation]
-
---
-
-.box-3[Except when it does]
-
---
-
-.box-3[Even if it doesn't,<br>this phrase is useless<br>and kills discussion]
-
----
-
-.center[
-<figure>
-  <img src="img/01/slate-title.png" alt="Slate headline" title="Slate headline" width="80%">
-</figure>
-
-<hr>
-
-<figure>
-  <img src="img/01/slate-quote.png" alt="Slate quote" title="Slate quote" width="80%">
-</figure>
-]
-
-???
-
-https://slate.com/technology/2012/10/correlation-does-not-imply-causation-how-the-internet-fell-in-love-with-a-stats-class-cliche.html
-
----
-
-layout: true
-class: title title-3
-
----
-
-# Correlation vs. causation
-
-.pull-left[
-.box-inv-3.medium[How do we figure out correlation?]
-]
-
-.pull-right[
-.box-inv-3.medium[How do we figure out causation?]
-]
-
----
-
-# Correlation vs. causation
-
-.pull-left[
-.box-inv-3.medium[How do we figure out correlation?]
-
-.box-3[Math and statistics]
-]
-
-.pull-right[
-.box-inv-3.medium[How do we figure out causation?]
-]
-
----
-
-# Correlation vs. causation
-
-.pull-left[
-.box-inv-3.medium[How do we figure out correlation?]
-
-.box-3[Math and statistics]
-]
-
-.pull-right[
-.box-inv-3.medium[How do we figure out causation?]
-
-.box-3[Philosophy. No math.]
-]
-
----
-
-layout: false
-class: middle
-
-.center[
-<figure>
-  <img src="img/01/john-tweets.png" alt="John Holbein on causality" title="John Holbein on causality" width="70%">
-</figure>
-]
-
----
-
-layout: true
-class: title title-3
-
----
-
-# How does we know if **X** causes **Y**?
-
---
-
-.box-inv-3.medium[**X** causes **Y** if…]
-
---
-
-.box-inv-3.medium[…we intervene and change **X**<br>without changing anything else…]
-
---
-
-.box-inv-3.medium[…and **Y** changes]
-
----
-
-# **Y** "listens to" **X**
-
---
-
-.box-inv-3["A variable **X** is a cause of a variable **Y** if **Y** in any way relies on **X** for its value.… **X** is a cause of **Y** if **Y** listens to **X** and decides its value in response to what it hears"<br>(Pearl, Glymour, and Jewell 2016, 5–6)]
-
---
-
-.box-inv-3[**Y** doesn't necessarily listen only to **X**]
-
---
-
-.box-inv-3[A light switch causes a light to go on, but not<br>if the bulb is burned out (no **Y** despite **X**), or if<br>the light was already on (**Y** without **X**)]
-
----
-
-# Causal relationships?
-
---
-
-.box-inv-3.medium[Lighting fireworks causes noise]
-
---
-
-.box-inv-3.medium[Rooster crows cause the sunrise]
-
---
-
-.box-inv-3.medium[Getting an MPA/MPP increases your earnings]
-
---
-
-.box-inv-3.medium[Colds go away a few days<br>after you take vitamin C]
-
----
-
-# Causation
-
-.box-inv-3.medium[Causation =<br>Correlation + time order +<br>nonspuriousness]
-
---
-
-.box-3[How do you know if you have it right?]
-
---
-
-.box-3[You need a philosophical model]
-
---
-
-.box-3[That's what this class is for!]
-
----
-
-# The causal revolution
-
-.pull-left-narrow[
-<figure>
-  <img src="img/01/book-of-why.jpg" alt="The Book of Why" title="The Book of Why" width="100%">
-</figure>
-]
-
-.pull-right-wide.center[
-<figure>
-  <img src="img/01/judea-pearl.jpg" alt="Judea Pearl" title="Judea Pearl" width="90%">
-</figure>
-]
-
----
-
-# Causal diagrams
-
-.box-inv-3.medium[Directed acyclic graphs (DAGs)]
-
-.pull-left[
-
-.box-3.SMALL[Graphical model of the process that generates the data]
-
-.box-3.SMALL[Maps your philosophical model]
-
-.box-3.SMALL[Fancy math ("*do*-calculus") tells you what to control for to isolate and identify causation]
-
-]
-
-.pull-right[
-
-```{r simple-dag, echo=FALSE, fig.width=4.5, fig.height=3, out.width="100%"}
-dagify(
-  Y ~ X + Z,
-  X ~ Z,
-  coords = list(x = c(X = 1, Y = 3, Z = 2),
-                y = c(X = 1, Y = 1, Z = 2))
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "grey80", size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  theme_dag()
-```
-
-]
-
----
-
-layout: false
-
-```{r edu-earn-simple, echo=FALSE, fig.width=9, fig.height=4.5, out.width="100%"}
-edu_earn_coords <- list(x = c(Edu = 2, Earn = 4, Year = 2, Bkgd = 4, 
-                              Loc = 3, JobCx = 3, Req = 1, U1 = 3),
-                        y = c(Edu = 2, Earn = 2, Year = 3, Bkgd = 3, 
-                              Loc = 3, JobCx = 1, Req = 2, U1 = 4))
-
-dagify(
-  Earn ~ Edu,
-  exposure = "Edu",
-  outcome = "Earn",
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges(start_cap = ggraph::circle(3, "lines"),
-                 end_cap = ggraph::circle(3, "lines"),
-                 edge_width = 1.5, 
-                 arrow_directed = grid::arrow(length = grid::unit(0.75, "lines"), type = "closed")) +
-  geom_dag_point(aes(color = status), size = 30) +
-  geom_dag_text(color = "black", size = 7) +
-  scale_color_manual(values = c("#FF4136", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-
----
-
-```{r edu-earn-full, echo=FALSE, fig.width=9, fig.height=4.5, out.width="100%"}
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  Edu ~ Req + Loc + Bkgd + Year,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1,
-  exposure = "Edu",
-  outcome = "Earn",
-  latent = "U1",
-  labels = c("Earn" = "Earnings", "Edu" = "Education",
-             "Year" = "Year", "Bkgd" = "Background",
-             "Loc" = "Location", "JobCx" = "Job connections",
-             "U1" = "Unobserved stuff"),
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status), size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  scale_color_manual(values = c("#FF4136", "grey60", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-
----
-
-```{r smoking-dag, echo=FALSE, fig.width=9, fig.height=4.5, out.width="100%"}
-set.seed(123)
-dagify(cardiacarrest ~ cholesterol,
-       cholesterol ~ smoking + weight,
-       smoking ~ unhealthy,
-       weight ~ unhealthy,
-       labels = c("cardiacarrest" = "Cardiac\n Arrest", 
-                  "smoking" = "Smoking",
-                  "cholesterol" = "Cholesterol",
-                  "unhealthy" = "Unhealthy\n Lifestyle",
-                  "weight" = "Weight"),
-       latent = "unhealthy",
-       exposure = "smoking",
-       outcome = "cardiacarrest") %>% 
-  ggdag(text = FALSE, use_labels = "label") +
-  theme_dag()
-```
-
-
----
-
-.center[
-<figure>
-  <img src="img/01/dagitty-model.png" alt="FASD DAG" title="FASD DAG" width="60%">
-  <figcaption>Effect of smoking on fetal alcohol syndrome</figcaption>
-</figure>
-]
-
-???
-
-https://link.springer.com/article/10.1007/s00787-018-1264-3
-
-
----
-
-class: bg-full
-background-image: url("img/01/nyt-dag1.png")
-
-???
-
-https://twitter.com/andrewheiss/status/1208836534285340673
-
----
-
-class: bg-full
-background-image: url("img/01/nyt-dag2.png")
-
-???
-
-https://twitter.com/andrewheiss/status/1208836534285340673
-
----
-
-layout: false
-name: class-details
 class: center middle section-title section-title-6 animated fadeIn
 
-# Class details
+# Y tranquila/o, no estarás sola/o en este proceso
 
 ---
+name: evidence-evaluation-causation
+class: center middle section-title section-title-6 animated fadeIn
 
+# R colaboración y comunicación
+
+---
+name: evidence-evaluation-causation
+class: center section-title section-title-6 animated fadeIn
+
+# R comunicación 
+
+--
+.tiny[
+.pull-left[<figure>
+  <img src="img/01/slack-logo.png" width="30%">
+</figure>
+.box-inv-3.medium[Slack ➡ canal de comunicación del curso]]
+
+--
+
+.pull-right[<figure>
+  <img src="img/01/github-logo.png" width="30%">
+</figure>
+.box-inv-3.medium[GitHub ➡ control de cambios de códigos]]
+
+--
+
+.pull-medium[<figure>
+  <img src="img/01/rprojects.jpg" width="10%">
+</figure>
+.box-inv-3.medium[Rprojects ➡  projecto con su propio ambiente]
+]
+]
+
+---
 layout: true
 class: title title-6
 
 ---
+# 11. Rprojects
 
-# Plan for the class
+- Permite crear un **directorio propio** 🌱 para un proyecto
+
+- Este directorio propio podrá contener **todos** los recursos que utilizas para tu proyecto (sintaxis, datos, figuras)
+
+.scale[
+![](img/01/rprojects.jpg)]
+
+---
+# 1. Rprojects
+
+- Sirve para esclarecer los flujos de trabajos
+
+![:scale 80%](img/01/flow-rprojects.png)
+---
+# 1. RProjects
+
+- Evita errores de definición de espacio de trabajo (*Working directory*)
+
+```{r error1, message = TRUE, error=TRUE}
+
+datos <- read.csv("datos.csv") #<<
+
+```
+
+--
+
+- Un error muy **clásico** 😖
+
+---
+# 1. RProjects
+
+- En caso contrario hay que ser unos detectives de rutas de los archivos🕵️‍♀️😂
+
+```{r error, eval = F, echo = T}
+
+datos <- read.csv("ruta_hacia_los_datos/datos.csv") #<<
+
+datos <- read.csv("c: mi computador/carpeta datos/mi proyecto del curso/datos.csv")
+
+```
+
+---
+# 1. Rprojects
+
+- Sirve para esclarecer los flujos de trabajos
+
+![:scale 80%](img/01/rprojects-carpetas.png)
+---
+class: center middle section-title section-title-6 animated fadeIn
+
+# ¡Vamos a ver cómo se hacen los .Rproject! 🧐
+
+---
+class: center middle section-title-inv-6 section-title-inv-6 animated fadeIn
+
+# ¿ Y qué pasa si trabajo con más personas a la vez? 🤔
+
+---
+
+.box-6[Evidentemente compartir todos los archivos y "simular" un mismo ambiente de trabajo ayuda mucho a trabajar en equipo]
+
+--
+
+.box-7[¿Existe forma de ir haciendo controles de versiones? (*así como en Word*)]
+
+
+--
+
+.box-inv-6.large[**¡Sí**!]
+
+---
+class: title title-6
+
+# 2. GitHub
+.center[
+![](img/01/meme-orden-versiones.jpg)]
+---
+class: title title-inv-6
+
+# 2. GitHub
+
+- Es un **Sistema de control de versiones** (*VCS*)
+
+**Permite**
+
+☑ Almacenaje de código
+
+☑ Historial de cambios
+
+☑ Trabajo en equipo
+
+---
+class: title title-6
+
+# 2. El flujo de GitHub
+
+![:scale 90%](img/01/flow-github.png)
+
+---
+class: center section-title section-title-6 animated fadeIn
+
+# ¡Vamos cómo es GitHub!
+
+
+???
+
+https://guides.github.com/introduction/flow/
+
+---
+class: center section-title section-title-6 animated fadeIn
+
+
+# Paso a paso iremos asimilando estos programas
+
+--
+
+## ¡De hecho el [práctico N°1](https://learn-r-uah.netlify.app/example/01-practico/) está orientado principalmente a estas herramientas!
+
+---
+class: center section-title section-title-1 animated fadeIn
+
+# En síntesis
+
+
+.box-1.medium.sp-after-half[R **enviroment**]
+
+--
+
+.box-3.medium.sp-after-half[R **consulta**]
+
+--
+
+.box-7.medium.sp-after-half[R **comunicación**]
+
+
+---
+class: title title-1
+
+# En síntesis
+.center[
+![:scale 70%](img/01/meme-expa.jpg)]
+---
+
+layout: false
+name: class-details
+class: center middle section-title section-title-7 animated fadeIn
+
+# Detalles del curso
+
+---
+
+layout: true
+class: title title-7
+
+---
+
+# Plan del curso
 
 .center[
 <figure>
@@ -840,41 +818,35 @@ class: title title-6
 
 ---
 
-# Textbooks
+# Organización
 
-.pull-left-3.center[
+.pull-left-7.center[
 <figure>
-  <img src="img/01/wb-eval.jpg" alt="Impact Evaluation in Practice" title="Impact Evaluation in Practice" width="100%">
-</figure>
-]
-
-.pull-middle-3.center[
-<figure>
-  <img src="img/01/mastering-metrics.jpg" alt="Mastering Metrics" title="Mastering Metrics" width="90%">
-</figure>
-]
-
-.pull-right-3.center[
-<figure>
-  <img src="img/01/mixtape.jpg" alt="Causal Inference: The Mixtape" title="Causal Inference: The Mixtape" width="100%" style="border: 1px solid #EE6A24">
+  <img src="img/01/flow-class.png" title="Clases" width="90%">
 </figure>
 ]
 
 ---
 
-layout: false
+# Evaluaciones
 
-class: bg-full
-background-image: url("img/01/geordi.png")
+| Evaluación    | Formato       | Fecha |  Ponderación Nota Final   |
+| ------------- |:-------------:| -----:| -------------------:|
+| Tarea         | 4 tareas   | *Hasta Viernes de la semana informada* | 70% (25% c/u)|
+| Investigación | Única entrega | 22 de noviembre  | 30% |
+
+
+-  A lo largo del semestre deberá entregar 6 tareas: 5 calificadas (Tarea 1 a Tarea 5) y 1 no (Tarea 0). De las 5 tareas restantes, solo las 4 mejores serán consideradas en su promedio de las tareas.]
 
 ---
 
-layout: true
-class: title title-6
+# Convivencia virtual
+
+![](img/01/convencia.png)
 
 ---
 
-# Class technology
+# Recursos del curso
 
 .center[
 <figure>
@@ -888,175 +860,129 @@ class: title title-6
 
 ---
 
-# The tidyverse
+# Recursos del curso
 
 .center[
 <figure>
-  <img src="img/01/tidyverse.png" alt="The tidyverse" title="The tidyverse" width="50%">
+  <img src="img/01/github-logo.png" title="GitHub" width="50%">
 </figure>
 ] 
 
 ---
 
-# The tidyverse
-
-<figure>
-  <img src="img/01/tidyverse-language.png" alt="tidyverse and language" title="tidyverse and language" width="100%">
-</figure>
-
-???
-
-From "Master the Tidyverse" by RStudio
-
----
-
-# R code, but reads like English!
-
-.small-code[
-```{r example-code, eval=FALSE}
-strike_damages_month <- bird_strikes %>% 
-  group_by(Month) %>% 
-  summarize(total_damages = sum(Cost, na.rm = TRUE),
-            average_damages = mean(Cost, na.rm = TRUE))
-
-ggplot(data = strike_damages_month, 
-       mapping = aes(x = Month, y = total_damages)) + 
-  geom_col() + 
-  scale_y_continuous(labels = dollar) +
-  labs(x = "Month",
-       y = "Total damages",
-       title = "Really expensive collisions happen in the fall?",
-       subtitle = "Don't fly in August or October?",
-       caption = "Source: FAA Wildlife Strike Database")
-```
-]
----
-
-# Sucking
-
+# Recursos del curso
 .center[
-.box-inv-6.medium[“There is no way of knowing nothing about a subject to knowing something about a subject without going through a period of much frustration and suckiness.”]
-
-.box-inv-6.medium[**“Push through. You’ll suck less.”**]
-
-.box-inv-6.tiny[Hadley Wickham, author of **ggplot2**]
-]
-
-???
-
-[Source for quote](https://twitter.com/Akbaritabar/status/1022057084802748416)
-
----
-
-# Sucking
-
-&nbsp;
-
-.pull-left[
-<figure>
-  <img src="img/01/sucking-first-step.jpg" alt="Sucking at something is the first step towards being sort of good at something" title="Sucking at something is the first step towards being sort of good at something" width="100%">
-</figure>
-]
-
---
-
-.pull-right[
-<figure>
-  <img src="img/01/sucking-nyt.png" alt="It's great to suck at something" title="It's great to suck at something" width="100%">
-  <figcaption><a href="https://www.nytimes.com/2017/04/28/opinion/its-great-to-suck-at-surfing.html" target="_blank">Karen Rinaldi, "(It's Great to) Suck at Something"</a></figcaption>
-</figure>
+![](img/01/pagina-curso.jpg)
 ]
 
 ---
 
-# Am I making you computer scientists?
+# ¿Los haré científicos de datos?
 
 --
 
-.box-inv-6.huge[**No!**]
+.box-inv-7.huge[**No!**]
 
 --
 
-.box-6[You don't need to be a mechanic to drive a car safely]
+.box-7[No tienes que ser un "mecánico" para manejar correctamente]
 
 --
 
-.box-6[You don't need to be a computer scientist<br>or developer to use R safely]
+.box-7[No tienes que ser un *computín* para usar R correctamente]
 
 ???
-
-Words of wisdom from @allison_horst to her data analysis class this quarter: You don't need to be a mechanic to drive a car safely, and you don't need to be a computer scientist or developer to use R safely. #rstats #tidytuesday
 
 https://twitter.com/ameliaritger/status/1214682596182904832?s=12
 
-I always teach my students: there’s three levels of skill: driver, mechanic, engineer. You’re here to get your drivers license. But being able to change a tire can be helpful. Don’t worry not every one has to be an engineer. (I talk about R in social sciences)
+Drivers, mecanicos, ingenieros. 
+No necesitas ser mecanico para tener licencias... pero si lo necesitaras si quieres cambiar cosas en tu auto. Tampoco necesitas ser ingeniero/a, solo si quieres crear algo nuevo (al menos en ciencias sociales)
 
 https://twitter.com/Sumidu/status/1214695065387438083
-
----
-
-# Learning R
-
-.center[
-<figure>
-  <img src="img/01/learning-r.png" alt="Learning R through googling" title="Learning R through googling" width="70%" style="border: 1px solid #EE6A24">
-</figure>
-]
-
-???
-
-https://twitter.com/kierisi/status/898534740051062785
 
 ---
 
 layout: false
 class: center middle
 
-.box-6.huge[You can do this.]
+.box-7.huge[¡Tú puedes! (podremos juntas/os)]
 
 ---
 
 layout: true
-class: title title-6
+class: title title-7
 
 ---
 
-# Goals for the class
+# Y con esto lograrás
 
---
-
-.box-inv-6.medium[~~Become an expert with R~~]
-
---
-
-.box-inv-6.medium[Speak and do causation]
-
---
-
-.box-inv-6.medium[Design rigorous evaluations]
-
---
-
-.box-6.medium[Change the world with data]
+.center[
+<figure>
+  <img src="img/01/eval-flowchart.png" alt="Class flowchart" title="Class flowchart" width="100%">
+</figure>
+]
 
 ---
 
-# Prerequisites
+# Pre-requisitos
 
 --
 
-.box-inv-6.medium[**Math skills**]
+.box-7.small[**Herramientas tecnológicas**]
 
-.box-inv-6.small.sp-after[Basic algebra]
-
---
-
-.box-inv-6.medium[**Computer science skills**]
-
-.box-inv-6.small.sp-after[None]
+.box-inv-7.small.sp-after[Un computador e internet]
 
 --
 
-.box-inv-6.medium[**Statistical skills**]
+.box-7.small[**Habilidades de la ciencia computacional**]
 
-.box-inv-6.small[Regression, differences in means, and statistical significance]
+.box-inv-7.small.sp-after[No]
+
+--
+
+.box-7.small[**Habilidades estadísticas**]
+
+.box-inv-7.small[Estadística descriptiva, inferencial y regresiones]
+
+---
+layout: false
+class: bg-full animated fadeIn title-1
+background-image: url("img/01/r.gif")
+
+
+# ¡Y muchas ganas de aprender!
+
+---
+layout: false
+
+.box-1[¿Y eso era?]
+
+--
+
+.box-inv-1[¡Solo por la sesión de hoy!]
+
+.center[
+![](img/01/monster-inc-2.gif)]
+---
+layout: false
+class: center middle main-title section-title-1 top-logo
+
+.small[
+# Herramientas para el uso de R
+]
+
+.class-info[
+<br>
+**Sesión N° 1**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
