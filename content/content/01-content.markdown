@@ -27,10 +27,10 @@ slides: "01-slides"
 <a class="nav-link" id="r-enviroment-tab" data-toggle="tab" href="#r-enviroment" role="tab" aria-controls="r-enviroment" aria-selected="false">R enviroment</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="r-comunicación-tab" data-toggle="tab" href="#r-comunicación" role="tab" aria-controls="r-comunicación" aria-selected="false">R comunicación</a>
+<a class="nav-link" id="r-consulta-tab" data-toggle="tab" href="#r-consulta" role="tab" aria-controls="r-consulta" aria-selected="false">R consulta</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="librerías-para-el-uso-de-r-tab" data-toggle="tab" href="#librerías-para-el-uso-de-r" role="tab" aria-controls="librerías-para-el-uso-de-r" aria-selected="false">Librerías para el uso de R</a>
+<a class="nav-link" id="r-comunicación-tab" data-toggle="tab" href="#r-comunicación" role="tab" aria-controls="r-comunicación" aria-selected="false">R comunicación</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" id="detalles-del-curso-tab" data-toggle="tab" href="#detalles-del-curso" role="tab" aria-controls="detalles-del-curso" aria-selected="false">Detalles del curso</a>
@@ -54,7 +54,18 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#ds-ps">
+<iframe class="embed-responsive-item" src="/slides/01-slides.html#15">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="r-consulta" class="tab-pane fade" role="tabpanel" aria-labelledby="r-consulta-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/01-slides.html#27">
 </iframe>
 
 </div>
@@ -65,18 +76,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#evidence-evaluation-causation">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="librerías-para-el-uso-de-r" class="tab-pane fade" role="tabpanel" aria-labelledby="librerías-para-el-uso-de-r-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#evidence-evaluation-causation1">
+<iframe class="embed-responsive-item" src="/slides/01-slides.html#37">
 </iframe>
 
 </div>
@@ -87,7 +87,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#class-details">
+<iframe class="embed-responsive-item" src="/slides/01-slides.html#54">
 </iframe>
 
 </div>
@@ -101,6 +101,16 @@ slides: "01-slides"
 {{% /div %}}
 
 # Video de la clase
+
+# Materiales de la clase
+
+## Rprojects
+
+-   [<i class="fas fa-file-archive"></i> `01-class.zip`](/projects/01-class/01-class.zip)
+
+-   [<i class="fas fa-external-link-square-alt"></i> `01-class` en RStudio Cloud](https://rstudio.cloud/spaces/60366/join?access_code=iSzSuF94ZXVUL53mJEyhOvtKVAActaw0nQ8S%2FxAB)
+
+-   [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 # Recomendaciones
 

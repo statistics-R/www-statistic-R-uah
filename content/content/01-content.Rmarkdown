@@ -21,9 +21,9 @@ source(here::here("R", "slide-tabs.R"))
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
   "Introducción", "1", TRUE,
-   "R enviroment", "ds-ps", FALSE,
-   "R consulta", "evidence-evaluation-causation", FALSE,
-  "R comunicación", "evidence-evaluation-causation1", FALSE, "Detalles del curso", "class-details", FALSE
+   "R enviroment", "15", FALSE,
+   "R consulta", "27", FALSE,
+  "R comunicación", "37", FALSE, "Detalles del curso", "54", FALSE
 )
 ```
 
@@ -41,6 +41,17 @@ slide_tabs(slide_details, "/slides/01-slides.html")
 
 
 # Video de la clase
+
+
+# Materiales de la clase
+
+## Rprojects
+
+- [<i class="fas fa-file-archive"></i> `01-class.zip`](/projects/01-class/01-class.zip)
+
+- [<i class="fas fa-external-link-square-alt"></i> `01-class` en RStudio Cloud](https://rstudio.cloud/spaces/60366/join?access_code=iSzSuF94ZXVUL53mJEyhOvtKVAActaw0nQ8S%2FxAB)
+
+- [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 
 # Recomendaciones
