@@ -792,7 +792,7 @@ class: title title-1
 
 # En síntesis
 .center[
-![:scale 70%](img/01/meme-expa.jpg)]
+![:scale 20%](img/01/meme-expa.jpg)]
 ---
 
 layout: false

@@ -102,13 +102,15 @@ slides: "01-slides"
 
 # Video de la clase
 
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/PdLPOrIHkpBVdTkgvXMiOg3qFFleQyGS69Oyw7NscfOm7sp22MOPAuEOzjxr_K95.1FlRHivevPxpmUBc?startTime=1628539312000)
+
 # Materiales de la clase
 
 ## Rprojects
 
--   [<i class="fas fa-file-archive"></i> `01-class.zip`](/projects/01-class/01-class.zip)
+-   [<i class="fas fa-file-archive"></i> `01-class.zip`](../../projects/01-class/01-class.zip)
 
--   [<i class="fas fa-external-link-square-alt"></i> `01-class` en RStudio Cloud](https://rstudio.cloud/spaces/60366/join?access_code=iSzSuF94ZXVUL53mJEyhOvtKVAActaw0nQ8S%2FxAB)
+-   [<i class="fas fa-external-link-square-alt"></i> `01-class` en RStudio Cloud](https://rstudio.cloud/project/2757583)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
@@ -118,6 +120,7 @@ slides: "01-slides"
 
 -   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
 
-    -   <small>Instalación de softwares</small>
+    -   <small>Ver Tutorial N°1 Instalación de softwares</small>
+    -   <small>Ver Tutorial N°2 GitHub y GitHub Class Room</small>
 
 -   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
