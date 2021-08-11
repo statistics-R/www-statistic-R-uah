@@ -59,9 +59,9 @@ assignment:
   - name: Proyecto final
     weight: 3
 resource:
-  - name: Resources
+  - name: Recursos
     weight: 1
-  - name: Study guides
-    weight: 2
-  - name: Guides
+  - name: Material complementario
     weight: 3
+  - name: Tutoriales
+    weight: 2

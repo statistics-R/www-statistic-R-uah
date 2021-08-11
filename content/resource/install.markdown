@@ -3,7 +3,7 @@ title: "Instalación de R, RStudio y Slack"
 date: "2021-08-11"
 menu:
   resource:
-    parent: Guides
+    parent: Tutoriales
 type: docs
 toc: true
 weight: 1
@@ -184,11 +184,15 @@ En **Modificar tu perfil**, podemos cambiar nuestro nombre, describir a qué nos
 
 En la sección de **Preferencias**, podremos establecer diferentes configuraciones referentes, por ejemplo, a las *notificaciones*, la *barra lateral*, o seleccionar distintos *temas*, para personalizar la apariencia de nuestro espacio de trabajo. 
 
-<img src="/img/tutorial/tutorial/install/slack10.png" width="60%" />
+<img src="/img/tutorial/install/slack10.png" width="60%" />
 
 ### Una vez realizado todo lo anterior ¡Ya estamos listas y listos para empezar a trabajar en el curso!
 
-## 4. Learn R Youtube
+## 4. Video tutorial en Youtube
 
 Recuerden que el [video de asociado a este práctico](https://www.youtube.com/watch?v=9YD-F6-ktes) y muchos más podrán encontrarlos en el [canal de youtube del curso](https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg)
+
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/9YD-F6-ktes" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 

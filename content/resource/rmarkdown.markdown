@@ -3,7 +3,7 @@ title: Using R Markdown
 date: "2020-01-13"
 menu:
   resource:
-    parent: Guides
+    parent: Material complementario
     weight: 3
 type: docs
 toc: true
