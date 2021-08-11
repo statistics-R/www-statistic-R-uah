@@ -29,7 +29,8 @@
   
     
   
-  <meta name="description" content="Markdown is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like pandoc to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc." />
+  <meta name="description" content="Markdown es una clase especial de lenguaje que permite darle formato a texto simple. Por ejemplo, poder hacer cursivas, negritas, incorporar links, etc.
+Para que el formato que se le ha dado pueda ser visto, el archivo en Markdown (." />
 
   
   <link rel="alternate" hreflang="en-us" href="/resource/markdown/" />
@@ -287,17 +288,18 @@
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/resource/markdown/" />
-  <meta property="og:title" content="Using Markdown | Análisis Estadístico en R" />
-  <meta property="og:description" content="Markdown is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like pandoc to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+  <meta property="og:title" content="¿Qué es Markdown? | Análisis Estadístico en R" />
+  <meta property="og:description" content="Markdown es una clase especial de lenguaje que permite darle formato a texto simple. Por ejemplo, poder hacer cursivas, negritas, incorporar links, etc.
+Para que el formato que se le ha dado pueda ser visto, el archivo en Markdown (." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2020-01-13T00:00:00&#43;00:00"
+        content="2021-08-11T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2020-01-13T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-08-11T00:00:00&#43;00:00">
   
 
   
@@ -324,7 +326,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Using Markdown | Análisis Estadístico en R</title>
+  <title>¿Qué es Markdown? | Análisis Estadístico en R</title>
 </head>
 
 
@@ -637,31 +639,11 @@
 
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/resource/">Resources</a>
+    <a class="docs-toc-link" href="/resource/">Recursos</a>
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/resource/">Helpful resources</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/r/">R</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/style/">R style suggestions</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/data/">Data</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/citations/">Citations and bibliography</a>
+        <a href="/resource/">Recursos adicionales</a>
       </li>
 
       
@@ -671,16 +653,11 @@
   </div>
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/resource/exam1/">Study guides</a>
+    <a class="docs-toc-link" href="/resource/install/">Tutoriales</a>
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/resource/exam1/">Things you should know for Exam 1</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/exam2/">Things you should know for Exam 2</a>
+        <a href="/resource/install/">Instalación de R, RStudio y Slack</a>
       </li>
 
       
@@ -690,31 +667,16 @@
   </div>
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/resource/install/">Guides</a>
+    <a class="docs-toc-link" href="/resource/markdown/">Material complementario</a>
     <ul class="nav docs-sidenav">
-      
-      <li >
-        <a href="/resource/install/">Installing R, RStudio, tidyverse, and tinytex</a>
-      </li>
-
       
       <li class="active">
-        <a href="/resource/markdown/">Using Markdown</a>
+        <a href="/resource/markdown/">¿Qué es Markdown?</a>
       </li>
 
       
       <li >
-        <a href="/resource/rmarkdown/">Using R Markdown</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/unzipping/">Unzipping files</a>
-      </li>
-
-      
-      <li >
-        <a href="/resource/mixtape-diffs/">Mixtape-style R code translations</a>
+        <a href="/resource/rmarkdown/">Usando RMarkdown</a>
       </li>
 
       
@@ -736,13 +698,12 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#basic-markdown-formatting">Basic Markdown formatting</a></li>
-    <li><a href="#math">Math</a></li>
-    <li><a href="#tables">Tables</a></li>
-    <li><a href="#footnotes">Footnotes</a></li>
-    <li><a href="#front-matter">Front matter</a></li>
-    <li><a href="#citations">Citations</a></li>
-    <li><a href="#other-references">Other references</a></li>
+    <li><a href="#formatos-básicos-de-markdown">Formatos básicos de Markdown</a></li>
+    <li><a href="#expresiones-matemáticas">Expresiones matemáticas</a></li>
+    <li><a href="#tablas">Tablas</a></li>
+    <li><a href="#pies-de-página">Pies de página</a></li>
+    <li><a href="#la-cabeza-del-markdown">La &ldquo;cabeza&rdquo; del Markdown</a></li>
+    <li><a href="#otros-recursos-que-te-recomendamos-revisar">Otros recursos que te recomendamos revisar</a></li>
   </ul>
 </nav>
 
@@ -755,7 +716,7 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Using Markdown</h1>
+                    <h1>¿Qué es Markdown?</h1>
 
                     
 
@@ -764,8 +725,10 @@
                     
 
                     <div class="article-style">
-                        <p><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a> is a special kind of markup language that lets you format text with simple syntax. You can then use a converter program like <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> to convert Markdown into whatever format you want: HTML, PDF, Word, PowerPoint, etc. (<a href="https://pandoc.org/MANUAL.html#option--to" target="_blank" rel="noopener">see the full list of output types here</a>)</p>
-<h2 id="basic-markdown-formatting">Basic Markdown formatting</h2>
+                        <p><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a> es una clase especial de lenguaje que permite darle formato a texto simple. Por ejemplo, poder hacer cursivas, negritas, incorporar links, etc.</p>
+<p>Para que el formato que se le ha dado pueda ser visto, el archivo en Markdown (<em>.md</em>) pasa por un convertidor universal llamado <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a>. Este, a diferencia de procesadores como los que ocupa Office no es pagado. Por ello, para no solo para editar tus archivos de texto no necesitarás un software, sino que para crear PDF, archivos .doc (Word), presentación (como las de Power Point) o HTML (para hacer sitios web) es <strong>completamente gratis</strong>. Solo debes encontrar un editor que pueda hacer esto.</p>
+<p>La buena noticia es que ya lo conoces: ¡nuestro amigo RStudio!</p>
+<h2 id="formatos-básicos-de-markdown">Formatos básicos de Markdown</h2>
 <table>
 <colgroup>
 <col width="40%" />
@@ -781,47 +744,47 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre>Some text in a paragraph.<br>
-More text in the next paragraph. Always
-use empty lines between paragraphs.</pre></td>
+<td><pre>Algo de texto en el párrafo.<br>
+Más texto
+espacio entre lineas.</pre></td>
 <td></td>
-<td><p>Some text in a paragraph.</p>
-<p>More text in the next paragraph. Always
-use empty lines between paragraphs.</p></td>
+<td><p>Algo de textp.</p>
+<p>Algo de texto en el párrafo. Siempre utilizando
+espacios para dividir párrafos</p></td>
 </tr>
 <tr class="even">
-<td><code>*Italic*</code></td>
-<td><code>_Italic_</code></td>
-<td><em>Italic</em></td>
+<td><code>*Cursivas*</code></td>
+<td><code>_Cursivas_</code></td>
+<td><em>Cursivas</em></td>
 </tr>
 <tr class="odd">
-<td><code>**Bold**</code></td>
-<td><code>__Bold__</code></td>
-<td><strong>Bold</strong></td>
+<td><code>**Negrita**</code></td>
+<td><code>__Negrita__</code></td>
+<td><strong>Negrita</strong></td>
 </tr>
 <tr class="even">
-<td><code># Heading 1</code></td>
+<td><code># Título 1</code></td>
 <td></td>
 <td><h1 class="smaller-h1">
-Heading 1
+Título 1
 </h1></td>
 </tr>
 <tr class="odd">
-<td><code>## Heading 2</code></td>
+<td><code>## Título 2</code></td>
 <td></td>
 <td><h2 class="smaller-h2">
-Heading 2
+Título 2
 </h2></td>
 </tr>
 <tr class="even">
-<td><code>### Heading 3</code></td>
+<td><code>### Título 3</code></td>
 <td></td>
 <td><h3 class="smaller-h3">
-Heading 3
+Título 3
 </h3></td>
 </tr>
 <tr class="odd">
-<td>(Go up to heading level 6 with <code>######</code>)</td>
+<td>(puedes llegar hasta un título N° 6 con <code>######</code>)</td>
 <td></td>
 <td></td>
 </tr>
@@ -841,121 +804,74 @@ Heading 3
 <td><code>Inline code</code> with backticks</td>
 </tr>
 <tr class="odd">
-<td><code>&gt; Blockquote</code></td>
+<td><code>&gt; Citas</code></td>
 <td></td>
 <td><blockquote>
-<p>Blockquote</p>
+<p>Citas</p>
 </blockquote></td>
 </tr>
 <tr class="even">
-<td><pre>- Things in
-- an unordered
-- list</pre></td>
-<td><pre>* Things in
-* an unordered
-* list</pre></td>
+<td><pre>- Cosas en
+- listas
+- desordenadas</pre></td>
+<td><pre>* Cosas en
+* listas
+* desordenadas</pre></td>
 <td><ul>
-<li>Things in</li>
-<li>an unordered</li>
-<li>list</li>
+<li>Cosas en</li>
+<li>listas</li>
+<li>desordenadas</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><pre>1. Things in
-2. an ordered
-3. list</pre></td>
-<td><pre>1) Things in
-2) an ordered
-3) list</pre></td>
+<td><pre>1. Cosas en
+2. listas
+3. ordenadas</pre></td>
+<td><pre>1) Cosas en
+2) listas
+3) ordenadas</pre></td>
 <td><ol style="list-style-type: decimal">
-<li>Things in</li>
-<li>an ordered</li>
-<li>list</li>
+<li>Cosas en</li>
+<li>listas</li>
+<li>ordenadas</li>
 </ol></td>
 </tr>
 <tr class="even">
-<td><pre>Horizontal line
+<td><pre>Línea horizontal
 <p>&mdash;</pre></td></p>
-<td><pre>Horizontal line
+<td><pre>Línea horizontal
 <p>***</pre></td></p>
-<td><p>Horizontal line</p>
+<td><p>Línea horizontal</p>
 <hr /></td>
 </tr>
 </tbody>
 </table>
-<h2 id="math">Math</h2>
-<p>Markdown uses LaTeX to create fancy mathematical equations. There are like a billion little options and features available for math equations—you can find <a href="http://www.malinc.se/math/latex/basiccodeen.php" target="_blank" rel="noopener">helpful examples of the the most common basic commands here</a>.</p>
-<p>You can use math in two different ways: inline or in a display block. To use math inline, wrap it in single dollar signs, like <code>\$y = mx + b\$</code>:</p>
-<table>
-<colgroup>
-<col width="52%" />
-<col width="47%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type…</th>
-<th>…to get</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre>Based on the DAG, the regression model for
-estimating the effect of education on wages
-is &dollar;\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon&dollar;, or
-&dollar;\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon&dollar;.</pre></td>
-<td>Based on the DAG, the regression model for
-estimating the effect of education on wages
-is <span class="math inline">\(\hat{y} = \beta_0 + \beta_1 x_1 + \epsilon\)</span>, or
-<span class="math inline">\(\text{Wages} = \beta_0 + \beta_1 \text{Education} + \epsilon\)</span>.</td>
-</tr>
-</tbody>
-</table>
-<p>To put an equation on its own line in a display block, wrap it in double dollar signs, like this:</p>
-<p><strong>Type…</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">The quadratic equation was an important part of high school math:
+<h2 id="expresiones-matemáticas">Expresiones matemáticas</h2>
+<p>Markdown también utiliza <em>LaTeX</em> para crear ecuaciones matemáticas (y no nos complica tanto la vida como el editor de Word). Si para tu tesis o un proyecto las utilizas te dejo esta <a href="http://www.malinc.se/math/latex/basiccodeen.php" target="_blank" rel="noopener">guía de comando básicos para crear ecuaciones matemáticas</a>.</p>
+<p>Para introducir una ecuación debes poner los símbolos de peso ($)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">La ecuación cuadratica es la siguiente
 
-$$
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-$$
+$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
 
-But now we just use computers to solve for $x$.
-</code></pre></div><p><strong>…to get…</strong></p>
+</code></pre></div><p>**Con ello obtendremos: **</p>
 <blockquote>
-<p>The quadratic equation was an important part of high school math:</p>
+<p>La ecuación cuadratica es la siguiente</p>
 <p>$$
 x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 $$</p>
-<p>But now we just use computers to solve for <code>\(x\)</code>.</p>
 </blockquote>
 <hr>
-<p>Because dollar signs are used to indicate math equations, you can&rsquo;t just use dollar signs like normal if you&rsquo;re writing about actual dollars. For instance, if you write <code>This book costs \$5.75 and this other costs \$40</code>, Markdown will treat everything that comes between the dollar signs as math, like so: &ldquo;This book costs $5.75 and this other costs $40&rdquo;.</p>
-<p>To get around that, put a backslash (<code>\</code>) in front of the dollar signs, so that <code>This book costs \\\$5.75 and this other costs \\\$40</code> becomes &ldquo;This book costs <span>$5.75</span> and this other costs <span>$40</span>&rdquo;.</p>
-<h2 id="tables">Tables</h2>
-<p>There are 4 different ways to hand-create tables in Markdown—I say &ldquo;hand-create&rdquo; because it&rsquo;s normally way easier to use R to generate these things with packages like <a href="https://rapporter.github.io/pander/" target="_blank" rel="noopener"><strong>pander</strong></a> (use <code>pandoc.table()</code>) or <strong>knitr</strong> (use <a href="https://bookdown.org/yihui/rmarkdown-cookbook/kable.html" target="_blank" rel="noopener"><code>kable()</code></a>). The two most common are simple tables and pipe tables. <a href="https://pandoc.org/MANUAL.html#tables" target="_blank" rel="noopener">You should look at the full documentation here</a>.</p>
-<p><strong>For simple tables, type…</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  Right     Left     Center     Default
--------     ------ ----------   -------
-     12     12        12            12
-    123     123       123          123
-      1     1          1             1
-
-Table: Caption goes here
-</code></pre></div><p><strong>…to get…</strong></p>
-<p>Right     Left     Center     Default</p>
-<hr>
-<pre><code> 12     12        12            12
-123     123       123          123
-  1     1          1             1
-</code></pre>
-<p>Table: Caption goes here</p>
-<p><strong>For pipe tables, type…</strong></p>
+<p>Evidentemente como el símbolo peso sirve para hacer ecuaciones matemáticas, no lo puedes utilizar en un archivo escrito en Markdown para hacer referencia <strong>realmente</strong> al símbolo peso. Para ello, debes escribir el símbolo antecedido con un (<code>\</code>). Así obtendrás una frase escrita como &quot; <code>Te hago la tarea de R por \$100.000.</code> En caso contrario, si pones el símbólo pesos solo y sin <code>\</code> entenderá la oración como una ecuación.</p>
+<h2 id="tablas">Tablas</h2>
+<p>Hacer tablas es muy fácil. Mira el siguiente ejemplo</p>
+<p><strong>Se escribe así</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">| Right | Left | Default | Center |
 |------:|:-----|---------|:------:|
 |   12  |  12  |    12   |    12  |
 |  123  |  123 |   123   |   123  |
 |    1  |    1 |     1   |     1  |
 
-Table: Caption goes here
+Tabla: Descripción de la tabla
 </code></pre></div><p><strong>…to get…</strong></p>
 <table>
 <thead>
@@ -987,127 +903,43 @@ Table: Caption goes here
 </tr>
 </tbody>
 </table>
-<p>Table: Caption goes here</p>
-<h2 id="footnotes">Footnotes</h2>
-<p>There are two different ways to add footnotes (<a href="https://pandoc.org/MANUAL.html#footnotes" target="_blank" rel="noopener">see here for complete documentation</a>): regular and inline.</p>
-<p>Regular notes need (1) an identifier and (2) the actual note. The identifier can be whatever you want. Some people like to use numbers like <code>[^1]</code>, but if you ever rearrange paragraphs or add notes before #1, the numbering will be wrong (in your Markdown file, not in the output; everything will be correct in the output). Because of that, I prefer to use some sort of text label:</p>
-<p><strong>Type…</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Here is a footnote reference[^1] and here is another [^note-on-dags].
+<p>Tabla: Descripción de la tabla</p>
+<h2 id="pies-de-página">Pies de página</h2>
+<p>Para hacer pies de página debes saber cuál es su (1) identificador y (2) lo que quieres escribir en el pie de página. El identificador puede ser lo que tu quieras: pueden ser números como <code>[^1]</code>, pero también pueden ser letras.</p>
+<p><strong>Debes escribir…</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Aquí escribo una referencia de mi tesis[^1] y aquí otra más [^note-sobre-marx].
 
-[^1]: This is a note.
+[^1]: Esta es una nota
 
-[^note-on-dags]: DAGs are neat. 
+[^note-sobre-marx]: Marx, lo más genial. 
 
-And here&#39;s more of the document.
-</code></pre></div><p><strong>…to get…</strong></p>
+Y bueno, aquí sigo escribiendo
+</code></pre></div><p><strong>Para obtener</strong></p>
 <blockquote>
-<p>Here is a footnote reference<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and here is another.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>And here&rsquo;s more of the document.</p>
+<p>Aquí escribo una referencia de mi tesis<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>  y aquí otra más.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Y bueno, aquí sigo escribiendo</p>
 <hr />
 <div class="footnotes">
 <ol>
-<li id="fn1"><p>This is a note.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>DAGs are neat.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Esta es una nota.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Marx, lo más genial.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 </blockquote>
-<hr>
-<p>You can also use inline footnotes with <code>^[Text of the note goes here]</code>, which are often easier because you don&rsquo;t need to worry about identifiers:</p>
-<p><strong>Type…</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Causal inference is neat.^[But it can be hard too!]
-</code></pre></div><p><strong>…to get…</strong></p>
-<blockquote>
-<p>Causal inference is neat.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>1</sup></a></p>
-<hr />
-<div class="footnotes">
-<ol>
-<li id="fn3"><p>But it can be hard too!<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
-</blockquote>
-<h2 id="front-matter">Front matter</h2>
-<p>You can include a special section at the top of a Markdown document that contains metadata (or data about your document) like the title, date, author, etc. This section uses a special simple syntax named <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a> (or &ldquo;YAML Ain&rsquo;t Markup Language&rdquo;) that follows this basic outline: <code>setting: value for setting</code>. Here&rsquo;s an example YAML metadata section. Note that it must start and end with three dashes (<code>---</code>).</p>
+<h2 id="la-cabeza-del-markdown">La &ldquo;cabeza&rdquo; del Markdown</h2>
+<p>Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>. Básicamente, con esto establecemos las &ldquo;configuraciones&rdquo; del texto.</p>
+<p>Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &ldquo;cabeza&rdquo; del Markdown o <strong>YAMLS</strong> está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (<code>---</code>).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Title of your document</span>
-<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;January 13, 2020&#34;</span>
-<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Your name&#34;</span>
+<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Título de mi tesis</span>
+<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;13 de Agosto, 2021&#34;</span>
+<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Estudiante UAH&#34;</span>
 ---
-</code></pre></div><p>You can put the values inside quotes (like the date and name in the example above), or you can leave them outside of quotes (like the title in the example above). I typically use quotes just to be safe—if the value you&rsquo;re using has a colon (<code>:</code>) in it, it&rsquo;ll confuse Markdown since it&rsquo;ll be something like <code>title: My cool title: a subtitle</code>, which has two colons. It&rsquo;s better to do this:</p>
+</code></pre></div><p>Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  <code>Mi tesis: la más &quot;genial&quot; de Chile</code>), entonces ponemos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;My cool title: a subtitle&#34;</span>
+<span style="color:#f92672">title: `Mi tesis</span>: <span style="color:#ae81ff">la más &#34;genial&#34; de Chile`</span>
 ---
-</code></pre></div><p>If you want to use quotes inside one of the values (e.g. your document is <code>An evaluation of &quot;scare quotes&quot;</code>), you can use single quotes instead:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#e6db74">&#39;An evaluation of &#34;scare quotes&#34;&#39;</span>
----
-</code></pre></div><h2 id="citations">Citations</h2>
-<p>One of the most powerful features of Markdown + pandoc is the ability to automatically cite things and generate bibliographies. to use citations, you need to create a <a href="http://www.bibtex.org/" target="_blank" rel="noopener">BibTeX file</a> (ends in <code>.bib</code>) that contains a database of the things you want to cite. You can do this with bibliography managers designed to work with BibTeX directly (like <a href="https://bibdesk.sourceforge.io/" target="_blank" rel="noopener">BibDesk</a> on macOS), or you can use <a href="https://www.zotero.org/" target="_blank" rel="noopener">Zotero</a> (macOS and Windows) to export a <code>.bib</code> file. You can <a href="/resource/citations/">download an example <code>.bib</code> file of all the readings from this class here</a>.</p>
-<p><a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html" target="_blank" rel="noopener">Complete details for using citations can be found here</a>. In brief, you need to do three things:</p>
-<ol>
-<li>
-<p>Add a <code>bibliography:</code> entry to the YAML metadata:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Title of your document</span>
-<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;January 13, 2020&#34;</span>
-<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Your name&#34;</span>
-<span style="color:#f92672">bibliography</span>: <span style="color:#ae81ff">name_of_file.bib</span>
----
-</code></pre></div></li>
-<li>
-<p>Choose a citation style based on a CSL file. The default is Chicago author-date, but you can choose from 2,000+ <a href="https://github.com/citation-style-language/styles" target="_blank" rel="noopener">at this repository</a>. Download the CSL file, put it in your project folder, and add an entry to the YAML metadata (or provide a URL to the online version):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Title of your document</span>
-<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;January 13, 2020&#34;</span>
-<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Your name&#34;</span>
-<span style="color:#f92672">bibliography</span>: <span style="color:#ae81ff">name_of_file.bib</span>
-<span style="color:#f92672">csl</span>: <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl&#34;</span>
----
-</code></pre></div><p>Some of the most common CSLs are:</p>
-<ul>
-<li><a href="https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-author-date.csl" target="_blank" rel="noopener">Chicago author-date</a></li>
-<li><a href="https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-note-bibliography.csl" target="_blank" rel="noopener">Chicago note-bibliography</a></li>
-<li><a href="https://raw.githubusercontent.com/citation-style-language/styles/master/chicago-fullnote-bibliography.csl" target="_blank" rel="noopener">Chicago full note-bibliography</a> (no shortened notes or ibids)</li>
-<li><a href="https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl" target="_blank" rel="noopener">APA 7th edition</a></li>
-<li><a href="https://raw.githubusercontent.com/citation-style-language/styles/master/modern-language-association.csl" target="_blank" rel="noopener">MLA 8th edition</a></li>
-</ul>
-</li>
-<li>
-<p>Cite things in your document. <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html" target="_blank" rel="noopener">Check the documentation for full details of how to do this</a>. Essentially, you use <code>@citationkey</code> inside square brackets (<code>[]</code>):</p>
-<table>
-<thead>
-<tr>
-<th>Type…</th>
-<th>…to get…</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Causal inference is neat [@Rohrer:2018; @AngristPischke:2015].</code></td>
-<td>Causal inference is neat (Rohrer 2018; Angrist and Pischke 2015).</td>
-</tr>
-<tr>
-<td><code>Causal inference is neat [see @Rohrer:2018, p. 34; also @AngristPischke:2015, chapter 1].</code></td>
-<td>Causal inference is neat (see Rohrer 2018, 34; also Angrist and Pischke 2015, chap. 1).</td>
-</tr>
-<tr>
-<td><code>Angrist and Pischke say causal inference is neat [-@AngristPischke:2015; see also @Rohrer:2018].</code></td>
-<td>Angrist and Pischke say causal inference is neat (2015; see also Rohrer 2018).</td>
-</tr>
-<tr>
-<td><code>@AngristPischke:2015 [chapter 1] say causal inference is neat, and @Rohrer:2018 agrees.</code></td>
-<td>Angrist and Pischke (2015, chap. 1) say causal inference is neat, and Rohrer (2018) agrees.</td>
-</tr>
-</tbody>
-</table>
-<p>After compiling, you should have a perfectly formatted bibliography added to the end of your document too:</p>
-<blockquote>
-<p>Angrist, Joshua D., and Jörn-Steffen Pischke. 2015. <em>Mastering ’Metrics: The Path from Cause to Effect.</em> Princeton, NJ: Princeton University Press.</p>
-<p>Rohrer, Julia M. 2018. “Thinking Clearly About Correlations and Causation: Graphical Causal Models for Observational Data.” <em>Advances in Methods and Practices in Psychological Science</em> 1 (1): 27–42. <a href="https://doi.org/10.1177/2515245917745629">https://doi.org/10.1177/2515245917745629</a>.</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="other-references">Other references</h2>
-<p>These websites have additional details and examples and practice tools:</p>
+</code></pre></div><h2 id="otros-recursos-que-te-recomendamos-revisar">Otros recursos que te recomendamos revisar</h2>
+<p>En estos links podrás encontrar distintos ejemplos para practicar. También si quieres conocer más sobre quién creó esta maravilla, revisa sobre <a href="https://www.youtube.com/watch?v=mT8FJcIx3HI" target="_blank" rel="noopener">Aaron Swartz</a>.</p>
 <ul>
 <li><a href="https://commonmark.org/help/tutorial/" target="_blank" rel="noopener"><strong>CommonMark&rsquo;s Markdown tutorial</strong></a>: A quick interactive Markdown tutorial.</li>
 <li><a href="https://www.markdowntutorial.com/" target="_blank" rel="noopener"><strong>Markdown tutorial</strong></a>: Another interactive tutorial to practice using Markdown.</li>
@@ -1130,14 +962,14 @@ And here&#39;s more of the document.
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/resource/citations/" rel="next">Citations and bibliography</a>
+    <a href="/resource/install/" rel="next">Instalación de R, RStudio y Slack</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/resource/rmarkdown/" rel="prev">Using R Markdown</a>
+    <a href="/resource/rmarkdown/" rel="prev">Usando RMarkdown</a>
   </div>
   
 </div>
@@ -1147,7 +979,7 @@ And here&#39;s more of the document.
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on January 13, 2020</p>
+                    <p>Last updated on August 11, 2021</p>
 
                     
 

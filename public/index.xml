@@ -128,39 +128,230 @@
     </item>
     
     <item>
-      <title>R</title>
-      <link>/resource/r/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/resource/r/</guid>
-      <description>&lt;h2 id=&#34;learning-r&#34;&gt;Learning R&lt;/h2&gt;
-&lt;p&gt;I highly recommend subscribing to the &lt;a href=&#34;https://rweekly.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Weekly newsletter&lt;/a&gt;. This e-mail is sent every Monday and is full of helpful tutorials about how to do stuff with R.&lt;/p&gt;
-&lt;p&gt;Searching for help with R on Google can sometimes be tricky because the program name is a single letter. Google is generally smart enough to figure out what you mean when you search for &amp;ldquo;r scatterplot&amp;rdquo;, but if it does struggle, try searching for &amp;ldquo;rstats&amp;rdquo; instead (e.g. &amp;ldquo;rstats scatterplot&amp;rdquo;).&lt;/p&gt;
-&lt;p&gt;If you use Twitter, post R-related questions and content with &lt;a href=&#34;https://twitter.com/search?q=%23rstats&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;#rstats&lt;/a&gt;. The community there is exceptionally generous and helpful. Also check out &lt;a href=&#34;https://stackoverflow.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;StackOverflow&lt;/a&gt; (a Q&amp;amp;A site with hundreds of thousands of answers to all sorts of programming questions) and &lt;a href=&#34;https://community.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RStudio Community&lt;/a&gt; (a forum specifically designed for people using RStudio and the tidyverse (i.e. you)).&lt;/p&gt;
-&lt;p&gt;These resources are also really really helpful:&lt;/p&gt;
+      <title>¿Qué es Markdown?</title>
+      <link>/resource/markdown/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/resource/markdown/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://daringfireball.net/projects/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Markdown&lt;/a&gt; es una clase especial de lenguaje que permite darle formato a texto simple. Por ejemplo, poder hacer cursivas, negritas, incorporar links, etc.&lt;/p&gt;
+&lt;p&gt;Para que el formato que se le ha dado pueda ser visto, el archivo en Markdown (&lt;em&gt;.md&lt;/em&gt;) pasa por un convertidor universal llamado &lt;a href=&#34;https://pandoc.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandoc&lt;/a&gt;. Este, a diferencia de procesadores como los que ocupa Office no es pagado. Por ello, para no solo para editar tus archivos de texto no necesitarás un software, sino que para crear PDF, archivos .doc (Word), presentación (como las de Power Point) o HTML (para hacer sitios web) es &lt;strong&gt;completamente gratis&lt;/strong&gt;. Solo debes encontrar un editor que pueda hacer esto.&lt;/p&gt;
+&lt;p&gt;La buena noticia es que ya lo conoces: ¡nuestro amigo RStudio!&lt;/p&gt;
+&lt;h2 id=&#34;formatos-básicos-de-markdown&#34;&gt;Formatos básicos de Markdown&lt;/h2&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;40%&#34; /&gt;
+&lt;col width=&#34;21%&#34; /&gt;
+&lt;col width=&#34;38%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Type…&lt;/th&gt;
+&lt;th&gt;…or…&lt;/th&gt;
+&lt;th&gt;…to get&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;pre&gt;Algo de texto en el párrafo.&lt;br&gt;
+Más texto
+espacio entre lineas.&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;Algo de textp.&lt;/p&gt;
+&lt;p&gt;Algo de texto en el párrafo. Siempre utilizando
+espacios para dividir párrafos&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;*Cursivas*&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;_Cursivas_&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;Cursivas&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;**Negrita**&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;__Negrita__&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Negrita&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;# Título 1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h1 class=&#34;smaller-h1&#34;&gt;
+Título 1
+&lt;/h1&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;## Título 2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h2 class=&#34;smaller-h2&#34;&gt;
+Título 2
+&lt;/h2&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;### Título 3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h3 class=&#34;smaller-h3&#34;&gt;
+Título 3
+&lt;/h3&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;(puedes llegar hasta un título N° 6 con &lt;code&gt;######&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;[Link text](http://www.example.com)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.example.com&#34;&gt;Link text&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;![Image caption](/path/to/image.png)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;/img/mstile-144x144.png&#34; title=&#34;fig:&#34; alt=&#34;Class logo&#34; /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;`&lt;code&gt;Inline code` with backticks&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Inline code&lt;/code&gt; with backticks&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt; Citas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;blockquote&gt;
+&lt;p&gt;Citas&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;pre&gt;- Cosas en
+- listas
+- desordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;pre&gt;* Cosas en
+* listas
+* desordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;
+&lt;li&gt;Cosas en&lt;/li&gt;
+&lt;li&gt;listas&lt;/li&gt;
+&lt;li&gt;desordenadas&lt;/li&gt;
+&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;pre&gt;1. Cosas en
+2. listas
+3. ordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;pre&gt;1) Cosas en
+2) listas
+3) ordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Cosas en&lt;/li&gt;
+&lt;li&gt;listas&lt;/li&gt;
+&lt;li&gt;ordenadas&lt;/li&gt;
+&lt;/ol&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;pre&gt;Línea horizontal
+&lt;p&gt;&amp;mdash;&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
+&lt;td&gt;&lt;pre&gt;Línea horizontal
+&lt;p&gt;***&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
+&lt;td&gt;&lt;p&gt;Línea horizontal&lt;/p&gt;
+&lt;hr /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;expresiones-matemáticas&#34;&gt;Expresiones matemáticas&lt;/h2&gt;
+&lt;p&gt;Markdown también utiliza &lt;em&gt;LaTeX&lt;/em&gt; para crear ecuaciones matemáticas (y no nos complica tanto la vida como el editor de Word). Si para tu tesis o un proyecto las utilizas te dejo esta &lt;a href=&#34;http://www.malinc.se/math/latex/basiccodeen.php&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;guía de comando básicos para crear ecuaciones matemáticas&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Para introducir una ecuación debes poner los símbolos de peso ($)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;La ecuación cuadratica es la siguiente
+
+$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;**Con ello obtendremos: **&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;La ecuación cuadratica es la siguiente&lt;/p&gt;
+&lt;p&gt;$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;Evidentemente como el símbolo peso sirve para hacer ecuaciones matemáticas, no lo puedes utilizar en un archivo escrito en Markdown para hacer referencia &lt;strong&gt;realmente&lt;/strong&gt; al símbolo peso. Para ello, debes escribir el símbolo antecedido con un (&lt;code&gt;\&lt;/code&gt;). Así obtendrás una frase escrita como &amp;quot; &lt;code&gt;Te hago la tarea de R por \$100.000.&lt;/code&gt; En caso contrario, si pones el símbólo pesos solo y sin &lt;code&gt;\&lt;/code&gt; entenderá la oración como una ecuación.&lt;/p&gt;
+&lt;h2 id=&#34;tablas&#34;&gt;Tablas&lt;/h2&gt;
+&lt;p&gt;Hacer tablas es muy fácil. Mira el siguiente ejemplo&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Se escribe así&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+Tabla: Descripción de la tabla
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;…to get…&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Right&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Left&lt;/th&gt;
+&lt;th&gt;Default&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;Center&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;12&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;12&lt;/td&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;123&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;123&lt;/td&gt;
+&lt;td&gt;123&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;123&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Tabla: Descripción de la tabla&lt;/p&gt;
+&lt;h2 id=&#34;pies-de-página&#34;&gt;Pies de página&lt;/h2&gt;
+&lt;p&gt;Para hacer pies de página debes saber cuál es su (1) identificador y (2) lo que quieres escribir en el pie de página. El identificador puede ser lo que tu quieras: pueden ser números como &lt;code&gt;[^1]&lt;/code&gt;, pero también pueden ser letras.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Debes escribir…&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Aquí escribo una referencia de mi tesis[^1] y aquí otra más [^note-sobre-marx].
+
+[^1]: Esta es una nota
+
+[^note-sobre-marx]: Marx, lo más genial. 
+
+Y bueno, aquí sigo escribiendo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Para obtener&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Aquí escribo una referencia de mi tesis&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;  y aquí otra más.&lt;a href=&#34;#fn2&#34; class=&#34;footnote-ref&#34; id=&#34;fnref2&#34;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Y bueno, aquí sigo escribiendo&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;Esta es una nota.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;Marx, lo más genial.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;la-cabeza-del-markdown&#34;&gt;La &amp;ldquo;cabeza&amp;rdquo; del Markdown&lt;/h2&gt;
+&lt;p&gt;Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama &lt;a href=&#34;https://learn.getgrav.org/16/advanced/yaml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YAML&lt;/a&gt;. Básicamente, con esto establecemos las &amp;ldquo;configuraciones&amp;rdquo; del texto.&lt;/p&gt;
+&lt;p&gt;Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &amp;ldquo;cabeza&amp;rdquo; del Markdown o &lt;strong&gt;YAMLS&lt;/strong&gt; está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (&lt;code&gt;---&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Título de mi tesis&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;13 de Agosto, 2021&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Estudiante UAH&amp;#34;&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  &lt;code&gt;Mi tesis: la más &amp;quot;genial&amp;quot; de Chile&lt;/code&gt;), entonces ponemos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title: `Mi tesis&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;la más &amp;#34;genial&amp;#34; de Chile`&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;otros-recursos-que-te-recomendamos-revisar&#34;&gt;Otros recursos que te recomendamos revisar&lt;/h2&gt;
+&lt;p&gt;En estos links podrás encontrar distintos ejemplos para practicar. También si quieres conocer más sobre quién creó esta maravilla, revisa sobre &lt;a href=&#34;https://www.youtube.com/watch?v=mT8FJcIx3HI&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Aaron Swartz&lt;/a&gt;.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://r4ds.had.co.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;R for Data Science&lt;/strong&gt;&lt;/a&gt;: A free online book for learning the basics of R and the tidyverse.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;R and RStudio cheat sheets&lt;/strong&gt;&lt;/a&gt;: A large collection of simple cheat sheets for RStudio, &lt;strong&gt;ggplot2&lt;/strong&gt;, and other R-related things.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://stat545.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Stat 545&lt;/strong&gt;&lt;/a&gt;: &lt;a href=&#34;https://twitter.com/JennyBryan&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Jenny Bryan&lt;/a&gt; at RStudio has an entire introductory course in R, visualization, and data analysis online.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www2.stat.duke.edu/courses/Fall17/sta112.01/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;STA 112FS: Data Science&lt;/strong&gt;&lt;/a&gt;: &lt;a href=&#34;https://twitter.com/minebocek&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Mine Çetinkaya-Rundel&lt;/a&gt; at the University of Edinburgh / Duke University has an entire introductory course in R, visualization, and data science online.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://cslu.ohsu.edu/~bedricks/courses/cs631/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;CSE 631: Principles &amp;amp; Practice of Data Visualization&lt;/strong&gt;&lt;/a&gt;: Yet another introductory course for R and ggplot2 by &lt;a href=&#34;https://twitter.com/apreshill&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dr. Alison Presmanes Hill&lt;/a&gt; at RStudio.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;r-in-the-wild&#34;&gt;R in the wild&lt;/h2&gt;
-&lt;p&gt;A popular (and increasingly standard) way for sharing your analyses and visualizations is to post an annotated explanation of your process somewhere online. RStudio allows you to publish knitted HTML files directly to &lt;a href=&#34;http://rpubs.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RPubs&lt;/a&gt;, but you can also post your output to a blog or other type of website.^[If you want to be really fancy, you can use &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;blogdown&lt;/a&gt;, which makes a complete website with R Markdown files. That&amp;rsquo;s actually how this site is built (&lt;a href=&#34;https://github.com/andrewheiss/datavizm20.classes.andrewheiss.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;see the source code&lt;/a&gt;). You can build your own site &lt;a href=&#34;https://apreshill.rbind.io/post/up-and-running-with-blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;with this tutorial&lt;/a&gt;.] Reading these kinds of posts is one of the best ways to learn R, since they walk you through each step of the process &lt;em&gt;and&lt;/em&gt; show the code and output.&lt;/p&gt;
-&lt;p&gt;Here are some of the best examples I&amp;rsquo;ve come across:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://varianceexplained.org/r/trump-tweets/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Text analysis of Trump&amp;rsquo;s tweets confirms he writes only the (angrier) Android half&lt;/a&gt; (with a &lt;a href=&#34;http://varianceexplained.org/r/trump-followup/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;follow-up&lt;/a&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/bob_ross.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bob Ross - Joy of Painting&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/bechdel.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bechdel analysis using the tidyverse&lt;/a&gt;: There are also a bunch of other examples &lt;a href=&#34;https://rudeboybert.github.io/fivethirtyeight/articles/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;using data from FiveThirtyEight&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://rpubs.com/Jwhitman/Final_Project&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sexism on the Silver Screen: Exploring film&amp;rsquo;s gender divide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://soc301s2017.netlify.com/group_projects/group5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comparison of Quentin Tarantino Movies by Box Office and the Bechdel Test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/who-came-to-vote/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Who came to vote in Utah&amp;rsquo;s caucuses?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/health-care-indicators/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Health care indicators in Utah counties&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://juliasilge.com/blog/song-lyrics-across/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Song lyrics across the United States&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.karawoo.com/2016/09/22/A-decade-ish-of-listening-to-Sigur-Ros&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;A decade (ish) of listening to Sigur Rós&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://rpubs.com/ry_lisa_elana/chicago&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;When is Tom peeping these days?&lt;/a&gt;: There are a also bunch of final projects from other R and data visualization classes &lt;a href=&#34;http://soc301s2017.netlify.com/group-projects/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://rudeboybert.github.io/MATH116/PS/final_project/final_project_outline.html#past_examples&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/09/18/mapping-fall-foliage-with-sf/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Mapping Fall Foliage&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/07/25/r%E2%81%B6-general-attys-distributions/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;General (Attys) Distributions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://rud.is/b/2017/06/18/r%E2%81%B6-disproving-approval/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Disproving Approval&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://commonmark.org/help/tutorial/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;CommonMark&amp;rsquo;s Markdown tutorial&lt;/strong&gt;&lt;/a&gt;: A quick interactive Markdown tutorial.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.markdowntutorial.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown tutorial&lt;/strong&gt;&lt;/a&gt;: Another interactive tutorial to practice using Markdown.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://packetlife.net/media/library/16/Markdown.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown cheatsheet&lt;/strong&gt;&lt;/a&gt;: Useful one-page reminder of Markdown syntax.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://plain-text.co/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;The Plain Person’s Guide to Plain Text Social Science&lt;/strong&gt;&lt;/a&gt;: A comprehensive explanation and tutorial about why you should write data-based reports in Markdown.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -546,7 +737,7 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
     </item>
     
     <item>
-      <title>Using R Markdown</title>
+      <title>Usando RMarkdown</title>
       <link>/resource/rmarkdown/</link>
       <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
       <guid>/resource/rmarkdown/</guid>
