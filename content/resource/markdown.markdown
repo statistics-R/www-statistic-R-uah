@@ -29,9 +29,9 @@ La buena noticia es que ya lo conoces: ¡nuestro amigo RStudio!
 </colgroup>
 <thead>
 <tr class="header">
-<th>Type…</th>
-<th>…or…</th>
-<th>…to get</th>
+<th>Escribe…</th>
+<th>…o…</th>
+<th>…para obtener</th>
 </tr>
 </thead>
 <tbody>
@@ -40,7 +40,7 @@ La buena noticia es que ya lo conoces: ¡nuestro amigo RStudio!
 Más texto
 espacio entre lineas.</pre></td>
 <td></td>
-<td><p>Algo de textp.</p>
+<td><p>Algo de texto.</p>
 <p>Algo de texto en el párrafo. Siempre utilizando
 espacios para dividir párrafos</p></td>
 </tr>

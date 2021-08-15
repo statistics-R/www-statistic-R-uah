@@ -8,17 +8,17 @@
   </url>
   
   <url>
+    <loc>/example/</loc>
+    <lastmod>2021-08-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/resource/install/</loc>
     <lastmod>2021-08-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/content/</loc>
-    <lastmod>2021-08-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/example/</loc>
     <lastmod>2021-08-09T00:00:00+00:00</lastmod>
   </url>
   
@@ -33,8 +33,13 @@
   </url>
   
   <url>
+    <loc>/example/02-practico/</loc>
+    <lastmod>2021-08-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2021-08-13T00:00:00+00:00</lastmod>
+    <lastmod>2021-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>

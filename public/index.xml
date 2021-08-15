@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Fri, 13 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 16 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Course materials</title>
@@ -156,6 +156,362 @@
     </item>
     
     <item>
+      <title>RStudio, tidyverse y RMarkdown</title>
+      <link>/example/02-practico/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/example/02-practico/</guid>
+      <description>&lt;h1 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h1&gt;
+&lt;p&gt;El objetivo de este práctico es crear nuestro primer reporte en &lt;strong&gt;RMarkdown&lt;/strong&gt; y contener en este el &lt;strong&gt;primer paso de un código en R: cargar paquetes&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos necesarios para la creación de su propio archivo en .Rmd. Este práctico será clave para la realización de tu &lt;a href=&#34;/assignament/01-tarea&#34;&gt;tarea N°1&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;materiales-de-la-sesión&#34;&gt;Materiales de la sesión&lt;/h2&gt;
+&lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;../../projects/02-class/02practico.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;1-conceptos-clave&#34;&gt;1. Conceptos clave&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;RMarkdown&lt;/strong&gt;&lt;/a&gt; es un archivo que puede integrar código de R (mediante chunks) y texto en &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/a&gt; a la vez. Todo el sitio web de este curso está creado con RMarkdown (y &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;un paquete llamado &lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;note&#34;&gt;
+&lt;p&gt;&lt;strong&gt;RMarkdown&lt;/strong&gt; tienen una estructura de al menos 3 partes&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Encabezado (YAML)&lt;/li&gt;
+&lt;li&gt;Código de R&lt;/li&gt;
+&lt;li&gt;Texto&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;imagen&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd&lt;/p&gt;
+&lt;h2 id=&#34;2-paso-a-paso-para-crear-un-rmarkdown&#34;&gt;2. Paso a paso para crear un RMarkdown&lt;/h2&gt;
+&lt;h3 id=&#34;paso-1-instalación-de-paquetes&#34;&gt;Paso 1: Instalación de paquetes&lt;/h3&gt;
+&lt;p&gt;Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita &amp;ldquo;compilar&amp;rdquo; los archivos construidos en .Rmd a formatos como &lt;code&gt;.pdf&lt;/code&gt;, &lt;code&gt;.html&lt;/code&gt;, &lt;code&gt;.doc&lt;/code&gt;. Para ello instalaremos 2 paquetes &lt;code&gt;knitr&lt;/code&gt; y &lt;code&gt;rmarkdown&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Usualmente para cargar paquetes lo hacemos de la siguiente manera:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;paquete&amp;#34;&lt;/span&gt;)
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(paquete)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Pero en esta ocasión utilizaremos un paquete llamado &lt;strong&gt;pacman&lt;/strong&gt;, este facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pacman&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;library &lt;/span&gt;(pacman)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Luego cargaremos así los paquetes de R, esto agiliza la carga de paquetes. Para este práctico cargaremos el paquete &lt;strong&gt;rmarkdown&lt;/strong&gt; y &lt;strong&gt;knit&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(rmarkdown,
+               knit)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;paso-2-crear-un-nuevo-archivo-en-rmarkdown&#34;&gt;Paso 2: Crear un nuevo archivo en Rmarkdown&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Una vez cargados los paquetes deben dirigirse a &lt;code&gt;File &amp;gt; New File &amp;gt; R Markdown&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/02practico/open_rmark_file.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Luego deben darle un título, poner su nombre y especificar un &lt;em&gt;formato de salida&lt;/em&gt; ya sea en &lt;strong&gt;HTML&lt;/strong&gt;, &lt;strong&gt;PDF&lt;/strong&gt; o &lt;strong&gt;Word&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/02practico/open_rmark_file2.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Les creará un archivo con un &lt;strong&gt;&lt;em&gt;YAML&lt;/em&gt;&lt;/strong&gt;, que tendrá la información general del documento y un &lt;strong&gt;&lt;em&gt;chunk&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/02practico/open_rmark_file.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las &lt;a href=&#34;#config&#34;&gt;configuraciones para dejarlo más lindo&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;paso-3-crear-el-archivo-con-formato-desde-el-rmd&#34;&gt;Paso 3: Crear el archivo con formato desde el .Rmd&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/hadley/r4ds/raw/master/images/RMarkdownFlow.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;note&#34;&gt;
+Es el botón que permite &lt;em&gt;compilar&lt;/em&gt; (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML (¡y por eso es tan importante también!)
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/assignments/knit-button.png&#34; width=&#34;30%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Es &lt;strong&gt;importante&lt;/strong&gt; que sepan que cuando se hace &lt;strong&gt;Knit&lt;/strong&gt;, R ejecuta cada uno de los trozos &lt;strong&gt;secuencialmente&lt;/strong&gt;. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)&lt;/p&gt;
+&lt;h2 id=&#34;config&#34;&gt;3. Configuraciones del RMarkdown&lt;/h2&gt;
+&lt;h3 id=&#34;31-encabezado-yaml&#34;&gt;3.1 Encabezado (YAML)&lt;/h3&gt;
+&lt;p&gt;Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama &lt;a href=&#34;https://learn.getgrav.org/16/advanced/yaml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YAML&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Básicamente, con esto establecemos las &amp;ldquo;configuraciones&amp;rdquo; del texto.&lt;/p&gt;
+&lt;p&gt;Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &amp;ldquo;cabeza&amp;rdquo; del Markdown o &lt;strong&gt;YAMLS&lt;/strong&gt; está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (&lt;code&gt;---&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Título de mi tesis&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;16 de Agosto, 2021&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Estudiante UAH&amp;#34;&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  &lt;code&gt;Mi tesis: la más &amp;quot;genial&amp;quot; de Chile&lt;/code&gt;), entonces ponemos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title: `Mi tesis&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;la más &amp;#34;genial&amp;#34; de Chile`&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;instrucciones-de-salida-en-yaml-output-formats&#34;&gt;Instrucciones de salida en YAML (Output formats)&lt;/h4&gt;
+&lt;p&gt;Los formatos de salida se ven en el encabezado (&lt;strong&gt;YAML&lt;/strong&gt;) del documento, aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma puedes especificar qué tipo de documento creas cuando &lt;em&gt;&amp;ldquo;Kniteas&amp;rdquo;&lt;/em&gt;  (es como &lt;em&gt;&amp;ldquo;tejer&amp;rdquo;&lt;/em&gt;, &lt;em&gt;construir&lt;/em&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mi documento&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;output&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;html_document&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;pdf_document&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;word_document&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También puedes hacer clic en la flecha hacia abajo del botón &amp;ldquo;Knit&amp;rdquo; para elegir la salida &lt;em&gt;y&lt;/em&gt; generar el YAML apropiado. Si hace clic en el icono del engranaje junto al botón &amp;ldquo;Knit&amp;rdquo; y elige &amp;ldquo;Output options&amp;rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/reference/output-options.png&#34; width=&#34;35%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;El primer tipo de salida que aparece en &lt;code&gt;output:&lt;/code&gt; será el que se genere al pulsar el botón &amp;ldquo;Knit&amp;rdquo; o al pulsar el atajo de teclado (&lt;code&gt;⌘⇧K&lt;/code&gt; en macOS; &lt;code&gt;control + shift + K&lt;/code&gt; en Windows). Si elige una salida diferente con el menú del botón &amp;ldquo;Knit&amp;rdquo;, esa salida se moverá a la parte superior de la sección &lt;code&gt;output&lt;/code&gt;.&lt;/p&gt;
+&lt;h5 id=&#34;adicionales-en-yaml&#34;&gt;Adicionales en YAML&lt;/h5&gt;
+&lt;p&gt;El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección &lt;code&gt;output&lt;/code&gt; suele verse:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
+&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mi tesis&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;author&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Valentina Andrade&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;date&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;16 Agosto 2021&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;output&lt;/span&gt;: 
+  &lt;span style=&#34;color:#f92672&#34;&gt;html_document&lt;/span&gt;:
+    &lt;span style=&#34;color:#f92672&#34;&gt;theme&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;cerulean&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;toc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;toc_depth&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;toc_float&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;number_sections&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;pdf_document&lt;/span&gt;: 
+    &lt;span style=&#34;color:#f92672&#34;&gt;latex_engine&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;xelatex &lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# Para hacer pdf&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;toc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;word_document&lt;/span&gt;: 
+    &lt;span style=&#34;color:#f92672&#34;&gt;toc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Es en el &lt;strong&gt;YAML&lt;/strong&gt; o &lt;strong&gt;encabezado&lt;/strong&gt; del documento, se puede modificar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;title&lt;/code&gt; y &lt;code&gt;subtitle&lt;/code&gt;: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;author&lt;/code&gt;: nombre del autor/a&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;date&lt;/code&gt;: fecha, puede ser escrita como ustedes quieran&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;output&lt;/code&gt;: opciones de salida (html, pdf, doc, ¡incluso ppt!)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;toc&lt;/code&gt;: &amp;ldquo;Table of contents&amp;rdquo; o en español, índice. El término &lt;code&gt;depth&lt;/code&gt; indica &amp;ldquo;profundidad&amp;rdquo; para ver cuántos títulos mostrar y &lt;code&gt;float&lt;/code&gt; para ver si se desliza automáticamente&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si quieres ver más opciones, &lt;a href=&#34;https://bookdown.org/yihui/rmarkdown/html-document.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;temas para tu documento puedes ver aquí&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;32-texto-markdown&#34;&gt;3.2 Texto (Markdown)&lt;/h3&gt;
+&lt;p&gt;Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;en la sección recurso&lt;/a&gt; o &lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;acá&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;40%&#34; /&gt;
+&lt;col width=&#34;21%&#34; /&gt;
+&lt;col width=&#34;38%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Escribe…&lt;/th&gt;
+&lt;th&gt;…o…&lt;/th&gt;
+&lt;th&gt;…para obtener&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;pre&gt;Algo de texto en el párrafo.&lt;br&gt;
+Más texto
+espacio entre lineas.&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;Algo de texto.&lt;/p&gt;
+&lt;p&gt;Algo de texto en el párrafo. Siempre utilizando
+espacios para dividir párrafos&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;*Cursivas*&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;_Cursivas_&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;Cursivas&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;**Negrita**&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;__Negrita__&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;Negrita&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;# Título 1&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h1 class=&#34;smaller-h1&#34;&gt;
+Título 1
+&lt;/h1&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;## Título 2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h2 class=&#34;smaller-h2&#34;&gt;
+Título 2
+&lt;/h2&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;### Título 3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;h3 class=&#34;smaller-h3&#34;&gt;
+Título 3
+&lt;/h3&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;(puedes llegar hasta un título N° 6 con &lt;code&gt;######&lt;/code&gt;)&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;code&gt;[Link text](http://www.example.com)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;http://www.example.com&#34;&gt;Link text&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;![Image caption](/path/to/image.png)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;img src=&#34;/img/mstile-144x144.png&#34; title=&#34;fig:&#34; alt=&#34;Class logo&#34; /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;`&lt;code&gt;Inline code` with backticks&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Inline code&lt;/code&gt; with backticks&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;code&gt;&amp;gt; Citas&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;blockquote&gt;
+&lt;p&gt;Citas&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;pre&gt;- Cosas en
+- listas
+- desordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;pre&gt;* Cosas en
+* listas
+* desordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;ul&gt;
+&lt;li&gt;Cosas en&lt;/li&gt;
+&lt;li&gt;listas&lt;/li&gt;
+&lt;li&gt;desordenadas&lt;/li&gt;
+&lt;/ul&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;&lt;pre&gt;1. Cosas en
+2. listas
+3. ordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;pre&gt;1) Cosas en
+2) listas
+3) ordenadas&lt;/pre&gt;&lt;/td&gt;
+&lt;td&gt;&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Cosas en&lt;/li&gt;
+&lt;li&gt;listas&lt;/li&gt;
+&lt;li&gt;ordenadas&lt;/li&gt;
+&lt;/ol&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;&lt;pre&gt;Línea horizontal
+&lt;p&gt;&amp;mdash;&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
+&lt;td&gt;&lt;pre&gt;Línea horizontal
+&lt;p&gt;***&lt;/pre&gt;&lt;/td&gt;&lt;/p&gt;
+&lt;td&gt;&lt;p&gt;Línea horizontal&lt;/p&gt;
+&lt;hr /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;33-código-en-r-chunks&#34;&gt;3.3 Código en R (Chunks)&lt;/h3&gt;
+&lt;p&gt;Para ingresar &lt;strong&gt;trozos&lt;/strong&gt; de código en R a nuestro documento ocuparemos los &lt;strong&gt;chunks&lt;/strong&gt;. Estos permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final&lt;/p&gt;
+&lt;p&gt;Los chunks se ven así dentro del .Rmd:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```{r}
+# El codigo va aquí
+
+````
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;331-añadir-chunks&#34;&gt;3.3.1 Añadir Chunks&lt;/h4&gt;
+&lt;p&gt;Hay tres formas de insertar chunks:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Pulsar &lt;code&gt;⌘⌥I&lt;/code&gt; en macOS o &lt;code&gt;cCntrol + aAt + I&lt;/code&gt; en Windows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pulsa el botón &amp;ldquo;Insert&amp;rdquo; en la parte superior de la ventana del editor&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;/img/reference/insert-chunk.png&#34; width=&#34;30%&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Escribirlo manualmente (no recomendado)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;332-nombrar-chunks&#34;&gt;3.3.2 Nombrar chunks&lt;/h4&gt;
+&lt;p&gt;Se puede añadir nombres a los chunks para hacer más fácil la navegación por el documento. Si haces clic en el pequeño menú desplegable en la parte inferior de tu editor en RStudio, puedes ver una tabla de contenidos que muestra todos los títulos y chunks. Si nombras los chunks, aparecerán en la lista. Si no incluyes un nombre, el chunk seguirá apareciendo, pero no sabrás lo que hace.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/reference/chunk-toc.png&#34; width=&#34;40%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Para añadir un nombre, inclúyelo inmediatamente después de la &lt;code&gt;{r&lt;/code&gt; en la primera línea del chunk. Los nombres no pueden contener espacios, pero sí guiones bajos y guiones.&lt;/p&gt;
+&lt;p&gt;Importante: &lt;strong&gt;Todos los nombres de chunk de tu documento deben ser únicos.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```{r nombre-chunk}
+# El codigo va aquí
+
+````
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;333-opciones-de-chunks&#34;&gt;3.3.3 Opciones de chunks&lt;/h4&gt;
+&lt;p&gt;Hay un montón de opciones diferentes que puedes establecer para cada chunk. Puedes ver una lista completa en la &lt;a href=&#34;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Guía de referencia de RMarkdown&lt;/a&gt; o en el &lt;a href=&#34;https://yihui.org/knitr/options/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;sitio web de &lt;strong&gt;knitr&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Las opciones van dentro de la sección &lt;code&gt;{r}&lt;/code&gt; del chunk:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```{r nombre-chunk, message = F, echo = F}
+# El codigo va aquí
+
+````
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Las opciones de chunk más comunes son estas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;fig.width=5&lt;/code&gt; y &lt;code&gt;fig.height=3&lt;/code&gt; (&lt;em&gt;o el número que quieras&lt;/em&gt;): Establece las dimensiones de las figuras&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;echo=FALSE&lt;/code&gt;: El código no se muestra en el documento final, pero los resultados si&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;message=FALSE&lt;/code&gt;: Se omiten los mensajes que genera R (como todas las notas que aparecen después de cargar un paquete)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;warning=FALSE&lt;/code&gt;: Se omiten las advertencias que genera R&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;include=FALSE&lt;/code&gt;: El chunk se sigue ejecutando, pero el código y los resultados no se incluyen en el documento final&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;También puedes configurar las opciones del chunk haciendo clic en el pequeño icono del engranaje en la esquina superior derecha de cualquier chunk:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/reference/chunk-options.png&#34; width=&#34;70%&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;4-resumen&#34;&gt;4. Resumen&lt;/h2&gt;
+&lt;p&gt;Dentro de la creación de archivos en RMarkdown, hay algunos &lt;strong&gt;conceptos claves&lt;/strong&gt; que si o si debes manejar para ir construyendo tus documentos en RMarkdown.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;YAML&lt;/strong&gt;: Es un encabezado al inicio del documento que inicia y acaba con tres guiones &lt;strong&gt;&amp;mdash;&lt;/strong&gt;*. Acá se introducen aspectos básicos del documento, como el título, el autor, la fecha y el formato de salida (output)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Chunk&lt;/strong&gt;: son &lt;strong&gt;trozos&lt;/strong&gt; de códigos de R, estor permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Knit&lt;/strong&gt;: Es el botón que permite &lt;em&gt;compilar&lt;/em&gt; (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;41-actividad-del-práctico&#34;&gt;4.1 Actividad del práctico&lt;/h3&gt;
+&lt;p&gt;La actividad tendrá relación con la entrega de la &lt;a href=&#34;&#34;&gt;&lt;strong&gt;Tarea 1&lt;/strong&gt;&lt;/a&gt;. Esta actividad consiste en la creación de un RMarkdown que contenga lo siguiente:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Un encabezado (YAML) con el título: &amp;ldquo;Práctico 2&amp;rdquo;. También deben incorporar su nombre y fecha&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Este encabezado debe tener una salida (output), deben elegit &lt;code&gt;html_output&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En el documento  deben incorporarla imagen &lt;code&gt;grafico01&lt;/code&gt; (que está en el .zip asociado a la clase)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finalmente, deben crear una tabla simple.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5-recursos&#34;&gt;5. Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RMarkdown en Ciencia de Datos - Hadley Whickham&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutoriales Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cheatsheets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Para practicar ir a &lt;a href=&#34;https://www.markdowntutorial.com/es/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial de Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;6-reporte-de-progreso&#34;&gt;6. Reporte de progreso&lt;/h2&gt;
+&lt;p&gt;¡Recuerda rellenar tu reporte de progreso! En &lt;a href=&#34;https://learn-r.formr.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://learn-r.formr.org/&lt;/a&gt;. Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Luego de apretar knit, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Luego, RStudio hace &amp;ldquo;pasar&amp;rdquo; ese documento vía &lt;a href=&#34;https://pandoc.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pandoc&lt;/a&gt; para convertirlo en HTML o PDF o Word (o cualquier salida que haya seleccionado). &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
       <title>¿Qué es Markdown?</title>
       <link>/resource/markdown/</link>
       <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
@@ -172,9 +528,9 @@
 &lt;/colgroup&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;Type…&lt;/th&gt;
-&lt;th&gt;…or…&lt;/th&gt;
-&lt;th&gt;…to get&lt;/th&gt;
+&lt;th&gt;Escribe…&lt;/th&gt;
+&lt;th&gt;…o…&lt;/th&gt;
+&lt;th&gt;…para obtener&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
@@ -183,7 +539,7 @@
 Más texto
 espacio entre lineas.&lt;/pre&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;p&gt;Algo de textp.&lt;/p&gt;
+&lt;td&gt;&lt;p&gt;Algo de texto.&lt;/p&gt;
 &lt;p&gt;Algo de texto en el párrafo. Siempre utilizando
 espacios para dividir párrafos&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;

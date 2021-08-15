@@ -172,9 +172,9 @@
 &lt;/colgroup&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;Type…&lt;/th&gt;
-&lt;th&gt;…or…&lt;/th&gt;
-&lt;th&gt;…to get&lt;/th&gt;
+&lt;th&gt;Escribe…&lt;/th&gt;
+&lt;th&gt;…o…&lt;/th&gt;
+&lt;th&gt;…para obtener&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
@@ -183,7 +183,7 @@
 Más texto
 espacio entre lineas.&lt;/pre&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;p&gt;Algo de textp.&lt;/p&gt;
+&lt;td&gt;&lt;p&gt;Algo de texto.&lt;/p&gt;
 &lt;p&gt;Algo de texto en el párrafo. Siempre utilizando
 espacios para dividir párrafos&lt;/p&gt;&lt;/td&gt;
 &lt;/tr&gt;
