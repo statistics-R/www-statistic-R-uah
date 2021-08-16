@@ -29,7 +29,8 @@
   
     
   
-  <meta name="description" content="Readings   Chapter 2 in Mastering ’Metrics1  Chapter 2, “Probability and Regression Review” in Causal Inference: The Mixtape (this is long; skim through this as a review)2  Recommended readings Look through your notes on regression from your last stats class." />
+  <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+IntroducciónRStudioRScriptPaso 1: Cargar paquetesRMarkdown¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/02-content/" />
@@ -288,7 +289,8 @@
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/02-content/" />
   <meta property="og:title" content="Herramientas para el uso de R | Análisis Estadístico en R" />
-  <meta property="og:description" content="Readings   Chapter 2 in Mastering ’Metrics1  Chapter 2, “Probability and Regression Review” in Causal Inference: The Mixtape (this is long; skim through this as a review)2  Recommended readings Look through your notes on regression from your last stats class." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+  <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+IntroducciónRStudioRScriptPaso 1: Cargar paquetesRMarkdown¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
@@ -664,51 +666,6 @@
       </li>
 
       
-      <li >
-        <a href="/content/03-content/">3: Importar y explorar datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/04-content/">4: Transformación y selección de variables</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/05-content/">5: Transformación estructura datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/06-content/">6: Análisis descriptivo</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/07-content/">7: Muestras complejas</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/08-content/">8: Pruebas de hipótesis</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/09-content/">9: Regresiones lineales</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/10-content/">10: Regresiones logísticas</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
-      </li>
-
-      
     </ul>
     
 
@@ -727,10 +684,11 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#readings">Readings</a></li>
-    <li><a href="#recommended-readings">Recommended readings</a></li>
-    <li><a href="#slides">Slides</a></li>
-    <li><a href="#videos">Videos</a></li>
+    <li><a href="#rprojects">Rprojects</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#de-rmarkdown">De RMarkdown</a></li>
   </ul>
 </nav>
 
@@ -756,102 +714,99 @@
                     
 
                     <div class="article-style">
-                        <h2 id="readings">Readings</h2>
-<ul>
-<li><i class="fas fa-book"></i> Chapter 2 in <em>Mastering ’Metrics</em><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
-<li><i class="fas fa-book"></i> <a href="https://mixtape.scunning.com/ch1.html" target="_blank" rel="noopener">Chapter 2, “Probability and Regression Review”</a> in <em>Causal Inference: The Mixtape</em> (this is long; skim through this as a review)<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
-</ul>
-<h2 id="recommended-readings">Recommended readings</h2>
-<p>Look through your notes on regression from your last stats class. Also, you can skim through these resources:</p>
-<ul>
-<li><i class="fas fa-book"></i> <a href="https://moderndive.com/6-regression.html" target="_blank" rel="noopener">6.1–6.4 in <em>ModernDive</em></a><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></li>
-<li><i class="fas fa-book"></i> <a href="https://moderndive.com/7-multiple-regression.html" target="_blank" rel="noopener">7.1–7.4 in <em>ModernDive</em></a><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></li>
-<li><i class="fas fa-book"></i> 7.1–7.3 in <em>OpenIntro Statistics</em><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></li>
-<li><i class="fas fa-book"></i> 8.1 in <em>OpenIntro Statistics</em><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></li>
-</ul>
-<p>We’ll review all this regression stuff in the videos, so <em>don’t panic</em> if this all looks terrifying! Also, take advantage of the videos that accompany the <em>OpenIntro</em> chapters. And <em>also</em>, the <em>OpenIntro</em> chapters are heavier on the math—don’t worry if you don’t understand everything.</p>
-<h2 id="slides">Slides</h2>
-<p>The slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
+                        <h1 id="slides">Slides</h1>
 <p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/02-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/02-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="introduction-tab" data-toggle="tab" href="#introduction" role="tab" aria-controls="introduction" aria-selected="true">Introduction</a>
+<a class="nav-link active" id="introducción-tab" data-toggle="tab" href="#introducción" role="tab" aria-controls="introducción" aria-selected="true">Introducción</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="drawing-lines-tab" data-toggle="tab" href="#drawing-lines" role="tab" aria-controls="drawing-lines" aria-selected="false">Drawing lines</a>
+<a class="nav-link" id="rstudio-tab" data-toggle="tab" href="#rstudio" role="tab" aria-controls="rstudio" aria-selected="false">RStudio</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="lines-greek-and-regression-tab" data-toggle="tab" href="#lines-greek-and-regression" role="tab" aria-controls="lines-greek-and-regression" aria-selected="false">Lines, Greek, and regression</a>
+<a class="nav-link" id="rscript-tab" data-toggle="tab" href="#rscript" role="tab" aria-controls="rscript" aria-selected="false">RScript</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="null-worlds-and-statistical-significance-tab" data-toggle="tab" href="#null-worlds-and-statistical-significance" role="tab" aria-controls="null-worlds-and-statistical-significance" aria-selected="false">Null worlds and statistical significance</a>
+<a class="nav-link" id="paso-1-cargar-paquetes-tab" data-toggle="tab" href="#paso-1-cargar-paquetes" role="tab" aria-controls="paso-1-cargar-paquetes" aria-selected="false">Paso 1: Cargar paquetes</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="rmarkdown-tab" data-toggle="tab" href="#rmarkdown" role="tab" aria-controls="rmarkdown" aria-selected="false">RMarkdown</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="introduction" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introduction-tab">
+<div id="introducción" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introducción-tab">
 <div class="embed-responsive embed-responsive-16by9">
 <iframe class="embed-responsive-item" src="/slides/02-slides.html#1">
 </iframe>
 </div>
 </div>
-<div id="drawing-lines" class="tab-pane fade" role="tabpanel" aria-labelledby="drawing-lines-tab">
+<div id="rstudio" class="tab-pane fade" role="tabpanel" aria-labelledby="rstudio-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#drawing-lines">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#4">
 </iframe>
 </div>
 </div>
-<div id="lines-greek-and-regression" class="tab-pane fade" role="tabpanel" aria-labelledby="lines-greek-and-regression-tab">
+<div id="rscript" class="tab-pane fade" role="tabpanel" aria-labelledby="rscript-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#lines-greek-regression">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#21">
 </iframe>
 </div>
 </div>
-<div id="null-worlds-and-statistical-significance" class="tab-pane fade" role="tabpanel" aria-labelledby="null-worlds-and-statistical-significance-tab">
+<div id="paso-1-cargar-paquetes" class="tab-pane fade" role="tabpanel" aria-labelledby="paso-1-cargar-paquetes-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/02-slides.html#significance">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#29">
+</iframe>
+</div>
+</div>
+<div id="rmarkdown" class="tab-pane fade" role="tabpanel" aria-labelledby="rmarkdown-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/02-slides.html#44">
 </iframe>
 </div>
 </div>
 </div>
 <div class="fyi">
-<strong>Fun fact</strong>: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+<strong>¿Cómo ocupar</strong>: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 </div>
-<h2 id="videos">Videos</h2>
-<p>Videos for each section of the lecture are <a href="https://www.youtube.com/playlist?list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" target="_blank" rel="noopener">available at this YouTube playlist</a>.</p>
+<h1 id="video-de-la-clase">Video de la clase</h1>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=S4OmWxc3h3Y&amp;list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" target="_blank" rel="noopener">Introduction</a></li>
-<li><a href="https://www.youtube.com/watch?v=DGbLEgL4g6Y&amp;list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" target="_blank" rel="noopener">Drawing lines</a></li>
-<li><a href="https://www.youtube.com/watch?v=n-rV1TIoIgw&amp;list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" target="_blank" rel="noopener">Lines, Greek, and regression</a></li>
-<li><a href="https://www.youtube.com/watch?v=RYKsrTKWCR4&amp;list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" target="_blank" rel="noopener">Null worlds and statistical significance</a></li>
+<li>[<i class="fas fa-video"></i> <code>Video de la clase</code>]</li>
 </ul>
-<p>You can also watch the playlist (and skip around to different sections) here:</p>
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/playlist?list=PLS6tnpTr39sERjvBbJGr9mpqvtiLVPzd4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-</div>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>Joshua D. Angrist and Jörn-Steffen Pischke, <em>Mastering ’Metrics: The Path from Cause to Effect</em> (Princeton, NJ: Princeton University Press, 2015). <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><em>Estará disponible después de la clase</em></p>
+<h1 id="materiales-de-la-clase">Materiales de la clase</h1>
+<h2 id="rprojects">Rprojects</h2>
+<ul>
+<li>
+<p><a href="https://github.com/learn-R/02-class/raw/main/02-class.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>02-class.zip</code></a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>Scott Cunningham, <em>Causal Inference: The Mixtape</em> (New Haven, CT: Yale University Press, 2021), <a href="https://mixtape.scunning.com/">https://mixtape.scunning.com/</a>. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li>
+<p><a href="https://learn-r-uah.netlify.app/example/02-practico/" target="_blank" rel="noopener"><i class="fas fa-laptop-code"></i> Práctico N°2</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
-<p>Chester Ismay and Albert Y. Kim, <em>ModernDive: An Introduction to Statistical and Data Sciences via R</em>, 2018, <a href="https://moderndive.com/">https://moderndive.com/</a>. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</ul>
+<h1 id="recomendaciones">Recomendaciones</h1>
+<ul>
+<li>
+<p><i class="fas fa-book"></i> Hadley Wickham, <a href="http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/" target="_blank" rel="noopener">“Data Science: How is it Different To Statistics?”</a></p>
 </li>
-<li id="fn:4" role="doc-endnote">
-<p>Ibid. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li>
+<p><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a></p>
+<ul>
+<li><small>Ver Tutorial N°1 Instalación de softwares</small></li>
+<li><small>Ver Tutorial N°2 GitHub y GitHub Class Room</small></li>
+</ul>
 </li>
-<li id="fn:5" role="doc-endnote">
-<p>David M. Diez, Christopher D. Barr, and Mine Çetinkaya-Rundel, <em>OpenIntro Statistics</em>, 3rd ed., 2017, <a href="https://www.openintro.org/stat/textbook.php?stat_book=os">https://www.openintro.org/stat/textbook.php?stat_book=os</a>. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li>
+<p><i class="fas fa-external-link-square-alt"></i> <a href="https://learn-r.formr.org" target="_blank" rel="noopener">Contestar reporte de registro</a></p>
 </li>
-<li id="fn:6" role="doc-endnote">
-<p>Ibid. <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+</ul>
+<h2 id="de-rmarkdown">De RMarkdown</h2>
+<ul>
+<li><a href="https://es.r4ds.hadley.nz/r-markdown.html" target="_blank" rel="noopener">RMarkdown en Ciencia de Datos - Hadley Whickham</a></li>
+<li><a href="https://rmarkdown.rstudio.com/" target="_blank" rel="noopener">R Markdown</a></li>
+<li><a href="https://rmarkdown.rstudio.com/lesson-1.html" target="_blank" rel="noopener">Tutoriales Markdown</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">cheatsheets</a></li>
+<li>Para practicar ir a <a href="https://www.markdowntutorial.com/es/" target="_blank" rel="noopener">Tutorial de Markdown</a></li>
+</ul>
 
                     </div>
 

@@ -747,7 +747,7 @@
 <h2 id="materiales-de-la-sesión">Materiales de la sesión</h2>
 <p>Recuerden que los archivos asociados a este práctico se pueden descargar aquí:</p>
 <ul>
-<li><a href="../../projects/02-class/02practico.zip"><i class="fas fa-file-archive"></i> <code>02-class.zip</code></a></li>
+<li><a href="https://github.com/learn-R/02-class/raw/main/02-class.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>02-class.zip</code></a></li>
 </ul>
 <h2 id="1-conceptos-clave">1. Conceptos clave</h2>
 <p><a href="https://rmarkdown.rstudio.com/" target="_blank" rel="noopener"><strong>RMarkdown</strong></a> es un archivo que puede integrar código de R (mediante chunks) y texto en <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener"><strong>Markdown</strong></a> a la vez. Todo el sitio web de este curso está creado con RMarkdown (y <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">un paquete llamado <strong>blogdown</strong></a>).</p>
@@ -755,13 +755,13 @@
 <p><strong>RMarkdown</strong> tienen una estructura de al menos 3 partes</p>
 <ol>
 <li>Encabezado (YAML)</li>
-<li>Código de R</li>
 <li>Texto</li>
+<li>Código de R</li>
 </ol>
 
 </div>
 
-<p><img src="imagen" alt=""></p>
+<p><img src="img/02/02rmd-example.jpg" alt=""></p>
 <p>¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd</p>
 <h2 id="2-paso-a-paso-para-crear-un-rmarkdown">2. Paso a paso para crear un RMarkdown</h2>
 <h3 id="paso-1-instalación-de-paquetes">Paso 1: Instalación de paquetes</h3>
@@ -801,7 +801,7 @@ Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos
 <p>Es <strong>importante</strong> que sepan que cuando se hace <strong>Knit</strong>, R ejecuta cada uno de los trozos <strong>secuencialmente</strong>. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)</p>
 <h2 id="config">3. Configuraciones del RMarkdown</h2>
 <h3 id="31-encabezado-yaml">3.1 Encabezado (YAML)</h3>
-<p>Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>.</p>
+<p>Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>.</p>
 <p>Básicamente, con esto establecemos las &ldquo;configuraciones&rdquo; del texto.</p>
 <p>Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &ldquo;cabeza&rdquo; del Markdown o <strong>YAMLS</strong> está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (<code>---</code>).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
@@ -822,9 +822,9 @@ Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos
   <span style="color:#f92672">pdf_document</span>: <span style="color:#ae81ff">default</span>
   <span style="color:#f92672">word_document</span>: <span style="color:#ae81ff">default</span>
 ---
-</code></pre></div><p>También puedes hacer clic en la flecha hacia abajo del botón &ldquo;Knit&rdquo; para elegir la salida <em>y</em> generar el YAML apropiado. Si hace clic en el icono del engranaje junto al botón &ldquo;Knit&rdquo; y elige &ldquo;Output options&rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.</p>
+</code></pre></div><p>También puedes hacer click en la flecha hacia abajo del botón &ldquo;Knit&rdquo; para elegir la salida <em>y</em> generar el YAML apropiado. Si hace click en el icono del engranaje junto al botón &ldquo;Knit&rdquo; y elige &ldquo;Output options&rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.</p>
 <p><img src="/img/reference/output-options.png" width="35%" /></p>
-<p>El primer tipo de salida que aparece en <code>output:</code> será el que se genere al pulsar el botón &ldquo;Knit&rdquo; o al pulsar el atajo de teclado (<code>⌘⇧K</code> en macOS; <code>control + shift + K</code> en Windows). Si elige una salida diferente con el menú del botón &ldquo;Knit&rdquo;, esa salida se moverá a la parte superior de la sección <code>output</code>.</p>
+<p>El primer tipo de salida que aparece en <code>output:</code> será el que se genere al pulsar el botón <strong>&ldquo;Knit&rdquo;</strong> o al pulsar el atajo de teclado (<code>⌘⇧K</code> en macOS; <code>control + shift + K</code> en Windows). Si elige una salida diferente con el menú del botón &ldquo;Knit&rdquo;, esa salida se moverá a la parte superior de la sección <code>output</code>.</p>
 <h5 id="adicionales-en-yaml">Adicionales en YAML</h5>
 <p>El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección <code>output</code> suele verse:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
@@ -844,7 +844,7 @@ Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos
   <span style="color:#f92672">word_document</span>: 
     <span style="color:#f92672">toc</span>: <span style="color:#66d9ef">true</span>
 ---
-</code></pre></div><p>Es en el <strong>YAML</strong> o <strong>encabezado</strong> del documento, se puede modificar:</p>
+</code></pre></div><p>En el <strong>YAML</strong> o <strong>encabezado</strong> del documento, se puede modificar:</p>
 <ul>
 <li>
 <p><code>title</code> y <code>subtitle</code>: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido</p>
@@ -994,7 +994,7 @@ Título 3
 <p>Hay tres formas de insertar chunks:</p>
 <ol>
 <li>
-<p>Pulsar <code>⌘⌥I</code> en macOS o <code>cCntrol + aAt + I</code> en Windows.</p>
+<p>Pulsar <code>⌘⌥I</code> en macOS o  <code>Control + Alt + I</code> en Windows</p>
 </li>
 <li>
 <p>Pulsa el botón &ldquo;Insert&rdquo; en la parte superior de la ventana del editor</p>

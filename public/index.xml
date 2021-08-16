@@ -156,6 +156,76 @@
     </item>
     
     <item>
+      <title>Tarea 1. Reporte en RMarkdown</title>
+      <link>/assignment/01-tarea/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/01-tarea/</guid>
+      <description>&lt;h1 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h1&gt;
+&lt;p&gt;Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/CzMiL4Gs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°1 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
+&lt;p&gt;La tarea N°1 consiste en la creación de un archivo &lt;strong&gt;RMarkdown&lt;/strong&gt; donde ustedes deben incorporar los siguientes elementos&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Un encabezado (YAML) con el título: &amp;ldquo;Tarea N°1&amp;rdquo;. También deben incorporar su nombre y fecha. Este encabezado debe tener una salida (output), esta debe ser en &lt;strong&gt;html&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Texto que indique dos subtítulos que separarán los dos procedimientos que deben contenerse en la entrega (## 1. Carga de paquetes y ## 2. Gráfico).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Chunks:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En el apartado &lt;code&gt;## 1. Carga de paquetes&lt;/code&gt; debes cargar uno de los paquetes más importantes para el curso. El chunk no se debe ver en el documento final, pero si en tu .Rmd&lt;/p&gt;
+&lt;p&gt;En el apartado &lt;code&gt;## 2. Gráfico&lt;/code&gt; debes incorporar una imagen llamada &lt;code&gt;grafico01.jpg&lt;/code&gt;. Esta imágen la puedes incorporar en formato Markdown o con chunks. Deja una breve explicación de ese gráfico, intenta utilizar &lt;em&gt;&lt;strong&gt;lenguaje Markdown&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;pasos-para-realizar-la-tarea&#34;&gt;Pasos para realizar la tarea&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Entra a GitHub Class Room para realizar la tarea N°1 (aceptar tarea). Debes clonar este repositorio. Si tienes dudas sobre este procedimiento, revisa el práctico N°1 o contáctanos vía slack.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una vez la tarea en tu computadora, no olvides crea un .Rproject llamado 01-tarea.Rproj que provenga de una &amp;ldquo;Carpeta existente&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En la carpeta crea una carpeta llamada &amp;ldquo;imagenes&amp;rdquo;. Dentro de esta carpeta deja el &lt;code&gt;gráfico91.jpg&lt;/code&gt;. Este puede ser cualquiera que resulte interesante para tí.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una vez finalizado todos los pasos del documento &lt;strong&gt;no olvides hacer knit&lt;/strong&gt; para que se compile tu documento final.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerden que puede ser realizada en pareja, la misma durante todo el semestre. Puede ser avisada hasta hoy lunes en la mañana.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tarea se puede entregar hasta el día viernes 23.59&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;R para ciencia de datos - Como usar RMarkdown&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-book&#34;&gt;&lt;/i&gt; Tutoriales&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutoriales Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cheatsheets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Para practicar ir a &lt;a href=&#34;https://www.markdowntutorial.com/es/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial de Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/02-content&#34;&gt;Sesión N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/02-practico&#34;&gt;Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>RStudio, tidyverse y RMarkdown</title>
       <link>/example/02-practico/</link>
       <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
@@ -166,7 +236,7 @@
 &lt;h2 id=&#34;materiales-de-la-sesión&#34;&gt;Materiales de la sesión&lt;/h2&gt;
 &lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;../../projects/02-class/02practico.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/02-class/raw/main/02-class.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;1-conceptos-clave&#34;&gt;1. Conceptos clave&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;RMarkdown&lt;/strong&gt;&lt;/a&gt; es un archivo que puede integrar código de R (mediante chunks) y texto en &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/a&gt; a la vez. Todo el sitio web de este curso está creado con RMarkdown (y &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;un paquete llamado &lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
@@ -174,13 +244,13 @@
 &lt;p&gt;&lt;strong&gt;RMarkdown&lt;/strong&gt; tienen una estructura de al menos 3 partes&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Encabezado (YAML)&lt;/li&gt;
-&lt;li&gt;Código de R&lt;/li&gt;
 &lt;li&gt;Texto&lt;/li&gt;
+&lt;li&gt;Código de R&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&#34;imagen&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/02/02rmd-example.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd&lt;/p&gt;
 &lt;h2 id=&#34;2-paso-a-paso-para-crear-un-rmarkdown&#34;&gt;2. Paso a paso para crear un RMarkdown&lt;/h2&gt;
 &lt;h3 id=&#34;paso-1-instalación-de-paquetes&#34;&gt;Paso 1: Instalación de paquetes&lt;/h3&gt;
@@ -220,7 +290,7 @@ Es el botón que permite &lt;em&gt;compilar&lt;/em&gt; (tejer o unir) el documen
 &lt;p&gt;Es &lt;strong&gt;importante&lt;/strong&gt; que sepan que cuando se hace &lt;strong&gt;Knit&lt;/strong&gt;, R ejecuta cada uno de los trozos &lt;strong&gt;secuencialmente&lt;/strong&gt;. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)&lt;/p&gt;
 &lt;h2 id=&#34;config&#34;&gt;3. Configuraciones del RMarkdown&lt;/h2&gt;
 &lt;h3 id=&#34;31-encabezado-yaml&#34;&gt;3.1 Encabezado (YAML)&lt;/h3&gt;
-&lt;p&gt;Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama &lt;a href=&#34;https://learn.getgrav.org/16/advanced/yaml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YAML&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama &lt;a href=&#34;https://learn.getgrav.org/16/advanced/yaml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;YAML&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Básicamente, con esto establecemos las &amp;ldquo;configuraciones&amp;rdquo; del texto.&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &amp;ldquo;cabeza&amp;rdquo; del Markdown o &lt;strong&gt;YAMLS&lt;/strong&gt; está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (&lt;code&gt;---&lt;/code&gt;).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
@@ -241,9 +311,9 @@ Es el botón que permite &lt;em&gt;compilar&lt;/em&gt; (tejer o unir) el documen
   &lt;span style=&#34;color:#f92672&#34;&gt;pdf_document&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;word_document&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
 ---
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También puedes hacer clic en la flecha hacia abajo del botón &amp;ldquo;Knit&amp;rdquo; para elegir la salida &lt;em&gt;y&lt;/em&gt; generar el YAML apropiado. Si hace clic en el icono del engranaje junto al botón &amp;ldquo;Knit&amp;rdquo; y elige &amp;ldquo;Output options&amp;rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También puedes hacer click en la flecha hacia abajo del botón &amp;ldquo;Knit&amp;rdquo; para elegir la salida &lt;em&gt;y&lt;/em&gt; generar el YAML apropiado. Si hace click en el icono del engranaje junto al botón &amp;ldquo;Knit&amp;rdquo; y elige &amp;ldquo;Output options&amp;rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/reference/output-options.png&#34; width=&#34;35%&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;El primer tipo de salida que aparece en &lt;code&gt;output:&lt;/code&gt; será el que se genere al pulsar el botón &amp;ldquo;Knit&amp;rdquo; o al pulsar el atajo de teclado (&lt;code&gt;⌘⇧K&lt;/code&gt; en macOS; &lt;code&gt;control + shift + K&lt;/code&gt; en Windows). Si elige una salida diferente con el menú del botón &amp;ldquo;Knit&amp;rdquo;, esa salida se moverá a la parte superior de la sección &lt;code&gt;output&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;El primer tipo de salida que aparece en &lt;code&gt;output:&lt;/code&gt; será el que se genere al pulsar el botón &lt;strong&gt;&amp;ldquo;Knit&amp;rdquo;&lt;/strong&gt; o al pulsar el atajo de teclado (&lt;code&gt;⌘⇧K&lt;/code&gt; en macOS; &lt;code&gt;control + shift + K&lt;/code&gt; en Windows). Si elige una salida diferente con el menú del botón &amp;ldquo;Knit&amp;rdquo;, esa salida se moverá a la parte superior de la sección &lt;code&gt;output&lt;/code&gt;.&lt;/p&gt;
 &lt;h5 id=&#34;adicionales-en-yaml&#34;&gt;Adicionales en YAML&lt;/h5&gt;
 &lt;p&gt;El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección &lt;code&gt;output&lt;/code&gt; suele verse:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;---
@@ -263,7 +333,7 @@ Es el botón que permite &lt;em&gt;compilar&lt;/em&gt; (tejer o unir) el documen
   &lt;span style=&#34;color:#f92672&#34;&gt;word_document&lt;/span&gt;: 
     &lt;span style=&#34;color:#f92672&#34;&gt;toc&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;
 ---
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Es en el &lt;strong&gt;YAML&lt;/strong&gt; o &lt;strong&gt;encabezado&lt;/strong&gt; del documento, se puede modificar:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;En el &lt;strong&gt;YAML&lt;/strong&gt; o &lt;strong&gt;encabezado&lt;/strong&gt; del documento, se puede modificar:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;title&lt;/code&gt; y &lt;code&gt;subtitle&lt;/code&gt;: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido&lt;/p&gt;
@@ -413,7 +483,7 @@ Título 3
 &lt;p&gt;Hay tres formas de insertar chunks:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Pulsar &lt;code&gt;⌘⌥I&lt;/code&gt; en macOS o &lt;code&gt;cCntrol + aAt + I&lt;/code&gt; en Windows.&lt;/p&gt;
+&lt;p&gt;Pulsar &lt;code&gt;⌘⌥I&lt;/code&gt; en macOS o  &lt;code&gt;Control + Alt + I&lt;/code&gt; en Windows&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Pulsa el botón &amp;ldquo;Insert&amp;rdquo; en la parte superior de la ventana del editor&lt;/p&gt;
@@ -1117,6 +1187,107 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;/div&gt;
 &lt;h2 id=&#34;8-reporte-de-progreso&#34;&gt;8. Reporte de progreso&lt;/h2&gt;
 &lt;p&gt;¡Recuerda rellenar tu reporte de progreso! En &lt;a href=&#34;https://learn-r.formr.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://learn-r.formr.org/&lt;/a&gt;. Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Herramientas para el uso de R</title>
+      <link>/content/02-content/</link>
+      <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/content/02-content/</guid>
+      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/02-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/02-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
+&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link active&#34; id=&#34;introducción-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#introducción&#34; role=&#34;tab&#34; aria-controls=&#34;introducción&#34; aria-selected=&#34;true&#34;&gt;Introducción&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;rstudio-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#rstudio&#34; role=&#34;tab&#34; aria-controls=&#34;rstudio&#34; aria-selected=&#34;false&#34;&gt;RStudio&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;rscript-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#rscript&#34; role=&#34;tab&#34; aria-controls=&#34;rscript&#34; aria-selected=&#34;false&#34;&gt;RScript&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;paso-1-cargar-paquetes-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#paso-1-cargar-paquetes&#34; role=&#34;tab&#34; aria-controls=&#34;paso-1-cargar-paquetes&#34; aria-selected=&#34;false&#34;&gt;Paso 1: Cargar paquetes&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;rmarkdown-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#rmarkdown&#34; role=&#34;tab&#34; aria-controls=&#34;rmarkdown&#34; aria-selected=&#34;false&#34;&gt;RMarkdown&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
+&lt;div id=&#34;introducción&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;introducción-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/02-slides.html#1&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rstudio&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;rstudio-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/02-slides.html#4&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rscript&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;rscript-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/02-slides.html#21&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;paso-1-cargar-paquetes&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;paso-1-cargar-paquetes-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/02-slides.html#29&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rmarkdown&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;rmarkdown-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/02-slides.html#44&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;fyi&#34;&gt;
+&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
+&lt;/div&gt;
+&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Estará disponible después de la clase&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&#34;materiales-de-la-clase&#34;&gt;Materiales de la clase&lt;/h1&gt;
+&lt;h2 id=&#34;rprojects&#34;&gt;Rprojects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/02-class/raw/main/02-class.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/example/02-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;recomendaciones&#34;&gt;Recomendaciones&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Data Science: How is it Different To Statistics?”&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;small&gt;Ver Tutorial N°1 Instalación de softwares&lt;/small&gt;&lt;/li&gt;
+&lt;li&gt;&lt;small&gt;Ver Tutorial N°2 GitHub y GitHub Class Room&lt;/small&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contestar reporte de registro&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;de-rmarkdown&#34;&gt;De RMarkdown&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RMarkdown en Ciencia de Datos - Hadley Whickham&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutoriales Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;cheatsheets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Para practicar ir a &lt;a href=&#34;https://www.markdowntutorial.com/es/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial de Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
