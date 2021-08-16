@@ -110,7 +110,7 @@ slides: "02-slides"
 
 ## Rprojects
 
--   [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-class.zip)
+-   [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-clase.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico N°2](https://learn-r-uah.netlify.app/example/02-practico/)
 
