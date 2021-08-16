@@ -22,7 +22,7 @@ Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos ne
 
 Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
-- [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-class.zip) 
+- [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-clase.zip) 
 
 ## 1. Conceptos clave
 
@@ -84,7 +84,7 @@ pacman::p_load(rmarkdown,
 
 3. Les creará un archivo con un **_YAML_**, que tendrá la información general del documento y un **_chunk_** 
 
-![](/img/example/02practico/open_rmark_file.png)<!-- -->
+![](/img/example/02practico/open_rmark_file3.png)<!-- -->
 
 4. Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las [configuraciones para dejarlo más lindo](#config)
 
