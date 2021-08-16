@@ -22,7 +22,7 @@ Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos ne
 
 Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
-- [<i class="fas fa-file-archive"></i> `02-class.zip`](../../projects/02-class/02practico.zip) 
+- [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-class.zip) 
 
 ## 1. Conceptos clave
 
@@ -33,12 +33,12 @@ Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 **RMarkdown** tienen una estructura de al menos 3 partes
 
 1. Encabezado (YAML)
-2. Código de R
-3. Texto
+2. Texto
+3. Código de R
 
 {{< /div >}}
 
-![](imagen)
+![](img/02/02rmd-example.jpg)
 
 ¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd
 
@@ -111,7 +111,7 @@ Es **importante** que sepan que cuando se hace **Knit**, R ejecuta cada uno de l
 
 ### 3.1 Encabezado (YAML)
 
-Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemeplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama [YAML](https://learn.getgrav.org/16/advanced/yaml).
+Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama [YAML](https://learn.getgrav.org/16/advanced/yaml).
 
 Básicamente, con esto establecemos las "configuraciones" del texto.
 
@@ -147,11 +147,11 @@ output:
 ---
 ```
 
-También puedes hacer clic en la flecha hacia abajo del botón "Knit" para elegir la salida *y* generar el YAML apropiado. Si hace clic en el icono del engranaje junto al botón "Knit" y elige "Output options" (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.
+También puedes hacer click en la flecha hacia abajo del botón "Knit" para elegir la salida *y* generar el YAML apropiado. Si hace click en el icono del engranaje junto al botón "Knit" y elige "Output options" (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.
 
 <img src="/img/reference/output-options.png" width="35%" />
 
-El primer tipo de salida que aparece en `output:` será el que se genere al pulsar el botón "Knit" o al pulsar el atajo de teclado (`⌘⇧K` en macOS; `control + shift + K` en Windows). Si elige una salida diferente con el menú del botón "Knit", esa salida se moverá a la parte superior de la sección `output`.
+El primer tipo de salida que aparece en `output:` será el que se genere al pulsar el botón **"Knit"** o al pulsar el atajo de teclado (`⌘⇧K` en macOS; `control + shift + K` en Windows). Si elige una salida diferente con el menú del botón "Knit", esa salida se moverá a la parte superior de la sección `output`.
 
 ##### Adicionales en YAML
 
@@ -178,7 +178,7 @@ output:
 ---
 ```
 
-Es en el **YAML** o **encabezado** del documento, se puede modificar:
+En el **YAML** o **encabezado** del documento, se puede modificar:
 
 - `title` y `subtitle`: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido
 
@@ -331,7 +331,7 @@ Los chunks se ven así dentro del .Rmd:
 
 Hay tres formas de insertar chunks:
 
-1. Pulsar `⌘⌥I` en macOS o `cCntrol + aAt + I` en Windows.
+1. Pulsar `⌘⌥I` en macOS o  `Control + Alt + I` en Windows
 
 2. Pulsa el botón "Insert" en la parte superior de la ventana del editor
 
