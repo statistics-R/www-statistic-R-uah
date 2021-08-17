@@ -236,7 +236,7 @@
 &lt;h2 id=&#34;materiales-de-la-sesión&#34;&gt;Materiales de la sesión&lt;/h2&gt;
 &lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/02-class/raw/main/02-class.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/02-class/raw/main/02-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;1-conceptos-clave&#34;&gt;1. Conceptos clave&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;RMarkdown&lt;/strong&gt;&lt;/a&gt; es un archivo que puede integrar código de R (mediante chunks) y texto en &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/a&gt; a la vez. Todo el sitio web de este curso está creado con RMarkdown (y &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;un paquete llamado &lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt;).&lt;/p&gt;
@@ -276,7 +276,7 @@
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;Les creará un archivo con un &lt;strong&gt;&lt;em&gt;YAML&lt;/em&gt;&lt;/strong&gt;, que tendrá la información general del documento y un &lt;strong&gt;&lt;em&gt;chunk&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;/img/example/02practico/open_rmark_file.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/02practico/open_rmark_file3.png&#34; alt=&#34;&#34;&gt;&lt;!-- --&gt;&lt;/p&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las &lt;a href=&#34;#config&#34;&gt;configuraciones para dejarlo más lindo&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
