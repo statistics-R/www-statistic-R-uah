@@ -102,9 +102,7 @@ slides: "02-slides"
 
 # Video de la clase
 
--   \[<i class="fas fa-video"></i> `Video de la clase`\]
-
-*Estará disponible después de la clase*
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/ng-5McE6dA8_cjBGouCZcEArBoP4IYUKuO3LYOdQqKmUoYuICw_cT4ENUCEEPaOZ.i-kqnRNBvpqj-U_I?startTime=1629145685000)
 
 # Materiales de la clase
 
