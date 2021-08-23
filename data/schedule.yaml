@@ -155,25 +155,25 @@ lessons:
     bottomborder: True
  
   - title: '<i class="fas fa-dice-one"></i> **Tarea 1: Reporte en Rmarkdown**'
-    date: "16 Agosto-20 Agosto"
+    date: "16 Agosto-27 Agosto"
     assignment: "01-tarea"
     bg: 3
     bottomborder: True
  
   - title: '<i class="fas fa-dice-two"></i> **Tarea 2: Procesamiento de datos**'
-    date: "6 Septiembre-10 septiembre"
+    date: "13 Septiembre-17 septiembre"
     assignment: "02-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 3: Análisis descriptivo**'
-    date: "13 Septiembre-17 septiembre"
+    date: "20 Septiembre-27 septiembre"
     assignment: "03-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 4: Muestras complejas**'
-    date: "27 Septiembre-1 octubre"
+    date: "4 octubre-8 octubre"
     assignment: "04-tarea"
     bg: 3
     bottomborder: True

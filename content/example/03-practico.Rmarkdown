@@ -12,335 +12,433 @@ editor_options:
   chunk_output_type: console
 ---
 
-## DAGs with dagitty.net
-
-The easiest way to quickly build DAGs and find adjustment sets and testable implications is to use [dagitty.net](http://dagitty.net/). 
-
-This video shows how to use it:
-
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3euqrnD9w7c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-
-## DAGs with R, ggdag, and dagitty
-
-You can use the [**ggdag**](https://ggdag.malco.io/) and [**dagitty**](http://dagitty.net/primer/) packages in R to build and work with DAGs too. I typically draw an initial DAG in my browser with dagitty.net and then I rewrite it in code in R so that it's more official and formal and reproducible.
-
-### Live coding example
-
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uoAjyyToUTE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-### Basic DAGs
-
-*(This is a heavily cleaned up and annotated version of the code from the video.)*
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width = 6, fig.asp = 0.618, fig.align = "center",
-                      fig.retina = 3, out.width = "75%", collapse = TRUE)
-set.seed(1234)
-options("digits" = 2, "width" = 150)
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable"))
 ```
 
-```{r libraries, warning=FALSE, message=FALSE}
-# Load packages
-library(tidyverse)  # For dplyr, ggplot, and friends
-library(ggdag)      # For plotting DAGs
-library(dagitty)    # For working with DAG logic
-```
 
-The general process for making and working with DAGs in R is to create a DAG object with `dagify()` and then plot it with `ggdag()`. The documentation for **ggdag** is really good and helpful and full of examples. Check these pages for all sorts of additional details:
-
-- ["An introduction to ggdag"](https://ggdag.malco.io/articles/intro-to-ggdag.html)
-- ["An introduction to directed acyclic graphs"](https://ggdag.malco.io/articles/intro-to-dags.html)
-- [List of all ggdag-related functions](https://ggdag.malco.io/reference/index.html)
-
-The syntax for `dagify()` is similar to the formula syntax you've been using for building regression models with `lm()`. The formulas you use in `dagify()` indicate the relationships between nodes.
-
-For instance, in this DAG, `y` is caused by `x`, `a`, and `b` (`y ~ x + a + b`), and `x` is caused by `a` and `b` (`x ~ a + b`). This means that `a` and `b` are confounders. Use the `exposure` and `outcome` arguments to specify which nodes are the exposure (or treatment/intervention/program) and the outcome.
-
-```{r super-basic-dag}
-# Create super basic DAG
-simple_dag <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y"
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
 )
-
-# Adding a theme_dag() layer to the plot makes it have a white background with no axis labels
-ggdag(simple_dag) +
-  theme_dag()
 ```
 
-If you want to plot which nodes are the exposure and outcome, use `ggdag_status()` instead:
+## 0. Objetivo del práctico
 
-```{r simple-status}
-ggdag_status(simple_dag) +
-  theme_dag()
+Este práctico tiene por objeto introducir a las y los estudiantes del curso en herramientas que les permitan a) **importar bases de datos en diversos formatos**; b)**seleccionar variables** de las bases de datos importadas; c) limpiar los datos, eliminando las filas con casos perdidos; y d) **exportar bases de datos** procesadas. Para ello, se trabajará con los paquetes `haven` (que forma parte, a su vez, del mundo de paquetes `tidyverse`), y `dplyr`, para poder importar  y exportar los datos, y manipular estos datos, respectivamente.
+
+## 1. Recursos de la práctica
+
+Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego _input/data_ de su repositorio. Para descomprimir los [archivos revisen](resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` o en STATA `Casen en Pandemia 2020 SPSS.dta`
+
+Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
+
+## 2. Librerias a utilizar
+
+En este práctico utilizaremos cuatro paquetes
+
+1. `pacman`: este facilita y agiliza la lectura de los paquetes a utilizar en R
+
+2. `sjmisc`: explorar datos
+
+3. `tidyverse`: colección de paquetes, del cuál utilizaremos `dplyr` y `haven`
+
+4. `haven`: cargar y exportar bases de datos en formatos .sav y .dta
+
+5. `readxl` y `writexl`: para cargar y exportar bases de datos en formato .xlsx y .xls
+
+6. `dplyr`: nos permite seleccionar variables de un set de datos
+
+# Pasos del procesamiento
+
+## 1. Cargar librerías
+
+Dado que ya cargamos `pacman` en el práctico anterior, no lo debemos volver a instalar. Ahora bien, si  cargaremos los nuevos paquetes. Les recordamos que cuando luego de un paquete ponemos `::` esto se refiere a que se *"fuerza"* que esa función provenga de *ese paquete*
+
+```{r packages, include=TRUE}
+pacman::p_load(sjmisc,
+               sjPlot,
+               tidyverse,
+               haven,
+               readxl,
+               writexl)
 ```
 
-### Layouts and manual coordinates
+## 2. Importar datos
 
-Notice how the layout is different in both of those graphs. By default, `ggdag()` positions the nodes randomly every time using a network algorithm. You can change the algorithm by using the `layout` argument: `ggdag(simple_dag, layout = "nicely")`. You can see a full list of possible algorithms by running `?layout_tbl_graph_igraph` in the console.
+Para poder realizar análisis estadístico de cualquier tipo, el primer paso - sin considerar, por supuesto, la formulación de un problema de investigación, y la búsqueda de datos que permitan resolverlo - es **importar una base de datos**. Por razones obvias, si no hemos cargados los datos en el *entorno*, no seremos capaces de realizar ningún otro procedimiento, ni de preparación de los datos - por ejemplo, seleccionar variables, recodificarlas, construir variables sumativas, entre otros -, ni de análisis de estos - ya sean descriptivos, relacionales, explicativos, y así. 
 
-Alternatively, you can specify your own coordinates so that the nodes are positioned in the same place every time. Do this with the `coords` argument in `dagify()`. 
+Una de las bondades de **R** es que es posible importar fácilmente datos que se encuentren en *cualquier formato*: ya sea .csv, .dta, .sav, .xlsx y, por supuesto, .RData. Para poder hacerlo, sin embargo, lo primero es *instalar* y *cargar* las **librerías** que contienen las **funciones** necesarias para la importación de distintos tipos de archivos. 
 
-The best way to figure out what these numbers should be is to draw the DAG on paper or on a whiteboard and add a grid to it and then figure out the coordinates. For instance, in this DAG there are three rows and three columns: `x` and `y` go in the middle row (row 2) while `a` and `b` go in the middle column (column 2). It can also be helpful to not include `theme_dag()` at first so you can see the numbers for the underlying grid. Once you have everything positioned correctly, add `theme_dag()` to clean it up.
 
-```{r dag-with-coords}
-simple_dag_with_coords <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y",
-  coords = list(x = c(x = 1, a = 2, b = 2, y = 3),
-                y = c(x = 2, a = 1, b = 3, y = 2))
-)
+### 2.1. Cargar set de datos
 
-ggdag_status(simple_dag_with_coords) +
-  theme_dag()
+Una vez cargado el paquete `haven`, procedemos a *importar* los datos anteriormente mencionados. Para ello, en nuestro script, dejamos indicado que a partir de la lectura de los datos con `read_sav()`, crearemos un objeto llamado `datos`. Si este procedimiento se logra, esto aparecerá en el *Enviroment*.
+
+```{r load, include=FALSE, warning= FALSE , message = F}
+temp <- tempfile()
+download.file("http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Casen_en_Pandemia_2020_SPSS.sav.zip",temp)
+datos <- haven::read_sav(unz(temp, "Casen en Pandemia 2020 SPSS.sav"))
+unlink(temp); remove(temp)
 ```
 
-### Node names and labels
-
-The variable names you use do not have to be limited to just `x`, `y`, and other lowercase letters. You can any names you want, as long as there are no spaces.
-
-```{r dag-with-names}
-dag_with_var_names <- dagify(
-  outcome ~ treatment + confounder1 + confounder2,
-  treatment ~ confounder1 + confounder2,
-  exposure = "treatment",
-  outcome = "outcome"
-)
-
-ggdag_status(dag_with_var_names) +
-  theme_dag()
+```{r, include= F}
+casen <- datos 
 ```
 
-However, unless you use very short names, it is likely that the text will not fit inside the nodes. To get around this, you can add labels to the nodes using the `labels` argument in `dagify()`. Plot the labels by setting `use_labels = "label"` in `ggdag()`. You can turn off the text in the nodes with `text = FALSE` in `ggdag()`.
+Antes ¿dónde están nuestros datos? Por lo general, nuestros datos los dejaremos en la carpeta `input/data`. En el [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing) podrán descargar el archivo .zip que contiene la base de CASEN. Si aún no sabes como descomprimir datos, por favor revisa [aquí](https://learn-r-udp.netlify.app/resource/unzipping/). 
 
-```{r dag-with-labels}
-simple_dag_with_coords_and_labels <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y",
-  labels = c(y = "Outcome", x = "Treatment",
-             a = "Confounder 1", b = "Confounder 2"),
-  coords = list(x = c(x = 1, a = 2, b = 2, y = 3),
-                y = c(x = 2, a = 1, b = 3, y = 2))
-)
+Luego de que hayas **descargado y descomprimido los datos** asegurate de dejar el archivo `.sav` y `.dta` en la carpeta de tu proyecto `input/data`. Los datos se llamarán en formato SPPS `Casen en Pandemia 2020 SPSS.sav` o en STATA `Casen en Pandemia 2020 SPSS.dta`.
 
-ggdag_status(simple_dag_with_coords_and_labels,
-             use_labels = "label", text = FALSE) +
-  guides(fill = FALSE, color = FALSE) +  # Disable the legend
-  theme_dag()
+
+{{< div "note" >}}
+Para **importar** los datos en R debemos tener en consideración tres cosas:
+
+1. Cómo se llaman los datos (en nuestro caso Casen en Pandemia 2020 SPSS)
+
+2. El formato de nuestros datos (en nuestro caso .sav)
+
+3. El lugar de donde están alojados nuestros datos. 
+{{< /div >}}
+
+El [paquete `haven`](https://haven.tidyverse.org/) tiene una serie de funciones para cargar datos llamadas `read_*` (el asterisco indica el formato). Para oculparlo solo debes tener en claro los puntos anteriores
+
+`read_*("ruta_hacia_archivo/nombre_archivo.*"``. En nuestro caso:
+
+
+```{r read, echo = T, eval = F}
+datos <- read_sav("Casen en Pandemia 2020 SPSS.sav")  # No funciona
+datos <- read_sav("input/data/casen en pandemia 2020 SPSS.sav") # No funciona
+datos <- read_sav("input/data/Casen en Pandemia 2020 SPSS.sav") 
 ```
 
+Los dos primeros comandos no funcionan porque
 
-### Paths and adjustment sets
+1. La ruta no está bien definida
 
-R can also perform analysis on DAG objects. For example, we can find all the testable implications from the DAG using the `impliedConditionalIndependencies()` function from the **dagitty** package. For this simple DAG, there is only one: `a` should be independent of `b`. If we had a dataset with columns for each of these variables, we could check if this is true by running `cor(a, b)` to see if the two are related.
+2. El nombre de la base no es exacto
 
-```{r find-independencies}
-impliedConditionalIndependencies(simple_dag)
+¡Dos errores muy frecuentes cuando uno se inicia! Ahora, ¿cómo se si está bien mi base? Primero, notarás que en tu **Enviroment** se ha creado un objeto. En nuestro caso objeto posee`r format(ncol(datos), decimal.mark="," , big.mark = ".")` variables (columnas), pero conserva las filas `r format( nrow(datos), decimal.mark="," , big.mark = ".")` (u observaciones)
+
+¡Ahora es tu turno! Intenta hacer este procedimiento con los datos en `.dta`. También puedes encontrar este archivo en el enlace.
+
+### 2.1.1 Cargar set de datos en otros formatos. 
+
+Ahora bien, no siempre este procedimiento será tan fácil sobre todo pues no siempre vendrán en formatos "limpios". La gran forma de lidiar con eso es con la **manipulación de datos** (algo que nos tomará tiempo en este curso), pero de todas formas es de gran ayuda utilizar de manera correcta la importación de datos. Nos puede solucionar varios problemas de codificación y lectura. 
+
+Para poder abordar esto de la mejor manera es necesario utilizar funciones *ad hoc* al formato de nuestros datos. Como se mencionó anteriormente, con R es muy flexible en esto. En los siguientes pasos les mostraremos como cargar en otros formatos y reconociendo algunos de los *problemas comunes con los cuáles te encontrarás* (de seguro...)
+
+#### a) `.dta`
+
+Este es el formato específico de base de datos para STATA. Por ello, utilizaremos la función `read_dta()` (también está como `read_stata()`), incluida en el paquete `haven`.
+
+```{r,echo = T, include=FALSE, eval = F}
+datos <- read_dta("input/data/Casen en Pandemia 2020 SPSS.dta") 
 ```
 
-We can also find all the paths between `x` and `y` using the `paths()` function from the **dagitty** package. We can see that there are three open paths between `x` and `y`:
+#### b) .RData y .rds
 
-```{r find-paths}
-paths(simple_dag)
-```
+¿Y R tiene formato de datos? ¡Sí! Como son propios del programa **no es necesario cargar paquetes** pues sus funciones provienen del paquete  `base`. La diferencia básica entre `.RData` y `.rds` es que `.rds` puede contener solo un objeto del *Enviroment* de R, mientras que `.RData` puede contener múltiples objetos que han sido guardados en `.rds`.
 
-The first open path is fine—we want a single *d*-connected relationship between treatment and outcome—but the other two indicate that there is confounding from `a` and `b`. We can see what each of these paths are with the `ggdag_paths()` function from the **ggdag** package:
+{{< div "note" >}}
+*Leer un objeto proveniente de un archivo*
 
-```{r plot-dag-paths, fig.width=8}
-ggdag_paths(simple_dag_with_coords) +
-  theme_dag()
-```
+readRDS(file = "datos.rds")
 
-Instead of listing out all the possible paths and identifying backdoors by hand, you can use the `adjustmentSets()` function in the **dagitty** package to programmatically find all the nodes that need to be adjusted. Here we see that both `a` and `b` need to be controlled for to isolate the `x -> y` relationship.
+*Leer múltiples objetos a un archivo*
+load(file = "datos.RData")
+{{</div>}}
 
-```{r find-adjustment-sets}
-adjustmentSets(simple_dag)
-```
-
-You can also visualize the adjustment sets with `ggdag_adjustment_set()` in the **ggdag** package. Make sure you set `shadow = TRUE` to draw the arrows coming out of the adjusted nodes—by default, those are not included.
-
-```{r plot-adjustment-sets}
-ggdag_adjustment_set(simple_dag_with_coords, shadow = TRUE) +
-  theme_dag()
-```
-
-R will find minimally sufficient adjustment sets, which includes the fewest number of adjustments needed to close all backdoors between `x` and `y`. In this example DAG there was only one set of variables (`a` and `b`), but in other situations there could be many possible sets, or none if the causal effect is not identifiable.
-
-### Plot DAG from dagitty.net with `ggdag()`
-
-If you use [dagitty.net](http://dagitty.net/) to draw a DAG, you'll notice that it generates some code for you in the model code section:
-
-```{r dagitty-model-code-example, echo=FALSE}
-knitr::include_graphics("/img/example/dagitty-code.png", error = FALSE)
-```
-
-You can copy that `dag{ ... }` code and paste it into R to define a DAG object rather than use the `dagify()` function. To do this, use the `dagitty()` function from the **dagitty** library and include the whole generated model code in single quotes (`''`):
-
-```{r code-from-dagitty}
-model_from_dagitty <- dagitty('dag {
-bb="0,0,1,1"
-"A confounder" [pos="0.809,0.306"]
-"Another confounder" [pos="0.810,0.529"]
-"Some outcome" [outcome,pos="0.918,0.432"]
-"Some treatment" [exposure,pos="0.681,0.426"]
-"A confounder" -> "Some outcome"
-"A confounder" -> "Some treatment"
-"Another confounder" -> "Some outcome"
-"Another confounder" -> "Some treatment"
-"Some treatment" -> "Some outcome"
-}
-')
-
-ggdag(model_from_dagitty) +
-  theme_dag()
-```
-
-By default it's going to look ugly because (1) the node labels don't fit, and (2) slight differences in the coordinates make it so the nodes don't perfectly align with each other. To fix coordinate alignment, you can modify the numbers in the generated DAG code. Here I rounded the numbers so that they're all 0.3, 0.8, etc.
-
-To fix the label issue, you can add the `use_labels` argument like normally. Only here, you can't specify `use_labels = "label"`. Instead, when you specify a DAG using dagitty's code like this, the column in the underlying dataset that contains the labels is named `name`, so you need to use `use_labels = "name"`.
-
-Other `ggdag()` variations like `ggdag_status()` will still work fine.
-
-```{r code-from-dagitty-better}
-model_from_dagitty_rounded <- dagitty('dag {
-bb="0,0,1,1"
-"A confounder" [pos="0.8,0.3"]
-"Another confounder" [pos="0.8,0.5"]
-"Some outcome" [outcome,pos="0.9,0.4"]
-"Some treatment" [exposure,pos="0.7,0.4"]
-"A confounder" -> "Some outcome"
-"A confounder" -> "Some treatment"
-"Another confounder" -> "Some outcome"
-"Another confounder" -> "Some treatment"
-"Some treatment" -> "Some outcome"
-}
-')
-
-ggdag_status(model_from_dagitty_rounded, text = FALSE, use_labels = "name") +
-  guides(color = FALSE) +  # Turn off legend
-  theme_dag()
-```
-
-
-## Mosquito net example
-
-### Conditional independencies
-
-You can test if your stated relationships are correct by looking at the conditional independencies that are implied by the DAG. In dagitty.net, these appear in the sidebar in the "Testable implications" section. To show how this works, we'll use a simulated dataset that I generated about a fictional mosquito net program. Download the data here if you want to follow along:
-
-- [<i class="fas fa-table"></i> `mosquito_nets.csv`](/data/mosquito_nets.csv)
-
-Researchers are interested in whether using mosquito nets decreases an individual's risk of contracting malaria. They have collected data from 1,752 households in an unnamed country and have variables related to environmental factors, individual health, and household characteristics. Additionally, this country has a special government program that provides free mosquito nets to households that meet specific requirements: to qualify for the program, there must be more than 4 members of the household, and the household's monthly income must be lower than \$700 a month. Households are not automatically enrolled in the program, and many do not use it. The data is not experimental—researchers have no control over who uses mosquito nets, and individual households make their own choices over whether to apply for free nets or buy their own nets, as well as whether they use the nets if they have them.
-
-```{r build-mosquito-dag, fig.width=8}
-mosquito_dag <- dagify(
-  malaria_risk ~ net + income + health + temperature + resistance,
-  net ~ income + health + temperature + eligible + household,
-  eligible ~ income + household,
-  health ~ income,
-  exposure = "net",
-  outcome = "malaria_risk",
-  coords = list(x = c(malaria_risk = 7, net = 3, income = 4, health = 5,
-                      temperature = 6, resistance = 8.5, eligible = 2, household = 1),
-                y = c(malaria_risk = 2, net = 2, income = 3, health = 1,
-                      temperature = 3, resistance = 2, eligible = 3, household = 2)),
-  labels = c(malaria_risk = "Risk of malaria", net = "Mosquito net", income = "Income",
-             health = "Health", temperature = "Nighttime temperatures",
-             resistance = "Insecticide resistance",
-             eligible = "Eligible for program", household = "Number in household")
-)
-
-ggdag_status(mosquito_dag, use_labels = "label", text = FALSE) +
-  guides(fill = FALSE, color = FALSE) +  # Disable the legend
-  theme_dag()
-```
-
-The causal graph above  outlines the complete relationship between mosquito net use and risk of malaria. Each node in the DAG is a column in the dataset collected by the researchers, and includes the following:
-
-- Malaria risk (`malaria_risk`): The likelihood that someone in the household will be infected with malaria. Measured on a scale of 0–100, with higher values indicating higher risk.
-- Mosquito net (`net` and `net_num`): A binary variable indicating if the household used mosquito nets.
-- Eligible for program (`eligible`): A binary variable indicating if the household is eligible for the free net program.
-- Income (`income`): The household's monthly income, in US dollars.
-- Nighttime temperatures (`temperature`): The average temperature at night, in Celsius.
-- Health (`health`): Self-reported healthiness in the household. Measured on a scale of 0–100, with higher values indicating better health.
-- Number in household (`household`): Number of people living in the household.
-- Insecticide resistance (`resistance`): Some strains of mosquitoes are more resistant to insecticide and thus pose a higher risk of infecting people with malaria. This is measured on a scale of 0–100, with higher values indicating higher resistance.
-
-According to the DAG, malaria risk is caused by income, temperatures, health, insecticide resistance, and mosquito net use. People who live in hotter regions, have lower incomes, have worse health, are surrounded by mosquitoes with high resistance to insecticide, and who do not use mosquito nets are at higher risk of contracting malaria than those who do not. Mosquito net use is caused by income, nighttime temperatures, health, the number of people living in the house, and eligibility for the free net program. People who live in areas that are cooler at night, have higher incomes, have better health, have more people in the home, and are eligible for free government nets are more likely to regularly use nets than those who do not. The DAG also shows that eligibility for the free net program is caused by income and household size, since households must meet specific thresholds to qualify.
-
-First, let's download the dataset, put in a folder named `data`, and load it:
-
-- [<i class="fas fa-table"></i> `mosquito_nets.csv`](/data/mosquito_nets.csv)
-
-```{r load-data-fake, eval=FALSE}
-# Load the data.
-# It'd be a good idea to click on the "mosquito_nets.csv" object in the
-# Environment panel in RStudio to see what the data looks like after you load it
-mosquito_nets <- read_csv("data/mosquito_nets.csv")
-```
-
-```{r load-data-real, include=FALSE}
-mosquito_nets <- read_csv(here::here("static", "data", "mosquito_nets.csv"))
-```
-
-We can use this data to check if the relationships defined by our DAG reflect reality. Recall that *d*-separation implies that nodes are statistically independent of each other and do not transfer associational information. If you draw the mosquito net DAG with dagitty.net, or if you run `impliedConditionalIndependencies()` in R, you can see a list of all the implied conditional independencies. 
+Además de **nunca olvidar la ruta**, no debes olvidar una diferencia de codificación entre ambas funciones: con `load()` los objetos se cargan *automáticamente* en el ambiente, mientras que en `readRDS()` no. Solamente "llama" a los archivos, pero no los deja como un objeto dentro del *Enviroment*. 
 
 ```{r}
-impliedConditionalIndependencies(mosquito_dag)
+load(file = "input/data/CASEN.RData")
+readRDS(file = "input/data/CASEN.rds")
 ```
-
-The `_||_` symbol in the output here is the $\perp$ symbol, which means "independent of". The `|` in the output means "given".
-
-In the interest of space, we will not verify all these implied independencies, but we can test a few of them:
-
-- $\text{Health} \perp \text{Household members}$: (Read as *"Health is independent of household member count"*.) Health should be independent of the number of people in each household. In the data, the two variables should not be correlated. This is indeed the case:
-
-```{r indent="    "}
-cor(mosquito_nets$health, mosquito_nets$household)
-```
-
-- $\text{Income} \perp \text{Insecticide resistance}$: (Read as *"Income is independent of insecticide resistance"*.) Income should be independent of insecticide resistance. This is again true:
-
-```{r indent="    "}
-cor(mosquito_nets$income, mosquito_nets$resistance)
-```
-
-- $\text{Malaria risk} \perp \text{Household members}\ |\ \text{Health, Income, Bed net use, Temperature}$: (Read as *"Malaria risk is independent of house member count given health, income, bed net use, and temperature"*.) Malaria risk should be independent of the number of household members given similar levels of health, income, mosquito net use, and nighttime temperatures. We cannot use `cor()` to test this implication, since there are many variables involved, but we can use a regression model to check if the number of household members is significantly related to malaria risk. It is not significant ($t = -0.17$, $p = 0.863$), which means the two are independent, as expected.
-
-```{r indent="    "}
-lm(malaria_risk ~ household + health + income + net + temperature,
-   data = mosquito_nets) %>%
-  broom::tidy()
-```
-
-We can check all the other conditional independencies to see if the DAG captures the reality of the full system of factors that influence mosquito net use and malaria risk. If there are substantial and significant correlations between nodes that should be independent, there is likely an issue with the specification of the DAG. Return to the theory of how the phenomena are generated and refine the DAG more.
-
-
-### Mosquito net adjustment sets
-
-There is a direct path between mosquito net use and the risk of malaria, but the effect is not causally identified due to several other open paths. We can either list out all the paths and find which open paths have arrows pointing backwards into the mosquito net node (run `paths(mosquito_dag)` to see these results), or we can let R find the appropriate adjustment sets automatically:
 
 ```{r}
-adjustmentSets(mosquito_dag)
+datos <- readRDS(file = "input/data/CASEN.rds")
 ```
 
-Based on the relationships between all the nodes in the DAG, adjusting for health, income, and temperature is enough to close all backdoors and identify the relationship between net use and malaria risk. Importantly, we do not need to worry about any of the nodes related to the government program for free nets, since those nodes are not *d*-connected to malaria risk. We only need to worry about confounding relationships.
 
-We can confirm this graphically with `ggdag_adjustment_set()`:
+¿Solo contiene datos? ¡No! Además de que puede contener múltiples datos, puede guardar otros *objetos* que se creen en su proceso estadístico. Por ejemplo, *modelos* ¡Lo veremos más adelante!
 
-```{r plot-mosquito-adjustment-fake}
-ggdag_adjustment_set(mosquito_dag, shadow = TRUE,
-                     use_labels = "label", text = FALSE) +
-  theme_dag()
+#### c) `.csv`
+
+Los archivos en `.csv` o `.txt` son de frecuente uso dado que son más livianos que un archivo en `.dta` o `.sav` por el *meta-data* que contienen (información adicional, además de columnas-filas). El paquete `utils` de `R base` tiene una función de muy buena calidad llamada `read.table` (`read.csv()` para archivos en `.csv` y `read.delim()` para archivos en `.txt`)
+
+Su estructura es muy simple `read.*(file = "datos.*")`. Ahora bien tiene una serie de argumentos que permiten leer de mejor manera los archivos **y de seguro los ocuparás**:
+
+- [`sep`]: indica con qué están separadas las columnas (*; , -*)
+
+- [`dec`]: indica como están separados los decimales (*. ,*)
+- [`na-strings`]: indica como están codificados los `NA` (¡podría ser más de una forma!)
+
+- [`encoding`]:puede ser `UTF-8` o `Latin-1`
+
+- [`skip`]: indica el *número* de filas que hay que saltarse (no siempre los csv y excel parten en la primera fila). El argumento `nrow` indica el número de filas máximas a leer
+
+- [`stringsAsFactors`]: si se indica verdadero (`TRUE`) los carácteres serán transformados en factores, lo cuál será muy útil en caso de necesitar hacer análisis.
+
+```{r, eval = F}
+datos <- read.csv("input/data/CASEN.csv", sep=",", 
+                  encoding = "UTF-8", stringsAsFactors = F)
+
+head(datos)
 ```
+
+Muchos problemas, ¡vamos solucionado!
+
+```{r, eval = F}
+datos <- read.csv("input/data/CASEN.csv", sep=";", 
+                  encoding = "Latin-1", stringsAsFactors = F, na.strings = c("No sabe", NA))
+
+```
+
+
+#### d) `.xlsx` 
+
+A partir del paquete `readxl` de `tidyverse` podremos obtener datos que provienen de Excel (tanto en formato `.xls` como `.xlsx`). Ocuparemos la función `read_excel()`, la cual tiene similares argumentos a `read.csv()`
+
+{{< div "note" >}}
+`read_excel("datos.xlsx", sheet = "Hoja 1", range = "A1:C40")`
+`read_excel("datos.xlsx", sheet = 2, skip = 4, na = "No sabe")`
+{{</div>}}
+
+```{r}
+datos <- readxl::read_excel(path = "input/data/CASEN.xlsx")
+```
+
+¡Hemos sido engañados/as! ¿Cómo solucionar?
+
+```{r}
+datos <- readxl::read_excel(path = "input/data/CASEN.xlsx", sheet = "Hoja1", skip = 1)
+
+datos <- readxl::read_excel(path = "input/data/CASEN.xlsx", sheet = "Hoja1", skip = 1, na = "NA")
+
+```
+
+Para seguir con este ejercicio volvamos a utilizar la base original en `.dta`
+
+```{r, eval = F }
+datos <- read_dta("input/data/Casen en Pandemia 2020 SPSS.dta") 
+```
+
+```{r, include = F}
+datos <- casen 
+```
+
+
+## 3. Explorar datos 
+
+Lo más probable es que, una vez importados los datos a utilizar, no trabajemos con el total de variables incluidas en estos (que, en este caso, suman un total de *650* columnas). Es por ello, que debemos **seleccionar** las variables de interés para resolver nuestro problema de investigación (sea el que sea). 
+
+Antes de seleccionar las variables debemos **explorar nuestros datos**, si no ¿cómo saber qué seleccionar y qué no? En R base las funciones clásicas para explorar datos son
+
+```{r eval = F}
+View(datos) # Ver datos
+names(datos) # Nombre de columnas
+dim(datos) # Dimensiones
+str(datos) # Estructura de los datos (las clases y categorias de repuesta)
+```
+
+A pesar de que son fáciles de aprender, no tienen una visualización muy amena. Un excelente paquete para explorar datos es `sjmisc` quien tiene tres funciones claves:
+
+- [`View_df()`]: que en el visor "Viewer" les mostrará una tabla que tiene el nombre de variable, etiqueta y categorías de respuesta
+
+- [`find_var()`]: que permite indagar en variables que estamos buscando según sus temáticas
+
+- [`frq()`]: nos otorga la distribución univariada de variables categóricas que estamos explorando
+
+- [`descr()`]: nos otorga estadísticos de tendencia central para la variable numérica seleccionada. 
+
+*Ver datos en el visor*
+```{r, eval = F }
+sjPlot::view_df(datos)
+```
+
+*Buscar variables sobre temáticas relacionadas a "vivienda" (no olvides dejarla entre comillas)*
+```{r}
+find_var(datos, "pobreza")
+find_var(datos, "salario")
+```
+
+**Explorar distirbución de las variables**
+```{r}
+frq(datos$pobreza)
+```
+
+```{r , eval = F}
+frq(datos$y1) #¡Qué feo!
+```
+
+```{r, echo= F }
+head(frq(datos$y1)) #¡Qué feo!
+```
+
+Para las variables numeric, en cambio, podemos utilizar la función `descr()` del mismo paquete, que nos indicará las *medidas de tendencia central, dispersión y posición* de la variable.
+
+```{r,echo = T, include=FALSE}
+descr(datos$y1)
+```
+
+
+#### Sobre las clases de las variables
+
+Un punto que ya se hace evidente de empezar a trabajar son como reconocer y trabajar **los distintos tipos de variables en R**. Si bien al inicio no es tan intuitivo ¡no te preocupes! Cuando uno avanza en el aprendizaje del programa de a poco estos conceptos se asimilan más. 
+
+Partamos por lo básico que ustedes ya saben de sus cursos de estadística: **los niveles de medición**:  sabemos que el nivel de medición de la variable *género* es *nominal* y, por lo tanto, sólo nos permite clasificar a unas personas u otras. Por ello, no podemos, por ejemplo, calcular el promedio del género de una muestra. Por otra parte, la variable *edad* presenta un nivel de medición *de razón*, por lo cual sí podemos realizar con ella operaciones aritméticas y, en consecuencia, es posible, por ejemplo, calcular el promedio de edad de la muestra con que estamos trabajando. 
+
+La función `class()`, incluido en el *paquete base* de R, nos permite saber la *clase* de una variable determinada con la cual deseemos trabajar. También nos permite conocer la clase de otros objetos en R, pero no es algo que utilizaremos (aún).
+
+### a) `numeric`
+
+Una variable puede presentar la clase  `numeric`, lo cual significa que sus datos *sólo incorporan números*. Así, es posible, por ejemplo, calcular el promedio para este tipo de variables. En *Casen en Pandemia 2020*, una de las variables `numeric` incluidas es *Ingreso total per cápita del hogar corregido* (codificada como ypchtotcor).
+
+```{r,echo = T}
+class(datos$ypchtotcor)
+```
+
+### b) `character`
+
+Una variable de clase `character` puede incluir tanto números como letras. Si bien con estas variables no es posible calcular, por ejemplo, promedios, sí podemos calcular frecuencias (absolutas y relativas), entre otros. 
+
+### c) `Logic`
+
+Una variable de clase `Logic` incluye valores lógicos, como TRUE (T) o FALSE (F). Los valores nulos (NA) también son valores lógicos. Este tipo de variables nos pueden servir a la hora de crear funciones, lo cual no se revisará en este práctico.
+
+### d) `factor`
+
+Una variable de clase `factor` puede incluir tanto números como letras. Es una especie de variable `character`, pero recodificada de modo que los posibles valores sean etiquetados. Las bases de datos no suelen incluirlas a priori, por lo que lo usual es que debamos realizar un proceso de *recodificación* para poder trabajar una variable como factor. ¡Esto último será tratado en el siguiente práctico!
+
+#### En resumen:
+
+| Clase  | Tipo de variable |
+|---------:|:--------|
+| `numeric` | Cuantitativa |
+| `character` | Categórica |
+| `Logic` |  Lógica (TRUE, FALSE, NA) |
+| `factor` | Categórica con niveles y etiquetas |
+
+
+## 3.1. Selección de variables
+
+Luego de revisar el nivel de medición de las variables y reconociendo la distribución de los datos que tenemos, es evidente que lo mejor es solamente trabajar con un *subset* de una base de datos con las variables que queremos transformar.
+
+Para asegurarnos que variables queremos utilizar deberíamos ir al libro de códigos, pero también podemos elegir y decidir de manera más certera qué variables incorporar a partir de la revisión con `find_var()`. En esta sección no profundizaremos distintas formas de seleccionar datos. Solo les mostraremos de manera simple como seleccionar dos variables de nuestro interés:
+
+- `ypchtotcor`: Ingresos del hogar
+- `v13`: "Su hogar, ¿bajo qué situación ocupa la vivienda?"
+- `v29`: "¿Cuántos dormitorios de uso exclusivo ocupa su hogar en esta vivienda?"
+- `p6`: "¿Cuántas personas viven habitualmente en esta vivienda?"
+
+Crearemos una base procesada llamado `datos_proc`, que sólo incluirá estas tres variables. 
+
+```{r,echo = T, include=FALSE}
+datos_proc <- select(datos, ypchtotcor,v13,v29,p6)
+```
+
+Como podemos ver en el ambiente (Environment), se creó un nuevo objeto llamado `datos_proc`, que tiene la misma cantidad de observaciones (filas) que datos, pero que sólo incluye 4 de las 650 variables iniciales. 
+
+## 4. Limpieza de datos
+
+Los datos con los que trabajamos suelen incorporar valores nulos (`NA`), casos perdidos ingresados como valores de clase `Logic`. Estos valores no nos entregan información útil para nuestros análisis, y pueden generar problemas al momento de, por ejemplo, calcular _medidas de tendencia central_, u otros procedimientos estadísticos.
+
+Hay diversas maneras de trabajar los valores nulos, tales como realizar procesos de imputación, entre otros. Sin embargo, la más sencilla consiste en **eliminar los valores nulos** que se encuentran presentes en nuestros datos (aunque no recomendable)
+
+Para ello, lo primero es _identificar valores nulos_ en el set de datos en general, o en alguna variable en específico. Para ello, empleamos la función `is.na()`.
+
+```{r, eval=FALSE}
+
+is.na(datos_proc) #Revisamos si hay casos perdidos en el total del set de datos 
+is.na(datos_proc$ypchtotcor) #Revisamos si hay casos perdidos en Ingresos per cápita
+
+```
+
+Sin embargo, esto no resulta muy práctico para el análisis. Es por ello que emplearemos la función `sum()` para _contar cuántos valores nulos_ hay en el set de datos en general, o en alguna variable en particular. 
+
+```{r}
+
+sum(is.na(datos_proc)) #Contamos los valores nulos del set de datos en general, que suman un total de 180.148
+sum(is.na(datos_proc$ypchtotcor)) #Contaremos los valores nulos de la variable Ingresos per cápita, que alcanzan un total de 98
+
+```
+
+Una vez identificamos los _valores nulos_, podemos proceder a **eliminarlos** del set de datos. El comando `na.omit()` eliminará _todas las filas_ que presenten casos perdidos. 
+
+```{r}
+nrow(datos_proc)
+datos_proc <- na.omit(datos_proc) #Eliminamos las filas con casos perdidos
+nrow(datos_proc) #La nueva base de datos tiene 5.387 filas y 4 columnas
+```
+
+¡La próxima sesión aprenderemos a recodificarlas!
+
+## 5. Guardar y exportar datos
+
+Por último, una vez que hayamos procesado los datos, es importante que los **guardemos** en una nueva base de datos procesada, para no tener que llevar a cabo el procesamiento otra vez.
+
+Al igual que en el paso de carga de datos, y a partir del flujo de `input-R-output`propuesto, es esperable que estos datos procesados (o intermedios) los guardemos en `output/data` para que se entienda que provienen de un proceso de manipulación personal
+
+El archivo se puede guardar en distintos formatos: 
+
+### a) .RData y .rds
+
+
+{{< div "note" >}}
+*Guardar un objeto a un archivo*
+
+saveRDS(objecto, file = "datos.rds")
+
+*Guardar un objeto a un archivo*
+save(objeto1, objeto2, file = "datos.RData)
+{{</div>}}
+
+Es lo recomendable, si el resto del análisis lo realizaremos en R. 
+
+```{r,echo = T}
+save(datos_proc, file = "output/data/datos_proc.RData") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.RData. 
+
+saveRDS(datos_proc, file= "output/data/datos_proc.rds") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.rds. 
+```
+
+### b) .sav (`haven`)
+
+```{r,echo = T}
+write_sav(datos_proc, "output/data/datos_proc.sav") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.sav. 
+```
+
+### b) .dta (`haven`)
+
+```{r,echo = T}
+write_dta(datos_proc, "output/data/datos_proc.dta") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.dta. 
+```
+
+### b) .csv
+
+```{r,echo = T}
+write.csv(datos_proc, "output/data/datos_proc.csv") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.csv. 
+```
+
+### b) .xlsx
+
+```{r,echo = T}
+writexl::write_xlsx(datos_proc, "output/data/datos_proc.xlsx") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.xlsx. 
+```
+
+## Resumen
+
+¡Eso es todo por este práctico! Aquí, aprendimos a: 
+- 1) Importar datos en diferentes formatos.
+- 2) Seleccionar variables (y hacer una revisión de ciertos aspectos de estas).
+- 3) Limpiar los datos, eliminando casos perdidos
+- 4) Guardar y exportar los datos procesados, en distintos formatos.
+
+## Reporte de progreso
+
+¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.
