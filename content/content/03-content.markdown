@@ -86,6 +86,10 @@ slides: "03-slides"
 **¿Cómo ocupar**: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 {{% /div %}}
 
+# Video de la clase
+
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aKaz3bmSVg5iE7Sn8qeDVTrj3zoK_7HBkvMB46hhuH5C0trYK_V6YXqxbRwdpEMu.Y17bJ5f4XEiDn2qT?startTime=1629756672000)
+
 # Material de la clase
 
 -   [<i class="fas fa-file-archive"></i> `03-clase.zip`](https://github.com/learn-R/03-class/raw/main/03-clase.zip)
