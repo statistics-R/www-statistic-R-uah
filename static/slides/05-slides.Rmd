@@ -25,7 +25,7 @@ editor_options:
 ---
 
 ```{r packages-data, include=FALSE}
-pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
+pacman::p_load(tidyverse, sjPlot, tidyr)
 theme_set(theme_sjplot2())
 
 ```
@@ -220,16 +220,19 @@ class: title title-2
 *Entrega*: próximo lunes 13 de septiembre
 
 ---
-
+class: center middle main-title section-title-3 top-logo
 
 # Tidydata
 
---
+---
+
+class: center middle main-title section-title-3 top-logo
 
 # Paquete `tidyr`
 
----
 
+---
+class: title section-title-3 top-logo
 # `tidyr` para solucionar los problemas de estructura de datos
 
 - La estructura **"limpia"**  considera a las observaciones en las filas y las variables en las columnas
@@ -243,6 +246,7 @@ class: title title-2
 ![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
 
 ---
+class: title section-title-3 top-logo
 # Las tres reglas de un buen dataset - `tidyr`
 
 1. Cada variable tiene que estar su propia columna
@@ -252,7 +256,7 @@ class: title title-2
 3. Cada valor tiene que estar en su propia celda. 
 
 ---
-
+class: title section-title-3 top-logo
 # ¿Cumple con las reglas?
 
 ```{r, eval = F}
@@ -267,8 +271,48 @@ class: title title-2
 - ¿Qué problema de procesamiento nos podría producir?
 
 ---
-
+class: title section-title-3 top-logo
 ```{r, eval = F}
+#> # A tibble: 6 x 3
+#>   country     year   cases
+#>   <chr>       <chr>  <int>
+#> 1 Afghanistan 1999     745
+#> 2 Afghanistan 2000    2666
+#> 3 Brazil      1999   37737
+#> 4 Brazil      2000   80488
+#> 5 China       1999  212258
+#> 6 China       2000  213766
+```
+
+---
+# `pivot_*()`
+
+- Para hacer ese paso de filas a columnas (o viceversa) se hace un procedimiento que se llama *pivote*
+
+- `pivot_longer()` y `pivot_wider()` (son los inversos)
+
+---
+
+# Wide format
+
+- Pensemos en el primer ejemplo donde a1, a2 y a3 son los años
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/wide.jpg)
+
+---
+# Long format
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/long.jpg)
+
+- Como resultado inverso
+
+---
+
+# ¿Cómo ocupar pivot_longer?
+
+```{r, eval = F }
+table %>% 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 #> # A tibble: 6 x 3
 #>   country     year   cases
 #>   <chr>       <chr>  <int>
@@ -282,314 +326,188 @@ class: title title-2
 
 
 ---
-# Formas de `filter()`
 
-1. Con números
+![](https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png)
 
-Imaginémos que queremos una base con las personas mayores de 15 años. 
-```{r}
-filter(datos_proc, edad >= 15)
-filter(datos_proc, edad >= 15 & tot_per <7)
+---
+# Cómo ocupar pivot wider
+
+```{r, eval = FALSE}
+table2
+#> # A tibble: 12 x 4
+#>   country      year type           count
+#>   <chr>       <int> <chr>          <int>
+#> 1 Afghanistan  1999 cases            745
+#> 2 Afghanistan  1999 population  19987071
+#> 3 Afghanistan  2000 cases           2666
+#> 4 Afghanistan  2000 population  20595360
+#> 5 Brazil       1999 cases          37737
+#> 6 Brazil       1999 population 172006362
+#> # … with 6 more rows
 ```
+
+- ¿Se cumplen las reglas de tidy data? (hint: fíjense en *type*)
+
+---
+
+```{r, eval = F }
+table2 %>%
+    pivot_wider(names_from = type, values_from = count)
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+---
+
+![](https://d33wubrfki0l68.cloudfront.net/8350f0dda414629b9d6c354f87acf5c5f722be43/bcb84/images/tidy-8.png)
+
+
+---
+class: center middle main-title section-title-3 top-logo
+
+# ¡Vamos a practicar pivotes en `tidyr`!
+
+---
+class: center middle main-title section-title-4 top-logo
+
+# ¿Qué pasa si la regla N°3 no se cumple?
 
 --
 
-Pero también que pertenezcan a hogares con menos de 7 personas. 
-```{r}
-filter(datos_proc, edad >= 15 & tot_per <7)
+## `separate()` y `unite`
+
+---
+class: title section-title-4 top-logo
+# Columnas con información de más de una variable
+
+```{r, eval= F}
+table3
+#> # A tibble: 6 x 3
+#>   country      year rate             
+#> * <chr>       <int> <chr>            
+#> 1 Afghanistan  1999 745/19987071     
+#> 2 Afghanistan  2000 2666/20595360    
+#> 3 Brazil       1999 37737/172006362  
+#> 4 Brazil       2000 80488/174504898  
+#> 5 China        1999 212258/1272915272
+#> 6 China        2000 213766/1280428583
 ```
 
----
-# Formas de `filter()`
-
-2. Con carácteres
-
-- Importancia de explorar los datos
-  1. Fijarse bien cómo están escritos
-  2. Clase (ver si efectivamente son carácteres)
-
-- R es *sensible* a cómo está escrito el texto (*key sensitive*)
-
----
-# Truco
-
-- Cuando haya problemas aplicar `as_factor()` que permite conservar los niveles pero definiendo sus categorías de respuesta en base a la etiqueta que traen (el `lbl`)
-
-- Consejo útil sobre todo en bases que provienen de SPSS y STATA
-
----
-# Formas de `filter()`
-
-```{r}
-datos_proc$sexo <- as_factor(datos_proc$sexo)
-```
-
-```{r}
-filter(datos_proc, sexo == "Mujer")
-filter(datos_proc, sexo != "Hombre")
-```
-
----
-# Un clásico, y la solución: %in%
-
-- ¿Cómo se seleccionan dos condiciones en carácter? Con el operador `%in%`
-
-```{r}
-datos_proc$prev <- as_factor(datos_proc$prev)
-
-filter(datos_proc, prev %in% c("Sistema Público FONASA", "ISAPRE"))
-```
-
----
-# Ejercicio
-
-- Con su data frame `ejercicio` filtren
-  - Excluyan a las personas sin estudios
-  - Filtren a la persona con máximos ingresos del hogar
-  - Conserven a las personas de la RM y Valparaíso. 
-
----
-class: center middle section-title-4 top-logo
-
-# ¿Y si quiero crear variables nuevas?
+- ¿Qué columna pasa por alto ese supuesto?
 
 --
 
-.box-5[`mutate()`]
+- ¿Qué problema nos podría traer?
 ---
 
-# `mutate()` para transformación de  variables
+```{r, eval = FALSE}
 
-- `mutate()` permite hacer operaciones para crear nuevas variables o transformar las ya existentes. 
+table3 %>% 
+  separate(rate, into = c("cases", "population"))
+#> # A tibble: 6 x 4
+#>   country      year cases  population
+#>   <chr>       <int> <chr>  <chr>     
+#> 1 Afghanistan  1999 745    19987071  
+#> 2 Afghanistan  2000 2666   20595360  
+#> 3 Brazil       1999 37737  172006362 
+#> 4 Brazil       2000 80488  174504898 
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
 
-```{r, eval = F}
-mutate(datos, nueva_variable = cálculo o condición)
 ```
 
 ---
-# Formas de hacer `mutate()`
+![](https://d33wubrfki0l68.cloudfront.net/f6fca537e77896868fedcd85d9d01031930d76c9/637d9/images/tidy-17.png)
+---
+class: title section-title-4 top-logo
 
-1. En base a cálculo
+# `separate()` y algunos argumentos adicionales
 
-```{r echo=TRUE}
-mutate(datos_proc, nueva_variable = 3+2)
-mutate(datos_proc, nueva_variable = 3+2,
-       ingreso_percapita = ytoth/tot_per)
+- Especificar el separador (sep = )
+
+```{r}
+table3 %>% 
+  separate(rate, into = c("cases", "population"), sep = "/")
+```
+
+- Especificar si queremos que se cambie la clase de la variable
+
+```{r}
+table3 %>% 
+  separate(rate, into = c("cases", "population"), convert = TRUE)
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
 ```
 
 ---
-class: center middle section-title-4 top-logo
 
-# Aquí mucha mucha atención...
+class: title section-title-4 top-logo
+# `unite()` el proceso inverso
+
+![](https://d33wubrfki0l68.cloudfront.net/3d98d3ba019fed3f9ee328284568d4508e479ef8/0b3e6/images/tidy-18.png)
+---
+class: title section-title-4 top-logo
+
+# `unite()`
+
+- Será muy útil para construir variables "combinatorias"
+
+```{r,eval = F }
+table5 %>% 
+  unite(new, century, year, sep = "")
+#> # A tibble: 6 x 3
+#>   country     new   rate             
+#>   <chr>       <chr> <chr>            
+#> 1 Afghanistan 1999  745/19987071     
+#> 2 Afghanistan 2000  2666/20595360    
+#> 3 Brazil      1999  37737/172006362  
+#> 4 Brazil      2000  80488/174504898  
+#> 5 China       1999  212258/1272915272
+#> 6 China       2000  213766/1280428583
+```
+
+---
+class: center section-title section-title-4 animated fadeIn
+
+# ¡Vamos a practicar con ESI!
+
+---
+class: center section-title section-title-5 animated fadeIn
+
+# Unir datos
+
+---
+class: title section-title-5
+
+# Unir datos
+
+- No es una tarea fácil unir un set de datos *x e y*
 
 --
 
-# Viene la aplicación de  %>%
+**Recomendaciones**
 
-.box-inv-4[¿Qué pasa si queremos, luego de calcular nuestras nuevas variables, filtrar un ingreso per cápita menor o igual a $1.000.000]
+1. Conocer bien los datos x e y
 
----
-# `%>%`
+2. Verifica las unidades de observación
 
-```{r}
-datos %>% 
-  mutate(., nueva_variable = calculo ) %>% 
-  filter(., nueva_variable <= valor)
+3. Define tu variable "llave" o **key**
 
-```
-
---
-
-- Básicamente, el ` %>% ` permite "ingresar" nuestra base de datos como argumento para cada función e ir operándola en proceso
-
----
-# `%>%` 
-
-```{r}
-datos_proc %>%
-  mutate(ingreso_percapita = ytoth/tot_per) %>% 
-  filter(ingreso_percapita <= 1000000)
-```
---
- 
-**En el teclado**
-
-- `Ctrl + shift + M` Para Windows
-- `⌘ + shift + M` Para Mac
-
----
-layout: false
-class: center middle section-title-5 top-logo
-
-# Crear nuevas variables utilizando *además* otras funciones
-
---
-
-## mutate(variable_nueva = alguna_funcion_genial)
-
-
----
-layout: true
-class: title title-5
-
-# Opciones para recodificar.
-
-- `dplyr::recode()` y  `car::recode()` 
-
-- Con `dplyr::recode()`: recodificamos las categorías de respuesta de Mujer a Femenino y de Hombre a Masculino
-
-```{r}
-datos_proc %>% 
-  mutate(sexo = dplyr::recode(sexo, "Mujer" = "Femenino", "Hombre" = "Masculino"))
-```
-
-- El problema de `recode()` que se utiliza dentro de `dplyr` es que si recodifico se pierde la etiqueta anterior.
-
----
-# Mi elección: `car::recode()`
-
-- **No olviden** los `::` por los posibles conflictos
-
-```{r}
-car::recode(datos$variable, c('valor_orig1=nuevo_valor1;valor_org2=nuevo_valor2'))
-```
-
----
-# Mi elección: `car::recode()`
-
-```{r}
-datos_proc %$% 
-  car::recode(.$y26d_hog, c('9=NA')) %>% head(.)
-```
-
-Aquí una versión de si la recodificación es hacia carácteres (mismo ejemplo que con `recode()` de `dplyr`)
-
-```{r}
-datos_proc %$% 
-  car::recode(.$sexo,
-              c('"Mujer"="Femenino";"Hombre"= "Masculino"'),
-              as.factor = T) %>% head(.)
-```
-
----
-.small[
-# `if_else()` variables condicionales
-]
-
-La función `if_else()` permite construir variables en base a condiciones lógicas. Su estructura es la siguiente
-
-```{r}
-if_else(condición,TRUE,FALSE)
-
-```
-
-
----
-.small[
-# `if_else()`  variables condicionales
-]
-Crearemos una variable que *dummy* que indica si el respondente es *FONASA* o no lo es. 
-
-```{r eval=FALSE, include=TRUE}
-datos_proc %>% 
- 		 mutate(fonasa = if_else(prev == "Sistema Público FONASA", 1, 0))
-```
-
----
-.small[
-# `if_else()` variables condicionales
-]
-- Uno/a puede ser *ingenioso* y ocuparla como **validador**
-
-```{r echo=TRUE}
-datos_proc %>% 
-  mutate(validador_ingreso = if_else(is.na(ytoth), FALSE, TRUE))
-```
-
-- También para *imputar valores* ¿cómo sería?
-
----
-.small[
-# `case_when()`  variables con múltiples condiciones
-]
-- Para *colapsar* categorías o construir categorías en base a varias condiciones es `case_when()` por lo lógico y *fácil* que es de entender
-
-```{r}
-case_when(variable == condicion ~ valor1,
-          variable == condicion ~ valor2,
-          TRUE ~ NA_real)
-```
-
-- Donde, TRUE indica "todo el resto", y el NA dependerá de la clase del valor de recodificación
-
----
-.small[
-# `case_when()` variables con múltiples condiciones
-]
-Un ejemplo claro es cuando queremos construir *categorías de edad*
-
-```{r}
-datos_proc %>% 
-  mutate(edad_tramo = case_when(edad <=39 ~  "Joven",
-                                edad > 39 & edad <=59 ~ "Adulto",
-                                edad > 59 ~ "Adulto mayor",
-                                TRUE ~ NA_character_)) %>% 
-  select(edad, edad_tramo)
-```
-
-- ¡Utilizamos operadores lógicos (`&`)!
-
-
----
-# ¡Resumen!
-```{r}
-datos_proc %>% 
- filter(edad >= 15 & tot_per <7) %>%
-    mutate(ingreso_percapita = ytoth/tot_per,
-           edad_tramo = case_when(edad <=39 ~  "Joven",
-                                edad > 39 & edad <=59 ~ "Adulto",
-                                edad > 59 ~ "Adulto mayor",
-                                TRUE ~ NA_character_),
-           fonasa = if_else(prev == "Sistema Público FONASA", 1, 0),
-           ocupacion = as_factor(ocupacion)) %>%
-  select(sexo, edad_tramo, ocupacion, ingreso_percapita, ife = y26d_hog)
-```
-
----
-# ¡Resumen!
-¡Ahora que estamos seguras/os sobre-escribimos la base!
-```{r}
-datos_proc <- datos_proc %>% 
- filter(edad >= 15 & tot_per <7) %>%
-    mutate(ingreso_percapita = ytoth/tot_per,
-           edad_tramo = case_when(edad <=39 ~  "Joven",
-                                edad > 39 & edad <=59 ~ "Adulto",
-                                edad > 59 ~ "Adulto mayor",
-                                TRUE ~ NA_character_),
-           fonasa = if_else(prev == "Sistema Público FONASA", 1, 0),
-           ocupacion = as_factor(ocupacion)) %>%
-  select(sexo, edad_tramo, ocupacion, ingreso_percapita, ife = y26d_hog)
-```
-
----
-# Antes de guardar
-
-Podemos visualizar la base resultante a partir de `view_df()` de `sjPlot`
-```{r, message= F, error= F, cache.comments= F}
-sjPlot::view_df(datos_proc)
-```
-
----
-# Paso 4: Guardar datos
-
-Para guardar la base de datos procesada, debes dirigir la ruta hacia tu Rproject
-
-```{r eval=FALSE, include=TRUE}
-saveRDS(datos_proc, file = "../nombre_project/output/datos_proc.rds")
-```
-
-- Recuerda revisar el [practico N°2](example/02-practico) si no recuerdas como expoertar datos.
-
+4. Define qué procedimiento quieres hacer
 ---
 layout: false
 class: center section-title section-title-5 animated fadeIn
