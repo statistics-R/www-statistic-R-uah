@@ -1,6 +1,6 @@
 ---
 title: "Transformación y selección de variables"
-linktitle: "4: Transformación y selección de variables"
+linktitle: "4:Transformación y selección de variables"
 date: "2021-08-30"
 start_date: "2021-08-23"
 end_date: "2021-09-06"
@@ -130,7 +130,7 @@ slides: "04-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`]()
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000)
 
 # Material de la clase
 
