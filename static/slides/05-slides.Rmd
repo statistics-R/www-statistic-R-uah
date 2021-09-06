@@ -1,0 +1,663 @@
+---
+title: "Análisis de datos estadísticos en R"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r packages-data, include=FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
+theme_set(theme_sjplot2())
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-1 top-logo
+
+.small[
+# Tidydata y manipulación de datos
+]
+
+.class-info[
+<br>
+**Sesión N° 5**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-1
+
+# Contenidos Sesión 5
+
+--
+
+.box-2.medium.sp-after-half[**Estructura de datos**]
+
+--
+
+.box-3.medium.sp-after-half[**Cálculos agregados**]
+
+--
+
+.box-4.medium.sp-after-half[**Tidy data**]
+
+--
+
+.box-5.medium.sp-after-half[**Combinar dara**]
+
+???
+
+---
+class: center middle main-title section-title-1 top-logo
+name: basics
+
+# 1: Estructura de datos 
+
+---
+class: title title-inv-1
+
+# 1: Estructura de datos
+
+- Hasta ahora hemos asumido una estructura de datos *ad hoc* a los análisis que queremos realizar
+
+--
+
+- No siempre los datos vendrán "limpios" o con la estructura columna-fila que necesitamos
+
+--
+
+- No siempre nuestros datos vendrán completos y necesitaremos "unir" distintas fuentes de información
+
+---
+class: title title-inv-1
+
+# Estructura de los datos
+
+- También ocurrirá que vamos a querer hacer cálculos agregados
+
+--
+
+- Algunos agregando por cada observación o cada columna
+
+
+.can-edit.key-likes[Pensemos algunos ejemplos...
+1.
+2.
+3.
+]
+
+---
+
+class: center middle main-title section-title-2 top-logo
+
+# Creación de variables agregadas
+
+---
+class: title section-title-2 top-logo
+
+# `rowwise()` para agrupar filas
+
+
+- Construcción de índices para cada observación
+
+- Sumativos y promedio 
+
+
+```{r, eval = F }
+datos %>% #Especificamos que trabajaremos con el dataframe datos
+  rowwise() %>% #Especificamos que agruparemos por filas
+  mutate(ing_tot = sum(ss_t, svar_t, reg_t)) #Creamos una nueva variable llamada ing_tot, sumando los valores de ss_t, svar_t y reg_t para cada fila 
+```
+
+---
+class: title section-title-2 top-logo
+
+# `group_by()` para agrupar columnas
+
+- Cálculos en base a características de una o varias columnas
+
+--
+
+- Calcular el promedio de edad según comuna ( `group_by()` + `mutate()`)
+
+--
+
+- Calcular una nueva variable que diga cuántas mujeres tengo en mis datos ( `group_by()` + `summarise()`)
+
+---
+
+```{r group_by, eval= F}
+datos %>% 
+  group_by(sexo) %>% #Espeficicamos que agruparemos por sexo
+  summarise(media = mean(ing_tot)) #Creamos una columna llamada media, calculando la media ingresos con la función `mean`
+```
+
+
+---
+layout: false
+class: center middle main-title section-title-2 top-logo
+
+# ¡Vamos a practicar!
+
+---
+
+# ¿Dónde?
+
+.box-inv-1[[Descargar el zip del sesión 5 el sitio del curso](https://learn-r-uah.netlify.app/content/05-content/)]
+
+---
+class: title title-2
+
+# 1. Recursos de la práctica
+
+- Datos: [Encuesta Suplementaria de Ingresos (ESI) en su versión 2020](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos).
+
+- [**Libro de códigos**](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-guía-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4).
+
+---
+
+# Tarea Bonus
+
+- Con CASEN 2020 calcular
+
+  - Cuántas personas en la muestra son de FONASA
+  - Cuántas personas en la muestra son Mujeres y de FONASA
+  - Replicar los cálculos de ingresos del hogar y contrastar con la variable original obtenida
+
+*Entrega*: próximo lunes 13 de septiembre
+
+---
+
+
+# Tidydata
+
+--
+
+# Paquete `tidyr`
+
+---
+
+# `tidyr` para solucionar los problemas de estructura de datos
+
+- La estructura **"limpia"**  considera a las observaciones en las filas y las variables en las columnas
+
+--
+
+- Esto no siempre podrá ser así. 
+
+---
+
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+---
+# Las tres reglas de un buen dataset - `tidyr`
+
+1. Cada variable tiene que estar su propia columna
+
+2. Cada observación tiene que estar en su propia fila
+
+3. Cada valor tiene que estar en su propia celda. 
+
+---
+
+# ¿Cumple con las reglas?
+
+```{r, eval = F}
+#> # A tibble: 3 x 3
+#>   country     `1999` `2000`
+#> * <chr>        <int>  <int>
+#> 1 Afghanistan    745   2666
+#> 2 Brazil       37737  80488
+#> 3 China       212258 213766
+```
+
+- ¿Qué problema de procesamiento nos podría producir?
+
+---
+
+```{r, eval = F}
+#> # A tibble: 6 x 3
+#>   country     year   cases
+#>   <chr>       <chr>  <int>
+#> 1 Afghanistan 1999     745
+#> 2 Afghanistan 2000    2666
+#> 3 Brazil      1999   37737
+#> 4 Brazil      2000   80488
+#> 5 China       1999  212258
+#> 6 China       2000  213766
+```
+
+
+---
+# Formas de `filter()`
+
+1. Con números
+
+Imaginémos que queremos una base con las personas mayores de 15 años. 
+```{r}
+filter(datos_proc, edad >= 15)
+filter(datos_proc, edad >= 15 & tot_per <7)
+```
+
+--
+
+Pero también que pertenezcan a hogares con menos de 7 personas. 
+```{r}
+filter(datos_proc, edad >= 15 & tot_per <7)
+```
+
+---
+# Formas de `filter()`
+
+2. Con carácteres
+
+- Importancia de explorar los datos
+  1. Fijarse bien cómo están escritos
+  2. Clase (ver si efectivamente son carácteres)
+
+- R es *sensible* a cómo está escrito el texto (*key sensitive*)
+
+---
+# Truco
+
+- Cuando haya problemas aplicar `as_factor()` que permite conservar los niveles pero definiendo sus categorías de respuesta en base a la etiqueta que traen (el `lbl`)
+
+- Consejo útil sobre todo en bases que provienen de SPSS y STATA
+
+---
+# Formas de `filter()`
+
+```{r}
+datos_proc$sexo <- as_factor(datos_proc$sexo)
+```
+
+```{r}
+filter(datos_proc, sexo == "Mujer")
+filter(datos_proc, sexo != "Hombre")
+```
+
+---
+# Un clásico, y la solución: %in%
+
+- ¿Cómo se seleccionan dos condiciones en carácter? Con el operador `%in%`
+
+```{r}
+datos_proc$prev <- as_factor(datos_proc$prev)
+
+filter(datos_proc, prev %in% c("Sistema Público FONASA", "ISAPRE"))
+```
+
+---
+# Ejercicio
+
+- Con su data frame `ejercicio` filtren
+  - Excluyan a las personas sin estudios
+  - Filtren a la persona con máximos ingresos del hogar
+  - Conserven a las personas de la RM y Valparaíso. 
+
+---
+class: center middle section-title-4 top-logo
+
+# ¿Y si quiero crear variables nuevas?
+
+--
+
+.box-5[`mutate()`]
+---
+
+# `mutate()` para transformación de  variables
+
+- `mutate()` permite hacer operaciones para crear nuevas variables o transformar las ya existentes. 
+
+```{r, eval = F}
+mutate(datos, nueva_variable = cálculo o condición)
+```
+
+---
+# Formas de hacer `mutate()`
+
+1. En base a cálculo
+
+```{r echo=TRUE}
+mutate(datos_proc, nueva_variable = 3+2)
+mutate(datos_proc, nueva_variable = 3+2,
+       ingreso_percapita = ytoth/tot_per)
+```
+
+---
+class: center middle section-title-4 top-logo
+
+# Aquí mucha mucha atención...
+
+--
+
+# Viene la aplicación de  %>%
+
+.box-inv-4[¿Qué pasa si queremos, luego de calcular nuestras nuevas variables, filtrar un ingreso per cápita menor o igual a $1.000.000]
+
+---
+# `%>%`
+
+```{r}
+datos %>% 
+  mutate(., nueva_variable = calculo ) %>% 
+  filter(., nueva_variable <= valor)
+
+```
+
+--
+
+- Básicamente, el ` %>% ` permite "ingresar" nuestra base de datos como argumento para cada función e ir operándola en proceso
+
+---
+# `%>%` 
+
+```{r}
+datos_proc %>%
+  mutate(ingreso_percapita = ytoth/tot_per) %>% 
+  filter(ingreso_percapita <= 1000000)
+```
+--
+ 
+**En el teclado**
+
+- `Ctrl + shift + M` Para Windows
+- `⌘ + shift + M` Para Mac
+
+---
+layout: false
+class: center middle section-title-5 top-logo
+
+# Crear nuevas variables utilizando *además* otras funciones
+
+--
+
+## mutate(variable_nueva = alguna_funcion_genial)
+
+
+---
+layout: true
+class: title title-5
+
+# Opciones para recodificar.
+
+- `dplyr::recode()` y  `car::recode()` 
+
+- Con `dplyr::recode()`: recodificamos las categorías de respuesta de Mujer a Femenino y de Hombre a Masculino
+
+```{r}
+datos_proc %>% 
+  mutate(sexo = dplyr::recode(sexo, "Mujer" = "Femenino", "Hombre" = "Masculino"))
+```
+
+- El problema de `recode()` que se utiliza dentro de `dplyr` es que si recodifico se pierde la etiqueta anterior.
+
+---
+# Mi elección: `car::recode()`
+
+- **No olviden** los `::` por los posibles conflictos
+
+```{r}
+car::recode(datos$variable, c('valor_orig1=nuevo_valor1;valor_org2=nuevo_valor2'))
+```
+
+---
+# Mi elección: `car::recode()`
+
+```{r}
+datos_proc %$% 
+  car::recode(.$y26d_hog, c('9=NA')) %>% head(.)
+```
+
+Aquí una versión de si la recodificación es hacia carácteres (mismo ejemplo que con `recode()` de `dplyr`)
+
+```{r}
+datos_proc %$% 
+  car::recode(.$sexo,
+              c('"Mujer"="Femenino";"Hombre"= "Masculino"'),
+              as.factor = T) %>% head(.)
+```
+
+---
+.small[
+# `if_else()` variables condicionales
+]
+
+La función `if_else()` permite construir variables en base a condiciones lógicas. Su estructura es la siguiente
+
+```{r}
+if_else(condición,TRUE,FALSE)
+
+```
+
+
+---
+.small[
+# `if_else()`  variables condicionales
+]
+Crearemos una variable que *dummy* que indica si el respondente es *FONASA* o no lo es. 
+
+```{r eval=FALSE, include=TRUE}
+datos_proc %>% 
+ 		 mutate(fonasa = if_else(prev == "Sistema Público FONASA", 1, 0))
+```
+
+---
+.small[
+# `if_else()` variables condicionales
+]
+- Uno/a puede ser *ingenioso* y ocuparla como **validador**
+
+```{r echo=TRUE}
+datos_proc %>% 
+  mutate(validador_ingreso = if_else(is.na(ytoth), FALSE, TRUE))
+```
+
+- También para *imputar valores* ¿cómo sería?
+
+---
+.small[
+# `case_when()`  variables con múltiples condiciones
+]
+- Para *colapsar* categorías o construir categorías en base a varias condiciones es `case_when()` por lo lógico y *fácil* que es de entender
+
+```{r}
+case_when(variable == condicion ~ valor1,
+          variable == condicion ~ valor2,
+          TRUE ~ NA_real)
+```
+
+- Donde, TRUE indica "todo el resto", y el NA dependerá de la clase del valor de recodificación
+
+---
+.small[
+# `case_when()` variables con múltiples condiciones
+]
+Un ejemplo claro es cuando queremos construir *categorías de edad*
+
+```{r}
+datos_proc %>% 
+  mutate(edad_tramo = case_when(edad <=39 ~  "Joven",
+                                edad > 39 & edad <=59 ~ "Adulto",
+                                edad > 59 ~ "Adulto mayor",
+                                TRUE ~ NA_character_)) %>% 
+  select(edad, edad_tramo)
+```
+
+- ¡Utilizamos operadores lógicos (`&`)!
+
+
+---
+# ¡Resumen!
+```{r}
+datos_proc %>% 
+ filter(edad >= 15 & tot_per <7) %>%
+    mutate(ingreso_percapita = ytoth/tot_per,
+           edad_tramo = case_when(edad <=39 ~  "Joven",
+                                edad > 39 & edad <=59 ~ "Adulto",
+                                edad > 59 ~ "Adulto mayor",
+                                TRUE ~ NA_character_),
+           fonasa = if_else(prev == "Sistema Público FONASA", 1, 0),
+           ocupacion = as_factor(ocupacion)) %>%
+  select(sexo, edad_tramo, ocupacion, ingreso_percapita, ife = y26d_hog)
+```
+
+---
+# ¡Resumen!
+¡Ahora que estamos seguras/os sobre-escribimos la base!
+```{r}
+datos_proc <- datos_proc %>% 
+ filter(edad >= 15 & tot_per <7) %>%
+    mutate(ingreso_percapita = ytoth/tot_per,
+           edad_tramo = case_when(edad <=39 ~  "Joven",
+                                edad > 39 & edad <=59 ~ "Adulto",
+                                edad > 59 ~ "Adulto mayor",
+                                TRUE ~ NA_character_),
+           fonasa = if_else(prev == "Sistema Público FONASA", 1, 0),
+           ocupacion = as_factor(ocupacion)) %>%
+  select(sexo, edad_tramo, ocupacion, ingreso_percapita, ife = y26d_hog)
+```
+
+---
+# Antes de guardar
+
+Podemos visualizar la base resultante a partir de `view_df()` de `sjPlot`
+```{r, message= F, error= F, cache.comments= F}
+sjPlot::view_df(datos_proc)
+```
+
+---
+# Paso 4: Guardar datos
+
+Para guardar la base de datos procesada, debes dirigir la ruta hacia tu Rproject
+
+```{r eval=FALSE, include=TRUE}
+saveRDS(datos_proc, file = "../nombre_project/output/datos_proc.rds")
+```
+
+- Recuerda revisar el [practico N°2](example/02-practico) si no recuerdas como expoertar datos.
+
+---
+layout: false
+class: center section-title section-title-5 animated fadeIn
+
+# En síntesis
+
+.box-2.medium.sp-after-half[**Básicos en manipulación**]
+.small.box-2[Operadores y tipos de datos]
+
+--
+
+.box-3.medium.sp-after-half[**Seleccionar variables**]
+
+--
+
+.box-4.medium.sp-after-half[**Filtrar**]
+
+--
+
+.box-5.medium.sp-after-half[**Crear variables**]
+
+---
+class: center middle main-title section-title-4 top-logo
+
+# ¡Y a no olvidar el flujo para el análisis!
+
+--
+
+## Nos permite hacernos amigas/os más rápido del programa
+---
+
+.center[
+![:scale 80%](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)]
+
+---
+layout: false
+
+.box-1[¿Y eso era?]
+
+--
+
+.box-inv-1[¡Ahora si que si! Nos vemos el próximo viernes en la última sesión]
+
+.center[
+![](https://github.com/learn-R/slides/raw/main/img/01/monster-inc-2.gif)]
+---
+layout: false
+class: center middle main-title section-title-1 top-logo
+
+.small[
+# Transformar y seleccionar variables
+]
+
+.class-info[
+<br>
+**Sesión N° 4**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+???
+https://c.tenor.com/7mxJp29REVkAAAAC/scaryfeet-monstersinc.gif
