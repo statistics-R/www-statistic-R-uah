@@ -508,6 +508,34 @@ class: title section-title-5
 3. Define tu variable "llave" o **key**
 
 4. Define qué procedimiento quieres hacer
+
+---
+# 4. Procedimientos de unión
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/combine.png)
+
+---
+
+# `merge()`
+
+
+```{r, eval = F}
+
+merge(a, b, by = "key")
+
+```
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/merge.jpg)
+
+---
+
+# bind_cols y bind_rows
+
+
+- `bind_*` para "pegar" o columnas o filas
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/bincols.jpg)
+
 ---
 layout: false
 class: center section-title section-title-5 animated fadeIn
@@ -549,8 +577,6 @@ layout: false
 
 --
 
-.box-inv-1[¡Ahora si que si! Nos vemos el próximo viernes en la última sesión]
-
 .center[
 ![](https://github.com/learn-R/slides/raw/main/img/01/monster-inc-2.gif)]
 ---
@@ -563,7 +589,7 @@ class: center middle main-title section-title-1 top-logo
 
 .class-info[
 <br>
-**Sesión N° 4**<br>
+**Sesión N° 5**<br>
 `r format(Sys.Date(), '%d %B %Y')`<br>
 **Análisis de datos estadísticos en R**
 <br>
