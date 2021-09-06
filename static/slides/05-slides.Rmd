@@ -456,6 +456,7 @@ table3 %>%
 ---
 
 class: title section-title-4 top-logo
+
 # `unite()` el proceso inverso
 
 ![](https://d33wubrfki0l68.cloudfront.net/3d98d3ba019fed3f9ee328284568d4508e479ef8/0b3e6/images/tidy-18.png)
@@ -534,28 +535,29 @@ merge(a, b, by = "key")
 
 - `bind_*` para "pegar" o columnas o filas
 
-![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/bincols.jpg)
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/bindcols.jpg)
 
 ---
 layout: false
-class: center section-title section-title-5 animated fadeIn
+class: center section-title section-title-6 animated fadeIn
 
 # En síntesis
 
-.box-2.medium.sp-after-half[**Básicos en manipulación**]
-.small.box-2[Operadores y tipos de datos]
+--
+
+.box-2.medium.sp-after-half[**Estructura de datos**]
 
 --
 
-.box-3.medium.sp-after-half[**Seleccionar variables**]
+.box-3.medium.sp-after-half[**Cálculos agregados**]
 
 --
 
-.box-4.medium.sp-after-half[**Filtrar**]
+.box-4.medium.sp-after-half[**Tidy data**]
 
 --
 
-.box-5.medium.sp-after-half[**Crear variables**]
+.box-5.medium.sp-after-half[**Combinar data**]
 
 ---
 class: center middle main-title section-title-4 top-logo
@@ -584,7 +586,7 @@ layout: false
 class: center middle main-title section-title-1 top-logo
 
 .small[
-# Transformar y seleccionar variables
+# Tidydata y manipulación de datos
 ]
 
 .class-info[

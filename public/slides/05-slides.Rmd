@@ -1,1159 +1,609 @@
 ---
-title: "DAGs and potential outcomes"
-author: "Andrew Heiss"
+title: "Análisis de datos estadísticos en R"
+author: "Valentina Andrade"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
+    self_contained: true
     lib_dir: "libs"
     chakra: "libs/remark-latest.min.js"
     css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
     seal: false
+    includes:
+      after_body: "html/insert-logo.html"
     anchor_sections: false
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
+      beforeInit: "libs/macros.js"
       navigation:
         scroll: false
 editor_options: 
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
-                      fig.retina = 3, fig.align = "center")
-```
-
 ```{r packages-data, include=FALSE}
-library(tidyverse)
-library(ggdag)
-library(broom)
-```
+pacman::p_load(tidyverse, sjPlot, tidyr)
+theme_set(theme_sjplot2())
 
+```
 ```{r xaringanExtra, echo=FALSE}
-xaringanExtra::use_xaringan_extra(c("tile_view"))
-```
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
 
-class: center middle main-title section-title-7
-
-# DAGs and<br>potential outcomes
-
-.class-info[
-
-**Session 5**
-
-.light[PMAP 8521: Program evaluation<br>
-Andrew Young School of Policy Studies
-]
-
-]
-
----
-
-name: outline
-class: title title-inv-8
-
-# Plan for today
-
---
-
-.box-5.medium.sp-after-half[*do*()ing observational<br>causal inference]
-
---
-
-.box-7.medium[Potential outcomes]
-
----
-
-name: dag-adjustment
-class: center middle section-title section-title-5 animated fadeIn
-
-# *do*()ing observational<br>causal inference
-
----
-
-layout: true
-class: title title-5
-
----
-
-# Structural models
-
-.box-inv-5.small[The relationship between nodes can be described with equations]
-
-.pull-left[
-
-$$
-\begin{aligned}
-\text{Loc} &= f_\text{Loc}(\text{U1}) \\
-\text{Bkgd} &= f_\text{Bkgd}(\text{U1}) \\
-\text{JobCx} &= f_\text{JobCx}(\text{Edu}) \\
-\text{Edu} &= f_\text{Edu}(\text{Req}, \text{Loc}, \text{Year}) \\
-\text{Earn} &= f_\text{Earn}(\text{Edu}, \text{Year}, \text{Bkgd}, \\
-& \quad\quad\quad\quad \text{Loc}, \text{JobCx}) \\
-\end{aligned}
-$$
-]
-
-.pull-right[
-```{r structural-dag, echo=FALSE, fig.width=6, fig.height=4.5, out.width="90%"}
-edu_earn_coords <- list(x = c(Edu = 2, Earn = 4, Year = 2, Bkgd = 4, 
-                              Loc = 3, JobCx = 3, Req = 1, U1 = 3),
-                        y = c(Edu = 2, Earn = 2, Year = 3, Bkgd = 3, 
-                              Loc = 3, JobCx = 1, Req = 2, U1 = 4))
-
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  Edu ~ Req + Loc + Bkgd + Year,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1,
-  exposure = "Edu",
-  outcome = "Earn",
-  latent = "U1",
-  labels = c("Earn" = "Earnings", "Edu" = "Education",
-             "Year" = "Year", "Bkgd" = "Background",
-             "Loc" = "Location", "JobCx" = "Job connections",
-             "U1" = "Unobserved stuff"),
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status), size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  scale_color_manual(values = c("#FF4136", "grey60", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-]
----
-
-# Structural models
-
-.box-inv-5[`dagify()` in **ggdag** forces you to think this way]
-
-.pull-left.small[
-$$
-\begin{aligned}
-\text{Earn} &= f_\text{Earn}(\text{Edu}, \text{Year}, \text{Bkgd}, \\
-& \quad\quad\quad\quad \text{Loc}, \text{JobCx}) \\
-\text{Edu} &= f_\text{Edu}(\text{Req}, \text{Loc}, \text{Year}) \\
-\text{JobCx} &= f_\text{JobCx}(\text{Edu}) \\
-\text{Bkgd} &= f_\text{Bkgd}(\text{U1}) \\
-\text{Loc} &= f_\text{Loc}(\text{U1})
-\end{aligned}
-$$
-]
-
-.pull-right.small-code[
-```{r example-structural-model, eval=FALSE}
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  Edu ~ Req + Loc + Bkgd + Year,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
 )
 ```
 
-]
 
----
-
-# Causal identification
-
-.pull-left-narrow[
-
-.box-inv-5[All these nodes are related; there's correlation between them all]
-
-.box-inv-5[We care about<br>**Edu → Earn**, but what do we do about all the other nodes?]
-
-]
-
-.pull-right-wide[
-
-```{r edu-earn-full, echo=FALSE, fig.width=4.5, fig.height=3, out.width="100%"}
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  Edu ~ Req + Loc + Bkgd + Year,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1,
-  exposure = "Edu",
-  outcome = "Earn",
-  latent = "U1",
-  labels = c("Earn" = "Earnings", "Edu" = "Education",
-             "Year" = "Year", "Bkgd" = "Background",
-             "Loc" = "Location", "JobCx" = "Job connections",
-             "U1" = "Unobserved stuff"),
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status), size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  scale_color_manual(values = c("#FF4136", "grey60", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
 ```
 
-]
-
----
-
-# Causal identification
-
-.box-inv-5.medium[A causal effect is *identified* if the association between treatment and outcome is propertly stripped and isolated]
-
----
-
-# Paths and associations
-
-.box-inv-5.medium[Arrows in a DAG transmit associations]
-
-.box-inv-5.medium[You can redirect and control those paths by "adjusting" or "conditioning"]
-
----
-
-# Three types of associations
-
-.pull-left-3[
-.box-5.medium[Confounding]
-
-```{r confounding-dag, echo=FALSE, fig.width=4.5, fig.height=3.35, out.width="100%"}
-dagify(
-  Y ~ X + Z,
-  X ~ Z,
-  coords = list(x = c(X = 1, Y = 3, Z = 2),
-                y = c(X = 1, Y = 1, Z = 2))
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "black", size = 17) +
-  geom_dag_text(color = "white", size = 5) +
-  theme_dag()
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F, 
+                      fig.retina = 3, fig.align = "center")
 ```
 
-.box-inv-5.small[Common cause]
+class: center middle main-title section-title-1 top-logo
+
+.small[
+# Tidydata y manipulación de datos
 ]
 
-.pull-middle-3.center[
-.box-5.medium[Causation]
+.class-info[
+<br>
+**Sesión N° 5**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
 
-```{r mediation-dag, echo=FALSE, fig.width=4.5, fig.height=3.35, out.width="100%"}
-dagify(
-  Y ~ X + Z,
-  Z ~ X,
-  coords = list(x = c(X = 1, Y = 3, Z = 2),
-                y = c(X = 1, Y = 1, Z = 2))
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "black", size = 17) +
-  geom_dag_text(color = "white", size = 5) +
-  theme_dag()
-```
-
-.box-inv-5.small[Mediation]
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
 ]
 
-.pull-right-3[
-.box-5.medium[Collision]
-
-```{r collision-dag, echo=FALSE, fig.width=4.5, fig.height=3.35, out.width="100%"}
-dagify(
-  Y ~ X,
-  Z ~ Y,
-  Z ~ X,
-  coords = list(x = c(X = 1, Y = 3, Z = 2),
-                y = c(X = 1, Y = 1, Z = 2))
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "black", size = 17) +
-  geom_dag_text(color = "white", size = 5) +
-  theme_dag()
-```
-
-.box-inv-5.small[Selection /<br>endogeneity]
 ]
 
 ---
+class: title title-inv-1
 
-# Interventions
-
-.box-inv-5.medium[*do*-operator]
-
-.box-5[Making an intervention in a DAG]
-
-$$
-P[Y\ |\ do(X = x)] \quad \text{or} \quad E[Y\ |\ do(X = x)]
-$$
+# Contenidos Sesión 5
 
 --
 
-.box-5[P = probability distribution, or E = expectation/expected value]
+.box-2.medium.sp-after-half[**Estructura de datos**]
 
 --
 
-.box-5[Y = outcome, X = treatment;<br>x = specific value of treatment]
-
----
-
-# Interventions
-
-$$
-E[Y\ |\ do(X = x)]
-$$
-
-.box-5[E\[ Earnings | *do*(One year of college)\] ]
+.box-3.medium.sp-after-half[**Cálculos agregados**]
 
 --
 
-.box-5[E\[ Firm growth | *do*(Government R&D funding)\] ]
+.box-4.medium.sp-after-half[**Tidy data**]
 
 --
 
-.box-5[E\[ Air quality | *do*(Carbon tax)\] ]
-
---
-
-.box-5[E\[ Juvenile delinquency | *do*(Truancy program)\] ]
-
---
-
-.box-5[E\[ Malaria infection rate | *do*(Mosquito net)\] ]
-
----
-
-# Interventions
-
-.box-inv-5[When you *do*() X, delete all arrows into it]
-
---
-
-.pull-left[
-.box-5.small[Observational DAG]
-```{r observational-dag, echo=FALSE, fig.width=4, fig.height=3, out.width="90%"}
-dagify(
-  Y ~ X + A,
-  X ~ A,
-  coords = list(x = c(X = 1, Y = 2, A = 1.5),
-                y = c(X = 1, Y = 1, A = 2))
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "black", size = 11) +
-  geom_dag_text() +
-  theme_dag()
-```
-]
-
---
-
-.pull-right[
-.box-5.small[Experimental DAG]
-```{r experimental-dag, echo=FALSE, fig.width=4, fig.height=3, out.width="90%"}
-dagify(
-  Y ~ X + A,
-  coords = list(x = c(X = 1, Y = 2, A = 1.5),
-                y = c(X = 1, Y = 1, A = 2)),
-  labels = c(X = "X = x")
-) %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(color = "black", size = 11) +
-  geom_dag_text() +
-  geom_dag_text_repel(aes(label = label),
-                      nudge_x = 0, nudge_y = 0.25,
-                      color = "black", 
-                      fontface = "bold", lineheight = 0.95, seed = 1234) +
-  theme_dag()
-```
-]
-
----
-
-# Interventions
-
-$$
-E[\text{Earnings}\ |\ do(\text{College education})]
-$$
-
---
-
-.pull-left[
-.box-5.small[Observational DAG]
-
-```{r edu-earn-obs, echo=FALSE, fig.width=6, fig.height=4.5, out.width="90%"}
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  Edu ~ Req + Loc + Bkgd + Year,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1,
-  exposure = "Edu",
-  outcome = "Earn",
-  latent = "U1",
-  labels = c("Earn" = "Earnings", "Edu" = "Education",
-             "Year" = "Year", "Bkgd" = "Background",
-             "Loc" = "Location", "JobCx" = "Job connections",
-             "U1" = "Unobserved stuff"),
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status), size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  scale_color_manual(values = c("#FF4136", "grey60", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-
-]
-
---
-
-.pull-right[
-.box-5.small[Experimental DAG]
-
-```{r edu-earn-experiment, warning=FALSE, echo=FALSE, fig.width=6, fig.height=4.5, out.width="90%"}
-dagify(
-  Earn ~ Edu + Year + Bkgd + Loc + JobCx,
-  NULL ~ Req,
-  JobCx ~ Edu,
-  Bkgd ~ U1,
-  Loc ~ U1,
-  exposure = "Edu",
-  outcome = "Earn",
-  latent = "U1",
-  labels = c("Earn" = "Earnings", "Edu" = "Education",
-             "Year" = "Year", "Bkgd" = "Background",
-             "Loc" = "Location", "JobCx" = "Job connections",
-             "U1" = "Unobserved stuff"),
-  coords = edu_earn_coords) %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status), size = 14) +
-  geom_dag_text(color = "black", size = 5) +
-  scale_color_manual(values = c("#FF4136", "grey60", "#0074D9"),
-                     na.value = "#7FDBFF") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-]
-
----
-
-# Un*do*()ing things
-
-.box-inv-5.medium[We want to know **P[Y | *do*(X)]**<br>but all we have is<br>observational data X, Y, and Z]
-
---
-
-$$
-P[Y\ |\ do(X)] \neq P(Y\ |\ X)
-$$
-
---
-
-.box-5[Correlation isn't causation!]
-
----
-
-# Un*do*()ing things
-
-.box-inv-5.medium[Our goal with observational data:<br>Rewrite **P[Y | *do*(X)]** so that it doesn't have a *do*() anymore (is "*do*-free")]
-
----
-
-# *do*-calculus
-
-.box-inv-5[A set of three rules that let you manipulate a DAG<br>in special ways to remove *do*() expressions]
-
-.center[
-<figure>
-  <img src="img/05/do-calculus.png" alt="do-calculus rules" title="do-calculus rules" width="40%">
-</figure>
-]
-
-.box-5.smaller[WAAAAAY beyond the score of this class!<br>Just know it exists and computer algorithms can do it for you!]
+.box-5.medium.sp-after-half[**Combinar dara**]
 
 ???
 
-https://arxiv.org/abs/1906.07125
+---
+class: center middle main-title section-title-1 top-logo
+name: basics
+
+# 1: Estructura de datos 
 
 ---
+class: title title-inv-1
 
-# Special cases of *do*-calculus
+# 1: Estructura de datos
 
-.box-inv-5.medium.sp-after[Backdoor adjustment]
+- Hasta ahora hemos asumido una estructura de datos *ad hoc* a los análisis que queremos realizar
 
-.box-inv-5.medium[Frontdoor adjustment]
+--
+
+- No siempre los datos vendrán "limpios" o con la estructura columna-fila que necesitamos
+
+--
+
+- No siempre nuestros datos vendrán completos y necesitaremos "unir" distintas fuentes de información
 
 ---
+class: title title-inv-1
 
-# Backdoor adjustment
+# Estructura de los datos
 
-$$
-P[Y\ |\ do(X)] = \sum_Z P(Y\ |\ X, Z) \times P(Z)
-$$
+- También ocurrirá que vamos a querer hacer cálculos agregados
 
-.pull-left[
-```{r backdoor-dag, echo=FALSE, fig.width=5, fig.height=3.4, out.width="90%"}
-dagify(Y ~ X + Z,
-  X ~ Z,
-  coords = list(x = c(X = 1, Y = 3, Z = 2),
-                y = c(X = 1, Y = 1, Z = 2))) %>% 
-  tidy_dagitty() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point() +
-  geom_dag_text() +
-  theme_dag()
-```
+--
+
+- Algunos agregando por cada observación o cada columna
+
+
+.can-edit.key-likes[Pensemos algunos ejemplos...
+1.
+2.
+3.
 ]
 
-.pull-right[
-.box-inv-5.small[↑ That's complicated!]
+---
 
-.box-inv-5[The right-hand side of the equation means "the effect of X on Y after adjusting for Z"]
+class: center middle main-title section-title-2 top-logo
 
-.box-5[There's no *do*() on that side!]
-]
+# Creación de variables agregadas
+
+---
+class: title section-title-2 top-logo
+
+# `rowwise()` para agrupar filas
+
+
+- Construcción de índices para cada observación
+
+- Sumativos y promedio 
+
+
+```{r, eval = F }
+datos %>% #Especificamos que trabajaremos con el dataframe datos
+  rowwise() %>% #Especificamos que agruparemos por filas
+  mutate(ing_tot = sum(ss_t, svar_t, reg_t)) #Creamos una nueva variable llamada ing_tot, sumando los valores de ss_t, svar_t y reg_t para cada fila 
+```
+
+---
+class: title section-title-2 top-logo
+
+# `group_by()` para agrupar columnas
+
+- Cálculos en base a características de una o varias columnas
+
+--
+
+- Calcular el promedio de edad según comuna ( `group_by()` + `mutate()`)
+
+--
+
+- Calcular una nueva variable que diga cuántas mujeres tengo en mis datos ( `group_by()` + `summarise()`)
 
 ---
 
-# Frontdoor adjustment
-
-```{r frontdoor, echo=FALSE, fig.width=5, fig.height=3.4, out.width="50%"}
-dagify(C ~ T + G,
-       T ~ S,
-       S ~ G,
-       coords = list(
-         x = c(S = 1, T = 2, C = 3, G = 2),
-         y = c(S = 1, T = 1, C = 1, G = 2)
-       ),
-       labels = c(S = "Smoking", 
-                  T = "Tar", 
-                  C = "Cancer",
-                  G = "Genetics"),
-       exposure = "S",
-       outcome = "C") %>% 
-  tidy_dagitty() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point() +
-  geom_dag_text() +
-  geom_dag_label_repel(aes(label = label), nudge_y = 0.1, seed = 1234) +
-  theme_dag()
+```{r group_by, eval= F}
+datos %>% 
+  group_by(sexo) %>% #Espeficicamos que agruparemos por sexo
+  summarise(media = mean(ing_tot)) #Creamos una columna llamada media, calculando la media ingresos con la función `mean`
 ```
 
 
-.box-5.small[**S → T** is *d*-separated; **T → C** is *d*-separated<br>combine the effects to find **S → C**]
-
 ---
-
-# Moral of the story
-
-.box-inv-5.medium[If you can transform *do*() expressions to<br>*do*-free versions, you can legally make causal inferences from observational data]
-
---
-
-.box-5[Backdoor adjustment is easiest to see +<br>dagitty and **ggdag** do this for you!]
-
---
-
-.box-5.small[Fancy algorithms (found in the **causaleffect** package)<br>can do the official *do*-calculus for you too]
-
----
-
 layout: false
-name: potential-outcomes
-class: center middle section-title section-title-7 animated fadeIn
+class: center middle main-title section-title-2 top-logo
 
-# Potential outcomes
-
----
-
-layout: true
-class: title title-7
+# ¡Vamos a practicar!
 
 ---
 
-# Program effect
+# ¿Dónde?
 
-<figure>
-  <img src="img/05/program-effect-letters.png" alt="Outcomes and program effect" title="Outcomes and program effect" width="100%">
-</figure>
+.box-inv-1[[Descargar el zip del sesión 5 el sitio del curso](https://learn-r-uah.netlify.app/content/05-content/)]
+
+---
+class: title title-2
+
+# 1. Recursos de la práctica
+
+- Datos: [Encuesta Suplementaria de Ingresos (ESI) en su versión 2020](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos).
+
+- [**Libro de códigos**](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-guía-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4).
 
 ---
 
-# Some equation translations
+# Tarea Bonus
 
-.box-inv-7.medium[Causal effect = δ (delta)]
+- Con CASEN 2020 calcular
 
-$$
-\delta = P[Y\ |\ do(X)]
-$$
+  - Cuántas personas en la muestra son de FONASA
+  - Cuántas personas en la muestra son Mujeres y de FONASA
+  - Replicar los cálculos de ingresos del hogar y contrastar con la variable original obtenida
+
+*Entrega*: próximo lunes 13 de septiembre
+
+---
+class: center middle main-title section-title-3 top-logo
+
+# Tidydata
+
+---
+
+class: center middle main-title section-title-3 top-logo
+
+# Paquete `tidyr`
+
+
+---
+class: title section-title-3 top-logo
+# `tidyr` para solucionar los problemas de estructura de datos
+
+- La estructura **"limpia"**  considera a las observaciones en las filas y las variables en las columnas
 
 --
 
-$$
-\delta = E[Y\ |\ do(X)] - E[Y\ |\ \hat{do}(X)]
-$$
-
---
-
-$$
-\delta = (Y\ |\ X = 1) - (Y\ |\ X = 0)
-$$
-
---
-
-$$
-\delta = Y_1 - Y_0
-$$
+- Esto no siempre podrá ser así. 
 
 ---
 
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)
+
+---
+class: title section-title-3 top-logo
+# Las tres reglas de un buen dataset - `tidyr`
+
+1. Cada variable tiene que estar su propia columna
+
+2. Cada observación tiene que estar en su propia fila
+
+3. Cada valor tiene que estar en su propia celda. 
+
+---
+class: title section-title-3 top-logo
+# ¿Cumple con las reglas?
+
+```{r, eval = F}
+#> # A tibble: 3 x 3
+#>   country     `1999` `2000`
+#> * <chr>        <int>  <int>
+#> 1 Afghanistan    745   2666
+#> 2 Brazil       37737  80488
+#> 3 China       212258 213766
+```
+
+- ¿Qué problema de procesamiento nos podría producir?
+
+---
+class: title section-title-3 top-logo
+```{r, eval = F}
+#> # A tibble: 6 x 3
+#>   country     year   cases
+#>   <chr>       <chr>  <int>
+#> 1 Afghanistan 1999     745
+#> 2 Afghanistan 2000    2666
+#> 3 Brazil      1999   37737
+#> 4 Brazil      2000   80488
+#> 5 China       1999  212258
+#> 6 China       2000  213766
+```
+
+---
+# `pivot_*()`
+
+- Para hacer ese paso de filas a columnas (o viceversa) se hace un procedimiento que se llama *pivote*
+
+- `pivot_longer()` y `pivot_wider()` (son los inversos)
+
+---
+
+# Wide format
+
+- Pensemos en el primer ejemplo donde a1, a2 y a3 son los años
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/wide.jpg)
+
+---
+# Long format
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/long.jpg)
+
+- Como resultado inverso
+
+---
+
+# ¿Cómo ocupar pivot_longer?
+
+```{r, eval = F }
+table %>% 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
+#> # A tibble: 6 x 3
+#>   country     year   cases
+#>   <chr>       <chr>  <int>
+#> 1 Afghanistan 1999     745
+#> 2 Afghanistan 2000    2666
+#> 3 Brazil      1999   37737
+#> 4 Brazil      2000   80488
+#> 5 China       1999  212258
+#> 6 China       2000  213766
+```
+
+
+---
+
+![](https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png)
+
+---
+# Cómo ocupar pivot wider
+
+```{r, eval = FALSE}
+table2
+#> # A tibble: 12 x 4
+#>   country      year type           count
+#>   <chr>       <int> <chr>          <int>
+#> 1 Afghanistan  1999 cases            745
+#> 2 Afghanistan  1999 population  19987071
+#> 3 Afghanistan  2000 cases           2666
+#> 4 Afghanistan  2000 population  20595360
+#> 5 Brazil       1999 cases          37737
+#> 6 Brazil       1999 population 172006362
+#> # … with 6 more rows
+```
+
+- ¿Se cumplen las reglas de tidy data? (hint: fíjense en *type*)
+
+---
+
+```{r, eval = F }
+table2 %>%
+    pivot_wider(names_from = type, values_from = count)
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+---
+
+![](https://d33wubrfki0l68.cloudfront.net/8350f0dda414629b9d6c354f87acf5c5f722be43/bcb84/images/tidy-8.png)
+
+
+---
+class: center middle main-title section-title-3 top-logo
+
+# ¡Vamos a practicar pivotes en `tidyr`!
+
+---
+class: center middle main-title section-title-4 top-logo
+
+# ¿Qué pasa si la regla N°3 no se cumple?
+
+--
+
+## `separate()` y `unite`
+
+---
+class: title section-title-4 top-logo
+# Columnas con información de más de una variable
+
+```{r, eval= F}
+table3
+#> # A tibble: 6 x 3
+#>   country      year rate             
+#> * <chr>       <int> <chr>            
+#> 1 Afghanistan  1999 745/19987071     
+#> 2 Afghanistan  2000 2666/20595360    
+#> 3 Brazil       1999 37737/172006362  
+#> 4 Brazil       2000 80488/174504898  
+#> 5 China        1999 212258/1272915272
+#> 6 China        2000 213766/1280428583
+```
+
+- ¿Qué columna pasa por alto ese supuesto?
+
+--
+
+- ¿Qué problema nos podría traer?
+---
+
+```{r, eval = FALSE}
+
+table3 %>% 
+  separate(rate, into = c("cases", "population"))
+#> # A tibble: 6 x 4
+#>   country      year cases  population
+#>   <chr>       <int> <chr>  <chr>     
+#> 1 Afghanistan  1999 745    19987071  
+#> 2 Afghanistan  2000 2666   20595360  
+#> 3 Brazil       1999 37737  172006362 
+#> 4 Brazil       2000 80488  174504898 
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+
+```
+
+---
+![](https://d33wubrfki0l68.cloudfront.net/f6fca537e77896868fedcd85d9d01031930d76c9/637d9/images/tidy-17.png)
+---
+class: title section-title-4 top-logo
+
+# `separate()` y algunos argumentos adicionales
+
+- Especificar el separador (sep = )
+
+```{r}
+table3 %>% 
+  separate(rate, into = c("cases", "population"), sep = "/")
+```
+
+- Especificar si queremos que se cambie la clase de la variable
+
+```{r}
+table3 %>% 
+  separate(rate, into = c("cases", "population"), convert = TRUE)
+#> # A tibble: 6 x 4
+#>   country      year  cases population
+#>   <chr>       <int>  <int>      <int>
+#> 1 Afghanistan  1999    745   19987071
+#> 2 Afghanistan  2000   2666   20595360
+#> 3 Brazil       1999  37737  172006362
+#> 4 Brazil       2000  80488  174504898
+#> 5 China        1999 212258 1272915272
+#> 6 China        2000 213766 1280428583
+```
+
+---
+
+class: title section-title-4 top-logo
+
+# `unite()` el proceso inverso
+
+![](https://d33wubrfki0l68.cloudfront.net/3d98d3ba019fed3f9ee328284568d4508e479ef8/0b3e6/images/tidy-18.png)
+---
+class: title section-title-4 top-logo
+
+# `unite()`
+
+- Será muy útil para construir variables "combinatorias"
+
+```{r,eval = F }
+table5 %>% 
+  unite(new, century, year, sep = "")
+#> # A tibble: 6 x 3
+#>   country     new   rate             
+#>   <chr>       <chr> <chr>            
+#> 1 Afghanistan 1999  745/19987071     
+#> 2 Afghanistan 2000  2666/20595360    
+#> 3 Brazil      1999  37737/172006362  
+#> 4 Brazil      2000  80488/174504898  
+#> 5 China       1999  212258/1272915272
+#> 6 China       2000  213766/1280428583
+```
+
+---
+class: center section-title section-title-4 animated fadeIn
+
+# ¡Vamos a practicar con ESI!
+
+---
+class: center section-title section-title-5 animated fadeIn
+
+# Unir datos
+
+---
+class: title section-title-5
+
+# Unir datos
+
+- No es una tarea fácil unir un set de datos *x e y*
+
+--
+
+**Recomendaciones**
+
+1. Conocer bien los datos x e y
+
+2. Verifica las unidades de observación
+
+3. Define tu variable "llave" o **key**
+
+4. Define qué procedimiento quieres hacer
+
+---
+# 4. Procedimientos de unión
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/combine.png)
+
+---
+
+# `merge()`
+
+
+```{r, eval = F}
+
+merge(a, b, by = "key")
+
+```
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/merge.jpg)
+
+---
+
+# bind_cols y bind_rows
+
+
+- `bind_*` para "pegar" o columnas o filas
+
+![](https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/bindcols.jpg)
+
+---
 layout: false
-class: bg-full
-background-image: url("img/05/TAL.png")
+class: center section-title section-title-6 animated fadeIn
+
+# En síntesis
+
+--
+
+.box-2.medium.sp-after-half[**Estructura de datos**]
+
+--
+
+.box-3.medium.sp-after-half[**Cálculos agregados**]
+
+--
+
+.box-4.medium.sp-after-half[**Tidy data**]
+
+--
+
+.box-5.medium.sp-after-half[**Combinar data**]
+
+---
+class: center middle main-title section-title-4 top-logo
+
+# ¡Y a no olvidar el flujo para el análisis!
+
+--
+
+## Nos permite hacernos amigas/os más rápido del programa
+---
+
+.center[
+![:scale 80%](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)]
+
+---
+layout: false
+
+.box-1[¿Y eso era?]
+
+--
+
+.center[
+![](https://github.com/learn-R/slides/raw/main/img/01/monster-inc-2.gif)]
+---
+layout: false
+class: center middle main-title section-title-1 top-logo
+
+.small[
+# Tidydata y manipulación de datos
+]
+
+.class-info[
+<br>
+**Sesión N° 5**<br>
+`r format(Sys.Date(), '%d %B %Y')`<br>
+**Análisis de datos estadísticos en R**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Ayudantes** Dafne Jaime y Nicolás Godoy
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
 
 ???
-
-https://www.thisamericanlife.org/691/gardens-of-branching-paths
-
----
-
-layout: true
-class: title title-7
-
----
-
-layout: false
-
-.box-7.large[Fundamental problem<br>of causal inference]
-
-$$
-\delta_i = Y_i^1 - Y_i^0 \quad \text{in real life is} \quad \delta_i = Y_i^1 - ???
-$$
-
-.box-inv-7[Individual-level effects are impossible to observe!]
-
-.box-inv-7[There are no individual counterfactuals!]
-
----
-
-layout: true
-class: title title-7
-
----
-
-# Average treatment effect (ATE)
-
-.box-inv-7.medium[Solution: Use averages instead]
-
-$$
-\text{ATE} = E(Y_1 - Y_0) = E(Y_1) - E(Y_0)
-$$
-
---
-
-.box-7[Difference between average/expected value when<br>program is on vs. expected value when program is off]
-
-$$
-\delta = (\bar{Y}\ |\ P = 1) - (\bar{Y}\ |\ P = 0)
-$$
-
----
-
-layout: false
-
-```{r po-table, echo=FALSE}
-po <- tibble(
-  Person = 1:8,
-  Age = c("Old", "Old", "Old", "Old", "Young", "Young", "Young", "Young"),
-  Treated = c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE),
-  Y1 = c(80, 75, 85, 70, 75, 80, 90, 85),
-  Y0 = c(60, 70, 80, 60, 70, 80, 100, 80)
-) %>% 
-  mutate(delta = Y1 - Y0) %>% 
-  mutate(actual = ifelse(Treated, Y1, Y0)) %>% 
-  mutate(`Outcome<br>with program` = ifelse(Treated, paste0("**", Y1, "**"), Y1),
-         `Outcome<br>without program` = ifelse(!Treated, paste0("**", Y0, "**"), Y0),
-         Effect = paste0("**", delta, "**"))
-```
-
-.small[
-```{r basic-po, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, starts_with("Outcome"), Effect) %>% 
-  knitr::kable(align = "cccccc")
-```
-]
-
----
-
-.smaller.sp-after[
-```{r basic-po1, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, starts_with("Outcome"), Effect) %>% 
-  knitr::kable(align = "cccccc")
-```
-]
-
-.pull-left.small[
-$\delta = (\bar{Y}\ |\ P = 1) - (\bar{Y}\ |\ P = 0)$
-]
-
-.pull-right.small[
-$\text{ATE} = \frac{20 + 5 + 5 + 5 + 10 + 0 + -10 + 5}{8} = 5$
-]
-
----
-
-class: title title-7
-
-# CATE
-
-.box-inv-7.sp-after[ATE in subgroups]
-
---
-
-.box-7.medium[Is the program more<br>effective for specific age groups?]
-
----
-
-.smaller.sp-after[
-```{r basic-po-cate, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, starts_with("Outcome"), Effect) %>% 
-  knitr::kable(align = "cccccc")
-```
-]
-
-.pull-left.small[
-$\delta = (\bar{Y}_\text{O}\ |\ P = 1) - (\bar{Y}_\text{O}\ |\ P = 0)$
-
-$\delta = (\bar{Y}_\text{Y}\ |\ P = 1) - (\bar{Y}_\text{Y}\ |\ P = 0)$
-]
-
-.pull-right.small[
-$\text{CATE}_\text{Old} = \frac{20 + 5 + 5 + 10}{4} = 10$
-
-$\text{CATE}_\text{Young} = \frac{5 + 0 - 10 + 5}{4} = 0$
-]
-
----
-
-class: title title-7
-
-# ATT and ATU
-
-.box-inv-7.medium[Average treatment on the treated]
-
-.box-7[ATT / TOT]
-
-.box-7[Effect for those with treatment]
-
---
-
-.box-inv-7.medium[Average treatment on the untreated]
-
-.box-7[ATU / TUT]
-
-.box-7[Effect for those without treatment]
-
----
-
-.smaller.sp-after[
-```{r basic-po-att, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, starts_with("Outcome"), Effect) %>% 
-  knitr::kable(align = "cccccc")
-```
-]
-
-.pull-left.small[
-$\delta = (\bar{Y}_\text{T}\ |\ P = 1) - (\bar{Y}_\text{T}\ |\ P = 0)$
-
-$\delta = (\bar{Y}_\text{U}\ |\ P = 1) - (\bar{Y}_\text{U}\ |\ P = 0)$
-]
-
-.pull-right.small[
-$\text{CATE}_\text{Treated} = \frac{20 + 5 + 5 + 5}{4} = 8.75$
-
-$\text{CATE}_\text{Untreated} = \frac{10 + 0 - 10 + 5}{4} = 1.25$
-]
-
----
-
-layout: true
-class: title title-7
-
----
-
-# ATE, ATT, and ATU
-
-.box-inv-7.medium.sp-after[The ATE is the weighted average<br>of the ATT and ATU]
-
---
-
-.center[
-$\text{ATE} = (\pi_\text{Treated} \times \text{ATT}) + (\pi_\text{Untreated} \times \text{ATU})$
-
-$(\frac{4}{8} \times 8.75) + (\frac{4}{8} \times 1.25)$
-
-$4.375 + 0.625 = 5$
-]
-
-.box-7.smaller[**π** here means "proportion," not 3.1415]
-
----
-
-# Selection bias
-
-.box-inv-7.medium[ATE and ATT aren't always the same]
-
-.box-inv-7.medium[ATE = ATT + Selection bias]
-
-$$
-\begin{aligned}
-5 &= 8.75 + x \\
-x &= -3.75
-\end{aligned}
-$$
-
-.box-7[Randomization fixes this, makes x = 0]
-
----
-
-# Actual data
-
-.pull-left.smaller[
-```{r po-actual, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, `Actual outcome` = actual) %>% 
-  knitr::kable(align = "cccc")
-```
-]
-
-.pull-right[
-.box-inv-7[Treatment not<br>randomly assigned]
-
-.box-inv-7[We can't see<br>unit-level causal effects]
-
-.box-7[What do we do?!]
-]
-
----
-
-# Actual data
-
-.pull-left.smaller[
-```{r po-actual1, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, `Actual outcome` = actual) %>% 
-  knitr::kable(align = "cccc")
-```
-]
-
-.pull-right[
-.box-inv-7[Treatment seems to be correlated with age]
-
-```{r po-dag, echo=FALSE, fig.width=5, fig.height=3.2, out.width="100%"}
-dagify(outcome ~ treatment + age,
-       treatment ~ age,
-       coords = list(
-         x = c(outcome = 3, treatment = 1, age = 2),
-         y = c(outcome = 1, treatment = 1, age = 2)
-       ),
-       labels = c(treatment = "Treatment", 
-                  outcome = "Outcome", 
-                  age = "Age"),
-       exposure = "treatment",
-       outcome = "outcome") %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status)) +
-  geom_dag_label_repel(aes(label = label), nudge_y = 0.1, seed = 1234) +
-  scale_color_manual(values = c("#F012BE", "#3D9970"), na.value = "grey80") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-]
-
----
-
-# Actual data
-
-.pull-left.tiny[
-```{r po-actual2, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, `Actual outcome` = actual) %>% 
-  knitr::kable(align = "cccc")
-```
-]
-
-.pull-right[
-.box-inv-7[We can estimate the ATE by finding the weighted average of age-based CATEs]
-
-.box-inv-7.tiny[As long as we assume/pretend treatment was randomly assigned within each age = unconfoundedness]
-
-]
-
-&nbsp;
-
-.center[
-$\widehat{\text{ATE}} = \pi_\text{Old} \widehat{\text{CATE}_\text{Old}} + \pi_\text{Young} \widehat{\text{CATE}_\text{Young}}$
-]
-
----
-
-# Actual data
-
-.center.sp-after[
-$\color{#FF851B}{\widehat{\text{ATE}}} = \pi_\text{Old} \color{#2ECC40}{\widehat{\text{CATE}_\text{Old}}} + \pi_\text{Young} \color{#0074D9}{\widehat{\text{CATE}_\text{Young}}}$
-]
-
-.pull-left-narrow.tiny[
-```{r po-actual3, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, `Actual outcome` = actual) %>% 
-  knitr::kable(align = "cccc")
-```
-]
-
-.pull-right-wide.small[
-&nbsp;
-
-$\color{#2ECC40}{\widehat{\text{CATE}_\text{Old}}} = \frac{80 + 75 + 85}{3} - \frac{60}{1} = \color{#2ECC40}{20}$
-
-$\color{#0074D9}{\widehat{\text{CATE}_\text{Young}}} = \frac{75}{1} - \frac{80 + 100 + 80}{3} = \color{#0074D9}{-11.667}$
-
-$\color{#FF851B}{\widehat{\text{ATE}}} = (\frac{4}{8} \times \color{#2ECC40}{20}) + (\frac{4}{8} \times \color{#0074D9}{-11.667}) = \color{#FF851B}{4.1667}$
-]
-
----
-
-# ¡¡¡DON'T DO THIS!!!
-
-.center.sp-after[
-$\color{#FF851B}{\widehat{\text{ATE}}} = \color{#F012BE}{\widehat{\text{CATE}_\text{Treated}}} - \color{#AAAAAA}{\widehat{\text{CATE}_\text{Untreated}}}$
-]
-
-.pull-left-narrow.tiny[
-```{r po-actual4, echo=FALSE}
-po %>% 
-  select(Person, Age, Treated, `Actual outcome` = actual) %>% 
-  knitr::kable(align = "cccc")
-```
-]
-
-.pull-right-wide.small.center[
-$\color{#F012BE}{\widehat{\text{CATE}_\text{Treated}}} = \frac{80 + 75 + 85 + 75}{4} = \color{#F012BE}{78.75}$
-
-$\color{#AAAAAA}{\widehat{\text{CATE}_\text{Untreated}}} = \frac{60 + 80 + 100 + 80}{4} = \color{#AAAAAA}{80}$
-
-$\color{#FF851B}{\widehat{\text{ATE}}} = \color{#F012BE}{78.75} - \color{#AAAAAA}{80} = \color{#FF851B}{-1.25}$
-
-&nbsp;
-
-.box-7[You can only do this if treatment is random!]
-]
-
-
----
-
-# Matching and ATEs
-
-.center[
-$\widehat{\text{ATE}} = \pi_\text{Old} \widehat{\text{CATE}_\text{Old}} + \pi_\text{Young} \widehat{\text{CATE}_\text{Young}}$
-]
-
-.pull-left-wide[
-.box-inv-7[We used age here because it correlates with (and confounds) the outcome]
-
-.box-7.small[And we assumed unconfoundedness;<br>that treatment is<br>randomly assigned within the groups]
-]
-
-.pull-right-narrow[
-![](`r knitr::fig_chunk("po-dag", "png")`)
-]
-
----
-
-layout: false
-
-.pull-left-narrow[
-&nbsp;
-
-&nbsp;
-
-.box-7[Does attending a private university cause an increase in earnings?]
-]
-
-.pull-right-wide[
-<figure>
-  <img src="img/05/mm-matching.png" alt="Matching table from Mastering 'Metrics" title="Matching table from Mastering 'Metrics" width="100%">
-</figure>
-]
-
----
-
-.pull-left-wide[
-<figure>
-  <img src="img/05/mm-matching.png" alt="Matching table from Mastering 'Metrics" title="Matching table from Mastering 'Metrics" width="90%">
-</figure>
-]
-
-.pull-right-narrow[
-.box-7[This is tempting!]
-
-.box-inv-7[Average private − Average public]
-
-.tiny[
-$$
-\begin{aligned}
-\frac{110 + 100 + 60 + 115 + 75}{5} &= \color{#0074D9}{92} \\
-\frac{110 + 30 + 90 + 60}{4} &= \color{#2ECC40}{72.5} \\
-(\color{#0074D9}{92} \times \color{#7FDBFF}{\frac{5}{9}}) - (\color{#2ECC40}{72.5} \times \color{#01FF70}{\frac{4}{9}}) &= \color{#FF851B}{18,888}
-\end{aligned}
-$$
-]
-
-.box-7[**This is wrong!**]
-]
-
-.center[
-$\color{#FF851B}{\widehat{\text{ATE}}} = \color{#7FDBFF}{\pi_\text{Private}} \color{#0074D9}{\widehat{\text{CATE}_\text{Private}}} + \color{#01FF70}{\pi_\text{Public}} \color{#2ECC40}{\widehat{\text{CATE}_\text{Public}}}$
-]
-
----
-
-class: title title-7
-
-# Grouping and matching
-
-.pull-left[
-<figure>
-  <img src="img/05/mm-matching.png" alt="Matching table from Mastering 'Metrics" title="Matching table from Mastering 'Metrics" width="100%">
-</figure>
-]
-
-.pull-right[
-.box-inv-7[These groups look like they have similar characteristics]
-
-.box-inv-7.tiny[Unconfoundedness?]
-
-```{r match-dag, echo=FALSE, fig.width=5, fig.height=3.2, out.width="80%"}
-dagify(outcome ~ treatment + characteristics,
-       treatment ~ characteristics,
-       coords = list(
-         x = c(outcome = 3, treatment = 1, characteristics = 2),
-         y = c(outcome = 1, treatment = 1, characteristics = 2)
-       ),
-       labels = c(treatment = "Private university", 
-                  outcome = "Income", 
-                  characteristics = "Student characteristics (group)"),
-       exposure = "treatment",
-       outcome = "outcome") %>% 
-  tidy_dagitty() %>% 
-  node_status() %>% 
-  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
-  geom_dag_edges() +
-  geom_dag_point(aes(color = status)) +
-  geom_dag_label_repel(aes(label = label), nudge_y = 0.1, seed = 1234) +
-  scale_color_manual(values = c("#F012BE", "#3D9970"), na.value = "grey80") +
-  guides(color = FALSE) +
-  theme_dag()
-```
-]
-
----
-
-.pull-left-wide[
-<figure>
-  <img src="img/05/mm-matching.png" alt="Matching table from Mastering 'Metrics" title="Matching table from Mastering 'Metrics" width="90%">
-</figure>
-]
-
-.pull-right-narrow[
-.box-inv-7[CATE Group A + CATE Group B]
-
-.tiny[
-$$
-\begin{aligned}
-\frac{110 + 100}{2} - 110 &= \color{#0074D9}{-5,000} \\
-60 - 30 &= \color{#2ECC40}{30,000} \\
-(\color{#0074D9}{-5} \times \color{#7FDBFF}{\frac{3}{5}}) + (\color{#2ECC40}{30} \times \color{#01FF70}{\frac{2}{5}}) &= \color{#FF851B}{9,000}
-\end{aligned}
-$$
-]
-
-.box-7[**This is less wrong!**]
-]
-
-.center[
-$\color{#FF851B}{\widehat{\text{ATE}}} = \color{#7FDBFF}{\pi_\text{Group A}} \color{#0074D9}{\widehat{\text{CATE}_\text{Group A}}} + \color{#01FF70}{\pi_\text{Group B}} \color{#2ECC40}{\widehat{\text{CATE}_\text{Group B}}}$
-]
-
----
-
-class: title title-7
-
-# Matching with regression
-
-```{r schools-earnings, echo=FALSE, warning=FALSE, message=FALSE}
-schools <- read_csv("data/public_private_earnings.csv") %>% 
-  mutate(private = ifelse(str_detect(enrolled, "ivy"), TRUE, FALSE)) %>% 
-  mutate(group_A = ifelse(group == "A", TRUE, FALSE))
-
-# Only look at groups A and B, since C and D don't have people in both public
-# and private schools. | means "or"
-schools_small <- schools %>% 
-  filter(group == "A" | group == "B")
-```
-
-
-$$
-\text{Earnings} = \alpha + \beta_1 \text{Private} + \beta_2 \text{Group} + \epsilon
-$$
-
---
-
-.small-code.center[
-```{r model-earnings-fake, eval=FALSE}
-model_earnings <- lm(earnings ~ private + group_A, data = schools_small)
-```
-]
-
---
-
-.small[
-```{r model-earnings-results, echo=FALSE}
-lm(earnings ~ private + group_A, data = schools_small) %>% 
-  tidy() %>% 
-  mutate(across(where(is.numeric), ~round(., 2))) %>% 
-  knitr::kable()
-```
-]
-
---
-
-.center.float-left[
-.box-7[β<sub>1</sub> = $10,000]&emsp;.box-7[This is less wrong!]&emsp;.box-7[Significance details!]
-]
+https://c.tenor.com/7mxJp29REVkAAAAC/scaryfeet-monstersinc.gif
