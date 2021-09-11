@@ -36,9 +36,9 @@ En su equipo de investigación quieren realizar los siguientes análisis, para l
 
 0. Los análisis solo deben considerar a las personas en edad de trabajar según las definiciones del Instituto Nacional de Estadística. 
 
-1. Un análisis de la distribución de sociodemográficos de nivel educacional, edad y sexo. Le han solicitado que el nivel educacional esté solo clasificado en "Superior completa", "Media y básica completa" y "Básica o menos incompleta", que la edad esté clasificada en tramos de "18 a 39 años", "40 a 64 años" y "65 y más"; sexo debe estar codificada como "Mujer" y "Hombre". 
+1. Un análisis de la distribución de sociodemográficos de nivel educacional, edad y sexo. Le han solicitado que el nivel educacional esté solo clasificado en "Superior completa", "Media y básica completa" y "Básica o menos incompleta", que la edad esté clasificada en tramos de "15 a 39 años", "40 a 64 años" y "65 y más"; sexo debe estar codificada como "Mujer" y "Hombre". 
 
-2. Un análisis de la distribución de la condición de actividad económica, situación de empleo y las suma de horas trabajadas en la actividad principal para la muestra del 2019 y 2020.
+2. Un análisis de la distribución de la condición de actividad económica, situación de empleo y las suma de horas trabajadas en la actividad principal para la muestra del 2019 y 2021.
 
 3. Una persona del equipo sospecha de la variable de condición de actividad que no es general (*activ*). Por ello, le piden que cree una nueva variable llamada *"cae_corregido"* en base a la definición que se hace de esta variable en el manual metodológico.
 
@@ -52,9 +52,9 @@ En su equipo de investigación quieren realizar los siguientes análisis, para l
 
 4. Filtrar, seleccionar y crear las variables indicadas (no olvides crear el índice sumativo)
 
-5. Una vez limpios los datos del 2019 y del 2020, unir los datos en un único objeto llamado "datos20202019"
+5. Una vez limpios los datos del 2019 y del 2021, unir los datos en un único objeto llamado "ene_unida"
 
-6. Guardar los datos procesados del 2019, 2020 y la unión de ambos en un archivo llamado *datos_proc.RData*. 
+6. Guardar los datos procesados del 2019, 2021 y la unión de ambos en un archivo llamado *datos_proc.RData*. 
 
 7. Bonus: si incorporan un README.md con la explicación de dónde sacaron los datos e información metodológica, será bonificado con 0,4 décimas.
 
