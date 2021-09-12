@@ -12,335 +12,600 @@ editor_options:
   chunk_output_type: console
 ---
 
-## DAGs with dagitty.net
+#  0. Objetivo del práctico
 
-The easiest way to quickly build DAGs and find adjustment sets and testable implications is to use [dagitty.net](http://dagitty.net/). 
+El objetivo del práctico, es avanzar en el análisis de los datos a través del uso de **estadísticos descriptivos**. Para esto ya debemos contar con datos previamente [procesados del práctico N°4](https://learn-r-uah.netlify.app/example/04-practico/). Previo a eso, **siempre es importante** que recordemos en qué parte del proceso estamos
 
-This video shows how to use it:
-
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3euqrnD9w7c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+![](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)
 
 
-## DAGs with R, ggdag, and dagitty
+En este práctico veremos tanto la _estimación puntual_ de estadísticos descriptivos, como su _visualización_ para reportes, ya sea a través de tablas o de gráficos. 
 
-You can use the [**ggdag**](https://ggdag.malco.io/) and [**dagitty**](http://dagitty.net/primer/) packages in R to build and work with DAGs too. I typically draw an initial DAG in my browser with dagitty.net and then I rewrite it in code in R so that it's more official and formal and reproducible.
 
-### Live coding example
+##  Recursos del práctico
 
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/uoAjyyToUTE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+En este práctico utilizamos los **datos** procesados *CASEN 2020*, que proviene de los datos originales de [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020).Recuerden _**siempre**_ consultar el [**libro códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar datos.
 
-### Basic DAGs
+Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
-*(This is a heavily cleaned up and annotated version of the code from the video.)*
+- [<i class="fas fa-file-archive"></i> `06-class.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
+
+#  1. Paquetes a utilizar
+
+Para este práctico utilizaremos principalmente, las librerías `sjmisc` y `sjPlot`. 
+
+`sjmisc`: esta paquete tiene múltiples funciones, desde la transformación de datos y variables. Este paquete suele complementar a  `dplyr` de `tidyverse` en sus funciones. 
+
+`sjPlot`: su principal función es la visualización de datos para estadística en ciencias sociales mediante tablas y gráficos.
+
+Cargaremos los paquetes con `pacman`, si aún tienes dudas sobre cómo trabajar con `pacman` puedes [revisar el práctico 2](https://learn-r-uah.netlify.app/example/02-practico/#paso-1-instalaci%C3%B3n-de-paquetes)
+
+```{r librerias, echo=TRUE, results='hide'}
+pacman::p_load(sjmisc,
+               sjPlot,
+               tidyverse,
+               magrittr)
+```
+
+#  2. Importar datos
+
+Una vez cargado los paquetes a utilizar, debemos pasar al segundo paso: cargar los datos. Como indicamos al inicio, seguiremos utilizando los datos **CASEN** que fue procesada en el práctico anterior, pero le añadimos una variable.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width = 6, fig.asp = 0.618, fig.align = "center",
-                      fig.retina = 3, out.width = "75%", collapse = TRUE)
-set.seed(1234)
-options("digits" = 2, "width" = 150)
+knitr::opts_chunk$set(echo = TRUE)
+
+load(url("https://github.com/learn-R/06-class/raw/main/06-clase/output/data/datos_proc.RData"))
+
 ```
 
-```{r libraries, warning=FALSE, message=FALSE}
-# Load packages
-library(tidyverse)  # For dplyr, ggplot, and friends
-library(ggdag)      # For plotting DAGs
-library(dagitty)    # For working with DAG logic
+```{r, eval = F }
+load("output/data/datos_proc.RData")
 ```
 
-The general process for making and working with DAGs in R is to create a DAG object with `dagify()` and then plot it with `ggdag()`. The documentation for **ggdag** is really good and helpful and full of examples. Check these pages for all sorts of additional details:
+#  3. Explorar datos
 
-- ["An introduction to ggdag"](https://ggdag.malco.io/articles/intro-to-ggdag.html)
-- ["An introduction to directed acyclic graphs"](https://ggdag.malco.io/articles/intro-to-dags.html)
-- [List of all ggdag-related functions](https://ggdag.malco.io/reference/index.html)
+Pero ¿cómo sabremos cuales son las nuevas variables que componen la base de datos procesada?, ¡Simple! usaremos dos códigos que vimos en el [práctico 4](https://learn-r-uah.netlify.app/example/04-practico/#2-cargar-base-de-datos) para conocer los **datos procesados** que usaremos en esta ocasión:
 
-The syntax for `dagify()` is similar to the formula syntax you've been using for building regression models with `lm()`. The formulas you use in `dagify()` indicate the relationships between nodes.
+Primero, usaremos el código `names`, nos entrega los nombres de las variables que componen los datos
 
-For instance, in this DAG, `y` is caused by `x`, `a`, and `b` (`y ~ x + a + b`), and `x` is caused by `a` and `b` (`x ~ a + b`). This means that `a` and `b` are confounders. Use the `exposure` and `outcome` arguments to specify which nodes are the exposure (or treatment/intervention/program) and the outcome.
+```{r names, echo=TRUE, results='markup'}
+names(datos_proc)
+```
 
-```{r super-basic-dag}
-# Create super basic DAG
-simple_dag <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y"
+Mientras que la función `head` nos entrega el nombre y las primeras 10 filas que lo componen.
+
+```{r head, echo=TRUE, results='markup'}
+head(datos_proc)
+```
+
+Gracias a estos códigos sabemos que tenemos una aproximación de las variables que vamos a utilizar. Por el práctico anterior sabemos que podemos explorar nuestros datos con `sjPlot::view_df()`
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sjPlot::view_df(datos_proc,
+                encoding = "UTF-8")
+```
+
+#  4. Descripción de variables
+
+Una vez conocidas las variables que incluye nuestros datos procesados, ¿cómo podemos realizar un análisis descriptivo para algún informe o reporte? Veamos algunas de las más comunes
+
+## 4.1. Medidas de tendencia central
+
+Para conocer las medidas de tendencia central de las variables hay dos opciones. En la **primera** se puede pedir el estadístico manualmente, en la **segunda** se puede pedir una tabla resumen. 
+
+### Media
+
+Para conocer la media de una variable se utiliza la función `mean()`, su estructura es:
+
+```{r ejemplo mean, eval=FALSE, include=TRUE}
+mean(datos$variable, na.rm=TRUE)
+```
+
+
+El argumento `na.rm=TRUE` excluye del cálculo a los casos perdidos. Esto aplicado a nuestra variable `ingreso_percapita` se ve así:
+
+```{r casen mean, echo=TRUE, results='markup'}
+mean(datos_proc$ingreso_percapita, na.rm=TRUE)
+```
+
+### Media recortada
+
+Pero, ¿qué pasa si la variable `ingreso_percapita` esta influenciada por casos influyentes? Para eso puedo pedir la media recortada agregando el argumento `trim` para excluir al 5% de cada extremo
+
+```{r casen mean trim, echo=TRUE, results='markup'}
+mean(datos_proc$ingreso_percapita, na.rm=TRUE, trim = 0.025)
+```
+Aquí podemos ver que el valor es distinto. 
+
+Ya conocimos el promedio de la variable `ingreso_percapita` podemos informar cuanto es el promedio del ingreso en el hogar en Chile, pero antes de eso queremos saber ¿cuánto gana el 50% de los hogares? Para eso calcularemos la **mediana**
+
+### Mediana
+
+Para el cálculo de la mediana se utiliza el comando median, su estructura es similar a la `mean()`:
+
+```{r ejemplo median, eval=FALSE, include=TRUE}
+median(datos$variable, na.rm =TRUE)
+```
+
+```{r casen median, echo=TRUE, results='markup'}
+median(datos_proc$ingreso_percapita, na.rm =TRUE)
+```
+
+Ahora ya sabemos que al menos un 50% de las familias en Chile tienen por ingreso `$229.184`.
+
+Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿tenemos que sacar el promedio de cada variable una por una? **¡No!**, para ello `sjmisc` tiene diferentes funciones, que veremos a continuación:
+
+
+## Un resumen
+
+Por ello ocuparemos `descr` de `sjmisc`, esta función nos entrega un resumen de los estadísticos básicos, incluyendo las etiquetas de cada variable
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, include=TRUE}
+sjmisc::descr(datos_proc$ingreso_percapita,
+        show = "all",
+        out = "viewer",
+        encoding = "UTF-8",
+        file = "output/figures/tabla-ingreso.doc")
+```
+
+```{r echo=FALSE}
+sjmisc::descr(datos_proc$ingreso_percapita)
+```
+
+Como `sjmisc` dialoga con el universo de `tidyverse`, es fácil de complementar con funciones como `select` de `dplyr` y añadir más variables. Además con la función `file` se puede exportar automáticamente la tabla para los reportes.
+
+
+```{r,  eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos_proc %>%
+select(ingreso_percapita, ife, horas_mens) %>% 
+sjmisc::descr(
+  show = "all",
+  out = "viewer",
+  encoding = "UTF-8",
+  file = "output/figures/tabla1.doc")
+```
+
+```{r, echo=FALSE}
+datos_proc %>% 
+  select(ingreso_percapita, ife, horas_mens) %>% 
+  sjmisc::descr()
+```
+
+Acá podemos ver la variable `var`, el tipo de variable `type`, su etiqueta `label`, los casos válidos `n`, los casos perdidos `NA.prc`, las medidas de tendencia central y las de dispersión.
+
+
+## 4.3. Frecuencias 
+
+### Frecuencias absolutas
+
+Para conocer las frecuencias absolutas de una variable se podría usar la función `table`, esta nos arroja la frecuencia por cada categoría de respuesta
+
+```{r casen table, echo=TRUE, results='markup'}
+table(datos_proc$sexo) 
+```
+
+También podríamos usar la función `flat_table`, esta puede agrupar más variables y agruparlas.
+
+```{r casen flat_table, echo=TRUE, results='markup'}
+flat_table(datos_proc, sexo, ocupacion, ife)
+```
+
+El problema es ¿cómo podríamos reportarla en nuestros informes? Si queremos una tabla general usaremos la función `frq`. Esta función devuelve una tabla de frecuencias de vectores etiquetados, como marco de datos.
+
+```{r casen frq error, echo=TRUE, results='markup'}
+sjmisc::frq(datos_proc$sexo,
+        out = "viewer",
+        title = "Frecuencias",
+        encoding = "UTF-8",
+        file = "output/figures/tabla2.doc") 
+```
+
+
+#  5. Visualización
+
+Ahora que ya sabemos como tener todos los estadísticos necesarios para escribir nuestros reportes, viene el segundo paso *visualizar los estadísticos*. Esto lo haremos con `sjPlot`
+
+Para visualizar las frecuencias usaremos la función `plot_frq`, su estructura es la siguiente:
+
+```{r ejemplo frecuencias, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+plot_frq(datos,  #base
+  ...,          #variable
+  title = "",   # título
+  type = c("bar", "dot", "histogram", "line", "density", "boxplot", "violin") #tipo de gráfico a especificar 
+  
+```
+
+Para los gráficos, tenemos los siguientes códigos
+
+1. Gráfico de barras de frecuencias simple
+
+Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categoría de respuesta, podemos presentarla de la siguiente forma:
+
+
+```{r casen barras simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc, edad_tramo,
+          title = "Gráfico de frecuencias, barras",
+          type = c("bar"))
+```
+
+{{< div "note" >}}
+
+Además de la visualización es importante el guardar los datos que se producen y `sjPlot` tiene su propio código para hacerlo a través de la función `save_plot()`, su estructura es esta:
+
+```{r ejemplo save, eval=FALSE, include=TRUE}
+save_plot(last_plot())  #se deja el formato del archivo (.png, .jpg, .svg o .tif) y la ruta de la carpeta
+```
+
+Así guardaríamos el gráfico anterior
+
+```{r eval=F, include=TRUE}
+save_plot("/output/img/tab.png", fig = last_plot()))
+```
+{{< /div >}}
+
+
+2. Gráfico de puntos
+
+Si tenemos más categorías y queremos mejorar el reporte, podemos usar este código:
+
+```{r casen puntos simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc, edad_tramo,
+          title = "Gráfico de frecuencias, puntos",
+          type = c("dot"))
+```
+
+También podemos cambiar el orden del eje x e y
+
+```{r casen puntos cambiados, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc$edad_tramo, type = "dot", show.ci = TRUE, sort.frq = "desc",
+  coord.flip = TRUE, expand.grid = TRUE, vjust = "bottom", hjust = "left", title = "Gráfico de frecuencias, puntos cambiado"
 )
+```
+    
+Pero, ¿cuál es el argumento que hace esto?
 
-# Adding a theme_dag() layer to the plot makes it have a white background with no axis labels
-ggdag(simple_dag) +
-  theme_dag()
+A la hora de trabajar en R, siempre debemos conocer los argumentos que utilizamos en nuestros códigos, puede que un argumento sea innecesario o esté generando un error, para eso debemos consultar en la sección **Help**. Los pasos son los siguientes:
+
+a. Escribe en la consola anteponiendo un `?` en la función que quieres conocer, en este caso será `plot_frq?`, quedando así:
+
+![](https://github.com/learn-R/06-class/raw/main/input/img/image.png)
+
+
+b. Una vez le des a enter, en la sección **Help** aparecerá información sobre la función, cómo se usa y qué se puede hacer con ella. En **Arguments** explicará la función de cada argumento
+
+![](https://github.com/learn-R/06-class/raw/main/input/img/image2.png)
+
+Ahora podrán averiguar cuál es el argumento que sirve y cual no en el código anterior (y en sus futuros trabajos con R)
+
+
+3. Histogramas        
+       
+Otra función que podemos hacer es graficar histogramas, sin embargo, como ya hemos visto, la variable `ingreso_percapita` tiene casos muy altos que distorsionan la variable. Para solucionar esto, ocuparemos lo aprendido en [el práctico anterior](https://learn-r-udp.netlify.app/example/03-practico/) y filtraremos la variable sacando los ingresos mayores a `$2.000.000`, con la función `filter` de `dplyr`
+
+```{r casen histograma, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>% 
+plot_frq(., ingreso_percapita,
+          title = "Histograma",
+          type = c("histogram"))
 ```
 
-If you want to plot which nodes are the exposure and outcome, use `ggdag_status()` instead:
+4. Densidad
 
-```{r simple-status}
-ggdag_status(simple_dag) +
-  theme_dag()
-```
+Ahora que vemos la distribución del histograma, ¿cómo podemos ver su densidad?, es muy simple, para ello haremos un gráfico de densidad con el siguiente código
 
-### Layouts and manual coordinates
-
-Notice how the layout is different in both of those graphs. By default, `ggdag()` positions the nodes randomly every time using a network algorithm. You can change the algorithm by using the `layout` argument: `ggdag(simple_dag, layout = "nicely")`. You can see a full list of possible algorithms by running `?layout_tbl_graph_igraph` in the console.
-
-Alternatively, you can specify your own coordinates so that the nodes are positioned in the same place every time. Do this with the `coords` argument in `dagify()`. 
-
-The best way to figure out what these numbers should be is to draw the DAG on paper or on a whiteboard and add a grid to it and then figure out the coordinates. For instance, in this DAG there are three rows and three columns: `x` and `y` go in the middle row (row 2) while `a` and `b` go in the middle column (column 2). It can also be helpful to not include `theme_dag()` at first so you can see the numbers for the underlying grid. Once you have everything positioned correctly, add `theme_dag()` to clean it up.
-
-```{r dag-with-coords}
-simple_dag_with_coords <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y",
-  coords = list(x = c(x = 1, a = 2, b = 2, y = 3),
-                y = c(x = 2, a = 1, b = 3, y = 2))
-)
-
-ggdag_status(simple_dag_with_coords) +
-  theme_dag()
-```
-
-### Node names and labels
-
-The variable names you use do not have to be limited to just `x`, `y`, and other lowercase letters. You can any names you want, as long as there are no spaces.
-
-```{r dag-with-names}
-dag_with_var_names <- dagify(
-  outcome ~ treatment + confounder1 + confounder2,
-  treatment ~ confounder1 + confounder2,
-  exposure = "treatment",
-  outcome = "outcome"
-)
-
-ggdag_status(dag_with_var_names) +
-  theme_dag()
-```
-
-However, unless you use very short names, it is likely that the text will not fit inside the nodes. To get around this, you can add labels to the nodes using the `labels` argument in `dagify()`. Plot the labels by setting `use_labels = "label"` in `ggdag()`. You can turn off the text in the nodes with `text = FALSE` in `ggdag()`.
-
-```{r dag-with-labels}
-simple_dag_with_coords_and_labels <- dagify(
-  y ~ x + a + b,
-  x ~ a + b,
-  exposure = "x",
-  outcome = "y",
-  labels = c(y = "Outcome", x = "Treatment",
-             a = "Confounder 1", b = "Confounder 2"),
-  coords = list(x = c(x = 1, a = 2, b = 2, y = 3),
-                y = c(x = 2, a = 1, b = 3, y = 2))
-)
-
-ggdag_status(simple_dag_with_coords_and_labels,
-             use_labels = "label", text = FALSE) +
-  guides(fill = FALSE, color = FALSE) +  # Disable the legend
-  theme_dag()
+```{r casen densidad, echo=TRUE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+plot_frq(., ingreso_percapita,
+          title = "Gráfico de densidad",
+          type = c("density"))
 ```
 
 
-### Paths and adjustment sets
+5. Gráfico de líneas
+        
+¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable `ife` y usaremos este código:
 
-R can also perform analysis on DAG objects. For example, we can find all the testable implications from the DAG using the `impliedConditionalIndependencies()` function from the **dagitty** package. For this simple DAG, there is only one: `a` should be independent of `b`. If we had a dataset with columns for each of these variables, we could check if this is true by running `cor(a, b)` to see if the two are related.
+```{r casen lineas, echo=TRUE, results='markup'}
+plot_frq(datos_proc, ife,
+          title = "Gráfico de líneas",
+          type = c("line"))
 
-```{r find-independencies}
-impliedConditionalIndependencies(simple_dag)
 ```
 
-We can also find all the paths between `x` and `y` using the `paths()` function from the **dagitty** package. We can see that there are three open paths between `x` and `y`:
+6. Gráfico de cajas
 
-```{r find-paths}
-paths(simple_dag)
+Para graficar los estadísticos de una variable, podemos hacerlo a través de un gráfico de cajas, para ello usaremos este código:
+
+```{r casen box, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+plot_frq(., ingreso_percapita,
+          title = "Gráfico de caja",
+          type = c("boxplot"))
 ```
 
-The first open path is fine—we want a single *d*-connected relationship between treatment and outcome—but the other two indicate that there is confounding from `a` and `b`. We can see what each of these paths are with the `ggdag_paths()` function from the **ggdag** package:
+          
+7. Gráfico de violín
 
-```{r plot-dag-paths, fig.width=8}
-ggdag_paths(simple_dag_with_coords) +
-  theme_dag()
+Finalmente, si queremos presentar gráficos de violín, usamos este código
+          
+```{r casen violin, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+    plot_frq(., ingreso_percapita,
+          title = "Gráfico de violín",
+          type = c("violin"))
+```
+          
+Como pueden ver, el único argumento que se modificaba era `type = `, es decir, para hacer diversos gráficos, sólo se debe especificar el tipo de gráfico que queremos.
+
+
+8. Gráfico de nube de puntos
+
+Ahora, si quisiéramos graficar la distribución de dos variables, podemos hacerlo con la función `plot_scatter`, esta muestra el diagrama de dispersión de dos variables.
+
+```{r casen scatter, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+   plot_scatter(., horas_mens, ingreso_percapita)
 ```
 
-Instead of listing out all the possible paths and identifying backdoors by hand, you can use the `adjustmentSets()` function in the **dagitty** package to programmatically find all the nodes that need to be adjusted. Here we see that both `a` and `b` need to be controlled for to isolate the `x -> y` relationship.
+También es posible agregar una tercera variable al diagrama de dispersión, podemos hacerlo con `ocupacion`
 
-```{r find-adjustment-sets}
-adjustmentSets(simple_dag)
+```{r casen scatter 3 var, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+    plot_scatter(., horas_mens, ingreso_percapita, ocupacion)
 ```
 
-You can also visualize the adjustment sets with `ggdag_adjustment_set()` in the **ggdag** package. Make sure you set `shadow = TRUE` to draw the arrows coming out of the adjusted nodes—by default, those are not included.
+O con la variable `sexo`
 
-```{r plot-adjustment-sets}
-ggdag_adjustment_set(simple_dag_with_coords, shadow = TRUE) +
-  theme_dag()
+```{r casen scatter 3 var sexo, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+    plot_scatter(., horas_mens, ingreso_percapita, sexo)
 ```
 
-R will find minimally sufficient adjustment sets, which includes the fewest number of adjustments needed to close all backdoors between `x` and `y`. In this example DAG there was only one set of variables (`a` and `b`), but in other situations there could be many possible sets, or none if the causal effect is not identifiable.
+Pero ¿si quiero una mejor visualización? para eso usamos este código que nos permite hacer dos gráficos para cada categoría de la variable `sexo`, esto lo haremos con el argumento `grid = T`, donde además le asignaremos una línea ajustada con `fit.grps`. Pero además como hay casos al extremo con las horas mensuales, las filtraremos, para eso debemos aplicar todo lo que hemos aprendido:
 
-### Plot DAG from dagitty.net with `ggdag()`
+Primero debemos conocer los valores de la variable, para ello usaremos `descr`
 
-If you use [dagitty.net](http://dagitty.net/) to draw a DAG, you'll notice that it generates some code for you in the model code section:
-
-```{r dagitty-model-code-example, echo=FALSE}
-knitr::include_graphics("/img/example/dagitty-code.png", error = FALSE)
+```{r descr, echo=TRUE, message=FALSE, warning=FALSE}
+descr(datos_proc$horas_mens)
 ```
 
-You can copy that `dag{ ... }` code and paste it into R to define a DAG object rather than use the `dagify()` function. To do this, use the `dagitty()` function from the **dagitty** library and include the whole generated model code in single quotes (`''`):
+Acá podemos ver, que la variable oscila entre 1 y 720 horas, entonces la filtraremos, utilizando `filter` y **operadores**, 
 
-```{r code-from-dagitty}
-model_from_dagitty <- dagitty('dag {
-bb="0,0,1,1"
-"A confounder" [pos="0.809,0.306"]
-"Another confounder" [pos="0.810,0.529"]
-"Some outcome" [outcome,pos="0.918,0.432"]
-"Some treatment" [exposure,pos="0.681,0.426"]
-"A confounder" -> "Some outcome"
-"A confounder" -> "Some treatment"
-"Another confounder" -> "Some outcome"
-"Another confounder" -> "Some treatment"
-"Some treatment" -> "Some outcome"
-}
-')
-
-ggdag(model_from_dagitty) +
-  theme_dag()
+```{r casen scatter sep, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000 & horas_mens <= 450) %>%
+    plot_scatter(., horas_mens, ingreso_percapita, sexo,
+             fit.grps = "lm", grid = TRUE)
 ```
 
-By default it's going to look ugly because (1) the node labels don't fit, and (2) slight differences in the coordinates make it so the nodes don't perfectly align with each other. To fix coordinate alignment, you can modify the numbers in the generated DAG code. Here I rounded the numbers so that they're all 0.3, 0.8, etc.
+Ahora que ya hemos graficado las frecuencias de las variables, vamos a graficar frecuencias agrupadas, para ello usaremos la función `plot_grpfrq` de `sjPlot`, su estructura es la siguiente
 
-To fix the label issue, you can add the `use_labels` argument like normally. Only here, you can't specify `use_labels = "label"`. Instead, when you specify a DAG using dagitty's code like this, the column in the underlying dataset that contains the labels is named `name`, so you need to use `use_labels = "name"`.
+```{r ejemplo frecuencias agrup, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+plot_grpfrq(
+  var.cnt,
+  var.grp,
+  type = c("bar", "dot", "line", "boxplot", "violin")
+```
 
-Other `ggdag()` variations like `ggdag_status()` will still work fine.
+1. Gráfico de barras
 
-```{r code-from-dagitty-better}
-model_from_dagitty_rounded <- dagitty('dag {
-bb="0,0,1,1"
-"A confounder" [pos="0.8,0.3"]
-"Another confounder" [pos="0.8,0.5"]
-"Some outcome" [outcome,pos="0.9,0.4"]
-"Some treatment" [exposure,pos="0.7,0.4"]
-"A confounder" -> "Some outcome"
-"A confounder" -> "Some treatment"
-"Another confounder" -> "Some outcome"
-"Another confounder" -> "Some treatment"
-"Some treatment" -> "Some outcome"
-}
-')
+La primera opción que nos entrega este código son los gráficos de barra, para usarlo queremos saber cuantos hombres y mujeres trabajaron al menos una hora la semana pasada, para ello graficaremos la variable `sexo` y `ocupacion`
 
-ggdag_status(model_from_dagitty_rounded, text = FALSE, use_labels = "name") +
-  guides(color = FALSE) +  # Turn off legend
-  theme_dag()
+```{r casen frec agrup barr, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$sexo, datos_proc$ocupacion,
+  type = c("bar"), title = "Gráfico de barras")
+```
+
+Podemos ver que no solo nos muestra la frecuencia absoluta, sino que también la relativa en porcentaje
+
+Pero además podemos ver agregar una tercera categoría, que es el total de ambas categorías. Para este ejercicio conoceremos que tramo de edad trabajo la semana pasada.
+
+Para este ejercicio usaremos la función `plot_xtab`, de la misma librería
+
+```{r casen frec agrup barr 2, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_xtab(datos_proc$edad_tramo, datos_proc$ocupacion, title = "Gráfico de barras")
+```
+
+1.1 Gráfico de barras horizontales
+
+Con la misma función podemos graficar mediante barras horizontales con el argumento `coord.flip`, además `show.summary` nos muestra estadísticos de la relación entre las variables
+
+```{r casen frec agrup barr hor, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_xtab(datos_proc$edad_tramo, datos_proc$ocupacion, margin = "row", 
+          bar.pos = "stack",
+          title = "Gráfico de barras horizontales",
+         show.summary = TRUE, coord.flip = TRUE)
+```
+
+también se puede graficar con la misma categoría de respuesta para observar diferencias en las distribuciones, para esto usamos la función `plot_stackfrq` de `sjPlot`
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+datos_proc %>% select("ocupacion","o2", "o3", "o4", "o6") %>% 
+  plot_stackfrq(., title = "Gráfico de barras proporcional")
+
 ```
 
 
-## Mosquito net example
+1.2 Escalas likert
 
-### Conditional independencies
+También podemos graficar escalas likert, en esta ocasión CASEN no tiene variables con más categorias de respuesta para generar una escala likert, por lo que utilizaremos las nuevas variables de la base procesada, para ello usaremos la función `plot_likert`
 
-You can test if your stated relationships are correct by looking at the conditional independencies that are implied by the DAG. In dagitty.net, these appear in the sidebar in the "Testable implications" section. To show how this works, we'll use a simulated dataset that I generated about a fictional mosquito net program. Download the data here if you want to follow along:
-
-- [<i class="fas fa-table"></i> `mosquito_nets.csv`](/data/mosquito_nets.csv)
-
-Researchers are interested in whether using mosquito nets decreases an individual's risk of contracting malaria. They have collected data from 1,752 households in an unnamed country and have variables related to environmental factors, individual health, and household characteristics. Additionally, this country has a special government program that provides free mosquito nets to households that meet specific requirements: to qualify for the program, there must be more than 4 members of the household, and the household's monthly income must be lower than \$700 a month. Households are not automatically enrolled in the program, and many do not use it. The data is not experimental—researchers have no control over who uses mosquito nets, and individual households make their own choices over whether to apply for free nets or buy their own nets, as well as whether they use the nets if they have them.
-
-```{r build-mosquito-dag, fig.width=8}
-mosquito_dag <- dagify(
-  malaria_risk ~ net + income + health + temperature + resistance,
-  net ~ income + health + temperature + eligible + household,
-  eligible ~ income + household,
-  health ~ income,
-  exposure = "net",
-  outcome = "malaria_risk",
-  coords = list(x = c(malaria_risk = 7, net = 3, income = 4, health = 5,
-                      temperature = 6, resistance = 8.5, eligible = 2, household = 1),
-                y = c(malaria_risk = 2, net = 2, income = 3, health = 1,
-                      temperature = 3, resistance = 2, eligible = 3, household = 2)),
-  labels = c(malaria_risk = "Risk of malaria", net = "Mosquito net", income = "Income",
-             health = "Health", temperature = "Nighttime temperatures",
-             resistance = "Insecticide resistance",
-             eligible = "Eligible for program", household = "Number in household")
-)
-
-ggdag_status(mosquito_dag, use_labels = "label", text = FALSE) +
-  guides(fill = FALSE, color = FALSE) +  # Disable the legend
-  theme_dag()
+```{r casen_likert, echo=TRUE, message=FALSE, warning=FALSE}
+datos_proc %>% select("ocupacion","o2", "o3", "o4", "o6") %>% 
+  sjPlot::plot_likert(., title = "Gráfico de escalas likert")
 ```
 
-The causal graph above  outlines the complete relationship between mosquito net use and risk of malaria. Each node in the DAG is a column in the dataset collected by the researchers, and includes the following:
+1.3 Tablas de proporción cruzadas
 
-- Malaria risk (`malaria_risk`): The likelihood that someone in the household will be infected with malaria. Measured on a scale of 0–100, with higher values indicating higher risk.
-- Mosquito net (`net` and `net_num`): A binary variable indicating if the household used mosquito nets.
-- Eligible for program (`eligible`): A binary variable indicating if the household is eligible for the free net program.
-- Income (`income`): The household's monthly income, in US dollars.
-- Nighttime temperatures (`temperature`): The average temperature at night, in Celsius.
-- Health (`health`): Self-reported healthiness in the household. Measured on a scale of 0–100, with higher values indicating better health.
-- Number in household (`household`): Number of people living in the household.
-- Insecticide resistance (`resistance`): Some strains of mosquitoes are more resistant to insecticide and thus pose a higher risk of infecting people with malaria. This is measured on a scale of 0–100, with higher values indicating higher resistance.
+Con `plot_gpt`, se puede graficar tablas cruzadas proporcionales agrupadas, este código traza la proporción de cada nivel de **x** (`ife`) para la categoría más alta en **y** (`ocupacion`), para cada subgrupo de **grp** (`sexo`).
 
-According to the DAG, malaria risk is caused by income, temperatures, health, insecticide resistance, and mosquito net use. People who live in hotter regions, have lower incomes, have worse health, are surrounded by mosquitoes with high resistance to insecticide, and who do not use mosquito nets are at higher risk of contracting malaria than those who do not. Mosquito net use is caused by income, nighttime temperatures, health, the number of people living in the house, and eligibility for the free net program. People who live in areas that are cooler at night, have higher incomes, have better health, have more people in the home, and are eligible for free government nets are more likely to regularly use nets than those who do not. The DAG also shows that eligibility for the free net program is caused by income and household size, since households must meet specific thresholds to qualify.
 
-First, let's download the dataset, put in a folder named `data`, and load it:
-
-- [<i class="fas fa-table"></i> `mosquito_nets.csv`](/data/mosquito_nets.csv)
-
-```{r load-data-fake, eval=FALSE}
-# Load the data.
-# It'd be a good idea to click on the "mosquito_nets.csv" object in the
-# Environment panel in RStudio to see what the data looks like after you load it
-mosquito_nets <- read_csv("data/mosquito_nets.csv")
+```{r casen_prop_Agrup, echo=TRUE, message=FALSE, warning=FALSE}
+plot_gpt(datos_proc, ife, ocupacion, sexo,
+         shapes = c(15, 21), 
+         title = "Gráfico de proporción agrupada")
 ```
 
-```{r load-data-real, include=FALSE}
-mosquito_nets <- read_csv(here::here("static", "data", "mosquito_nets.csv"))
+
+2. Gráfico de puntos
+
+Ahora continuaremos con los gráficos de puntos, ya que quiero presentar la relación entre `sexo` y `ocupacion` mediante otro gráfico:
+
+```{r casen graf pun agrup, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$sexo, datos_proc$ocupacion,
+            title = "Gráfico de puntos",
+            type = c("dot"))
+  
 ```
 
-We can use this data to check if the relationships defined by our DAG reflect reality. Recall that *d*-separation implies that nodes are statistically independent of each other and do not transfer associational information. If you draw the mosquito net DAG with dagitty.net, or if you run `impliedConditionalIndependencies()` in R, you can see a list of all the implied conditional independencies. 
+  
+3. Gráfico de líneas
 
-```{r}
-impliedConditionalIndependencies(mosquito_dag)
+Otra opción que tiene esta función, es la creación de gráficos de líneas, para ello conoceremos la relación entre el tramo etario y el recibir el IFE
+
+```{r casen graf lin agrup, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$edad_tramo, datos_proc$ife,
+            title = "Gráfico de línea",
+            type = c("line"))
+  
 ```
 
-The `_||_` symbol in the output here is the $\perp$ symbol, which means "independent of". The `|` in the output means "given".
+También podemos ver la relación de el tramo etario y si trabajó la semana pasada
 
-In the interest of space, we will not verify all these implied independencies, but we can test a few of them:
+```{r casen graf line agrup 2, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$edad_tramo, datos_proc$ocupacion, 
+            title = "Gráfico de línea",
+            type = "line")
+```
+         
 
-- $\text{Health} \perp \text{Household members}$: (Read as *"Health is independent of household member count"*.) Health should be independent of the number of people in each household. In the data, the two variables should not be correlated. This is indeed the case:
+4. Gráfico de cajas
 
-```{r indent="    "}
-cor(mosquito_nets$health, mosquito_nets$household)
+Ahora si queremos conocer cómo interactúa las horas de trabajo con el tramo etario, podemos visualizarlo mediante un gráfico de cajas
+
+```{r casen graf caj, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$horas_mens, datos_proc$edad_tramo,
+            title = "Gráfico de caja",
+             type = c("boxplot"))
 ```
 
-- $\text{Income} \perp \text{Insecticide resistance}$: (Read as *"Income is independent of insecticide resistance"*.) Income should be independent of insecticide resistance. This is again true:
+Además, se puede incorporar una tercera variable, en este caso lo haremos con la variable `sexo` y el argumento `intr.var`
 
-```{r indent="    "}
-cor(mosquito_nets$income, mosquito_nets$resistance)
+```{r casen box 3 var, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$horas_mens, datos_proc$edad_tramo, intr.var = datos_proc$sexo, 
+            title = "Gráfico de cajas",
+            type = "box")
 ```
 
-- $\text{Malaria risk} \perp \text{Household members}\ |\ \text{Health, Income, Bed net use, Temperature}$: (Read as *"Malaria risk is independent of house member count given health, income, bed net use, and temperature"*.) Malaria risk should be independent of the number of household members given similar levels of health, income, mosquito net use, and nighttime temperatures. We cannot use `cor()` to test this implication, since there are many variables involved, but we can use a regression model to check if the number of household members is significantly related to malaria risk. It is not significant ($t = -0.17$, $p = 0.863$), which means the two are independent, as expected.
+5. Gráfico de violín
 
-```{r indent="    "}
-lm(malaria_risk ~ household + health + income + net + temperature,
-   data = mosquito_nets) %>%
-  broom::tidy()
+Finalmente, para generar un gráfico de violín, añadiremos el argumento `type = "violin"`
+
+```{r casen graf violin agrup, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_grpfrq(datos_proc$horas_mens, datos_proc$edad_tramo,
+            title = "Gráfico de violín",
+            type = c("violin"))
 ```
 
-We can check all the other conditional independencies to see if the DAG captures the reality of the full system of factors that influence mosquito net use and malaria risk. If there are substantial and significant correlations between nodes that should be independent, there is likely an issue with the specification of the DAG. Return to the theory of how the phenomena are generated and refine the DAG more.
+Nuevamente, la función nos permite la creación de múltiples gráficos, sólo se debe cambiar el argumento `type =`
 
+#  6. Tablas de contingencia
 
-### Mosquito net adjustment sets
+¡No podemos terminar sin saber cómo hacer tablas de frecuencias cruzadas!
 
-There is a direct path between mosquito net use and the risk of malaria, but the effect is not causally identified due to several other open paths. We can either list out all the paths and find which open paths have arrows pointing backwards into the mosquito net node (run `paths(mosquito_dag)` to see these results), or we can let R find the appropriate adjustment sets automatically:
+Por suerte `sjPlot` tiene la función `sjt.xtab`, que nos entrega tablas de frecuencias cruzadas
 
-```{r}
-adjustmentSets(mosquito_dag)
+```{r casen tab cruz, echo=TRUE, results='markup'}
+sjt.xtab(datos_proc$sexo, datos_proc$ife,  
+         title = "Tabla de contingencias",
+         show.col.prc=TRUE,
+         show.summary=FALSE)
 ```
 
-Based on the relationships between all the nodes in the DAG, adjusting for health, income, and temperature is enough to close all backdoors and identify the relationship between net use and malaria risk. Importantly, we do not need to worry about any of the nodes related to the government program for free nets, since those nodes are not *d*-connected to malaria risk. We only need to worry about confounding relationships.
 
-We can confirm this graphically with `ggdag_adjustment_set()`:
+¿Qué pasó? ¿por qué salen esos símbolos raros en la tabla? 
 
-```{r plot-mosquito-adjustment-fake}
-ggdag_adjustment_set(mosquito_dag, shadow = TRUE,
-                     use_labels = "label", text = FALSE) +
-  theme_dag()
+¡Es por la codificación!, para ello le agregamos el argumento `encoding = "UTF-8"` y ya tenemos nuestra tabla de frecuencias cruzadas
+
+
+```{r casen tab cruz encoding, echo=TRUE, results='markup'}
+sjt.xtab(datos_proc$sexo, datos_proc$ife,
+         show.col.prc=TRUE,
+         show.summary=FALSE, 
+         encoding = "UTF-8", 
+         title = "Tabla de contingencia",
+         file = "output/figures/tabla3.doc")
 ```
+
+Si además se quieren añadir variables con las mismas categorías de respuesta, se puede utilizar la función `tab_stackfrq`, para ello utilizaremos a las variables añadidas para este práctico `o3`, `o4` y `o6`. Le añadiremos etiquetas con `value.labels` y le pediremos que nos entregue la frecuencia absoluta (`show.n = TRUE`) y el total (`show.total = T`)
+
+```{r ej_tab_cruz, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+tab_stackfrq(as.data.frame(datos_proc %>% select("o3", "o4", "o6")),
+             value.labels=c('1'='Si', '2'='No'),
+             show.n = TRUE, show.total = T,
+             file = "output/figures/tabla4.doc")
+```
+
+
+```{r casen_tab_cruz, echo=FALSE, message=FALSE, warning=FALSE}
+tab_stackfrq(as.data.frame(datos_proc %>% select("o3", "o4", "o6")),
+             value.labels=c('1'='Si', '2'='No'),
+             encoding = "UTF-8",
+             show.n = TRUE, show.total = T)
+```
+
+#  7. Test de independencia Chi2 
+
+A la hora de graficar Chi2, debemos asegurarnos con la función `as_factor` que las variables a utilizar sean de tipo factor, luego utilizamos la función `sjp.chi2` de `sjPlot` para crear la tabla, finalmente con el argumento `axis.labels` asignamos la etiqueta de cada variable
+
+```{r casen_x2, echo=TRUE, message=FALSE, warning=FALSE}
+data.frame(as_factor(sample(datos_proc$ocupacion, replace = TRUE)),
+                 as_factor(sample(datos_proc$o2, replace = TRUE)),
+                 as_factor(sample(datos_proc$o3, replace = TRUE)),
+                 as_factor(sample(datos_proc$o4, replace = TRUE)),
+                 as_factor(sample(datos_proc$o6, replace = TRUE))) %>% 
+  sjp.chi2(., 
+         title = "Gráfico de Chi2",
+         axis.labels  = c("Trabajó al menos una hora", "realizó alguna actividad", "Tenía algún empleo", "Ha trabajado alguna vez", "Busco empleo"))
+
+```
+
+#  8. Correlación
+
+Ahora veremos estadísticos bivariados, como la correlación, en esta ocasión generaremos una tabla de correlación entre las variables `horas_mens` y `ingreso_percapita`, para eso usaremos la función `tab_corr` de `sjPlot`
+
+Previamente debemos seleccionar las variables a utilizar, ya que no tiene sentido incluir en el análisis variables nominales
+
+```{r casen corr, echo=TRUE, results='markup'}
+datos_proc %>%
+select(ingreso_percapita, horas_mens) %>% 
+tab_corr(.,
+         triangle = "lower",   
+         title = "Tabla de correlación",
+         encoding = "UTF-8", 
+         file = "output/figures/tabla4.doc")
+```
+
+
+#  9. Anova
+
+Finalmente, si queremos reportar un análisis de Anova, no podemos dejar de lado este gráfico que nos otorga la función `sjp.aov1` del paquete `sjPlot`
+
+```{r message=FALSE, warning=FALSE}
+sjp.aov1(datos_proc$ingreso_percapita, datos_proc$sexo, title = "Anova")
+```
+
+# 10. Resumen del práctico
+
+¡Eso es todo por este práctico! Hoy aprendimos a:
+
+- Manejar datos descriptivos en Rstudio
+- A obtener tablas descriptivas
+- A visualizar los descriptivos
+- A obtener tablas de contingencia
+- A obtener tablas de correlación y chi2
+- A obtener gráficos de Anova
+
+# 11. Reporte de progreso
+
+¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
+
