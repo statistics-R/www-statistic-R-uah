@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°2 hacer click aquí](https://classroom.github.com/g/uF2RyAV_). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°2 hacer click aquí](https://classroom.github.com/g/uF2RyAV_). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 ## Objetivo
 
@@ -44,7 +44,7 @@ En su equipo de investigación quieren realizar los siguientes análisis, para l
 
 **Atención**: la ejecución concreta de los análisis serán parte de la tarea N°3. Por ahora usted debe preocuparse de: 
 
-1. Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproject)
+1. Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproj)
 
 2. Construir un script llamado *procesamiento-datos.R* que esté alojado en la carpeta que corresponda. Este script debe tener un orden y utilizar los comentarios (#) para hacer referencia a los procesos realizados
 
