@@ -5,12 +5,122 @@
     <link>/assignment/</link>
       <atom:link href="/assignment/index.xml" rel="self" type="application/rss+xml" />
     <description>Sobre las evaluaciones</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 16 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Wed, 08 Sep 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Sobre las evaluaciones</title>
       <link>/assignment/</link>
     </image>
+    
+    <item>
+      <title>Tarea 2. Procesamiento de datos en R</title>
+      <link>/assignment/02-tarea/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/02-tarea/</guid>
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/uF2RyAV_&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
+&lt;p&gt;La tarea N°2 consiste en la creación de un script en R que les permita construir datos limpios y procesados que servirán de &amp;ldquo;input&amp;rdquo; para los análisis exploratorios que se reporten de los datos procesados (tarea N°3). El ejercicio que deben realizar se basa en un caso simulado de &amp;ldquo;trabajo&amp;rdquo; que les han solicitado&lt;/p&gt;
+&lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
+&lt;p&gt;En su nuevo trabajo como investigadores/as les han encargado hacer un estudio sobre el efecto de la pandemia sobre el empleo. Para ello, les han solicitado a ustedes la recopilación y procesamiento de una serie de datos relevantes para iniciar el estudio. De manera preliminar, le solicitan los siguientes puntos&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Debe ocupar la Encuesta Nacional de Empleo (ENE) del Instituto Nacional de Estadísticas, particularmente el trimestre &lt;em&gt;Enero-Febrero-Marzo&lt;/em&gt; del año 2019 y del 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las variables que más interesan para el informe son: condición de actividad económica general (&lt;em&gt;CAE&lt;/em&gt;), no general (&lt;em&gt;Condición de actividad&lt;/em&gt;) y las horas de trabajo de la actividad principal (&lt;em&gt;modulo C&lt;/em&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;También le han indicado que hay ciertas variables sociodemográficas de interés como el nivel educacional (&lt;em&gt;CINE&lt;/em&gt;), edad y sexo&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;instrucciones-específicas&#34;&gt;Instrucciones específicas&lt;/h3&gt;
+&lt;p&gt;En su equipo de investigación quieren realizar los siguientes análisis, para lo cuál usted debe construir un data set procesado llamado &lt;em&gt;datos_proc.RData&lt;/em&gt; que permita realizar estos análisis de manera debida&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Los análisis solo deben considerar a las personas en edad de trabajar según las definiciones del Instituto Nacional de Estadística.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Un análisis de la distribución de sociodemográficos de nivel educacional, edad y sexo. Le han solicitado que el nivel educacional esté solo clasificado en &amp;ldquo;Superior completa&amp;rdquo;, &amp;ldquo;Media y básica completa&amp;rdquo; y &amp;ldquo;Básica o menos incompleta&amp;rdquo;, que la edad esté clasificada en tramos de &amp;ldquo;15 a 39 años&amp;rdquo;, &amp;ldquo;40 a 64 años&amp;rdquo; y &amp;ldquo;65 y más&amp;rdquo;; sexo debe estar codificada como &amp;ldquo;Mujer&amp;rdquo; y &amp;ldquo;Hombre&amp;rdquo;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Un análisis de la distribución de la condición de actividad económica, situación de empleo y las suma de horas trabajadas en la actividad principal para la muestra del 2019 y 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una persona del equipo sospecha de la variable de condición de actividad que no es general (&lt;em&gt;activ&lt;/em&gt;). Por ello, le piden que cree una nueva variable llamada &lt;em&gt;&amp;ldquo;cae_corregido&amp;rdquo;&lt;/em&gt; en base a la definición que se hace de esta variable en el manual metodológico.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Atención&lt;/strong&gt;: la ejecución concreta de los análisis serán parte de la tarea N°3. Por ahora usted debe preocuparse de:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproject)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Construir un script llamado &lt;em&gt;procesamiento-datos.R&lt;/em&gt; que esté alojado en la carpeta que corresponda. Este script debe tener un orden y utilizar los comentarios (#) para hacer referencia a los procesos realizados&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cargar los paquetes y datos necesarios para el procesamiento&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Filtrar, seleccionar y crear las variables indicadas (no olvides crear el índice sumativo)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una vez limpios los datos del 2019 y del 2021, unir los datos en un único objeto llamado &amp;ldquo;ene_unida&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Guardar los datos procesados del 2019, 2021 y la unión de ambos en un archivo llamado &lt;em&gt;datos_proc.RData&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bonus: si incorporan un README.md con la explicación de dónde sacaron los datos e información metodológica, será bonificado con 0,4 décimas.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerden que puede ser realizada en pareja, la misma durante todo el semestre.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tarea se puede entregar hasta el día viernes 17 de septiembre 23.59&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;R para ciencia de datos - Como usar RMarkdown&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-book&#34;&gt;&lt;/i&gt; Recursos&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/resource/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Recursos del curso&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=APzU10EMMjg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/02-content&#34;&gt;Sesión N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/03-content&#34;&gt;Sesión N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/04-content&#34;&gt;Sesión N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/05-content&#34;&gt;Sesión N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/02-practico&#34;&gt;Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/03-practico&#34;&gt;Práctico N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/04-practico&#34;&gt;Práctico N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/05-practico&#34;&gt;Práctico N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Tarea 1. Reporte en RMarkdown</title>

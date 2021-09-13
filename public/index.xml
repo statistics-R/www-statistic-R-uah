@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 06 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 13 Sep 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Course materials</title>
@@ -362,6 +362,741 @@ less
     </item>
     
     <item>
+      <title>Análisis descriptivo</title>
+      <link>/example/06-practico/</link>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>/example/06-practico/</guid>
+      <description>&lt;h1 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h1&gt;
+&lt;p&gt;El objetivo del práctico, es avanzar en el análisis de los datos a través del uso de &lt;strong&gt;estadísticos descriptivos&lt;/strong&gt;. Para esto ya debemos contar con datos previamente &lt;a href=&#34;https://learn-r-uah.netlify.app/example/04-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;procesados del práctico N°4&lt;/a&gt;. Previo a eso, &lt;strong&gt;siempre es importante&lt;/strong&gt; que recordemos en qué parte del proceso estamos&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;En este práctico veremos tanto la &lt;em&gt;estimación puntual&lt;/em&gt; de estadísticos descriptivos, como su &lt;em&gt;visualización&lt;/em&gt; para reportes, ya sea a través de tablas o de gráficos.&lt;/p&gt;
+&lt;h2 id=&#34;recursos-del-práctico&#34;&gt;Recursos del práctico&lt;/h2&gt;
+&lt;p&gt;En este práctico utilizamos los &lt;strong&gt;datos&lt;/strong&gt; procesados &lt;em&gt;CASEN 2020&lt;/em&gt;, que proviene de los datos originales de &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta de Caracterización Socioeconómica (CASEN)&lt;/strong&gt;&lt;/a&gt;.Recuerden &lt;em&gt;&lt;strong&gt;siempre&lt;/strong&gt;&lt;/em&gt; consultar el &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;libro códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar datos.&lt;/p&gt;
+&lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;1-paquetes-a-utilizar&#34;&gt;1. Paquetes a utilizar&lt;/h1&gt;
+&lt;p&gt;Para este práctico utilizaremos principalmente, las librerías &lt;code&gt;sjmisc&lt;/code&gt; y &lt;code&gt;sjPlot&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sjmisc&lt;/code&gt;: esta paquete tiene múltiples funciones, desde la transformación de datos y variables. Este paquete suele complementar a  &lt;code&gt;dplyr&lt;/code&gt; de &lt;code&gt;tidyverse&lt;/code&gt; en sus funciones.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sjPlot&lt;/code&gt;: su principal función es la visualización de datos para estadística en ciencias sociales mediante tablas y gráficos.&lt;/p&gt;
+&lt;p&gt;Cargaremos los paquetes con &lt;code&gt;pacman&lt;/code&gt;, si aún tienes dudas sobre cómo trabajar con &lt;code&gt;pacman&lt;/code&gt; puedes &lt;a href=&#34;https://learn-r-uah.netlify.app/example/02-practico/#paso-1-instalaci%C3%B3n-de-paquetes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;revisar el práctico 2&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(sjmisc,
+               sjPlot,
+               tidyverse,
+               magrittr)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;2-importar-datos&#34;&gt;2. Importar datos&lt;/h1&gt;
+&lt;p&gt;Una vez cargado los paquetes a utilizar, debemos pasar al segundo paso: cargar los datos. Como indicamos al inicio, seguiremos utilizando los datos &lt;strong&gt;CASEN&lt;/strong&gt; que fue procesada en el práctico anterior, pero le añadimos una variable.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;load&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/data/datos_proc.RData&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;3-explorar-datos&#34;&gt;3. Explorar datos&lt;/h1&gt;
+&lt;p&gt;Pero ¿cómo sabremos cuales son las nuevas variables que componen la base de datos procesada?, ¡Simple! usaremos dos códigos que vimos en el &lt;a href=&#34;https://learn-r-uah.netlify.app/example/04-practico/#2-cargar-base-de-datos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;práctico 4&lt;/a&gt; para conocer los &lt;strong&gt;datos procesados&lt;/strong&gt; que usaremos en esta ocasión:&lt;/p&gt;
+&lt;p&gt;Primero, usaremos el código &lt;code&gt;names&lt;/code&gt;, nos entrega los nombres de las variables que componen los datos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;names&lt;/span&gt;(datos_proc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;##  [1] &amp;#34;sexo&amp;#34;              &amp;#34;edad_tramo&amp;#34;        &amp;#34;ocupacion&amp;#34;        
+##  [4] &amp;#34;o2&amp;#34;                &amp;#34;o3&amp;#34;                &amp;#34;o4&amp;#34;               
+##  [7] &amp;#34;o6&amp;#34;                &amp;#34;ingreso_percapita&amp;#34; &amp;#34;ife&amp;#34;              
+## [10] &amp;#34;horas_mens&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mientras que la función &lt;code&gt;head&lt;/code&gt; nos entrega el nombre y las primeras 10 filas que lo componen.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(datos_proc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 10
+##         sexo edad_tramo ocupacion        o2        o3        o4      o6 ingreso_percapi~
+##    &amp;lt;dbl+lbl&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;fct&amp;gt;     &amp;lt;dbl+lbl&amp;gt; &amp;lt;dbl+lbl&amp;gt; &amp;lt;dbl+lbl&amp;gt; &amp;lt;dbl+l&amp;gt;            &amp;lt;dbl&amp;gt;
+## 1 2 [Mujer]  Joven      No           1 [Sí]   NA        NA      NA               195416.
+## 2 1 [Hombre] Adulto     Sí          NA        NA        NA      NA               315861 
+## 3 2 [Mujer]  Joven      No           1 [Sí]   NA        NA      NA               315861 
+## 4 1 [Hombre] Adulto     Sí          NA        NA        NA      NA              1001389 
+## 5 1 [Hombre] Joven      No           2 [No]    2 [No]    2 [No]  2 [No]         1001389 
+## 6 2 [Mujer]  Adulto     No           2 [No]    2 [No]    1 [Sí]  2 [No]         1001389 
+## # ... with 2 more variables: ife &amp;lt;dbl+lbl&amp;gt;, horas_mens &amp;lt;dbl&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Gracias a estos códigos sabemos que tenemos una aproximación de las variables que vamos a utilizar. Por el práctico anterior sabemos que podemos explorar nuestros datos con &lt;code&gt;sjPlot::view_df()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;view_df&lt;/span&gt;(datos_proc,
+                encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption&gt;Data frame: datos_proc&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ID&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Name&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Label&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Values&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Value Labels&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Hombre&lt;br&gt;Mujer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;edad_tramo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&amp;lt;output omitted&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ocupacion&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o1. La semana pasada, Â¿trabajÃ³ al menos una hora?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o2. Aunque no trabajÃ³ la semana pasada, Â¿realizÃ³&lt;br&gt;alguna actividad?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o3&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o3. Aunque no trabajÃ³, Â¿tenÃ­a algÃºn empleo del&lt;br&gt;cual estuvo ausente temporalmente&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o4&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o4. Â¿Ha trabajado alguna vez?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o6&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o6. Â¿BuscÃ³ trabajo remunerado o cuenta propia en&lt;br&gt;las Ãºltimas cuatro semanas?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;8&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;ingreso_percapita&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Ingreso total del hogar&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 0.0-225200000.0&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;9&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ife&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;y26d_hog. Ãšltimos 12 meses, Â¿alguien recibiÃ³&lt;br&gt;Ingreso Familiar de Emergencia?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;br&gt;9&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;br&gt;No sabe&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;horas_mens&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;y2_hrs. NÃºmero de horas mensuales pactadas con&lt;br&gt;empleador&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 1-720&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;4-descripción-de-variables&#34;&gt;4. Descripción de variables&lt;/h1&gt;
+&lt;p&gt;Una vez conocidas las variables que incluye nuestros datos procesados, ¿cómo podemos realizar un análisis descriptivo para algún informe o reporte? Veamos algunas de las más comunes&lt;/p&gt;
+&lt;h2 id=&#34;41-medidas-de-tendencia-central&#34;&gt;4.1. Medidas de tendencia central&lt;/h2&gt;
+&lt;p&gt;Para conocer las medidas de tendencia central de las variables hay dos opciones. En la &lt;strong&gt;primera&lt;/strong&gt; se puede pedir el estadístico manualmente, en la &lt;strong&gt;segunda&lt;/strong&gt; se puede pedir una tabla resumen.&lt;/p&gt;
+&lt;h3 id=&#34;media&#34;&gt;Media&lt;/h3&gt;
+&lt;p&gt;Para conocer la media de una variable se utiliza la función &lt;code&gt;mean()&lt;/code&gt;, su estructura es:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;variable, na.rm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;El argumento &lt;code&gt;na.rm=TRUE&lt;/code&gt; excluye del cálculo a los casos perdidos. Esto aplicado a nuestra variable &lt;code&gt;ingreso_percapita&lt;/code&gt; se ve así:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ingreso_percapita, na.rm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 355472.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;media-recortada&#34;&gt;Media recortada&lt;/h3&gt;
+&lt;p&gt;Pero, ¿qué pasa si la variable &lt;code&gt;ingreso_percapita&lt;/code&gt; esta influenciada por casos influyentes? Para eso puedo pedir la media recortada agregando el argumento &lt;code&gt;trim&lt;/code&gt; para excluir al 5% de cada extremo&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ingreso_percapita, na.rm&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, trim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.025&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 305707.9
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Aquí podemos ver que el valor es distinto.&lt;/p&gt;
+&lt;p&gt;Ya conocimos el promedio de la variable &lt;code&gt;ingreso_percapita&lt;/code&gt; podemos informar cuanto es el promedio del ingreso en el hogar en Chile, pero antes de eso queremos saber ¿cuánto gana el 50% de los hogares? Para eso calcularemos la &lt;strong&gt;mediana&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;mediana&#34;&gt;Mediana&lt;/h3&gt;
+&lt;p&gt;Para el cálculo de la mediana se utiliza el comando median, su estructura es similar a la &lt;code&gt;mean()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;median&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;variable, na.rm &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;median&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ingreso_percapita, na.rm &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 229184.5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ahora ya sabemos que al menos un 50% de las familias en Chile tienen por ingreso &lt;code&gt;$229.184&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿tenemos que sacar el promedio de cada variable una por una? &lt;strong&gt;¡No!&lt;/strong&gt;, para ello &lt;code&gt;sjmisc&lt;/code&gt; tiene diferentes funciones, que veremos a continuación:&lt;/p&gt;
+&lt;h2 id=&#34;un-resumen&#34;&gt;Un resumen&lt;/h2&gt;
+&lt;p&gt;Por ello ocuparemos &lt;code&gt;descr&lt;/code&gt; de &lt;code&gt;sjmisc&lt;/code&gt;, esta función nos entrega un resumen de los estadísticos básicos, incluyendo las etiquetas de cada variable&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ingreso_percapita,
+        show &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;all&amp;#34;&lt;/span&gt;,
+        out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;viewer&amp;#34;&lt;/span&gt;,
+        encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;,
+        file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla-ingreso.doc&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## ## Basic descriptive statistics
+## 
+##  var    type                   label      n NA.prc     mean       sd   se
+##   dd numeric Ingreso total del hogar 144418      0 355472.2 834151.2 2195
+##        md  trimmed                   range      iqr   skew
+##  229184.5 266168.1 225200000 (0-225200000) 252277.6 152.42
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Como &lt;code&gt;sjmisc&lt;/code&gt; dialoga con el universo de &lt;code&gt;tidyverse&lt;/code&gt;, es fácil de complementar con funciones como &lt;code&gt;select&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt; y añadir más variables. Además con la función &lt;code&gt;file&lt;/code&gt; se puede exportar automáticamente la tabla para los reportes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(ingreso_percapita, ife, horas_mens) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(
+  show &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;all&amp;#34;&lt;/span&gt;,
+  out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;viewer&amp;#34;&lt;/span&gt;,
+  encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;,
+  file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla1.doc&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## ## Basic descriptive statistics
+## 
+##                var    type
+##  ingreso_percapita numeric
+##                ife numeric
+##         horas_mens numeric
+##                                                                         label
+##                                                       Ingreso total del hogar
+##  y26d_hog. Últimos 12 meses, ¿alguien recibió Ingreso Familiar de Emergencia?
+##                      y2_hrs. Número de horas mensuales pactadas con empleador
+##       n NA.prc      mean        sd     se       md   trimmed
+##  144418   0.00 355472.15 834151.23 2195.0 229184.5 266168.13
+##  144418   0.00      1.77      1.00    0.0      2.0      1.70
+##   33338  76.92    152.83     54.69    0.3    180.0    159.83
+##                    range      iqr   skew
+##  225200000 (0-225200000) 252277.6 152.42
+##                  8 (1-9)      1.0   5.41
+##              719 (1-720)     34.0  -0.98
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Acá podemos ver la variable &lt;code&gt;var&lt;/code&gt;, el tipo de variable &lt;code&gt;type&lt;/code&gt;, su etiqueta &lt;code&gt;label&lt;/code&gt;, los casos válidos &lt;code&gt;n&lt;/code&gt;, los casos perdidos &lt;code&gt;NA.prc&lt;/code&gt;, las medidas de tendencia central y las de dispersión.&lt;/p&gt;
+&lt;h2 id=&#34;43-frecuencias&#34;&gt;4.3. Frecuencias&lt;/h2&gt;
+&lt;h3 id=&#34;frecuencias-absolutas&#34;&gt;Frecuencias absolutas&lt;/h3&gt;
+&lt;p&gt;Para conocer las frecuencias absolutas de una variable se podría usar la función &lt;code&gt;table&lt;/code&gt;, esta nos arroja la frecuencia por cada categoría de respuesta&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;table&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+##     1     2 
+## 65474 78944
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También podríamos usar la función &lt;code&gt;flat_table&lt;/code&gt;, esta puede agrupar más variables y agruparlas.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;flat_table&lt;/span&gt;(datos_proc, sexo, ocupacion, ife)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;##                  ife    Sí    No No sabe
+## sexo   ocupacion                        
+## Hombre Sí             9695 23979     473
+##        No            11263 19571     493
+## Mujer  Sí             7527 18488     317
+##        No            20084 31701     827
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;El problema es ¿cómo podríamos reportarla en nuestros informes? Si queremos una tabla general usaremos la función &lt;code&gt;frq&lt;/code&gt;. Esta función devuelve una tabla de frecuencias de vectores etiquetados, como marco de datos.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo,
+        out &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;viewer&amp;#34;&lt;/span&gt;,
+        title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Frecuencias&amp;#34;&lt;/span&gt;,
+        encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;,
+        file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla2.doc&amp;#34;&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption style=&#34;font-weight: bold; text-align:left;&#34;&gt;Frecuencias&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left;text-align:left; &#34;&gt;val&lt;/th&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: left;&#34;&gt;label&lt;/th&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;&#34;&gt;frq&lt;/th&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;&#34;&gt;raw.prc&lt;/th&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;&#34;&gt;valid.prc&lt;/th&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;&#34;&gt;cum.prc&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; &#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: left;&#34;&gt;Hombre&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;65474&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;45.34&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;45.34&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;45.34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; &#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: left;&#34;&gt;Mujer&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;78944&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;54.66&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;54.66&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;&#34;&gt;100.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; border-bottom: 1px solid; &#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: left;&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;&#34;&gt;0&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;&#34;&gt;0.00&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;&#34;&gt;NA&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;7&#34; style=&#34;font-style:italic; border-top:double black; text-align:right;&#34;&gt;total N=144418 &amp;middot; valid N=144418 &amp;middot; x&amp;#772;=1.55 &amp;middot; &amp;sigma;=0.50
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;5-visualización&#34;&gt;5. Visualización&lt;/h1&gt;
+&lt;p&gt;Ahora que ya sabemos como tener todos los estadísticos necesarios para escribir nuestros reportes, viene el segundo paso &lt;em&gt;visualizar los estadísticos&lt;/em&gt;. Esto lo haremos con &lt;code&gt;sjPlot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Para visualizar las frecuencias usaremos la función &lt;code&gt;plot_frq&lt;/code&gt;, su estructura es la siguiente:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(datos,  &lt;span style=&#34;color:#75715e&#34;&gt;#base&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;...&lt;/span&gt;,          &lt;span style=&#34;color:#75715e&#34;&gt;#variable&lt;/span&gt;
+  title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,   &lt;span style=&#34;color:#75715e&#34;&gt;# título&lt;/span&gt;
+  type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dot&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;histogram&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;density&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boxplot&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;violin&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#tipo de gráfico a especificar &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Para los gráficos, tenemos los siguientes códigos&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Gráfico de barras de frecuencias simple&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categoría de respuesta, podemos presentarla de la siguiente forma:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(datos_proc, edad_tramo,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de frecuencias, barras&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen barras simple-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div class=&#34;note&#34;&gt;
+&lt;p&gt;Además de la visualización es importante el guardar los datos que se producen y &lt;code&gt;sjPlot&lt;/code&gt; tiene su propio código para hacerlo a través de la función &lt;code&gt;save_plot()&lt;/code&gt;, su estructura es esta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;save_plot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;last_plot&lt;/span&gt;())  &lt;span style=&#34;color:#75715e&#34;&gt;#se deja el formato del archivo (.png, .jpg, .svg o .tif) y la ruta de la carpeta&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Así guardaríamos el gráfico anterior&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;save_plot&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/output/img/tab.png&amp;#34;&lt;/span&gt;, fig &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;last_plot&lt;/span&gt;()))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Gráfico de puntos&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Si tenemos más categorías y queremos mejorar el reporte, podemos usar este código:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(datos_proc, edad_tramo,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de frecuencias, puntos&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dot&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen puntos simple-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;También podemos cambiar el orden del eje x e y&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dot&amp;#34;&lt;/span&gt;, show.ci &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, sort.frq &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;desc&amp;#34;&lt;/span&gt;,
+  coord.flip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, expand.grid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, vjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bottom&amp;#34;&lt;/span&gt;, hjust &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;left&amp;#34;&lt;/span&gt;, title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de frecuencias, puntos cambiado&amp;#34;&lt;/span&gt;
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen puntos cambiados-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Pero, ¿cuál es el argumento que hace esto?&lt;/p&gt;
+&lt;p&gt;A la hora de trabajar en R, siempre debemos conocer los argumentos que utilizamos en nuestros códigos, puede que un argumento sea innecesario o esté generando un error, para eso debemos consultar en la sección &lt;strong&gt;Help&lt;/strong&gt;. Los pasos son los siguientes:&lt;/p&gt;
+&lt;p&gt;a. Escribe en la consola anteponiendo un &lt;code&gt;?&lt;/code&gt; en la función que quieres conocer, en este caso será &lt;code&gt;plot_frq?&lt;/code&gt;, quedando así:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/06-class/raw/main/input/img/image.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;b. Una vez le des a enter, en la sección &lt;strong&gt;Help&lt;/strong&gt; aparecerá información sobre la función, cómo se usa y qué se puede hacer con ella. En &lt;strong&gt;Arguments&lt;/strong&gt; explicará la función de cada argumento&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/06-class/raw/main/input/img/image2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ahora podrán averiguar cuál es el argumento que sirve y cual no en el código anterior (y en sus futuros trabajos con R)&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Histogramas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Otra función que podemos hacer es graficar histogramas, sin embargo, como ya hemos visto, la variable &lt;code&gt;ingreso_percapita&lt;/code&gt; tiene casos muy altos que distorsionan la variable. Para solucionar esto, ocuparemos lo aprendido en &lt;a href=&#34;https://learn-r-udp.netlify.app/example/03-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;el práctico anterior&lt;/a&gt; y filtraremos la variable sacando los ingresos mayores a &lt;code&gt;$2.000.000&lt;/code&gt;, con la función &lt;code&gt;filter&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(., ingreso_percapita,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Histograma&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;histogram&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen histograma-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Densidad&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ahora que vemos la distribución del histograma, ¿cómo podemos ver su densidad?, es muy simple, para ello haremos un gráfico de densidad con el siguiente código&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(., ingreso_percapita,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de densidad&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;density&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen densidad-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Gráfico de líneas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable &lt;code&gt;ife&lt;/code&gt; y usaremos este código:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(datos_proc, ife,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de líneas&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen lineas-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Gráfico de cajas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Para graficar los estadísticos de una variable, podemos hacerlo a través de un gráfico de cajas, para ello usaremos este código:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(., ingreso_percapita,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de caja&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boxplot&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen box-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Gráfico de violín&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finalmente, si queremos presentar gráficos de violín, usamos este código&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_frq&lt;/span&gt;(., ingreso_percapita,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de violín&amp;#34;&lt;/span&gt;,
+          type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;violin&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen violin-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Como pueden ver, el único argumento que se modificaba era &lt;code&gt;type = &lt;/code&gt;, es decir, para hacer diversos gráficos, sólo se debe especificar el tipo de gráfico que queremos.&lt;/p&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;Gráfico de nube de puntos&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ahora, si quisiéramos graficar la distribución de dos variables, podemos hacerlo con la función &lt;code&gt;plot_scatter&lt;/code&gt;, esta muestra el diagrama de dispersión de dos variables.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+   &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_scatter&lt;/span&gt;(., horas_mens, ingreso_percapita)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen scatter-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;También es posible agregar una tercera variable al diagrama de dispersión, podemos hacerlo con &lt;code&gt;ocupacion&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_scatter&lt;/span&gt;(., horas_mens, ingreso_percapita, ocupacion)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen scatter 3 var-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O con la variable &lt;code&gt;sexo&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_scatter&lt;/span&gt;(., horas_mens, ingreso_percapita, sexo)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen scatter 3 var sexo-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Pero ¿si quiero una mejor visualización? para eso usamos este código que nos permite hacer dos gráficos para cada categoría de la variable &lt;code&gt;sexo&lt;/code&gt;, esto lo haremos con el argumento &lt;code&gt;grid = T&lt;/code&gt;, donde además le asignaremos una línea ajustada con &lt;code&gt;fit.grps&lt;/code&gt;. Pero además como hay casos al extremo con las horas mensuales, las filtraremos, para eso debemos aplicar todo lo que hemos aprendido:&lt;/p&gt;
+&lt;p&gt;Primero debemos conocer los valores de la variable, para ello usaremos &lt;code&gt;descr&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;horas_mens)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## ## Basic descriptive statistics
+## 
+##  var    type                                                    label     n
+##   dd numeric y2_hrs. Número de horas mensuales pactadas con empleador 33338
+##  NA.prc   mean    sd  se  md trimmed       range iqr  skew
+##   76.92 152.83 54.69 0.3 180  159.83 719 (1-720)  34 -0.98
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Acá podemos ver, que la variable oscila entre 1 y 720 horas, entonces la filtraremos, utilizando &lt;code&gt;filter&lt;/code&gt; y &lt;strong&gt;operadores&lt;/strong&gt;,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(ingreso_percapita &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2000000&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; horas_mens &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;450&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_scatter&lt;/span&gt;(., horas_mens, ingreso_percapita, sexo,
+             fit.grps &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lm&amp;#34;&lt;/span&gt;, grid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen scatter sep-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Ahora que ya hemos graficado las frecuencias de las variables, vamos a graficar frecuencias agrupadas, para ello usaremos la función &lt;code&gt;plot_grpfrq&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt;, su estructura es la siguiente&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(
+  var.cnt,
+  var.grp,
+  type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dot&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boxplot&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;violin&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Gráfico de barras&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;La primera opción que nos entrega este código son los gráficos de barra, para usarlo queremos saber cuantos hombres y mujeres trabajaron al menos una hora la semana pasada, para ello graficaremos la variable &lt;code&gt;sexo&lt;/code&gt; y &lt;code&gt;ocupacion&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion,
+  type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;), title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de barras&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen frec agrup barr-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Podemos ver que no solo nos muestra la frecuencia absoluta, sino que también la relativa en porcentaje&lt;/p&gt;
+&lt;p&gt;Pero además podemos ver agregar una tercera categoría, que es el total de ambas categorías. Para este ejercicio conoceremos que tramo de edad trabajo la semana pasada.&lt;/p&gt;
+&lt;p&gt;Para este ejercicio usaremos la función &lt;code&gt;plot_xtab&lt;/code&gt;, de la misma librería&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_xtab&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion, title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de barras&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen frec agrup barr 2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;1.1 Gráfico de barras horizontales&lt;/p&gt;
+&lt;p&gt;Con la misma función podemos graficar mediante barras horizontales con el argumento &lt;code&gt;coord.flip&lt;/code&gt;, además &lt;code&gt;show.summary&lt;/code&gt; nos muestra estadísticos de la relación entre las variables&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_xtab&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion, margin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;row&amp;#34;&lt;/span&gt;, 
+          bar.pos &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stack&amp;#34;&lt;/span&gt;,
+          title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de barras horizontales&amp;#34;&lt;/span&gt;,
+         show.summary &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, coord.flip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen frec agrup barr hor-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;también se puede graficar con la misma categoría de respuesta para observar diferencias en las distribuciones, para esto usamos la función &lt;code&gt;plot_stackfrq&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ocupacion&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o4&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o6&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;plot_stackfrq&lt;/span&gt;(., title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de barras proporcional&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;1.2 Escalas likert&lt;/p&gt;
+&lt;p&gt;También podemos graficar escalas likert, en esta ocasión CASEN no tiene variables con más categorias de respuesta para generar una escala likert, por lo que utilizaremos las nuevas variables de la base procesada, para ello usaremos la función &lt;code&gt;plot_likert&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ocupacion&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o4&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o6&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_likert&lt;/span&gt;(., title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de escalas likert&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen_likert-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;1.3 Tablas de proporción cruzadas&lt;/p&gt;
+&lt;p&gt;Con &lt;code&gt;plot_gpt&lt;/code&gt;, se puede graficar tablas cruzadas proporcionales agrupadas, este código traza la proporción de cada nivel de &lt;strong&gt;x&lt;/strong&gt; (&lt;code&gt;ife&lt;/code&gt;) para la categoría más alta en &lt;strong&gt;y&lt;/strong&gt; (&lt;code&gt;ocupacion&lt;/code&gt;), para cada subgrupo de &lt;strong&gt;grp&lt;/strong&gt; (&lt;code&gt;sexo&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_gpt&lt;/span&gt;(datos_proc, ife, ocupacion, sexo,
+         shapes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;), 
+         title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de proporción agrupada&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen_prop_Agrup-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Gráfico de puntos&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ahora continuaremos con los gráficos de puntos, ya que quiero presentar la relación entre &lt;code&gt;sexo&lt;/code&gt; y &lt;code&gt;ocupacion&lt;/code&gt; mediante otro gráfico:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion,
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de puntos&amp;#34;&lt;/span&gt;,
+            type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dot&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen graf pun agrup-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Gráfico de líneas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Otra opción que tiene esta función, es la creación de gráficos de líneas, para ello conoceremos la relación entre el tramo etario y el recibir el IFE&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ife,
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de línea&amp;#34;&lt;/span&gt;,
+            type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen graf lin agrup-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;También podemos ver la relación de el tramo etario y si trabajó la semana pasada&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion, 
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de línea&amp;#34;&lt;/span&gt;,
+            type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;line&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen graf line agrup 2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Gráfico de cajas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ahora si queremos conocer cómo interactúa las horas de trabajo con el tramo etario, podemos visualizarlo mediante un gráfico de cajas&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;horas_mens, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo,
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de caja&amp;#34;&lt;/span&gt;,
+             type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;boxplot&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen graf caj-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Además, se puede incorporar una tercera variable, en este caso lo haremos con la variable &lt;code&gt;sexo&lt;/code&gt; y el argumento &lt;code&gt;intr.var&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;horas_mens, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo, intr.var &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, 
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de cajas&amp;#34;&lt;/span&gt;,
+            type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;box&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen box 3 var-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Gráfico de violín&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Finalmente, para generar un gráfico de violín, añadiremos el argumento &lt;code&gt;type = &amp;quot;violin&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_grpfrq&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;horas_mens, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad_tramo,
+            title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de violín&amp;#34;&lt;/span&gt;,
+            type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;violin&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen graf violin agrup-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Nuevamente, la función nos permite la creación de múltiples gráficos, sólo se debe cambiar el argumento &lt;code&gt;type =&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;6-tablas-de-contingencia&#34;&gt;6. Tablas de contingencia&lt;/h1&gt;
+&lt;p&gt;¡No podemos terminar sin saber cómo hacer tablas de frecuencias cruzadas!&lt;/p&gt;
+&lt;p&gt;Por suerte &lt;code&gt;sjPlot&lt;/code&gt; tiene la función &lt;code&gt;sjt.xtab&lt;/code&gt;, que nos entrega tablas de frecuencias cruzadas&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sjt.xtab&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ife,  
+         title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tabla de contingencias&amp;#34;&lt;/span&gt;,
+         show.col.prc&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,
+         show.summary&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption style=&#34;font-weight: bold; text-align:left;&#34;&gt;Tabla de contingencias&lt;/caption&gt;
+ &lt;tr&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;&#34; rowspan=&#34;2&#34;&gt;Sexo&lt;/th&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal;&#34; colspan=&#34;3&#34;&gt;y26d_hog. Ãšltimos 12&lt;br&gt;meses, Â¿alguien&lt;br&gt;recibiÃ³ Ingreso&lt;br&gt;Familiar de&lt;br&gt;Emergencia?&lt;/th&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; &#34; rowspan=&#34;2&#34;&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;SÃ­&lt;/td&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;No&lt;/td&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;No sabe&lt;/td&gt;
+ &lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  text-align:left; vertical-align:middle;&#34;&gt;Hombre&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;20958&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;43.2&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;43550&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;46.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;966&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;45.8&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;65474&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;45.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  text-align:left; vertical-align:middle;&#34;&gt;Mujer&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;27611&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;56.8&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;50189&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;53.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;1144&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;54.2&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;78944&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;54.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;&#34;&gt;Total&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;48569&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;93739&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;2110&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;144418&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;¿Qué pasó? ¿por qué salen esos símbolos raros en la tabla?&lt;/p&gt;
+&lt;p&gt;¡Es por la codificación!, para ello le agregamos el argumento &lt;code&gt;encoding = &amp;quot;UTF-8&amp;quot;&lt;/code&gt; y ya tenemos nuestra tabla de frecuencias cruzadas&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sjt.xtab&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ife,
+         show.col.prc&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,
+         show.summary&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, 
+         encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;, 
+         title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tabla de contingencia&amp;#34;&lt;/span&gt;,
+         file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla3.doc&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption style=&#34;font-weight: bold; text-align:left;&#34;&gt;Tabla de contingencia&lt;/caption&gt;
+ &lt;tr&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;&#34; rowspan=&#34;2&#34;&gt;Sexo&lt;/th&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal;&#34; colspan=&#34;3&#34;&gt;y26d_hog. Ãšltimos 12&lt;br&gt;meses, Â¿alguien&lt;br&gt;recibiÃ³ Ingreso&lt;br&gt;Familiar de&lt;br&gt;Emergencia?&lt;/th&gt;
+ &lt;th style=&#34;border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; &#34; rowspan=&#34;2&#34;&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+&lt;tr&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;SÃ­&lt;/td&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;No&lt;/td&gt;
+ &lt;td style=&#34;border-bottom:1px solid; text-align:center; padding:0.2cm;&#34;&gt;No sabe&lt;/td&gt;
+ &lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  text-align:left; vertical-align:middle;&#34;&gt;Hombre&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;20958&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;43.2&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;43550&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;46.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;966&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;45.8&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;65474&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;45.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  text-align:left; vertical-align:middle;&#34;&gt;Mujer&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;27611&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;56.8&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;50189&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;53.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center; &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;1144&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;54.2&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;78944&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;54.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt; 
+&lt;td style=&#34;padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;&#34;&gt;Total&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;48569&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;93739&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;2110&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;   border-bottom:double;&#34;&gt;&lt;span style=&#34;color:black;&#34;&gt;144418&lt;/span&gt;&lt;br&gt;&lt;span style=&#34;color:#339933;&#34;&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;Si además se quieren añadir variables con las mismas categorías de respuesta, se puede utilizar la función &lt;code&gt;tab_stackfrq&lt;/code&gt;, para ello utilizaremos a las variables añadidas para este práctico &lt;code&gt;o3&lt;/code&gt;, &lt;code&gt;o4&lt;/code&gt; y &lt;code&gt;o6&lt;/code&gt;. Le añadiremos etiquetas con &lt;code&gt;value.labels&lt;/code&gt; y le pediremos que nos entregue la frecuencia absoluta (&lt;code&gt;show.n = TRUE&lt;/code&gt;) y el total (&lt;code&gt;show.total = T&lt;/code&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_stackfrq&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;as.data.frame&lt;/span&gt;(datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o4&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;o6&amp;#34;&lt;/span&gt;)),
+             value.labels&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Si&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;No&amp;#39;&lt;/span&gt;),
+             show.n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;, show.total &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T,
+             file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla4.doc&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none; border-bottom:double black;&#34;&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;Si&lt;/th&gt;
+&lt;th style=&#34;border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;No&lt;/th&gt;
+&lt;th style=&#34;border-top:double black; border-bottom:1px solid black; padding:0.2cm;  &#34;&gt;N&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-style:italic;&#34;&gt;o3. Aunque no&lt;br&gt;trabajÃ³, Â¿tenÃ­a&lt;br&gt;algÃºn empleo del&lt;br&gt;cual estuvo ausente&lt;br&gt;temporalmente&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;3627&lt;br&gt;(4.46&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;77657&lt;br&gt;(95.54&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;81284&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-style:italic;&#34;&gt;o4. Â¿Ha trabajado&lt;br&gt;alguna vez?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;50197&lt;br&gt;(65.25&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;26738&lt;br&gt;(34.75&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;76935&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-style:italic;&#34;&gt;o6. Â¿BuscÃ³ trabajo&lt;br&gt;remunerado o cuenta&lt;br&gt;propia en las&lt;br&gt;Ãºltimas cuatro&lt;br&gt;semanas?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;9644&lt;br&gt;(12.54&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;67291&lt;br&gt;(87.46&amp;nbsp;%)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;  &#34;&gt;76935&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;7-test-de-independencia-chi2&#34;&gt;7. Test de independencia Chi2&lt;/h1&gt;
+&lt;p&gt;A la hora de graficar Chi2, debemos asegurarnos con la función &lt;code&gt;as_factor&lt;/code&gt; que las variables a utilizar sean de tipo factor, luego utilizamos la función &lt;code&gt;sjp.chi2&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt; para crear la tabla, finalmente con el argumento &lt;code&gt;axis.labels&lt;/code&gt; asignamos la etiqueta de cada variable&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;data.frame&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sample&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ocupacion, replace &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)),
+                 &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sample&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;o2, replace &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)),
+                 &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sample&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;o3, replace &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)),
+                 &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sample&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;o4, replace &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;)),
+                 &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;sample&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;o6, replace &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;))) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;sjp.chi2&lt;/span&gt;(., 
+         title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Gráfico de Chi2&amp;#34;&lt;/span&gt;,
+         axis.labels  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Trabajó al menos una hora&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;realizó alguna actividad&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tenía algún empleo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Ha trabajado alguna vez&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Busco empleo&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/casen_x2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;8-correlación&#34;&gt;8. Correlación&lt;/h1&gt;
+&lt;p&gt;Ahora veremos estadísticos bivariados, como la correlación, en esta ocasión generaremos una tabla de correlación entre las variables &lt;code&gt;horas_mens&lt;/code&gt; y &lt;code&gt;ingreso_percapita&lt;/code&gt;, para eso usaremos la función &lt;code&gt;tab_corr&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Previamente debemos seleccionar las variables a utilizar, ya que no tiene sentido incluir en el análisis variables nominales&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(ingreso_percapita, horas_mens) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_corr&lt;/span&gt;(.,
+         triangle &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lower&amp;#34;&lt;/span&gt;,   
+         title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Tabla de correlación&amp;#34;&lt;/span&gt;,
+         encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;, 
+         file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/figures/tabla4.doc&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption style=&#34;font-weight: bold; text-align:left;&#34;&gt;Tabla de correlaciÃ³n&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;font-style:italic; font-weight:normal; border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;font-style:italic; font-weight:normal; border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;Ingreso total del hogar&lt;/th&gt;
+&lt;th style=&#34;font-style:italic; font-weight:normal; border-top:double black; border-bottom:1px solid black; padding:0.2cm;&#34;&gt;y2_hrs. NÃºmero de horas mensuales&lt;br&gt;pactadas con empleador&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-style:italic;&#34;&gt;Ingreso total del hogar&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-style:italic;&#34;&gt;y2_hrs. NÃºmero de horas mensuales&lt;br&gt;pactadas con empleador&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;0.054&lt;span style=&#34;vertical-align:super;font-size:0.8em;&#34;&gt;***&lt;/span&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:center;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;3&#34; style=&#34;border-bottom:double black; border-top:1px solid black; font-style:italic; font-size:0.9em; text-align:right;&#34;&gt;Computed correlation used pearson-method with listwise-deletion.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;9-anova&#34;&gt;9. Anova&lt;/h1&gt;
+&lt;p&gt;Finalmente, si queremos reportar un análisis de Anova, no podemos dejar de lado este gráfico que nos otorga la función &lt;code&gt;sjp.aov1&lt;/code&gt; del paquete &lt;code&gt;sjPlot&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sjp.aov1&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ingreso_percapita, datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo, title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Anova&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/06-practico_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;9-resumen-del-práctico&#34;&gt;9. Resumen del práctico&lt;/h1&gt;
+&lt;p&gt;¡Eso es todo por este práctico! Hoy aprendimos a:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Manejar datos descriptivos en Rstudio&lt;/li&gt;
+&lt;li&gt;A obtener tablas descriptivas&lt;/li&gt;
+&lt;li&gt;A visualizar los descriptivos&lt;/li&gt;
+&lt;li&gt;A obtener tablas de contingencia&lt;/li&gt;
+&lt;li&gt;A obtener tablas de correlación y chi2&lt;/li&gt;
+&lt;li&gt;A obtener gráficos de Anova&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;7-reporte-de-progreso&#34;&gt;7. Reporte de progreso&lt;/h1&gt;
+&lt;p&gt;¡Recuerda rellenar tu &lt;a href=&#34;&#34;&gt;reporte de progreso&lt;/a&gt;. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tarea 2. Procesamiento de datos en R</title>
+      <link>/assignment/02-tarea/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/02-tarea/</guid>
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/uF2RyAV_&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
+&lt;p&gt;La tarea N°2 consiste en la creación de un script en R que les permita construir datos limpios y procesados que servirán de &amp;ldquo;input&amp;rdquo; para los análisis exploratorios que se reporten de los datos procesados (tarea N°3). El ejercicio que deben realizar se basa en un caso simulado de &amp;ldquo;trabajo&amp;rdquo; que les han solicitado&lt;/p&gt;
+&lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
+&lt;p&gt;En su nuevo trabajo como investigadores/as les han encargado hacer un estudio sobre el efecto de la pandemia sobre el empleo. Para ello, les han solicitado a ustedes la recopilación y procesamiento de una serie de datos relevantes para iniciar el estudio. De manera preliminar, le solicitan los siguientes puntos&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Debe ocupar la Encuesta Nacional de Empleo (ENE) del Instituto Nacional de Estadísticas, particularmente el trimestre &lt;em&gt;Enero-Febrero-Marzo&lt;/em&gt; del año 2019 y del 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las variables que más interesan para el informe son: condición de actividad económica general (&lt;em&gt;CAE&lt;/em&gt;), no general (&lt;em&gt;Condición de actividad&lt;/em&gt;) y las horas de trabajo de la actividad principal (&lt;em&gt;modulo C&lt;/em&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;También le han indicado que hay ciertas variables sociodemográficas de interés como el nivel educacional (&lt;em&gt;CINE&lt;/em&gt;), edad y sexo&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;instrucciones-específicas&#34;&gt;Instrucciones específicas&lt;/h3&gt;
+&lt;p&gt;En su equipo de investigación quieren realizar los siguientes análisis, para lo cuál usted debe construir un data set procesado llamado &lt;em&gt;datos_proc.RData&lt;/em&gt; que permita realizar estos análisis de manera debida&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Los análisis solo deben considerar a las personas en edad de trabajar según las definiciones del Instituto Nacional de Estadística.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Un análisis de la distribución de sociodemográficos de nivel educacional, edad y sexo. Le han solicitado que el nivel educacional esté solo clasificado en &amp;ldquo;Superior completa&amp;rdquo;, &amp;ldquo;Media y básica completa&amp;rdquo; y &amp;ldquo;Básica o menos incompleta&amp;rdquo;, que la edad esté clasificada en tramos de &amp;ldquo;15 a 39 años&amp;rdquo;, &amp;ldquo;40 a 64 años&amp;rdquo; y &amp;ldquo;65 y más&amp;rdquo;; sexo debe estar codificada como &amp;ldquo;Mujer&amp;rdquo; y &amp;ldquo;Hombre&amp;rdquo;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Un análisis de la distribución de la condición de actividad económica, situación de empleo y las suma de horas trabajadas en la actividad principal para la muestra del 2019 y 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una persona del equipo sospecha de la variable de condición de actividad que no es general (&lt;em&gt;activ&lt;/em&gt;). Por ello, le piden que cree una nueva variable llamada &lt;em&gt;&amp;ldquo;cae_corregido&amp;rdquo;&lt;/em&gt; en base a la definición que se hace de esta variable en el manual metodológico.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Atención&lt;/strong&gt;: la ejecución concreta de los análisis serán parte de la tarea N°3. Por ahora usted debe preocuparse de:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproject)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Construir un script llamado &lt;em&gt;procesamiento-datos.R&lt;/em&gt; que esté alojado en la carpeta que corresponda. Este script debe tener un orden y utilizar los comentarios (#) para hacer referencia a los procesos realizados&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cargar los paquetes y datos necesarios para el procesamiento&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Filtrar, seleccionar y crear las variables indicadas (no olvides crear el índice sumativo)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Una vez limpios los datos del 2019 y del 2021, unir los datos en un único objeto llamado &amp;ldquo;ene_unida&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Guardar los datos procesados del 2019, 2021 y la unión de ambos en un archivo llamado &lt;em&gt;datos_proc.RData&lt;/em&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bonus: si incorporan un README.md con la explicación de dónde sacaron los datos e información metodológica, será bonificado con 0,4 décimas.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerden que puede ser realizada en pareja, la misma durante todo el semestre.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tarea se puede entregar hasta el día viernes 17 de septiembre 23.59&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;R para ciencia de datos - Como usar RMarkdown&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-book&#34;&gt;&lt;/i&gt; Recursos&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/resource/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Recursos del curso&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=APzU10EMMjg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/02-content&#34;&gt;Sesión N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/03-content&#34;&gt;Sesión N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/04-content&#34;&gt;Sesión N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/05-content&#34;&gt;Sesión N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/02-practico&#34;&gt;Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/03-practico&#34;&gt;Práctico N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/04-practico&#34;&gt;Práctico N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/05-practico&#34;&gt;Práctico N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Transformación estructura datos</title>
       <link>/content/05-content/</link>
       <pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
@@ -469,115 +1204,6 @@ less
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://r4ds.had.co.nz/tidy-data.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Tidy data”&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contestar reporte de registro&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Transformación y selección de variables</title>
-      <link>/content/04-content/</link>
-      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>/content/04-content/</guid>
-      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
-&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
-&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link active&#34; id=&#34;básicos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#básicos&#34; role=&#34;tab&#34; aria-controls=&#34;básicos&#34; aria-selected=&#34;true&#34;&gt;Básicos&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;procesar-datos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#procesar-datos&#34; role=&#34;tab&#34; aria-controls=&#34;procesar-datos&#34; aria-selected=&#34;false&#34;&gt;Procesar datos&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;operadores-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#operadores&#34; role=&#34;tab&#34; aria-controls=&#34;operadores&#34; aria-selected=&#34;false&#34;&gt;Operadores&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;seleccionar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#seleccionar&#34; role=&#34;tab&#34; aria-controls=&#34;seleccionar&#34; aria-selected=&#34;false&#34;&gt;Seleccionar&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;filtrar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#filtrar&#34; role=&#34;tab&#34; aria-controls=&#34;filtrar&#34; aria-selected=&#34;false&#34;&gt;Filtrar&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;crear-variables-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#crear-variables&#34; role=&#34;tab&#34; aria-controls=&#34;crear-variables&#34; aria-selected=&#34;false&#34;&gt;Crear variables&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;pipe-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#pipe&#34; role=&#34;tab&#34; aria-controls=&#34;pipe&#34; aria-selected=&#34;false&#34;&gt;Pipe&lt;/a&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
-&lt;div id=&#34;básicos&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;básicos-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#11&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;procesar-datos&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;procesar-datos-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#14&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;operadores&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;operadores-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#29&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;seleccionar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;seleccionar-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#35&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;filtrar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;filtrar-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#45&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;crear-variables&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;crear-variables-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#52&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pipe&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;pipe-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#55&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;fyi&#34;&gt;
-&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
-&lt;/div&gt;
-&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/04-class/raw/main/04-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;04-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/example/04-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/unzipping&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Descomprimir archivos&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/r-data-types-example&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de datos en R&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/r-data-types&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de variables&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Data Science: How is it Different To Statistics?”&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contestar reporte de registro&lt;/a&gt;&lt;/p&gt;
@@ -19890,6 +20516,115 @@ TRUE ~ NA_real)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transformación y selección de variables</title>
+      <link>/content/04-content/</link>
+      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/content/04-content/</guid>
+      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
+&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link active&#34; id=&#34;básicos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#básicos&#34; role=&#34;tab&#34; aria-controls=&#34;básicos&#34; aria-selected=&#34;true&#34;&gt;Básicos&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;procesar-datos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#procesar-datos&#34; role=&#34;tab&#34; aria-controls=&#34;procesar-datos&#34; aria-selected=&#34;false&#34;&gt;Procesar datos&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;operadores-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#operadores&#34; role=&#34;tab&#34; aria-controls=&#34;operadores&#34; aria-selected=&#34;false&#34;&gt;Operadores&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;seleccionar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#seleccionar&#34; role=&#34;tab&#34; aria-controls=&#34;seleccionar&#34; aria-selected=&#34;false&#34;&gt;Seleccionar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;filtrar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#filtrar&#34; role=&#34;tab&#34; aria-controls=&#34;filtrar&#34; aria-selected=&#34;false&#34;&gt;Filtrar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;crear-variables-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#crear-variables&#34; role=&#34;tab&#34; aria-controls=&#34;crear-variables&#34; aria-selected=&#34;false&#34;&gt;Crear variables&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;pipe-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#pipe&#34; role=&#34;tab&#34; aria-controls=&#34;pipe&#34; aria-selected=&#34;false&#34;&gt;Pipe&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
+&lt;div id=&#34;básicos&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;básicos-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#11&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;procesar-datos&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;procesar-datos-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#14&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;operadores&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;operadores-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#29&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;seleccionar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;seleccionar-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#35&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;filtrar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;filtrar-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#45&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;crear-variables&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;crear-variables-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#52&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pipe&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;pipe-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#55&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;fyi&#34;&gt;
+&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
+&lt;/div&gt;
+&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/04-class/raw/main/04-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;04-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/example/04-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/unzipping&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Descomprimir archivos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types-example&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de datos en R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Data Science: How is it Different To Statistics?”&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contestar reporte de registro&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
