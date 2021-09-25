@@ -40,17 +40,17 @@ slide_tabs(slide_details, "/slides/06-slides.html")
 
 # Video de la clase
 
-- [<i class="fas fa-video"></i> `Video de la clase`]()
+- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/6oXm-Mw37yfp7G9TOYw9ZQEFx47I7t9sltWJtvH5F-uC8Tzc8noNothPb4v4yDhI.xfJ-UaJX11tXm50R?startTime=1631566849000)
 
 
 
 # Material de la clase
 
-- [<i class="fas fa-file-archive"></i> `05-clase.zip`](https://github.com/learn-R/05-class/raw/main/05-clase.zip)
+- [<i class="fas fa-file-archive"></i> `05-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
 - [<i class="fas fa-laptop-code"</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
 
-- [<i class="fas fa-laptop-code"></i> Práctico](/example/05-practico/)
+- [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
 
 
 # Materiales adicionales
