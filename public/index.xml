@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 13 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Fri, 01 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Course materials</title>
@@ -358,6 +358,278 @@ less
 &lt;p&gt;&lt;img src=&#34;/img/unzipping/extract-windows-2.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Finalmente deberías tener una carpeta real con todo el contenido del archivo comprimido. Abre el archivo del proyecto R y RStudio apuntará al directorio de trabajo correcto y todo funcionará.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/unzipping/extract-windows-3.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tarea 3. Análisis descriptivo</title>
+      <link>/assignment/03-tarea/</link>
+      <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/03-tarea/</guid>
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/uF2RyAV_&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°3 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
+&lt;p&gt;La tarea N°3 implica la continuación de la tarea N°2 donde procesaron datos que servirían de &amp;ldquo;input&amp;rdquo; para los análisis que deberán presentar en el siguiente ejercicio.&lt;/p&gt;
+&lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
+&lt;p&gt;De su equipo de trabajo han recibido el procesamiento de sus datos, y luego de unos días, han hecho una serie de correcciones y le han dado consejos para mejorar su avance. Para ver estos deben ir a los comentarios de sus tareas en GitHub.&lt;/p&gt;
+&lt;p&gt;Además, le han pedido una serie de cambios respecto a sus datos de modo de que el informe de avance contenga los aspectos necesarios para ser presentados.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;En general&lt;/strong&gt;, su proyecto de R (tarea-03.Rproj) debe contener:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. R script con procesamiento de datos modificado (&lt;code&gt;R/01-proc.R&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.1 Datos originales en carpeta &lt;em&gt;input&lt;/em&gt; (si son muy pesados, indicar en el .gitignore) 
+1.2 Datos procesados (&lt;code&gt;input/datos/datos_proc.rds&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Informe descriptivo de los datos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 02-analisis.Rmd
+2.2 Archivo en html que contiene el informe compilado (02-analisis.html). &lt;em&gt;Si logra dejar el informe en .pdf tendrá 0.3 adicionales a su nota. Hint: descargar y revisar el paquete tinytext&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Adicionales&lt;/strong&gt; (0.2 décimas por cada uno)&lt;/p&gt;
+&lt;p&gt;3.1 README.md con explicaciones generales para que cualquier usuario pueda reproducir sus análisis (explicar las carpetas, datos descargados y desde donde). Algunos elementos del procesamiento deben ser indicados aquí   3.2 Contribuir con preguntas de compañeras/os sobre &lt;strong&gt;problemas en código&lt;/strong&gt; (no sobre instrucciones sobre la tarea)
+3.3 Procesamientos adicionales indicados con [**]
+3.4 Documentos que &lt;a href=&#34;https://www.datadreaming.org/post/r-markdown-theme-gallery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;editen su formato en html&lt;/a&gt;
+3.5 Cambiar color y editar sus gráficos de sjPlot.&lt;/p&gt;
+&lt;h3 id=&#34;1-modificaciones-en-el-procesamiento-en-r&#34;&gt;1. Modificaciones en el procesamiento (en .R)&lt;/h3&gt;
+&lt;p&gt;El equipo le ha indicado una serie de consejos que se han estipulado en el &lt;em&gt;Feedback de GitHub Class Roomm&lt;/em&gt;. Además, le han pedido eliminar, modificar y cambiar las siguientes variables (aquellos que tienen un solo asterisco [*] son obligatorios, no olvide verificar los NA)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Sociodemográficas&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sexo, edad categorizada en tres tramos (18-39 años, 40 a 59 años, 60+, edad (numérica)), región, nivel educacional (CINE)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Ocupación&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;activ&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Grupo ocupacional a 1 dígito (CIUO)&lt;/li&gt;
+&lt;li&gt;Rama de actividad económica de la &lt;strong&gt;empresa donde trabaja el ocupado&lt;/strong&gt;(CIIU)&lt;/li&gt;
+&lt;li&gt;Tamaño de la empresa en categorías (5 niveles)&lt;/li&gt;
+&lt;li&gt;Variable de informalidad (Hint: ver página 43 del Libro de Códigos) [*]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Condiciones laborales&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Tipo de jornada (completa o parcial)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Análisis COVID-19&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Subempleo horario&lt;/strong&gt;: variable que indica que se trabajan menos horas por COVID&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Desocupación&lt;/strong&gt;: Razones de no tener empleo (dejar variable original y crear otra con COVID y no COVID) [*]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Inactividad&lt;/strong&gt;: Motivos por los cuales no está disponible para trabajar [**]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Despidos&lt;/strong&gt;: motivos de despido [**]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Filtros&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Excluir a las personas menores de 18 años, pertenecientes a &amp;ldquo;Actividades de organizaciones y órganos extraterritoriales&amp;rdquo;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Adicionales&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Si usted realiza una simplificación (colapsar categorías) de los puntos indicados con doble asterisco [**] recibirá bonificación adicional.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Si usted indica en el README que corrobora el cálculo de informalidad (y si no, la razón) recibirá 0.3 puntos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Datos a utilizar y guardar&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Debe ocupar la Encuesta Nacional de Empleo (ENE) del Instituto Nacional de Estadísticas, particularmente el trimestre &lt;em&gt;Junio-Julio-Agosto&lt;/em&gt; del año &lt;strong&gt;2021.&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Deben dejar guardados un único set de datos en &lt;em&gt;datos_proc.rds&lt;/em&gt; con las variables indicadas. No olviden guardar variables de identificación (&lt;em&gt;año y respondente&lt;/em&gt;) .&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;2-reporte-descriptivo&#34;&gt;2. Reporte descriptivo&lt;/h3&gt;
+&lt;p&gt;Deben crear un reporte en RMarkdown reproducible que contenga&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Título, subítulo, nombre de autores, fecha. Además información institucional que puede poner en los subtitulos (carrera, Universidad,,Profesora, ayudantes)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Presentación de la base&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Descripción de la base en fecha de realización, número de observaciones e indicar las variables utilizadas en el análisis.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;No mostrar chunk de funciones que les dan dimensiones&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Indicar paquetes con los cuales se realizará el análisis&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mostrar chunk donde se cargan paquetes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Análisis descriptivo univariado&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;3.1 Distribución de sexo, edad en tramos (y reportar edad numérica), nivel educacional&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Contraste sus resultados con los reportados en el CENSO 2017&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;3.2 Distribución de ocupaciones: activ, informalidad, CIUO y CIIU (tablas y gráficos a elección)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Describa el resultado de activ e informalidad&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;3.3 Distribución de variables para el análisis COVID (con gráficos)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Describa al menos un gráfico&lt;/em&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Análisis descriptivo bivariado.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Para ello deben cruzar y reportar los siguientes resultados&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Edad promedio para cada categoría de informalidad y jornada laboral (tabla)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;activ&lt;/code&gt; según sexo (gráfico)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CIUO y razones de desocupación colapsada entre razones COVID y no COVID (gráfico)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CIIU y motivos de despido (si creó variable colapsada y la reporta aquí recibe 0.2 décimas. Si no, debe hacerlo con la variable original) (tabla)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Motivos de despido según sexo&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Deben describir al menos dos gráficos (los que parezcan más interesantes)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;No olvide los conocimientos evaluados en la tarea N°1&lt;/strong&gt; pues también son evaluados. Solo para recordar deben incorporar los siguientes elementos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Un encabezado (YAML) con el título: “Tarea N°1”. También deben incorporar su nombre y fecha. Este encabezado debe tener una salida (output), esta debe ser en html (&lt;em&gt;si logran agregar una en pdf tendrán bonus&lt;/em&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Texto que indique dos subtítulos que separarán los apartados del documento. Deben ocupar &lt;strong&gt;negritas&lt;/strong&gt;, &lt;em&gt;cursivas&lt;/em&gt; y otros aspectos del formato md cuando sea necesario.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Chunks: no olvide las opciones de los chunks (algunos deben estar ocultos y otros no).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerden que puede ser realizada en pareja, la misma durante todo el semestre.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tarea se puede entregar hasta el día viernes 27 de septiembre 23.59&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerde revisar el &lt;a href=&#34;https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/libro-de-codigos/libro-de-c%C3%B3digos-base-ene-2021.pdf?sfvrsn=ce7f6448_2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Libro de Códigos&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;R para ciencia de datos - Como usar RMarkdown&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-book&#34;&gt;&lt;/i&gt; Recursos&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/resource/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Recursos del curso&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=APzU10EMMjg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/02-content&#34;&gt;Sesión N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/03-content&#34;&gt;Sesión N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/04-content&#34;&gt;Sesión N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/05-content&#34;&gt;Sesión N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/02-practico&#34;&gt;Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/03-practico&#34;&gt;Práctico N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/04-practico&#34;&gt;Práctico N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/05-practico&#34;&gt;Práctico N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/06-practico&#34;&gt;Práctico N°6&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Análisis descriptivo</title>
+      <link>/content/06-content/</link>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>/content/06-content/</guid>
+      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/06-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/06-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
+&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link active&#34; id=&#34;tendencia-central-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#tendencia-central&#34; role=&#34;tab&#34; aria-controls=&#34;tendencia-central&#34; aria-selected=&#34;true&#34;&gt;Tendencia central&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;frecuencias-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#frecuencias&#34; role=&#34;tab&#34; aria-controls=&#34;frecuencias&#34; aria-selected=&#34;false&#34;&gt;Frecuencias&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;visualización-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#visualización&#34; role=&#34;tab&#34; aria-controls=&#34;visualización&#34; aria-selected=&#34;false&#34;&gt;Visualización&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
+&lt;div id=&#34;tendencia-central&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;tendencia-central-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/06-slides.html#1&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;frecuencias&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;frecuencias-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/06-slides.html#14&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualización&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;visualización-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/06-slides.html#29&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;fyi&#34;&gt;
+&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
+&lt;/div&gt;
+&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zoom.us/rec/share/6oXm-Mw37yfp7G9TOYw9ZQEFx47I7t9sltWJtvH5F-uC8Tzc8noNothPb4v4yDhI.xfJ-UaJX11tXm50R?startTime=1631566849000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;lt;i class=“fas fa-laptop-code”&lt;/i&gt;Datos para la clase - ESI&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;/example/06-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://tidyr.tidyverse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tidy Messy data&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/unzipping&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Descomprimir archivos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types-example&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de datos en R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://r4ds.had.co.nz/tidy-data.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Tidy data”&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Contestar reporte de registro&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
@@ -991,7 +1263,7 @@ sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#
       <link>/assignment/02-tarea/</link>
       <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/02-tarea/</guid>
-      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/uF2RyAV_&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;../example/01-practico&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/g/uF2RyAV_&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
 &lt;p&gt;La tarea N°2 consiste en la creación de un script en R que les permita construir datos limpios y procesados que servirán de &amp;ldquo;input&amp;rdquo; para los análisis exploratorios que se reporten de los datos procesados (tarea N°3). El ejercicio que deben realizar se basa en un caso simulado de &amp;ldquo;trabajo&amp;rdquo; que les han solicitado&lt;/p&gt;
 &lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
@@ -1026,7 +1298,7 @@ sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#
 &lt;p&gt;&lt;strong&gt;Atención&lt;/strong&gt;: la ejecución concreta de los análisis serán parte de la tarea N°3. Por ahora usted debe preocuparse de:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproject)&lt;/p&gt;
+&lt;p&gt;Construir un Rproject ordenado según los criterios establecidos en el curso (02-tarea.Rproj)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Construir un script llamado &lt;em&gt;procesamiento-datos.R&lt;/em&gt; que esté alojado en la carpeta que corresponda. Este script debe tener un orden y utilizar los comentarios (#) para hacer referencia a los procesos realizados&lt;/p&gt;
@@ -1175,7 +1447,7 @@ sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#
 &lt;/div&gt;
 &lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zoom.us/rec/share/lEde93MJD06mKG56busbOZdeV3b_e6PuYnx5L0uzNdzi6-lF4CtCsES38tYN-oev.GTU_gDNrKpEH2Zjb?startTime=1630962105000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
@@ -24067,7 +24339,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
                 &lt;strong&gt;27 Septiembre&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 7)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.1 Muestras complejas y precisión de inferencia estadística&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/07-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
@@ -24087,7 +24359,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
                 &lt;strong&gt;4 Octubre&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 8)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.2 Pruebas de hipótesis y representación gráfica&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.1 Muestras complejas y precisión de inferencia estadística&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/08-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;

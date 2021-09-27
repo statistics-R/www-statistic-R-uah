@@ -85,7 +85,7 @@ lessons:
     date_end: "20 Septiembre"
     bg: 1
 
-  - title: '4.1 Muestras complejas y precisión de inferencia estadística'
+  - title: '3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA'
     session: "Sesión 7"
     date: "27 Septiembre"
     content: "07-content"
@@ -93,7 +93,7 @@ lessons:
     assignment: "04-problem-set"
     bg: 1
 
-  - title: '4.2 Pruebas de hipótesis y representación gráfica'
+  - title: '4.1 Muestras complejas y precisión de inferencia estadística'
     session: "Sesión 8"
     date: "4 Octubre"
     content: "08-content"
