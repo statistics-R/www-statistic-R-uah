@@ -28,6 +28,11 @@ El presente práctico será realizado con datos de la *Encuesta de Caracterizaci
 
 Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
+### Material del práctico
+
+- [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
+
+
 ## 2. Librerías a utilizar
 
 Utilizaremos las siguientes librerías:

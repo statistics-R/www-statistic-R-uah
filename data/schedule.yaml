@@ -167,13 +167,13 @@ lessons:
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 3: Análisis descriptivo**'
-    date: "20 Septiembre-27 septiembre"
+    date: "20 Septiembre-4 de octubre"
     assignment: "03-tarea"
     bg: 3
     bottomborder: True
 
   - title: '<i class="fas fa-dice-two"></i> **Tarea 4: Muestras complejas**'
-    date: "4 octubre-8 octubre"
+    date: "4 octubre-15 octubre"
     assignment: "04-tarea"
     bg: 3
     bottomborder: True

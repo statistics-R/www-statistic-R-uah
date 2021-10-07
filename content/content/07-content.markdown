@@ -74,11 +74,13 @@ slides: "07-slides"
 
 # Video de la clase
 
--   \[<i class="fas fa-video"></i> `Video de la clase`\]
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/JV-ZEsTOB-jU3s3dTEM57WVBqIuveCIm2S2ud3MqNim1pVgiPcijb-sj5UwGUiPg.UjmlJMrkaJaTODNb?startTime=1633375758000)
+
+-   -   [<i class="fas fa-video"></i> `Video del práctico`](https://zoom.us/rec/share/qzVDXwHjWaxFNoQ3mRhXQ027sFrpZK3d-LrxC00sHJDmDa2bYohief-RfS-5yRUb.5oAyDL6HfntGFRhe?startTime=1633380893000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/07-practico/)
 

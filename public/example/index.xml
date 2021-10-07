@@ -22,6 +22,10 @@
 &lt;h2 id=&#34;1-recursos-del-práctico&#34;&gt;1. Recursos del práctico&lt;/h2&gt;
 &lt;p&gt;El presente práctico será realizado con datos de la &lt;em&gt;Encuesta de Caracterización Socioeconómica (CASEN)&lt;/em&gt; en su versión 2020. Estos datos ya han sido previamente procesados para su correcta realización, recodificando y eliminando casos perdidos, y renombrando y seleccionando variables. Esto es &lt;strong&gt;muy importante&lt;/strong&gt;: para trabajar correctamente con muestreos complejos, &lt;strong&gt;deben&lt;/strong&gt; asegurarse de que los datos estén bien preparados para ello.&lt;/p&gt;
 &lt;p&gt;Recuerden siempre consultar el &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;manual/libro de códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar una base de datos.&lt;/p&gt;
+&lt;h3 id=&#34;material-del-práctico&#34;&gt;Material del práctico&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/07-class/raw/main/07-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;07-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;2-librerías-a-utilizar&#34;&gt;2. Librerías a utilizar&lt;/h2&gt;
 &lt;p&gt;Utilizaremos las siguientes librerías:&lt;/p&gt;
 &lt;ol&gt;
