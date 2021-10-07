@@ -5,12 +5,194 @@
     <link>/assignment/</link>
       <atom:link href="/assignment/index.xml" rel="self" type="application/rss+xml" />
     <description>Sobre las evaluaciones</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Fri, 01 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Sobre las evaluaciones</title>
       <link>/assignment/</link>
     </image>
+    
+    <item>
+      <title>Tarea 4. Muestras complejas</title>
+      <link>/assignment/04-tarea/</link>
+      <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/04-tarea/</guid>
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;&#34;&gt;Tarea N°4 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
+&lt;p&gt;La tarea N°4 busca evaluar la unidad de muestras complejas utilizando R, en base a la creación de un &lt;em&gt;informe reproducible en RMarkdown&lt;/em&gt;. Este informe se basa en la repiblicación de estadísticos reportados por otras instituciones públicas y académicas. Considere que los conocimientos a evaluar en la tarea N°4 requieren de un manejo sustantivo de los contenidos anteriormente vistos en clases.&lt;/p&gt;
+&lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
+&lt;p&gt;Debe seleccionar alguno de los dos siguientes reportes para su replicación&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://drive.google.com/file/d/1Yh8KajQsmHs2X-kt5kSuliUFuBDfV5-h/view&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Radiografía del cambio social&lt;/a&gt; en base a la Encuesta Longitudinal Social del Centro de Estudios de Conflicto y Cohesión Social &lt;a href=&#34;https://coes.cl/encuesta-panel/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(COES)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.ine.cl/docs/default-source/sueldos-y-salarios/boletines/espa%C3%B1ol/base-anual-2016-100/m%C3%B3dulo-covid-19-ir-icmo/bolet%C3%ADn-covid-19-%28abril-a-julio-2021%29.pdf?sfvrsn=ec4ca210_5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Modulo COVID - Boletín Complementario&lt;/a&gt; en base a la encuesta Índice de Remuneraciones e Índice de Costo de Mano de Obra (ICMO-IR) del &lt;a href=&#34;https://www.ine.cl/ine-ciudadano/definiciones-estadisticas/economia/indice-de-remuneraciones&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instituto Nacional de Estadística&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;instrucciones-específicas-para-cada-informe&#34;&gt;Instrucciones específicas para cada informe&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;1. &lt;a href=&#34;https://drive.google.com/file/d/1Yh8KajQsmHs2X-kt5kSuliUFuBDfV5-h/view&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Radiografía del cambio social&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Debe utilizar la Encuesta Longitudinal Social del Centro de Estudios de Conflicto y Cohesión Social &lt;a href=&#34;https://coes.cl/encuesta-panel/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(COES)&lt;/a&gt; del año 2019&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Debe replicar los análisis reportados en la lámina 44, 45, 53, 58 y 74&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Además de la estimación puntual debe reportar los intervalos de confianza.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con los datos construidos debe crear al menos una tabla y un gráfico (puede seleccionar cualquier indicador para el gráfico).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En caso de no llegar a los mismos resultados, investigue y discuta posibles razones de porqué no llegó al mismo resultado del informe.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2. &lt;a href=&#34;https://www.ine.cl/docs/default-source/sueldos-y-salarios/boletines/espa%C3%B1ol/base-anual-2016-100/m%C3%B3dulo-covid-19-ir-icmo/bolet%C3%ADn-covid-19-%28abril-a-julio-2021%29.pdf?sfvrsn=ec4ca210_5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Modulo COVID - Boletín Complementario&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Debe utilizar la encuesta Índice de Remuneraciones e Índice de Costo de Mano de Obra (ICMO-IR) del &lt;a href=&#34;https://www.ine.cl/ine-ciudadano/definiciones-estadisticas/economia/indice-de-remuneraciones&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instituto Nacional de Estadística&lt;/a&gt; del mes de julio 2021.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Debe replicar los análisis reportados en la tabla N°1, N°2, N°3 y N°6.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Además de la estimación puntual, debe reportar los intervalos de confianza.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Con los datos construidos debe crear al menos una tabla y un gráfico (puede seleccionar cualquier indicador para el gráfico).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En caso de no llegar a los mismos resultados, investigue y discuta posibles razones de porqué no llegó al mismo resultado del informe.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;En general&lt;/strong&gt;, su proyecto de R (tarea-04.Rproj) debe contener:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. R script con procesamiento de datos modificado (&lt;code&gt;R/01-proc.R&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1.1 Datos originales en carpeta &lt;em&gt;input&lt;/em&gt; (si son muy pesados, indicar en el .gitignore) 
+1.2 Datos procesados (&lt;code&gt;input/datos/datos_proc.rds&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Informe descriptivo de los datos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 03-analisis.Rmd
+2.2 Archivo en html que contiene el informe compilado (02-analisis.html). &lt;em&gt;Si logra dejar el informe en .pdf tendrá 0.3 adicionales a su nota. Hint: descargar y revisar el paquete tinytext&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Adicionales&lt;/strong&gt; (0.2 décimas por cada uno)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;3.1 README.md con explicaciones generales para que cualquier usuario pueda reproducir sus análisis (explicar las carpetas, datos descargados y desde donde). Algunos elementos del procesamiento deben ser indicados aquí&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3.2 Contribuir con preguntas de compañeras/os sobre &lt;strong&gt;problemas en código&lt;/strong&gt; (no sobre instrucciones sobre la tarea)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3.3 Documentos que &lt;a href=&#34;https://www.datadreaming.org/post/r-markdown-theme-gallery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;editen su formato en html&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3.4 Cambiar color y editar sus gráficos de sjPlot.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;sobre-el-reporte&#34;&gt;Sobre el reporte&lt;/h3&gt;
+&lt;p&gt;Deben crear un reporte en RMarkdown reproducible que contenga&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Título, subítulo, nombre de autores, fecha. Además información institucional que puede poner en los subtitulos (carrera, Universidad,,Profesora, ayudantes)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Presentación de la base&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Descripción de la base en fecha de realización, número de observaciones e indicar las variables utilizadas en el análisis.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;No mostrar chunk de funciones que les dan dimensiones&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Indicar paquetes con los cuales se realizará el análisis&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mostrar chunk donde se cargan paquetes&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Tablas y gráficos&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Deben ser realizados preferentemente con sjPlot&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las tablas también pueden ser realizadas con &lt;em&gt;kable&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;No olvide los conocimientos evaluados en la tarea N°1&lt;/strong&gt; pues también son evaluados. Solo para recordar deben incorporar los siguientes elementos:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Un encabezado (YAML) con el título: “Tarea N°1”. También deben incorporar su nombre y fecha. Este encabezado debe tener una salida (output), esta debe ser en html (&lt;em&gt;si logran agregar una en pdf tendrán bonus&lt;/em&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Texto que indique dos subtítulos que separarán los apartados del documento. Deben ocupar &lt;strong&gt;negritas&lt;/strong&gt;, &lt;em&gt;cursivas&lt;/em&gt; y otros aspectos del formato md cuando sea necesario.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Chunks: no olvide las opciones de los chunks (algunos deben estar ocultos y otros no).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerden que puede ser realizada en pareja, la misma durante todo el semestre.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tarea se puede entregar hasta el día viernes 15 de octubre a las 23.59&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Recuerde revisar los materiales otorgados por las instituciones (de hecho, en algunos casos sus investigadores/as utilizan GitHub)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;ldquo;R para ciencia de datos - Como usar RMarkdown&amp;rdquo;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fab fa-book&#34;&gt;&lt;/i&gt; Recursos&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/resource/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Recursos del curso&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=APzU10EMMjg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial dplyr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/02-content&#34;&gt;Sesión N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/03-content&#34;&gt;Sesión N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/04-content&#34;&gt;Sesión N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/content/05-content&#34;&gt;Sesión N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/02-practico&#34;&gt;Práctico N°2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/03-practico&#34;&gt;Práctico N°3&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/04-practico&#34;&gt;Práctico N°4&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/05-practico&#34;&gt;Práctico N°5&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/06-practico&#34;&gt;Práctico N°6&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;/example/07-practico&#34;&gt;Práctico N°7&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Tarea 3. Análisis descriptivo</title>
