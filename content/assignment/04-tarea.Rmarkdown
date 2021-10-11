@@ -63,7 +63,7 @@ Debe seleccionar alguno de los dos siguientes reportes para su replicación
 **1. R script con procesamiento de datos modificado (`R/01-proc.R`)**
   
   1.1 Datos originales en carpeta *input* (si son muy pesados, indicar en el .gitignore) 
-  1.2 Datos procesados (`input/datos/datos_proc.rds`)
+  1.2 Datos procesados (`output/datos/datos_proc.rds`)
 
 **2. Informe descriptivo de los datos**
 
