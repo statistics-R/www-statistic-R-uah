@@ -56,10 +56,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F,
                       fig.retina = 3, fig.align = "center")
 ```
 
-class: center middle main-title section-title-8 top-logo
+class: center middle main-title section-title-5 top-logo
 
 .small[
-# Muestras complejas y precisión de inferencia estadística
+# Regresión Lineal Múltiple
 ]
 
 .class-info[
@@ -79,585 +79,473 @@ class: center middle main-title section-title-8 top-logo
 ]
 
 ---
-class: title title-inv-8
+class: title title-inv-5
 
 # Contenidos Sesión 8
 
 --
-.box-2.medium.sp-after-half[**Diseño muestral complejo**]
+
+.box-1.small.sp-after-half[**Construcción modelo regresión lineal con lm**]
+
 --
-.box-3.medium.sp-after-half[**El diseño muestral de CASEN 2020**]
+
+.box-2.small.sp-after-half[**Modelamiento con srvyr y glm**]
+
 --
-.box-4.medium.sp-after-half[**Creación de objetos encuesta con srvyr**]
---
-.box-5.medium.sp-after-half[**Estimación e inferencia**]
---
-.box-6.medium.sp-after-half[**Creación de tabulado con las estimaciones**]
+.box-3.small.sp-after-half[**Predictores categóricos**]
+
+.box-3.small.sp-after-half[**Transformaciones funcionales**]
+
 ---
-class: center middle main-title section-title-8 top-logo
+class: title title-inv-5
+
+# Contenidos Sesión 8
+
+.box-4.small.sp-after-half[**Creación exploratoria**]
+
+--
+
+.box-6.small.sp-after-half[**Extraer información**]
+
+--
+
+.box-7.small.sp-after-half[**Representación gráfica**]
+
+--
+.box-7.tiny.sp-after-half[*Tablas*]
+
+.box-7.tiny.sp-after-half[*Gráficos*]
+
+---
+class: center middle main-title section-title-1 top-logo
 name: basics
 
-# Diseño muestral complejo
+# Modelo de regresión lineal
 ---
-class: title title-8
+class: title title-1
 
-# ¿Qué es?
+# Modelo de regresión lineal
 
-- Cuando trabajamos con encuestas, obtenemos información de sólo un grupo de la población objetivo: es decir, escogemos una muestra.
-- La mayoría de las veces, esperamos que la muestra pueda dar cuenta de determinadas características de la **población**.
-  + Es decir, esperamos que sea **representativa**.
-- Para ello, al diseñar la encuesta, establecemos ciertos criterios de selección de casos.
-- El ideal es que la selección de casos se realice a partir de un **muestreo aleatorio simple**, en que *cada sujeto tiene la misma posibilidad de ser elegido*.
----
-class: title title-8
-
-# ¿Qué es?
-
-- Sin embargo, llevar a cabo un muestreo aleatorio simple suele no ser posible, dado lo costoso de su producción.
-- Por ello, se han elaborado métodos más complejos de selección de casos en que, si bien no todos los sujetos tienen la misma probabilidad de ser elegidos, es posible **conocer** su probabilidad de ser escogidos para la muestra.
-
-
-.medium.box-inv-1[Es decir, se crean muestras **probabilísticas**]
-
----
-class: title title-8
-
-# ¿Qué es?
-
-- Estos métodos de selección de casos suelen ser más complejos que el muestreo aleatorio simple, pues van más allá de una selección aleatoria de casos entre todos los individuos que componen a la población. Hay distintos tipos
-  + Estratificado
-  + Por conglomerados
-  + Bietápico, multietápico
-  + Entre otros...
-  
----
-class: title title-8
-
-# ¿Por qué emplear diseños muestrales?
-
-.medium.box-inv-1[Permite estimaciones a nivel poblacional]
+- Herramienta de análisis poderosa en ciencias sociales
 
 --
 
-.medium.box-inv-2[Posibilita mejorar la precisión de nuestras estimaciones]
+- Permite generalizar relaciones entre variables 
+
+-- 
+
+|  | $Y$ | $X$ |
+|---|---|---|
+|  | Explicada | Explicativa |
+|  | Dependiente | Independiente |
+|  | Respuesta | Control |
+|  | Predicha | Predictora |
+|  | Regresando | Regresor |
+
+---
+class: title title-1
+
+# Modelo de regresión lineal
+
+**Algunas propiedades básicas y clave**
+
+1. $Y$ de carácter continuo
+
+2. $X_i$ relación lineal con $Y$ (*Supuesto N°2 Teorema Gauss Markow*)
+
+3. Muestreo aleatorio para recolección de datos
+
+- Otros: *colinealidad imperfecta, homocedasticidad, esperanza condicional de residuos cero, i.i.d*. 
+
+---
+class: title title-1
+
+# RLM en R con lm()
+
+- `lm()` es del paquete base
+.can-edit[
+```{r, eval = FALSE}
+
+lm(formula = , #<<
+   data = ,
+   weights = )
+
+```
+]
+
+- Por lo general, **crearemos objetos** para luego manipularlos
+
+```{r, eval = FALSE}
+
+modelo1 <- lm(formula = , #<<
+   data = ,
+   weights = )
+
+```
+
+---
+class: title title-1
+
+# RLM en R con lm()
+
+**Modelo sin predictores**
+```{r, eval = F}
+modelo1 <- lm(y ~ 1, #<<
+   data = datos,
+   weights = ponderador)
+```
+
+--
+**Modelo simple**
+```{r, eval = F}
+modelo1 <- lm(y ~ x1, #<<
+   data = datos,
+   weights = ponderador)
+```
 
 --
 
-.medium.box-inv-3[Permite trabajar con un nivel de error conocido]
+**Modelo multiple**
+```{r, eval = F}
+modelo1 <- lm(y ~ x1 + x2, #<<
+   data = datos,
+   weights = ponderador)
+```
 
 ---
-class: center middle main-title section-title-8 top-logo
+class: title title-1
+
+# RLM en R con lm()
+
+**Paso a paso**
+
+1. Un buen procesamiento de datos
+
+2. Identificar variable *dependiente* e *independientes*
+
+3. Seguir la formula *y ~ x1 + x2 + ...xk*
+
+4. No olvidar otros objetos *básicos* para construir modelo: base y pesos muestrales (veremos los problemas asociados a no considerarlos)
+
+5. Crear objeto
+
+6. Explorar resultado con `summary(modelo1)`
+
+---
+class: center middle main-title section-title-2 top-logo
 name: basics
 
-# El diseño muestral de CASEN 2020
+# Modelamiento con glm y svyglm
 
 ---
-class: title title-8
+class: center middle main-title section-title-2 top-logo
 
-# El diseño muestral de CASEN 2020
-
-Según el [manual metodológico de la encuesta](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Manual_del_Investigador_Casen_en_Pandemia_2020.pdf), su diseño muestral es
-
-.large.box-inv-1[Probabilístico]
+# ¿ Y no bastaba con eso?
 
 --
 
-.large.box-inv-2[Estratificado]
+No, y ya entenderás la razón
+
+---
+class: title title-2
+
+# RLM en R con glm()
+
+- Muchas veces encontrarás tutoriales donde **no se incorporan los pesos muestrales en los modelos**
+
+- Como sabemos, eso trae errores de estimación y se pasa por alto uno de los supuestos de Gauss Markow y de la FRP (*función de regresión poblacional*)
+
+---
+class: title title-2
+
+# glm() para regresiones lineales
+
+- Un punto antes de revisar la construcción con survey es que podemos construir un modelo lineal (`lm()`) con un modelo lineal generalizado (`glm()`)
+
+- `glm()` nos permite construir distintos tipos de modelos según la distribución que siguen las variables aleatorias
 
 --
 
-.large.box-inv-3[Multietápico]
+- Un ejemplo son las que siguen distribuciones normales-gaussianas (como las lineales que se estiman por OLS) o las binomiales (como las logísticas que se estiman por MV).
 
 ---
-class: title title-8
+class: title title-2
 
-# ¿Qué significa esto?
+# glm() para regresiones lineales
 
-.medium.box-inv-1[Probabilístico]
+```{r, eval = F}
+modelo_glm <- glm(y ~ x1 + x2,
+               family = gaussian(link = "identity"), #<<
+               data = datos, weights = peso)
+```
 
-- Conocemos la probabilidad de selección de cada sujeto (aunque sea !=1)
-
----
-class: title title-8
-
-# ¿Qué significa esto?
-
-.medium.box-inv-2[Estratificado]
-
-- Se establece un criterio para definir estratos (en este caso, comuna/zona), y se escogen aleatoriamente unidades más pequeñas (conglomerados), a partir de las cuales se levanta el muestreo.
-- En el caso de CASEN, los conglomerados están constituidos por las **manzanas**, *unidades primarias de muestreo* (UPM).
+- Si luego comparamos con modelo normal `lm()` notaremos que llegaremos al mismo resultado
 
 ---
-class: title title-8
+class: center middle main-title section-title-2 top-logo
 
-# ¿Qué significa esto?
+# ¿Y qué tiene que ver todo esto con survey?
 
-.medium.box-inv-3[Multietápico]
+--
 
-- La estratificación se realiza en distintos niveles
-  + Primero, se seleccionan aleatoriamente manzanas de cada estrato comuna/zona
-  + Luego, se escogen al azar un número de viviendas de cada manzana
-  + De cada vivienda, se escoge al azar un hogar
-  + De cada hogar, responde (idealmente) el o la jefa de hogar, u otro adulto/a presente
+## ¡Ahora verás!
+---
+class: title title-2
+
+# regresiones lineales con survey::svyglm() 
+
+- El paquete `survey` contiene una función llamada `svyglm`que permite incorporar el diseño de muestreo.
+
+--
+
+- Los pasos adicionales solo implican:
+
+1. Crear objeto de diseño de muestra con `as_survey_design`
+2. Crear objeto de modelo incorporando el diseño de la muestra. **¡La función svyglm() es muy parecida a las que ya vimos**
 
 ---
-class: title title-8
+class: title title-2
 
-# ¿Qué significa esto?
+# regresiones lineales con survey::svyglm() 
 
-De este modo, CASEN 2020
+```{r, eval = F}
+# Paso 1:
+diseno_muestra <- as_survey_design(datos, ids = 1, weights = peso)
+#Paso 2:
+modelo_survey <- svyglm(y ~ x1 + x2,
+               family = gaussian(link = "identity"), #<<
+               data = datos, 
+               design = diseno_muestra) #<<
 
-- Es representativa a nivel nacional
-- Presenta un error muestral de
-  + A nivel nacional, 0.4 puntos porcentuales (pp.) de error absoluto y 3.9% de error relativo
-  + A nivel regional, un error absoluto promedio de 1.6 pp. (con un máximo de 2.1 pp. para Coquimbo) y un error relativo promedio de 15.4% (con un máximo de 30.4% para Magallanes)
-- Para más información, revisar el [manual metodológico de la encuesta](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Manual_del_Investigador_Casen_en_Pandemia_2020.pdf). 
+```
+
+¡Notarás que dará el mismo resultado! (*en este caso...*)
+
+---
+class: center middle main-title section-title-2 top-logo
+
+# Pero si todos dan el mismo resultado... ¿por qué no solo ocupar lm()?
+
+.can-edit[]
+
+
+---
+class: center middle main-title section-title-3 top-logo
+name: transform
+
+# Transformaciones funcionales
+
+---
+class: title title-3
+
+# 1. Predictores categóricos
+
+- En R los predictores categóricos pueden estar en clase `character` o `factor`
+
+- Para que la regresión reconozca a estos como predictores categóricos y conserve tanto etiquetas como niveles ocuparemos `forcats::as_factor()` (*es y será un muy buen amigo*)
+
+---
+
+class: title title-3
+
+# 1. Predictores categóricos
+
+- Gracias a este podremos notificar bien *cuál es la **categoría de referencia***. De manera adicional con `rlvl()` podremos re-definir esta categoría.
+
+- **Este procedimiento debe ir si o si en su código de procesamiento**
+
+---
+class: title title-3
+
+# 2. Modelos log y cuadráticos
+
+- Si queremos transformar una variable a logaritmo, al cuadrado, re-escalarla, hacerla **interactuar** etc. **lo *ideal* es que creemos esa nueva variable en el procesamiento.**
+
+--
+
+- Ahora bien, en la realidad, vamos a querer ir testeando/explorando
+
+--
+
+- Una forma "*sencilla*" es introducir esa transformación al argumento de la `formula` de `lm()`
+
+---
+class: title title-3
+
+# 2. Modelos log y cuadráticos
+
+```{r, eval = F}
+# Modelo log-lineal
+modelo_log <- lm(log(y) ~ x1 + x2 , #<<
+              data = datos, weights = fact_cal_esi)
+#Modelo log-cuadratico
+modelo_log_cuadratico <- lm(log(y) ~ x1 + (x1)^2 + x2 , #<<
+                  data = datos, weights = fact_cal_esi)
+
+#Modelo log interaccion
+modelo_log_interaccion <- lm(log(y) ~ x1  + x2 +x1*x2, #<<
+                             data = datos, weights = fact_cal_esi)
+
+```
+
+
+
+---
+class: title title-4
+
+# Modelamiento exploratorio
+
+- Sabemos que en análisis de datos existen los análisis **confirmatorios** y *exploratorios*
+
+--
+
+- En regresiones también existe esta clase de *approch* que se aplica a partir de método **stepwise** (paso a paso) con dirección *"backward" y "forward"*
+
+--
+
+- Los pasos en *R* son sencillos. Primero, construyo una fórmula general y luego defino la dirección del *stepwise* 
+
+
+---
+
+class: title title-4
+
+# Modelamiento exploratorio
+
+
+```{r, eval = F}
+# Creación exploratoria 
+modelo_general <- lm(y ~ .,
+                     data = datos, weights = datos$pesos,
+                     na.action= na.omit)
+
+step(modelo_general,
+     direction = "forward"
+     keep = nobs)
+
+```
+
+---
+class: center middle main-title section-title-6 top-logo
+name: information
+
+# Obteniendo información sobre mi modelo
+
+---
+class: title title-6
+
+# Un breve resumen
+
+
+|  | Función | Objetivo |
+|---|---|---|
+|  | `summary(modelo)` | Resumen general |
+|  | `modelo$coefficients` | Extraer elemento del objeto (coeficiente en este caso) |
+|  | `modelo5$coefficients[2]` | Extraer coeficiente N°2 de objeto |
+|  | `modelo5$coefficients["x1"]` | Extraer coeficiente "x1" del modelo |
+|  | `str(summary(modelo1))` | Estructura del resultado del modelo |
+|  | `summary(modelo5)$fstatistic` | Estadístico F (podría ser R cuadrado también) |
+|  | `modelo5$fitted.values` | Valores predichos |
+
+
+---
+
+class: title title-6
+
+
+# Con sjPlot
+
+```{r}
+get_model_data(modelo, type = c("pred"))
+
+get_model_data(modelo, type = "pred",
+               terms = "sexo")
+```
+
+# Con broom
+
+```{r}
+broom::augment(modelo) #puedo guardar como objeto
+
+```
+
+---
+---
+class: center middle main-title section-title-7 top-logo
+name: viz
+
+# Representación gráfica
+
+---
+class: title title-7
+
+# Tablas
+
+- Hoy aprenderemos a crear tablas en *tab_model* (de `sjPlot`). Ahora bien, el paquete *más versátil* para presentación de tablas de modelos es *texreg* (próxima semana)
+
+```{r}
+
+tab_model(modelo0) # con uno
+
+tab_model(list(modelo0, modelo1, modelo2))
+
+tab_model(list(modelo0,modelo1,modelo2,modelo3,modelo4,modelo5),
+          show.aic = T, # show.[inserte algun estadístico]
+          show.reflvl = T,
+          p.style = "stars")
+
+```
+
+---
+class: title title-7
+
+
+# Gráficos
+
+**Forest plot**
+```{r}
+# Forest plot (default)
+plot_model(modelo5)
+plot_model(modelo5_log)
+
+# Forest plot - arreglado
+plot_model(modelo5_log,
+           show.p = T,
+           show.values =  T)
+
+```
+
+---
+class: title title-7
+
+
+# Gráficos
+
+**Marginal effects**
+
+```{r}
+plot_model(modelo,
+           type = "pred")
+
+plot_model(modelo,
+           type = "pred",
+           terms = "grupo1")
+
+
+plot_model(modelo5_log,
+           type = "pred",
+           terms = c("grupo1", "grupo2")) 
+
+```
+
 ---
 class: title title-8
 
 #Recursos de la práctica
 
-- Este práctico fue trabajado con datos de [CASEN 2020](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020).
-- Los datos ya fueron procesados anteriormente, para centrar el trabajo en el cálculo de parámetros.
-- Al trabajar con muestras complejas, es **fundamental** asegurarnos de:
-  + Recodificar correctamente los valores de cada variable
-  + Eliminar los valores nulos de los datos
-  + Transformar cada variable a su datatype correspondiente
-- Pueden revisar el *script de procesamiento* en la carpeta **R** 
+- Este práctico fue trabajado con datos de [Encuesta Suplementaria de Ingresos](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos).
 
----
-class: center middle main-title section-title-8 top-logo
-name: basics
-
-# 1: Flujo del RProject
-
----
-class: title title-inv-8
-
-# Etapas del flujo
-
-.center[
-![:scale 70%](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)]
-
---
-
-- *Hoy* nosotras/os nos centraremos en la parte de **análisis**.
-
----
-class: title title-inv-8
-
-# Orden de un script de análisis
-
-
-.center[
-![:scale 60%](https://raw.githubusercontent.com/learn-R/slides/main/img/04/orden-sintaxis.png)]
-
----
-.center[
-![](https://media2.giphy.com/media/ule4vhcY1xEKQ/giphy.gif)]
-
-Figura 1: Estudiantes de Análisis de datos en R haciendo los **pasos 4 y 5.**
----
-class: center middle main-title section-title-8 top-logo
-
-# Paso 1: Cargar paquetes
-
----
-layout: true
-class: title title-8
----
-# Paso 1: Cargar paquetes
-
-```{r}
-pacman::p_load(tidyverse, #Universo de paquetes
-               sjmisc, #Para explorar datos
-               srvyr, #Para trabajar con muestras complejas
-               dplyr, #Para manipular datos
-               tidyr) #Para transformar la estructura de los datos
-```
-
----
-layout: false
-class: center middle section-title section-title-8 animated fadeIn
-
-# Paso 2: Importar datos
-
----
-# Consideraciones antes de importar datos 
-
-Para **importar** los datos en R debemos tener en consideración tres cosas:
-
-.can-edit.key-likes[
-1.
-2.
-3.
-]
-
----
-# Consideraciones antes de importar datos 
-
-Para **importar** los datos en R debemos tener en consideración tres cosas:
-
-1. Cómo se llaman los datos (en nuestro caso casen_proc);
-
-2. El formato de nuestros datos (en nuestro caso .rds); y
-
-3. El lugar de donde están alojados nuestros datos (en este caso, desde GitHub). 
-
----
-# Paso 2: Importar datos
-
-```{r eval=FALSE, include=TRUE}
-data <- readRDS(url("https://github.com/learn-R/07-class/blob/main/input/data/casen_proc.rds?raw=true"))
-```
-
----
-class: center middle main-title section-title-8 top-logo
-
-# Como resultado
-
-.large.box-inv-1[Nuevo objeto en el Enviroment]
-
-
----
-class: center middle section-title section-title-8 animated fadeIn
-
-# Paso 3: Explorar datos
-
----
-class: center title title-8
-
-# Explorar datos
-
-¡Recordemos!
-
-.box-inv-1[Para variables categóricas: `frq()`]
-
---
-
-.box-inv-3[Para variables continuas: `descr()`]
-
-
---
-En la tarea de explorar los datos, la librería `sjmisc` será nuestra mejor aliada
----
-# Explorar datos para procesar
-
-```{r eval=FALSE, include=TRUE}
-
-## Variables categóricas
-
-frq(data$region) #Examinamos la columna región
-frq(data$pobreza) #Examinamos la columna pobreza
-frq(data$sexo) #Examinamos la columna sexo
-
-```
----
-# Explorar datos para procesar
-
-```{r eval=FALSE, include=TRUE}
-
-## Variables continuas
-
-descr(data$exp) #Ponderador regional
-sum(data$exp) #Total de la población
-descr(data$varstrat) #Estrato de varianza
-descr(data$varunit) #Conglomerado de varianza
-descr(data$ing_tot_hog) #Ingreso total del hogar
-
-```
----
-layout: false
-class: center main-title section-title-8 top-logo
-
-# ¡Continuemos con la creación del objeto encuesta!
-
----
-layout: false
-class: center middle main-title section-title-8 top-logo
-
-# Pero antes...
-
----
-
-# ¿Qué es un objeto encuesta?
-
-.box-inv-1[Es una lista creada con la función 
-`as_survey_design` de `srvyr`]
-
---
-
-.box-inv-2[En este caso, la lista contiene 9 elemento diferentes]
-
---
-
-.box-inv-3[Si bien su contenido es algo críptico, crear el 
-objeto encuesta es crucial, pues nos permitirá trabajar con los datos como si fuese un dataframe]
-
----
-class: center title title-8
-
-# Creando el objeto encuesta
-
-```{r}
-obj_encuesta <- data %>% #Creamos un nuevo objeto encuesta con la información de nuestros datos
-  as_survey_design(ids = conglomerado, #Aplicamos diseño muestral, especificando los ids a partir del conglomerado de varianza,
-                   strata = estrato,#strat con los estratos de varianza,
-                   fpc = nestrato, #especificando que la estimación está corregida con una población finita (cuando se pueda),
-                   weights = ponderador) #y los ponderadores con weights
-```
----
-class: center title title-8
-
-# Objeto encuesta
-
-![:scale 70%](https://github.com/learn-R/slides/blob/main/img/04/img-list.png?raw=true)
----
-class:center title title-8
-
-# ¿Por qué trabajar con objetos encuesta?
-
-.box-inv-3[Los distintos argumentos especifican elementos del diseño muestral]
-
---
-
-.box-inv-4[Así, podremos realizar estimaciones mucho más precisas]
-
---
-
-.box-inv-5[Además de conocer el nivel de error de estas]
-
---
-
-![:scale 25%](https://github.com/learn-R/slides/blob/main/img/04/kirby-cool.png?raw=true)
-
----
-class: center title title-8
-
-# Creando el objeto encuesta
-
-En CASEN 2020 no viene incluida la variable fpc, por lo que debemos crearla
-
-```{r}
-data <- data %>% 
-  group_by(varstrat) %>% #Agrupando por varstrat
-  mutate(stratn = sum(exp)) %>% #Calculamos el total de personas por estrato
-  ungroup() #¡No olvidemos desagrupar!
-```
-
----
-class: center title title-8
-
-# Creando el objeto encuesta (¡por fin!)
-
-En CASEN 2020 no viene incluida la variable fpc, por lo que debemos crearla
-
-```{r}
-casen_regional <- data %>% #Creamos un nuevo objeto llamado casen_regional con la información de data
-  as_survey_design(ids = varunit, #Aplicamos diseño muestral, especificando los ids a partir de varunit,
-                   strata = varstrat,#los estratos a partir de varstrat,
-                   fpc = stratn, #especificando que la estimación es con una población finita
-                   weights = exp) #y los ponderadores con exp
-```
-
----
-class: center title title-8
-
-# Las ventajas de `srvyr`
-
-.box-inv-5[Existen otras librerías que nos permiten crear objetos encuesta]
-
---
-
-.box-inv-6[Sin embargo, nos quedamos con `srvyr` ¿por qué?]
-
---
-
-.box-inv-7[Nos permite dialogar con librerías conocidas, como `dplyr`]
-
---
-
-.box-inv-2[¡Sin considerar la simpleza de los cálculos!]
----
-layout: false
-class: center main-title section-title-8 top-logo
-
-# ¡A calcular!
-
----
-class: title title-8
-# ¿Qué calcularemos?
-
-- `srvyr` provee de muchas funciones para cálculos de diferentes estadísticos
-- No obstante, aquí calcularemos **medias**, **proporciones** y **totales**
-
---
-
-.box-inv-1[Son los estadísticos más usuales de reportar]
-
---
-
-.box-inv-2[además de ser **insesgados**]
-
---
-
-- Entonces, emplearemos `survey_mean()`, `survey_prop()` y `survey_total()`
-
----
-# Cálculo de medias `survey_mean()`
-
-```{r}
-## Cálculo simple
-casen_regional %>% #Con casen_regional
-  summarize(ing_medio = srvyr::survey_mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio poblacional
-```
-
----
-# Comparamos con el cálculo a nivel muestral
-
-```{r}
-data %>% #Con data
-  summarise(ing_medio = mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio muestral
-```
-
----
-
-# Incorporamos Intervalos de Confianza al 95%
-
-```{r}
-casen_regional %>%#Con casen_regional
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el 
-                                                                           #ingreso medio poblacional, 
-                                                                           #y sus intervalos de confianza
-```
-
-???
-x
-
---- 
-
-# ¿Y si queremos otro nivel de confianza?
-
-```{r}
-casen_regional %>% #Con casen_regional
-  summarise(ing_medio95 = survey_mean(ing_tot_hog, vartype = "ci", level = .95, na.rm=T), #Al 95%
-            ing_medio99 = survey_mean(ing_tot_hog, vartype = "ci", level = .99, na.rm=T)) #Al 99%
-```
-
-???
-
-x 
-
----
-# Agrupamos por sexo (¡como con dplyr!)
-
-```{r}
-casen_regional %>% #Con casen_regional
-  group_by(sexo) %>% #Agrupamos por sexo
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el ingreso medio 
-                                                                           #poblacional, y sus intervalos de 
-                                                                           #confianza
-```
-
----
-# ¡Transformemos en wide con `tidyr`!
-
-```{r}
-ing_region <- casen_regional %>% 
-  group_by(sexo) %>% #Agrupamos por region
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) %>% #Calculamos el ingreso medio poblacional, y sus intervalos de confianza
-  select(sexo, ing_medio) %>% #Seleccionamos region e ing_medio
-  pivot_wider(names_from = "sexo", #Pivoteamos, extrayendo los nombres de las columnas desde region
-              values_from = "ing_medio") #Y los valores desde ing_medio
-```
-
----
-
-# Cálculo de proporciones con `survey_prop()`
-
-.box-inv-2[Una diferencia con `survey_mean()`: ¡Debemos agrupar por la(s) variable(s) categórica(s) de interés!]
-
-```{r}
-## Cálculo simple
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T)) #Y calculamos las proporciones
-```
-
----
-# Transformando a porcentaje (%) con `mutate()`
-
-```{r}
-## Transformando a porcentaje
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T))%>% #Calculamos las proporciones
-  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
-```
-
----
-# Incorporamos los totales con `survey_total()`
-
-```{r}
-## Incorporamos cálculo de frecuencias
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T), #Calculamos las proporciones
-            total = survey_total(na.rm=T))%>% #Y el total por categorías
-  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
-```
-
----
-# Y los Intervalos de Confianza al 95%
-
-```{r}
-## Con Intervalos de confianza al 95%
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T)) #Incorporamos intervalos de confianza
-```
-
----
-# ¡También podemos transformarlos en porcentajes!
-
-```{r}
-## Transformamos el estimador puntual y los límites del intervalo a porcentajes
-## Incorporamos el total
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(prop = prop*100, #Multiplicamos las proporciones *100,
-         prop_low = prop_low*100, #así como el límite inferior 
-         prop_upp = prop_upp*100) #y superior, para obtener porcentajes
-```
-
----
-# Cruzamos variables
-
-```{r}
-## Cruzar dos variables
-casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
-  group_by(pobreza, sexo) %>% #Agrupamos por pobreza y sexo
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(prop = prop*100)
-```
-
----
-# ¡Transformemos en wide con `tidyr`!
-
-```{r}
-## Crear objeto wide
-pobreza_reg <- casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
-  group_by(region, pobreza) %>% #Agrupamos por region y pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(per = prop*100) %>% #Multiplicamos las proporciones *100 para obtener porcentajes
-  select(region, pobreza, per, total) %>% #Seleccionamos region, pobreza, per y total
-  pivot_wider(names_from = "pobreza", #Pivoteamos a lo ancho, extrayendo los nombres de las columnas desde pobreza
-              values_from = c("per", "total")) #y los valores desde per y total
-```
+- [Manual Metodológico ESI](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/metodologia/documento-metodológico/documento-metodológico-esi-2020.pdf?sfvrsn=a60770bf_4) 
 
 ---
 
@@ -666,15 +554,17 @@ class: center section-title section-title-8 animated fadeIn
 
 # En síntesis
 
---
-.box-2.medium.sp-after-half[**Diseño muestral complejo**]
---
-.box-3.medium.sp-after-half[**El diseño muestral de CASEN 2020**]
---
-.box-4.medium.sp-after-half[**Creación de objetos encuesta con srvyr**]
---
-.box-5.medium.sp-after-half[**Estimación, inferencia y tabulado**]
+.box-1.small.sp-after-half[**Construcción modelo regresión lineal con lm**]
+.box-2.small.sp-after-half[**Modelamiento con srvyr y glm**]
 
+.box-3.small.sp-after-half[**Predictores categóricos**]
+
+.box-3.small.sp-after-half[**Transformaciones funcionales**]
+
+.box-4.small.sp-after-half[**Creación exploratoria**]
+
+.box-6.small.sp-after-half[**Extraer información**]
+.box-7.small.sp-after-half[**Representación gráfica: Tablas y gráficos**]
 ---
 class: center middle main-title section-title-4 top-logo
 
@@ -701,10 +591,10 @@ layout: false
 ![](https://github.com/learn-R/slides/raw/main/img/01/monster-inc-2.gif)]
 ---
 layout: false
-class: center middle main-title section-title-8 top-logo
+class: center middle main-title section-title-5 top-logo
 
 .small[
-# Muestras complejas y precisión de inferencia estadística
+# Regresión Lineal Múltiple
 ]
 
 .class-info[
