@@ -5,12 +5,120 @@
     <link>/assignment/</link>
       <atom:link href="/assignment/index.xml" rel="self" type="application/rss+xml" />
     <description>Sobre las evaluaciones</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 11 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Sobre las evaluaciones</title>
       <link>/assignment/</link>
     </image>
+    
+    <item>
+      <title>Tarea 5. Análisis de regresión múltiple</title>
+      <link>/assignment/05-tarea/</link>
+      <pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/05-tarea/</guid>
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;&#34;&gt;Tarea N°5 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;objetivo-tarea-n5&#34;&gt;Objetivo tarea N°5&lt;/h2&gt;
+&lt;p&gt;El objetivo de esta tarea consiste en realizar un análisis de regresión lineal y logística utilizando R. Para ello debe utilizar los datos según según sus apellidos &lt;a href=&#34;https://github.com/learn-R/www-learn-R-uah/tree/master/content/assignment/05-tarea/bases/originales&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(eg. &amp;lsquo;Andrade.sav&amp;rsquo;) los cuales podrán encontrar en el siguiente repositorio&lt;/a&gt;. Estas bases contienen una muestra aleatoria de 1000 casos de la encuesta MOVID-IMPACT (2020) del módulo “Orientaciones del Trabajo”. &lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;La pregunta de investigación que buscamos contestar en esta tarea es &lt;strong&gt;“¿Qué factores inciden el cumplimiento de la distancia física para cuidarse del COVID-19?”&lt;/strong&gt; a partir de contestar la frecuencia con que se &lt;em&gt;“Evitar reunirse con más de 10 personas en un espacio cerrado”.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Para responder a esta pregunta, nos basamos en la investigación de &lt;em&gt;Gerber et al (2021)&lt;/em&gt; que indica que tanto factores psicosociales como sociodemográficos son relevantes para predecir la adherencia a las medidas de cuidado contra el COVID-19.  Desde esta investigación, planteamos las siguientes dos hipótesis:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;\(H_1\)&lt;/code&gt;: A mayor percepción de riesgo contra el COVID-19, mayor frecuencia de cumplimiento de la distancia física&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;\(H_2\)&lt;/code&gt;: Las personas que trabajan presentan menor posibilidad de mantener distancia física.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;\(H_3\)&lt;/code&gt;: Las mujeres presentarán mayor frecuencia de mantener distancia física que los hombres&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;\(H_4\)&lt;/code&gt;: Los adultos mayores presentarán mayor frecuencia de mantener distancia física para cuidarse del COVID-19 que los jóvenes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Considera las siguientes variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Mantener distancia física&lt;/strong&gt;: Frecuencia semanal a la frase “Evitar reunirse con más de 10 personas en un espacio cerrado” (1= Casi nunca hasta 5= Siempre), nombre a la variable: ‘cuidarse’.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A partir de esa variable, cree una nueva variable llamada &lt;code&gt;dummy_cuidarse&lt;/code&gt; donde quiénes contesten &amp;ldquo;Frecuentemente&amp;rdquo;, &amp;ldquo;Casi siempre&amp;rdquo; y &amp;ldquo;Siempre&amp;rdquo; presentarán la categoría 1, y el resto 0.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Percepción de riesgo al COVID-19&lt;/strong&gt;: Nivel de acuerdo con la frase “¿Qué tan peligroso cree que es el coronavirus para usted y sus cercanos?” (1=Nada peligroso hasta 5=Muy peligroso), nombre de variable: ‘riesgo’&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Trabajar&lt;/strong&gt;: Con la pregunta “Durante la semana pasada, ¿trabajó al menos una hora, sin considerar los quehaceres domésticos?”. (1=Si 2=No), nombre de variable: ‘trabaja’&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Edad&lt;/strong&gt;: Con la pregunta “¿Cuál es su edad?” se clasificó a “Jóvenes”, “Adultos” y “Adultos mayores” (1=Jóvenes, 2=Adultos, 3= Adultos mayores), nombre de variable: ‘edad’&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;i-análisis-de-correlación&#34;&gt;I. Análisis de Correlación&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Existen asociaciones significativas entre el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt; y la percepción de riesgo?&lt;/p&gt;
+&lt;p&gt;a.	Lleva a cabo un análisis de correlación entre  ambas variables [4 puntos]&lt;/p&gt;
+&lt;p&gt;b.	Describe la dirección, fuerza  y significancia de la asociación [1 puntos]&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: Para este punto puede presentar una tabla de correlaciones o gráfico.&lt;/p&gt;
+&lt;h2 id=&#34;ii-regresión-lineal-múltiple&#34;&gt;II. Regresión Lineal Múltiple&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Predicen la percepción de riesgo, el trabajar y la edad, el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt;? Lleva a cabo los siguientes pasos:&lt;/p&gt;
+&lt;p&gt;a.	Lleva a cabo un análisis de regresión lineal múltiple definiendo  el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt; como la variable dependiente (Y). Define la percepción de riesgo, el trabajar y la edad (Xs) [1 punto c/u]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Modelo 1 con percepción de riesgo como continua&lt;/li&gt;
+&lt;li&gt;Modelo 2 con percepción de riesgo como ordinal donde &amp;ldquo;Nada peligroso&amp;rdquo; sea la categoría de referencia&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;b.	Representa los modelos en una tabla única con título y columnas en español [6 puntos]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Los modelos deben ser nombrados como &amp;ldquo;Modelo 1&amp;rdquo; y &amp;ldquo;Modelo 2&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;El nivel de significancia debe estar representado por asteriscos. El intervalo de confianza no debe aparecer&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La tabla debe contener 3 dígitos&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;c.	Escribe la ecuación de la recta de regresión estimada del &lt;em&gt;modelo 1&lt;/em&gt; en formato LateX-Markdown [6 puntos]&lt;/p&gt;
+&lt;p&gt;d.	Interpreta los coeficientes de regresión para el modelo 2 con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [3 puntos]&lt;/p&gt;
+&lt;p&gt;e.	Para cada una de las hipótesis planteadas, argumenta si observas evidencia a favor o no en los resultados de tus análisis. Para este punto es necesario que muestres un &lt;em&gt;forest plot&lt;/em&gt; del modelo 2 [9 puntos]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Muestre el intercepto, tamaño efecto y valores p, con 3 dígitos&lt;/li&gt;
+&lt;li&gt;Título en debido formato&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;f.	¿Qué porcentaje de la varianza en la actitud hacia los sindicatos es explicada por el modelo 1 y 2? Reporte, además, el estadístico F[3 puntos]&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: puede ir escribiendo los &lt;code&gt;\(R^2\)&lt;/code&gt; y &lt;code&gt;\(F\)&lt;/code&gt; con &lt;code&gt;inline code de R&lt;/code&gt; o hacer una tabla.&lt;/p&gt;
+&lt;p&gt;g.	Utiliza la ecuación estimada para calcular el cumplimiento de las medidas de cuidado &lt;em&gt;esperada&lt;/em&gt; para quiénes trabajan y para quienes no lo hacen. Puedes presentar los resultados en una tabla o en un gráfico. [9 puntos]&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: en el punto N°1 debe presentar una tabla, una ecuación en formato Markdown y un forest plot.&lt;/p&gt;
+&lt;h3 id=&#34;iii-modelo-logístico&#34;&gt;III. Modelo logístico&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Predicen la percepción de salarios, la discriminación y el sexo una actitud &lt;strong&gt;favorable&lt;/strong&gt; hacia los sindicatos? Lleva a cabo los siguientes pasos:&lt;/p&gt;
+&lt;p&gt;a.	Construye múltiples modelos logísticos con la variable &lt;em&gt;dummy&lt;/em&gt; actitud hacia los sindicatos [1 punto c/u]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Modelo nulo&lt;/li&gt;
+&lt;li&gt;Modelo 3 con edad&lt;/li&gt;
+&lt;li&gt;Modelo 4 con trabajo&lt;/li&gt;
+&lt;li&gt;Modelo 5 con edad y trabajo&lt;/li&gt;
+&lt;li&gt;Modelo 6 con todos los predictores (riesgo en factor)&lt;/li&gt;
+&lt;li&gt;Modelo 6 con todos los predictores para nivel polacional&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;b.	Representa los modelos en una tabla única con coeficientes exponenciados [6 puntos]&lt;/p&gt;
+&lt;p&gt;c.	Interpreta los coeficientes de regresión para el modelo con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [6 puntos]&lt;/p&gt;
+&lt;p&gt;d. Realiza un gráfico de valores predichos con el modelo 6 para el cumplimiento de las medidas de cuidado según edad[9 puntos]&lt;/p&gt;
+&lt;p&gt;e. Compare la estimación del modelo 6 con R base y modelo 6 utilizando diseño complejo de encuestas. Reporte ambos modelo y reflexione sobre la importancia del uso de ciertos paquetes y argumentos para la estimación de modelos [9 puntos]&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: en este punto debe presentar una tabla y un margin plot.&lt;/p&gt;
+&lt;h2 id=&#34;formato&#34;&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Todos los reportes deben estar con 3 dígitos (&lt;em&gt;ojo&lt;/em&gt; eso no implica que los cálculos estén hechos a tres dígitos)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Todo el informe debe reemplazar los puntos decimales por comas, de modo de estar &lt;em&gt;ad hoc&lt;/em&gt; a la escritura en español.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No deben mostrar explícitamente ningún chunk en el informe generado. Noten que algunos temas en html permiten &amp;ldquo;esconder&amp;rdquo; el código, pero mostrarlo si el usuario quiere verlo. Quiénes logren hacer esta modificación en su texto tendrán un bonus de 0,2 décimas.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Tarea 4. Muestras complejas</title>
@@ -70,7 +178,7 @@
 &lt;p&gt;&lt;strong&gt;En general&lt;/strong&gt;, su proyecto de R (tarea-04.Rproj) debe contener:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. R script con procesamiento de datos modificado (&lt;code&gt;R/01-proc.R&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;1.1 Datos originales en carpeta &lt;em&gt;input&lt;/em&gt; (si son muy pesados, indicar en el .gitignore) 
-1.2 Datos procesados (&lt;code&gt;input/datos/datos_proc.rds&lt;/code&gt;)&lt;/p&gt;
+1.2 Datos procesados (&lt;code&gt;output/datos/datos_proc.rds&lt;/code&gt;)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2. Informe descriptivo de los datos&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 03-analisis.Rmd
 2.2 Archivo en html que contiene el informe compilado (02-analisis.html). &lt;em&gt;Si logra dejar el informe en .pdf tendrá 0.3 adicionales a su nota. Hint: descargar y revisar el paquete tinytext&lt;/em&gt;&lt;/p&gt;
@@ -645,6 +753,115 @@
 &lt;p&gt;&lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt; &lt;a href=&#34;https://guides.github.com/introduction/flow/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprender el flujo de GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tarea N°5</title>
+      <link>/assignment/05-tarea/05-tarea-instrucciones/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/assignment/05-tarea/05-tarea-instrucciones/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;descripción-de-tarea-n5&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Descripción de tarea N°5&lt;/h2&gt;
+&lt;p&gt;El objetivo de esta tarea consiste en realizar un análisis de regresión lineal y logística utilizando R. Para ello debe utilizar los datos según según sus apellidos &lt;a href=&#34;https://github.com/learn-R/www-learn-R-uah/tree/master/content/assignment/05-tarea/bases/originales&#34;&gt;(eg. ‘Andrade.sav’) los cuales podrán encontrar en el siguiente repositorio&lt;/a&gt;. Estas bases contienen una muestra aleatoria de 1000 casos de la encuesta MOVID-IMPACT (2020) del módulo “Orientaciones del Trabajo”. &lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;La pregunta de investigación que buscamos contestar en esta tarea es &lt;strong&gt;“¿Qué factores inciden el cumplimiento de la distancia física para cuidarse del COVID-19?”&lt;/strong&gt; a partir de contestar la frecuencia con que se &lt;em&gt;“Evitar reunirse con más de 10 personas en un espacio cerrado”.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Para responder a esta pregunta, nos basamos en la investigación de &lt;em&gt;Gerber et al (2021)&lt;/em&gt; que indica que tanto factores psicosociales como sociodemográficos son relevantes para predecir la adherencia a las medidas de cuidado contra el COVID-19. Desde esta investigación, planteamos las siguientes dos hipótesis:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(H_1\)&lt;/span&gt;: A mayor percepción de riesgo contra el COVID-19, mayor frecuencia de cumplimiento de la distancia física&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(H_2\)&lt;/span&gt;: Las personas que trabajan presentan menor posibilidad de mantener distancia física.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(H_3\)&lt;/span&gt;: Las mujeres presentarán mayor frecuencia de mantener distancia física que los hombres&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(H_4\)&lt;/span&gt;: Los adultos mayores presentarán mayor frecuencia de mantener distancia física para cuidarse del COVID-19 que los jóvenes.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Considera las siguientes variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Mantener distancia física&lt;/strong&gt;: Frecuencia semanal a la frase “Evitar reunirse con más de 10 personas en un espacio cerrado” (1= Casi nunca hasta 5= Siempre), nombre a la variable: ‘cuidarse’.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A partir de esa variable, cree una nueva variable llamada &lt;code&gt;dummy_cuidarse&lt;/code&gt; donde quiénes contesten “Frecuentemente”, “Casi siempre” y “Siempre” presentarán la categoría 1, y el resto 0.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Percepción de riesgo al COVID-19&lt;/strong&gt;: Nivel de acuerdo con la frase “¿Qué tan peligroso cree que es el coronavirus para usted y sus cercanos?” (1=Nada peligroso hasta 5=Muy peligroso), nombre de variable: ‘riesgo’&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Trabajar&lt;/strong&gt;: Con la pregunta “Durante la semana pasada, ¿trabajó al menos una hora, sin considerar los quehaceres domésticos?”. (1=Si 2=No), nombre de variable: ‘trabaja’&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Edad&lt;/strong&gt;: Con la pregunta “¿Cuál es su edad?” se clasificó a “Jóvenes”, “Adultos” y “Adultos mayores” (1=Jóvenes, 2=Adultos, 3= Adultos mayores), nombre de variable: ‘edad’&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;i.-análisis-de-correlación&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;I. Análisis de Correlación&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Existen asociaciones significativas entre el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt; y la percepción de riesgo?&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;&lt;p&gt;Lleva a cabo un análisis de correlación entre ambas variables [4 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Describe la dirección, fuerza y significancia de la asociación [1 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: Para este punto puede presentar una tabla de correlaciones o gráfico.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ii.-regresión-lineal-múltiple&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;II. Regresión Lineal Múltiple&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Predicen la percepción de riesgo, el trabajar y la edad, el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt;? Lleva a cabo los siguientes pasos:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Lleva a cabo un análisis de regresión lineal múltiple definiendo el &lt;em&gt;cumplimiento de las medidas de cuidado&lt;/em&gt; como la variable dependiente (Y). Define la percepción de riesgo, el trabajar y la edad (Xs) [1 punto c/u]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Modelo 1 con percepción de riesgo como continua&lt;/li&gt;
+&lt;li&gt;Modelo 2 con percepción de riesgo como ordinal donde “Nada peligroso” sea la categoría de referencia&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Representa los modelos en una tabla única con título y columnas en español [6 puntos]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Los modelos deben ser nombrados como “Modelo 1” y “Modelo 2”&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;El nivel de significancia debe estar representado por asteriscos. El intervalo de confianza no debe aparecer&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;La tabla debe contener 3 dígitos&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;&lt;p&gt;Escribe la ecuación de la recta de regresión estimada del &lt;em&gt;modelo 1&lt;/em&gt; en formato LateX-Markdown [6 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Interpreta los coeficientes de regresión para el modelo 2 con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [3 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Para cada una de las hipótesis planteadas, argumenta si observas evidencia a favor o no en los resultados de tus análisis. Para este punto es necesario que muestres un &lt;em&gt;forest plot&lt;/em&gt; del modelo 2 [9 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Muestre el intercepto, tamaño efecto y valores p, con 3 dígitos&lt;/li&gt;
+&lt;li&gt;Título en debido formato&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;6&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;¿Qué porcentaje de la varianza en la actitud hacia los sindicatos es explicada por el modelo 1 y 2? Reporte, además, el estadístico F[3 puntos]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: puede ir escribiendo los &lt;span class=&#34;math inline&#34;&gt;\(R^2\)&lt;/span&gt; y &lt;span class=&#34;math inline&#34;&gt;\(F\)&lt;/span&gt; con &lt;code&gt;inline code de R&lt;/code&gt; o hacer una tabla.&lt;/p&gt;
+&lt;ol start=&#34;7&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Utiliza la ecuación estimada para calcular el cumplimiento de las medidas de cuidado &lt;em&gt;esperada&lt;/em&gt; para quiénes trabajan y para quienes no lo hacen. Puedes presentar los resultados en una tabla o en un gráfico. [9 puntos]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: en el punto N°1 debe presentar una tabla, una ecuación en formato Markdown y un forest plot.&lt;/p&gt;
+&lt;div id=&#34;iii.-modelo-logístico&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;III. Modelo logístico&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Interpretación del output&lt;/em&gt;: ¿Predicen la percepción de salarios, la discriminación y el sexo una actitud &lt;strong&gt;favorable&lt;/strong&gt; hacia los sindicatos? Lleva a cabo los siguientes pasos:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Construye múltiples modelos logísticos con la variable &lt;em&gt;dummy&lt;/em&gt; actitud hacia los sindicatos [1 punto c/u]&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Modelo nulo&lt;/li&gt;
+&lt;li&gt;Modelo 3 con edad&lt;/li&gt;
+&lt;li&gt;Modelo 4 con trabajo&lt;/li&gt;
+&lt;li&gt;Modelo 5 con edad y trabajo&lt;/li&gt;
+&lt;li&gt;Modelo 6 con todos los predictores (riesgo en factor)&lt;/li&gt;
+&lt;li&gt;Modelo 6 con todos los predictores para nivel polacional&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;&lt;p&gt;Representa los modelos en una tabla única con coeficientes exponenciados [6 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Interpreta los coeficientes de regresión para el modelo con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [6 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Realiza un gráfico de valores predichos con el modelo 6 para el cumplimiento de las medidas de cuidado según edad[9 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Compare la estimación del modelo 6 con R base y modelo 6 utilizando diseño complejo de encuestas. Reporte ambos modelo y reflexione sobre la importancia del uso de ciertos paquetes y argumentos para la estimación de modelos [9 puntos]&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;Formato&lt;/em&gt;: en este punto debe presentar una tabla y un margin plot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;formato&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Todos los reportes deben estar con 3 dígitos (&lt;em&gt;ojo&lt;/em&gt; eso no implica que los cálculos estén hechos a tres dígitos)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Todo el informe debe reemplazar los puntos decimales por comas, de modo de estar &lt;em&gt;ad hoc&lt;/em&gt; a la escritura en español.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;No deben mostrar explícitamente ningún chunk en el informe generado. Noten que algunos temas en html permiten “esconder” el código, pero mostrarlo si el usuario quiere verlo. Quiénes logren hacer esta modificación en su texto tendrán un bonus de 0,2 décimas.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 </description>
     </item>
     

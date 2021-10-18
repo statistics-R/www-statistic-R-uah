@@ -29,7 +29,8 @@
   
     
   
-  <meta name="description" content="Readings   Chapter 7 in Impact Evaluation in Practice1  Chapter 5 in Mastering ’Metrics2  Chapter 9, “Differences-in-differences” in Causal Inference: The Mixtape3  Slides The slides for today’s lesson are available online as an HTML file." />
+  <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcionalesModelo exploratorioExtraer elementosTablasGráficos¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/08-content/" />
@@ -287,8 +288,9 @@
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/08-content/" />
-  <meta property="og:title" content="Pruebas de hipótesis | Análisis Estadístico en R" />
-  <meta property="og:description" content="Readings   Chapter 7 in Impact Evaluation in Practice1  Chapter 5 in Mastering ’Metrics2  Chapter 9, “Differences-in-differences” in Causal Inference: The Mixtape3  Slides The slides for today’s lesson are available online as an HTML file." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+  <meta property="og:title" content="Regresiones lineales | Análisis Estadístico en R" />
+  <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcionalesModelo exploratorioExtraer elementosTablasGráficos¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
@@ -324,7 +326,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Pruebas de hipótesis | Análisis Estadístico en R</title>
+  <title>Regresiones lineales | Análisis Estadístico en R</title>
 </head>
 
 
@@ -670,7 +672,7 @@
 
       
       <li >
-        <a href="/content/04-content/">4: Transformación y selección de variables</a>
+        <a href="/content/04-content/">4:Transformación y selección de variables</a>
       </li>
 
       
@@ -690,22 +692,7 @@
 
       
       <li class="active">
-        <a href="/content/08-content/">8: Pruebas de hipótesis</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/09-content/">9: Regresiones lineales</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/10-content/">10: Regresiones logísticas</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
+        <a href="/content/08-content/">8: Regresiones lineales</a>
       </li>
 
       
@@ -725,13 +712,7 @@
                 <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
             </ul>
 
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#readings">Readings</a></li>
-    <li><a href="#slides">Slides</a></li>
-    <li><a href="#videos">Videos</a></li>
-  </ul>
-</nav>
+            <nav id="TableOfContents"></nav>
 
  
         </div>
@@ -742,7 +723,7 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Pruebas de hipótesis</h1>
+                    <h1>Regresiones lineales</h1>
 
                     
 
@@ -755,95 +736,117 @@
                     
 
                     <div class="article-style">
-                        <h2 id="readings">Readings</h2>
-<ul>
-<li><i class="fas fa-book"></i> Chapter 7 in <em>Impact Evaluation in Practice</em><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
-<li><i class="fas fa-book"></i> Chapter 5 in <em>Mastering ’Metrics</em><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
-<li><i class="fas fa-book"></i> <a href="https://mixtape.scunning.com/ch8.html" target="_blank" rel="noopener">Chapter 9, “Differences-in-differences”</a> in <em>Causal Inference: The Mixtape</em><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></li>
-</ul>
-<h2 id="slides">Slides</h2>
-<p>The slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
+                        <h1 id="slides">Slides</h1>
 <p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/08-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/08-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="introduction-tab" data-toggle="tab" href="#introduction" role="tab" aria-controls="introduction" aria-selected="true">Introduction</a>
+<a class="nav-link active" id="rlm-tab" data-toggle="tab" href="#rlm" role="tab" aria-controls="rlm" aria-selected="true">RLM</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="quasiexperiments-tab" data-toggle="tab" href="#quasiexperiments" role="tab" aria-controls="quasiexperiments" aria-selected="false">Quasi-experiments</a>
+<a class="nav-link" id="lm-tab" data-toggle="tab" href="#lm" role="tab" aria-controls="lm" aria-selected="false">lm()</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="interactions--regression-tab" data-toggle="tab" href="#interactions--regression" role="tab" aria-controls="interactions--regression" aria-selected="false">Interactions & regression</a>
+<a class="nav-link" id="glm-y-svyglm-tab" data-toggle="tab" href="#glm-y-svyglm" role="tab" aria-controls="glm-y-svyglm" aria-selected="false">glm() y svyglm()</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="two-wrongs-make-a-right-tab" data-toggle="tab" href="#two-wrongs-make-a-right" role="tab" aria-controls="two-wrongs-make-a-right" aria-selected="false">Two wrongs make a right</a>
+<a class="nav-link" id="predictores-categóricos-tab" data-toggle="tab" href="#predictores-categóricos" role="tab" aria-controls="predictores-categóricos" aria-selected="false">Predictores categóricos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="diffindiff-assumptions-tab" data-toggle="tab" href="#diffindiff-assumptions" role="tab" aria-controls="diffindiff-assumptions" aria-selected="false">Diff-in-diff assumptions</a>
+<a class="nav-link" id="tranformaciones-funcionales-tab" data-toggle="tab" href="#tranformaciones-funcionales" role="tab" aria-controls="tranformaciones-funcionales" aria-selected="false">Tranformaciones funcionales</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="modelo-exploratorio-tab" data-toggle="tab" href="#modelo-exploratorio" role="tab" aria-controls="modelo-exploratorio" aria-selected="false">Modelo exploratorio</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="extraer-elementos-tab" data-toggle="tab" href="#extraer-elementos" role="tab" aria-controls="extraer-elementos" aria-selected="false">Extraer elementos</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="tablas-tab" data-toggle="tab" href="#tablas" role="tab" aria-controls="tablas" aria-selected="false">Tablas</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="gráficos-tab" data-toggle="tab" href="#gráficos" role="tab" aria-controls="gráficos" aria-selected="false">Gráficos</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="introduction" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introduction-tab">
+<div id="rlm" class="tab-pane fade show active" role="tabpanel" aria-labelledby="rlm-tab">
 <div class="embed-responsive embed-responsive-16by9">
 <iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
 </iframe>
 </div>
 </div>
-<div id="quasiexperiments" class="tab-pane fade" role="tabpanel" aria-labelledby="quasiexperiments-tab">
+<div id="lm" class="tab-pane fade" role="tabpanel" aria-labelledby="lm-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#quasi-experiments">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#4">
 </iframe>
 </div>
 </div>
-<div id="interactions--regression" class="tab-pane fade" role="tabpanel" aria-labelledby="interactions--regression-tab">
+<div id="glm-y-svyglm" class="tab-pane fade" role="tabpanel" aria-labelledby="glm-y-svyglm-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#interactions-regression">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#10">
 </iframe>
 </div>
 </div>
-<div id="two-wrongs-make-a-right" class="tab-pane fade" role="tabpanel" aria-labelledby="two-wrongs-make-a-right-tab">
+<div id="predictores-categóricos" class="tab-pane fade" role="tabpanel" aria-labelledby="predictores-categóricos-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#two-wrongs">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
 </iframe>
 </div>
 </div>
-<div id="diffindiff-assumptions" class="tab-pane fade" role="tabpanel" aria-labelledby="diffindiff-assumptions-tab">
+<div id="tranformaciones-funcionales" class="tab-pane fade" role="tabpanel" aria-labelledby="tranformaciones-funcionales-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#diff-diff-assumptions">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
+</iframe>
+</div>
+</div>
+<div id="modelo-exploratorio" class="tab-pane fade" role="tabpanel" aria-labelledby="modelo-exploratorio-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#24">
+</iframe>
+</div>
+</div>
+<div id="extraer-elementos" class="tab-pane fade" role="tabpanel" aria-labelledby="extraer-elementos-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#26">
+</iframe>
+</div>
+</div>
+<div id="tablas" class="tab-pane fade" role="tabpanel" aria-labelledby="tablas-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
+</iframe>
+</div>
+</div>
+<div id="gráficos" class="tab-pane fade" role="tabpanel" aria-labelledby="gráficos-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
 </iframe>
 </div>
 </div>
 </div>
 <div class="fyi">
-<strong>Fun fact</strong>: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+<strong>¿Cómo ocupar</strong>: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 </div>
-<h2 id="videos">Videos</h2>
-<p>Videos for each section of the lecture are <a href="https://www.youtube.com/playlist?list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">available at this YouTube playlist</a>.</p>
+<h1 id="video-de-la-clase">Video de la clase</h1>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=4y84N23Mx-o&amp;list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">Introduction</a></li>
-<li><a href="https://www.youtube.com/watch?v=ZHBZtKL7zAg&amp;list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">Quasi-experiments</a></li>
-<li><a href="https://www.youtube.com/watch?v=B060u1zGOWo&amp;list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">Interactions &amp; regression</a></li>
-<li><a href="https://www.youtube.com/watch?v=0v1aE70FhsQ&amp;list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">Two wrongs make a right</a></li>
-<li><a href="https://www.youtube.com/watch?v=tDWoNTk8CS4&amp;list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" target="_blank" rel="noopener">Diff-in-diff assumptions</a></li>
+<li>
+<p><a href=""><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
+</li>
+<li>
+<ul>
+<li><a href=""><i class="fas fa-video"></i> <code>Video del práctico</code></a></li>
 </ul>
-<p>You can also watch the playlist (and skip around to different sections) here:</p>
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/playlist?list=PLS6tnpTr39sHydbEoTK9DkyKV92-uE3r-" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-</div>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>Paul J. Gertler et al., <em>Impact Evaluation in Practice</em>, 2nd ed. (Inter-American Development Bank; World Bank, 2016), <a href="https://openknowledge.worldbank.org/handle/10986/25030">https://openknowledge.worldbank.org/handle/10986/25030</a>. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>Joshua D. Angrist and Jörn-Steffen Pischke, <em>Mastering ’Metrics: The Path from Cause to Effect</em> (Princeton, NJ: Princeton University Press, 2015). <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</ul>
+<h1 id="material-de-la-clase">Material de la clase</h1>
+<ul>
+<li>
+<p><a href="https://github.com/learn-R/07-class/raw/main/08-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>08-clase.zip</code></a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
-<p>Scott Cunningham, <em>Causal Inference: The Mixtape</em> (New Haven, CT: Yale University Press, 2021), <a href="https://mixtape.scunning.com/">https://mixtape.scunning.com/</a>. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li>
+<p><a href="/example/08-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
 </li>
-</ol>
-</section>
+</ul>
+<h1 id="materiales-adicionales">Materiales adicionales</h1>
 
                     </div>
 
@@ -855,13 +858,6 @@
                     <div class="article-widget">
                         
 <div class="post-nav">
-  
-  
-  
-  <div class="post-nav-item">
-    <div class="meta-nav">Previous</div>
-    <a href="/content/09-content/" rel="next">Regresiones lineales</a>
-  </div>
   
   
   
