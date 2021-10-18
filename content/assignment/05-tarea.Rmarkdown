@@ -1,6 +1,6 @@
 ---
 title: "Tarea 5. Análisis de regresión múltiple"
-linktitle: "Tarea 5. Análisis de regresión múltiple"
+linktitle: "5: Análisis de regresión múltiple"
 date: "2021-10-11"
 due_date: "2021-10-29"
 due_time: "23:59 PM"
