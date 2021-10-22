@@ -362,6 +362,542 @@ less
     </item>
     
     <item>
+      <title>Instalación Zotero</title>
+      <link>/resource/install-zotero/</link>
+      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/resource/install-zotero/</guid>
+      <description>&lt;h1 id=&#34;objetivo-del-taller&#34;&gt;Objetivo del taller&lt;/h1&gt;
+&lt;p&gt;Este taller tiene por objetivo conocer el software &lt;strong&gt;Zotero&lt;/strong&gt; para facilitar la incorporación de &lt;em&gt;citas y referencias&lt;/em&gt; en archivos RMarkdown.. Para ello veremos las razones de por qué usar este software y por qué usarlo en conjunto a RMarkdown, finalizando con el proceso de instalación del programa y sus componentes.&lt;/p&gt;
+&lt;p&gt;El proceso de referenciar es uno de los más relevantes dentro de la vida académica, sin embargo este puede ser difícil y sujeto a muchos errores. Por ello, el sistematizar y facilitar este proceso no sólo puede ahorrar tiempo en trabajos, investigaciones, entre otros. Sino que potenciará el proceso volviéndolo más expedito.&lt;/p&gt;
+&lt;p&gt;Para ello hay distintas formas de faciltarlo, uno de ellos es &lt;strong&gt;Zotero&lt;/strong&gt;, pero ¿por qué utilizar Zotero y no otro gestor?&lt;/p&gt;
+&lt;h1 id=&#34;1-qué-es-zotero&#34;&gt;1. Qué es Zotero&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;www.zotero.org&#34;&gt;Zotero&lt;/a&gt; es un software libre que almacena y administra las referencias bibliográficas, este no sólo es útil como aplicación sino que también tiene extensiones para navegadores como &lt;strong&gt;Chrome, Mozilla Firefox, Safari y Opera&lt;/strong&gt;. Estos sincronizan la aplicación mientras se navega guardando los recursos a utilizar.&lt;/p&gt;
+&lt;p&gt;Sus ventajas son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;La automatización del almacenamiento de las referencias bibliográficas&lt;/li&gt;
+&lt;li&gt;La colaboración y fácil sincronización de referencias&lt;/li&gt;
+&lt;li&gt;Es un software de acceso abierto y gratis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;11-zotero--rmarkdown&#34;&gt;1.1 Zotero + RMarkdown&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://learn-r-uah.netlify.app/example/02-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;RMarkdown&lt;/a&gt; es un archivo que logra integrar código R (mediante chunks) y texto en &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/markdown/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Markdown&lt;/a&gt; (lenguaje que brinda un formato de escritura de texto simple).&lt;/p&gt;
+&lt;p&gt;Sus ventajas son&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;La incorporación de reportes estadísticos, tablas y análisis directamente en un archivo con escritura en texto plano&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Facilita la reproducibilidad y la colaboración académica&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Facilita la apertura y acceso de información&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Entonces, RMarkdown más Zotero, significan no sólo un aumento de lo reproducible y la colaboración, sino que también una automatización del proceso de referenciar, volviéndolo más simple y sujeto a menos errores.&lt;/p&gt;
+&lt;p&gt;Entonces, al almacenar las referencias dentro de Zotero, queda a disposición un conjunto de archivos o librería que puede exportarse, compartirse o sincronizarse directamente al documento a utilizar o presentar.&lt;/p&gt;
+&lt;p&gt;Para que este proceso de almacenamiento y exportación de referencias pueda utilizarse, el software debe transformarlo a un tipo de archivo y uno de ellos es BibTeX.&lt;/p&gt;
+&lt;h2 id=&#34;11-bibtex&#34;&gt;1.1 BibTeX&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.bibtex.org/Format/de/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;BibteX&lt;/a&gt; es un tipo archivos con un formato .bib, los cuales funcionan en conjunto a &lt;em&gt;Latex&lt;/em&gt; (es un sistema de composición de textos) para el almacenamiento de referencias bibliográficas.&lt;/p&gt;
+&lt;p&gt;Una entrada BibTeX inicia con una palabra después de &lt;code&gt;@&lt;/code&gt; y una serie de etiquetas que definen las características de la entrada específica. Entre esas etiquetas pueden estar elementos como: autor, título, año, entre otros. Algunas etiquetas son obligatorias para ciertos tipos de entradas de BibTeX, otras son opcionales.&lt;/p&gt;
+&lt;h3 id=&#34;etiquetas&#34;&gt;Etiquetas&lt;/h3&gt;
+&lt;p&gt;En BibTeX las etiquetas son especificadas por su nombre seguido de un signo igual y su contenido, se debe considerar que las etiquetas no distinguen entre mayúsculas y minúsculas y que el contenido debe ir entre comillas, por ejemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@book`{&amp;quot;marx_1867&amp;quot;,
+        title = {El Capital}, 
+        volume = {I}, 
+        author = {Marx, Karl}, 
+        year = {1867}, 
+        pages = {255–276}, 
+        file = {ruta}}`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Dentro del ejemplo es relevante la primera línea, ya que este nombre es el que nos permitirá traerla al texto. Si bien es útil conocer este formato de referencias, es un poco complejo al principio. Lo bueno es que Zotero administra estas referencias y las convierte automáticamente al formato .bib&lt;/p&gt;
+&lt;h2 id=&#34;1-2-better-bibtex-bbt&#34;&gt;1. 2 Better BibTeX (BBT)&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://retorque.re/zotero-better-bibtex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Better BibTeX&lt;/a&gt; cumple las funciones de BibTeX pero la ventaja es que se puede sincronizar para una actualización automática desde los software que gestionan las referencias. Para esto presentaremos la aplicación Better(bib)tex (BBT), que funciona dentro de &lt;a href=&#34;www.zotero.org&#34;&gt;Zotero&lt;/a&gt;. Las ventajas de esto es que ambos son de código abierto&lt;/p&gt;
+&lt;p&gt;BBT genera una colección con formtao .bib en base a librerías construidas en Zotero, estas se configuran una vez y luego se mantiene sincronizada.&lt;/p&gt;
+&lt;p&gt;¡Pero antes de ver como funcionan debemos asegurarnos de tener todo instalado!&lt;/p&gt;
+&lt;h1 id=&#34;2-instalación-de-zotero&#34;&gt;2. Instalación de Zotero&lt;/h1&gt;
+&lt;p&gt;Para instalar Zotero deben ir al &lt;a href=&#34;https://www.zotero.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt; y apretar el botón &lt;strong&gt;Download&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/instalacion-zot.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego, deben abrir el archivo descargado&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/blob/main/input/img/image%20(11).png?raw=true&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Una vez abran el archivo descargado, les aparecerá esta ventana donde deben apretar el botón &lt;em&gt;Continuar o Next &amp;gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(1).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deben seleccionar la opción &lt;em&gt;Standard&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(12).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego establecer la ubicación del programa deben apretar &lt;em&gt;Upgrade&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(13).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;finalmente deben apretar en &lt;em&gt;Finish&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(15).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Al abrirlo les aparecerá la interfaz del software&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(16).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ahora ya tenemos instalado Zotero, sin embargo no es suficiente, también debemos instalar la extensión BBT para facilitar la sincronización de los datos con el informe que queramos crear.&lt;/p&gt;
+&lt;h1 id=&#34;21-zotero-y-bbt&#34;&gt;2.1 Zotero y BBT&lt;/h1&gt;
+&lt;p&gt;Para descargar BBT deben ir al &lt;a href=&#34;https://retorque.re/zotero-better-bibtex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt; y en la sección More ir a &lt;em&gt;Download&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(7).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego deben hacer click en el archivo con extensión .xpi, pero no deben abrirlo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(9).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;note&#34;&gt;
+&lt;p&gt;Dentro de BBT hay varias versiones las cuales pueden irse actualizando, estas se encuentran en el botón compare&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(8).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Para incorporarlo deben ir a Zotero en &lt;em&gt;Tools y Add-ons&lt;/em&gt; / En español es en &lt;em&gt;Herramientas y complementos&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(17).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Les aparecerá una ventana emergente, deben ir a la esquina superior derecha, al icono de tuerca&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(18).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego deben ir a &lt;em&gt;Install Add-on from file&lt;/em&gt;, encontrar el archivo descargado (.xpi) de BBT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(19).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Una vez se encuentra se debe apretar el boton &lt;em&gt;Install Now&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(21).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego se debe reiniciar con el botón &lt;em&gt;Restart Now&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(22).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(23).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ahora ya tenemos el software que gestiona las referencias y la extensión para mantener sincronizadas las referencias. Sin embargo previo a ver como funcionan dejaremos instaladas las extensiones&lt;/p&gt;
+&lt;h2 id=&#34;22-instalación-de-extensión&#34;&gt;2.2 Instalación de extensión&lt;/h2&gt;
+&lt;p&gt;Para incluir la extensión de navegador de Zotero hay varias opciones según el navegador que utilicen&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc?hl=es&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chrome&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(24).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zotero.org/download/connectors&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Firefox&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(29).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zotero.org/download/connectors&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Edge&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(30).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;class: title title-8&lt;/p&gt;
+&lt;h1 id=&#34;23-creación-de-cuenta&#34;&gt;2.3 Creación de cuenta&lt;/h1&gt;
+&lt;p&gt;Para crearse una cuenta deben ir al siguiente &lt;a href=&#34;https://www.zotero.org/user/register&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/slides/raw/main/img/03/regist.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;No es necesario crearse una cuenta para usar Zotero, pero si es recomendable&lt;/p&gt;
+&lt;h1 id=&#34;3-puente-entre-rstudio-y-zotero&#34;&gt;3. Puente entre Rstudio y Zotero&lt;/h1&gt;
+&lt;p&gt;Para conectar Zotero con Rstudio y facilitar la incorporación de referencias en RMarkdown, necesitamos un conector y para ello tenemos dos opciones: el paquete &lt;code&gt;citr&lt;/code&gt; y el editor visual.&lt;/p&gt;
+&lt;p&gt;Opción 1:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;citr&lt;/code&gt; este es un paquete que nos facilitara la conexión entre Zotero y Rstudio&lt;/p&gt;
+&lt;p&gt;Se puede instalar de varias formas&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;con &lt;code&gt;install.packages&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mediante &lt;code&gt;devtools::install_github(&amp;quot;crsh/citr&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;O descargando una antigua versión del &lt;a href=&#34;https://cran.r-project.org/src/contrib/Archive/citr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se reinicia R y luego podrán verlo en la sección &lt;strong&gt;Addins&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Editor visual&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;note&#34;&gt;
+Lo más probable es que &lt;code&gt;citr&lt;/code&gt; genere problemas en su instalación, debido a que fue removido del CRAN, sin embargo la opción más factible es usar el editor visual o utilizar una versión antigua del paquete
+&lt;/div&gt;
+
+&lt;h1 id=&#34;3-flujo-de-trabajo&#34;&gt;3. Flujo de trabajo&lt;/h1&gt;
+&lt;p&gt;Una vez teniendo instalado el software y todo lo necesario para empezar estableceremos el flujo de trabajo. Se debe considerar que este proceso es cíclico.&lt;/p&gt;
+&lt;p&gt;Es importante entender el flujo de trabajo de Zotero + RMarkdown, porque resume todo lo visto, mientras más nos acostumbremos a este flujo de trabajo más simple se hará el proceso de referenciar a través de Zotero.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/flujo-zotero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;4-video-tutorial-en-youtube&#34;&gt;4. Video tutorial en Youtube&lt;/h1&gt;
+&lt;p&gt;Recuerden que el &lt;a href=&#34;https://youtu.be/w-qGJH2uswk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;video de asociado a este tutorial&lt;/a&gt; y muchos más podrán encontrarlos en el &lt;a href=&#34;https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;canal de youtube del curso&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Zotero &#43; RMarkdown</title>
+      <link>/resource/zotero-rmd/</link>
+      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/resource/zotero-rmd/</guid>
+      <description>&lt;h1 id=&#34;0-objetivo-del-taller&#34;&gt;0. Objetivo del taller&lt;/h1&gt;
+&lt;p&gt;Este taller tiene por objetivo conocer el software &lt;strong&gt;Zotero&lt;/strong&gt; para
+facilitar la incorporación de &lt;em&gt;citas y referencias&lt;/em&gt; en archivos
+RMarkdown.&lt;/p&gt;
+&lt;h1 id=&#34;1-recursos-del-práctico&#34;&gt;1. Recursos del práctico&lt;/h1&gt;
+&lt;p&gt;Para este práctico utilizaremos una colección hecha para el taller de &lt;em&gt;Zotero&lt;/em&gt;, que
+nos facilitará la realización de los ejercicios.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/taller-zotero/raw/main/material-taller.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;material-taller.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;2-flujo-de-trabajo&#34;&gt;2. Flujo de trabajo&lt;/h1&gt;
+&lt;p&gt;Como se vio en el &lt;a href=&#34;https://www.youtube.com/watch?v=w-qGJH2uswk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tutorial de
+instalación&lt;/a&gt;, una vez
+teniendo instalado el software y sus complementos, es necesario tener en
+cuenta el flujo de trabajo.&lt;/p&gt;
+&lt;p&gt;Es importante entender el flujo de trabajo de Zotero + RMarkdown, ya que
+resume todo lo visto, mientras más nos acostumbremos a este flujo de
+trabajo más simple se hará el proceso de referenciar a través de Zotero.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/flujo-zotero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;3-almacenar&#34;&gt;3 Almacenar&lt;/h2&gt;
+&lt;p&gt;El primer paso es almacenar los datos que se han leído y recopilado. El
+almacenamiento inmediato de estos datos será de utilidad para el
+reporte.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Una de las ventajas de realizar el proceso de almacenar de esta
+forma es que se lleva un registro de lo leído, evitando la pérdida
+de información.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para esto &lt;strong&gt;Zotero&lt;/strong&gt;, no sólo tiene la solución, sino que también
+existen diversas formas de hacerlo. Las cuales veremos a continuación&lt;/p&gt;
+&lt;h3 id=&#34;31-almacenar-referencias-de-forma-manual&#34;&gt;3.1 Almacenar referencias de forma manual&lt;/h3&gt;
+&lt;p&gt;Una de las formas más comunes (aunque no más fácil) es almacenar las
+referencias de forma manual.&lt;/p&gt;
+&lt;p&gt;Se debe considerar que si bien esto facilita el proceso, hay formas más
+expeditas de almacenamiento.&lt;/p&gt;
+&lt;p&gt;Para esto debemos seguir los siguientes pasos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Abrir Zotero&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Dirigirse al botón verde con un signo “+” y seleccionar el
+tipo de archivo a almacenar (artículo, libro, vídeo, etc.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/almac-manual.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Paso 3: Finalmente, deben llenar las secciones que aparecen en el
+lado derecho.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/llenado-manual.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;32-almacenar-a-través-de-la-extensión-de-navegador&#34;&gt;3.2 Almacenar a través de la extensión de navegador&lt;/h3&gt;
+&lt;p&gt;Almacenar a través de la extensión del navegador web, es una de las
+opciones más simples de almacenamiento, solo debes seguir los siguientes
+pasos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Dirigirte al artículo, &lt;a href=&#34;https://www.cnnchile.com/coronavirus/chile-71-poblacion-6-17-recibido-primera-dosis_20211019/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;noticia&lt;/a&gt;, vídeo que quieras almacenar&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Apretar el botón de la extensión&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 3: Seleccionar la carpeta donde se almacenará&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/zotero-conector.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/resultado-zotero-conect.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;33-almacenar-a-través-del-identificador&#34;&gt;3.3 Almacenar a través del identificador&lt;/h3&gt;
+&lt;p&gt;Otra de las opciones que ofrece Zotero es el almacenamiento a través del
+identificador (DOI, ISBN, PMID o arXiv ID), los pasos a seguir son los
+siguientes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Tener el identificador copiado (para este ejemplo
+utilizaremos este 978-84-459-0745-0, ustedes también pueden probar
+con ese ISBN)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Abrir Zotero Paso 3: Ir a al dibujo de una “varita”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 3: Ingresar el identificador&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/almacen-identificador.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;h3 id=&#34;34-almacenar-por-archivo&#34;&gt;3.4 Almacenar por archivo&lt;/h3&gt;
+&lt;p&gt;Una última forma de almacenar referencias es a través de archivos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Tener un archivo para almacenar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/arch-almac.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Moverlo a Zotero&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/result-save-arch.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;h2 id=&#34;4-exportar-y-formatos&#34;&gt;4. Exportar y formatos&lt;/h2&gt;
+&lt;p&gt;Una vez almacenados, se viene la siguiente etapa de nuestro flujo: la de
+&lt;em&gt;&lt;strong&gt;exportación&lt;/strong&gt;&lt;/em&gt; y hay dos opciones para exportar los archivos&lt;/p&gt;
+&lt;p&gt;Opción 1: Exportar archivos con formato .bib&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Botón derecho a la carpeta a exportar&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Apretar en &lt;strong&gt;“Exportar colección”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/export.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 3: Seleccionar formato BibTeX&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/bib-exp.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 4: Seleccionar carpeta donde alojaremos el archivo (input) y
+guardar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/bib.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Opción 2: Exportar archivos con BetterBibTeX&lt;/p&gt;
+&lt;p&gt;Con esta opción Rstudio automáticamente reconoce la biblioteca, los
+pasos son los siguientes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Botón derecho a la carpeta a exportar&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Apretar en &lt;strong&gt;“Exportar colección”&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/export.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 3: Seleccionar formato BibTeX y opción &lt;strong&gt;keep updates&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/bbt.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 4: Seleccionar carpeta donde alojaremos el archivo (input) y
+guardar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/bibliot-bibtex.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;41-carpeta&#34;&gt;4.1 Carpeta&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;42-yaml-bibliography-y-csl&#34;&gt;4.2 YAML: bibliography y csl&lt;/h2&gt;
+&lt;p&gt;Para incluir las citas en un documento RMarkdown se debe tener en
+consideración dos aspectos, el archivo que almacena las citas y el
+formato en el que queremos referenciar. Por eso en el YAML se deben
+especificar estos dos aspectos&lt;/p&gt;
+&lt;h3 id=&#34;421-especificar-carpeta-de-donde-se-extraen-las-referencias&#34;&gt;4.2.1 Especificar carpeta de donde se extraen las referencias&lt;/h3&gt;
+&lt;p&gt;Para este aspecto en el encabezado (YAML) debe especificarse con
+&lt;code&gt;bibliography&lt;/code&gt; la ruta hacia el archivo, el nombre del archivo y su
+extensión&lt;/p&gt;
+&lt;p&gt;Nuestro YAML quedaría así&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: &amp;quot;taller zotero&amp;quot;
+author: &amp;quot;Dafne Jaime Vargas&amp;quot;
+date: &amp;quot;30-09-2021&amp;quot;
+output: html_document
+bibliography: input/taller.bib
+link-citations: yes
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;422-formato-de-citación&#34;&gt;4.2.2 formato de citación&lt;/h3&gt;
+&lt;p&gt;Tan relevante como el reverenciar, lo es el formato en el que se
+referencia, para ello debemos ir al siguiente
+&lt;a href=&#34;https://www.zotero.org/styles&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt; y descargar el formato con el que
+se quiere citar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/styles.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;¿Cómo se descarga?, para este proceso hay más de una opción:&lt;/p&gt;
+&lt;p&gt;Opción 1: Descargar el archivo&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Paso 1: Poner en el buscador el estilo de citación y hacerle click&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/ej.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Una vez les salga el mensaje de “Zotero Connector,” apretar
+en &lt;strong&gt;cancel&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/sinc-aut-zot.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Les descargará un archivo con extensión .csl&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/csl-archivo.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finalmente, en su archivo RMarkdown, en la sección del YAML deben
+dejar la ruta hacia el archivo, el nombre del archivo y su formato&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;---&lt;/span&gt;
+title&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;taller zotero&amp;#34;&lt;/span&gt;
+author&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Dafne Jaime Vargas&amp;#34;&lt;/span&gt;
+date&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;30-09-2021&amp;#34;&lt;/span&gt;
+output&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; html_document
+bibliography&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; input&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;taller.bib
+csl&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; input&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;cambridge&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;university&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;press&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;numeric.csl
+&lt;span style=&#34;color:#f92672&#34;&gt;---&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;p&gt;Opción 2:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 1: Poner en el buscador el estilo de citación y hacerle click&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/styles.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Paso 2: Una vez les salga el mensaje de “Zotero Connector,” apretar
+en &lt;strong&gt;OK&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/sinc-aut-zot.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Luego ir a preferencias de Zotero&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/pref.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;En la sección “Exportar” deben elegir formato predeterminado&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/conf-zot-apa.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Actualizar los datos en caso de ser BetterBibTeX o volver a exportar en caso de archivo BibTeX&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;En esta ocasión nuestro en nuestro YAML no habría que especificar un
+estilo de citación&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;h1 id=&#34;5-citar-en-rmarkdown&#34;&gt;5. Citar en RMarkdown&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ahora ya podemos citar, y es muy simple sólo debemos abrir nuestro
+RMarkdown&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hacer click en Addins &amp;gt; insert citations o citr:::insert_citation()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Luego hacer knit&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;¡Listo!&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; div “note” &amp;gt;}}&lt;/p&gt;
+&lt;h3 id=&#34;bonus&#34;&gt;BONUS&lt;/h3&gt;
+&lt;p&gt;En Zotero no sólo se puede almacenar los datos de la referencia y sus
+archivos, sino que se pueden añadir notas, apuntes, etiquetas, entre
+otros&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/apuntes.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; /div &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;Ya puedes volver a leer, Zotero hará todo lo demás por ti. Solo recuerda
+los pasos a seguir&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/flujo-zotero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego, deben abrir el archivo descargado&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/blob/main/input/img/image%20(11).png?raw=true&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Una vez abran el archivo descargado, les aparecerá esta ventana donde deben apretar el botón &lt;em&gt;Continuar o Next &amp;gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(1).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deben seleccionar la opción &lt;em&gt;Standard&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(12).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego establecer la ubicación del programa deben apretar &lt;em&gt;Upgrade&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(13).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;finalmente deben apretar en &lt;em&gt;Finish&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(15).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Al abrirlo les aparecerá la interfaz del software&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(16).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ahora ya tenemos instalado Zotero, sin embargo no es suficiente, también debemos instalar la extensión BBT para facilitar la sincronización de los datos con el informe que queramos crear.&lt;/p&gt;
+&lt;h1 id=&#34;21-zotero-y-bbt&#34;&gt;2.1 Zotero y BBT&lt;/h1&gt;
+&lt;p&gt;Para descargar BBT deben ir al &lt;a href=&#34;https://retorque.re/zotero-better-bibtex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt; y en la sección More ir a &lt;em&gt;Download&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(7).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego deben hacer click en el archivo con extensión .xpi, pero no deben abrirlo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(9).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; div “note” &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;Dentro de BBT hay varias versiones las cuales pueden irse actualizando, estas se encuentran en el botón compare&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(8).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; /div &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;Para incorporarlo deben ir a Zotero en &lt;em&gt;Tools y Add-ons&lt;/em&gt; / En español es en &lt;em&gt;Herramientas y complementos&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(17).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Les aparecerá una ventana emergente, deben ir a la esquina superior derecha, al icono de tuerca&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(18).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego deben ir a &lt;em&gt;Install Add-on from file&lt;/em&gt;, encontrar el archivo descargado (.xpi) de BBT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(19).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Una vez se encuentra se debe apretar el boton &lt;em&gt;Install Now&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(21).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Luego se debe reiniciar con el botón &lt;em&gt;Restart Now&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(22).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(23).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ahora ya tenemos el software que gestiona las referencias y la extensión para mantener sincronizadas las referencias. Sin embargo previo a ver como funcionan dejaremos instaladas las extensiones&lt;/p&gt;
+&lt;h2 id=&#34;22-instalación-de-extensión&#34;&gt;2.2 Instalación de extensión&lt;/h2&gt;
+&lt;p&gt;Para incluir la extensión de navegador de Zotero hay varias opciones según el navegador que utilicen&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc?hl=es&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chrome&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(24).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zotero.org/download/connectors&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Firefox&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(29).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zotero.org/download/connectors&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Microsoft Edge&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/image%20(30).png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;class: title title-8&lt;/p&gt;
+&lt;h1 id=&#34;23-creación-de-cuenta&#34;&gt;2.3 Creación de cuenta&lt;/h1&gt;
+&lt;p&gt;Para crearse una cuenta deben ir al siguiente &lt;a href=&#34;https://www.zotero.org/user/register&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/slides/raw/main/img/03/regist.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;No es necesario crearse una cuenta para usar Zotero, pero si es recomendable&lt;/p&gt;
+&lt;h1 id=&#34;3-puente-entre-rstudio-y-zotero&#34;&gt;3. Puente entre Rstudio y Zotero&lt;/h1&gt;
+&lt;p&gt;Para conectar Zotero con Rstudio y facilitar la incorporación de referencias en RMarkdown, necesitamos un conector y para ello tenemos dos opciones: el paquete &lt;code&gt;citr&lt;/code&gt; y el editor visual.&lt;/p&gt;
+&lt;p&gt;Opción 1:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;citr&lt;/code&gt; este es un paquete que nos facilitara la conexión entre Zotero y Rstudio&lt;/p&gt;
+&lt;p&gt;Se puede instalar de varias formas&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;con &lt;code&gt;install.packages&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mediante &lt;code&gt;devtools::install_github(&amp;quot;crsh/citr&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;O descargando una antigua versión del &lt;a href=&#34;https://cran.r-project.org/src/contrib/Archive/citr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Se reinicia R y luego podrán verlo en la sección &lt;strong&gt;Addins&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Editor visual&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;{{&amp;lt; div “note” &amp;gt;}}&lt;/p&gt;
+&lt;p&gt;Lo más probable es que &lt;code&gt;citr&lt;/code&gt; genere problemas en su instalación, debido a que fue removido del CRAN, sin embargo la opción más factible es usar el editor visual o utilizar una versión antigua del paquete&lt;/p&gt;
+&lt;p&gt;{{&amp;lt; /div &amp;gt;}}&lt;/p&gt;
+&lt;h1 id=&#34;3-flujo-de-trabajo&#34;&gt;3. Flujo de trabajo&lt;/h1&gt;
+&lt;p&gt;Una vez teniendo instalado el software y todo lo necesario para empezar estableceremos el flujo de trabajo. Se debe considerar que este proceso es cíclico.&lt;/p&gt;
+&lt;p&gt;Es importante entender el flujo de trabajo de Zotero + RMarkdown, porque resume todo lo visto, mientras más nos acostumbremos a este flujo de trabajo más simple se hará el proceso de referenciar a través de Zotero.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/flujo-zotero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;4-video-tutorial-en-youtube&#34;&gt;4. Video tutorial en Youtube&lt;/h1&gt;
+&lt;p&gt;Recuerden que el &lt;a href=&#34;https://youtu.be/w-qGJH2uswk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;video de asociado a este tutorial&lt;/a&gt; y muchos más podrán encontrarlos en el &lt;a href=&#34;https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;canal de youtube del curso&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>¿Qué es Markdown?</title>
       <link>/resource/markdown/</link>
       <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
