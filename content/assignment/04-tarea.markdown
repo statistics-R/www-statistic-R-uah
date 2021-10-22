@@ -144,4 +144,9 @@ Deben crear un reporte en RMarkdown reproducible que contenga
 - <i class="fas fa-external-link-square-alt"></i> [Práctico N°7](/example/07-practico)
 
 
+# Solución tarea{#solucion-04tarea}
+
+- [Módulo COVID-19 - ICMO-IR (INE)](https://github.com/learn-R/04-tarea-docentes-ir_icmo)
+
+- [ELSOC (COES)](https://github.com/learn-R/04-tarea-docentes-elsoc/)
 

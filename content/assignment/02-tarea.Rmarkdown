@@ -85,4 +85,8 @@ En su equipo de investigación quieren realizar los siguientes análisis, para l
 - <i class="fas fa-external-link-square-alt"></i> [Práctico N°5](/example/05-practico)
 
 
+# Solución tarea N°2
+
+
+- [Acceso a repositorio](https://github.com/learn-R/02-tarea-docentes)
 
