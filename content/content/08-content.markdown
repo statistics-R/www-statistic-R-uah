@@ -164,6 +164,6 @@ slides: "08-slides"
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `08-clase.zip`](https://github.com/learn-R/07-class/raw/main/08-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `08-clase.zip`](https://github.com/learn-R/09-class/raw/main/08-clase.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/08-practico/)
