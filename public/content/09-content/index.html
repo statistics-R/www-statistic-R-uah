@@ -29,7 +29,8 @@
   
     
   
-  <meta name="description" content="Readings This session is a continuation of session 8." />
+  <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+Repasoglm() y svyglm()Extraer elementosExponenciación¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/09-content/" />
@@ -287,17 +288,18 @@
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/09-content/" />
-  <meta property="og:title" content="Regresiones lineales | Análisis Estadístico en R" />
-  <meta property="og:description" content="Readings This session is a continuation of session 8." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+  <meta property="og:title" content="Regresiones logísticas | Análisis Estadístico en R" />
+  <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+Repasoglm() y svyglm()Extraer elementosExponenciación¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-10-18T00:00:00&#43;00:00"
+        content="2021-10-25T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-10-18T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-10-25T00:00:00&#43;00:00">
   
 
   
@@ -324,7 +326,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Regresiones lineales | Análisis Estadístico en R</title>
+  <title>Regresiones logísticas | Análisis Estadístico en R</title>
 </head>
 
 
@@ -670,7 +672,7 @@
 
       
       <li >
-        <a href="/content/04-content/">4: Transformación y selección de variables</a>
+        <a href="/content/04-content/">4:Transformación y selección de variables</a>
       </li>
 
       
@@ -690,22 +692,12 @@
 
       
       <li >
-        <a href="/content/08-content/">8: Pruebas de hipótesis</a>
+        <a href="/content/08-content/">8: Regresiones lineales</a>
       </li>
 
       
       <li class="active">
-        <a href="/content/09-content/">9: Regresiones lineales</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/10-content/">10: Regresiones logísticas</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
+        <a href="/content/09-content/">9: Regresiones logísticas</a>
       </li>
 
       
@@ -725,11 +717,7 @@
                 <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
             </ul>
 
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#readings">Readings</a></li>
-  </ul>
-</nav>
+            <nav id="TableOfContents"></nav>
 
  
         </div>
@@ -740,21 +728,93 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Regresiones lineales</h1>
+                    <h1>Regresiones logísticas</h1>
 
                     
 
                     
                     <div class="due-date p-2 mb-3 bg-content text-white">
-                        Contenido de la semana 18, Oct–8,Nov
+                        Contenido de la semana 27, Sep–8,Nov
                     </div>
                     
 
                     
 
                     <div class="article-style">
-                        <h2 id="readings">Readings</h2>
-<p>This session is a continuation of <a href="/content/08-content/">session 8</a>.</p>
+                        <h1 id="slides">Slides</h1>
+<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/09-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/09-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
+<ul class="nav nav-tabs" id="slide-tabs" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" id="repaso-tab" data-toggle="tab" href="#repaso" role="tab" aria-controls="repaso" aria-selected="true">Repaso</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="glm-y-svyglm-tab" data-toggle="tab" href="#glm-y-svyglm" role="tab" aria-controls="glm-y-svyglm" aria-selected="false">glm() y svyglm()</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="extraer-elementos-tab" data-toggle="tab" href="#extraer-elementos" role="tab" aria-controls="extraer-elementos" aria-selected="false">Extraer elementos</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="exponenciación-tab" data-toggle="tab" href="#exponenciación" role="tab" aria-controls="exponenciación" aria-selected="false">Exponenciación</a>
+</li>
+</ul>
+<div id="slide-tabs" class="tab-content">
+<div id="repaso" class="tab-pane fade show active" role="tabpanel" aria-labelledby="repaso-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#1">
+</iframe>
+</div>
+</div>
+<div id="glm-y-svyglm" class="tab-pane fade" role="tabpanel" aria-labelledby="glm-y-svyglm-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#10">
+</iframe>
+</div>
+</div>
+<div id="extraer-elementos" class="tab-pane fade" role="tabpanel" aria-labelledby="extraer-elementos-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#26">
+</iframe>
+</div>
+</div>
+<div id="exponenciación" class="tab-pane fade" role="tabpanel" aria-labelledby="exponenciación-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/09-slides.html#26">
+</iframe>
+</div>
+</div>
+</div>
+<div class="fyi">
+<strong>¿Cómo ocupar</strong>: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
+</div>
+<h1 id="video-de-la-clase">Video de la clase</h1>
+<ul>
+<li>
+<p><a href=""><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
+</li>
+<li>
+<ul>
+<li><a href=""><i class="fas fa-video"></i> <code>Video del práctico</code></a></li>
+</ul>
+</li>
+</ul>
+<h1 id="material-de-la-clase">Material de la clase</h1>
+<ul>
+<li>
+<p><a href="https://github.com/learn-R/10-class/raw/main/09-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>09-clase.zip</code></a></p>
+</li>
+<li>
+<p><a href="/example/09-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
+</li>
+</ul>
+<h1 id="tareas">Tareas</h1>
+<ul>
+<li>
+<p>Tarea N°5 (entrega viernes a las 23.59)</p>
+</li>
+<li>
+<p>Bonus (entrega miércoles a las 20.00 horas)</p>
+</li>
+</ul>
 
                     </div>
 
@@ -770,15 +830,8 @@
   
   
   <div class="post-nav-item">
-    <div class="meta-nav">Previous</div>
-    <a href="/content/10-content/" rel="next">Regresiones logísticas</a>
-  </div>
-  
-  
-  
-  <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/08-content/" rel="prev">Pruebas de hipótesis</a>
+    <a href="/content/08-content/" rel="prev">Regresiones lineales</a>
   </div>
   
 </div>
@@ -788,7 +841,7 @@
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on October 18, 2021</p>
+                    <p>Last updated on October 25, 2021</p>
 
                     
 
