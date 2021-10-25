@@ -20325,6 +20325,1723 @@ TRUE ~ NA_real)&lt;/p&gt;
     </item>
     
     <item>
+      <title>Regresión logística</title>
+      <link>/example/09-practico/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/example/09-practico/</guid>
+      <description>&lt;h2 id=&#34;0-objetivos-del-práctico&#34;&gt;0. Objetivos del práctico&lt;/h2&gt;
+&lt;p&gt;Este práctico tiene por objetivo presentar cómo crear modelos de regresión logística - con y sin consideración de diseño muestral - en R, con predictores categóricos y cuantitativos; cómo exponenciar los coeficientes para facilitar su interpretación; y, por último, herramientas de visualización de los modelos generados (sobre todo con &lt;code&gt;texreg&lt;/code&gt;). Por supuesto, seguimos en el proceso de &lt;strong&gt;análisis de datos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-recursos-del-práctico&#34;&gt;1. Recursos del práctico&lt;/h2&gt;
+&lt;p&gt;Este práctico fue elaborado con datos de la &lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta Suplementaria de Ingresos (ESI)&lt;/strong&gt;&lt;/a&gt; en su versión 2020. Cuando trabajen con algún set de datos, nunca olviden revisar la documentación metodológica anexa, así como el &lt;a href=&#34;https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%c3%ada-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;libro de códigos&lt;/a&gt; correspondiente.&lt;/p&gt;
+&lt;p&gt;Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo &lt;code&gt;factor&lt;/code&gt;. Pueden revisar el script &lt;code&gt;proc.R&lt;/code&gt; ubicado en la carpeta &lt;code&gt;R&lt;/code&gt;, para profundizar en el tratamiento de los datos.&lt;/p&gt;
+&lt;h2 id=&#34;2-librerías-a-utilizar&#34;&gt;2. Librerías a utilizar&lt;/h2&gt;
+&lt;p&gt;En este práctico utilizaremos seis paquetes&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pacman&lt;/code&gt;: este facilita y agiliza la lectura de los paquetes a utilizar en R;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;tidyverse&lt;/code&gt;: colección de paquetes;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;srvyr&lt;/code&gt;: para crear el objeto encuesta;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;survey&lt;/code&gt;: para crear modelos incorporando el diseño muestral;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sjPlot&lt;/code&gt;: para presentar tablas y gráficos con los modelos creados;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;remotes&lt;/code&gt;: para instalar &lt;code&gt;texreg&lt;/code&gt; desde GitHub;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;texreg&lt;/code&gt;: para crear tablas en formato publicable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;pasos-del-procesamiento&#34;&gt;Pasos del procesamiento&lt;/h1&gt;
+&lt;h2 id=&#34;1-cargar-librerías&#34;&gt;1. Cargar librerías&lt;/h2&gt;
+&lt;p&gt;Como en las prácticas anteriores, empleamos la función &lt;code&gt;p_load&lt;/code&gt; de la librería &lt;code&gt;pacman&lt;/code&gt;. También utilizamos la función &lt;code&gt;install_github()&lt;/code&gt; de &lt;code&gt;remotes&lt;/code&gt; para poder instalar la librería &lt;code&gt;texreg&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;remotes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;leifeld/texreg&amp;#34;&lt;/span&gt;, force &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.12&lt;/span&gt; ) [&lt;span style=&#34;color:#a6e22e&#34;&gt;CRAN&lt;/span&gt;]
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;4.3&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4.3.2&lt;/span&gt;) [&lt;span style=&#34;color:#a6e22e&#34;&gt;CRAN&lt;/span&gt;]
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cannot&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prior&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installation&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
+## \Program Files\R\R-4.0.4\library\00LOCK\mime\libs\x64\mime.dll a C:\Program
+## Files\R\R-4.0.4\library\mime\libs\x64\mime.dll: Permission denied
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning: restored &amp;#39;mime&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cannot&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prior&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installation&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
+## \Program Files\R\R-4.0.4\library\00LOCK\curl\libs\x64\curl.dll a C:\Program
+## Files\R\R-4.0.4\library\curl\libs\x64\curl.dll: Permission denied
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning: restored &amp;#39;curl&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## The downloaded binary packages are in
+## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\downloaded_packages
+##   
+  
+  
+   checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION&amp;#39; ...
+  
+v  checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION&amp;#39;
+## 
+  
+  
+  
+-  preparing &amp;#39;texreg&amp;#39;: (665ms)
+##    checking DESCRIPTION meta-information ...
+  
+   checking DESCRIPTION meta-information ... 
+  
+v  checking DESCRIPTION meta-information
+## 
+  
+  
+  
+-  checking for LF line-endings in source and make files and shell scripts
+## 
+  
+  
+  
+-  checking for empty or unneeded directories
+## 
+  
+  
+  
+-  building &amp;#39;texreg_1.38.2.tar.gz&amp;#39;
+## 
+  
+   
+## 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(sjPlot, 
+               tidyverse, 
+               srvyr,
+               survey,
+               remotes,
+               texreg)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-cargar-datos&#34;&gt;2. Cargar datos&lt;/h2&gt;
+&lt;p&gt;Como se señaló anteriormente, en este práctico se trabajará con los datos de la &lt;strong&gt;Encuesta Suplementaria de Ingresos (ESI)&lt;/strong&gt; en su versión 2020. Esta se encuentra en la carpeta &amp;ldquo;input/data&amp;rdquo;, en formato .rds, habiendo sido procesada anteriormente. Por ello, empleamos la función &lt;code&gt;readRDS()&lt;/code&gt; de la librería &lt;code&gt;base&lt;/code&gt; de R.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;readRDS&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;input/data/data_proc.rds&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos darnos cuenta de que el set de datos presenta 26.821 observaciones (o filas), y 7 variables (o columnas), que incluyen a las variables &lt;code&gt;ing_t_t&lt;/code&gt;,, &lt;code&gt;edad&lt;/code&gt;, &lt;code&gt;sexo&lt;/code&gt;, &lt;code&gt;est_conyugal&lt;/code&gt;, &lt;code&gt;ciuo08&lt;/code&gt;, &lt;code&gt;fact_cal_esi&lt;/code&gt; y &lt;code&gt;ing_medio&lt;/code&gt;. Esta última discrimina si el sujeto presenta ingresos mayores o iguales (1) a la media de &lt;code&gt;ing_t_t&lt;/code&gt; o no (0). Para mayor detalle, revisar el script &lt;code&gt;proc.R&lt;/code&gt; ubicado en la carpeta &lt;code&gt;R&lt;/code&gt;, para profundizar en el tratamiento de los datos.&lt;/p&gt;
+&lt;h2 id=&#34;3-explorar-datos&#34;&gt;3. Explorar datos&lt;/h2&gt;
+&lt;p&gt;A continuación, usaremos la función &lt;code&gt;view_df()&lt;/code&gt; del paquete &lt;code&gt;sjPlot&lt;/code&gt;, que presenta un resumen de las variables contenidas en el set de datos, que nos permitirá identificar la &lt;em&gt;etiqueta&lt;/em&gt; de cada variable y de cada una de sus alternativas de respuesta.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;view_df&lt;/span&gt;(datos,
+                encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;latin9&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption&gt;Data frame: datos&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ID&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Name&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Label&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Values&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Value Labels&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ing_t_t&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Total ingresos del trabajo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 0.0-18045761.6&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Edad de la persona&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 15-93&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Hombre&lt;br&gt;Mujer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;est_conyugal&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Con pareja&lt;br&gt;Sin pareja&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ciuo08&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;b1. Grupo ocupacional segÃºn CIUO 08 - 1 dÃ­gito&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Directores, gerentes y administradores&lt;br&gt;Profesionales, cientÃ­ficos e intelectuales&lt;br&gt;TÃ©cnicos y profesionales de nivel medio&lt;br&gt;Personal de apoyo administrativo&lt;br&gt;Trabajadores de los servicios y vendedores de comercios y mercados&lt;br&gt;Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros&lt;br&gt;Artesanos y operarios de oficios&lt;br&gt;Operadores de instalaciones, maquinas y ensambladores&lt;br&gt;Ocupaciones elementales&lt;br&gt;Otros no identificados&lt;br&gt;Sin clasificaciÃ³n&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;fact_cal_esi&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Factor de expansiÃ³n ESI con nueva calibraciÃ³n,&lt;br&gt;proyecciones de poblaciÃ³n&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 6.7-7070.1&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ing_medio&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Â¿Mayor que el ingreso medio?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;0&lt;br&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;Podemos ver que tenemos tres variables cuantitativas (&lt;code&gt;ing_t_t&lt;/code&gt;, &lt;code&gt;edad&lt;/code&gt; y &lt;code&gt;fact_cal_esi&lt;/code&gt;), y cuatro variables categóricas (&lt;code&gt;sexo&lt;/code&gt;, &lt;code&gt;est_conyugal&lt;/code&gt;, &lt;code&gt;ciuo08&lt;/code&gt; e &lt;code&gt;ing_medio&lt;/code&gt;). Estas últimas tienen 2, 2, 10 y 2 categorías, respectivamente.&lt;/p&gt;
+&lt;h2 id=&#34;4-creación-del-modelo-de-regresión-logística-binaria&#34;&gt;4. Creación del modelo de regresión logística binaria&lt;/h2&gt;
+&lt;h3 id=&#34;la-regresión-logística-binaria&#34;&gt;La regresión logística binaria&lt;/h3&gt;
+&lt;p&gt;Recordemos que, en el caso de la regresión logística, el resultado predicho es el &lt;strong&gt;logit&lt;/strong&gt; (logatirmos de los odds), siendo los &lt;strong&gt;odds&lt;/strong&gt; una razón de probabilidades (chances). Para llegar hasta la regresión logística, debemos pasar por los odds y los odds-ratio (proporción de chances).&lt;/p&gt;
+&lt;p&gt;Las &lt;strong&gt;odds&lt;/strong&gt; son &lt;em&gt;la probabilidad de que algo ocurra&lt;/em&gt; (por ejemplo, tener un ingreso mayor o igual a la media) dividido por la probabilidad de que &lt;em&gt;no ocurra&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ Odds = p/1-p \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Odds de 1 significan chances iguales, mientras que odds inferiores a 1 son negativas, y mayores a 1, positivas.&lt;/p&gt;
+&lt;p&gt;Las &lt;strong&gt;Odds ratio (OR)&lt;/strong&gt;, por su parte, reflejan la asociación entre las chances de dos variables dicotómicas:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Las OR permiten, entonces, presentar en &lt;em&gt;un único número&lt;/em&gt; la relación entre dos variables categóricas. Por ello, es una versión del β para &lt;strong&gt;variables dependientes categóricas&lt;/strong&gt;. Una de las transformaciones que permite estimar una regresión con variables dependientes dicotómicas es el &lt;strong&gt;logit&lt;/strong&gt;, &lt;strong&gt;logaritmo de los odds&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Luego, la fórmula para un modelo de regresión logística binaria simple es&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Donde&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\(E(Y)\)&lt;/code&gt; es el valor estimado/predicho de &lt;code&gt;\(Y\)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(P\)&lt;/code&gt; es la &lt;strong&gt;probabilidad predicha&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(b_{0}\)&lt;/code&gt; es el intercepto&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(b_{1}\)&lt;/code&gt; es el &lt;strong&gt;coeficiente de regresión&lt;/strong&gt; que, en este caso, presenta valores en &lt;em&gt;log-odds&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Y para la regresión logística binaria múltiple&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Donde&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\(E(Y)\)&lt;/code&gt; es el valor estimado/predicho de &lt;code&gt;\(Y\)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(P\)&lt;/code&gt; es la &lt;strong&gt;probabilidad predicha&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(b_{0}\)&lt;/code&gt; es el intercepto&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(b_{1}\)&lt;/code&gt; es el &lt;strong&gt;coeficiente de regresión del primer predictor&lt;/strong&gt; que, en este caso, presenta valores en &lt;em&gt;log-odds&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\(b_{n}\)&lt;/code&gt; es el &lt;strong&gt;coeficiente de regresión del predictor n&lt;/strong&gt; que, en este caso, presenta valores en &lt;em&gt;log-odds&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;note&#34;&gt;
+&lt;h3 id=&#34;a-modelo-nulo&#34;&gt;a) Modelo nulo&lt;/h3&gt;
+&lt;p&gt;Una vez realizado lo anterior, es momento de generar nuestro modelo de regresión logística. Emplearemos la función &lt;code&gt;glm()&lt;/code&gt; del paquete base de &lt;code&gt;R&lt;/code&gt;, especificando el argumento &lt;code&gt;family&lt;/code&gt; como &lt;code&gt;&amp;quot;binomial&amp;quot;&lt;/code&gt;. Lo primero es especificar las variables con las cuales construiremos el modelo: antes de la virgulilla (~) escribiremos nuestra variable dependiente (en este caso, &lt;code&gt;ing_medio&lt;/code&gt;), y luego, las variables independientes separadas con un signo más (+). Para crear el modelo nulo, en lugar de variables predictoras, especificamos un 1. En síntesis, las diferencias entre crear un modelo de regresión lineal (como se revisó en el práctico anterior) son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Se utiliza la función &lt;code&gt;glm()&lt;/code&gt; en lugar de &lt;code&gt;lm()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Se especifica el argumento &lt;code&gt;family = &#39;binomial&#39;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo0 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
+              weights &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fact_cal_esi,
+              family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Examinemos&lt;/strong&gt; el modelo creado:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## glm(formula = ing_medio ~ 1, family = binomial(link = &amp;#34;logit&amp;#34;), 
+##     data = datos, weights = fact_cal_esi)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -625.3     0.0     0.0     0.0     0.0  
+## 
+## Coefficients:
+##                     Estimate       Std. Error     z value            Pr(&amp;gt;|z|)
+## (Intercept) 1615045593563038            23644 68307515464 &amp;lt;0.0000000000000002
+##                
+## (Intercept) ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance:   8361355  on 26820  degrees of freedom
+## Residual deviance: 124161070  on 26820  degrees of freedom
+## AIC: 124159719
+## 
+## Number of Fisher Scoring iterations: 6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado &lt;code&gt;modelo0_sin&lt;/code&gt;, que consta de una lista con 30 elementos.&lt;/p&gt;
+&lt;h3 id=&#34;b-modelo-con-predictores-numéricos&#34;&gt;b) Modelo con predictores numéricos&lt;/h3&gt;
+&lt;p&gt;No obstante, el modelo nulo no es interpretable. Incorporemos edad, predictor &lt;code&gt;numérico&lt;/code&gt;, y revisemos el modelo estimado&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; edad,
+              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
+              family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## glm(formula = ing_medio ~ edad, family = binomial(link = &amp;#34;logit&amp;#34;), 
+##     data = datos)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7254   0.7211   0.7409   0.7576   0.8079  
+## 
+## Coefficients:
+##              Estimate Std. Error z value             Pr(&amp;gt;|z|)    
+## (Intercept)  1.287250   0.048275   26.66 &amp;lt; 0.0000000000000002 ***
+## edad        -0.003642   0.001026   -3.55             0.000385 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 29882  on 26820  degrees of freedom
+## Residual deviance: 29869  on 26819  degrees of freedom
+## AIC: 29873
+## 
+## Number of Fisher Scoring iterations: 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;c-modelo-con-predictores-categóricos&#34;&gt;c) Modelo con predictores categóricos&lt;/h3&gt;
+&lt;p&gt;Asimismo, gran parte de las veces queremos utilizar variables categóricas (como el sexo, la ocupación o el estado conyugal de las personas) como variables predictoras:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; sexo,
+              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
+              family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## glm(formula = ing_medio ~ sexo, family = binomial(link = &amp;#34;logit&amp;#34;), 
+##     data = datos)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7766   0.6799   0.6799   0.8397   0.8397  
+## 
+## Coefficients:
+##             Estimate Std. Error z value            Pr(&amp;gt;|z|)    
+## (Intercept)  1.34711    0.01996   67.48 &amp;lt;0.0000000000000002 ***
+## sexoMujer   -0.48607    0.02855  -17.03 &amp;lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 29882  on 26820  degrees of freedom
+## Residual deviance: 29592  on 26819  degrees of freedom
+## AIC: 29596
+## 
+## Number of Fisher Scoring iterations: 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;d-modelo-completo&#34;&gt;d) Modelo completo&lt;/h3&gt;
+&lt;p&gt;¡Incorporemos todas las variables que seleccionamos!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; edad &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sexo &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; ciuo08 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; est_conyugal,
+              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
+              family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## glm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
+##     family = binomial(link = &amp;#34;logit&amp;#34;), data = datos)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.59360   0.00095   0.50005   0.82422   1.34623  
+## 
+## Coefficients:
+##                                                                                      Estimate
+## (Intercept)                                                                          3.184303
+## edad                                                                                 0.002147
+## sexoMujer                                                                           -0.756990
+## ciuo08Profesionales, científicos e intelectuales                                    -0.040840
+## ciuo08Técnicos y profesionales de nivel medio                                       -0.344910
+## ciuo08Personal de apoyo administrativo                                              -0.439180
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1.989663
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -2.695957
+## ciuo08Artesanos y operarios de oficios                                              -2.346364
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1.273414
+## ciuo08Ocupaciones elementales                                                       -2.208624
+## ciuo08Otros no identificados                                                        11.524044
+## ciuo08Sin clasificación                                                             -2.460523
+## est_conyugalSin pareja                                                              -0.167130
+##                                                                                     Std. Error
+## (Intercept)                                                                           0.165321
+## edad                                                                                  0.001101
+## sexoMujer                                                                             0.033434
+## ciuo08Profesionales, científicos e intelectuales                                      0.168604
+## ciuo08Técnicos y profesionales de nivel medio                                         0.166762
+## ciuo08Personal de apoyo administrativo                                                0.179496
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados              0.156859
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros   0.165042
+## ciuo08Artesanos y operarios de oficios                                                0.158416
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.166563
+## ciuo08Ocupaciones elementales                                                         0.156421
+## ciuo08Otros no identificados                                                         70.479870
+## ciuo08Sin clasificación                                                               0.490312
+## est_conyugalSin pareja                                                                0.039472
+##                                                                                     z value
+## (Intercept)                                                                          19.261
+## edad                                                                                  1.949
+## sexoMujer                                                                           -22.642
+## ciuo08Profesionales, científicos e intelectuales                                     -0.242
+## ciuo08Técnicos y profesionales de nivel medio                                        -2.068
+## ciuo08Personal de apoyo administrativo                                               -2.447
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -12.684
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -16.335
+## ciuo08Artesanos y operarios de oficios                                              -14.811
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -7.645
+## ciuo08Ocupaciones elementales                                                       -14.120
+## ciuo08Otros no identificados                                                          0.164
+## ciuo08Sin clasificación                                                              -5.018
+## est_conyugalSin pareja                                                               -4.234
+##                                                                                                 Pr(&amp;gt;|z|)
+## (Intercept)                                                                         &amp;lt; 0.0000000000000002
+## edad                                                                                              0.0513
+## sexoMujer                                                                           &amp;lt; 0.0000000000000002
+## ciuo08Profesionales, científicos e intelectuales                                                  0.8086
+## ciuo08Técnicos y profesionales de nivel medio                                                     0.0386
+## ciuo08Personal de apoyo administrativo                                                            0.0144
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            &amp;lt; 0.0000000000000002
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros &amp;lt; 0.0000000000000002
+## ciuo08Artesanos y operarios de oficios                                              &amp;lt; 0.0000000000000002
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.0000000000000209
+## ciuo08Ocupaciones elementales                                                       &amp;lt; 0.0000000000000002
+## ciuo08Otros no identificados                                                                      0.8701
+## ciuo08Sin clasificación                                                               0.0000005213460582
+## est_conyugalSin pareja                                                                0.0000229391302821
+##                                                                                        
+## (Intercept)                                                                         ***
+## edad                                                                                .  
+## sexoMujer                                                                           ***
+## ciuo08Profesionales, científicos e intelectuales                                       
+## ciuo08Técnicos y profesionales de nivel medio                                       *  
+## ciuo08Personal de apoyo administrativo                                              *  
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
+## ciuo08Artesanos y operarios de oficios                                              ***
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
+## ciuo08Ocupaciones elementales                                                       ***
+## ciuo08Otros no identificados                                                           
+## ciuo08Sin clasificación                                                             ***
+## est_conyugalSin pareja                                                              ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 29882  on 26820  degrees of freedom
+## Residual deviance: 26541  on 26807  degrees of freedom
+## AIC: 26569
+## 
+## Number of Fisher Scoring iterations: 13
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;e-incorporando-el-diseño-muestral&#34;&gt;e) Incorporando el diseño muestral&lt;/h3&gt;
+&lt;p&gt;No obstante, como se revisó en el práctico anterior, es &lt;strong&gt;fundamental&lt;/strong&gt; utilizar los ponderadores para estimar de forma más precisa, al incorporar el diseño muestral en el modelamiento. En aras de ello, especificamos &lt;code&gt;fact_cal_esi&lt;/code&gt; (nuestro ponderador) en el argumento &lt;code&gt;weights = &lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3_dis &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; edad &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sexo &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; ciuo08 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; est_conyugal,
+              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
+              weights &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fact_cal_esi,
+              family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo3_dis)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## glm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
+##     family = binomial(link = &amp;#34;logit&amp;#34;), data = datos, weights = fact_cal_esi)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -625.3     0.0     0.0     0.0   571.7  
+## 
+## Coefficients:
+##                                                                                             Estimate
+## (Intercept)                                                                          734490901694669
+## edad                                                                                   1396302676615
+## sexoMujer                                                                           -977967704379870
+## ciuo08Profesionales, científicos e intelectuales                                     -54746519092886
+## ciuo08Técnicos y profesionales de nivel medio                                        696469468409673
+## ciuo08Personal de apoyo administrativo                                               432112479093228
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            1765629792332694
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -364742422184976
+## ciuo08Artesanos y operarios de oficios                                              1343303108100302
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -143012874087013
+## ciuo08Ocupaciones elementales                                                        975377515779369
+## ciuo08Otros no identificados                                                         531401274444271
+## ciuo08Sin clasificación                                                             1382778698593716
+## est_conyugalSin pareja                                                               -79208396226639
+##                                                                                           Std. Error
+## (Intercept)                                                                                   152111
+## edad                                                                                            1863
+## sexoMujer                                                                                      51328
+## ciuo08Profesionales, científicos e intelectuales                                              136122
+## ciuo08Técnicos y profesionales de nivel medio                                                 139620
+## ciuo08Personal de apoyo administrativo                                                        157031
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados                      133142
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros           195056
+## ciuo08Artesanos y operarios de oficios                                                        139181
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                                   148683
+## ciuo08Ocupaciones elementales                                                                 133676
+## ciuo08Otros no identificados                                                                  369810
+## ciuo08Sin clasificación                                                                       747979
+## est_conyugalSin pareja                                                                         58047
+##                                                                                          z value
+## (Intercept)                                                                           4828655221
+## edad                                                                                   749631359
+## sexoMujer                                                                           -19053496735
+## ciuo08Profesionales, científicos e intelectuales                                      -402186339
+## ciuo08Técnicos y profesionales de nivel medio                                         4988340807
+## ciuo08Personal de apoyo administrativo                                                2751772874
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             13261260571
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -1869940506
+## ciuo08Artesanos y operarios de oficios                                                9651508941
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                           -961866725
+## ciuo08Ocupaciones elementales                                                         7296603904
+## ciuo08Otros no identificados                                                          1436959492
+## ciuo08Sin clasificación                                                               1848685437
+## est_conyugalSin pareja                                                               -1364553727
+##                                                                                                Pr(&amp;gt;|z|)
+## (Intercept)                                                                         &amp;lt;0.0000000000000002
+## edad                                                                                &amp;lt;0.0000000000000002
+## sexoMujer                                                                           &amp;lt;0.0000000000000002
+## ciuo08Profesionales, científicos e intelectuales                                    &amp;lt;0.0000000000000002
+## ciuo08Técnicos y profesionales de nivel medio                                       &amp;lt;0.0000000000000002
+## ciuo08Personal de apoyo administrativo                                              &amp;lt;0.0000000000000002
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            &amp;lt;0.0000000000000002
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros &amp;lt;0.0000000000000002
+## ciuo08Artesanos y operarios de oficios                                              &amp;lt;0.0000000000000002
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         &amp;lt;0.0000000000000002
+## ciuo08Ocupaciones elementales                                                       &amp;lt;0.0000000000000002
+## ciuo08Otros no identificados                                                        &amp;lt;0.0000000000000002
+## ciuo08Sin clasificación                                                             &amp;lt;0.0000000000000002
+## est_conyugalSin pareja                                                              &amp;lt;0.0000000000000002
+##                                                                                        
+## (Intercept)                                                                         ***
+## edad                                                                                ***
+## sexoMujer                                                                           ***
+## ciuo08Profesionales, científicos e intelectuales                                    ***
+## ciuo08Técnicos y profesionales de nivel medio                                       ***
+## ciuo08Personal de apoyo administrativo                                              ***
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
+## ciuo08Artesanos y operarios de oficios                                              ***
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
+## ciuo08Ocupaciones elementales                                                       ***
+## ciuo08Otros no identificados                                                        ***
+## ciuo08Sin clasificación                                                             ***
+## est_conyugalSin pareja                                                              ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance:   8361355  on 26820  degrees of freedom
+## Residual deviance: 172389943  on 26807  degrees of freedom
+## AIC: 172388965
+## 
+## Number of Fisher Scoring iterations: 25
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sin embargo, como podemos darnos cuenta, el output que generamos incorporando este argumento resulta problemático, y difiere en demasía del modelo que no contempla los ponderadores en su estimación. ¿Qué podemos hacer? ¡pues recurriremos a una librería ya conocida! Nos referimos a &lt;code&gt;srvyr&lt;/code&gt;, que nos permitirá crear un &lt;strong&gt;objeto encuesta&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;esi_design &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_survey_design&lt;/span&gt;(datos, 
+                               ids &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, 
+                               weights &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fact_cal_esi)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¿&lt;code&gt;srvyr&lt;/code&gt; también tiene una función para crear modelos de regresión logística? Lamentablemente &lt;strong&gt;no&lt;/strong&gt;. No obstante, y tal como se revisó en el práctico anterior, la librería ``survey&lt;code&gt;incluye la función&lt;/code&gt;svyglm()&lt;code&gt;, que permite estimar modelos de diversas características, considerando el **diseño muestral** de los datos. Esto se especifica con el argumento &lt;/code&gt;design =&lt;code&gt;, donde debemos especificar el objeto encuesta con que nos hallamos trabajando (es el símil de &lt;/code&gt;data =&lt;code&gt;en&lt;/code&gt;glm()`).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3_survey &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;svyglm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; edad &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; sexo &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; ciuo08 &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; est_conyugal,
+                         family &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binomial&lt;/span&gt;(link &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;logit&amp;#34;&lt;/span&gt;),
+                         design &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; esi_design)
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo3_survey)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
+## Call:
+## svyglm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
+##     design = esi_design, family = binomial(link = &amp;#34;logit&amp;#34;))
+## 
+## Survey design:
+## Called via srvyr
+## 
+## Coefficients:
+##                                                                                      Estimate
+## (Intercept)                                                                          3.299012
+## edad                                                                                 0.003268
+## sexoMujer                                                                           -0.697013
+## ciuo08Profesionales, científicos e intelectuales                                    -0.433479
+## ciuo08Técnicos y profesionales de nivel medio                                       -0.611823
+## ciuo08Personal de apoyo administrativo                                              -0.786611
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -2.191474
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -2.844311
+## ciuo08Artesanos y operarios de oficios                                              -2.488899
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1.434649
+## ciuo08Ocupaciones elementales                                                       -2.226708
+## ciuo08Otros no identificados                                                        11.317728
+## ciuo08Sin clasificación                                                             -2.074388
+## est_conyugalSin pareja                                                              -0.120082
+##                                                                                     Std. Error
+## (Intercept)                                                                           0.220901
+## edad                                                                                  0.001796
+## sexoMujer                                                                             0.053237
+## ciuo08Profesionales, científicos e intelectuales                                      0.230493
+## ciuo08Técnicos y profesionales de nivel medio                                         0.225032
+## ciuo08Personal de apoyo administrativo                                                0.244913
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados              0.210180
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros   0.221381
+## ciuo08Artesanos y operarios de oficios                                                0.212019
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.224929
+## ciuo08Ocupaciones elementales                                                         0.208978
+## ciuo08Otros no identificados                                                          0.235485
+## ciuo08Sin clasificación                                                               0.646857
+## est_conyugalSin pareja                                                                0.062022
+##                                                                                     t value
+## (Intercept)                                                                          14.934
+## edad                                                                                  1.820
+## sexoMujer                                                                           -13.093
+## ciuo08Profesionales, científicos e intelectuales                                     -1.881
+## ciuo08Técnicos y profesionales de nivel medio                                        -2.719
+## ciuo08Personal de apoyo administrativo                                               -3.212
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -10.427
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -12.848
+## ciuo08Artesanos y operarios de oficios                                              -11.739
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -6.378
+## ciuo08Ocupaciones elementales                                                       -10.655
+## ciuo08Otros no identificados                                                         48.061
+## ciuo08Sin clasificación                                                              -3.207
+## est_conyugalSin pareja                                                               -1.936
+##                                                                                                 Pr(&amp;gt;|t|)
+## (Intercept)                                                                         &amp;lt; 0.0000000000000002
+## edad                                                                                             0.06883
+## sexoMujer                                                                           &amp;lt; 0.0000000000000002
+## ciuo08Profesionales, científicos e intelectuales                                                 0.06003
+## ciuo08Técnicos y profesionales de nivel medio                                                    0.00656
+## ciuo08Personal de apoyo administrativo                                                           0.00132
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            &amp;lt; 0.0000000000000002
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros &amp;lt; 0.0000000000000002
+## ciuo08Artesanos y operarios de oficios                                              &amp;lt; 0.0000000000000002
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                               0.000000000182
+## ciuo08Ocupaciones elementales                                                       &amp;lt; 0.0000000000000002
+## ciuo08Otros no identificados                                                        &amp;lt; 0.0000000000000002
+## ciuo08Sin clasificación                                                                          0.00134
+## est_conyugalSin pareja                                                                           0.05287
+##                                                                                        
+## (Intercept)                                                                         ***
+## edad                                                                                .  
+## sexoMujer                                                                           ***
+## ciuo08Profesionales, científicos e intelectuales                                    .  
+## ciuo08Técnicos y profesionales de nivel medio                                       ** 
+## ciuo08Personal de apoyo administrativo                                              ** 
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
+## ciuo08Artesanos y operarios de oficios                                              ***
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
+## ciuo08Ocupaciones elementales                                                       ***
+## ciuo08Otros no identificados                                                        ***
+## ciuo08Sin clasificación                                                             ** 
+## est_conyugalSin pareja                                                              .  
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1.023958)
+## 
+## Number of Fisher Scoring iterations: 13
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;5-extracción-de-elementos&#34;&gt;5. Extracción de elementos&lt;/h2&gt;
+&lt;p&gt;La extracción de elementos en modelos de regresión logística no difiere de la extracción de elementos de modelos de regresión lineal (ni de cualquier lista).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Coeficientes&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;##                                                                         (Intercept) 
+##                                                                         3.184303390 
+##                                                                                edad 
+##                                                                         0.002146798 
+##                                                                           sexoMujer 
+##                                                                        -0.756990374 
+##                                    ciuo08Profesionales, científicos e intelectuales 
+##                                                                        -0.040840086 
+##                                       ciuo08Técnicos y profesionales de nivel medio 
+##                                                                        -0.344910420 
+##                                              ciuo08Personal de apoyo administrativo 
+##                                                                        -0.439180226 
+##            ciuo08Trabajadores de los servicios y vendedores de comercios y mercados 
+##                                                                        -1.989663484 
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros 
+##                                                                        -2.695957420 
+##                                              ciuo08Artesanos y operarios de oficios 
+##                                                                        -2.346363767 
+##                         ciuo08Operadores de instalaciones, maquinas y ensambladores 
+##                                                                        -1.273413838 
+##                                                       ciuo08Ocupaciones elementales 
+##                                                                        -2.208623846 
+##                                                        ciuo08Otros no identificados 
+##                                                                        11.524043703 
+##                                                             ciuo08Sin clasificación 
+##                                                                        -2.460523471 
+##                                                              est_conyugalSin pareja 
+##                                                                        -0.167129643
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Sexto coeficiente&lt;/strong&gt; (considerando el intercepto como primero):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients[6]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## ciuo08Personal de apoyo administrativo 
+##                             -0.4391802
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Coeficiente de estado conyugal (sin pareja)&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;est_conyugalSin pareja&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## est_conyugalSin pareja 
+##             -0.1671296
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También podemos extraer elementos de los modelos creados con &lt;code&gt;svyglm()&lt;/code&gt;; por ejemplo:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Devianza&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo3_survey)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;deviance
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 25003.52
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Criterio de Información de Akaike (AIC)&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;summary&lt;/span&gt;(modelo3_survey)&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;aic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 23784.76
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos utilizar, tal como en el práctico anterior, &lt;code&gt;sjPlot::get_model_data()&lt;/code&gt; para extraer los valores predichos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;get_model_data&lt;/span&gt;(modelo3_survey, 
+               type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pred&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## $edad
+## # Predicted probabilities of ¿Mayor que el ingreso medio?
+## # x = Edad de la persona
+## 
+##   x | Predicted | group_col |       95% CI
+## ------------------------------------------
+##  10 |      0.97 |      edad | [0.95, 0.98]
+##  20 |      0.97 |      edad | [0.95, 0.98]
+##  30 |      0.97 |      edad | [0.95, 0.98]
+##  40 |      0.97 |      edad | [0.95, 0.98]
+##  60 |      0.97 |      edad | [0.96, 0.98]
+##  70 |      0.97 |      edad | [0.96, 0.98]
+##  80 |      0.97 |      edad | [0.96, 0.98]
+## 100 |      0.97 |      edad | [0.96, 0.98]
+## 
+## Adjusted for:
+## *         sexo =                                 Hombre
+## *       ciuo08 = Directores, gerentes y administradores
+## * est_conyugal =                             Con pareja
+## 
+## $sexo
+## # Predicted probabilities of ¿Mayor que el ingreso medio?
+## # x = Sexo
+## 
+## x | Predicted | group_col |       95% CI
+## ----------------------------------------
+## 1 |      0.97 |      sexo | [0.95, 0.98]
+## 2 |      0.94 |      sexo | [0.91, 0.96]
+## 
+## Adjusted for:
+## *         edad =                                  42.13
+## *       ciuo08 = Directores, gerentes y administradores
+## * est_conyugal =                             Con pareja
+## 
+## $ciuo08
+## # Predicted probabilities of ¿Mayor que el ingreso medio?
+## # x = b1. Grupo ocupacional según CIUO 08 - 1 dígito
+## 
+##  x | Predicted | group_col |       95% CI
+## -----------------------------------------
+##  1 |      0.97 |    ciuo08 | [0.95, 0.98]
+##  2 |      0.95 |    ciuo08 | [0.94, 0.96]
+##  4 |      0.93 |    ciuo08 | [0.91, 0.95]
+##  5 |      0.78 |    ciuo08 | [0.75, 0.80]
+##  6 |      0.64 |    ciuo08 | [0.60, 0.69]
+##  7 |      0.72 |    ciuo08 | [0.69, 0.75]
+##  8 |      0.88 |    ciuo08 | [0.86, 0.90]
+## 11 |      0.80 |    ciuo08 | [0.54, 0.93]
+## 
+## Adjusted for:
+## *         edad =      42.13
+## *         sexo =     Hombre
+## * est_conyugal = Con pareja
+## 
+## $est_conyugal
+## # Predicted probabilities of ¿Mayor que el ingreso medio?
+## # x = est_conyugal
+## 
+## x | Predicted |    group_col |       95% CI
+## -------------------------------------------
+## 1 |      0.97 | est_conyugal | [0.95, 0.98]
+## 2 |      0.96 | est_conyugal | [0.95, 0.98]
+## 
+## Adjusted for:
+## *   edad =                                  42.13
+## *   sexo =                                 Hombre
+## * ciuo08 = Directores, gerentes y administradores
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;exponenciación-de-coeficientes&#34;&gt;Exponenciación de coeficientes&lt;/h3&gt;
+&lt;p&gt;Como bien sabemos, los &lt;em&gt;log-odds&lt;/em&gt; son difícilmente interpretables. Para subsanar ello, podemos &lt;strong&gt;exponenciar&lt;/strong&gt; los logaritmos de las chances que figuran en los coeficientes de nuestros modelos de regresión logística, recurriendo a la función &lt;code&gt;exp()&lt;/code&gt;. Esto permitirá que nuestro coeficientes pasen de estar en log-odds a &lt;strong&gt;Odds-ratio&lt;/strong&gt;, cuya interpretación es mucho más sencilla. Probemos con el coeficiente para las personas cuyo estatus conyugal es &lt;em&gt;Sin pareja&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(modelo3_survey&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;est_conyugalSin pareja&amp;#34;&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## est_conyugalSin pareja 
+##              0.8868479
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Luego, podemos crear los OR en nuestro modelo:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3_survey&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;or &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(modelo3_survey&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Comprobemos!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3_survey&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;or[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;est_conyugalSin pareja&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## est_conyugalSin pareja 
+##              0.8868479
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo3_survey&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;coefficients[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;est_conyugalSin pareja&amp;#34;&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## est_conyugalSin pareja 
+##             -0.1200818
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;6-presentación-del-modelo-creado&#34;&gt;6. Presentación del modelo creado&lt;/h2&gt;
+&lt;h3 id=&#34;a-tablas&#34;&gt;a) Tablas&lt;/h3&gt;
+&lt;p&gt;En este práctico revisaremos dos maneras de presentar nuestros modelos. La primera sigue la línea de la práctica anterior, empleando &lt;code&gt;sjPlot::tab_model()&lt;/code&gt;. La segunda es algo mas sofisticada: utilizaremos la librería &lt;code&gt;texreg&lt;/code&gt; para presentar nuestros modelos, incorporando elementos adicionales a los coeficientes, como lo pueden ser las medidas de ajuste.&lt;/p&gt;
+&lt;h4 id=&#34;con-sjplottab_model&#34;&gt;Con &lt;code&gt;sjPlot::tab_model()&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;Seguimos la misma idea del práctico anterior:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_model&lt;/span&gt;(modelo0, 
+                  show.ci&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;,
+                  df.method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;wald&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Para realizar más rápidamente el cálculo de los intervalos de confianza&lt;/span&gt;
+                  encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; &#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Â¿Mayor que el ingreso&lt;br&gt;medio?&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; &#34;&gt;Predictors&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;Odds Ratios&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;p&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;Inf&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;&#34;&gt;Observations&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;2&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;&#34;&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;2&#34;&gt;0.000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;Podemos incorporar más de un modelo de regresión a la tabla. Esto es muy útil para comparar los diversos modelos que creamos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_model&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(modelo0, modelo1, modelo2), &lt;span style=&#34;color:#75715e&#34;&gt;# los modelos estimados&lt;/span&gt;
+                  show.ci&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# no mostrar intervalo de confianza (por defecto lo hace)&lt;/span&gt;
+                  p.style &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stars&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# asteriscos de significación estadística&lt;/span&gt;
+                  df.method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;wald&amp;#39;&lt;/span&gt;,
+                  dv.labels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo 1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo 2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo 3&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#75715e&#34;&gt;# etiquetas de modelos o variables dep.&lt;/span&gt;
+                  string.pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Predictores&amp;#34;&lt;/span&gt;, string.est &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;β&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# nombre predictores y símbolo beta en tabla&lt;/span&gt;
+                  encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; &#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan=&#34;1&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Modelo 1&lt;/th&gt;
+&lt;th colspan=&#34;1&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Modelo 2&lt;/th&gt;
+&lt;th colspan=&#34;1&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Modelo 3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; &#34;&gt;Predictores&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;&amp;szlig;&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;&amp;szlig;&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;&amp;szlig;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;Inf &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;3.62 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;3.85 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Edad de la persona&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;1.00 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Sexo: Mujer&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.62 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;&#34;&gt;Observations&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;1&#34;&gt;26821&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;1&#34;&gt;26821&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;1&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;&#34;&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;1&#34;&gt;0.000&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;1&#34;&gt;0.001&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;1&#34;&gt;0.011&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;4&#34; style=&#34;font-style:italic; border-top:double black; text-align:right;&#34;&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;No obstante, hay algo que resulta &lt;em&gt;un poco &lt;strong&gt;problemático&lt;/strong&gt;&lt;/em&gt;: el output de &lt;code&gt;tab_model()&lt;/code&gt; cuando presentamos modelos de regresión logística, por defecto, presenta los coeficientes en &lt;strong&gt;log-Odds&lt;/strong&gt; (logaritmo de las chances). Estos valores son difícilmente interpretables. Sin embargo ¡existe una solución! Si especificamos el argumento &lt;code&gt;transform = &amp;quot;exp&amp;quot;&lt;/code&gt;, el output de la tabla estará en formato &lt;strong&gt;Odds ratio&lt;/strong&gt; (OR), lo cual permite interpretar los coeficientes de manera sencilla.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_model&lt;/span&gt;(modelo3, &lt;span style=&#34;color:#75715e&#34;&gt;# modelo con todas las variables&lt;/span&gt;
+                  show.ci&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# no mostrar intervalo de confianza (por defecto lo hace)&lt;/span&gt;
+                  transform &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;exp&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# exponenciamos los coeficientes&lt;/span&gt;
+                  p.style &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stars&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# asteriscos de significación estadística&lt;/span&gt;
+                  df.method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;wald&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Para realizar más rápidamente el cálculo de los intervalos de confianza&lt;/span&gt;
+                  dv.labels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo con todas las variables&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# etiquetas de modelos o variables dep.&lt;/span&gt;
+                  string.pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Predictores&amp;#34;&lt;/span&gt;, string.est &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;β&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# nombre predictores y símbolo beta en tabla&lt;/span&gt;
+                  encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latin9&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; &#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan=&#34;1&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Modelo con todas las variables&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; &#34;&gt;Predictores&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;ÃŸ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;24.15 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Edad de la persona&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;1.00 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Sexo: Mujer&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.47 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Profesionales,cientÃ­ficos&lt;br&gt;e intelectuales&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.96 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;TÃ©cnicos y profesionales&lt;br&gt;de nivel medio&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.71 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Personal de apoyo&lt;br&gt;administrativo&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.64 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Trabajadores de los&lt;br&gt;servicios y vendedores de&lt;br&gt;comercios y mercados&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.14 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Agricultores y&lt;br&gt;trabajadores calificados&lt;br&gt;agropecuarios,forestales&lt;br&gt;y pesqueros&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.07 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Artesanos y operarios de&lt;br&gt;oficios&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.10 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Operadores de&lt;br&gt;instalaciones,maquinas y&lt;br&gt;ensambladores&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.28 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.11 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Otros no identificados&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;101118.03 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Sin clasificaciÃ³n&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.09 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;est conyugal: Sin pareja&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.85 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;&#34;&gt;Observations&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;1&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;&#34;&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;1&#34;&gt;0.118&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;2&#34; style=&#34;font-style:italic; border-top:double black; text-align:right;&#34;&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;¡Ahora podemos interpretar los coeficientes de manera sencilla, para cada categoría de respuesta!&lt;/p&gt;
+&lt;p&gt;¿Y si queremos integrar el &lt;strong&gt;diseño muestral&lt;/strong&gt;?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;tab_model&lt;/span&gt;(modelo3_survey, &lt;span style=&#34;color:#75715e&#34;&gt;# modelo con todas las variables&lt;/span&gt;
+                  show.ci&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# no mostrar intervalo de confianza (por defecto lo hace)&lt;/span&gt;
+                  transform &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;exp&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# exponenciamos los coeficientes&lt;/span&gt;
+                  p.style &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;stars&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# asteriscos de significación estadística&lt;/span&gt;
+                  df.method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;wald&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#75715e&#34;&gt;#Para realizar más rápidamente el cálculo de los intervalos de confianza&lt;/span&gt;
+                  dv.labels &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo con todas las variables&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# etiquetas de modelos o variables dep.&lt;/span&gt;
+                  string.pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Predictores&amp;#34;&lt;/span&gt;, string.est &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;β&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;# nombre predictores y símbolo beta en tabla&lt;/span&gt;
+                  encoding &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; &#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan=&#34;1&#34; style=&#34;border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; &#34;&gt;Modelo con todas las variables&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; &#34;&gt;Predictores&lt;/td&gt;
+&lt;td style=&#34; text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  &#34;&gt;ÃŸ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;27.09 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Edad de la persona&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;1.00 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;Sexo: Mujer&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.50 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Profesionales,cientÃ­ficos&lt;br&gt;e intelectuales&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.65 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;TÃ©cnicos y profesionales&lt;br&gt;de nivel medio&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.54 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Personal de apoyo&lt;br&gt;administrativo&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.46 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Trabajadores de los&lt;br&gt;servicios y vendedores de&lt;br&gt;comercios y mercados&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.11 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Agricultores y&lt;br&gt;trabajadores calificados&lt;br&gt;agropecuarios,forestales&lt;br&gt;y pesqueros&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Artesanos y operarios de&lt;br&gt;oficios&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.08 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Operadores de&lt;br&gt;instalaciones,maquinas y&lt;br&gt;ensambladores&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.24 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.11 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Otros no identificados&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;82267.21 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;b 1.Grupo ocupacional&lt;br&gt;segÃºn CIUO 08-1 dÃ­gito:&lt;br&gt;Sin clasificaciÃ³n&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.13 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; &#34;&gt;est conyugal: Sin pareja&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  &#34;&gt;0.89 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;&#34;&gt;Observations&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;&#34; colspan=&#34;1&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;&#34;&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
+&lt;td style=&#34; padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;&#34; colspan=&#34;1&#34;&gt;0.102 / 0.101&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan=&#34;2&#34; style=&#34;font-style:italic; border-top:double black; text-align:right;&#34;&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;con-texreg&#34;&gt;Con &lt;code&gt;texreg&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;La segunda forma de presentar nuestro modelo de en formato tabla es con &lt;code&gt;texreg&lt;/code&gt;. Hay diversas funciones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;screenreg()&lt;/code&gt;: muestra la tabla en la consola de R.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;htmlreg()&lt;/code&gt;: produce una tabla en formato html. Es la que utilizaremos en este práctico.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;texreg()&lt;/code&gt;: produce una tabla en formato LaTex para documentos en PDF.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si no especificamos ningún argumento, &lt;code&gt;htmlreg()&lt;/code&gt; presenta de forma directa una tabla publicable, con sus respectivas medidas de ajuste. Algo fundamental es especificar &lt;code&gt;results=&#39;asis&#39;&lt;/code&gt; en las opciones del chunk pues, de lo contrario, la tabla no aparecerá en el documento renderizado.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;htmlreg&lt;/span&gt;(modelo3, doctype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table class=&#34;texreg&#34; style=&#34;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;&#34;&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Model 1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;3.18&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.00)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;sexoMujer&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.76&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.03)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Profesionales, científicos e intelectuales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Técnicos y profesionales de nivel medio&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.34&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Personal de apoyo administrativo&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.44&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.18)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Trabajadores de los servicios y vendedores de comercios y mercados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.99&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.70&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Artesanos y operarios de oficios&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.35&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Operadores de instalaciones, maquinas y ensambladores&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.27&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.21&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Otros no identificados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;11.52&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(70.48)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Sin clasificación&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.46&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.49)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;est_conyugalSin pareja&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.17&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.04)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;AIC&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26569.19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;BIC&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26683.95&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-13270.60&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Deviance&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26541.19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-bottom: 2px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-size: 0.8em;&#34; colspan=&#34;2&#34;&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;p&gt;¡Podemos incluir más de un modelo!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;htmlreg&lt;/span&gt;(l &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(modelo3, modelo3_survey))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table class=&#34;texreg&#34; style=&#34;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;&#34;&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Model 1&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Model 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;3.18&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;3.30&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.00&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.00)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.00)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;sexoMujer&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.76&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.70&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.03)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.05)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Profesionales, científicos e intelectuales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.04&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.43&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Técnicos y profesionales de nivel medio&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.34&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.61&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Personal de apoyo administrativo&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.44&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.79&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.18)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Trabajadores de los servicios y vendedores de comercios y mercados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.99&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.19&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.70&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.84&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Artesanos y operarios de oficios&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.35&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.49&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Operadores de instalaciones, maquinas y ensambladores&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.27&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.43&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.17)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.21&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.23&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.16)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Otros no identificados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;11.52&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;11.32&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(70.48)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Sin clasificación&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.46&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.07&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.49)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.65)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;est_conyugalSin pareja&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.17&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.04)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.06)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;AIC&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26569.19&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;BIC&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26683.95&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Log Likelihood&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-13270.60&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Deviance&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26541.19&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;25003.52&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-bottom: 2px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Dispersion&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-size: 0.8em;&#34; colspan=&#34;3&#34;&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;p&gt;A diferencia de &lt;code&gt;tab_model()&lt;/code&gt;, &lt;code&gt;htmlreg()&lt;/code&gt; arroja, por defecto, los coeficientes en log-odds. Podemos realizar la transformación a OR de la siguiente manera, recurriendo a la función &lt;code&gt;extract()&lt;/code&gt; de &lt;code&gt;texreg&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;or &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; texreg&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;extract&lt;/span&gt;(modelo3_survey) &lt;span style=&#34;color:#75715e&#34;&gt;#Extraemos info del modelo &lt;/span&gt;
+or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;exp&lt;/span&gt;(or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef) &lt;span style=&#34;color:#75715e&#34;&gt;#Exponenciamos los coeficientes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Y ahora construimos la tabla&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;htmlreg&lt;/span&gt;(l &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(modelo3_survey, or))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table class=&#34;texreg&#34; style=&#34;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;&#34;&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Model 1&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Model 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;3.30&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;27.09&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.00&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.00)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.00)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;sexoMujer&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.70&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.50&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.05)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.05)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Profesionales, científicos e intelectuales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.43&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.65&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Técnicos y profesionales de nivel medio&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.61&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.54&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.23)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Personal de apoyo administrativo&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.79&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.46&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Trabajadores de los servicios y vendedores de comercios y mercados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.19&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.11&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.84&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.06&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Artesanos y operarios de oficios&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.49&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.08&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Operadores de instalaciones, maquinas y ensambladores&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.43&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.24&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.22)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.23&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.11&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.21)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Otros no identificados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;11.32&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;82267.21&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.24)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Sin clasificación&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.07&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.13&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.65)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.65)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;est_conyugalSin pareja&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.12&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.89&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.06)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(0.06)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Deviance&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;25003.52&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;25003.52&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Dispersion&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.02&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-bottom: 2px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-size: 0.8em;&#34; colspan=&#34;3&#34;&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;p&gt;¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la &lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34;&gt;documentación de la función&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;htmlreg&lt;/span&gt;(l &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(modelo3_survey, or), 
+          doctype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, &lt;span style=&#34;color:#75715e&#34;&gt;#No incluimos doctype&lt;/span&gt;
+          caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Leyenda&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Leyenda de la tabla &lt;/span&gt;
+          caption.above &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T, &lt;span style=&#34;color:#75715e&#34;&gt;# Presentar la leyenda en la sección superior. Si = FALSE (predeterminado), la leyenda se sitúa bajo la tabla&lt;/span&gt;
+          custom.model.names &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo 3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Modelo 3 (OR)&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#75715e&#34;&gt;#Personalizar los títulos de la tabla &lt;/span&gt;
+          ci.force &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;,&lt;span style=&#34;color:#66d9ef&#34;&gt;TRUE&lt;/span&gt;), &lt;span style=&#34;color:#75715e&#34;&gt;#Presentar intervalos de confianza&lt;/span&gt;
+          override.coef &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;coef&lt;/span&gt;(modelo3_survey), or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef), &lt;span style=&#34;color:#75715e&#34;&gt;#Sobreescribir los coeficientes a partir de los coeficientes de los modelos&lt;/span&gt;
+          custom.note &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$^{***}$ p &amp;lt; 0.001; $^{**}$ p &amp;lt; 0.01; $^{*}$ p &amp;lt; 0.05 &amp;lt;br&amp;gt; Errores estándar entre paréntesis. &amp;lt;br&amp;gt; **Nota**: La significancia estadística de los coeficientes en unidades de Odds ratio está calculada en base a los valores $t$, &amp;lt;br&amp;gt; los cuales a su vez se calculan en base a $log(Odds)/SE$&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#Incorporamos una nota al pie de la tabla&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table class=&#34;texreg&#34; style=&#34;margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;&#34;&gt;
+&lt;caption&gt;Leyenda&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Modelo 3&lt;/th&gt;
+&lt;th style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Modelo 3 (OR)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;3.30&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;27.09&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[ 2.87;  3.73]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   26.65;    27.52]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.00&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.00&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-0.00;  0.01]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[    1.00;     1.01]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;sexoMujer&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.70&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.50&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-0.80; -0.59]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[    0.39;     0.60]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Profesionales, científicos e intelectuales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.43&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.65&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-0.89;  0.02]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[    0.20;     1.10]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Técnicos y profesionales de nivel medio&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.61&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.54&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-1.05; -0.17]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[    0.10;     0.98]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Personal de apoyo administrativo&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.79&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.46&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-1.27; -0.31]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.02;     0.94]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Trabajadores de los servicios y vendedores de comercios y mercados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.19&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-2.60; -1.78]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.30;     0.52]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.84&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.06&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-3.28; -2.41]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.38;     0.49]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Artesanos y operarios de oficios&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.49&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-2.90; -2.07]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.33;     0.50]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Operadores de instalaciones, maquinas y ensambladores&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-1.43&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-1.88; -0.99]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.20;     0.68]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Ocupaciones elementales&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.23&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-2.64; -1.82]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -0.30;     0.52]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Otros no identificados&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;11.32&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;82267.21&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[10.86; 11.78]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[82266.75; 82267.67]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;ciuo08Sin clasificación&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-2.07&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.13&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-3.34; -0.81]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[   -1.14;     1.39]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;est_conyugalSin pareja&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;-0.12&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;0.89&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[-0.24;  0.00]&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;[    0.77;     1.01]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-top: 1px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Deviance&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;25003.52&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;25003.52&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Dispersion&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.02&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;1.02&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style=&#34;border-bottom: 2px solid #000000;&#34;&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;Num. obs.&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;td style=&#34;padding-left: 5px;padding-right: 5px;&#34;&gt;26821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style=&#34;font-size: 0.8em;&#34; colspan=&#34;3&#34;&gt;$^{***}$ p &lt; 0.001; `\(^{**}\)` p &lt; 0.01; `\(^{*}\)` p &lt; 0.05 &lt;br&gt; Errores estándar entre paréntesis. &lt;br&gt; **Nota**: La significancia estadística de los coeficientes en unidades de Odds ratio está calculada en base a los valores `\(t\)`, &lt;br&gt; los cuales a su vez se calculan en base a `\(log(Odds)/SE\)`&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;b-gráficos&#34;&gt;b) Gráficos&lt;/h3&gt;
+&lt;p&gt;(Una vez más) tal como en el práctico anterior, utilizaremos la librería &lt;code&gt;sjPlot&lt;/code&gt; para graficar nuestros modelos. En particular, su función &lt;code&gt;plot_model()&lt;/code&gt; nos permitirá presentar los modelos de manera gráfica. Esta vez, no obstante, el output por defecto es en &lt;em&gt;Odds ratio&lt;/em&gt;. `&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot_model&lt;/span&gt;(modelo3, 
+                   show.p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T,
+                   show.values &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;  T,
+                   ci.lvl &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.95&lt;/span&gt;, 
+                   title &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Estimación de predictores&amp;#34;&lt;/span&gt;,
+                   vline.color &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;green&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/09-practico_files/figure-html/plot_model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;7-resumen&#34;&gt;7. Resumen&lt;/h2&gt;
+&lt;p&gt;En este práctico aprendimos a&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Crear &lt;strong&gt;modelos de regresión logística binomial&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Calcular tales modelos incorporando el diseño muestral&lt;/li&gt;
+&lt;li&gt;Representar gráficamente los modelos con tablas y gráficos&lt;/li&gt;
+&lt;li&gt;Personalizar tales tablas y gráficos&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;8-recursos&#34;&gt;8. Recursos&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34;&gt;texreg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/survey/survey.pdf&#34;&gt;survey&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;9-reporte-de-progreso&#34;&gt;9. Reporte de progreso&lt;/h1&gt;
+&lt;p&gt;¡Recuerda rellenar tu &lt;a href=&#34;&#34;&gt;reporte de progreso&lt;/a&gt;. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
+
+&lt;/div&gt;
+
+</description>
+    </item>
+    
+    <item>
       <title>Importar, explorar y limpiar datos</title>
       <link>/example/03-practico/</link>
       <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
