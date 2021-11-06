@@ -49,75 +49,6 @@
 &lt;p&gt;&lt;strong&gt;Tabla N°1&lt;/strong&gt; Estadísticos descriptivos de base de datos procesadas de MOVID-IMPACT&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;view&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;dfSummary&lt;/span&gt;(movid_proc, headings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Fuente: Elaboración propia en base a MOVID-IMPACT (n=909 casos)&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;Variable                               Etiqueta                                   Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;sexo\                                  Sexo                                       1. Hombre\                          481 (38.1%)\              IIIIIII \       &lt;br&gt;
-[factor]                                                                          2. Mujer                            780 (61.9%)               IIIIIIIIIIII&lt;/p&gt;
-&lt;p&gt;edad\                                  Edad                                       Media (d-s) : 48.8 (18.2)\           75 valores distintos      \               &lt;br&gt;
-[numeric]                                                                         min &amp;lt; mediana &amp;lt; max:\                                          \ \ : .\        &lt;br&gt;
-18 &amp;lt; 48 &amp;lt; 96\                                                  \ \ : : : : . .\&lt;br&gt;
-RI (CV) : 30 (0.4)                                             : : : : : : : .\&lt;br&gt;
-: : : : : : : :\&lt;br&gt;
-: : : : : : : : :&lt;/p&gt;
-&lt;p&gt;trabaja\                               Durante la semana pasada, Â¿trabajÃ³ al    1. Sí\                              612 (48.5%)\              IIIIIIIII \     &lt;br&gt;
-[factor]                               menos una hora, sin considerar los         2. No                               649 (51.5%)               IIIIIIIIII      &lt;br&gt;
-quehace&lt;/p&gt;
-&lt;p&gt;ingreso\                               Monto de ingreso total de su hogar el      Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \               &lt;br&gt;
-[numeric]                              mes de noviembre de 2020                   min &amp;lt; mediana &amp;lt; max:\                                          :\              &lt;br&gt;
-0 &amp;lt; 4e+05 &amp;lt; 1.2e+07\                                           :\              &lt;br&gt;
-RI (CV) : 450000 (1.2)                                         :\              &lt;br&gt;
-:\              &lt;br&gt;
-: .&lt;/p&gt;
-&lt;p&gt;tingreso\                              Tramo de ingreso total de su hogar el      1. Menos de $200 mil pesos\         47 (22.5%)\               IIII \          &lt;br&gt;
-[factor]                               mes de noviembre de 2020                   2. Entre $200 y 350 mil peso\       57 (27.3%)\               IIIII \         &lt;br&gt;
-3. Entre $351 y 500 mil peso\       38 (18.2%)\               III \           &lt;br&gt;
-4. Entre 501 y 800 mil pesos\       35 (16.7%)\               III \           &lt;br&gt;
-5. Entre 801 mil y 1 millón \       9 ( 4.3%)\                \               &lt;br&gt;
-6. Entre 1 millón 201 mil y \       15 ( 7.2%)\               I \             &lt;br&gt;
-7. Entre 2 millones y 5 mill\       8 ( 3.8%)\                \               &lt;br&gt;
-8. Más de 5 millones de peso\       0 ( 0.0%)\                \               &lt;br&gt;
-9. No sabe\                         0 ( 0.0%)\                \               &lt;br&gt;
-10. No responde                     0 ( 0.0%)&lt;/p&gt;
-&lt;p&gt;tamanohogar\                                                                      Media (d-s) : 2.8 (1.5)\             1 : 287 (23.0%)\          IIII \          &lt;br&gt;
-[integer]                                                                         min &amp;lt; mediana &amp;lt; max:\                2 : 321 (25.7%)\          IIIII \         &lt;br&gt;
-1 &amp;lt; 3 &amp;lt; 14\                          3 : 265 (21.2%)\          IIII \          &lt;br&gt;
-RI (CV) : 2 (0.5)                    4 : 222 (17.8%)\          III \           &lt;br&gt;
-5 :  98 ( 7.8%)\          I \             &lt;br&gt;
-6 :  38 ( 3.0%)\          \               &lt;br&gt;
-7 :  16 ( 1.3%)\          \               &lt;br&gt;
-10 :   1 ( 0.1%)\         \               &lt;br&gt;
-12 :   1 ( 0.1%)\         \               &lt;br&gt;
-14 :   1 ( 0.1%)&lt;/p&gt;
-&lt;p&gt;c2_1\                                  Ãšltimas 2 semanas: se ha sentido          1. Nunca\                           573 (45.7%)\              IIIIIIIII \     &lt;br&gt;
-[factor]                               nervioso, ansioso o con los nervios de     2. Varios días\                     389 (31.0%)\              IIIIII \        &lt;br&gt;
-punta                                      3. Más de la mitad de los dí\       91 ( 7.3%)\               I \             &lt;br&gt;
-4. Casi todos los días\             200 (16.0%)\              III \           &lt;br&gt;
-5. No sabe\                         0 ( 0.0%)\                \               &lt;br&gt;
-6. No responde                      0 ( 0.0%)&lt;/p&gt;
-&lt;p&gt;c2_2\                                  Ãšltimas 2 semanas: No ha podido dejar de  1. Nunca\                           629 (50.2%)\              IIIIIIIIII \    &lt;br&gt;
-[factor]                               preocuparse o no ha podido controlar su    2. Varios días\                     377 (30.1%)\              IIIIII \        &lt;br&gt;
-3. Más de la mitad de los dí\       101 ( 8.1%)\              I \             &lt;br&gt;
-4. Casi todos los días\             145 (11.6%)\              II \            &lt;br&gt;
-5. No sabe\                         0 ( 0.0%)\                \               &lt;br&gt;
-6. No responde                      0 ( 0.0%)&lt;/p&gt;
-&lt;p&gt;c2_3\                                  Ãšltimas 2 semanas: Se ha sentido          1. Nunca\                           529 (42.3%)\              IIIIIIII \      &lt;br&gt;
-[factor]                               bajoneado, deprimido, irritable o          2. Varios días\                     454 (36.3%)\              IIIIIII \       &lt;br&gt;
-desesperanzad                              3. Más de la mitad de los dí\       104 ( 8.3%)\              I \             &lt;br&gt;
-4. Casi todos los días\             165 (13.2%)\              II \            &lt;br&gt;
-5. No sabe\                         0 ( 0.0%)\                \               &lt;br&gt;
-6. No responde                      0 ( 0.0%)&lt;/p&gt;
-&lt;p&gt;c2_4\                                  Ãšltimas 2 semanas: Ha sentido poco        1. Nunca\                           679 (54.1%)\              IIIIIIIIII \    &lt;br&gt;
-[factor]                               interÃ©s o placer al hacer las cosas       2. Varios días\                     358 (28.5%)\              IIIII \         &lt;br&gt;
-3. Más de la mitad de los dí\       89 ( 7.1%)\               I \             &lt;br&gt;
-4. Casi todos los días\             128 (10.2%)\              II \            &lt;br&gt;
-5. No sabe\                         0 ( 0.0%)\                \               &lt;br&gt;
-6. No responde                      0 ( 0.0%)&lt;/p&gt;
-&lt;h2 id=&#34;5---63--51-----------i&#34;&gt;fatiga\                                Me siento cada vez mÃ¡s desmotivado para   Media (d-s) : 2.8 (1.1)\             1 :  84 ( 6.8%)\          I \             &lt;br&gt;
-[haven_labelled, vctrs_vctr, double]   seguir las medidas de protecciÃ³n&amp;hellip;       min &amp;lt; mediana &amp;lt; max:\                2 : 588 (47.3%)\          IIIIIIIII \     &lt;br&gt;
-1 &amp;lt; 2 &amp;lt; 5\                           3 :  76 ( 6.1%)\          I \             &lt;br&gt;
-RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \        &lt;br&gt;
-5 :  63 ( 5.1%)           I&lt;/h2&gt;
 &lt;h1 id=&#34;3-introducción&#34;&gt;3. Introducción&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;2. Ajuste&lt;/strong&gt; (&lt;em&gt;post-hoc&lt;/em&gt;): implica abordar qué tan bien ajustan nuestros modelos con los datos utilizados. La &lt;em&gt;bondad de ajuste&lt;/em&gt; implica que si trabajamos con una&lt;/p&gt;
 &lt;ul&gt;
@@ -307,7 +238,7 @@ RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \        &
 &lt;p&gt;Para la regresión lineal múltiple, un supuesto importante es que existe una &lt;strong&gt;relación lineal entre la variable dependiente e independiente&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Podemos saber si se cumple este supuesto a partir de un &lt;em&gt;gráfico de dispersión de datos&lt;/em&gt;, que relacione la variable dependiente y la independiente, y verificar de manera &amp;ldquo;intuitiva&amp;rdquo; si la &lt;strong&gt;tendencia&lt;/strong&gt; de esta relación se puede describir por una &lt;strong&gt;línea recta&lt;/strong&gt;. El paquete &lt;code&gt;performace&lt;/code&gt; nos permite hacer esto con su función &lt;code&gt;check_model&lt;/code&gt; indicando en el argumento &lt;code&gt;check = &amp;quot;ncv&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_model&lt;/span&gt;(model1, check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ncv&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;linearity&amp;#34;&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;En este caso podemos notar claramente que no hay una relación lineal. En caso de que no sea claro, una forma numérica para chequear este supuesto es que el valor promedio de los residuos sea cero. Si esto no es así los residuos están sesgados sistemáticamente, entonces probable que el modelo no sea realmente lineal, y esta desviación de los residuos deba corregirse re-especificando (medir de otra manera la variable) algún término de la ecuación de regresión al cuadrado o al cubo. Un modo que se ocupa para testear la necesidad de esta re-especificación es el test RESET de Ramsey que indica que:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;\(H_o\)&lt;/code&gt; cuando el modelo tiene algún término al cuadrado o cubo, la media de los residuos es cero. Es decir, que si no podemos rechazar &lt;code&gt;\(H_0\)&lt;/code&gt;, nuestro modelo está bien especificado (es decir, es lineal). Como en este caso es claro que se necesita respecificar el predictor elevamos edad al cuadrado. Imaginemos que es el caso&lt;/p&gt;
 &lt;p&gt;✔️ La línea de referencia es plana y horizontal&lt;/p&gt;
@@ -332,7 +263,7 @@ RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \        &
 &lt;p&gt;Evidentemente si los residuos no siguen una distribución normal, es probable que estos no sean independientes entre sí. Esto significa que buscaremos que los errores asociados a nuestro modelo de regresión sean &lt;strong&gt;independientes&lt;/strong&gt;. Para saber si se cumple ese criterio se utiliza la prueba de &lt;em&gt;Durbin-Watson&lt;/em&gt;, donde la &lt;code&gt;\(H_0\)&lt;/code&gt; supone que &lt;strong&gt;los residuos son independientes&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A partir de la función &lt;code&gt;check_autocorrelation&lt;/code&gt; utilizaremos la prueba &lt;em&gt;Durbin-Watson&lt;/em&gt; para ver qué ocurre con la hipótesis nula a&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_autocorrelation&lt;/span&gt;(model1)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Warning: Autocorrelated residuals detected (p = 0.020).&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Warning: Autocorrelated residuals detected (p = 0.008).&lt;/p&gt;
 &lt;p&gt;⚠️ Hay correlación entre los residuos&lt;/p&gt;
 &lt;p&gt;En síntesis sabemos la regresión lineal requiere de una relación lineal entre sus variables independientes y dependiente. Para ello no solo es importante chequear la distribución de los residuos, sino
 dos posibilidades que pueden &lt;em&gt;tendenciar&lt;/em&gt; esa relación lineal: como casos influyentes en la muestra y predictores que están altamente relacionados. Revisaremos la última de estas&lt;/p&gt;
@@ -343,7 +274,7 @@ dos posibilidades que pueden &lt;em&gt;tendenciar&lt;/em&gt; esa relación linea
 &lt;p&gt;Esta relación &lt;strong&gt;endógena&lt;/strong&gt; entre predictores la podemos examinar ante la existencia de altas correlaciones (&lt;em&gt;lineales&lt;/em&gt;) entre variables. La aproximación numérica más utilizada es el &lt;strong&gt;VIF&lt;/strong&gt; (factor de inflación de varianza) que indica hasta que punto la varianza de los coeficientes de regresión se debe a la colinealidad (o dependencia) entre otras variables del modelo.&lt;/p&gt;
 &lt;p&gt;Para evaluar esto ocuparemos el comando &lt;code&gt;check_collinearity()&lt;/code&gt;. Como podemos ver en el gráfico, todos los valores son menores a 5 (&lt;em&gt;como recomienda el paquete&lt;/em&gt;).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;check_collinearity&lt;/span&gt;(model1))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Ahora bien, dado que sabemos que las correlaciones en ciencias sociales nunca son tan altas, un criterio que se ocupa en nuestras disciplinas para evaluar &lt;em&gt;multicolinealidad&lt;/em&gt; es es evitar valores del VIF mayores a 2.5.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_collinearity&lt;/span&gt;(model1)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;check-for-multicollinearity&#34;&gt;Check for Multicollinearity&lt;/h1&gt;
@@ -364,7 +295,7 @@ ingreso 1.00         1.00      1.00&lt;/p&gt;
 &lt;p&gt;Para verificar si un &amp;ldquo;caso es &lt;em&gt;influyente&lt;/em&gt;&amp;rdquo; examinaremos si la ausencia o presencia de ese caso genera un cambio importante en la estimación del modelo de regresión. Este enfoque se aborda a partir del cálculo de la &lt;strong&gt;Distancia de Cook&lt;/strong&gt; (Cook,1977)&lt;/p&gt;
 &lt;p&gt;Primero podemos graficar la influencia de los casos con &lt;code&gt;check_outliers()&lt;/code&gt; dentro de un &lt;code&gt;plot()&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;check_outliers&lt;/span&gt;(model1))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Luego para verificar si la ausencia o presencia de eliminar algunos de estos casos que presentan mayor distancia producen una &lt;strong&gt;diferencia&lt;/strong&gt; significativa en la estimación del modelo, realizamos&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_outliers&lt;/span&gt;(model1)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;OK: No outliers detected.&lt;/p&gt;
@@ -464,27 +395,8 @@ ingreso 1.00         1.00      1.00&lt;/p&gt;
 &lt;h4 id=&#34;4221-recuperar-casos-perdidos&#34;&gt;4.2.2.1 Recuperar casos perdidos&lt;/h4&gt;
 &lt;p&gt;¡Pero antes! Es común que en las encuestas sociales cierta variables posean una alta proporción de datos perdidos. Un ejemplo común es en el reporte de los ingresos de los hogares o individuos. Esto generalmente puede generarse por características de la persona (eg. desempleado, estudiante) o por deseabilidad social (eg. personas de altos ingresos desisten de reportar). Por lo general, existen dos estrategias para solicitar que las personas reporten sus ingresos: (1) reporte directo del monto y (2) si la persona no reporta los ingresos, se le presenta la posibilidad de ubicar los ingresos del hogar en tramos.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;movid_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(ingreso, tingreso) &lt;span style=&#34;color:#f92672&#34;&gt;%$%&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;dfSummary&lt;/span&gt;(., headings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;render&amp;#34;&lt;/span&gt;, varnumbers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, lang &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;es&amp;#34;&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;p&gt;Variable    Etiqueta                                Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;ingreso\    Monto de ingreso total de su hogar el   Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \          942\      319\   &lt;br&gt;
-[numeric]   mes de noviembre de 2020                min &amp;lt; mediana &amp;lt; max:\                                          :\         (74.7%)   (25.3%)&lt;br&gt;
-0 &amp;lt; 4e+05 &amp;lt; 1.2e+07\                                           :\                          &lt;br&gt;
-RI (CV) : 450000 (1.2)                                         :\                          &lt;br&gt;
-:\                          &lt;br&gt;
-: .&lt;/p&gt;
-&lt;h2 id=&#34;10-no-responde---------------------0--00&#34;&gt;tingreso\   Tramo de ingreso total de su hogar el   1. Menos de $200 mil pesos\         47 (22.5%)\               IIII \     209\      1052\  &lt;br&gt;
-[factor]    mes de noviembre de 2020                2. Entre $200 y 350 mil peso\       57 (27.3%)\               IIIII \    (16.6%)   (83.4%)&lt;br&gt;
-3. Entre $351 y 500 mil peso\       38 (18.2%)\               III \                       &lt;br&gt;
-4. Entre 501 y 800 mil pesos\       35 (16.7%)\               III \                       &lt;br&gt;
-5. Entre 801 mil y 1 millón \       9 ( 4.3%)\                \                           &lt;br&gt;
-6. Entre 1 millón 201 mil y \       15 ( 7.2%)\               I \                         &lt;br&gt;
-7. Entre 2 millones y 5 mill\       8 ( 3.8%)\                \                           &lt;br&gt;
-8. Más de 5 millones de peso\       0 ( 0.0%)\                \                           &lt;br&gt;
-9. No sabe\                         0 ( 0.0%)\                \                           &lt;br&gt;
-10. No responde                     0 ( 0.0%)&lt;/h2&gt;
-&lt;p&gt;Si observamos la tabla de descriptivos para la variable ingreso del hogar (&lt;code&gt;ingreso&lt;/code&gt;), tenemos un porcentaje 25,3% de datos perdidos. Por esta razón, emplearemos los datos disponibles en &lt;code&gt;tingreso&lt;/code&gt; para recuperar información en los ingresos del hogar.&lt;/p&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;dfSummary&lt;/span&gt;(., headings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;render&amp;#34;&lt;/span&gt;, varnumbers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, lang &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;es&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Si observamos la tabla de descriptivos para la variable ingreso del hogar (&lt;code&gt;ingreso&lt;/code&gt;), tenemos un porcentaje 25,3% de datos perdidos. Por esta razón, emplearemos los datos disponibles en &lt;code&gt;tingreso&lt;/code&gt; para recuperar información en los ingresos del hogar.&lt;/p&gt;
 &lt;p&gt;La estrategia posee los siguientes pasos:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Paso 1:&lt;/strong&gt; Calcular la media por cada tramo&lt;/li&gt;
@@ -504,24 +416,8 @@ RI (CV) : 450000 (1.2)                                         :\               
 &lt;li&gt;&lt;strong&gt;Paso 3:&lt;/strong&gt; Comparar el resultado de los tramos&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;movid_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(ingreso, tingreso) &lt;span style=&#34;color:#f92672&#34;&gt;%$%&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;dfSummary&lt;/span&gt;(., headings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;render&amp;#34;&lt;/span&gt;, varnumbers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, lang &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;es&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;#Paso 3&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;p&gt;Variable    Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;ingreso\    Media (d-s) : 664667.4 (811775.8)\   155 valores distintos     \          1151\     110\   &lt;br&gt;
-[numeric]   min &amp;lt; mediana &amp;lt; max:\                                          :\         (91.3%)   (8.7%) &lt;br&gt;
-0 &amp;lt; 4e+05 &amp;lt; 1.2e+07\                                           :\                          &lt;br&gt;
-RI (CV) : 450000 (1.2)                                         :\                          &lt;br&gt;
-:\                          &lt;br&gt;
-: .&lt;/p&gt;
-&lt;h2 id=&#34;3500000---8--38&#34;&gt;tingreso\   Media (d-s) : 598198.6 (688242.3)\   200000 : 47 (22.5%)\      IIII \     209\      1052\  &lt;br&gt;
-[numeric]   min &amp;lt; mediana &amp;lt; max:\                275000 : 57 (27.3%)\      IIIII \    (16.6%)   (83.4%)&lt;br&gt;
-2e+05 &amp;lt; 425500 &amp;lt; 3500000\            425500 : 38 (18.2%)\      III \                       &lt;br&gt;
-RI (CV) : 375500 (1.2)               650500 : 35 (16.7%)\      III \                       &lt;br&gt;
-1000500 :  9 ( 4.3%)\     \                           &lt;br&gt;
-1600500 : 15 ( 7.2%)\     I \                         &lt;br&gt;
-3500000 :  8 ( 3.8%)&lt;/h2&gt;
-&lt;p&gt;Vemos que pasamos de tener 25,3% de datos perdidos en ingresos a un 8,72% (es decir, recuperamos un 16,58% de los casos). A ingresos se le pueden hacer tres transformaciones más&lt;/p&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;dfSummary&lt;/span&gt;(., headings &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;FALSE&lt;/span&gt;, method &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;render&amp;#34;&lt;/span&gt;, varnumbers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, lang &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;es&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#Paso 3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Vemos que pasamos de tener 25,3% de datos perdidos en ingresos a un 8,72% (es decir, recuperamos un 16,58% de los casos). A ingresos se le pueden hacer tres transformaciones más&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. Logaritmizar&lt;/strong&gt;: en caso de que queramos seguir trabajando ingresos como una variable continua es una buena opción.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2. Calcular el ingreso per cápita&lt;/strong&gt;: si dividimos el ingreso por el tamaño del hogar (n° de habitantes en este), obtendremos el ingreso por persona.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;3. Cálculo de medidas de posición acumulada&lt;/strong&gt;: con los ingresos per cápita se puede calcular la media o mediana de medidas de posición acumulada como quitiles&lt;/p&gt;
@@ -624,11 +520,11 @@ model3 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span
              data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; movid_proc)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Luego, podemos hacer un chequeo general de diagnósticos de robustez con &lt;code&gt;check_model&lt;/code&gt;, pero ahora indicando que queremos evaluar todos los indicadores posibles&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_model&lt;/span&gt;(model1_fit, check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vif&amp;#34;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;normality&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;linearity&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ncv&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;homogeneity&amp;#34;&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-29-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-28-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_model&lt;/span&gt;(model2, check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vif&amp;#34;&lt;/span&gt;,  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;normality&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;linearity&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ncv&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;homogeneity&amp;#34;&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-29-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-28-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;check_model&lt;/span&gt;(model3, check &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vif&amp;#34;&lt;/span&gt;,  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;homogeneity&amp;#34;&lt;/span&gt;))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-29-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-28-3.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Existen otros diagnósticos posibles para abordar en nuestros modelos, todo con el propósito de mejorar la calidad de estos. Uno de ellos, y que no abordaremos por su extensión, es la ausencia de
 posibles &lt;strong&gt;interacciones&lt;/strong&gt; entre las variables que no han sido modeladas (Fox &amp;amp; Weisberg 2018). En caso de su interés pueden revisar esto y ver su &lt;a href=&#34;https://strengejacke.github.io/ggeffects/articles/introduction_partial_residuals.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aplicación simple en R en el siguiente link.&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;43-comparación&#34;&gt;4.3. Comparación&lt;/h2&gt;
@@ -973,7 +869,7 @@ posibles &lt;strong&gt;interacciones&lt;/strong&gt; entre las variables que no h
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;plot&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;compare_performance&lt;/span&gt;(model1_fit, model2))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-31-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;/example/10-practico_files/figure-html/unnamed-chunk-30-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Ahora bien, esto no quita que, considerando que el ajuste entre el &lt;code&gt;model1_fit&lt;/code&gt; y el &lt;code&gt;modelo2&lt;/code&gt; no cambia sustantivamente, consideremos en seleccionar el &lt;code&gt;modelo3&lt;/code&gt; por criterios más sustantivos. Podemos asegurarnos de esta comparación entre el modelo1 y modelo2 con un test que permite facilitar la decisión sobre la significancia de los índices que estamos viendo&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test_performance&lt;/span&gt;(model1_fit, model2) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#a6e22e&#34;&gt;print_md&lt;/span&gt;()
@@ -21367,12 +21263,7 @@ TRUE ~ NA_real)&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;0.10&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0.12&lt;/span&gt; ) [&lt;span style=&#34;color:#a6e22e&#34;&gt;CRAN&lt;/span&gt;]
 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;4.3&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4.3.2&lt;/span&gt;) [&lt;span style=&#34;color:#a6e22e&#34;&gt;CRAN&lt;/span&gt;]
 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cannot&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prior&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installation&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mime&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
-## \Program Files\R\R-4.0.4\library\00LOCK\mime\libs\x64\mime.dll a C:\Program
-## Files\R\R-4.0.4\library\mime\libs\x64\mime.dll: Permission denied
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning: restored &amp;#39;mime&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cannot&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prior&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installation&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;curl&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
 ## \Program Files\R\R-4.0.4\library\00LOCK\curl\libs\x64\curl.dll a C:\Program
@@ -21380,18 +21271,20 @@ TRUE ~ NA_real)&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning: restored &amp;#39;curl&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
 ## The downloaded binary packages are in
-## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\downloaded_packages
+## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\downloaded_packages
 ##   
   
   
-   checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION&amp;#39; ...
+   checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION&amp;#39; ...
   
-v  checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION&amp;#39;
+   checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION&amp;#39; ... 
+  
+v  checking for file &amp;#39;C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION&amp;#39; (392ms)
 ## 
   
   
   
--  preparing &amp;#39;texreg&amp;#39;: (665ms)
+-  preparing &amp;#39;texreg&amp;#39;: (2.1s)
 ##    checking DESCRIPTION meta-information ...
   
    checking DESCRIPTION meta-information ... 
@@ -21401,7 +21294,7 @@ v  checking DESCRIPTION meta-information
   
   
   
--  checking for LF line-endings in source and make files and shell scripts
+-  checking for LF line-endings in source and make files and shell scripts (836ms)
 ## 
   
   
