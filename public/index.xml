@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Course materials</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 25 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png</url>
       <title>Course materials</title>
@@ -894,6 +894,137 @@ los pasos a seguir&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://github.com/learn-R/taller-zotero/raw/main/input/img/flujo-zotero.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h1 id=&#34;4-video-tutorial-en-youtube&#34;&gt;4. Video tutorial en Youtube&lt;/h1&gt;
 &lt;p&gt;Recuerden que el &lt;a href=&#34;https://youtu.be/w-qGJH2uswk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;video de asociado a este tutorial&lt;/a&gt; y muchos más podrán encontrarlos en el &lt;a href=&#34;https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;canal de youtube del curso&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Examen. Proyecto de investigación final</title>
+      <link>/assignment/examen/</link>
+      <pubDate>Mon, 08 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>/assignment/examen/</guid>
+      <description>&lt;h1 id=&#34;descripción-general&#34;&gt;Descripción general&lt;/h1&gt;
+&lt;p&gt;El &lt;strong&gt;Proyecto de investigación final&lt;/strong&gt; es la instancia de evaluación &lt;strong&gt;final e individual&lt;/strong&gt; del curso de Análisis de Datos en R. Su objetivo es &lt;em&gt;evaluar los conocimientos y aprendizajes obtenidos en el curso de manera integra&lt;/em&gt;. Para ello deberán elaborar una investigación simple cuyo centro no está en el contenido de la misma, sino en que sean capaces de mostrar sus habilidades para poder desarrollar sus proyectos de &lt;em&gt;análisis de datos&lt;/em&gt; utilizando &lt;strong&gt;R&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;datos&#34;&gt;Datos&lt;/h2&gt;
+&lt;p&gt;Para ello pueden elegir uno de los siguientes datos (aquellos que tienen un asterisco pueden ser escogidos por dos estudiantes)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Instituciones y organizaciones gubernamentales&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Encuesta de Presupuestos Familiares&lt;/li&gt;
+&lt;li&gt;Encuesta Suplementaria de Ingresos&lt;/li&gt;
+&lt;li&gt;ICMO-IR&lt;/li&gt;
+&lt;li&gt;Encuesta Caracterización Laboral (ENCLA) *&lt;/li&gt;
+&lt;li&gt;Encuesta Nacional de Empleo&lt;/li&gt;
+&lt;li&gt;Encuesta Bienestar Social *&lt;/li&gt;
+&lt;li&gt;Encuesta Nacional de Salud&lt;/li&gt;
+&lt;li&gt;Encuesta Financiera de Hogares&lt;/li&gt;
+&lt;li&gt;ENUSC&lt;/li&gt;
+&lt;li&gt;IV Encuesta de Violencia contra la Mujer en el Ámbito de Violencia Intrafamiliar y en Otros Espacios (ENVIF-VCM)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Instituciones y organizaciones académicas&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ELSOC *&lt;/li&gt;
+&lt;li&gt;OHL *&lt;/li&gt;
+&lt;li&gt;Observatorio Conflictos&lt;/li&gt;
+&lt;li&gt;Termómetro Social&lt;/li&gt;
+&lt;li&gt;Latinobarómetro&lt;/li&gt;
+&lt;li&gt;MOVID-IMPACT  *&lt;/li&gt;
+&lt;li&gt;CEP (2019)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Una vez definidos sus datos, pueden inscribirse con estos hasta el viernes 12 de noviembre en el &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1o_zXJVkQ9C7odalXsREdU2-pT8H5ETN0oKrBplQtJrk/edit?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;siguiente link&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;análisis&#34;&gt;Análisis&lt;/h2&gt;
+&lt;p&gt;Deben construir un reporte donde analicen algún fenómeno que consideraran de interés y que puede ser abordado desde los datos que seleccionaron. Este reporte debe ser reproducible y coherente con el fenómeno que analizaran. Ahora bien, el centro no será evaluar su manejo en el tema, sino que su capacidad de poder presentar un análisis de datos de un fenómeno de interés utilizando herramientas básicas de R.&lt;/p&gt;
+&lt;h1 id=&#34;descripción-específica&#34;&gt;Descripción específica&lt;/h1&gt;
+&lt;p&gt;En este apartado encontrarán algunas de las instrucciones para su investigación.&lt;/p&gt;
+&lt;h2 id=&#34;procesamiento-r&#34;&gt;Procesamiento (.R)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;La base final debe contener al menos 5 variables finales&lt;/li&gt;
+&lt;li&gt;Las variables finales deben estar transformadas debidamente, incluyendo los casos perdidos.&lt;/li&gt;
+&lt;li&gt;Poner atención a filtrar observaciones según el fenómeno que están analizando (si trabajarán con un subset o con toda la data)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;análisis-rmd&#34;&gt;Análisis (.Rmd)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Estructura: Título, Abstract (100-150 palabras), Introducción (200-250 palabras), Análisis (300-500 palabras), Conclusión (150-200 palabras) y Referencias. Debe indicar su nombre, profesora y ayudantes&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;El centro está en que al leer este breve resumen de investigación, a la docente le quede claro que tipo de transformaciones deberían haber hecho a los datos, junto con qué análisis debieron reportar. Por ejemplo, si su investigación trata sobre el &lt;em&gt;&amp;ldquo;Impacto de la educación sobre los salarios&lt;/em&gt; no tiene sentido que elijan unos datos que no tiene la variable educación y salarios, que ocupen la educación como una variable continua si sus hipótesis implica comparar grupos y/o que hagan un análisis descriptivo.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Deben escoger si hacer un análisis&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Poblacional (incluyendo elementos de la inferencia estadística)&lt;/li&gt;
+&lt;li&gt;Regresión lineal o logística&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para reportar estos análisis deben hacer al menos &lt;strong&gt;2 tablas y 2 gráficos.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Los análisis deben ocupar de alguna forma al menos las 5 variables procesadas.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;No siempre las utilizarán para hacer una regresión, quizás les sirve alguna de ellas para filtrar algún grupo y comparar regresiones.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;El archivo debe ser compilado a formato html o pdf.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;proyecto&#34;&gt;Proyecto&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;&#34;&gt;Deben crear un repositorio en el link de GitHub Class Room que se habilitará el día viernes 12 de noviembre&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Deben hacer un README.md explicando aspectos generales del repositorio&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;criterios-de-evaluación&#34;&gt;Criterios de evaluación&lt;/h1&gt;
+&lt;h2 id=&#34;condiciones-de-suficiencia&#34;&gt;Condiciones de suficiencia&lt;/h2&gt;
+&lt;p&gt;En este apartado se indican aquellas condiciones que *en caso de &lt;strong&gt;no cumplirse&lt;/strong&gt; se considerará todo el resto del &lt;strong&gt;examen no válido&lt;/strong&gt;. Esto permite corroborar aspectos básicos del curso por lo que se consideran como suficientes para aprobar este. Además, permiten verificar que efectivamente hicieron el proyecto.&lt;/p&gt;
+&lt;p&gt;En caso de caer en alguna de las condiciones de suficiencia serán evaluados con la nota mínima (&lt;em&gt;1,0&lt;/em&gt;). El examen solo puede ser entregado hasta la fecha estipulada.&lt;/p&gt;
+&lt;h3 id=&#34;proyecto-en-general&#34;&gt;Proyecto en general&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Existe un &lt;em&gt;Rproject&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Se identifica un flujo de trabajo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;procesamiento&#34;&gt;Procesamiento&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Presenta un código de proceso que se puede ejecutar integramente (no presenta problemas para llegar al resultado final de la base procesada).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La base original y final son distintas, es decir, que al menos se haya hecho un procesamiento en términos de &lt;strong&gt;selección&lt;/strong&gt; y &lt;strong&gt;transformación de variables&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;análisis-1&#34;&gt;Análisis&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Existencia de un RMarkdown que haga uso de los datos procesados en el procesamiento.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Las imágenes y tablas deben ser creadas en este archivo. Si se necesitan cargar referencias a imágenes externas estas deben estar contenidas dentro de alguna de las carpetas del flujo de trabajo&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;criterios-de-evaluación-generales&#34;&gt;Criterios de evaluación generales&lt;/h2&gt;
+&lt;p&gt;Además de los criterios de suficiencia tome nota de los siguientes puntos&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Existencia de flujo de trabajo&lt;/li&gt;
+&lt;li&gt;README.md permite presentar sus trabajos debidamente (debe contener sus nombres, profesora y ayudantes)&lt;/li&gt;
+&lt;li&gt;Código de R y .Rmd sigue orden lógico y presentado en el curso&lt;/li&gt;
+&lt;li&gt;Utiliza paquetes vistos en el curso. En caso de ocupar adicionales deben ser justificados en el README.md&lt;/li&gt;
+&lt;li&gt;Cumplir límite de palabras&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;criterios-adicionales&#34;&gt;Criterios adicionales&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Colaborar ayudando a compañeros/as por el canal #examen&lt;/li&gt;
+&lt;li&gt;Código ordenado y debidamente comentado&lt;/li&gt;
+&lt;li&gt;Repositorio ordenado y debidamente documentado en README.md&lt;/li&gt;
+&lt;li&gt;Archivo de .RMD a html o pdf tiene un tema especial&lt;/li&gt;
+&lt;li&gt;Realiza análisis para algún otro ramo, tesis o práctica (debe indicarlo en el README.md)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;otros&#34;&gt;Otros&lt;/h1&gt;
+&lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;No olvide revisar los recursos de la clase (prácticos, complementarios, talleres), pueden serles útil en esta etapa (sobre todo las primeras clases cuando les indicamos la importancia de la autonomía buscando soluciones)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/example/&#34;&gt;Prácticos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/install/&#34;&gt;Tutoriales&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-datatypes/&#34;&gt;Material complementario y talleres&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;horarios-de-consulta-y-trabajo-conjunto-pronto&#34;&gt;Horarios de consulta y trabajo conjunto (pronto)&lt;/h2&gt;
+&lt;p&gt;Dado que queda mucho para la entrega del examen y la idea es apoyarlas/os en este proceso, existirán horarios de consulta colectivos y de trabajo. No se darán reuniones particulares, solo en casos excepcionales&lt;/p&gt;
 </description>
     </item>
     
