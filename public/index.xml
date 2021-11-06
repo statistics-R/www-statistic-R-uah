@@ -929,6 +929,7 @@ los pasos a seguir&lt;/p&gt;
 &lt;li&gt;MOVID-IMPACT  *&lt;/li&gt;
 &lt;li&gt;CEP (2019)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Para todas las encuestas &lt;strong&gt;deben elegir la última versión disponible&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Una vez definidos sus datos, pueden inscribirse con estos hasta el viernes 12 de noviembre en el &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1o_zXJVkQ9C7odalXsREdU2-pT8H5ETN0oKrBplQtJrk/edit?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;siguiente link&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;análisis&#34;&gt;Análisis&lt;/h2&gt;
 &lt;p&gt;Deben construir un reporte donde analicen algún fenómeno que consideraran de interés y que puede ser abordado desde los datos que seleccionaron. Este reporte debe ser reproducible y coherente con el fenómeno que analizaran. Ahora bien, el centro no será evaluar su manejo en el tema, sino que su capacidad de poder presentar un análisis de datos de un fenómeno de interés utilizando herramientas básicas de R.&lt;/p&gt;
@@ -1005,13 +1006,14 @@ los pasos a seguir&lt;/p&gt;
 &lt;li&gt;Utiliza paquetes vistos en el curso. En caso de ocupar adicionales deben ser justificados en el README.md&lt;/li&gt;
 &lt;li&gt;Cumplir límite de palabras&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;criterios-adicionales&#34;&gt;Criterios adicionales&lt;/h2&gt;
+&lt;h2 id=&#34;criterios-adicionales-01-décimas-por-cada-uno&#34;&gt;Criterios adicionales (0,1 décimas por cada uno)&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;Colaborar ayudando a compañeros/as por el canal #examen&lt;/li&gt;
 &lt;li&gt;Código ordenado y debidamente comentado&lt;/li&gt;
 &lt;li&gt;Repositorio ordenado y debidamente documentado en README.md&lt;/li&gt;
 &lt;li&gt;Archivo de .RMD a html o pdf tiene un tema especial&lt;/li&gt;
 &lt;li&gt;Realiza análisis para algún otro ramo, tesis o práctica (debe indicarlo en el README.md)&lt;/li&gt;
+&lt;li&gt;Hace fork a su examen final y lo deja en su repositorio final&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id=&#34;otros&#34;&gt;Otros&lt;/h1&gt;
 &lt;h2 id=&#34;recursos&#34;&gt;Recursos&lt;/h2&gt;
@@ -1025,6 +1027,7 @@ los pasos a seguir&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;horarios-de-consulta-y-trabajo-conjunto-pronto&#34;&gt;Horarios de consulta y trabajo conjunto (pronto)&lt;/h2&gt;
 &lt;p&gt;Dado que queda mucho para la entrega del examen y la idea es apoyarlas/os en este proceso, existirán horarios de consulta colectivos y de trabajo. No se darán reuniones particulares, solo en casos excepcionales&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Los repositorios de esta evaluación final quedarán disponibles para el futuro&lt;/strong&gt;&lt;/p&gt;
 </description>
     </item>
     

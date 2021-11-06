@@ -43,6 +43,8 @@ Para ello pueden elegir uno de los siguientes datos (aquellos que tienen un aste
 - MOVID-IMPACT  *
 - CEP (2019)
 
+Para todas las encuestas **deben elegir la última versión disponible**
+
 Una vez definidos sus datos, pueden inscribirse con estos hasta el viernes 12 de noviembre en el [siguiente link](https://docs.google.com/spreadsheets/d/1o_zXJVkQ9C7odalXsREdU2-pT8H5ETN0oKrBplQtJrk/edit?usp=sharing)
 
 ## Análisis
@@ -117,14 +119,14 @@ Además de los criterios de suficiencia tome nota de los siguientes puntos
 4. Utiliza paquetes vistos en el curso. En caso de ocupar adicionales deben ser justificados en el README.md
 5. Cumplir límite de palabras
 
-## Criterios adicionales
+## Criterios adicionales (0,1 décimas por cada uno)
 
 1. Colaborar ayudando a compañeros/as por el canal #examen
 2. Código ordenado y debidamente comentado
 3. Repositorio ordenado y debidamente documentado en README.md
 4. Archivo de .RMD a html o pdf tiene un tema especial
 5. Realiza análisis para algún otro ramo, tesis o práctica (debe indicarlo en el README.md)
-
+6. Hace fork a su examen final y lo deja en su repositorio final
 
 # Otros
 
@@ -141,3 +143,5 @@ Además de los criterios de suficiencia tome nota de los siguientes puntos
 
 Dado que queda mucho para la entrega del examen y la idea es apoyarlas/os en este proceso, existirán horarios de consulta colectivos y de trabajo. No se darán reuniones particulares, solo en casos excepcionales
 
+
+**Los repositorios de esta evaluación final quedarán disponibles para el futuro**
