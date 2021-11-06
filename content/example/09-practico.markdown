@@ -1,6 +1,6 @@
 ---
 title: "Regresión logística"
-linktitle: "09: Regresión logística"
+linktitle: "9: Regresión logística"
 date: "2021-08-24"
 menu:
   example:
@@ -59,23 +59,6 @@ remotes::install_github("leifeld/texreg", force = T)
 ## mime (0.10 -> 0.12 ) [CRAN]
 ## curl (4.3  -> 4.3.2) [CRAN]
 ## package 'mime' successfully unpacked and MD5 sums checked
-```
-
-```
-## Warning: cannot remove prior installation of package 'mime'
-```
-
-```
-## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
-## \Program Files\R\R-4.0.4\library\00LOCK\mime\libs\x64\mime.dll a C:\Program
-## Files\R\R-4.0.4\library\mime\libs\x64\mime.dll: Permission denied
-```
-
-```
-## Warning: restored 'mime'
-```
-
-```
 ## package 'curl' successfully unpacked and MD5 sums checked
 ```
 
@@ -96,18 +79,20 @@ remotes::install_github("leifeld/texreg", force = T)
 ```
 ## 
 ## The downloaded binary packages are in
-## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\downloaded_packages
+## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\downloaded_packages
 ##   
   
   
-   checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION' ...
+   checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' ...
   
-v  checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpEZuHX4\remotes35d056ef63f\leifeld-texreg-92e3931/DESCRIPTION'
+   checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' ... 
+  
+v  checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' (392ms)
 ## 
   
   
   
--  preparing 'texreg': (665ms)
+-  preparing 'texreg': (2.1s)
 ##    checking DESCRIPTION meta-information ...
   
    checking DESCRIPTION meta-information ... 
@@ -117,7 +102,7 @@ v  checking DESCRIPTION meta-information
   
   
   
--  checking for LF line-endings in source and make files and shell scripts
+-  checking for LF line-endings in source and make files and shell scripts (836ms)
 ## 
   
   
