@@ -19,7 +19,7 @@ Sys.setlocale("LC_ALL", "ES_ES.UTF-8")
 options(knitr.kable.NA = '')
 summarytools::st_css(bootstrap =  T)
 summarytools::st_options(plain.ascii = F, style = "rmarkdown", footnote = NA, subtitle.emphasis = F, lang = "es")
-#remotes::install_github("haozhu233/kableExtra", ref="a6af5c0")
+remotes::install_github("haozhu233/kableExtra", ref="a6af5c0")
 ```
 
 
@@ -73,11 +73,13 @@ Los datos utilizados tienen `r format(nrow(movid_proc))` observaciones y `r form
 
 **Tabla N°1** Estadísticos descriptivos de base de datos procesadas de MOVID-IMPACT
 ```{r eval=FALSE}
-view(dfSummary(movid_proc, headings = FALSE))
+view(dfSummary(movid_proc, headings = FALSE, method = "render"))
 ```
 Fuente: Elaboración propia en base a MOVID-IMPACT (n=909 casos)
 
-
+```{r echo=FALSE, results = 'asis'}
+print(dfSummary(movid_proc, headings = FALSE, method = "render", na.col = F, valid.col = F, varnumbers = F, lang = "es"))
+```
 
 # 3. Introducción
 
@@ -232,7 +234,7 @@ check_outliers(model1)
 
 ## 4.2 Ajuste del modelo{#fit}
 
-Sabemos por la [práctica 5](https://multivariada.netlify.app/assignment/05-code/) que podemos evaluar qué tan bien ajustan nuestros modelos con los datos utilizados. Sabemos que:
+Podemos evaluar qué tan bien ajustan nuestros modelos con los datos utilizados. Sabemos que:
 
 2.1 Si trabajamos una regresión lineal: el $R^2$ ajustado
 
@@ -277,9 +279,9 @@ Otro caso similar ocurre con *ingresos*, donde lo que se hace frecuentemente es 
 
 ¡Pero antes! Es común que en las encuestas sociales cierta variables posean una alta proporción de datos perdidos. Un ejemplo común es en el reporte de los ingresos de los hogares o individuos. Esto generalmente puede generarse por características de la persona (eg. desempleado, estudiante) o por deseabilidad social (eg. personas de altos ingresos desisten de reportar). Por lo general, existen dos estrategias para solicitar que las personas reporten sus ingresos: (1) reporte directo del monto y (2) si la persona no reporta los ingresos, se le presenta la posibilidad de ubicar los ingresos del hogar en tramos.
 
-```{r, eval = F}
+```{r, results='asis'}
 movid_proc %>% select(ingreso, tingreso) %$%
-dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "es")
+print(dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "es"))
 ```
 
 
@@ -306,9 +308,9 @@ movid_proc <- movid_proc %>%
 - **Paso 3:** Comparar el resultado de los tramos
 
 
-```{r, eval = F}
+```{r, results='asis'}
 movid_proc %>% select(ingreso, tingreso) %$%
-dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "es") #Paso 3
+print(dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "es")) #Paso 3
 ```
 
 Vemos que pasamos de tener 25,3% de datos perdidos en ingresos a un 8,72% (es decir, recuperamos un 16,58% de los casos). A ingresos se le pueden hacer tres transformaciones más
@@ -357,7 +359,7 @@ model_robust<- lmtest::coeftest(model1, vcov=sandwich::vcovHC(model1))
 
 ### 4.2.5 Creación de índices
 
-En el [tutorial de dplyr](https://www.youtube.com/watch?v=APzU10EMMjg&t=321s) ya habíamos abordado este punto. También está desarrollado de manera extensa en el [práctico N°1](https://multivariada.netlify.app/assignment/01-code/#bonus-track-generaci%C3%B3n-de-%C3%ADndices). Por ello, solo lo cacularemos para aquellos ítems que mostraron posibilidad de ser colineales. Los pasos son
+Se debe cacular para aquellos ítems que mostraron posibilidad de ser colineales. Los pasos son
 
 1. **Correlacionar** para verificar que estamos ante la presencia de ítems que podrían estar midiendo un constructo común. Como vemos en la siguiente tabla, las correlaciones son altas
 
@@ -379,7 +381,7 @@ movid_proc <- movid_proc %>%
 
 ### 4.2.6 Eliminar casos influyentes
 
-En caso de que estemos ante la prescencia de casos influyentes debemos seguir los siguientes pasos
+En caso de que estemos ante la presencia de casos influyentes debemos seguir los siguientes pasos
 
 ```{r, eval = F }
 n<- nobs(model1) #n de observaciones

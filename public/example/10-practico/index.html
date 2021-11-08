@@ -729,6 +729,11 @@
   <ul>
     <li><a href="#21-procesamiento-previo">2.1. Procesamiento previo</a></li>
     <li><a href="#22-explorar-datos">2.2 Explorar datos</a></li>
+    <li><a href="#5---63--51-----------i">fatiga\                                Me siento cada vez mÃ¡s desmotivado para   Media (d-s) : 2.8 (1.1)\             1 :  84 ( 6.8%)\          I \             <br>
+[haven_labelled, vctrs_vctr, double]   seguir las medidas de protecciÃ³n&hellip;       min &lt; mediana &lt; max:\                2 : 588 (47.3%)\          IIIIIIIII \     <br>
+1 &lt; 2 &lt; 5\                           3 :  76 ( 6.1%)\          I \             <br>
+RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \        <br>
+5 :  63 ( 5.1%)           I</a></li>
   </ul>
 
   <ul>
@@ -757,6 +762,26 @@
             <li><a href="#4221-recuperar-casos-perdidos">4.2.2.1 Recuperar casos perdidos</a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#10-no-responde---------------------0--00">tingreso\   Tramo de ingreso total de su hogar el   1. Menos de $200 mil pesos\         47 (22.5%)\               IIII \     209\      1052\  <br>
+[factor]    mes de noviembre de 2020                2. Entre $200 y 350 mil peso\       57 (27.3%)\               IIIII \    (16.6%)   (83.4%)<br>
+3. Entre $351 y 500 mil peso\       38 (18.2%)\               III \                       <br>
+4. Entre 501 y 800 mil pesos\       35 (16.7%)\               III \                       <br>
+5. Entre 801 mil y 1 millón \       9 ( 4.3%)\                \                           <br>
+6. Entre 1 millón 201 mil y \       15 ( 7.2%)\               I \                         <br>
+7. Entre 2 millones y 5 mill\       8 ( 3.8%)\                \                           <br>
+8. Más de 5 millones de peso\       0 ( 0.0%)\                \                           <br>
+9. No sabe\                         0 ( 0.0%)\                \                           <br>
+10. No responde                     0 ( 0.0%)</a></li>
+    <li><a href="#3500000---8--38">tingreso\   Media (d-s) : 598198.6 (688242.3)\   200000 : 47 (22.5%)\      IIII \     209\      1052\  <br>
+[numeric]   min &lt; mediana &lt; max:\                275000 : 57 (27.3%)\      IIIII \    (16.6%)   (83.4%)<br>
+2e+05 &lt; 425500 &lt; 3500000\            425500 : 38 (18.2%)\      III \                       <br>
+RI (CV) : 375500 (1.2)               650500 : 35 (16.7%)\      III \                       <br>
+1000500 :  9 ( 4.3%)\     \                           <br>
+1600500 : 15 ( 7.2%)\     I \                         <br>
+3500000 :  8 ( 3.8%)</a>
+      <ul>
         <li><a href="#423-dicotomizar-variable-dependiente">4.2.3 Dicotomizar variable dependiente</a></li>
         <li><a href="#424-errores-estándares-robustos">4.2.4 Errores estándares robustos</a></li>
         <li><a href="#425-creación-de-índices">4.2.5 Creación de índices</a></li>
@@ -815,8 +840,77 @@
 </code></pre></div><h2 id="22-explorar-datos">2.2 Explorar datos</h2>
 <p>Los datos utilizados tienen 1261 observaciones y 11 variables, las cuales serán descritas en la siguiente tabla</p>
 <p><strong>Tabla N°1</strong> Estadísticos descriptivos de base de datos procesadas de MOVID-IMPACT</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">view</span>(<span style="color:#a6e22e">dfSummary</span>(movid_proc, headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">view</span>(<span style="color:#a6e22e">dfSummary</span>(movid_proc, headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;render&#34;</span>))
 </code></pre></div><p>Fuente: Elaboración propia en base a MOVID-IMPACT (n=909 casos)</p>
+<hr>
+<p>Variable                               Etiqueta                                   Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico</p>
+<hr>
+<p>sexo\                                  Sexo                                       1. Hombre\                          481 (38.1%)\              IIIIIII \       <br>
+[factor]                                                                          2. Mujer                            780 (61.9%)               IIIIIIIIIIII</p>
+<p>edad\                                  Edad                                       Media (d-s) : 48.8 (18.2)\           75 valores distintos      \               <br>
+[numeric]                                                                         min &lt; mediana &lt; max:\                                          \ \ : .\        <br>
+18 &lt; 48 &lt; 96\                                                  \ \ : : : : . .\<br>
+RI (CV) : 30 (0.4)                                             : : : : : : : .\<br>
+: : : : : : : :\<br>
+: : : : : : : : :</p>
+<p>trabaja\                               Durante la semana pasada, Â¿trabajÃ³ al    1. Sí\                              612 (48.5%)\              IIIIIIIII \     <br>
+[factor]                               menos una hora, sin considerar los         2. No                               649 (51.5%)               IIIIIIIIII      <br>
+quehace</p>
+<p>ingreso\                               Monto de ingreso total de su hogar el      Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \               <br>
+[numeric]                              mes de noviembre de 2020                   min &lt; mediana &lt; max:\                                          :\              <br>
+0 &lt; 4e+05 &lt; 1.2e+07\                                           :\              <br>
+RI (CV) : 450000 (1.2)                                         :\              <br>
+:\              <br>
+: .</p>
+<p>tingreso\                              Tramo de ingreso total de su hogar el      1. Menos de $200 mil pesos\         47 (22.5%)\               IIII \          <br>
+[factor]                               mes de noviembre de 2020                   2. Entre $200 y 350 mil peso\       57 (27.3%)\               IIIII \         <br>
+3. Entre $351 y 500 mil peso\       38 (18.2%)\               III \           <br>
+4. Entre 501 y 800 mil pesos\       35 (16.7%)\               III \           <br>
+5. Entre 801 mil y 1 millón \       9 ( 4.3%)\                \               <br>
+6. Entre 1 millón 201 mil y \       15 ( 7.2%)\               I \             <br>
+7. Entre 2 millones y 5 mill\       8 ( 3.8%)\                \               <br>
+8. Más de 5 millones de peso\       0 ( 0.0%)\                \               <br>
+9. No sabe\                         0 ( 0.0%)\                \               <br>
+10. No responde                     0 ( 0.0%)</p>
+<p>tamanohogar\                                                                      Media (d-s) : 2.8 (1.5)\             1 : 287 (23.0%)\          IIII \          <br>
+[integer]                                                                         min &lt; mediana &lt; max:\                2 : 321 (25.7%)\          IIIII \         <br>
+1 &lt; 3 &lt; 14\                          3 : 265 (21.2%)\          IIII \          <br>
+RI (CV) : 2 (0.5)                    4 : 222 (17.8%)\          III \           <br>
+5 :  98 ( 7.8%)\          I \             <br>
+6 :  38 ( 3.0%)\          \               <br>
+7 :  16 ( 1.3%)\          \               <br>
+10 :   1 ( 0.1%)\         \               <br>
+12 :   1 ( 0.1%)\         \               <br>
+14 :   1 ( 0.1%)</p>
+<p>c2_1\                                  Ãšltimas 2 semanas: se ha sentido          1. Nunca\                           573 (45.7%)\              IIIIIIIII \     <br>
+[factor]                               nervioso, ansioso o con los nervios de     2. Varios días\                     389 (31.0%)\              IIIIII \        <br>
+punta                                      3. Más de la mitad de los dí\       91 ( 7.3%)\               I \             <br>
+4. Casi todos los días\             200 (16.0%)\              III \           <br>
+5. No sabe\                         0 ( 0.0%)\                \               <br>
+6. No responde                      0 ( 0.0%)</p>
+<p>c2_2\                                  Ãšltimas 2 semanas: No ha podido dejar de  1. Nunca\                           629 (50.2%)\              IIIIIIIIII \    <br>
+[factor]                               preocuparse o no ha podido controlar su    2. Varios días\                     377 (30.1%)\              IIIIII \        <br>
+3. Más de la mitad de los dí\       101 ( 8.1%)\              I \             <br>
+4. Casi todos los días\             145 (11.6%)\              II \            <br>
+5. No sabe\                         0 ( 0.0%)\                \               <br>
+6. No responde                      0 ( 0.0%)</p>
+<p>c2_3\                                  Ãšltimas 2 semanas: Se ha sentido          1. Nunca\                           529 (42.3%)\              IIIIIIII \      <br>
+[factor]                               bajoneado, deprimido, irritable o          2. Varios días\                     454 (36.3%)\              IIIIIII \       <br>
+desesperanzad                              3. Más de la mitad de los dí\       104 ( 8.3%)\              I \             <br>
+4. Casi todos los días\             165 (13.2%)\              II \            <br>
+5. No sabe\                         0 ( 0.0%)\                \               <br>
+6. No responde                      0 ( 0.0%)</p>
+<p>c2_4\                                  Ãšltimas 2 semanas: Ha sentido poco        1. Nunca\                           679 (54.1%)\              IIIIIIIIII \    <br>
+[factor]                               interÃ©s o placer al hacer las cosas       2. Varios días\                     358 (28.5%)\              IIIII \         <br>
+3. Más de la mitad de los dí\       89 ( 7.1%)\               I \             <br>
+4. Casi todos los días\             128 (10.2%)\              II \            <br>
+5. No sabe\                         0 ( 0.0%)\                \               <br>
+6. No responde                      0 ( 0.0%)</p>
+<h2 id="5---63--51-----------i">fatiga\                                Me siento cada vez mÃ¡s desmotivado para   Media (d-s) : 2.8 (1.1)\             1 :  84 ( 6.8%)\          I \             <br>
+[haven_labelled, vctrs_vctr, double]   seguir las medidas de protecciÃ³n&hellip;       min &lt; mediana &lt; max:\                2 : 588 (47.3%)\          IIIIIIIII \     <br>
+1 &lt; 2 &lt; 5\                           3 :  76 ( 6.1%)\          I \             <br>
+RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \        <br>
+5 :  63 ( 5.1%)           I</h2>
 <h1 id="3-introducción">3. Introducción</h1>
 <p><strong>2. Ajuste</strong> (<em>post-hoc</em>): implica abordar qué tan bien ajustan nuestros modelos con los datos utilizados. La <em>bondad de ajuste</em> implica que si trabajamos con una</p>
 <ul>
@@ -1006,7 +1100,7 @@
 <p>Para la regresión lineal múltiple, un supuesto importante es que existe una <strong>relación lineal entre la variable dependiente e independiente</strong>.</p>
 <p>Podemos saber si se cumple este supuesto a partir de un <em>gráfico de dispersión de datos</em>, que relacione la variable dependiente y la independiente, y verificar de manera &ldquo;intuitiva&rdquo; si la <strong>tendencia</strong> de esta relación se puede describir por una <strong>línea recta</strong>. El paquete <code>performace</code> nos permite hacer esto con su función <code>check_model</code> indicando en el argumento <code>check = &quot;ncv</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_model</span>(model1, check <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;ncv&#34;</span>, <span style="color:#e6db74">&#34;linearity&#34;</span>))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>En este caso podemos notar claramente que no hay una relación lineal. En caso de que no sea claro, una forma numérica para chequear este supuesto es que el valor promedio de los residuos sea cero. Si esto no es así los residuos están sesgados sistemáticamente, entonces probable que el modelo no sea realmente lineal, y esta desviación de los residuos deba corregirse re-especificando (medir de otra manera la variable) algún término de la ecuación de regresión al cuadrado o al cubo. Un modo que se ocupa para testear la necesidad de esta re-especificación es el test RESET de Ramsey que indica que:</p>
 <p><code>\(H_o\)</code> cuando el modelo tiene algún término al cuadrado o cubo, la media de los residuos es cero. Es decir, que si no podemos rechazar <code>\(H_0\)</code>, nuestro modelo está bien especificado (es decir, es lineal). Como en este caso es claro que se necesita respecificar el predictor elevamos edad al cuadrado. Imaginemos que es el caso</p>
 <p>✔️ La línea de referencia es plana y horizontal</p>
@@ -1031,7 +1125,7 @@
 <p>Evidentemente si los residuos no siguen una distribución normal, es probable que estos no sean independientes entre sí. Esto significa que buscaremos que los errores asociados a nuestro modelo de regresión sean <strong>independientes</strong>. Para saber si se cumple ese criterio se utiliza la prueba de <em>Durbin-Watson</em>, donde la <code>\(H_0\)</code> supone que <strong>los residuos son independientes</strong></p>
 <p>A partir de la función <code>check_autocorrelation</code> utilizaremos la prueba <em>Durbin-Watson</em> para ver qué ocurre con la hipótesis nula a</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_autocorrelation</span>(model1)
-</code></pre></div><p>Warning: Autocorrelated residuals detected (p = 0.008).</p>
+</code></pre></div><p>Warning: Autocorrelated residuals detected (p = 0.022).</p>
 <p>⚠️ Hay correlación entre los residuos</p>
 <p>En síntesis sabemos la regresión lineal requiere de una relación lineal entre sus variables independientes y dependiente. Para ello no solo es importante chequear la distribución de los residuos, sino
 dos posibilidades que pueden <em>tendenciar</em> esa relación lineal: como casos influyentes en la muestra y predictores que están altamente relacionados. Revisaremos la última de estas</p>
@@ -1042,7 +1136,7 @@ dos posibilidades que pueden <em>tendenciar</em> esa relación lineal: como caso
 <p>Esta relación <strong>endógena</strong> entre predictores la podemos examinar ante la existencia de altas correlaciones (<em>lineales</em>) entre variables. La aproximación numérica más utilizada es el <strong>VIF</strong> (factor de inflación de varianza) que indica hasta que punto la varianza de los coeficientes de regresión se debe a la colinealidad (o dependencia) entre otras variables del modelo.</p>
 <p>Para evaluar esto ocuparemos el comando <code>check_collinearity()</code>. Como podemos ver en el gráfico, todos los valores son menores a 5 (<em>como recomienda el paquete</em>).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">check_collinearity</span>(model1))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Ahora bien, dado que sabemos que las correlaciones en ciencias sociales nunca son tan altas, un criterio que se ocupa en nuestras disciplinas para evaluar <em>multicolinealidad</em> es es evitar valores del VIF mayores a 2.5.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_collinearity</span>(model1)
 </code></pre></div><h1 id="check-for-multicollinearity">Check for Multicollinearity</h1>
@@ -1063,13 +1157,13 @@ ingreso 1.00         1.00      1.00</p>
 <p>Para verificar si un &ldquo;caso es <em>influyente</em>&rdquo; examinaremos si la ausencia o presencia de ese caso genera un cambio importante en la estimación del modelo de regresión. Este enfoque se aborda a partir del cálculo de la <strong>Distancia de Cook</strong> (Cook,1977)</p>
 <p>Primero podemos graficar la influencia de los casos con <code>check_outliers()</code> dentro de un <code>plot()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">check_outliers</span>(model1))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Luego para verificar si la ausencia o presencia de eliminar algunos de estos casos que presentan mayor distancia producen una <strong>diferencia</strong> significativa en la estimación del modelo, realizamos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_outliers</span>(model1)
 </code></pre></div><p>OK: No outliers detected.</p>
 <p>✔️ No hay outliers</p>
 <h2 id="fit">4.2 Ajuste del modelo</h2>
-<p>Sabemos por la <a href="https://multivariada.netlify.app/assignment/05-code/" target="_blank" rel="noopener">práctica 5</a> que podemos evaluar qué tan bien ajustan nuestros modelos con los datos utilizados. Sabemos que:</p>
+<p>Podemos evaluar qué tan bien ajustan nuestros modelos con los datos utilizados. Sabemos que:</p>
 <p>2.1 Si trabajamos una regresión lineal: el <code>\(R^2\)</code> ajustado</p>
 <p>2.2 Si trabajamos una regresión logística: Pseudo <code>\(R^2\)</code> y los <em>Criterios de Información</em> BIC y AIC (ambos nos dicen cuánta información se está &ldquo;perdiendo&rdquo; con las variables que se ocupan en cada modelo. Por ello elegiremos el modelo que tenga un BIC y AIC más bajo).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">performance<span style="color:#f92672">::</span><span style="color:#a6e22e">model_performance</span>(model1) <span style="color:#f92672">%&gt;%</span>
@@ -1163,8 +1257,27 @@ ingreso 1.00         1.00      1.00</p>
 <h4 id="4221-recuperar-casos-perdidos">4.2.2.1 Recuperar casos perdidos</h4>
 <p>¡Pero antes! Es común que en las encuestas sociales cierta variables posean una alta proporción de datos perdidos. Un ejemplo común es en el reporte de los ingresos de los hogares o individuos. Esto generalmente puede generarse por características de la persona (eg. desempleado, estudiante) o por deseabilidad social (eg. personas de altos ingresos desisten de reportar). Por lo general, existen dos estrategias para solicitar que las personas reporten sus ingresos: (1) reporte directo del monto y (2) si la persona no reporta los ingresos, se le presenta la posibilidad de ubicar los ingresos del hogar en tramos.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">movid_proc <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(ingreso, tingreso) <span style="color:#f92672">%$%</span>
-<span style="color:#a6e22e">dfSummary</span>(., headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;render&#34;</span>, varnumbers <span style="color:#f92672">=</span> F, lang <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;es&#34;</span>)
-</code></pre></div><p>Si observamos la tabla de descriptivos para la variable ingreso del hogar (<code>ingreso</code>), tenemos un porcentaje 25,3% de datos perdidos. Por esta razón, emplearemos los datos disponibles en <code>tingreso</code> para recuperar información en los ingresos del hogar.</p>
+<span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">dfSummary</span>(., headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;render&#34;</span>, varnumbers <span style="color:#f92672">=</span> F, lang <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;es&#34;</span>))
+</code></pre></div><hr>
+<p>Variable    Etiqueta                                Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos</p>
+<hr>
+<p>ingreso\    Monto de ingreso total de su hogar el   Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \          942\      319\   <br>
+[numeric]   mes de noviembre de 2020                min &lt; mediana &lt; max:\                                          :\         (74.7%)   (25.3%)<br>
+0 &lt; 4e+05 &lt; 1.2e+07\                                           :\                          <br>
+RI (CV) : 450000 (1.2)                                         :\                          <br>
+:\                          <br>
+: .</p>
+<h2 id="10-no-responde---------------------0--00">tingreso\   Tramo de ingreso total de su hogar el   1. Menos de $200 mil pesos\         47 (22.5%)\               IIII \     209\      1052\  <br>
+[factor]    mes de noviembre de 2020                2. Entre $200 y 350 mil peso\       57 (27.3%)\               IIIII \    (16.6%)   (83.4%)<br>
+3. Entre $351 y 500 mil peso\       38 (18.2%)\               III \                       <br>
+4. Entre 501 y 800 mil pesos\       35 (16.7%)\               III \                       <br>
+5. Entre 801 mil y 1 millón \       9 ( 4.3%)\                \                           <br>
+6. Entre 1 millón 201 mil y \       15 ( 7.2%)\               I \                         <br>
+7. Entre 2 millones y 5 mill\       8 ( 3.8%)\                \                           <br>
+8. Más de 5 millones de peso\       0 ( 0.0%)\                \                           <br>
+9. No sabe\                         0 ( 0.0%)\                \                           <br>
+10. No responde                     0 ( 0.0%)</h2>
+<p>Si observamos la tabla de descriptivos para la variable ingreso del hogar (<code>ingreso</code>), tenemos un porcentaje 25,3% de datos perdidos. Por esta razón, emplearemos los datos disponibles en <code>tingreso</code> para recuperar información en los ingresos del hogar.</p>
 <p>La estrategia posee los siguientes pasos:</p>
 <ul>
 <li><strong>Paso 1:</strong> Calcular la media por cada tramo</li>
@@ -1184,8 +1297,24 @@ ingreso 1.00         1.00      1.00</p>
 <li><strong>Paso 3:</strong> Comparar el resultado de los tramos</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">movid_proc <span style="color:#f92672">%&gt;%</span> <span style="color:#a6e22e">select</span>(ingreso, tingreso) <span style="color:#f92672">%$%</span>
-<span style="color:#a6e22e">dfSummary</span>(., headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;render&#34;</span>, varnumbers <span style="color:#f92672">=</span> F, lang <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;es&#34;</span>) <span style="color:#75715e">#Paso 3</span>
-</code></pre></div><p>Vemos que pasamos de tener 25,3% de datos perdidos en ingresos a un 8,72% (es decir, recuperamos un 16,58% de los casos). A ingresos se le pueden hacer tres transformaciones más</p>
+<span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">dfSummary</span>(., headings <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, method <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;render&#34;</span>, varnumbers <span style="color:#f92672">=</span> F, lang <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;es&#34;</span>)) <span style="color:#75715e">#Paso 3</span>
+</code></pre></div><hr>
+<p>Variable    Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos</p>
+<hr>
+<p>ingreso\    Media (d-s) : 664667.4 (811775.8)\   155 valores distintos     \          1151\     110\   <br>
+[numeric]   min &lt; mediana &lt; max:\                                          :\         (91.3%)   (8.7%) <br>
+0 &lt; 4e+05 &lt; 1.2e+07\                                           :\                          <br>
+RI (CV) : 450000 (1.2)                                         :\                          <br>
+:\                          <br>
+: .</p>
+<h2 id="3500000---8--38">tingreso\   Media (d-s) : 598198.6 (688242.3)\   200000 : 47 (22.5%)\      IIII \     209\      1052\  <br>
+[numeric]   min &lt; mediana &lt; max:\                275000 : 57 (27.3%)\      IIIII \    (16.6%)   (83.4%)<br>
+2e+05 &lt; 425500 &lt; 3500000\            425500 : 38 (18.2%)\      III \                       <br>
+RI (CV) : 375500 (1.2)               650500 : 35 (16.7%)\      III \                       <br>
+1000500 :  9 ( 4.3%)\     \                           <br>
+1600500 : 15 ( 7.2%)\     I \                         <br>
+3500000 :  8 ( 3.8%)</h2>
+<p>Vemos que pasamos de tener 25,3% de datos perdidos en ingresos a un 8,72% (es decir, recuperamos un 16,58% de los casos). A ingresos se le pueden hacer tres transformaciones más</p>
 <p><strong>1. Logaritmizar</strong>: en caso de que queramos seguir trabajando ingresos como una variable continua es una buena opción.</p>
 <p><strong>2. Calcular el ingreso per cápita</strong>: si dividimos el ingreso por el tamaño del hogar (n° de habitantes en este), obtendremos el ingreso por persona.</p>
 <p><strong>3. Cálculo de medidas de posición acumulada</strong>: con los ingresos per cápita se puede calcular la media o mediana de medidas de posición acumulada como quitiles</p>
@@ -1214,7 +1343,7 @@ ingreso 1.00         1.00      1.00</p>
 <p>En caso de que estemos ante problemas de heterocedasticidad debemos re-estimar nuestro modelo considerando errores estándares robustos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">model_robust<span style="color:#f92672">&lt;-</span> lmtest<span style="color:#f92672">::</span><span style="color:#a6e22e">coeftest</span>(model1, vcov<span style="color:#f92672">=</span>sandwich<span style="color:#f92672">::</span><span style="color:#a6e22e">vcovHC</span>(model1))
 </code></pre></div><h3 id="425-creación-de-índices">4.2.5 Creación de índices</h3>
-<p>En el <a href="https://www.youtube.com/watch?v=APzU10EMMjg&amp;t=321s" target="_blank" rel="noopener">tutorial de dplyr</a> ya habíamos abordado este punto. También está desarrollado de manera extensa en el <a href="https://multivariada.netlify.app/assignment/01-code/#bonus-track-generaci%C3%B3n-de-%C3%ADndices" target="_blank" rel="noopener">práctico N°1</a>. Por ello, solo lo cacularemos para aquellos ítems que mostraron posibilidad de ser colineales. Los pasos son</p>
+<p>Se debe cacular para aquellos ítems que mostraron posibilidad de ser colineales. Los pasos son</p>
 <ol>
 <li><strong>Correlacionar</strong> para verificar que estamos ante la presencia de ítems que podrían estar midiendo un constructo común. Como vemos en la siguiente tabla, las correlaciones son altas</li>
 </ol>
@@ -1269,7 +1398,7 @@ sjPlot<span style="color:#f92672">::</span><span style="color:#a6e22e">tab_corr<
   <span style="color:#a6e22e">rowwise</span>() <span style="color:#f92672">%&gt;%</span>
   <span style="color:#a6e22e">mutate</span>(salud_mental <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum</span>(c2_1,c2_2,c2_3,c2_4, na.rm <span style="color:#f92672">=</span> T))
 </code></pre></div><h3 id="426-eliminar-casos-influyentes">4.2.6 Eliminar casos influyentes</h3>
-<p>En caso de que estemos ante la prescencia de casos influyentes debemos seguir los siguientes pasos</p>
+<p>En caso de que estemos ante la presencia de casos influyentes debemos seguir los siguientes pasos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">n<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">nobs</span>(model1) <span style="color:#75715e">#n de observaciones</span>
 k<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">coef</span>(model1)) <span style="color:#75715e"># n de parametros</span>
 dcook<span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">/</span>(n<span style="color:#f92672">-</span>k<span style="color:#ae81ff">-1</span>) <span style="color:#75715e">#Punto de corte</span>
@@ -1288,11 +1417,11 @@ model3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">glm<
              data <span style="color:#f92672">=</span> movid_proc)
 </code></pre></div><p>Luego, podemos hacer un chequeo general de diagnósticos de robustez con <code>check_model</code>, pero ahora indicando que queremos evaluar todos los indicadores posibles</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_model</span>(model1_fit, check <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;vif&#34;</span>,<span style="color:#e6db74">&#34;normality&#34;</span>, <span style="color:#e6db74">&#34;linearity&#34;</span>, <span style="color:#e6db74">&#34;ncv&#34;</span>, <span style="color:#e6db74">&#34;homogeneity&#34;</span>))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_model</span>(model2, check <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;vif&#34;</span>,  <span style="color:#e6db74">&#34;normality&#34;</span>, <span style="color:#e6db74">&#34;linearity&#34;</span>, <span style="color:#e6db74">&#34;ncv&#34;</span>, <span style="color:#e6db74">&#34;homogeneity&#34;</span>))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">check_model</span>(model3, check <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;vif&#34;</span>,  <span style="color:#e6db74">&#34;homogeneity&#34;</span>))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-28-3.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-29-3.png" width="672" /></p>
 <p>Existen otros diagnósticos posibles para abordar en nuestros modelos, todo con el propósito de mejorar la calidad de estos. Uno de ellos, y que no abordaremos por su extensión, es la ausencia de
 posibles <strong>interacciones</strong> entre las variables que no han sido modeladas (Fox &amp; Weisberg 2018). En caso de su interés pueden revisar esto y ver su <a href="https://strengejacke.github.io/ggeffects/articles/introduction_partial_residuals.html" target="_blank" rel="noopener">aplicación simple en R en el siguiente link.</a></p>
 <h2 id="43-comparación">4.3. Comparación</h2>
@@ -1637,7 +1766,7 @@ posibles <strong>interacciones</strong> entre las variables que no han sido mode
 </tbody>
 </table>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">compare_performance</span>(model1_fit, model2))
-</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</code></pre></div><p><img src="/example/10-practico_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>Ahora bien, esto no quita que, considerando que el ajuste entre el <code>model1_fit</code> y el <code>modelo2</code> no cambia sustantivamente, consideremos en seleccionar el <code>modelo3</code> por criterios más sustantivos. Podemos asegurarnos de esta comparación entre el modelo1 y modelo2 con un test que permite facilitar la decisión sobre la significancia de los índices que estamos viendo</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">test_performance</span>(model1_fit, model2) <span style="color:#f92672">%&gt;%</span>
   <span style="color:#a6e22e">print_md</span>()
