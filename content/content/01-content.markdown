@@ -108,9 +108,7 @@ slides: "01-slides"
 
 ## Rprojects
 
--   [<i class="fas fa-file-archive"></i> `01-class.zip`](../../projects/01-class/01-class.zip)
-
--   [<i class="fas fa-external-link-square-alt"></i> `01-class` en RStudio Cloud](https://rstudio.cloud/project/2757583)
+-   [<i class="fas fa-file-archive"></i> `01-class.zip`](https://github.com/learn-R/01-class/raw/main/01-class.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
