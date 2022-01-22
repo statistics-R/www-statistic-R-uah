@@ -90,7 +90,6 @@ class: center middle main-title section-title-5 top-logo
 .class-info[
 <br>
 **Sesión N° 10**<br>
-`r format(Sys.Date(), '%d %B %Y')`<br>
 **Análisis de datos estadísticos en R**
 <br>
 
@@ -876,7 +875,6 @@ class: center middle main-title section-title-5 top-logo
 .class-info[
 <br>
 **Sesión N° 10**<br>
-`r format(Sys.Date(), '%d %B %Y')`<br>
 **Análisis de datos estadísticos en R**
 <br>
 
