@@ -12,7 +12,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# 0. Objetivo del práctico
+#  0. Objetivo del práctico
 
 El objetivo del práctico, es avanzar en el análisis de los datos a través del uso de **estadísticos descriptivos**. Para esto ya debemos contar con datos previamente [procesados del práctico N°4](https://learn-r-uah.netlify.app/example/04-practico/). Previo a eso, **siempre es importante** que recordemos en qué parte del proceso estamos
 
@@ -30,7 +30,7 @@ Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
 - [<i class="fas fa-file-archive"></i> `06-class.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
-# 1. Paquetes a utilizar
+#  1. Paquetes a utilizar
 
 Para este práctico utilizaremos principalmente, las librerías `sjmisc` y `sjPlot`. 
 
@@ -48,7 +48,7 @@ pacman::p_load(sjmisc,
                magrittr)
 ```
 
-# 2. Importar datos
+#  2. Importar datos
 
 Una vez cargado los paquetes a utilizar, debemos pasar al segundo paso: cargar los datos. Como indicamos al inicio, seguiremos utilizando los datos **CASEN** que fue procesada en el práctico anterior, pero le añadimos una variable.
 
@@ -59,7 +59,7 @@ Una vez cargado los paquetes a utilizar, debemos pasar al segundo paso: cargar l
 load("output/data/datos_proc.RData")
 ```
 
-# 3. Explorar datos
+#  3. Explorar datos
 
 Pero ¿cómo sabremos cuales son las nuevas variables que componen la base de datos procesada?, ¡Simple! usaremos dos códigos que vimos en el [práctico 4](https://learn-r-uah.netlify.app/example/04-practico/#2-cargar-base-de-datos) para conocer los **datos procesados** que usaremos en esta ocasión:
 
@@ -181,7 +181,7 @@ sjPlot::view_df(datos_proc,
 
 </table>
 
-# 4. Descripción de variables
+#  4. Descripción de variables
 
 Una vez conocidas las variables que incluye nuestros datos procesados, ¿cómo podemos realizar un análisis descriptivo para algún informe o reporte? Veamos algunas de las más comunes
 
@@ -398,7 +398,7 @@ sjmisc::frq(datos_proc$sexo,
 </table>
 
 
-# 5. Visualización
+#  5. Visualización
 
 Ahora que ya sabemos como tener todos los estadísticos necesarios para escribir nuestros reportes, viene el segundo paso *visualizar los estadísticos*. Esto lo haremos con `sjPlot`
 
@@ -423,7 +423,7 @@ Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categor�
 ```r
 plot_frq(datos_proc, edad_tramo,
           title = "Gráfico de frecuencias, barras",
-          type = c("bar"))
+          type = "bar")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen barras simple-1.png" width="672" />
@@ -441,7 +441,7 @@ Así guardaríamos el gráfico anterior
 
 
 ```r
-save_plot("/output/img/tab.png", fig = last_plot()))
+save_plot("output/figures/tab.png", fig = last_plot()))
 ```
 {{< /div >}}
 
@@ -454,7 +454,7 @@ Si tenemos más categorías y queremos mejorar el reporte, podemos usar este có
 ```r
 plot_frq(datos_proc, edad_tramo,
           title = "Gráfico de frecuencias, puntos",
-          type = c("dot"))
+          type = "dot")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen puntos simple-1.png" width="672" />
@@ -495,7 +495,7 @@ Otra función que podemos hacer es graficar histogramas, sin embargo, como ya he
 datos_proc %>%  filter(ingreso_percapita <= 2000000) %>% 
 plot_frq(., ingreso_percapita,
           title = "Histograma",
-          type = c("histogram"))
+          type = "histogram")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen histograma-1.png" width="672" />
@@ -509,7 +509,7 @@ Ahora que vemos la distribución del histograma, ¿cómo podemos ver su densidad
 datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
 plot_frq(., ingreso_percapita,
           title = "Gráfico de densidad",
-          type = c("density"))
+          type = "density")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen densidad-1.png" width="672" />
@@ -523,7 +523,7 @@ plot_frq(., ingreso_percapita,
 ```r
 plot_frq(datos_proc, ife,
           title = "Gráfico de líneas",
-          type = c("line"))
+          type = "line")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen lineas-1.png" width="672" />
@@ -537,7 +537,7 @@ Para graficar los estadísticos de una variable, podemos hacerlo a través de un
 datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
 plot_frq(., ingreso_percapita,
           title = "Gráfico de caja",
-          type = c("boxplot"))
+          type = "boxplot")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen box-1.png" width="672" />
@@ -552,7 +552,7 @@ Finalmente, si queremos presentar gráficos de violín, usamos este código
 datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
     plot_frq(., ingreso_percapita,
           title = "Gráfico de violín",
-          type = c("violin"))
+          type = "violin")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen violin-1.png" width="672" />
@@ -639,7 +639,7 @@ La primera opción que nos entrega este código son los gráficos de barra, para
 
 ```r
 plot_grpfrq(datos_proc$sexo, datos_proc$ocupacion,
-  type = c("bar"), title = "Gráfico de barras")
+  type = "bar", title = "Gráfico de barras")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen frec agrup barr-1.png" width="672" />
@@ -717,7 +717,7 @@ Ahora continuaremos con los gráficos de puntos, ya que quiero presentar la rela
 ```r
 plot_grpfrq(datos_proc$sexo, datos_proc$ocupacion,
             title = "Gráfico de puntos",
-            type = c("dot"))
+            type = "dot")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen graf pun agrup-1.png" width="672" />
@@ -731,7 +731,7 @@ Otra opción que tiene esta función, es la creación de gráficos de líneas, p
 ```r
 plot_grpfrq(datos_proc$edad_tramo, datos_proc$ife,
             title = "Gráfico de línea",
-            type = c("line"))
+            type = "line")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen graf lin agrup-1.png" width="672" />
@@ -756,7 +756,7 @@ Ahora si queremos conocer cómo interactúa las horas de trabajo con el tramo et
 ```r
 plot_grpfrq(datos_proc$horas_mens, datos_proc$edad_tramo,
             title = "Gráfico de caja",
-             type = c("boxplot"))
+             type = "boxplot")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen graf caj-1.png" width="672" />
@@ -780,14 +780,14 @@ Finalmente, para generar un gráfico de violín, añadiremos el argumento `type 
 ```r
 plot_grpfrq(datos_proc$horas_mens, datos_proc$edad_tramo,
             title = "Gráfico de violín",
-            type = c("violin"))
+            type = "violin")
 ```
 
 <img src="/example/06-practico_files/figure-html/casen graf violin agrup-1.png" width="672" />
 
 Nuevamente, la función nos permite la creación de múltiples gráficos, sólo se debe cambiar el argumento `type =`
 
-# 6. Tablas de contingencia
+#  6. Tablas de contingencia
 
 ¡No podemos terminar sin saber cómo hacer tablas de frecuencias cruzadas!
 
@@ -936,7 +936,7 @@ tab_stackfrq(as.data.frame(datos_proc %>% select("o3", "o4", "o6")),
  
 </table>
 
-# 7. Test de independencia Chi2 
+#  7. Test de independencia Chi2 
 
 A la hora de graficar Chi2, debemos asegurarnos con la función `as_factor` que las variables a utilizar sean de tipo factor, luego utilizamos la función `sjp.chi2` de `sjPlot` para crear la tabla, finalmente con el argumento `axis.labels` asignamos la etiqueta de cada variable
 
@@ -954,7 +954,7 @@ data.frame(as_factor(sample(datos_proc$ocupacion, replace = TRUE)),
 
 <img src="/example/06-practico_files/figure-html/casen_x2-1.png" width="672" />
 
-# 8. Correlación
+#  8. Correlación
 
 Ahora veremos estadísticos bivariados, como la correlación, en esta ocasión generaremos una tabla de correlación entre las variables `horas_mens` y `ingreso_percapita`, para eso usaremos la función `tab_corr` de `sjPlot`
 
@@ -995,7 +995,7 @@ tab_corr(.,
 </table>
 
 
-# 9. Anova
+#  9. Anova
 
 Finalmente, si queremos reportar un análisis de Anova, no podemos dejar de lado este gráfico que nos otorga la función `sjp.aov1` del paquete `sjPlot`
 
@@ -1006,7 +1006,7 @@ sjp.aov1(datos_proc$ingreso_percapita, datos_proc$sexo, title = "Anova")
 
 <img src="/example/06-practico_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
-# 9. Resumen del práctico
+# 10. Resumen del práctico
 
 ¡Eso es todo por este práctico! Hoy aprendimos a:
 
@@ -1017,7 +1017,7 @@ sjp.aov1(datos_proc$ingreso_percapita, datos_proc$sexo, title = "Anova")
 - A obtener tablas de correlación y chi2
 - A obtener gráficos de Anova
 
-# 7. Reporte de progreso
+# 11. Reporte de progreso
 
-¡Recuerda rellenar tu [reporte de progreso](). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
+¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
 

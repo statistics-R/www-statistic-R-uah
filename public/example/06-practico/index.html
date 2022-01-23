@@ -1023,13 +1023,13 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categoría de respuesta, podemos presentarla de la siguiente forma:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, edad_tramo,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de frecuencias, barras&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;bar&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bar&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen barras simple-1.png" width="672" /></p>
 <div class="note">
 <p>Además de la visualización es importante el guardar los datos que se producen y <code>sjPlot</code> tiene su propio código para hacerlo a través de la función <code>save_plot()</code>, su estructura es esta:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">save_plot</span>(<span style="color:#a6e22e">last_plot</span>())  <span style="color:#75715e">#se deja el formato del archivo (.png, .jpg, .svg o .tif) y la ruta de la carpeta</span>
 </code></pre></div><p>Así guardaríamos el gráfico anterior</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">save_plot</span>(<span style="color:#e6db74">&#34;/output/img/tab.png&#34;</span>, fig <span style="color:#f92672">=</span> <span style="color:#a6e22e">last_plot</span>()))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">save_plot</span>(<span style="color:#e6db74">&#34;output/figures/tab.png&#34;</span>, fig <span style="color:#f92672">=</span> <span style="color:#a6e22e">last_plot</span>()))
 </code></pre></div>
 </div>
 
@@ -1039,7 +1039,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Si tenemos más categorías y queremos mejorar el reporte, podemos usar este código:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, edad_tramo,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de frecuencias, puntos&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dot&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen puntos simple-1.png" width="672" /></p>
 <p>También podemos cambiar el orden del eje x e y</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc<span style="color:#f92672">$</span>edad_tramo, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>, show.ci <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, sort.frq <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;desc&#34;</span>,
@@ -1060,7 +1060,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span> 
 <span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Histograma&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;histogram&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;histogram&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen histograma-1.png" width="672" /></p>
 <ol start="4">
 <li>Densidad</li>
@@ -1069,7 +1069,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
 <span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de densidad&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;density&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;density&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen densidad-1.png" width="672" /></p>
 <ol start="5">
 <li>Gráfico de líneas</li>
@@ -1077,7 +1077,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable <code>ife</code> y usaremos este código:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, ife,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de líneas&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;line&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;line&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen lineas-1.png" width="672" /></p>
 <ol start="6">
 <li>Gráfico de cajas</li>
@@ -1086,7 +1086,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
 <span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de caja&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;boxplot&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;boxplot&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen box-1.png" width="672" /></p>
 <ol start="7">
 <li>Gráfico de violín</li>
@@ -1095,7 +1095,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
     <span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de violín&#34;</span>,
-          type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;violin&#34;</span>))
+          type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;violin&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen violin-1.png" width="672" /></p>
 <p>Como pueden ver, el único argumento que se modificaba era <code>type = </code>, es decir, para hacer diversos gráficos, sólo se debe especificar el tipo de gráfico que queremos.</p>
 <ol start="8">
@@ -1138,7 +1138,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 </ol>
 <p>La primera opción que nos entrega este código son los gráficos de barra, para usarlo queremos saber cuantos hombres y mujeres trabajaron al menos una hora la semana pasada, para ello graficaremos la variable <code>sexo</code> y <code>ocupacion</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>sexo, datos_proc<span style="color:#f92672">$</span>ocupacion,
-  type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;bar&#34;</span>), title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de barras&#34;</span>)
+  type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bar&#34;</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de barras&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen frec agrup barr-1.png" width="672" /></p>
 <p>Podemos ver que no solo nos muestra la frecuencia absoluta, sino que también la relativa en porcentaje</p>
 <p>Pero además podemos ver agregar una tercera categoría, que es el total de ambas categorías. Para este ejercicio conoceremos que tramo de edad trabajo la semana pasada.</p>
@@ -1173,7 +1173,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Ahora continuaremos con los gráficos de puntos, ya que quiero presentar la relación entre <code>sexo</code> y <code>ocupacion</code> mediante otro gráfico:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>sexo, datos_proc<span style="color:#f92672">$</span>ocupacion,
             title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de puntos&#34;</span>,
-            type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;dot&#34;</span>))
+            type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen graf pun agrup-1.png" width="672" /></p>
 <ol start="3">
 <li>Gráfico de líneas</li>
@@ -1181,7 +1181,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Otra opción que tiene esta función, es la creación de gráficos de líneas, para ello conoceremos la relación entre el tramo etario y el recibir el IFE</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>edad_tramo, datos_proc<span style="color:#f92672">$</span>ife,
             title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de línea&#34;</span>,
-            type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;line&#34;</span>))
+            type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;line&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen graf lin agrup-1.png" width="672" /></p>
 <p>También podemos ver la relación de el tramo etario y si trabajó la semana pasada</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>edad_tramo, datos_proc<span style="color:#f92672">$</span>ocupacion, 
@@ -1194,7 +1194,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Ahora si queremos conocer cómo interactúa las horas de trabajo con el tramo etario, podemos visualizarlo mediante un gráfico de cajas</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>horas_mens, datos_proc<span style="color:#f92672">$</span>edad_tramo,
             title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de caja&#34;</span>,
-             type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;boxplot&#34;</span>))
+             type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;boxplot&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen graf caj-1.png" width="672" /></p>
 <p>Además, se puede incorporar una tercera variable, en este caso lo haremos con la variable <code>sexo</code> y el argumento <code>intr.var</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>horas_mens, datos_proc<span style="color:#f92672">$</span>edad_tramo, intr.var <span style="color:#f92672">=</span> datos_proc<span style="color:#f92672">$</span>sexo, 
@@ -1207,7 +1207,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Finalmente, para generar un gráfico de violín, añadiremos el argumento <code>type = &quot;violin&quot;</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_grpfrq</span>(datos_proc<span style="color:#f92672">$</span>horas_mens, datos_proc<span style="color:#f92672">$</span>edad_tramo,
             title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de violín&#34;</span>,
-            type <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;violin&#34;</span>))
+            type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;violin&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/casen graf violin agrup-1.png" width="672" /></p>
 <p>Nuevamente, la función nos permite la creación de múltiples gráficos, sólo se debe cambiar el argumento <code>type =</code></p>
 <h1 id="6-tablas-de-contingencia">6. Tablas de contingencia</h1>
@@ -1370,7 +1370,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <p>Finalmente, si queremos reportar un análisis de Anova, no podemos dejar de lado este gráfico que nos otorga la función <code>sjp.aov1</code> del paquete <code>sjPlot</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sjp.aov1</span>(datos_proc<span style="color:#f92672">$</span>ingreso_percapita, datos_proc<span style="color:#f92672">$</span>sexo, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Anova&#34;</span>)
 </code></pre></div><p><img src="/example/06-practico_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<h1 id="9-resumen-del-práctico">9. Resumen del práctico</h1>
+<h1 id="10-resumen-del-práctico">10. Resumen del práctico</h1>
 <p>¡Eso es todo por este práctico! Hoy aprendimos a:</p>
 <ul>
 <li>Manejar datos descriptivos en Rstudio</li>
@@ -1380,8 +1380,8 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>A obtener tablas de correlación y chi2</li>
 <li>A obtener gráficos de Anova</li>
 </ul>
-<h1 id="7-reporte-de-progreso">7. Reporte de progreso</h1>
-<p>¡Recuerda rellenar tu <a href="">reporte de progreso</a>. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.</p>
+<h1 id="11-reporte-de-progreso">11. Reporte de progreso</h1>
+<p>¡Recuerda rellenar tu <a href="https://learn-r.formr.org/" target="_blank" rel="noopener">reporte de progreso</a>. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.</p>
 
                     </div>
 
