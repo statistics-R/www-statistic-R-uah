@@ -29718,7 +29718,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;9-16 de agosto&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;14-25 de marzo&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;span class=&#34;content-title&#34;&gt;Unidad 1. Elementos y herramientas básicos de R&lt;/span&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29740,7 +29740,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;9 Agosto&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;14 Marzo&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 1)&lt;/small&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;1.1 R enviroment: interfaz de RStudio, elementos de script, workspace&lt;br&gt;1.2 Prácticas y herramientas de consulta: CRAN, stackoverflow, Rcommunity&lt;br&gt;1.3 Herramientas para la colaboración y comunicación: Rprojects, GitHub y Slack&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
@@ -29749,9 +29749,10 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/example/01-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/00-tarea/&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/resource/install/&#34;&gt;
                     &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
@@ -29759,7 +29760,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;16 Agosto&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;21 Marzo&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 2)&lt;/small&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;1.4 Librerías y funciones para las ciencias sociales: tidyverse y sj (sjmisc y sjPlot)&lt;br&gt;1.5 Construcción de reportes reproducibles e integrados con código: Rmarkdown&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
@@ -29769,7 +29770,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                     href=&#34;/example/02-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/01-tarea/&#34;&gt;
+                    href=&#34;/assignment/00-tarea/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29779,7 +29780,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;23 Agosto-6 Septiembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;28 marzo - 22 abril&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;span class=&#34;content-title&#34;&gt;Unidad 2. Manipulación y limpieza de datos&lt;/span&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29801,9 +29802,9 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;23 Agosto&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;28 Marzo&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 3)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.1 Importar/exportar datos en diferentes formatos&lt;br&gt;2.2 Validación y limpieza de variables&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.1 Tipos de datos en R&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/03-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
@@ -29821,9 +29822,9 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-2&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;30 Agosto&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;4 Abril&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 4)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.3 Transformación y selección de variables&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.2 Importar/exportar datos en diferentes formatos&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/04-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
@@ -29840,19 +29841,60 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
-            class=&#34; section-bottom schedule-bg-2&#34;&gt;
+            class=&#34; schedule-bg-2&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;6 Septiembre&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;11 Abril&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 5)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.4 Transformación de datos en tidydata&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.3 Selección de variables y filtrar datos&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/05-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/example/05-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr
+            class=&#34; section-bottom schedule-bg-2&#34;&gt;
+            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
+                &lt;strong&gt;11 Abril&lt;/strong&gt;&lt;br&gt;
+                &lt;small&gt;(Sesión 6)&lt;/small&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;2.4 Transformación de variales&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/02-tarea/&#34;&gt;
+                    href=&#34;/content/06-content/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/example/06-practico/&#34;&gt;
+                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/assignment/01-tarea/&#34;&gt;
+                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr
+            class=&#34; section-bottom schedule-bg-2&#34;&gt;
+            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
+                &lt;strong&gt;25 Abril&lt;/strong&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Sesión de apoyo Tarea N°1&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/content/01-support/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/assignment/01-tarea/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29862,7 +29904,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;13-20 Septiembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;9-16 de mayo&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;span class=&#34;content-title&#34;&gt;Unidad 3. Análisis estadístico descriptivo en R&lt;/span&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29884,17 +29926,38 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;13 Septiembre&lt;/strong&gt;&lt;br&gt;
-                &lt;small&gt;(Sesión 6)&lt;/small&gt;&lt;/td&gt;
+                &lt;strong&gt;9 Mayo&lt;/strong&gt;&lt;br&gt;
+                &lt;small&gt;(Sesión 7)&lt;/small&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;3.1 Análisis descriptivos univariados: medidas de tendencia central, dispersión y frecuencias&lt;br&gt;3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/content/06-content/&#34;&gt;
+                    href=&#34;/content/07-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/06-practico/&#34;&gt;
+                    href=&#34;/example/07-practico/&#34;&gt;
+                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr
+            class=&#34; section-bottom schedule-bg-1&#34;&gt;
+            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
+                &lt;strong&gt;16 Mayo&lt;/strong&gt;&lt;br&gt;
+                &lt;small&gt;(Sesión 8)&lt;/small&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/content/08-content/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/example/08-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/03-tarea/&#34;&gt;
+                    href=&#34;/assignment/02-tarea/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29902,14 +29965,13 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
-            class=&#34; section-bottom schedule-bg-2&#34;&gt;
+            class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;20 Septiembre&lt;/strong&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Semana de receso&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
+                &lt;strong&gt;23 Mayo&lt;/strong&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Sesión de Apoyo Tarea N°2&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/content/02-support/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
@@ -29918,14 +29980,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
             &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/resource/zotero/&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
+                &lt;font color=&#34;f1f1f1&#34;&gt;
+                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
+            &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
-            class=&#34; schedule-bg-1&#34;&gt;
+            class=&#34; schedule-bg-2&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;27 Septiembre-8 Noviembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;30 Mayo - 17 junio&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;span class=&#34;content-title&#34;&gt;Unidad 4. Análisis estadístico inferencial en R&lt;/span&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -29945,103 +30008,19 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
-            class=&#34; schedule-bg-1&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;27 Septiembre&lt;/strong&gt;&lt;br&gt;
-                &lt;small&gt;(Sesión 7)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/content/07-content/&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/07-practico/&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/04-problem-set/&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;4 Octubre&lt;/strong&gt;&lt;br&gt;
-                &lt;small&gt;(Sesión 8)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.1 Muestras complejas y precisión de inferencia estadística&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/content/08-content/&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/08-practico/&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
-            class=&#34; section-bottom schedule-bg-2&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;11 Octubre&lt;/strong&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Feriado&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
-            class=&#34; schedule-bg-1&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;18 Octubre&lt;/strong&gt;&lt;br&gt;
+                &lt;strong&gt;30 Mayo&lt;/strong&gt;&lt;br&gt;
                 &lt;small&gt;(Sesión 9)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.3 Regresiones &lt;strong&gt;lineales&lt;/strong&gt;, predictores categóricos y representación gráfica&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.1 Muestras complejas y precisión de inferencia estadística&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/content/09-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
                     href=&#34;/example/09-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
-            class=&#34; schedule-bg-1&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;25 Octubre&lt;/strong&gt;&lt;br&gt;
-                &lt;small&gt;(Sesión 10)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.4 Regresiones &lt;strong&gt;logísticas&lt;/strong&gt;, exponenciación y representación gráfica&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/content/10-content/&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/10-practico/&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/05-problem-set/&#34;&gt;
+                    href=&#34;/assignment/03-tarea/&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30049,14 +30028,13 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
             &lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr
-            class=&#34; section-bottom schedule-bg-2&#34;&gt;
+            class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;1 Noviembre&lt;/strong&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Feriado&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
+                &lt;strong&gt;06 junio&lt;/strong&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Sesión Apoyo Tarea N°3&lt;/td&gt;
+            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
+                    href=&#34;/content/03-support/&#34;&gt;
+                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
@@ -30073,37 +30051,15 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-1&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;8 Noviembre&lt;/strong&gt;&lt;br&gt;
-                &lt;small&gt;(Sesión 11)&lt;/small&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.5 Calidad de modelos y otras técnicas de estimación&lt;/td&gt;
+                &lt;strong&gt;13 junio&lt;/strong&gt;&lt;br&gt;
+                &lt;small&gt;(Sesión 10)&lt;/small&gt;&lt;/td&gt;
+            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;4.2 Regresiones &lt;strong&gt;lineales y logísticas&lt;/strong&gt;, predictores categóricos y representación gráfica&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/content/11-content/&#34;&gt;
+                    href=&#34;/content/10-content/&#34;&gt;
                     &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/example/11-practico/&#34;&gt;
+                    href=&#34;/example/10-practico/&#34;&gt;
                     &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
-            class=&#34; section-bottom schedule-bg-2&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;15 Noviembre&lt;/strong&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;Receso&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
                     &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
@@ -30116,7 +30072,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;22 Noviembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;4 julio&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-six&#34;&gt;&lt;/i&gt; &lt;strong&gt;Entrega final&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30148,7 +30104,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;9 Agosto-13 Agosto&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;25 marzo&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-square&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 0: Colaborando en Github&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30169,28 +30125,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;16 Agosto-27 Agosto&lt;/strong&gt;&lt;/td&gt;
-            &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-one&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 1: Reporte en Rmarkdown&lt;/strong&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-book-reader fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-laptop-code fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;&lt;a
-                    href=&#34;/assignment/01-tarea/&#34;&gt;
-                    &lt;i class=&#34;fas fa-pencil-ruler fa-lg&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/td&gt;
-            &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
-                &lt;font color=&#34;f1f1f1&#34;&gt;
-                    &lt;i class=&#34;fas fa-tools fa-lg&#34;&gt;&lt;/i&gt;&lt;/font&gt;
-            &lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr
-            class=&#34; section-bottom schedule-bg-3&#34;&gt;
-            &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;13 Septiembre-17 septiembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;29 abril&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-two&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 2: Procesamiento de datos&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30211,7 +30146,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;20 Septiembre-4 de octubre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;23 mayo&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-two&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 3: Análisis descriptivo&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30232,7 +30167,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;4 octubre-15 octubre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;10 junio&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-two&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 4: Muestras complejas&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30253,7 +30188,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;25 octubre-29 octubre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;17 Junio&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-two&#34;&gt;&lt;/i&gt; &lt;strong&gt;Tarea 5: Regresiones en R&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
@@ -30274,7 +30209,7 @@ avg_mpg &amp;lt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;spa
         &lt;tr
             class=&#34; section-bottom schedule-bg-3&#34;&gt;
             &lt;td align=&#34;right&#34; style=&#34;width:20%;text-align:right&#34;&gt;
-                &lt;strong&gt;22 Noviembre&lt;/strong&gt;&lt;/td&gt;
+                &lt;strong&gt;4 julio&lt;/strong&gt;&lt;/td&gt;
             &lt;td style=&#34;width:56%;text-align:left&#34;&gt;&lt;i class=&#34;fas fa-dice-six&#34;&gt;&lt;/i&gt; &lt;strong&gt;Entrega investigación final&lt;/strong&gt;&lt;/td&gt;
             &lt;td align=&#34;center&#34; style=&#34;width:10%;text-align:center&#34;&gt;
                 &lt;font color=&#34;f1f1f1&#34;&gt;
