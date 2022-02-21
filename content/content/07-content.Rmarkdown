@@ -1,18 +1,18 @@
 ---
-title: "Muestras complejas"
-linktitle: "7: Muestras complejas"
-date: "2021-09-27"
-start_date: "2021-09-27"
-end_date: "2021-11-08"
+title: "Análisis descriptivo univariado"
+linktitle: "7: Análisis descriptivo univariado"
+date: "2021-09-13"
+start_date: "2021-09-13"
+end_date: "2021-09-20"
 menu:
   content:
     parent: Contenido
-    weight: 7
+    weight: 6
 type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "07-slides"
+slides: "06-slides"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
@@ -20,9 +20,9 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
-  "Muestreo complejo", "1", TRUE,
-   "", "14", FALSE,
-   "", "29", FALSE
+  "Tendencia central", "1", TRUE,
+   "Frecuencias", "14", FALSE,
+   "Visualización", "29", FALSE
 )
 ```
 
@@ -31,7 +31,7 @@ slide_details <- tibble::tribble(
 `r blogdown::shortcode("slide-buttons")`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_tabs(slide_details, "/slides/07-slides.html")
+slide_tabs(slide_details, "/slides/06-slides.html")
 ```
 
 {{% div fyi %}}
@@ -40,19 +40,30 @@ slide_tabs(slide_details, "/slides/07-slides.html")
 
 # Video de la clase
 
-- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/JV-ZEsTOB-jU3s3dTEM57WVBqIuveCIm2S2ud3MqNim1pVgiPcijb-sj5UwGUiPg.UjmlJMrkaJaTODNb?startTime=1633375758000)
+- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
 
-- - [<i class="fas fa-video"></i> `Video del práctico`](https://zoom.us/rec/share/qzVDXwHjWaxFNoQ3mRhXQ027sFrpZK3d-LrxC00sHJDmDa2bYohief-RfS-5yRUb.5oAyDL6HfntGFRhe?startTime=1633380893000)
+- [<i class="fas fa-video"></i> `Video del práctico - mismo que el de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
+
 
 
 # Material de la clase
 
-- [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
+- [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
+- [<i class="fas fa-laptop-code"</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
 
-- [<i class="fas fa-laptop-code"></i> Práctico](/example/07-practico/)
+- [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
 
 
 # Materiales adicionales
 
+- [Tidy Messy data](https://tidyr.tidyverse.org/)
+- <i class="fab fa-youtube"></i> Tutoriales, ["Learn-R"](https://www.youtube.com/watch?v=UOoMzaWOQJA) 
+    - [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
+    - [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
+    - [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
+
+- <i class="fas fa-book"></i> Hadley Wickham, ["Tidy data "](https://r4ds.had.co.nz/tidy-data.html) 
+
+- <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
 

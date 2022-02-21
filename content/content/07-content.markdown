@@ -1,18 +1,18 @@
 ---
-title: "Muestras complejas"
-linktitle: "7: Muestras complejas"
-date: "2021-09-27"
-start_date: "2021-09-27"
-end_date: "2021-11-08"
+title: "Análisis descriptivo univariado"
+linktitle: "7: Análisis descriptivo univariado"
+date: "2021-09-13"
+start_date: "2021-09-13"
+end_date: "2021-09-20"
 menu:
   content:
     parent: Contenido
-    weight: 7
+    weight: 6
 type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "07-slides"
+slides: "06-slides"
 ---
 
 # Slides
@@ -21,45 +21,45 @@ slides: "07-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="muestreo-complejo-tab" data-toggle="tab" href="#muestreo-complejo" role="tab" aria-controls="muestreo-complejo" aria-selected="true">Muestreo complejo</a>
+<a class="nav-link active" id="tendencia-central-tab" data-toggle="tab" href="#tendencia-central" role="tab" aria-controls="tendencia-central" aria-selected="true">Tendencia central</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="-tab" data-toggle="tab" href="#" role="tab" aria-controls="" aria-selected="false"></a>
+<a class="nav-link" id="frecuencias-tab" data-toggle="tab" href="#frecuencias" role="tab" aria-controls="frecuencias" aria-selected="false">Frecuencias</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="-tab" data-toggle="tab" href="#" role="tab" aria-controls="" aria-selected="false"></a>
+<a class="nav-link" id="visualización-tab" data-toggle="tab" href="#visualización" role="tab" aria-controls="visualización" aria-selected="false">Visualización</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="muestreo-complejo" class="tab-pane fade show active" role="tabpanel" aria-labelledby="muestreo-complejo-tab">
+<div id="tendencia-central" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tendencia-central-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/07-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
 </iframe>
 
 </div>
 
 </div>
 
-<div class="tab-pane fade" role="tabpanel" aria-labelledby="-tab">
+<div id="frecuencias" class="tab-pane fade" role="tabpanel" aria-labelledby="frecuencias-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/07-slides.html#14">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#14">
 </iframe>
 
 </div>
 
 </div>
 
-<div class="tab-pane fade" role="tabpanel" aria-labelledby="-tab">
+<div id="visualización" class="tab-pane fade" role="tabpanel" aria-labelledby="visualización-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/07-slides.html#29">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#29">
 </iframe>
 
 </div>
@@ -74,14 +74,28 @@ slides: "07-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/JV-ZEsTOB-jU3s3dTEM57WVBqIuveCIm2S2ud3MqNim1pVgiPcijb-sj5UwGUiPg.UjmlJMrkaJaTODNb?startTime=1633375758000)
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
 
--   -   [<i class="fas fa-video"></i> `Video del práctico`](https://zoom.us/rec/share/qzVDXwHjWaxFNoQ3mRhXQ027sFrpZK3d-LrxC00sHJDmDa2bYohief-RfS-5yRUb.5oAyDL6HfntGFRhe?startTime=1633380893000)
+-   [<i class="fas fa-video"></i> `Video del práctico - mismo que el de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/07-practico/)
+-   [&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
+
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
 
 # Materiales adicionales
+
+-   [Tidy Messy data](https://tidyr.tidyverse.org/)
+
+-   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
+
+    -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
+    -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
+    -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
+
+-   <i class="fas fa-book"></i> Hadley Wickham, [“Tidy data”](https://r4ds.had.co.nz/tidy-data.html)
+
+-   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)

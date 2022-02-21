@@ -1,7 +1,7 @@
 ---
-title: "Transformación estructura datos"
-linktitle: "5: Transformación estructura datos"
-date: "2021-09-06"
+title: "Selección de variables y filtrar datos"
+linktitle: "5:Selección de variables y filtrar datos"
+date: "2021-08-30"
 start_date: "2021-08-23"
 end_date: "2021-09-06"
 menu:
@@ -12,7 +12,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "05-slides"
+slides: "04-slides"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
@@ -20,13 +20,13 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
-  "Estructura datos", "1", TRUE,
-   "Rowwise", "14", FALSE,
-   "Group_by", "29", FALSE,
-  "Pivot*", "35", FALSE,
-  "Separate-Unite", "45", FALSE,
-  "Merge", "52", FALSE,
-    "Col and row bind", "55", FALSE
+  "Básicos", "11", TRUE,
+   "Procesar datos", "14", FALSE,
+   "Operadores", "29", FALSE,
+  "Seleccionar", "35", FALSE,
+  "Filtrar", "45", FALSE,
+  "Crear variables", "52", FALSE,
+    "Pipe", "55", FALSE
 )
 ```
 
@@ -35,7 +35,7 @@ slide_details <- tibble::tribble(
 `r blogdown::shortcode("slide-buttons")`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_tabs(slide_details, "/slides/05-slides.html")
+slide_tabs(slide_details, "/slides/04-slides.html")
 ```
 
 {{% div fyi %}}
@@ -44,28 +44,25 @@ slide_tabs(slide_details, "/slides/05-slides.html")
 
 # Video de la clase
 
-- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/lEde93MJD06mKG56busbOZdeV3b_e6PuYnx5L0uzNdzi6-lF4CtCsES38tYN-oev.GTU_gDNrKpEH2Zjb?startTime=1630962105000)
+- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000)
 
 
 
 # Material de la clase
 
-- [<i class="fas fa-file-archive"></i> `05-clase.zip`](https://github.com/learn-R/05-class/raw/main/05-clase.zip)
+- [<i class="fas fa-file-archive"></i> `04-clase.zip`](https://github.com/learn-R/04-class/raw/main/04-clase.zip)
 
-- [<i class="fas fa-laptop-code"</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
+-[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
 
-- [<i class="fas fa-laptop-code"></i> Práctico](/example/05-practico/)
+- [<i class="fas fa-laptop-code"></i> Práctico](/example/04-practico/)
 
 
 # Materiales adicionales
 
-- [Tidy Messy data](https://tidyr.tidyverse.org/)
 - <i class="fab fa-youtube"></i> Tutoriales, ["Learn-R"](https://www.youtube.com/watch?v=UOoMzaWOQJA) 
     - [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
     - [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
     - [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
 
-- <i class="fas fa-book"></i> Hadley Wickham, ["Tidy data "](https://r4ds.had.co.nz/tidy-data.html) 
-
-- <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
+- <i class="fas fa-book"></i> Hadley Wickham, ["Data Science: How is it Different To Statistics?"](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/) 
 

@@ -1,9 +1,9 @@
 ---
-title: "Importar y explorar datos"
-linktitle: "3: Importar y explorar datos"
-date: "2021-08-23"
-start_date: "2021-08-23"
-end_date: "2021-09-06"
+title: "Tipos de datos en R"
+linktitle: "3: Tipos de datos en R"
+date: "2022-03-28"
+start_date: "2022-03-28"
+end_date: "2022-04-01"
 menu:
   content:
     parent: Contenido
@@ -20,10 +20,10 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
-  "Importar", "import", TRUE,
-   "Validar", "renv", FALSE,
-   "Seleccionar", "rcom", FALSE,
-  "Exportar", "exp", FALSE
+  "Data types", "data-t", TRUE,
+   "Data structures", "data-s", FALSE,
+   "Data frames", "df", FALSE,
+  "Ejercicios", "ej", FALSE
 )
 ```
 
@@ -38,10 +38,6 @@ slide_tabs(slide_details, "/slides/03-slides.html")
 {{% div fyi %}}
 **¿Cómo ocupar**: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 {{% /div %}}
-
-# Video de la clase
-
-- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aKaz3bmSVg5iE7Sn8qeDVTrj3zoK_7HBkvMB46hhuH5C0trYK_V6YXqxbRwdpEMu.Y17bJ5f4XEiDn2qT?startTime=1629756672000)
 
 
 
@@ -62,8 +58,4 @@ slide_tabs(slide_details, "/slides/03-slides.html")
     - [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
 
 - <i class="fas fa-book"></i> Hadley Wickham, ["Data Science: How is it Different To Statistics?"](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/) 
-
-- <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
-
-- **Actividad con décimas**
 

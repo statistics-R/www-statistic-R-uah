@@ -1,9 +1,9 @@
 ---
-title: "Importar y explorar datos"
-linktitle: "3: Importar y explorar datos"
-date: "2021-08-23"
-start_date: "2021-08-23"
-end_date: "2021-09-06"
+title: "Tipos de datos en R"
+linktitle: "3: Tipos de datos en R"
+date: "2022-03-28"
+start_date: "2022-03-28"
+end_date: "2022-04-01"
 menu:
   content:
     parent: Contenido
@@ -21,59 +21,59 @@ slides: "03-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="importar-tab" data-toggle="tab" href="#importar" role="tab" aria-controls="importar" aria-selected="true">Importar</a>
+<a class="nav-link active" id="data-types-tab" data-toggle="tab" href="#data-types" role="tab" aria-controls="data-types" aria-selected="true">Data types</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="validar-tab" data-toggle="tab" href="#validar" role="tab" aria-controls="validar" aria-selected="false">Validar</a>
+<a class="nav-link" id="data-structures-tab" data-toggle="tab" href="#data-structures" role="tab" aria-controls="data-structures" aria-selected="false">Data structures</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
+<a class="nav-link" id="data-frames-tab" data-toggle="tab" href="#data-frames" role="tab" aria-controls="data-frames" aria-selected="false">Data frames</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="exportar-tab" data-toggle="tab" href="#exportar" role="tab" aria-controls="exportar" aria-selected="false">Exportar</a>
+<a class="nav-link" id="ejercicios-tab" data-toggle="tab" href="#ejercicios" role="tab" aria-controls="ejercicios" aria-selected="false">Ejercicios</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="importar" class="tab-pane fade show active" role="tabpanel" aria-labelledby="importar-tab">
+<div id="data-types" class="tab-pane fade show active" role="tabpanel" aria-labelledby="data-types-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#import">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-t">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="validar" class="tab-pane fade" role="tabpanel" aria-labelledby="validar-tab">
+<div id="data-structures" class="tab-pane fade" role="tabpanel" aria-labelledby="data-structures-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#renv">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-s">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="seleccionar" class="tab-pane fade" role="tabpanel" aria-labelledby="seleccionar-tab">
+<div id="data-frames" class="tab-pane fade" role="tabpanel" aria-labelledby="data-frames-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#rcom">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#df">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="exportar" class="tab-pane fade" role="tabpanel" aria-labelledby="exportar-tab">
+<div id="ejercicios" class="tab-pane fade" role="tabpanel" aria-labelledby="ejercicios-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#exp">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#ej">
 </iframe>
 
 </div>
@@ -86,10 +86,6 @@ slides: "03-slides"
 **¿Cómo ocupar**: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 {{% /div %}}
 
-# Video de la clase
-
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aKaz3bmSVg5iE7Sn8qeDVTrj3zoK_7HBkvMB46hhuH5C0trYK_V6YXqxbRwdpEMu.Y17bJ5f4XEiDn2qT?startTime=1629756672000)
-
 # Material de la clase
 
 -   [<i class="fas fa-file-archive"></i> `03-clase.zip`](https://github.com/learn-R/03-class/raw/main/03-clase.zip)
@@ -101,13 +97,7 @@ slides: "03-slides"
 # Materiales adicionales
 
 -   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
-
     -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
     -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
     -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
-
 -   <i class="fas fa-book"></i> Hadley Wickham, [“Data Science: How is it Different To Statistics?”](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/)
-
--   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
-
--   **Actividad con décimas**

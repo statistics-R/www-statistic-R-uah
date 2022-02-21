@@ -1,9 +1,9 @@
 ---
 title: "Herramientas para el uso de R"
 linktitle: "2: Herramientas para el uso de R"
-date: "2021-08-09"
-start_date: "2021-08-09"
-end_date: "2021-08-16"
+date: "2022-03-21"
+start_date: "2022-03-21"
+end_date: "2022-03-25"
 menu:
   content:
     parent: Contenido
@@ -63,8 +63,6 @@ slide_tabs(slide_details, "/slides/02-slides.html")
     - <small>Ver Tutorial N°1 Instalación de softwares</small>
     - <small>Ver Tutorial N°2 GitHub y GitHub Class Room</small>
 
-
-- <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
 
 
 ## De RMarkdown

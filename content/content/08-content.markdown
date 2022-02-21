@@ -1,18 +1,18 @@
 ---
-title: "Regresiones lineales"
-linktitle: "8: Regresiones lineales"
-date: "2021-10-04"
-start_date: "2021-09-27"
-end_date: "2021-11-08"
+title: "Análisis descriptivo bivariado"
+linktitle: "8: Análisis descriptivo bivariado"
+date: "2021-09-13"
+start_date: "2021-09-13"
+end_date: "2021-09-20"
 menu:
   content:
     parent: Contenido
-    weight: 8
+    weight: 6
 type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "08-slides"
+slides: "06-slides"
 ---
 
 # Slides
@@ -21,129 +21,45 @@ slides: "08-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="rlm-tab" data-toggle="tab" href="#rlm" role="tab" aria-controls="rlm" aria-selected="true">RLM</a>
+<a class="nav-link active" id="tendencia-central-tab" data-toggle="tab" href="#tendencia-central" role="tab" aria-controls="tendencia-central" aria-selected="true">Tendencia central</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="lm-tab" data-toggle="tab" href="#lm" role="tab" aria-controls="lm" aria-selected="false">lm()</a>
+<a class="nav-link" id="frecuencias-tab" data-toggle="tab" href="#frecuencias" role="tab" aria-controls="frecuencias" aria-selected="false">Frecuencias</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="glm-y-svyglm-tab" data-toggle="tab" href="#glm-y-svyglm" role="tab" aria-controls="glm-y-svyglm" aria-selected="false">glm() y svyglm()</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="predictores-categóricos-tab" data-toggle="tab" href="#predictores-categóricos" role="tab" aria-controls="predictores-categóricos" aria-selected="false">Predictores categóricos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="tranformaciones-funcionales-tab" data-toggle="tab" href="#tranformaciones-funcionales" role="tab" aria-controls="tranformaciones-funcionales" aria-selected="false">Tranformaciones funcionales</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="modelo-exploratorio-tab" data-toggle="tab" href="#modelo-exploratorio" role="tab" aria-controls="modelo-exploratorio" aria-selected="false">Modelo exploratorio</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="extraer-elementos-tab" data-toggle="tab" href="#extraer-elementos" role="tab" aria-controls="extraer-elementos" aria-selected="false">Extraer elementos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="tablas-tab" data-toggle="tab" href="#tablas" role="tab" aria-controls="tablas" aria-selected="false">Tablas</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="gráficos-tab" data-toggle="tab" href="#gráficos" role="tab" aria-controls="gráficos" aria-selected="false">Gráficos</a>
+<a class="nav-link" id="visualización-tab" data-toggle="tab" href="#visualización" role="tab" aria-controls="visualización" aria-selected="false">Visualización</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="rlm" class="tab-pane fade show active" role="tabpanel" aria-labelledby="rlm-tab">
+<div id="tendencia-central" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tendencia-central-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="lm" class="tab-pane fade" role="tabpanel" aria-labelledby="lm-tab">
+<div id="frecuencias" class="tab-pane fade" role="tabpanel" aria-labelledby="frecuencias-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#4">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#14">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="glm-y-svyglm" class="tab-pane fade" role="tabpanel" aria-labelledby="glm-y-svyglm-tab">
+<div id="visualización" class="tab-pane fade" role="tabpanel" aria-labelledby="visualización-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#10">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="predictores-categóricos" class="tab-pane fade" role="tabpanel" aria-labelledby="predictores-categóricos-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="tranformaciones-funcionales" class="tab-pane fade" role="tabpanel" aria-labelledby="tranformaciones-funcionales-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="modelo-exploratorio" class="tab-pane fade" role="tabpanel" aria-labelledby="modelo-exploratorio-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#24">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="extraer-elementos" class="tab-pane fade" role="tabpanel" aria-labelledby="extraer-elementos-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#26">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="tablas" class="tab-pane fade" role="tabpanel" aria-labelledby="tablas-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="gráficos" class="tab-pane fade" role="tabpanel" aria-labelledby="gráficos-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#29">
 </iframe>
 
 </div>
@@ -158,12 +74,28 @@ slides: "08-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/PaJ9H8040XvhE2XcTBm50OHSaEn8uqHRFfGAENmiA_rLFiTkZh3KHXHWskHcq080.DnUXhHQ_z8sUidbw?startTime=1634581803000)
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
 
--   -   [<i class="fas fa-video"></i> `Video del práctico`](https://zoom.us/rec/share/WKlV4ubvf3vr68wkI0exigLE-CFutNRtoPbGV3lTL-TCloACTpi7PEW5aXH5MBUH.3q3q36bHty8jf41f?startTime=1634589353000)
+-   [<i class="fas fa-video"></i> `Video del práctico - mismo que el de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `08-clase.zip`](https://github.com/learn-R/09-class/raw/main/08-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/08-practico/)
+-   [&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
+
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
+
+# Materiales adicionales
+
+-   [Tidy Messy data](https://tidyr.tidyverse.org/)
+
+-   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
+
+    -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
+    -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
+    -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
+
+-   <i class="fas fa-book"></i> Hadley Wickham, [“Tidy data”](https://r4ds.had.co.nz/tidy-data.html)
+
+-   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)

@@ -1,7 +1,7 @@
 ---
-title: "Transformación y selección de variables"
-linktitle: "4:Transformación y selección de variables"
-date: "2021-08-30"
+title: "Importar y explorar datos"
+linktitle: "4: Importar y explorar datos"
+date: "2021-08-23"
 start_date: "2021-08-23"
 end_date: "2021-09-06"
 menu:
@@ -12,7 +12,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "04-slides"
+slides: "03-slides"
 ---
 
 # Slides
@@ -21,57 +21,37 @@ slides: "04-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="básicos-tab" data-toggle="tab" href="#básicos" role="tab" aria-controls="básicos" aria-selected="true">Básicos</a>
+<a class="nav-link active" id="importar-tab" data-toggle="tab" href="#importar" role="tab" aria-controls="importar" aria-selected="true">Importar</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="procesar-datos-tab" data-toggle="tab" href="#procesar-datos" role="tab" aria-controls="procesar-datos" aria-selected="false">Procesar datos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="operadores-tab" data-toggle="tab" href="#operadores" role="tab" aria-controls="operadores" aria-selected="false">Operadores</a>
+<a class="nav-link" id="validar-tab" data-toggle="tab" href="#validar" role="tab" aria-controls="validar" aria-selected="false">Validar</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="filtrar-tab" data-toggle="tab" href="#filtrar" role="tab" aria-controls="filtrar" aria-selected="false">Filtrar</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="crear-variables-tab" data-toggle="tab" href="#crear-variables" role="tab" aria-controls="crear-variables" aria-selected="false">Crear variables</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="pipe-tab" data-toggle="tab" href="#pipe" role="tab" aria-controls="pipe" aria-selected="false">Pipe</a>
+<a class="nav-link" id="exportar-tab" data-toggle="tab" href="#exportar" role="tab" aria-controls="exportar" aria-selected="false">Exportar</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="básicos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="básicos-tab">
+<div id="importar" class="tab-pane fade show active" role="tabpanel" aria-labelledby="importar-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#11">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#import">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="procesar-datos" class="tab-pane fade" role="tabpanel" aria-labelledby="procesar-datos-tab">
+<div id="validar" class="tab-pane fade" role="tabpanel" aria-labelledby="validar-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#14">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="operadores" class="tab-pane fade" role="tabpanel" aria-labelledby="operadores-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#29">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#renv">
 </iframe>
 
 </div>
@@ -82,40 +62,18 @@ slides: "04-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#35">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#rcom">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="filtrar" class="tab-pane fade" role="tabpanel" aria-labelledby="filtrar-tab">
+<div id="exportar" class="tab-pane fade" role="tabpanel" aria-labelledby="exportar-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#45">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="crear-variables" class="tab-pane fade" role="tabpanel" aria-labelledby="crear-variables-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#52">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="pipe" class="tab-pane fade" role="tabpanel" aria-labelledby="pipe-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/04-slides.html#55">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#exp">
 </iframe>
 
 </div>
@@ -130,15 +88,15 @@ slides: "04-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000)
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aKaz3bmSVg5iE7Sn8qeDVTrj3zoK_7HBkvMB46hhuH5C0trYK_V6YXqxbRwdpEMu.Y17bJ5f4XEiDn2qT?startTime=1629756672000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `04-clase.zip`](https://github.com/learn-R/04-class/raw/main/04-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `03-clase.zip`](https://github.com/learn-R/03-class/raw/main/03-clase.zip)
 
 \-[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/04-practico/)
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/03-practico/)
 
 # Materiales adicionales
 
@@ -151,3 +109,5 @@ slides: "04-slides"
 -   <i class="fas fa-book"></i> Hadley Wickham, [“Data Science: How is it Different To Statistics?”](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/)
 
 -   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
+
+-   **Actividad con décimas**

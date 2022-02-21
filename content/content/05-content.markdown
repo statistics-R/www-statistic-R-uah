@@ -1,7 +1,7 @@
 ---
-title: "Transformación estructura datos"
-linktitle: "5: Transformación estructura datos"
-date: "2021-09-06"
+title: "Selección de variables y filtrar datos"
+linktitle: "5:Selección de variables y filtrar datos"
+date: "2021-08-30"
 start_date: "2021-08-23"
 end_date: "2021-09-06"
 menu:
@@ -12,7 +12,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "05-slides"
+slides: "04-slides"
 ---
 
 # Slides
@@ -21,101 +21,101 @@ slides: "05-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="estructura-datos-tab" data-toggle="tab" href="#estructura-datos" role="tab" aria-controls="estructura-datos" aria-selected="true">Estructura datos</a>
+<a class="nav-link active" id="básicos-tab" data-toggle="tab" href="#básicos" role="tab" aria-controls="básicos" aria-selected="true">Básicos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="rowwise-tab" data-toggle="tab" href="#rowwise" role="tab" aria-controls="rowwise" aria-selected="false">Rowwise</a>
+<a class="nav-link" id="procesar-datos-tab" data-toggle="tab" href="#procesar-datos" role="tab" aria-controls="procesar-datos" aria-selected="false">Procesar datos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="groupby-tab" data-toggle="tab" href="#groupby" role="tab" aria-controls="groupby" aria-selected="false">Group\_by</a>
+<a class="nav-link" id="operadores-tab" data-toggle="tab" href="#operadores" role="tab" aria-controls="operadores" aria-selected="false">Operadores</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="pivot-tab" data-toggle="tab" href="#pivot" role="tab" aria-controls="pivot" aria-selected="false">Pivot\*</a>
+<a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="separateunite-tab" data-toggle="tab" href="#separateunite" role="tab" aria-controls="separateunite" aria-selected="false">Separate-Unite</a>
+<a class="nav-link" id="filtrar-tab" data-toggle="tab" href="#filtrar" role="tab" aria-controls="filtrar" aria-selected="false">Filtrar</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="merge-tab" data-toggle="tab" href="#merge" role="tab" aria-controls="merge" aria-selected="false">Merge</a>
+<a class="nav-link" id="crear-variables-tab" data-toggle="tab" href="#crear-variables" role="tab" aria-controls="crear-variables" aria-selected="false">Crear variables</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="col-and-row-bind-tab" data-toggle="tab" href="#col-and-row-bind" role="tab" aria-controls="col-and-row-bind" aria-selected="false">Col and row bind</a>
+<a class="nav-link" id="pipe-tab" data-toggle="tab" href="#pipe" role="tab" aria-controls="pipe" aria-selected="false">Pipe</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="estructura-datos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="estructura-datos-tab">
+<div id="básicos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="básicos-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#11">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="rowwise" class="tab-pane fade" role="tabpanel" aria-labelledby="rowwise-tab">
+<div id="procesar-datos" class="tab-pane fade" role="tabpanel" aria-labelledby="procesar-datos-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#14">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#14">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="groupby" class="tab-pane fade" role="tabpanel" aria-labelledby="groupby-tab">
+<div id="operadores" class="tab-pane fade" role="tabpanel" aria-labelledby="operadores-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#29">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#29">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="pivot" class="tab-pane fade" role="tabpanel" aria-labelledby="pivot-tab">
+<div id="seleccionar" class="tab-pane fade" role="tabpanel" aria-labelledby="seleccionar-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#35">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#35">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="separateunite" class="tab-pane fade" role="tabpanel" aria-labelledby="separateunite-tab">
+<div id="filtrar" class="tab-pane fade" role="tabpanel" aria-labelledby="filtrar-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#45">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#45">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="merge" class="tab-pane fade" role="tabpanel" aria-labelledby="merge-tab">
+<div id="crear-variables" class="tab-pane fade" role="tabpanel" aria-labelledby="crear-variables-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#52">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#52">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="col-and-row-bind" class="tab-pane fade" role="tabpanel" aria-labelledby="col-and-row-bind-tab">
+<div id="pipe" class="tab-pane fade" role="tabpanel" aria-labelledby="pipe-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/05-slides.html#55">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#55">
 </iframe>
 
 </div>
@@ -130,26 +130,20 @@ slides: "05-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/lEde93MJD06mKG56busbOZdeV3b_e6PuYnx5L0uzNdzi6-lF4CtCsES38tYN-oev.GTU_gDNrKpEH2Zjb?startTime=1630962105000)
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `05-clase.zip`](https://github.com/learn-R/05-class/raw/main/05-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `04-clase.zip`](https://github.com/learn-R/04-class/raw/main/04-clase.zip)
 
--   [&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
+\-[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/05-practico/)
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/04-practico/)
 
 # Materiales adicionales
 
--   [Tidy Messy data](https://tidyr.tidyverse.org/)
-
 -   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
-
     -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
     -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
     -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
-
--   <i class="fas fa-book"></i> Hadley Wickham, [“Tidy data”](https://r4ds.had.co.nz/tidy-data.html)
-
--   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
+-   <i class="fas fa-book"></i> Hadley Wickham, [“Data Science: How is it Different To Statistics?”](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/)

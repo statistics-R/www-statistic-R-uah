@@ -1,9 +1,7 @@
 ---
 title: "Herramientas para el uso de R"
 linktitle: "1: Herramientas para el uso de R"
-date: "2021-08-09"
-start_date: "2021-08-09"
-end_date: "2021-08-16"
+date: "Sesion 1"
 menu:
   content:
     parent: Contenido

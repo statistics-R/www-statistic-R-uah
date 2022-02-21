@@ -1,18 +1,18 @@
 ---
-title: "Análisis descriptivo"
-linktitle: "6: Análisis descriptivo"
-date: "2021-09-13"
-start_date: "2021-09-13"
-end_date: "2021-09-20"
+title: "Transformación de variales"
+linktitle: "6:Transformación de variales"
+date: "2021-08-30"
+start_date: "2021-08-23"
+end_date: "2021-09-06"
 menu:
   content:
     parent: Contenido
-    weight: 6
+    weight: 5
 type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "06-slides"
+slides: "04-slides"
 ---
 
 # Slides
@@ -21,45 +21,101 @@ slides: "06-slides"
 
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="tendencia-central-tab" data-toggle="tab" href="#tendencia-central" role="tab" aria-controls="tendencia-central" aria-selected="true">Tendencia central</a>
+<a class="nav-link active" id="básicos-tab" data-toggle="tab" href="#básicos" role="tab" aria-controls="básicos" aria-selected="true">Básicos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="frecuencias-tab" data-toggle="tab" href="#frecuencias" role="tab" aria-controls="frecuencias" aria-selected="false">Frecuencias</a>
+<a class="nav-link" id="procesar-datos-tab" data-toggle="tab" href="#procesar-datos" role="tab" aria-controls="procesar-datos" aria-selected="false">Procesar datos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="visualización-tab" data-toggle="tab" href="#visualización" role="tab" aria-controls="visualización" aria-selected="false">Visualización</a>
+<a class="nav-link" id="operadores-tab" data-toggle="tab" href="#operadores" role="tab" aria-controls="operadores" aria-selected="false">Operadores</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="filtrar-tab" data-toggle="tab" href="#filtrar" role="tab" aria-controls="filtrar" aria-selected="false">Filtrar</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="crear-variables-tab" data-toggle="tab" href="#crear-variables" role="tab" aria-controls="crear-variables" aria-selected="false">Crear variables</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="pipe-tab" data-toggle="tab" href="#pipe" role="tab" aria-controls="pipe" aria-selected="false">Pipe</a>
 </li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
 
-<div id="tendencia-central" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tendencia-central-tab">
+<div id="básicos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="básicos-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#11">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="frecuencias" class="tab-pane fade" role="tabpanel" aria-labelledby="frecuencias-tab">
+<div id="procesar-datos" class="tab-pane fade" role="tabpanel" aria-labelledby="procesar-datos-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#14">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#14">
 </iframe>
 
 </div>
 
 </div>
 
-<div id="visualización" class="tab-pane fade" role="tabpanel" aria-labelledby="visualización-tab">
+<div id="operadores" class="tab-pane fade" role="tabpanel" aria-labelledby="operadores-tab">
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#29">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#29">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="seleccionar" class="tab-pane fade" role="tabpanel" aria-labelledby="seleccionar-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#35">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="filtrar" class="tab-pane fade" role="tabpanel" aria-labelledby="filtrar-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#45">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="crear-variables" class="tab-pane fade" role="tabpanel" aria-labelledby="crear-variables-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#52">
+</iframe>
+
+</div>
+
+</div>
+
+<div id="pipe" class="tab-pane fade" role="tabpanel" aria-labelledby="pipe-tab">
+
+<div class="embed-responsive embed-responsive-16by9">
+
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#55">
 </iframe>
 
 </div>
@@ -74,28 +130,20 @@ slides: "06-slides"
 
 # Video de la clase
 
--   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
-
--   [<i class="fas fa-video"></i> `Video del práctico - mismo que el de la clase`](https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000)
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000)
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `04-clase.zip`](https://github.com/learn-R/04-class/raw/main/06-clase.zip)
 
--   [&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
+\-[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
 
 # Materiales adicionales
 
--   [Tidy Messy data](https://tidyr.tidyverse.org/)
-
 -   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
-
     -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
     -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
     -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
-
--   <i class="fas fa-book"></i> Hadley Wickham, [“Tidy data”](https://r4ds.had.co.nz/tidy-data.html)
-
--   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
+-   <i class="fas fa-book"></i> Hadley Wickham, [“Data Science: How is it Different To Statistics?”](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/)
