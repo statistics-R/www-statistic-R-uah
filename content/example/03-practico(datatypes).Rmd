@@ -18,405 +18,138 @@ El objetivo de este práctico es presentar una introducción a los tipos de dato
 
 ##  Materiales de la sesión
 
+En este práctico trabajaremos con datos de la **Encuesta Suplementaria de Ingresos (*ESI*)** desarrollada por el **Instituto Nacional de Estadísticas** en el año 2020. Esta es "un módulo complementario que se aplica dentro de la Encuesta Nacional de Empleo (ENE) (...) Su objetivo principal es caracterizar los ingresos laborales de las personas que son clasificadas como ocupadas en la ENE y otras fuentes de ingresos de los hogares", contando con un diseño muestral probabilístico, estratificado y bietápico. Pueden encontrar más información [aquí](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos). 
+
 Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
 - [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-clase.zip) 
 
-## 1. Conceptos clave
+## 1. Tipos de datos 
 
-[**RMarkdown**](https://rmarkdown.rstudio.com/) es un archivo que puede integrar código de R (mediante chunks) y texto en [**Markdown**](https://learn-r-uah.netlify.app/resource/markdown/) a la vez. Todo el sitio web de este curso está creado con RMarkdown (y [un paquete llamado **blogdown**](https://bookdown.org/yihui/blogdown/)).
+### a) ¿Qué son?
 
+Tanto en R como en la mayoría de lenguajes de programación, contamos con datos de *diversos tipos*, en razón de los cuales podemos ejecutar determinados procedimientos de tratamiento o análisis. 
 
-{{< div "note" >}}
-**RMarkdown** tienen una estructura de al menos 3 partes
+Los tipos de datos están **íntimamente relacionados con el *nivel de medición* de las variables** a las cuales corresponden. Como habrán aprendido en sus cursos de estadística, la teoría de los niveles de medición contempla cuatro de ellos: 
 
-1. Encabezado (YAML)
-2. Texto
-3. Código de R
+1. **Nominal**: para variables categóricas o cualitativas. Los números asignados permiten dividir los datos en diferentes grupos, sin la asignación de un orden específico para las categorías entre las cuales se dispersan los datos. Un ejemplo de variable nominal es la comuna de residencia o el género. 
 
-{{< /div >}}
+1. **Ordinal**: para variables categóricas o cualitativas. Los números asignados permiten dividir los datos en diferentes grupos y, a la vez, establecer un *orden no exacto* entre ellos. Ello quiere decir que un número más bajo (alto) indicará una menor (mayor) presencia del atributo. Sin embargo, los números no indican distancias concretas: por ejemplo, la distancia entre las categorías 1 y 2 **no necesariamente** es la misma que aquella que existe entre las categorías 2 y 3. Para ilustrarlo más claramente, las escalas Likert representan un ejemplo clásico de variables ordinales: el/la informante puede declarar un mayor o menor grado de acuerdo con las medidas adoptadas por el gobierno durante la pandemia. Sin embargo, no sabemos **cuán más de acuerdo se encuentran**: sólo sabemos que se encuentran más o menos de acuerdo con aquellas medidas en relación con otro/a informante.
 
-![](img/02/02rmd-example.jpg)
+1. **Intervalar**: para variables numéricas o cuantitativas. Aquí es posible clasificar y ordenar los datos, estableciendo además distancias concretas entre un valor y otro. Por ello, las variables intervalares nos permiten **ejecutar operaciones aritméticas** y, por lo tanto, es posible calcular estadísticos como la media de una distribución. Un ejemplo de variable intervalar puede ser la cantidad de jugadoras/es presentes en una cancha de basketball durante un partido. 
 
-¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd
+1. **De razón**: para variables numéricas o cuantitativas. La mayor diferencia con las variables de nivel intervalar es que **incluyen un cero absoluto** que indica **ausencia del atributo**. En el caso anterior, podríamos señalar que, teóricamente, no puede haber cero jugadoras/es en una cancha de basketball durante un partido, pues de ser así no estaría ocurriendo el partido. Sin embargo, sí podemos decir que una persona propietaria de un emprendimiento tiene 2, 4 o 0 trabajadores/as contratados/as. En este caso, el 0 indicaría que *no ha contratado a ningún/a trabajador/a*, y la distancia entre 0 y 2 trabajadores/as es la misma que la que existe entre 2 y 4 trabajadores/as (es decir, una diferencia de 2 trabajadores/as para cada caso).
 
-##  2. Paso a paso para crear un RMarkdown
+En la sección **Recursos** de la página web del curso podrán encontrar un artículo explicativo referente a los [tipos de variables](https://learn-r-uah.netlify.app/resource/r-datatypes-example/), donde se presentan además algunos ejemplos para cada una de ellas. 
 
-### Paso 1: Instalación de paquetes
+### b) ¿Qué tipos de datos podemos encontrarnos en R?
 
-Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita "compilar" los archivos construidos en .Rmd a formatos como `.pdf`, `.html`, `.doc`. Para ello instalaremos 2 paquetes `knitr` y `rmarkdown`
+Para responder a esta pregunta ¡metamos las manos en la masa! (o en los datos). Como se señaló anteriormente, trabajaremos con la Encuesta Suplementaria de Ingresos en su versión 2020.
 
-Usualmente para cargar paquetes lo hacemos de la siguiente manera:
-
-```{r eval=FALSE, include=TRUE}
-  install.packages("paquete")
-  library(paquete)
-```
-
-Pero en esta ocasión utilizaremos un paquete llamado **pacman**, este facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:
-
-```{r eval=FALSE, include=TRUE}
-install.packages("pacman")
-library (pacman)
-```
-
-Luego cargaremos así los paquetes de R, esto agiliza la carga de paquetes. Para este práctico cargaremos el paquete **rmarkdown** y **knit**.
-
-```{r eval=FALSE, include=TRUE}
-pacman::p_load(rmarkdown,
-               knit)
-```
-
-### Paso 2: Crear un nuevo archivo en Rmarkdown
-
-1. Una vez cargados los paquetes deben dirigirse a `File > New File > R Markdown`
-
-```{r, echo=FALSE}
-    knitr::include_graphics("/img/example/02practico/open_rmark_file.png", error = FALSE)
-```
-
-2. Luego deben darle un título, poner su nombre y especificar un _formato de salida_ ya sea en **HTML**, **PDF** o **Word**
-
-```{r, echo=FALSE}
-    knitr::include_graphics("/img/example/02practico/open_rmark_file2.png", error = FALSE)
-```
-
-3. Les creará un archivo con un **_YAML_**, que tendrá la información general del documento y un **_chunk_** 
-
-```{r, echo=FALSE}
-    knitr::include_graphics("/img/example/02practico/open_rmark_file3.png", error = FALSE)
-```
-
-4. Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las [configuraciones para dejarlo más lindo](#config)
-
-### Paso 3: Crear el archivo con formato desde el .Rmd
-
-![](https://github.com/hadley/r4ds/raw/master/images/RMarkdownFlow.png)
-
-{{< div "note" >}}
-Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML (¡y por eso es tan importante también!) 
-
-{{< /div >}}
-
-```{r knit-button, indent=" ", echo=FALSE, out.width="30%"}
-knitr::include_graphics("/img/assignments/knit-button.png", error = FALSE)
-```
-
-Es **importante** que sepan que cuando se hace **Knit**, R ejecuta cada uno de los trozos **secuencialmente**. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) [^1], lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)
-
-
-
-[^1]: Luego de apretar knit, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Luego, RStudio hace "pasar" ese documento vía [pandoc](https://pandoc.org/) para convertirlo en HTML o PDF o Word (o cualquier salida que haya seleccionado).
-
-
-
-## 3. Configuraciones del RMarkdown {#config}
-
-### 3.1 Encabezado (YAML)
-
-Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama [YAML](https://learn.getgrav.org/16/advanced/yaml).
-
-Básicamente, con esto establecemos las "configuraciones" del texto.
-
-Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La "cabeza" del Markdown o **YAMLS** está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (`---`).
-
-```yaml
----
-title: Título de mi tesis
-date: "16 de Agosto, 2021"
-author: "Estudiante UAH"
----
-```
-Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  `Mi tesis: la más "genial" de Chile`), entonces ponemos
-
-```yaml
----
-title: `Mi tesis: la más "genial" de Chile`
----
+```{r packages}
+pacman::p_load(sjPlot, sjmisc)
 ```
 
 
-#### Instrucciones de salida en YAML (Output formats)
-
-Los formatos de salida se ven en el encabezado (**YAML**) del documento, aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma puedes especificar qué tipo de documento creas cuando _"Kniteas"_  (es como _"tejer"_, *construir*) 
-
-```yaml
----
-title: "Mi documento"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
----
+```{r read_data, include=FALSE}
+data <- readRDS(url("https://github.com/learn-R/www-learn-R-uah/raw/master/content/example/input/data/enusc_proc.rds"))
 ```
 
-También puedes hacer click en la flecha hacia abajo del botón "Knit" para elegir la salida *y* generar el YAML apropiado. Si hace click en el icono del engranaje junto al botón "Knit" y elige "Output options" (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.
+Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico
 
-```{r output-options, echo=FALSE, out.width="35%"}
-knitr::include_graphics("/img/reference/output-options.png", error = FALSE)
-``` 
-
-El primer tipo de salida que aparece en `output:` será el que se genere al pulsar el botón **"Knit"** o al pulsar el atajo de teclado (`⌘⇧K` en macOS; `control + shift + K` en Windows). Si elige una salida diferente con el menú del botón "Knit", esa salida se moverá a la parte superior de la sección `output`.
-
-##### Adicionales en YAML
-
-El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección `output` suele verse:
-
-
-```yaml
----
-title: "Mi tesis"
-author: "Valentina Andrade"
-date: "16 Agosto 2021"
-output: 
-  html_document:
-    theme: cerulean
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    number_sections: true
-  pdf_document: 
-    latex_engine: xelatex  # Para hacer pdf
-    toc: true
-  word_document: 
-    toc: true
----
+```{r data_summary}
+view_df(data)
 ```
 
-En el **YAML** o **encabezado** del documento, se puede modificar:
+¡Vamos a revisar cada una de ellas!
 
-- `title` y `subtitle`: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido
+#### I) character
 
-- `author`: nombre del autor/a
+Los datos `character` están directamente asociados a las variables cualitativas (o categóricas). En general, estos datos incluyen palabras, aunque también pueden incorporar números que no representen una variable numérica, como puede ser el RUT de los/as informantes: es un número que no denota una distancia clara entre la inscripción de una persona a la de otra. Suelen ser utilizadas para variables de texto abierto, como es el caso de la variable **a6_otro**, que detalla otras razones por las cuales las/os informantes declararon ausentarse al trabajo durante la semana pasada, más allá de aquellas especificadas en las alternativas de respuesta de la pregunta original. 
 
-- `date`: fecha, puede ser escrita como ustedes quieran
+Para saber cuál es el tipo de una variable en específico, utilizaremos la función `class()` del paquete base de R
 
-- `output`: opciones de salida (html, pdf, doc, ¡incluso ppt!)
-  - `toc`: "Table of contents" o en español, índice. El término `depth` indica "profundidad" para ver cuántos títulos mostrar y `float` para ver si se desliza automáticamente
-
-Si quieres ver más opciones, [temas para tu documento puedes ver aquí](https://bookdown.org/yihui/rmarkdown/html-document.html)
-
-### 3.2 Texto (Markdown)
-
-Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo [en la sección recurso](https://learn-r-uah.netlify.app/resource/markdown/) o [acá](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-
-<table>
-<colgroup>
-<col width="40%" />
-<col width="21%" />
-<col width="38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Escribe…</th>
-<th>…o…</th>
-<th>…para obtener</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre>Algo de texto en el párrafo.<br>
-Más texto
-espacio entre lineas.</pre></td>
-<td></td>
-<td><p>Algo de texto.</p>
-<p>Algo de texto en el párrafo. Siempre utilizando
-espacios para dividir párrafos</p></td>
-</tr>
-<tr class="even">
-<td><code>*Cursivas*</code></td>
-<td><code>_Cursivas_</code></td>
-<td><em>Cursivas</em></td>
-</tr>
-<tr class="odd">
-<td><code>**Negrita**</code></td>
-<td><code>__Negrita__</code></td>
-<td><strong>Negrita</strong></td>
-</tr>
-<tr class="even">
-<td><code># Título 1</code></td>
-<td></td>
-<td><h1 class="smaller-h1">
-Título 1
-</h1></td>
-</tr>
-<tr class="odd">
-<td><code>## Título 2</code></td>
-<td></td>
-<td><h2 class="smaller-h2">
-Título 2
-</h2></td>
-</tr>
-<tr class="even">
-<td><code>### Título 3</code></td>
-<td></td>
-<td><h3 class="smaller-h3">
-Título 3
-</h3></td>
-</tr>
-<tr class="odd">
-<td>(puedes llegar hasta un título N° 6 con <code>######</code>)</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>[Link text](http://www.example.com)</code></td>
-<td></td>
-<td><a href="http://www.example.com">Link text</a></td>
-</tr>
-<tr class="odd">
-<td><code>![Image caption](/path/to/image.png)</code></td>
-<td></td>
-<td><img src="/img/mstile-144x144.png" title="fig:" alt="Class logo" /></td>
-</tr>
-<tr class="even">
-<td>`<code>Inline code` with backticks</code></td>
-<td></td>
-<td><code>Inline code</code> with backticks</td>
-</tr>
-<tr class="odd">
-<td><code>&gt; Citas</code></td>
-<td></td>
-<td><blockquote>
-<p>Citas</p>
-</blockquote></td>
-</tr>
-<tr class="even">
-<td><pre>- Cosas en
-- listas
-- desordenadas</pre></td>
-<td><pre>* Cosas en
-* listas
-* desordenadas</pre></td>
-<td><ul>
-<li>Cosas en</li>
-<li>listas</li>
-<li>desordenadas</li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td><pre>1. Cosas en
-2. listas
-3. ordenadas</pre></td>
-<td><pre>1) Cosas en
-2) listas
-3) ordenadas</pre></td>
-<td><ol style="list-style-type: decimal">
-<li>Cosas en</li>
-<li>listas</li>
-<li>ordenadas</li>
-</ol></td>
-</tr>
-<tr class="even">
-<td><pre>Línea horizontal
-
----</pre></td>
-<td><pre>Línea horizontal
-
-***</pre></td>
-<td><p>Línea horizontal</p>
-<hr /></td>
-</tr>
-</tbody>
-</table>
-
-### 3.3 Código en R (Chunks)
-
-Para ingresar **trozos** de código en R a nuestro documento ocuparemos los **chunks**. Estos permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final 
-
-Los chunks se ven así dentro del .Rmd:
-
-    `r ''````{r}
-    # El codigo va aquí
-    
-    ````
-
-
-#### 3.3.1 Añadir Chunks
-
-Hay tres formas de insertar chunks:
-
-1. Pulsar `⌘⌥I` en macOS o  `Control + Alt + I` en Windows
-
-2. Pulsa el botón "Insert" en la parte superior de la ventana del editor
-
-```{r insertar trozo, indent=" ", echo=FALSE, out.width="30%"}
-knitr::include_graphics("/img/reference/insert-chunk.png", error = FALSE)
+```{r class_chr, echo=TRUE}
+class(data$a6_otro)
 ```
 
-3. Escribirlo manualmente (no recomendado)
+Si deseamos trabajar con texto abierto, o manipular ese texto ¡debemos trabajar con character! sin embargo, estas variables no tienden a ser las mejores a la hora de presentar nuestros resultados, entre otras razones, porque no nos permiten especificar un orden distinto al alfabético. Para solucionarlo, tenemos las variables de tipo **Factor**
 
-#### 3.3.2 Nombrar chunks
+#### II) Factor
 
-Se puede añadir nombres a los chunks para hacer más fácil la navegación por el documento. Si haces clic en el pequeño menú desplegable en la parte inferior de tu editor en RStudio, puedes ver una tabla de contenidos que muestra todos los títulos y chunks. Si nombras los chunks, aparecerán en la lista. Si no incluyes un nombre, el chunk seguirá apareciendo, pero no sabrás lo que hace.
+Las variables de tipo `Factor` son las ideales a la hora de trabajar con variables de tipo nominal u ordinal. Esto se debe a dos motivos: en primer lugar, su comptabilidad con librerías como `sjPlot`, `sjmisc` o `ggplot2`, que nos permiten presentar de manera cómoda estos datos; así como su compatibilidad con funciones dedicadas a la generación de distintos modelos estadísticos, como modelos de análisis de clases latentes o de regresión. En segundo término, porque cabe la posibilidad de **establecer un orden (distinto al alfabético)** entre las categorías de la variable, lo cual es *fundamental* si trabajamos con variables ordinales, como el **nivel educacional** de las/os informantes
 
-```{r chunk-toc, echo=FALSE, out.width="40%"}
-knitr::include_graphics("/img/reference/chunk-toc.png", error = FALSE)
+```{r class_factor, echo = T}
+class(data$nivel)
 ```
 
-Para añadir un nombre, inclúyelo inmediatamente después de la `{r` en la primera línea del chunk. Los nombres no pueden contener espacios, pero sí guiones bajos y guiones.
-
-Importante: **Todos los nombres de chunk de tu documento deben ser únicos.**
-
-    `r ''````{r nombre-chunk}
-    # El codigo va aquí
-    
-    ````
-
-#### 3.3.3 Opciones de chunks
-
-Hay un montón de opciones diferentes que puedes establecer para cada chunk. Puedes ver una lista completa en la [Guía de referencia de RMarkdown](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) o en el [sitio web de **knitr**](https://yihui.org/knitr/options/).
-
-Las opciones van dentro de la sección `{r}` del chunk:
-
-    `r ''````{r nombre-chunk, message = F, echo = F}
-    # El codigo va aquí
-    
-    ````
-    
-Las opciones de chunk más comunes son estas:
-
-- `fig.width=5` y `fig.height=3` (*o el número que quieras*): Establece las dimensiones de las figuras
-
-- `echo=FALSE`: El código no se muestra en el documento final, pero los resultados si
-
-
-- `message=FALSE`: Se omiten los mensajes que genera R (como todas las notas que aparecen después de cargar un paquete)
-
-- `warning=FALSE`: Se omiten las advertencias que genera R
-
-- `include=FALSE`: El chunk se sigue ejecutando, pero el código y los resultados no se incluyen en el documento final
-
-También puedes configurar las opciones del chunk haciendo clic en el pequeño icono del engranaje en la esquina superior derecha de cualquier chunk:
-
-```{r chunk-options, echo=FALSE, out.width="70%"}
-knitr::include_graphics("/img/reference/chunk-options.png", error = FALSE)
+```{r frq_factor, echo = F}
+frq(data$nivel)
 ```
 
+¿Cómo podemos ordenar los factores de una variable de este tipo? ¡Calma! en el práctico 6 profundizaremos como corresponde en la transformación de variables. 
+
+#### III) numeric
+
+Como su nombre lo indica, este tipo de variables nos permiten trabajar con variables con un nivel de medición cuantitativo 
+
+```{r class_numeric, echo = T}
+class(data$ingresos)
+```
+
+Mientras R arroja un error al, por ejemplo, intentar calcular el promedio de nivel educacional
+
+```{r mean_factor, echo=TRUE}
+mean(data$nivel)
+```
+
+¡Si podemos calcular la media de ingresos por sueldos y salarios!
+
+```{r mean_num, echo = T}
+mean(data$ingresos)
+```
+
+¡Mucho cuidado! muchas veces, los datos incluyen variables de tipo `numeric` que, teóricamente, no son variables numéricas (por ejemplo, variables donde 1 == Si, y 2 == No). Por ello, es fundamental que **revisen detalladamente la documentación anexa** de sus datos, a modo de determinar cuáles variables corresponden su tipo de dato con su nivel de medición, y cuáles no. 
+
+#### IV) dbl + lbl (números etiquetados)
+
+Es bastante usual (como veremos en el siguiente práctico) que, aunque estemos trabajando en lenguaje R, los datos que emplearemos estén en formato SPSS (.sav) o Stata (.dta). En ambos casos, los datos (sobre todo las variables categóricas) presentan una estructura de números etiquetados, donde el valor principal de la variable es un número, pero el cual presenta una etiqueta en palabras que identifica a qué refiere cada una de las categorías de la variable. En general, cuando preguntamos sobre la clase de una variable dbl+lbl, obtendremos algo así:
+
+```{r class_dbllbl, echo = T}
+class(data$a6)
+```
+
+```{r frq_dbllbl, echo = F}
+frq(data$a6)
+```
+
+En este caso, cada número se asocia con una razón por la cual el/la informante se ausentó del trabajo la semana anterior. Por supuesto, es una variable ordinal. 
+
+La mayor parte de las veces, sobre todo por la compatibilidad con librerías de representación gráfica, buscaremos que nuestros números etiquetados se conviertan en factores ¡el práctico 6 se encargará de profundizar en ello!
+
+#### V) logical
+
+¡El último tipo de dato! Los valores lógicos (`logical`) son bastante frecuentes al estar trabajando con datos
+
+```{r class_logical, echo = T}
+class(data$afp)
+```
+
+```{r frq_logical, echo = F}
+frq(data$afp)
+```
+
+Los datos de clase `logical` presentan tres posibles valores: `TRUE` (verdadero), `FALSE` (falso) y `NA` (valor nulo, ausencia de dato). En este caso, las personas con valor `TRUE` están empleados por alguien que si paga cotizaciones en previsión, mientras que las personas con valor `FALSE` no tienen tal característica
 
 ## 4. Resumen
 
-Dentro de la creación de archivos en RMarkdown, hay algunos **conceptos claves** que si o si debes manejar para ir construyendo tus documentos en RMarkdown. 
+¡Aprendimos los posibles tipos de datos con los cuales nos enfrentaremos a trabajar en R! Como resumen:
 
-1. **YAML**: Es un encabezado al inicio del documento que inicia y acaba con tres guiones **---***. Acá se introducen aspectos básicos del documento, como el título, el autor, la fecha y el formato de salida (output)
+- Variables cualitativas: `character`, `Factor` o `dbl + lbl`
+- Variables cuantitativas: `numeric`
+- Valores lógicos: `logical`
 
-2. **Chunk**: son **trozos** de códigos de R, estor permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final 
-
-3. **Knit**: Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML
-
-
-### 4.1 Actividad del práctico
-
-La actividad tendrá relación con la entrega de la [**Tarea 1**](). Esta actividad consiste en la creación de un RMarkdown que contenga lo siguiente:
-
-* Un encabezado (YAML) con el título: "Práctico 2". También deben incorporar su nombre y fecha
-
-* Este encabezado debe tener una salida (output), deben elegit `html_output`
-
-* En el documento  deben incorporarla imagen `grafico01` (que está en el .zip asociado a la clase)
-
-* Finalmente, deben crear una tabla simple.
-
+Recuerden que es fundamental que se apoyen en la **documentación anexa** a la hora de trabajar con datos ¡así evitarán calcular el promedio de las religiones que declaran las/os informantes!
 
 ## 5. Recursos
 
