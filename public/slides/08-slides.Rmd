@@ -1,6 +1,6 @@
 ---
 title: "Análisis de datos estadísticos en R"
-author: "Valentina Andrade y Nicolás Godoy"
+author: "Valentina Andrade"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -23,7 +23,6 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-
 
 ```{r packages-data, include=FALSE}
 pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
@@ -56,15 +55,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F,
                       fig.retina = 3, fig.align = "center")
 ```
 
-class: center middle main-title section-title-5 top-logo
+class: center middle main-title section-title-8 top-logo
 
 .small[
-# Regresión Lineal Múltiple
+# Análisis descriptivo
 ]
 
 .class-info[
 <br>
-**Sesión N° 8**<br>
 **Análisis de datos estadísticos en R**
 <br>
 
@@ -78,504 +76,280 @@ class: center middle main-title section-title-5 top-logo
 ]
 
 ---
-class: title title-inv-5
+class: title title-inv-8
 
 # Contenidos Sesión 8
 
 --
 
-.box-1.small.sp-after-half[**Construcción modelo regresión lineal con lm**]
+.box-7.medium.sp-after-half[**Tendencia central**]
+.box-7.small.sp-after-half[**Dispersión**]
 
 --
 
-.box-2.small.sp-after-half[**Modelamiento con srvyr y glm**]
+.box-6.medium.sp-after-half[**Proporciones**]
 
 --
-.box-3.small.sp-after-half[**Predictores categóricos**]
 
-.box-3.small.sp-after-half[**Transformaciones funcionales**]
+.box-5.medium.sp-after-half[**Visualización**]
+
+???
+
+- mean
+- frq
+- plot
 
 ---
-class: title title-inv-5
+class: center middle main-title section-title-8 top-logo
+name: basics
 
-# Contenidos Sesión 8
+# 1: Flujo del Rproject
 
-.box-4.small.sp-after-half[**Creación exploratoria**]
+---
+class: title title-inv-8
+
+# Etapas del flujo
+
+.center[
+![:scale 70%](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)]
 
 --
 
-.box-6.small.sp-after-half[**Extraer información**]
+- *Hoy* partimos con análisis descriptivo
 
---
+---
+class: title title-inv-8
 
-.box-7.small.sp-after-half[**Representación gráfica**]
+# Orden de un script de análisis
 
---
-.box-7.tiny.sp-after-half[*Tablas*]
 
-.box-7.tiny.sp-after-half[*Gráficos*]
+```{r}
+# 1. Cargar paquetes
 
+# 2. Cargar datos
+
+# 3. Explorar datos
+
+# 4. Analisis descriptivo
+
+# 5. Output para reporte
+
+```
+
+
+---
+.center[
+![](https://media2.giphy.com/media/ule4vhcY1xEKQ/giphy.gif)]
+
+Figura 1: Estudiantes de Análisis de datos en R haciendo el **paso 1 y 2.**
 ---
 class: center middle main-title section-title-1 top-logo
-name: basics
 
-# Modelo de regresión lineal
----
-class: title title-1
-
-# Modelo de regresión lineal
-
-- Herramienta de análisis poderosa en ciencias sociales
-
---
-
-- Permite generalizar relaciones entre variables 
-
--- 
-
-|  | $Y$ | $X$ |
-|---|---|---|
-|  | Explicada | Explicativa |
-|  | Dependiente | Independiente |
-|  | Respuesta | Control |
-|  | Predicha | Predictora |
-|  | Regresando | Regresor |
+# Paso 1: Cargar paquetes
 
 ---
-class: title title-1
-
-# Modelo de regresión lineal
-
-**Algunas propiedades básicas y clave**
-
-1. $Y$ de carácter continuo
-
-2. $X_i$ relación lineal con $Y$ (*Supuesto N°2 Teorema Gauss Markow*)
-
-3. Muestreo aleatorio para recolección de datos
-
-- Otros: *colinealidad imperfecta, homocedasticidad, esperanza condicional de residuos cero, i.i.d*. 
-
+layout: true
+class: title title-8
 ---
-class: title title-1
+# Paso 1: Cargar paquetes
 
-# RLM en R con lm()
-
-- `lm()` es del paquete base
-.can-edit[
-```{r, eval = FALSE}
-
-lm(formula = , #<<
-   data = ,
-   weights = )
-
+```{r}
+pacman::p_load(tidyverse, 
+               magrittr,
+               sjPlot, #<<
+               sjmisc) #<<
 ```
+
+# Paso 2: Importar datos
+```{r, eval = F}
+load("output/datos/misdatos.RData")
+```
+
+---
+layout: false
+class: center middle section-title section-title-8 animated fadeIn
+
+# Paso 3: Explorar datos
+
+¿Por qué creen que sería relevante este paso?
+
+.can-edit.key-likes[
+1. 
+2.
+3.
 ]
 
-- Por lo general, **crearemos objetos** para luego manipularlos
+---
+# Explorar datos para análisis
 
-```{r, eval = FALSE}
+```{r eval=FALSE, include=TRUE}
+# 1. Base
 
-modelo1 <- lm(formula = , #<<
-   data = ,
-   weights = )
+dim(datos) # Nos entrega las dimensiones, es decir el numero de observaciones y el número de variables
+View(datos) # Visualizar objetos
+names(datos) # entrega los nombres de las variables que componen el dataset
+head(datos) # muestra las primeras filas presentes en el marco de datos
+
+# 2. sjPlot
+
+sjPlot::view_df(datos) # Encontrar variables
 
 ```
-
 ---
-class: title title-1
+layout: false
+class: center middle main-title section-title-8 top-logo
 
-# RLM en R con lm()
-
-**Modelo sin predictores**
-```{r, eval = F}
-modelo1 <- lm(y ~ 1, #<<
-   data = datos,
-   weights = ponderador)
-```
-
---
-**Modelo simple**
-```{r, eval = F}
-modelo1 <- lm(y ~ x1, #<<
-   data = datos,
-   weights = ponderador)
-```
-
---
-
-**Modelo multiple**
-```{r, eval = F}
-modelo1 <- lm(y ~ x1 + x2, #<<
-   data = datos,
-   weights = ponderador)
-```
-
----
-class: title title-1
-
-# RLM en R con lm()
-
-**Paso a paso**
-
-1. Un buen procesamiento de datos
-
-2. Identificar variable *dependiente* e *independientes*
-
-3. Seguir la formula *y ~ x1 + x2 + ...xk*
-
-4. No olvidar otros objetos *básicos* para construir modelo: base y pesos muestrales (veremos los problemas asociados a no considerarlos)
-
-5. Crear objeto
-
-6. Explorar resultado con `summary(modelo1)`
-
----
-class: center middle main-title section-title-2 top-logo
-name: basics
-
-# Modelamiento con glm y svyglm
-
----
-class: center middle main-title section-title-2 top-logo
-
-# ¿ Y no bastaba con eso?
-
---
-
-No, y ya entenderás la razón
-
----
-class: title title-2
-
-# RLM en R con glm()
-
-- Muchas veces encontrarás tutoriales donde **no se incorporan los pesos muestrales en los modelos**
-
-- Como sabemos, eso trae errores de estimación y se pasa por alto uno de los supuestos de Gauss Markow y de la FRP (*función de regresión poblacional*)
-
----
-class: title title-2
-
-# glm() para regresiones lineales
-
-- Un punto antes de revisar la construcción con survey es que podemos construir un modelo lineal (`lm()`) con un modelo lineal generalizado (`glm()`)
-
-- `glm()` nos permite construir distintos tipos de modelos según la distribución que siguen las variables aleatorias
-
---
-
-- Un ejemplo son las que siguen distribuciones normales-gaussianas (como las lineales que se estiman por OLS) o las binomiales (como las logísticas que se estiman por MV).
-
----
-class: title title-2
-
-# glm() para regresiones lineales
-
-```{r, eval = F}
-modelo_glm <- glm(y ~ x1 + x2,
-               family = gaussian(link = "identity"), #<<
-               data = datos, weights = peso)
-```
-
-- Si luego comparamos con modelo normal `lm()` notaremos que llegaremos al mismo resultado
-
----
-class: center middle main-title section-title-2 top-logo
-
-# ¿Y qué tiene que ver todo esto con survey?
-
---
-
-## ¡Ahora verás!
----
-class: title title-2
-
-# regresiones lineales con survey::svyglm() 
-
-- El paquete `survey` contiene una función llamada `svyglm`que permite incorporar el diseño de muestreo.
-
---
-
-- Los pasos adicionales solo implican:
-
-1. Crear objeto de diseño de muestra con `as_survey_design`
-2. Crear objeto de modelo incorporando el diseño de la muestra. **¡La función svyglm() es muy parecida a las que ya vimos**
-
----
-class: title title-2
-
-# regresiones lineales con survey::svyglm() 
-
-```{r, eval = F}
-# Paso 1:
-diseno_muestra <- as_survey_design(datos, ids = 1, weights = peso)
-#Paso 2:
-modelo_survey <- svyglm(y ~ x1 + x2,
-               family = gaussian(link = "identity"), #<<
-               data = datos, 
-               design = diseno_muestra) #<<
-
-```
-
-¡Notarás que dará el mismo resultado! (*en este caso...*)
-
----
-class: center middle main-title section-title-2 top-logo
-
-# Pero si todos dan el mismo resultado... ¿por qué no solo ocupar lm()?
-
-.can-edit[]
-
-
----
-class: center middle main-title section-title-3 top-logo
-name: transform
-
-# Transformaciones funcionales
-
----
-class: title title-3
-
-# 1. Predictores categóricos
-
-- En R los predictores categóricos pueden estar en clase `character` o `factor`
-
-- Para que la regresión reconozca a estos como predictores categóricos y conserve tanto etiquetas como niveles ocuparemos `forcats::as_factor()` (*es y será un muy buen amigo*)
-
+# Paso 4: ¡Análisis descriptivo!
 ---
 
-class: title title-3
+# ¿Dónde?
 
-# 1. Predictores categóricos
-
-- Gracias a este podremos notificar bien *cuál es la **categoría de referencia***. De manera adicional con `rlvl()` podremos re-definir esta categoría.
-
-- **Este procedimiento debe ir si o si en su código de procesamiento**
-
----
-class: title title-3
-
-# 2. Modelos log y cuadráticos
-
-- Si queremos transformar una variable a logaritmo, al cuadrado, re-escalarla, hacerla **interactuar** etc. **lo *ideal* es que creemos esa nueva variable en el procesamiento.**
-
---
-
-- Ahora bien, en la realidad, vamos a querer ir testeando/explorando
-
---
-
-- Una forma "*sencilla*" es introducir esa transformación al argumento de la `formula` de `lm()`
-
----
-class: title title-3
-
-# 2. Modelos log y cuadráticos
-
-```{r, eval = F}
-# Modelo log-lineal
-modelo_log <- lm(log(y) ~ x1 + x2 , #<<
-              data = datos, weights = fact_cal_esi)
-#Modelo log-cuadratico
-modelo_log_cuadratico <- lm(log(y) ~ x1 + (x1)^2 + x2 , #<<
-                  data = datos, weights = fact_cal_esi)
-
-#Modelo log interaccion
-modelo_log_interaccion <- lm(log(y) ~ x1  + x2 +x1*x2, #<<
-                             data = datos, weights = fact_cal_esi)
-
-```
-
-
-
----
-class: title title-4
-
-# Modelamiento exploratorio
-
-- Sabemos que en análisis de datos existen los análisis **confirmatorios** y *exploratorios*
-
---
-
-- En regresiones también existe esta clase de *approch* que se aplica a partir de método **stepwise** (paso a paso) con dirección *"backward" y "forward"*
-
---
-
-- Los pasos en *R* son sencillos. Primero, construyo una fórmula general y luego defino la dirección del *stepwise* 
-
-
----
-
-class: title title-4
-
-# Modelamiento exploratorio
-
-
-```{r, eval = F}
-# Creación exploratoria 
-modelo_general <- lm(y ~ .,
-                     data = datos, weights = datos$pesos,
-                     na.action= na.omit)
-
-step(modelo_general,
-     direction = "forward"
-     keep = nobs)
-
-```
-
----
-class: center middle main-title section-title-6 top-logo
-name: information
-
-# Obteniendo información sobre mi modelo
-
----
-class: title title-6
-
-# Un breve resumen
-
-
-|  | Función | Objetivo |
-|---|---|---|
-|  | `summary(modelo)` | Resumen general |
-|  | `modelo$coefficients` | Extraer elemento del objeto (coeficiente en este caso) |
-|  | `modelo5$coefficients[2]` | Extraer coeficiente N°2 de objeto |
-|  | `modelo5$coefficients["x1"]` | Extraer coeficiente "x1" del modelo |
-|  | `str(summary(modelo1))` | Estructura del resultado del modelo |
-|  | `summary(modelo5)$fstatistic` | Estadístico F (podría ser R cuadrado también) |
-|  | `modelo5$fitted.values` | Valores predichos |
-
-
----
-
-class: title title-6
-
-
-# Con sjPlot
-
-```{r}
-get_model_data(modelo, type = c("pred"))
-
-get_model_data(modelo, type = "pred",
-               terms = "sexo")
-```
-
-# Con broom
-
-```{r}
-broom::augment(modelo) #puedo guardar como objeto
-
-```
-
----
----
-class: center middle main-title section-title-7 top-logo
-name: viz
-
-# Representación gráfica
-
----
-class: title title-7
-
-# Tablas
-
-- Hoy aprenderemos a crear tablas en *tab_model* (de `sjPlot`). Ahora bien, el paquete *más versátil* para presentación de tablas de modelos es *texreg* (próxima semana)
-
-```{r}
-
-tab_model(modelo0) # con uno
-
-tab_model(list(modelo0, modelo1, modelo2))
-
-tab_model(list(modelo0,modelo1,modelo2,modelo3,modelo4,modelo5),
-          show.aic = T, # show.[inserte algun estadístico]
-          show.reflvl = T,
-          p.style = "stars")
-
-```
-
----
-class: title title-7
-
-
-# Gráficos
-
-**Forest plot**
-```{r}
-# Forest plot (default)
-plot_model(modelo5)
-plot_model(modelo5_log)
-
-# Forest plot - arreglado
-plot_model(modelo5_log,
-           show.p = T,
-           show.values =  T)
-
-```
-
----
-class: title title-7
-
-
-# Gráficos
-
-**Marginal effects**
-
-```{r}
-plot_model(modelo,
-           type = "pred")
-
-plot_model(modelo,
-           type = "pred",
-           terms = "grupo1")
-
-
-plot_model(modelo5_log,
-           type = "pred",
-           terms = c("grupo1", "grupo2")) 
-
-```
+.box-inv-1[[Descargar el zip del sesión 8 el sitio del curso](https://learn-r-uah.netlify.app/content/06-content/)]
 
 ---
 class: title title-8
 
-#Recursos de la práctica
+# 1. Recursos de la práctica
 
-- Este práctico fue trabajado con datos de [Encuesta Suplementaria de Ingresos](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos).
+- Datos: *Encuesta de Caracterización Socioeconómica (CASEN)* (2020).
 
-- [Manual Metodológico ESI](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/metodologia/documento-metodológico/documento-metodológico-esi-2020.pdf?sfvrsn=a60770bf_4) 
+- Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing) y descargar los zip.
+
+
+- [**Libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
+
+---
+layout: false
+class: center middle main-title section-title-7 top-logo
+
+# Algunas recomendaciones para el análisis
+
+---
+class: title title-7
+
+# Plan de análisis
+
+- 1. **Objetivo de la investigación o reporte**
+
+--
+
+- En general, *siempre* deben tener "bajo la manga" un análisis descriptivo de sus datos
+
+--
+
+- Recomendación: tener un script propio para hacer esos análisis. También sirve un **.Rmd** (mejor, pues tendrán un pre-informe listo)
+
+
+---
+class: title title-7
+
+
+# Plan de análisis
+
+- **2. Preguntas claves**
+
+  - ¿Cuál es el nivel de medición de mis variables?
+  - ¿Qué variables quiero relacionar? ¿De qué forma?
+  - ¿Qué es lo *relevante* en mi análisis? 
+
+
+---
+class: center middle main-title section-title-7 top-logo
+
+# Trade off: los datos y las funciones
+
+---
+layout: true
+class: title title-7
+
+---
+# Tipos de variables
+
+--
+
+- Las que principalmente nos interesarán son los "vectores"
+
+--
+
+- En nuestro "idioma", son las **variables**.
+--
+
+- En general, una combinación de vectores da origen a una matriz (o **data frame** o "base de datos")
+
+---
+# Tipos de datos: columnas
+
+Relación entre clase y nivel de medición de la variable
+
+- `numeric`
+
+- `character`
+
+- `factor`
+
+- hay varios más...
+
+
+---
+# Las funciones
+
+- Existen **muchas funciones** para analizar datos
+
+--
+
+- Lo más importante es que ustedes se decidan por una que esté ad hoc a sus datos y no produzca conflictos con otros paquetes
+
+--
+
+- Eviten el "shopping" de paquetes: eso distingue entre buenos usuarios de R y aquellos que no
+
+---
+```{r eval=FALSE, include=TRUE}
+pacman::p_load(todos,
+               los,
+               paquetes,
+               quepillé,
+               en,
+               internet,
+               profenomepongaun1
+               )
+```
+
+
+```{r, results='asis'}
+# Error "su código no es eficiente"
+```
 
 ---
 
+# Las funciones: sjPlot y sjmisc
+- Una solución buena y eficiente es **sjPlot** y **sjmisc**.
+
+--
+
+- Ya sabemos que son "buenos" amigos con otras funciones de tidyverse. 
+
+--
+
+- Además, como verán (y se asombrarán), no solo permiten hacer análisis descriptivo sino que modelamiento. 
+
+
+---
 layout: false
 class: center section-title section-title-8 animated fadeIn
 
 # En síntesis
 
-.box-1.small.sp-after-half[**Construcción modelo regresión lineal con lm**]
-.box-2.small.sp-after-half[**Modelamiento con srvyr y glm**]
-
-.box-3.small.sp-after-half[**Predictores categóricos**]
-
-.box-3.small.sp-after-half[**Transformaciones funcionales**]
-
-.box-4.small.sp-after-half[**Creación exploratoria**]
-
-.box-6.small.sp-after-half[**Extraer información**]
-.box-7.small.sp-after-half[**Representación gráfica: Tablas y gráficos**]
----
-class: center middle main-title section-title-4 top-logo
-
-# ¡Y a no olvidar el flujo para el análisis!
+.box-7.medium.sp-after-half[**Tendencia central**]
+.box-7.small.sp-after-half[**Dispersión**]
 
 --
 
-## Nos permite hacernos amigas/os más rápido del programa
----
+.box-6.medium.sp-after-half[**Proporciones**]
 
-.center[
-![:scale 80%](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)]
+--
+
+.box-5.medium.sp-after-half[**Visualización**]
 
 ---
 layout: false
@@ -584,16 +358,26 @@ layout: false
 
 --
 
-.box-inv-1[¡Ahora si que si! Nos vemos el próximo lunes]
+.box-1[¡Un segundo! <br>
+- Aprovecha estas semanas para repasar los prácticos
+- La sesión N°9 requiere de un manejo avanzado de los prácticos]
+
+. box-2[- Una buena forma de saber "cómo están" para esta segunda parte del curso es tomar nota de **cuánto** les cuesta la tarea]
+
+---
+.box-inv-8[¡Ahora si que si! Nos vemos después del receso]
 
 .center[
 ![](https://github.com/learn-R/slides/raw/main/img/01/monster-inc-2.gif)]
+
+---
+
 ---
 layout: false
-class: center middle main-title section-title-5 top-logo
+class: center middle main-title section-title-8 top-logo
 
 .small[
-# Regresión Lineal Múltiple
+# Análisis descriptivo
 ]
 
 .class-info[

@@ -30,7 +30,7 @@
     
   
   <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcionalesModelo exploratorioExtraer elementosTablasGráficos¿Cómo ocupar: Si presionas ?" />
+Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/08-content/" />
@@ -288,18 +288,18 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/08-content/" />
-  <meta property="og:title" content="Regresiones lineales | Análisis Estadístico en R" />
+  <meta property="og:title" content="Análisis descriptivo bivariado | Análisis Estadístico en R" />
   <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcionalesModelo exploratorioExtraer elementosTablasGráficos¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-10-04T00:00:00&#43;00:00"
+        content="2021-09-13T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-10-04T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-09-13T00:00:00&#43;00:00">
   
 
   
@@ -326,7 +326,7 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Regresiones lineales | Análisis Estadístico en R</title>
+  <title>Análisis descriptivo bivariado | Análisis Estadístico en R</title>
 </head>
 
 
@@ -667,42 +667,47 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
 
       
       <li >
-        <a href="/content/03-content/">3: Importar y explorar datos</a>
+        <a href="/content/03-content/">3: Tipos de datos en R</a>
       </li>
 
       
       <li >
-        <a href="/content/04-content/">4:Transformación y selección de variables</a>
+        <a href="/content/04-content/">4: Importar y explorar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/05-content/">5: Transformación estructura datos</a>
+        <a href="/content/05-content/">5:Selección de variables y filtrar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/06-content/">6: Análisis descriptivo</a>
+        <a href="/content/06-content/">6:Transformación de variales</a>
       </li>
 
       
       <li >
-        <a href="/content/07-content/">7: Muestras complejas</a>
+        <a href="/content/07-content/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li class="active">
-        <a href="/content/08-content/">8: Regresiones lineales</a>
+        <a href="/content/08-content/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li >
-        <a href="/content/09-content/">9: Regresiones logísticas</a>
+        <a href="/content/09-content/">9: Muestras complejas</a>
       </li>
 
       
       <li >
-        <a href="/content/10-content/">10: Calidad de modelos y otras técnicas</a>
+        <a href="/content/10-content/">10: Regresiones lineales y logísticas</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
       </li>
 
       
@@ -733,13 +738,13 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Regresiones lineales</h1>
+                    <h1>Análisis descriptivo bivariado</h1>
 
                     
 
                     
                     <div class="due-date p-2 mb-3 bg-content text-white">
-                        Contenido de la semana 27, Sep–8,Nov
+                        Contenido de la semana 13, Sep–20,Sep
                     </div>
                     
 
@@ -747,88 +752,34 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
 
                     <div class="article-style">
                         <h1 id="slides">Slides</h1>
-<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/08-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/08-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
+<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/06-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/06-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="rlm-tab" data-toggle="tab" href="#rlm" role="tab" aria-controls="rlm" aria-selected="true">RLM</a>
+<a class="nav-link active" id="tendencia-central-tab" data-toggle="tab" href="#tendencia-central" role="tab" aria-controls="tendencia-central" aria-selected="true">Tendencia central</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="lm-tab" data-toggle="tab" href="#lm" role="tab" aria-controls="lm" aria-selected="false">lm()</a>
+<a class="nav-link" id="frecuencias-tab" data-toggle="tab" href="#frecuencias" role="tab" aria-controls="frecuencias" aria-selected="false">Frecuencias</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="glm-y-svyglm-tab" data-toggle="tab" href="#glm-y-svyglm" role="tab" aria-controls="glm-y-svyglm" aria-selected="false">glm() y svyglm()</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="predictores-categóricos-tab" data-toggle="tab" href="#predictores-categóricos" role="tab" aria-controls="predictores-categóricos" aria-selected="false">Predictores categóricos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="tranformaciones-funcionales-tab" data-toggle="tab" href="#tranformaciones-funcionales" role="tab" aria-controls="tranformaciones-funcionales" aria-selected="false">Tranformaciones funcionales</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="modelo-exploratorio-tab" data-toggle="tab" href="#modelo-exploratorio" role="tab" aria-controls="modelo-exploratorio" aria-selected="false">Modelo exploratorio</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="extraer-elementos-tab" data-toggle="tab" href="#extraer-elementos" role="tab" aria-controls="extraer-elementos" aria-selected="false">Extraer elementos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="tablas-tab" data-toggle="tab" href="#tablas" role="tab" aria-controls="tablas" aria-selected="false">Tablas</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="gráficos-tab" data-toggle="tab" href="#gráficos" role="tab" aria-controls="gráficos" aria-selected="false">Gráficos</a>
+<a class="nav-link" id="visualización-tab" data-toggle="tab" href="#visualización" role="tab" aria-controls="visualización" aria-selected="false">Visualización</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="rlm" class="tab-pane fade show active" role="tabpanel" aria-labelledby="rlm-tab">
+<div id="tendencia-central" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tendencia-central-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
 </iframe>
 </div>
 </div>
-<div id="lm" class="tab-pane fade" role="tabpanel" aria-labelledby="lm-tab">
+<div id="frecuencias" class="tab-pane fade" role="tabpanel" aria-labelledby="frecuencias-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#4">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#14">
 </iframe>
 </div>
 </div>
-<div id="glm-y-svyglm" class="tab-pane fade" role="tabpanel" aria-labelledby="glm-y-svyglm-tab">
+<div id="visualización" class="tab-pane fade" role="tabpanel" aria-labelledby="visualización-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#10">
-</iframe>
-</div>
-</div>
-<div id="predictores-categóricos" class="tab-pane fade" role="tabpanel" aria-labelledby="predictores-categóricos-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
-</iframe>
-</div>
-</div>
-<div id="tranformaciones-funcionales" class="tab-pane fade" role="tabpanel" aria-labelledby="tranformaciones-funcionales-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#19">
-</iframe>
-</div>
-</div>
-<div id="modelo-exploratorio" class="tab-pane fade" role="tabpanel" aria-labelledby="modelo-exploratorio-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#24">
-</iframe>
-</div>
-</div>
-<div id="extraer-elementos" class="tab-pane fade" role="tabpanel" aria-labelledby="extraer-elementos-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#26">
-</iframe>
-</div>
-</div>
-<div id="tablas" class="tab-pane fade" role="tabpanel" aria-labelledby="tablas-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
-</iframe>
-</div>
-</div>
-<div id="gráficos" class="tab-pane fade" role="tabpanel" aria-labelledby="gráficos-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/08-slides.html#30">
+<iframe class="embed-responsive-item" src="/slides/06-slides.html#29">
 </iframe>
 </div>
 </div>
@@ -839,21 +790,42 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
 <h1 id="video-de-la-clase">Video de la clase</h1>
 <ul>
 <li>
-<p><a href="https://zoom.us/rec/share/PaJ9H8040XvhE2XcTBm50OHSaEn8uqHRFfGAENmiA_rLFiTkZh3KHXHWskHcq080.DnUXhHQ_z8sUidbw?startTime=1634581803000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
+<p><a href="https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
 </li>
 <li>
-<ul>
-<li><a href="https://zoom.us/rec/share/WKlV4ubvf3vr68wkI0exigLE-CFutNRtoPbGV3lTL-TCloACTpi7PEW5aXH5MBUH.3q3q36bHty8jf41f?startTime=1634589353000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video del práctico</code></a></li>
-</ul>
+<p><a href="https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video del práctico - mismo que el de la clase</code></a></p>
 </li>
 </ul>
 <h1 id="material-de-la-clase">Material de la clase</h1>
 <ul>
 <li>
-<p><a href="https://github.com/learn-R/09-class/raw/main/08-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>08-clase.zip</code></a></p>
+<p><a href="https://github.com/learn-R/06-class/raw/main/06-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>06-clase.zip</code></a></p>
 </li>
 <li>
-<p><a href="/example/08-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
+<p><a href="https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos" target="_blank" rel="noopener">&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI</a></p>
+</li>
+<li>
+<p><a href="/example/06-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
+</li>
+</ul>
+<h1 id="materiales-adicionales">Materiales adicionales</h1>
+<ul>
+<li>
+<p><a href="https://tidyr.tidyverse.org/" target="_blank" rel="noopener">Tidy Messy data</a></p>
+</li>
+<li>
+<p><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a></p>
+<ul>
+<li><a href="/resource/unzipping"><i class="fas fa-file-o"></i> Descomprimir archivos</a></li>
+<li><a href="/resource/r-data-types-example"><i class="fas fa-file-o"></i> Tipos de datos en R</a></li>
+<li><a href="/resource/r-data-types"><i class="fas fa-file-o"></i> Tipos de variables</a></li>
+</ul>
+</li>
+<li>
+<p><i class="fas fa-book"></i> Hadley Wickham, <a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank" rel="noopener">“Tidy data”</a></p>
+</li>
+<li>
+<p><i class="fas fa-external-link-square-alt"></i> <a href="https://learn-r.formr.org" target="_blank" rel="noopener">Contestar reporte de registro</a></p>
 </li>
 </ul>
 
@@ -872,14 +844,14 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/content/09-content/" rel="next">Regresiones logísticas</a>
+    <a href="/content/07-content/" rel="next">Análisis descriptivo univariado</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/07-content/" rel="prev">Muestras complejas</a>
+    <a href="/content/05-content/" rel="prev">Selección de variables y filtrar datos</a>
   </div>
   
 </div>
@@ -889,7 +861,7 @@ RLMlm()glm() y svyglm()Predictores categóricosTranformaciones funcional
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on October 4, 2021</p>
+                    <p>Last updated on September 13, 2021</p>
 
                     
 

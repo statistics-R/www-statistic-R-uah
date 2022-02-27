@@ -30,7 +30,7 @@
     
   
   <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si presionas ?" />
+BásicosProcesar datosOperadoresSeleccionarFiltrarCrear variablesPipe¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/06-content/" />
@@ -288,18 +288,18 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/06-content/" />
-  <meta property="og:title" content="Análisis descriptivo | Análisis Estadístico en R" />
+  <meta property="og:title" content="Transformación de variales | Análisis Estadístico en R" />
   <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+BásicosProcesar datosOperadoresSeleccionarFiltrarCrear variablesPipe¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-09-13T00:00:00&#43;00:00"
+        content="2021-08-30T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-09-13T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-08-30T00:00:00&#43;00:00">
   
 
   
@@ -326,7 +326,7 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Análisis descriptivo | Análisis Estadístico en R</title>
+  <title>Transformación de variales | Análisis Estadístico en R</title>
 </head>
 
 
@@ -667,42 +667,47 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
 
       
       <li >
-        <a href="/content/03-content/">3: Importar y explorar datos</a>
+        <a href="/content/03-content/">3: Tipos de datos en R</a>
       </li>
 
       
       <li >
-        <a href="/content/04-content/">4:Transformación y selección de variables</a>
+        <a href="/content/04-content/">4: Importar y explorar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/05-content/">5: Transformación estructura datos</a>
+        <a href="/content/05-content/">5:Selección de variables y filtrar datos</a>
       </li>
 
       
       <li class="active">
-        <a href="/content/06-content/">6: Análisis descriptivo</a>
+        <a href="/content/06-content/">6:Transformación de variales</a>
       </li>
 
       
       <li >
-        <a href="/content/07-content/">7: Muestras complejas</a>
+        <a href="/content/07-content/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li >
-        <a href="/content/08-content/">8: Regresiones lineales</a>
+        <a href="/content/08-content/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li >
-        <a href="/content/09-content/">9: Regresiones logísticas</a>
+        <a href="/content/09-content/">9: Muestras complejas</a>
       </li>
 
       
       <li >
-        <a href="/content/10-content/">10: Calidad de modelos y otras técnicas</a>
+        <a href="/content/10-content/">10: Regresiones lineales y logísticas</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
       </li>
 
       
@@ -733,13 +738,13 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Análisis descriptivo</h1>
+                    <h1>Transformación de variales</h1>
 
                     
 
                     
                     <div class="due-date p-2 mb-3 bg-content text-white">
-                        Contenido de la semana 13, Sep–20,Sep
+                        Contenido de la semana 23, Aug–6,Sep
                     </div>
                     
 
@@ -747,34 +752,70 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
 
                     <div class="article-style">
                         <h1 id="slides">Slides</h1>
-<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/06-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/06-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
+<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/04-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/04-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="tendencia-central-tab" data-toggle="tab" href="#tendencia-central" role="tab" aria-controls="tendencia-central" aria-selected="true">Tendencia central</a>
+<a class="nav-link active" id="básicos-tab" data-toggle="tab" href="#básicos" role="tab" aria-controls="básicos" aria-selected="true">Básicos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="frecuencias-tab" data-toggle="tab" href="#frecuencias" role="tab" aria-controls="frecuencias" aria-selected="false">Frecuencias</a>
+<a class="nav-link" id="procesar-datos-tab" data-toggle="tab" href="#procesar-datos" role="tab" aria-controls="procesar-datos" aria-selected="false">Procesar datos</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="visualización-tab" data-toggle="tab" href="#visualización" role="tab" aria-controls="visualización" aria-selected="false">Visualización</a>
+<a class="nav-link" id="operadores-tab" data-toggle="tab" href="#operadores" role="tab" aria-controls="operadores" aria-selected="false">Operadores</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="filtrar-tab" data-toggle="tab" href="#filtrar" role="tab" aria-controls="filtrar" aria-selected="false">Filtrar</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="crear-variables-tab" data-toggle="tab" href="#crear-variables" role="tab" aria-controls="crear-variables" aria-selected="false">Crear variables</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="pipe-tab" data-toggle="tab" href="#pipe" role="tab" aria-controls="pipe" aria-selected="false">Pipe</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="tendencia-central" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tendencia-central-tab">
+<div id="básicos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="básicos-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#11">
 </iframe>
 </div>
 </div>
-<div id="frecuencias" class="tab-pane fade" role="tabpanel" aria-labelledby="frecuencias-tab">
+<div id="procesar-datos" class="tab-pane fade" role="tabpanel" aria-labelledby="procesar-datos-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#14">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#14">
 </iframe>
 </div>
 </div>
-<div id="visualización" class="tab-pane fade" role="tabpanel" aria-labelledby="visualización-tab">
+<div id="operadores" class="tab-pane fade" role="tabpanel" aria-labelledby="operadores-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/06-slides.html#29">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#29">
+</iframe>
+</div>
+</div>
+<div id="seleccionar" class="tab-pane fade" role="tabpanel" aria-labelledby="seleccionar-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#35">
+</iframe>
+</div>
+</div>
+<div id="filtrar" class="tab-pane fade" role="tabpanel" aria-labelledby="filtrar-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#45">
+</iframe>
+</div>
+</div>
+<div id="crear-variables" class="tab-pane fade" role="tabpanel" aria-labelledby="crear-variables-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#52">
+</iframe>
+</div>
+</div>
+<div id="pipe" class="tab-pane fade" role="tabpanel" aria-labelledby="pipe-tab">
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="/slides/04-slides.html#55">
 </iframe>
 </div>
 </div>
@@ -784,44 +825,26 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
 </div>
 <h1 id="video-de-la-clase">Video de la clase</h1>
 <ul>
-<li>
-<p><a href="https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
-</li>
-<li>
-<p><a href="https://zoom.us/rec/share/02wHR4FqFLAKDLVW1M81nhb34IyFL0zcsz46f0QHO4_fo6s7UrZmuozfcz5ZCaV9.J33m_B7mBbvZ3JAy?startTime=1632771055000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video del práctico - mismo que el de la clase</code></a></p>
-</li>
+<li><a href="https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></li>
 </ul>
 <h1 id="material-de-la-clase">Material de la clase</h1>
 <ul>
-<li>
-<p><a href="https://github.com/learn-R/06-class/raw/main/06-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>06-clase.zip</code></a></p>
-</li>
-<li>
-<p><a href="https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos" target="_blank" rel="noopener">&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI</a></p>
-</li>
-<li>
-<p><a href="/example/06-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
-</li>
+<li><a href="https://github.com/learn-R/04-class/raw/main/06-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>04-clase.zip</code></a></li>
+</ul>
+<p>-<a href="https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing" target="_blank" rel="noopener"><i class="fas fa-<Datos para la clase"></i> <code>datos</code></a></p>
+<ul>
+<li><a href="/example/06-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></li>
 </ul>
 <h1 id="materiales-adicionales">Materiales adicionales</h1>
 <ul>
-<li>
-<p><a href="https://tidyr.tidyverse.org/" target="_blank" rel="noopener">Tidy Messy data</a></p>
-</li>
-<li>
-<p><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a></p>
+<li><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a>
 <ul>
 <li><a href="/resource/unzipping"><i class="fas fa-file-o"></i> Descomprimir archivos</a></li>
 <li><a href="/resource/r-data-types-example"><i class="fas fa-file-o"></i> Tipos de datos en R</a></li>
 <li><a href="/resource/r-data-types"><i class="fas fa-file-o"></i> Tipos de variables</a></li>
 </ul>
 </li>
-<li>
-<p><i class="fas fa-book"></i> Hadley Wickham, <a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank" rel="noopener">“Tidy data”</a></p>
-</li>
-<li>
-<p><i class="fas fa-external-link-square-alt"></i> <a href="https://learn-r.formr.org" target="_blank" rel="noopener">Contestar reporte de registro</a></p>
-</li>
+<li><i class="fas fa-book"></i> Hadley Wickham, <a href="http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/" target="_blank" rel="noopener">“Data Science: How is it Different To Statistics?”</a></li>
 </ul>
 
                     </div>
@@ -839,14 +862,14 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/content/07-content/" rel="next">Muestras complejas</a>
+    <a href="/content/05-content/" rel="next">Selección de variables y filtrar datos</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/05-content/" rel="prev">Transformación estructura datos</a>
+    <a href="/content/04-content/" rel="prev">Importar y explorar datos</a>
   </div>
   
 </div>
@@ -856,7 +879,7 @@ Tendencia centralFrecuenciasVisualización¿Cómo ocupar: Si pr
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on September 13, 2021</p>
+                    <p>Last updated on August 30, 2021</p>
 
                     
 

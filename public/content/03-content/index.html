@@ -30,7 +30,7 @@
     
   
   <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presionas ?" />
+Data typesData structuresData framesEjercicios¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/03-content/" />
@@ -288,18 +288,18 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/03-content/" />
-  <meta property="og:title" content="Importar y explorar datos | Análisis Estadístico en R" />
+  <meta property="og:title" content="Tipos de datos en R | Análisis Estadístico en R" />
   <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+Data typesData structuresData framesEjercicios¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-08-23T00:00:00&#43;00:00"
+        content="2022-03-28T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-08-23T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2022-03-28T00:00:00&#43;00:00">
   
 
   
@@ -326,7 +326,7 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Importar y explorar datos | Análisis Estadístico en R</title>
+  <title>Tipos de datos en R | Análisis Estadístico en R</title>
 </head>
 
 
@@ -667,42 +667,47 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
 
       
       <li class="active">
-        <a href="/content/03-content/">3: Importar y explorar datos</a>
+        <a href="/content/03-content/">3: Tipos de datos en R</a>
       </li>
 
       
       <li >
-        <a href="/content/04-content/">4:Transformación y selección de variables</a>
+        <a href="/content/04-content/">4: Importar y explorar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/05-content/">5: Transformación estructura datos</a>
+        <a href="/content/05-content/">5:Selección de variables y filtrar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/06-content/">6: Análisis descriptivo</a>
+        <a href="/content/06-content/">6:Transformación de variales</a>
       </li>
 
       
       <li >
-        <a href="/content/07-content/">7: Muestras complejas</a>
+        <a href="/content/07-content/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li >
-        <a href="/content/08-content/">8: Regresiones lineales</a>
+        <a href="/content/08-content/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li >
-        <a href="/content/09-content/">9: Regresiones logísticas</a>
+        <a href="/content/09-content/">9: Muestras complejas</a>
       </li>
 
       
       <li >
-        <a href="/content/10-content/">10: Calidad de modelos y otras técnicas</a>
+        <a href="/content/10-content/">10: Regresiones lineales y logísticas</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
       </li>
 
       
@@ -733,13 +738,13 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Importar y explorar datos</h1>
+                    <h1>Tipos de datos en R</h1>
 
                     
 
                     
                     <div class="due-date p-2 mb-3 bg-content text-white">
-                        Contenido de la semana 23, Aug–6,Sep
+                        Contenido de la semana 28, Mar–1,Apr
                     </div>
                     
 
@@ -750,40 +755,40 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
 <p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/03-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/03-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="importar-tab" data-toggle="tab" href="#importar" role="tab" aria-controls="importar" aria-selected="true">Importar</a>
+<a class="nav-link active" id="data-types-tab" data-toggle="tab" href="#data-types" role="tab" aria-controls="data-types" aria-selected="true">Data types</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="validar-tab" data-toggle="tab" href="#validar" role="tab" aria-controls="validar" aria-selected="false">Validar</a>
+<a class="nav-link" id="data-structures-tab" data-toggle="tab" href="#data-structures" role="tab" aria-controls="data-structures" aria-selected="false">Data structures</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="seleccionar-tab" data-toggle="tab" href="#seleccionar" role="tab" aria-controls="seleccionar" aria-selected="false">Seleccionar</a>
+<a class="nav-link" id="data-frames-tab" data-toggle="tab" href="#data-frames" role="tab" aria-controls="data-frames" aria-selected="false">Data frames</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="exportar-tab" data-toggle="tab" href="#exportar" role="tab" aria-controls="exportar" aria-selected="false">Exportar</a>
+<a class="nav-link" id="ejercicios-tab" data-toggle="tab" href="#ejercicios" role="tab" aria-controls="ejercicios" aria-selected="false">Ejercicios</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="importar" class="tab-pane fade show active" role="tabpanel" aria-labelledby="importar-tab">
+<div id="data-types" class="tab-pane fade show active" role="tabpanel" aria-labelledby="data-types-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#import">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-t">
 </iframe>
 </div>
 </div>
-<div id="validar" class="tab-pane fade" role="tabpanel" aria-labelledby="validar-tab">
+<div id="data-structures" class="tab-pane fade" role="tabpanel" aria-labelledby="data-structures-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#renv">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-s">
 </iframe>
 </div>
 </div>
-<div id="seleccionar" class="tab-pane fade" role="tabpanel" aria-labelledby="seleccionar-tab">
+<div id="data-frames" class="tab-pane fade" role="tabpanel" aria-labelledby="data-frames-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#rcom">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#df">
 </iframe>
 </div>
 </div>
-<div id="exportar" class="tab-pane fade" role="tabpanel" aria-labelledby="exportar-tab">
+<div id="ejercicios" class="tab-pane fade" role="tabpanel" aria-labelledby="ejercicios-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#exp">
+<iframe class="embed-responsive-item" src="/slides/03-slides.html#ej">
 </iframe>
 </div>
 </div>
@@ -791,10 +796,6 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
 <div class="fyi">
 <strong>¿Cómo ocupar</strong>: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 </div>
-<h1 id="video-de-la-clase">Video de la clase</h1>
-<ul>
-<li><a href="https://zoom.us/rec/share/aKaz3bmSVg5iE7Sn8qeDVTrj3zoK_7HBkvMB46hhuH5C0trYK_V6YXqxbRwdpEMu.Y17bJ5f4XEiDn2qT?startTime=1629756672000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></li>
-</ul>
 <h1 id="material-de-la-clase">Material de la clase</h1>
 <ul>
 <li><a href="https://github.com/learn-R/03-class/raw/main/03-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>03-clase.zip</code></a></li>
@@ -805,23 +806,14 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
 </ul>
 <h1 id="materiales-adicionales">Materiales adicionales</h1>
 <ul>
-<li>
-<p><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a></p>
+<li><i class="fab fa-youtube"></i> Tutoriales, <a href="https://www.youtube.com/watch?v=UOoMzaWOQJA" target="_blank" rel="noopener">“Learn-R”</a>
 <ul>
 <li><a href="/resource/unzipping"><i class="fas fa-file-o"></i> Descomprimir archivos</a></li>
 <li><a href="/resource/r-data-types-example"><i class="fas fa-file-o"></i> Tipos de datos en R</a></li>
 <li><a href="/resource/r-data-types"><i class="fas fa-file-o"></i> Tipos de variables</a></li>
 </ul>
 </li>
-<li>
-<p><i class="fas fa-book"></i> Hadley Wickham, <a href="http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/" target="_blank" rel="noopener">“Data Science: How is it Different To Statistics?”</a></p>
-</li>
-<li>
-<p><i class="fas fa-external-link-square-alt"></i> <a href="https://learn-r.formr.org" target="_blank" rel="noopener">Contestar reporte de registro</a></p>
-</li>
-<li>
-<p><strong>Actividad con décimas</strong></p>
-</li>
+<li><i class="fas fa-book"></i> Hadley Wickham, <a href="http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/" target="_blank" rel="noopener">“Data Science: How is it Different To Statistics?”</a></li>
 </ul>
 
                     </div>
@@ -838,15 +830,8 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
   
   
   <div class="post-nav-item">
-    <div class="meta-nav">Previous</div>
-    <a href="/content/04-content/" rel="next">Transformación y selección de variables</a>
-  </div>
-  
-  
-  
-  <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/01-content/" rel="prev">Herramientas para el uso de R</a>
+    <a href="/content/11-content/" rel="prev">Calidad de modelos y otras técnicas</a>
   </div>
   
 </div>
@@ -856,7 +841,7 @@ ImportarValidarSeleccionarExportar¿Cómo ocupar: Si presi
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on August 23, 2021</p>
+                    <p>Last updated on March 28, 2022</p>
 
                     
 

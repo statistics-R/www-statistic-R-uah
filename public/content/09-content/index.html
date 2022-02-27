@@ -30,7 +30,7 @@
     
   
   <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-Repasoglm() y svyglm()Extraer elementosExponenciación¿Cómo ocupar: Si presionas ?" />
+Muestreo complejo¿Cómo ocupar: Si presionas ?" />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/09-content/" />
@@ -288,18 +288,18 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/content/09-content/" />
-  <meta property="og:title" content="Regresiones logísticas | Análisis Estadístico en R" />
+  <meta property="og:title" content="Muestras complejas | Análisis Estadístico en R" />
   <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
-Repasoglm() y svyglm()Extraer elementosExponenciación¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
+Muestreo complejo¿Cómo ocupar: Si presionas ?" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-10-25T00:00:00&#43;00:00"
+        content="2021-09-27T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-10-25T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-09-27T00:00:00&#43;00:00">
   
 
   
@@ -326,7 +326,7 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Regresiones logísticas | Análisis Estadístico en R</title>
+  <title>Muestras complejas | Análisis Estadístico en R</title>
 </head>
 
 
@@ -667,42 +667,47 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
 
       
       <li >
-        <a href="/content/03-content/">3: Importar y explorar datos</a>
+        <a href="/content/03-content/">3: Tipos de datos en R</a>
       </li>
 
       
       <li >
-        <a href="/content/04-content/">4:Transformación y selección de variables</a>
+        <a href="/content/04-content/">4: Importar y explorar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/05-content/">5: Transformación estructura datos</a>
+        <a href="/content/05-content/">5:Selección de variables y filtrar datos</a>
       </li>
 
       
       <li >
-        <a href="/content/06-content/">6: Análisis descriptivo</a>
+        <a href="/content/06-content/">6:Transformación de variales</a>
       </li>
 
       
       <li >
-        <a href="/content/07-content/">7: Muestras complejas</a>
+        <a href="/content/07-content/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li >
-        <a href="/content/08-content/">8: Regresiones lineales</a>
+        <a href="/content/08-content/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li class="active">
-        <a href="/content/09-content/">9: Regresiones logísticas</a>
+        <a href="/content/09-content/">9: Muestras complejas</a>
       </li>
 
       
       <li >
-        <a href="/content/10-content/">10: Calidad de modelos y otras técnicas</a>
+        <a href="/content/10-content/">10: Regresiones lineales y logísticas</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/11-content/">11: Calidad de modelos y otras técnicas</a>
       </li>
 
       
@@ -733,7 +738,7 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Regresiones logísticas</h1>
+                    <h1>Muestras complejas</h1>
 
                     
 
@@ -747,43 +752,34 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
 
                     <div class="article-style">
                         <h1 id="slides">Slides</h1>
-<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/09-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/09-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
+<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/07-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/07-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="repaso-tab" data-toggle="tab" href="#repaso" role="tab" aria-controls="repaso" aria-selected="true">Repaso</a>
+<a class="nav-link active" id="muestreo-complejo-tab" data-toggle="tab" href="#muestreo-complejo" role="tab" aria-controls="muestreo-complejo" aria-selected="true">Muestreo complejo</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="glm-y-svyglm-tab" data-toggle="tab" href="#glm-y-svyglm" role="tab" aria-controls="glm-y-svyglm" aria-selected="false">glm() y svyglm()</a>
+<a class="nav-link" id="-tab" data-toggle="tab" href="#" role="tab" aria-controls="" aria-selected="false"></a>
 </li>
 <li class="nav-item">
-<a class="nav-link" id="extraer-elementos-tab" data-toggle="tab" href="#extraer-elementos" role="tab" aria-controls="extraer-elementos" aria-selected="false">Extraer elementos</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="exponenciación-tab" data-toggle="tab" href="#exponenciación" role="tab" aria-controls="exponenciación" aria-selected="false">Exponenciación</a>
+<a class="nav-link" id="-tab" data-toggle="tab" href="#" role="tab" aria-controls="" aria-selected="false"></a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="repaso" class="tab-pane fade show active" role="tabpanel" aria-labelledby="repaso-tab">
+<div id="muestreo-complejo" class="tab-pane fade show active" role="tabpanel" aria-labelledby="muestreo-complejo-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/09-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#1">
 </iframe>
 </div>
 </div>
-<div id="glm-y-svyglm" class="tab-pane fade" role="tabpanel" aria-labelledby="glm-y-svyglm-tab">
+<div class="tab-pane fade" role="tabpanel" aria-labelledby="-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/09-slides.html#10">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#14">
 </iframe>
 </div>
 </div>
-<div id="extraer-elementos" class="tab-pane fade" role="tabpanel" aria-labelledby="extraer-elementos-tab">
+<div class="tab-pane fade" role="tabpanel" aria-labelledby="-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/09-slides.html#26">
-</iframe>
-</div>
-</div>
-<div id="exponenciación" class="tab-pane fade" role="tabpanel" aria-labelledby="exponenciación-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/09-slides.html#26">
+<iframe class="embed-responsive-item" src="/slides/07-slides.html#29">
 </iframe>
 </div>
 </div>
@@ -794,32 +790,24 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
 <h1 id="video-de-la-clase">Video de la clase</h1>
 <ul>
 <li>
-<p><a href="https://zoom.us/rec/share/H6L3mr-CE-sMeJRQ4CLua3IT95mPl9ougKki3ndIca2s9JpkNQnCmnoYVVbaIKB4.UrcbRJYeE8F3JVM4?startTime=1635190195000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
+<p><a href="https://zoom.us/rec/share/JV-ZEsTOB-jU3s3dTEM57WVBqIuveCIm2S2ud3MqNim1pVgiPcijb-sj5UwGUiPg.UjmlJMrkaJaTODNb?startTime=1633375758000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video de la clase</code></a></p>
 </li>
 <li>
 <ul>
-<li><a href="https://zoom.us/rec/share/83hcyjS5wOZ57QhBGiyCsb8wzakRyw6pAcyW0ZzjuKWCpIsHdU6ZsNp56obYnCgW.GI1qpKtgu7_HnDHo?startTime=1635195951000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video del práctico</code></a></li>
+<li><a href="https://zoom.us/rec/share/qzVDXwHjWaxFNoQ3mRhXQ027sFrpZK3d-LrxC00sHJDmDa2bYohief-RfS-5yRUb.5oAyDL6HfntGFRhe?startTime=1633380893000" target="_blank" rel="noopener"><i class="fas fa-video"></i> <code>Video del práctico</code></a></li>
 </ul>
 </li>
 </ul>
 <h1 id="material-de-la-clase">Material de la clase</h1>
 <ul>
 <li>
-<p><a href="https://github.com/learn-R/10-class/raw/main/09-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>09-clase.zip</code></a></p>
+<p><a href="https://github.com/learn-R/07-class/raw/main/07-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>07-clase.zip</code></a></p>
 </li>
 <li>
-<p><a href="/example/09-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
+<p><a href="/example/07-practico/"><i class="fas fa-laptop-code"></i> Práctico</a></p>
 </li>
 </ul>
-<h1 id="tareas">Tareas</h1>
-<ul>
-<li>
-<p>Tarea N°5 (entrega viernes a las 23.59)</p>
-</li>
-<li>
-<p>Bonus (entrega miércoles a las 20.00 horas)</p>
-</li>
-</ul>
+<h1 id="materiales-adicionales">Materiales adicionales</h1>
 
                     </div>
 
@@ -836,14 +824,14 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/content/10-content/" rel="next">Calidad de modelos y otras técnicas</a>
+    <a href="/content/10-content/" rel="next">Regresiones logísticas</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/08-content/" rel="prev">Regresiones lineales</a>
+    <a href="/content/07-content/" rel="prev">Análisis descriptivo univariado</a>
   </div>
   
 </div>
@@ -853,7 +841,7 @@ Repasoglm() y svyglm()Extraer elementosExponenciación¿C�
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on October 25, 2021</p>
+                    <p>Last updated on September 27, 2021</p>
 
                     
 
