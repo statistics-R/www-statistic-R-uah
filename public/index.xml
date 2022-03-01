@@ -27306,6 +27306,240 @@ Título 3
     </item>
     
     <item>
+      <title>Tipos de datos</title>
+      <link>/example/03-practicodatatypes/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/example/03-practicodatatypes/</guid>
+      <description>
+&lt;script src=&#34;03-practico(datatypes)_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+&lt;div id=&#34;TOC&#34;&gt;
+
+&lt;/div&gt;
+
+&lt;div id=&#34;objetivo-del-práctico&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;0. Objetivo del práctico&lt;/h1&gt;
+&lt;p&gt;El objetivo de este práctico es presentar una introducción a los tipos de datos que podemos encontrarnos trabajando con R. Esto constituye uno de los pilares fundamentales para el correcto procesamiento, análisis y presentación de resultados.&lt;/p&gt;
+&lt;div id=&#34;materiales-de-la-sesión&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Materiales de la sesión&lt;/h2&gt;
+&lt;p&gt;En este práctico trabajaremos con datos de la &lt;strong&gt;Encuesta Suplementaria de Ingresos (&lt;em&gt;ESI&lt;/em&gt;)&lt;/strong&gt; desarrollada por el &lt;strong&gt;Instituto Nacional de Estadísticas&lt;/strong&gt; en el año 2020. Esta es “un módulo complementario que se aplica dentro de la Encuesta Nacional de Empleo (ENE) (…) Su objetivo principal es caracterizar los ingresos laborales de las personas que son clasificadas como ocupadas en la ENE y otras fuentes de ingresos de los hogares”, contando con un diseño muestral probabilístico, estratificado y bietápico. Pueden encontrar más información &lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34;&gt;aquí&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/02-class/raw/main/02-clase.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;02-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tipos-de-datos&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1. Tipos de datos&lt;/h2&gt;
+&lt;div id=&#34;a-qué-son&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;a) ¿Qué son?&lt;/h3&gt;
+&lt;p&gt;Tanto en R como en la mayoría de lenguajes de programación, contamos con datos de &lt;em&gt;diversos tipos&lt;/em&gt;, en razón de los cuales podemos ejecutar determinados procedimientos de tratamiento o análisis.&lt;/p&gt;
+&lt;p&gt;Los tipos de datos están &lt;strong&gt;íntimamente relacionados con el &lt;em&gt;nivel de medición&lt;/em&gt; de las variables&lt;/strong&gt; a las cuales corresponden. Como habrán aprendido en sus cursos de estadística, la teoría de los niveles de medición contempla cuatro de ellos:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Nominal&lt;/strong&gt;: para variables categóricas o cualitativas. Los números asignados permiten dividir los datos en diferentes grupos, sin la asignación de un orden específico para las categorías entre las cuales se dispersan los datos. Un ejemplo de variable nominal es la comuna de residencia o el género.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Ordinal&lt;/strong&gt;: para variables categóricas o cualitativas. Los números asignados permiten dividir los datos en diferentes grupos y, a la vez, establecer un &lt;em&gt;orden no exacto&lt;/em&gt; entre ellos. Ello quiere decir que un número más bajo (alto) indicará una menor (mayor) presencia del atributo. Sin embargo, los números no indican distancias concretas: por ejemplo, la distancia entre las categorías 1 y 2 &lt;strong&gt;no necesariamente&lt;/strong&gt; es la misma que aquella que existe entre las categorías 2 y 3. Para ilustrarlo más claramente, las escalas Likert representan un ejemplo clásico de variables ordinales: el/la informante puede declarar un mayor o menor grado de acuerdo con las medidas adoptadas por el gobierno durante la pandemia. Sin embargo, no sabemos &lt;strong&gt;cuán más de acuerdo se encuentran&lt;/strong&gt;: sólo sabemos que se encuentran más o menos de acuerdo con aquellas medidas en relación con otro/a informante.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Intervalar&lt;/strong&gt;: para variables numéricas o cuantitativas. Aquí es posible clasificar y ordenar los datos, estableciendo además distancias concretas entre un valor y otro. Por ello, las variables intervalares nos permiten &lt;strong&gt;ejecutar operaciones aritméticas&lt;/strong&gt; y, por lo tanto, es posible calcular estadísticos como la media de una distribución. Un ejemplo de variable intervalar puede ser la cantidad de jugadoras/es presentes en una cancha de basketball durante un partido.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;De razón&lt;/strong&gt;: para variables numéricas o cuantitativas. La mayor diferencia con las variables de nivel intervalar es que &lt;strong&gt;incluyen un cero absoluto&lt;/strong&gt; que indica &lt;strong&gt;ausencia del atributo&lt;/strong&gt;. En el caso anterior, podríamos señalar que, teóricamente, no puede haber cero jugadoras/es en una cancha de basketball durante un partido, pues de ser así no estaría ocurriendo el partido. Sin embargo, sí podemos decir que una persona propietaria de un emprendimiento tiene 2, 4 o 0 trabajadores/as contratados/as. En este caso, el 0 indicaría que &lt;em&gt;no ha contratado a ningún/a trabajador/a&lt;/em&gt;, y la distancia entre 0 y 2 trabajadores/as es la misma que la que existe entre 2 y 4 trabajadores/as (es decir, una diferencia de 2 trabajadores/as para cada caso).&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;En la sección &lt;strong&gt;Recursos&lt;/strong&gt; de la página web del curso podrán encontrar un artículo explicativo referente a los &lt;a href=&#34;https://learn-r-uah.netlify.app/resource/r-datatypes-example/&#34;&gt;tipos de variables&lt;/a&gt;, donde se presentan además algunos ejemplos para cada una de ellas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;b-qué-tipos-de-datos-podemos-encontrarnos-en-r&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;b) ¿Qué tipos de datos podemos encontrarnos en R?&lt;/h3&gt;
+&lt;p&gt;Para responder a esta pregunta ¡metamos las manos en la masa! (o en los datos). Como se señaló anteriormente, trabajaremos con la Encuesta Suplementaria de Ingresos en su versión 2020.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pacman::p_load(sjPlot, sjmisc)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;view_df(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption&gt;
+Data frame: data
+&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+ID
+&lt;/th&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Name
+&lt;/th&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Label
+&lt;/th&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Values
+&lt;/th&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Value Labels
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+id
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Identificador de individuo
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&amp;lt;output omitted&amp;gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+idgen
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+Identidad de gÃ©nero
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+Femenino&lt;br&gt;Masculino&lt;br&gt;Trans/Otro
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+edad
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Edad
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;
+&lt;em&gt;range: 0-10&lt;/em&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+cise
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+SituaciÃ³n de empleo
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+1&lt;br&gt;2&lt;br&gt;3&lt;br&gt;4&lt;br&gt;5&lt;br&gt;6&lt;br&gt;7&lt;br&gt;96
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+Empleador o patrÃ³n&lt;br&gt;Trabajador por cuenta propia&lt;br&gt;Asalariado del sector privado&lt;br&gt;Asalariado del sector pÃºblico&lt;br&gt;Personal de servicio domÃ©stico puertas adentro&lt;br&gt;Personal de servicio domÃ©stico puertas afuera&lt;br&gt;Familiar o personal no remunerado&lt;br&gt;Sin dato
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+VA_DC
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+Victimizacion agregada de delitos consumados
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;¡Vamos a revisar cada una de ellas!&lt;/p&gt;
+&lt;div id=&#34;i-character&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;I) character&lt;/h4&gt;
+&lt;p&gt;Los datos &lt;code&gt;character&lt;/code&gt; están directamente asociados a las variables cualitativas (o categóricas). En general, estos datos incluyen palabras, aunque también pueden incorporar números que no representen una variable numérica, como puede ser el RUT de los/as informantes: es un número que no denota una distancia clara entre la inscripción de una persona a la de otra. Suelen ser utilizadas para variables de texto abierto, como es el caso de la variable &lt;strong&gt;a6_otro&lt;/strong&gt;, que detalla otras razones por las cuales las/os informantes declararon ausentarse al trabajo durante la semana pasada, más allá de aquellas especificadas en las alternativas de respuesta de la pregunta original.&lt;/p&gt;
+&lt;p&gt;Para saber cuál es el tipo de una variable en específico, utilizaremos la función &lt;code&gt;class()&lt;/code&gt; del paquete base de R&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$a6_otro)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6_otro`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Si deseamos trabajar con texto abierto, o manipular ese texto ¡debemos trabajar con character! sin embargo, estas variables no tienden a ser las mejores a la hora de presentar nuestros resultados, entre otras razones, porque no nos permiten especificar un orden distinto al alfabético. Para solucionarlo, tenemos las variables de tipo &lt;strong&gt;Factor&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ii-factor&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;II) Factor&lt;/h4&gt;
+&lt;p&gt;Las variables de tipo &lt;code&gt;Factor&lt;/code&gt; son las ideales a la hora de trabajar con variables de tipo nominal u ordinal. Esto se debe a dos motivos: en primer lugar, su comptabilidad con librerías como &lt;code&gt;sjPlot&lt;/code&gt;, &lt;code&gt;sjmisc&lt;/code&gt; o &lt;code&gt;ggplot2&lt;/code&gt;, que nos permiten presentar de manera cómoda estos datos; así como su compatibilidad con funciones dedicadas a la generación de distintos modelos estadísticos, como modelos de análisis de clases latentes o de regresión. En segundo término, porque cabe la posibilidad de &lt;strong&gt;establecer un orden (distinto al alfabético)&lt;/strong&gt; entre las categorías de la variable, lo cual es &lt;em&gt;fundamental&lt;/em&gt; si trabajamos con variables ordinales, como el &lt;strong&gt;nivel educacional&lt;/strong&gt; de las/os informantes&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$nivel)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;¿Cómo podemos ordenar los factores de una variable de este tipo? ¡Calma! en el práctico 6 profundizaremos como corresponde en la transformación de variables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;iii-numeric&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;III) numeric&lt;/h4&gt;
+&lt;p&gt;Como su nombre lo indica, este tipo de variables nos permiten trabajar con variables con un nivel de medición cuantitativo&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$ingresos)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `ingresos`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mientras R arroja un error al, por ejemplo, intentar calcular el promedio de nivel educacional&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(data$nivel)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in mean.default(data$nivel): argument is not numeric or logical:
+## returning NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;¡Si podemos calcular la media de ingresos por sueldos y salarios!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(data$ingresos)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `ingresos`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in mean.default(data$ingresos): argument is not numeric or logical:
+## returning NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;¡Mucho cuidado! muchas veces, los datos incluyen variables de tipo &lt;code&gt;numeric&lt;/code&gt; que, teóricamente, no son variables numéricas (por ejemplo, variables donde 1 == Si, y 2 == No). Por ello, es fundamental que &lt;strong&gt;revisen detalladamente la documentación anexa&lt;/strong&gt; de sus datos, a modo de determinar cuáles variables corresponden su tipo de dato con su nivel de medición, y cuáles no.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;iv-dbl-lbl-números-etiquetados&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;IV) dbl + lbl (números etiquetados)&lt;/h4&gt;
+&lt;p&gt;Es bastante usual (como veremos en el siguiente práctico) que, aunque estemos trabajando en lenguaje R, los datos que emplearemos estén en formato SPSS (.sav) o Stata (.dta). En ambos casos, los datos (sobre todo las variables categóricas) presentan una estructura de números etiquetados, donde el valor principal de la variable es un número, pero el cual presenta una etiqueta en palabras que identifica a qué refiere cada una de las categorías de la variable. En general, cuando preguntamos sobre la clase de una variable dbl+lbl, obtendremos algo así:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$a6)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;En este caso, cada número se asocia con una razón por la cual el/la informante se ausentó del trabajo la semana anterior. Por supuesto, es una variable ordinal.&lt;/p&gt;
+&lt;p&gt;La mayor parte de las veces, sobre todo por la compatibilidad con librerías de representación gráfica, buscaremos que nuestros números etiquetados se conviertan en factores ¡el práctico 6 se encargará de profundizar en ello!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;v-logical&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;V) logical&lt;/h4&gt;
+&lt;p&gt;¡El último tipo de dato! Los valores lógicos (&lt;code&gt;logical&lt;/code&gt;) son bastante frecuentes al estar trabajando con datos&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$afp)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `afp`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `afp`.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Los datos de clase &lt;code&gt;logical&lt;/code&gt; presentan tres posibles valores: &lt;code&gt;TRUE&lt;/code&gt; (verdadero), &lt;code&gt;FALSE&lt;/code&gt; (falso) y &lt;code&gt;NA&lt;/code&gt; (valor nulo, ausencia de dato). En este caso, las personas con valor &lt;code&gt;TRUE&lt;/code&gt; están empleados por alguien que si paga cotizaciones en previsión, mientras que las personas con valor &lt;code&gt;FALSE&lt;/code&gt; no tienen tal característica&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;resumen&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;4. Resumen&lt;/h2&gt;
+&lt;p&gt;¡Aprendimos los posibles tipos de datos con los cuales nos enfrentaremos a trabajar en R! Como resumen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Variables cualitativas: &lt;code&gt;character&lt;/code&gt;, &lt;code&gt;Factor&lt;/code&gt; o &lt;code&gt;dbl + lbl&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Variables cuantitativas: &lt;code&gt;numeric&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Valores lógicos: &lt;code&gt;logical&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Recuerden que es fundamental que se apoyen en la &lt;strong&gt;documentación anexa&lt;/strong&gt; a la hora de trabajar con datos ¡así evitarán calcular el promedio de las religiones que declaran las/os informantes!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;recursos&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;5. Recursos&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://es.r4ds.hadley.nz/r-markdown.html&#34;&gt;RMarkdown en Ciencia de Datos - Hadley Whickham&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/&#34;&gt;R Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/lesson-1.html&#34;&gt;Tutoriales Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34;&gt;cheatsheets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Para practicar ir a &lt;a href=&#34;https://www.markdowntutorial.com/es/&#34;&gt;Tutorial de Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reporte-de-progreso&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;6. Reporte de progreso&lt;/h2&gt;
+&lt;p&gt;¡Recuerda rellenar tu reporte de progreso! En &lt;a href=&#34;https://learn-r.formr.org/&#34;&gt;https://learn-r.formr.org/&lt;/a&gt;. Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Tidydata y manipulación de datos</title>
       <link>/example/05-practico/</link>
       <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
