@@ -27347,7 +27347,7 @@ Título 3
 &lt;p&gt;Para responder a esta pregunta ¡metamos las manos en la masa! (o en los datos). Como se señaló anteriormente, trabajaremos con la Encuesta Suplementaria de Ingresos en su versión 2020.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pacman::p_load(sjPlot, sjmisc)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;view_df(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;view_df(data, encoding = &amp;quot;UTF-8&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
 &lt;caption&gt;
 Data frame: data

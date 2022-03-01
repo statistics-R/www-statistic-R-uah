@@ -58,7 +58,7 @@ data <- readRDS(url("https://github.com/learn-R/www-learn-R-uah/raw/master/conte
 Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico
 
 ```{r data_summary}
-view_df(data)
+view_df(data, encoding = "UTF-8")
 ```
 
 ¡Vamos a revisar cada una de ellas!
