@@ -674,11 +674,6 @@
       </li>
 
       
-      <li class="active">
-        <a href="/example/03-practicodatatypes/">3: Tipos de datos</a>
-      </li>
-
-      
       <li >
         <a href="/example/04-practico/">4: Transformar y seleccionar variables</a>
       </li>
@@ -711,6 +706,11 @@
       
       <li >
         <a href="/example/10-practico/">10: Calidad de modelos y otras técnicas de estimación</a>
+      </li>
+
+      
+      <li class="active">
+        <a href="/example/03-practicodatatypes/">3: Tipos de datos</a>
       </li>
 
       
@@ -830,15 +830,16 @@ Identificador de individuo
 2
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-idgen
+a6
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-Identidad de gÃ©nero
+a6. Â¿Por quÃ© razÃ³n no trabajÃ³ la semana pasada?
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
+1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>88<br><span style="omit">&lt;…&gt;</span>
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-Femenino<br>Masculino<br>Trans/Otro
+Vacaciones o permisos<br>Licencia mÃ©dica<br>Por horario o jornada variable o flexible<br>Huelga o conflicto laboral<br>Asistencia a cursos de capacitaciÃ³n<br>Problemas de salud<br>SuspensiÃ³n temporal del trabajo<br>No tuvo pedidos o clientes<br>Razones climÃ¡ticas o catÃ¡strofes naturales<br>Su trabajo es ocasional<br>Razones econÃ³micas o tÃ©cnicas de la empresa o negocio<br>Su trabajo es estacional<br>Clausura de negocio o de empresa<br>Otras razones (especificar)<br>No sabe<br><span style="omit">&lt;… truncated&gt;</span>
 </td>
 </tr>
 <tr>
@@ -846,13 +847,14 @@ Femenino<br>Masculino<br>Trans/Otro
 3
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">
-edad
+a6_otro
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">
-Edad
+Otras razones de ausencia al trabajo
 </td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2">
-<em>range: 0-10</em>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">
+</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">
 </td>
 </tr>
 <tr>
@@ -860,16 +862,15 @@ Edad
 4
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-cise
+nivel
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-SituaciÃ³n de empleo
+Nivel educacional mas alto aprobado
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-1<br>2<br>3<br>4<br>5<br>6<br>7<br>96
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
-Empleador o patrÃ³n<br>Trabajador por cuenta propia<br>Asalariado del sector privado<br>Asalariado del sector pÃºblico<br>Personal de servicio domÃ©stico puertas adentro<br>Personal de servicio domÃ©stico puertas afuera<br>Familiar o personal no remunerado<br>Sin dato
+Basica o primaria<br>Media o humanidades<br>Menos que basica/primaria<br>Tecnico profesional<br>Universitaria o mas
 </td>
 </tr>
 <tr>
@@ -877,14 +878,28 @@ Empleador o patrÃ³n<br>Trabajador por cuenta propia<br>Asalariado del sector p
 5
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">
-VA_DC
+ingresos
 </td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">
-Victimizacion agregada de delitos consumados
+Ingresos por sueldos y salarios
 </td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2">
+<em>range: 0.0-9312239.1</em>
 </td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
+6
+</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
+afp
+</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
+Empleador cotiza en prevision (AFP)
+</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
+</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">
 </td>
 </tr>
 </table>
@@ -894,48 +909,71 @@ Victimizacion agregada de delitos consumados
 <p>Los datos <code>character</code> están directamente asociados a las variables cualitativas (o categóricas). En general, estos datos incluyen palabras, aunque también pueden incorporar números que no representen una variable numérica, como puede ser el RUT de los/as informantes: es un número que no denota una distancia clara entre la inscripción de una persona a la de otra. Suelen ser utilizadas para variables de texto abierto, como es el caso de la variable <strong>a6_otro</strong>, que detalla otras razones por las cuales las/os informantes declararon ausentarse al trabajo durante la semana pasada, más allá de aquellas especificadas en las alternativas de respuesta de la pregunta original.</p>
 <p>Para saber cuál es el tipo de una variable en específico, utilizaremos la función <code>class()</code> del paquete base de R</p>
 <pre class="r"><code>class(data$a6_otro)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `a6_otro`.</code></pre>
-<pre><code>## [1] &quot;NULL&quot;</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Si deseamos trabajar con texto abierto, o manipular ese texto ¡debemos trabajar con character! sin embargo, estas variables no tienden a ser las mejores a la hora de presentar nuestros resultados, entre otras razones, porque no nos permiten especificar un orden distinto al alfabético. Para solucionarlo, tenemos las variables de tipo <strong>Factor</strong></p>
 </div>
 <div id="ii-factor" class="section level4">
 <h4>II) Factor</h4>
 <p>Las variables de tipo <code>Factor</code> son las ideales a la hora de trabajar con variables de tipo nominal u ordinal. Esto se debe a dos motivos: en primer lugar, su comptabilidad con librerías como <code>sjPlot</code>, <code>sjmisc</code> o <code>ggplot2</code>, que nos permiten presentar de manera cómoda estos datos; así como su compatibilidad con funciones dedicadas a la generación de distintos modelos estadísticos, como modelos de análisis de clases latentes o de regresión. En segundo término, porque cabe la posibilidad de <strong>establecer un orden (distinto al alfabético)</strong> entre las categorías de la variable, lo cual es <em>fundamental</em> si trabajamos con variables ordinales, como el <strong>nivel educacional</strong> de las/os informantes</p>
 <pre class="r"><code>class(data$nivel)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `nivel`.</code></pre>
-<pre><code>## [1] &quot;NULL&quot;</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `nivel`.</code></pre>
-<pre><code>## NULL</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<pre><code>## 
+## Nivel educacional mas alto aprobado (x) &lt;categorical&gt;
+## # total N=71935  valid N=71152  mean=2.43  sd=1.40
+## 
+## Value                     |     N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------------
+## Basica o primaria         | 21374 | 29.71 |   30.04 |  30.04
+## Media o humanidades       | 26194 | 36.41 |   36.81 |  66.85
+## Menos que basica/primaria |  6417 |  8.92 |    9.02 |  75.87
+## Tecnico profesional       |  6003 |  8.35 |    8.44 |  84.31
+## Universitaria o mas       | 11164 | 15.52 |   15.69 | 100.00
+## &lt;NA&gt;                      |   783 |  1.09 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 <p>¿Cómo podemos ordenar los factores de una variable de este tipo? ¡Calma! en el práctico 6 profundizaremos como corresponde en la transformación de variables.</p>
 </div>
 <div id="iii-numeric" class="section level4">
 <h4>III) numeric</h4>
 <p>Como su nombre lo indica, este tipo de variables nos permiten trabajar con variables con un nivel de medición cuantitativo</p>
 <pre class="r"><code>class(data$ingresos)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `ingresos`.</code></pre>
-<pre><code>## [1] &quot;NULL&quot;</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>Mientras R arroja un error al, por ejemplo, intentar calcular el promedio de nivel educacional</p>
 <pre class="r"><code>mean(data$nivel)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `nivel`.</code></pre>
 <pre><code>## Warning in mean.default(data$nivel): argument is not numeric or logical:
 ## returning NA</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>¡Si podemos calcular la media de ingresos por sueldos y salarios!</p>
 <pre class="r"><code>mean(data$ingresos)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `ingresos`.</code></pre>
-<pre><code>## Warning in mean.default(data$ingresos): argument is not numeric or logical:
-## returning NA</code></pre>
-<pre><code>## [1] NA</code></pre>
+<pre><code>## [1] 162615.6</code></pre>
 <p>¡Mucho cuidado! muchas veces, los datos incluyen variables de tipo <code>numeric</code> que, teóricamente, no son variables numéricas (por ejemplo, variables donde 1 == Si, y 2 == No). Por ello, es fundamental que <strong>revisen detalladamente la documentación anexa</strong> de sus datos, a modo de determinar cuáles variables corresponden su tipo de dato con su nivel de medición, y cuáles no.</p>
 </div>
 <div id="iv-dbl-lbl-números-etiquetados" class="section level4">
 <h4>IV) dbl + lbl (números etiquetados)</h4>
 <p>Es bastante usual (como veremos en el siguiente práctico) que, aunque estemos trabajando en lenguaje R, los datos que emplearemos estén en formato SPSS (.sav) o Stata (.dta). En ambos casos, los datos (sobre todo las variables categóricas) presentan una estructura de números etiquetados, donde el valor principal de la variable es un número, pero el cual presenta una etiqueta en palabras que identifica a qué refiere cada una de las categorías de la variable. En general, cuando preguntamos sobre la clase de una variable dbl+lbl, obtendremos algo así:</p>
 <pre class="r"><code>class(data$a6)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `a6`.</code></pre>
-<pre><code>## [1] &quot;NULL&quot;</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `a6`.</code></pre>
-<pre><code>## NULL</code></pre>
+<pre><code>## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
+<pre><code>## 
+## a6. ¿Por qué razón no trabajó la semana pasada? (x) &lt;numeric&gt;
+## # total N=71935  valid N=2635  mean=5.39  sd=3.56
+## 
+## Value |                                                 Label |     N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------------------------------------------------
+##     1 |                                 Vacaciones o permisos |   227 |  0.32 |    8.61 |   8.61
+##     2 |                                       Licencia médica |   823 |  1.14 |   31.23 |  39.85
+##     3 |             Por horario o jornada variable o flexible |    86 |  0.12 |    3.26 |  43.11
+##     4 |                            Huelga o conflicto laboral |     4 |  0.01 |    0.15 |  43.26
+##     5 |                   Asistencia a cursos de capacitación |    24 |  0.03 |    0.91 |  44.17
+##     6 |                                    Problemas de salud |    77 |  0.11 |    2.92 |  47.10
+##     7 |                       Suspensión temporal del trabajo |   976 |  1.36 |   37.04 |  84.14
+##     8 |                            No tuvo pedidos o clientes |   131 |  0.18 |    4.97 |  89.11
+##     9 |            Razones climáticas o catástrofes naturales |    27 |  0.04 |    1.02 |  90.13
+##    10 |                               Su trabajo es ocasional |    45 |  0.06 |    1.71 |  91.84
+##    11 | Razones económicas o técnicas de la empresa o negocio |    29 |  0.04 |    1.10 |  92.94
+##    12 |                              Su trabajo es estacional |    12 |  0.02 |    0.46 |  93.40
+##    13 |                      Clausura de negocio o de empresa |     8 |  0.01 |    0.30 |  93.70
+##    14 |                           Otras razones (especificar) |   166 |  0.23 |    6.30 | 100.00
+##    88 |                                               No sabe |     0 |  0.00 |    0.00 | 100.00
+##    99 |                                           No responde |     0 |  0.00 |    0.00 | 100.00
+##  &lt;NA&gt; |                                                  &lt;NA&gt; | 69300 | 96.34 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 <p>En este caso, cada número se asocia con una razón por la cual el/la informante se ausentó del trabajo la semana anterior. Por supuesto, es una variable ordinal.</p>
 <p>La mayor parte de las veces, sobre todo por la compatibilidad con librerías de representación gráfica, buscaremos que nuestros números etiquetados se conviertan en factores ¡el práctico 6 se encargará de profundizar en ello!</p>
 </div>
@@ -943,10 +981,16 @@ Victimizacion agregada de delitos consumados
 <h4>V) logical</h4>
 <p>¡El último tipo de dato! Los valores lógicos (<code>logical</code>) son bastante frecuentes al estar trabajando con datos</p>
 <pre class="r"><code>class(data$afp)</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `afp`.</code></pre>
-<pre><code>## [1] &quot;NULL&quot;</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `afp`.</code></pre>
-<pre><code>## NULL</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre><code>## 
+## Empleador cotiza en prevision (AFP) (x) &lt;lgl&gt;
+## # total N=71935  valid N=19976  mean=0.82  sd=0.38
+## 
+## Value |     N | Raw % | Valid % | Cum. %
+## ----------------------------------------
+## FALSE |  3505 |  4.87 |   17.55 |  17.55
+## TRUE  | 16471 | 22.90 |   82.45 | 100.00
+## &lt;NA&gt;  | 51959 | 72.23 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 <p>Los datos de clase <code>logical</code> presentan tres posibles valores: <code>TRUE</code> (verdadero), <code>FALSE</code> (falso) y <code>NA</code> (valor nulo, ausencia de dato). En este caso, las personas con valor <code>TRUE</code> están empleados por alguien que si paga cotizaciones en previsión, mientras que las personas con valor <code>FALSE</code> no tienen tal característica</p>
 </div>
 </div>

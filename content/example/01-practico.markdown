@@ -14,14 +14,90 @@ editor_options:
 
 ## 0. Objetivo del práctico
 
-El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, utilizaremos GitHub que es una plataforma que permite alojar los .Rprojects y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos **GitHub***ClassRoom* para que ustedes puedan subir sus tareas. 
+El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, aprenderemos cómo abrir un nuevo **script** y a crear un nuevo **proyecto de R (o Rproject)**. Además, utilizaremos GitHub, que es una plataforma que permite alojar los .Rproj y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos **GitHub***ClassRoom* para que ustedes puedan subir sus tareas. 
 
 Previo a esto, deben ver el [Tutorial de instalación de R](https://youtu.be/Zj8yL-nx9vM). 
 
-Ahora aprenderemos a colaborar y resolver las tareas. 
+Ahora aprenderemos a crear scripts, proyectos, colaborar y resolver las tareas. 
 
+## 1. Crear un nuevo script (.R)
 
-## 1. GitHub
+Para que empecemos a trabajar en el lenguaje R, lo primero es saber cómo abrir un nuevo script; pero *¡¿qué es un script?!* Dicho en términos simples, el script es la *"hoja"* sobre la cual escribiremos y guardaremos cada uno de los códigos que trabajemos cuando estemos trabajando con datos cuantitativos. Si bien podemos ejecutar los códigos directamente desde la **consola**, estos se eliminarán una vez que cerremos la sesión en RStudio:
+
+<img src="/img/example/consola.png" width="60%" />
+
+Así, cuando escribamos en nuestra **script**, podremos archivar los códigos que vayamos ejecutando, para poder reproducirlos posteriormente, compartirlos con otras personas, entre otros. Ahora, lo que nos convoca: **¿cómo puedo abrir un nuevo script?**
+
+Hacerlo es bastante sencillo. En la sección *superior izquierda* de RStudio, debe hacerse click en la hoja con un signo + verde y, luego, seleccionar la opción **R Script** en el menú desplegado: 
+
+<img src="/img/example/open-script.png" width="60%" />
+
+Otra manera de abrir un nuevo script es hacer click en la opción **File** de la *barra superior*
+
+<img src="/img/example/file.png" width="60%" />
+
+para, posteriormente seleccionar **New File > R Script** en los menús desplegados:
+
+<img src="/img/example/new-script.png" width="60%" />
+
+Por último, podemos mantener presionadas las teclas **Ctrl + Shift + N** en Windows, o **⌘ + Shift + N**
+en *Mac*.
+ 
+Ya hemos abierto un nuevo script (**¡Genial!**), que se debe ver de la siguiente manera:
+
+<img src="/img/example/script.png" width="60%" />
+ 
+Podemos escribir en él los códigos, que se ejecutarán en la **consola** una vez mantengamos presionadas las teclas **Control + Enter** al inicio de la línea
+
+<img src="/img/example/script-console.png" width="60%" />
+
+Ahora, por supuesto, debemos guardar nuestro script una vez terminemos de trabajar en él, a modo de no perder el trabajo avanzado. Para ello, podemos hacer click en el **disquete** situado en la *barra que se encuentra sobre el código*
+
+<img src="/img/example/save.jpg" width="60%" />
+
+Para luego, elegir el directorio donde deseamos almacenar nuestro script, y asignarle un nombre determinado (en este caso **script1**) que, ojalá, tenga que ver con los procedimientos ejecutados en este (por ejemplo, *procesamiento* o *análisis*). La extensión de los archivos que almacenan scripts es **.R** (*¡no lo olvides!*)
+
+<img src="/img/example/save-script.png" width="60%" />
+
+<img src="/img/example/name-script.png" width="60%" />
+
+Una vez almacenado en una carpeta, cada vez que clickeemos en los casetes o mantengamos presionadas las teclas **Control + S**, el archivo se actualizará a la última versión que hayamos guardado. 
+
+## 2. Crear un nuevo proyecto de R (.Rproj)
+
+¡Todavía nos falta algo para iniciarnos en el flujo de trabajo del curso! debemos crear un nuevo **Proyecto de R o R Project (*.Rproj*)**. ¿Qué es esto, se preguntarán ustedes? en pocas palabras, será la **semilla de nuestra carpeta de trabajo**, es decir, constituye el centro a partir del cual estaremos trabajando el resto de archivos incluidos en nuestro trabajo con los datos, como los *scripts*, los *datos* con los que trabajamos, los *gráficos* que generaremos durante el análisis, y todo aquello vinculado a los procesos que ejecutemos en un trabajo en específico. A lo largo del curso aprenderemos a trabajar adecuadamente con los .Rproj, manteniendo un flujo de trabajo que *facilita la reproductibilidad* de los procesos con los que aprenderemos los contenidos, así como de las tareas que ustedes rendirán durante el semestre. Sin embargo, ahora nos limitaremos a aprender a crear un nuevo proyecto.
+
+¿Cómo lo hacemos? Es bastante sencillo, y se asemeja a la creación de scripts. No obstante, esta vez nos dirigiremos a la sección *superior derecha de RStudio*, donde se encuentra una *R inscrita a un cubo*
+
+<img src="/img/example/rproj.png" width="60%" />
+
+Haremos click en ella, y se desplegará un panel con opciones. Clickearemos en **New Project...**
+
+<img src="/img/example/new-proj.png" width="60%" />
+
+Emergerá una ventana que nos preguntará en qué carpeta queremos alojar nuestro nuevo proyecto. Podemos elegir crear una nueva carpeta haciendo click en **New Directory**, o elegir una carpeta ya existente en nuestro computador, clickeando en **Existing Directory**
+
+<img src="/img/example/new-proj1.png" width="60%" />
+
+Si optamos por lo primero, se nos preguntará qué tipo de proyecto deseamos crear. En este caso, elegiremos **New Project**
+
+<img src="/img/example/new-proj2.png" width="60%" />
+
+Aparecerá una ventana que nos pregunta el nombre que queremos asignarle a la nueva carpeta que crearemos, y en qué carpeta se alojará esta. Si hacemos click en *Browse*, podemos buscar un directorio específico en el cual queramos alojar la nueva carpeta
+
+<img src="/img/example/new-proj3.png" width="60%" />
+
+En caso de elegir lo segundo, se nos solicitará directamente en qué carpeta (ya existente) queremos alojar nuestro proyecto. Una vez más, podemos utilizar *Browse* para navegar entre las carpetas de nuestro computador, hasta hallar aquella en que deseamos alojar este nuevo archivo
+
+<img src="/img/example/new-proj4.png" width="60%" />
+
+¡Listo! ahora sólo debemos ir a nuestra carpeta y buscar el proyecto que hemos creado. Es un archivo de extensión .Rproj, cuyo ícono es una R inscrita en un cubo. 
+
+<img src="/img/example/new-proj5.png" width="60%" />
+
+Es fundamental que, de aquí en adelante, siempre que vayamos a trabajar en alguna tarea con R, **creemos el nuevo proyecto y lo abramos para empezar a trabajar**. Ello setearé nuestro directorio de trabajo directamente en la carpeta donde se encuentra el archivo .Rproj, lo cual nos permitirá trabajar colaborativamente con mayor facilidad (¡algo **fundamental** en el curso!). Además, cada vez que vayamos a retomar nuestro trabajo en algún proyecto, debemos **siempre abrir el proyecto antes que cualquier cosa**, para lo cual debemos hacer doble click sobre su ícono. 
+
+## 3. GitHub
 
 Es un sistema de control de versiones en línea que rastrea los cambios de códigos, facilita la colaboración y el acceso abierto. En este curso será un programa esencial para el desarrollo tanto de clases como prácticos, por lo que en este práctico vamos a aprender a utilizarlo repasando aspectos básicos. Esto además será profundizado y detallado en clases.
 
@@ -42,7 +118,7 @@ Las principales ventajas son:
 Pero la plataforma central en el curso será **GitHub Classroom**
 
 
-## 2. Github Classroom
+## 4. Github Classroom
 
 Es una plataforma de Github que facilita la interacción y aprendizaje entre estudiantes y profesores. Esta plataforma la usaremos a lo largo del curso, principalmente porque permite estudiantes trabajen individual y colectivamente usando los repositorios de github. En esta plataforma entregarán sus tareas, recibirán comentarios y retroalimentaciones pudiendo trabajar colaborativamente.
 

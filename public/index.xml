@@ -27390,15 +27390,16 @@ Identificador de individuo
 2
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-idgen
+a6
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-Identidad de gÃ©nero
+a6. Â¿Por quÃ© razÃ³n no trabajÃ³ la semana pasada?
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+1&lt;br&gt;2&lt;br&gt;3&lt;br&gt;4&lt;br&gt;5&lt;br&gt;6&lt;br&gt;7&lt;br&gt;8&lt;br&gt;9&lt;br&gt;10&lt;br&gt;11&lt;br&gt;12&lt;br&gt;13&lt;br&gt;14&lt;br&gt;88&lt;br&gt;&lt;span style=&#34;omit&#34;&gt;&amp;lt;…&amp;gt;&lt;/span&gt;
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-Femenino&lt;br&gt;Masculino&lt;br&gt;Trans/Otro
+Vacaciones o permisos&lt;br&gt;Licencia mÃ©dica&lt;br&gt;Por horario o jornada variable o flexible&lt;br&gt;Huelga o conflicto laboral&lt;br&gt;Asistencia a cursos de capacitaciÃ³n&lt;br&gt;Problemas de salud&lt;br&gt;SuspensiÃ³n temporal del trabajo&lt;br&gt;No tuvo pedidos o clientes&lt;br&gt;Razones climÃ¡ticas o catÃ¡strofes naturales&lt;br&gt;Su trabajo es ocasional&lt;br&gt;Razones econÃ³micas o tÃ©cnicas de la empresa o negocio&lt;br&gt;Su trabajo es estacional&lt;br&gt;Clausura de negocio o de empresa&lt;br&gt;Otras razones (especificar)&lt;br&gt;No sabe&lt;br&gt;&lt;span style=&#34;omit&#34;&gt;&amp;lt;… truncated&amp;gt;&lt;/span&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -27406,13 +27407,14 @@ Femenino&lt;br&gt;Masculino&lt;br&gt;Trans/Otro
 3
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
-edad
+a6_otro
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
-Edad
+Otras razones de ausencia al trabajo
 &lt;/td&gt;
-&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;
-&lt;em&gt;range: 0-10&lt;/em&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -27420,16 +27422,15 @@ Edad
 4
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-cise
+nivel
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-SituaciÃ³n de empleo
+Nivel educacional mas alto aprobado
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-1&lt;br&gt;2&lt;br&gt;3&lt;br&gt;4&lt;br&gt;5&lt;br&gt;6&lt;br&gt;7&lt;br&gt;96
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
-Empleador o patrÃ³n&lt;br&gt;Trabajador por cuenta propia&lt;br&gt;Asalariado del sector privado&lt;br&gt;Asalariado del sector pÃºblico&lt;br&gt;Personal de servicio domÃ©stico puertas adentro&lt;br&gt;Personal de servicio domÃ©stico puertas afuera&lt;br&gt;Familiar o personal no remunerado&lt;br&gt;Sin dato
+Basica o primaria&lt;br&gt;Media o humanidades&lt;br&gt;Menos que basica/primaria&lt;br&gt;Tecnico profesional&lt;br&gt;Universitaria o mas
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -27437,14 +27438,28 @@ Empleador o patrÃ³n&lt;br&gt;Trabajador por cuenta propia&lt;br&gt;Asalariado 
 5
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
-VA_DC
+ingresos
 &lt;/td&gt;
 &lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
-Victimizacion agregada de delitos consumados
+Ingresos por sueldos y salarios
 &lt;/td&gt;
-&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;
+&lt;em&gt;range: 0.0-9312239.1&lt;/em&gt;
 &lt;/td&gt;
-&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+afp
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+Empleador cotiza en prevision (AFP)
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
+&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -27454,48 +27469,71 @@ Victimizacion agregada de delitos consumados
 &lt;p&gt;Los datos &lt;code&gt;character&lt;/code&gt; están directamente asociados a las variables cualitativas (o categóricas). En general, estos datos incluyen palabras, aunque también pueden incorporar números que no representen una variable numérica, como puede ser el RUT de los/as informantes: es un número que no denota una distancia clara entre la inscripción de una persona a la de otra. Suelen ser utilizadas para variables de texto abierto, como es el caso de la variable &lt;strong&gt;a6_otro&lt;/strong&gt;, que detalla otras razones por las cuales las/os informantes declararon ausentarse al trabajo durante la semana pasada, más allá de aquellas especificadas en las alternativas de respuesta de la pregunta original.&lt;/p&gt;
 &lt;p&gt;Para saber cuál es el tipo de una variable en específico, utilizaremos la función &lt;code&gt;class()&lt;/code&gt; del paquete base de R&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$a6_otro)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6_otro`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;character&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Si deseamos trabajar con texto abierto, o manipular ese texto ¡debemos trabajar con character! sin embargo, estas variables no tienden a ser las mejores a la hora de presentar nuestros resultados, entre otras razones, porque no nos permiten especificar un orden distinto al alfabético. Para solucionarlo, tenemos las variables de tipo &lt;strong&gt;Factor&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ii-factor&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;II) Factor&lt;/h4&gt;
 &lt;p&gt;Las variables de tipo &lt;code&gt;Factor&lt;/code&gt; son las ideales a la hora de trabajar con variables de tipo nominal u ordinal. Esto se debe a dos motivos: en primer lugar, su comptabilidad con librerías como &lt;code&gt;sjPlot&lt;/code&gt;, &lt;code&gt;sjmisc&lt;/code&gt; o &lt;code&gt;ggplot2&lt;/code&gt;, que nos permiten presentar de manera cómoda estos datos; así como su compatibilidad con funciones dedicadas a la generación de distintos modelos estadísticos, como modelos de análisis de clases latentes o de regresión. En segundo término, porque cabe la posibilidad de &lt;strong&gt;establecer un orden (distinto al alfabético)&lt;/strong&gt; entre las categorías de la variable, lo cual es &lt;em&gt;fundamental&lt;/em&gt; si trabajamos con variables ordinales, como el &lt;strong&gt;nivel educacional&lt;/strong&gt; de las/os informantes&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$nivel)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;factor&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Nivel educacional mas alto aprobado (x) &amp;lt;categorical&amp;gt;
+## # total N=71935  valid N=71152  mean=2.43  sd=1.40
+## 
+## Value                     |     N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------------
+## Basica o primaria         | 21374 | 29.71 |   30.04 |  30.04
+## Media o humanidades       | 26194 | 36.41 |   36.81 |  66.85
+## Menos que basica/primaria |  6417 |  8.92 |    9.02 |  75.87
+## Tecnico profesional       |  6003 |  8.35 |    8.44 |  84.31
+## Universitaria o mas       | 11164 | 15.52 |   15.69 | 100.00
+## &amp;lt;NA&amp;gt;                      |   783 |  1.09 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;¿Cómo podemos ordenar los factores de una variable de este tipo? ¡Calma! en el práctico 6 profundizaremos como corresponde en la transformación de variables.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;iii-numeric&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;III) numeric&lt;/h4&gt;
 &lt;p&gt;Como su nombre lo indica, este tipo de variables nos permiten trabajar con variables con un nivel de medición cuantitativo&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$ingresos)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `ingresos`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;numeric&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Mientras R arroja un error al, por ejemplo, intentar calcular el promedio de nivel educacional&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(data$nivel)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `nivel`.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning in mean.default(data$nivel): argument is not numeric or logical:
 ## returning NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;¡Si podemos calcular la media de ingresos por sueldos y salarios!&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(data$ingresos)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `ingresos`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in mean.default(data$ingresos): argument is not numeric or logical:
-## returning NA&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 162615.6&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;¡Mucho cuidado! muchas veces, los datos incluyen variables de tipo &lt;code&gt;numeric&lt;/code&gt; que, teóricamente, no son variables numéricas (por ejemplo, variables donde 1 == Si, y 2 == No). Por ello, es fundamental que &lt;strong&gt;revisen detalladamente la documentación anexa&lt;/strong&gt; de sus datos, a modo de determinar cuáles variables corresponden su tipo de dato con su nivel de medición, y cuáles no.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;iv-dbl-lbl-números-etiquetados&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;IV) dbl + lbl (números etiquetados)&lt;/h4&gt;
 &lt;p&gt;Es bastante usual (como veremos en el siguiente práctico) que, aunque estemos trabajando en lenguaje R, los datos que emplearemos estén en formato SPSS (.sav) o Stata (.dta). En ambos casos, los datos (sobre todo las variables categóricas) presentan una estructura de números etiquetados, donde el valor principal de la variable es un número, pero el cual presenta una etiqueta en palabras que identifica a qué refiere cada una de las categorías de la variable. En general, cuando preguntamos sobre la clase de una variable dbl+lbl, obtendremos algo así:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$a6)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `a6`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;haven_labelled&amp;quot; &amp;quot;vctrs_vctr&amp;quot;     &amp;quot;double&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## a6. ¿Por qué razón no trabajó la semana pasada? (x) &amp;lt;numeric&amp;gt;
+## # total N=71935  valid N=2635  mean=5.39  sd=3.56
+## 
+## Value |                                                 Label |     N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------------------------------------------------
+##     1 |                                 Vacaciones o permisos |   227 |  0.32 |    8.61 |   8.61
+##     2 |                                       Licencia médica |   823 |  1.14 |   31.23 |  39.85
+##     3 |             Por horario o jornada variable o flexible |    86 |  0.12 |    3.26 |  43.11
+##     4 |                            Huelga o conflicto laboral |     4 |  0.01 |    0.15 |  43.26
+##     5 |                   Asistencia a cursos de capacitación |    24 |  0.03 |    0.91 |  44.17
+##     6 |                                    Problemas de salud |    77 |  0.11 |    2.92 |  47.10
+##     7 |                       Suspensión temporal del trabajo |   976 |  1.36 |   37.04 |  84.14
+##     8 |                            No tuvo pedidos o clientes |   131 |  0.18 |    4.97 |  89.11
+##     9 |            Razones climáticas o catástrofes naturales |    27 |  0.04 |    1.02 |  90.13
+##    10 |                               Su trabajo es ocasional |    45 |  0.06 |    1.71 |  91.84
+##    11 | Razones económicas o técnicas de la empresa o negocio |    29 |  0.04 |    1.10 |  92.94
+##    12 |                              Su trabajo es estacional |    12 |  0.02 |    0.46 |  93.40
+##    13 |                      Clausura de negocio o de empresa |     8 |  0.01 |    0.30 |  93.70
+##    14 |                           Otras razones (especificar) |   166 |  0.23 |    6.30 | 100.00
+##    88 |                                               No sabe |     0 |  0.00 |    0.00 | 100.00
+##    99 |                                           No responde |     0 |  0.00 |    0.00 | 100.00
+##  &amp;lt;NA&amp;gt; |                                                  &amp;lt;NA&amp;gt; | 69300 | 96.34 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;En este caso, cada número se asocia con una razón por la cual el/la informante se ausentó del trabajo la semana anterior. Por supuesto, es una variable ordinal.&lt;/p&gt;
 &lt;p&gt;La mayor parte de las veces, sobre todo por la compatibilidad con librerías de representación gráfica, buscaremos que nuestros números etiquetados se conviertan en factores ¡el práctico 6 se encargará de profundizar en ello!&lt;/p&gt;
 &lt;/div&gt;
@@ -27503,10 +27541,16 @@ Victimizacion agregada de delitos consumados
 &lt;h4&gt;V) logical&lt;/h4&gt;
 &lt;p&gt;¡El último tipo de dato! Los valores lógicos (&lt;code&gt;logical&lt;/code&gt;) son bastante frecuentes al estar trabajando con datos&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(data$afp)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `afp`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;NULL&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Unknown or uninitialised column: `afp`.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;logical&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Empleador cotiza en prevision (AFP) (x) &amp;lt;lgl&amp;gt;
+## # total N=71935  valid N=19976  mean=0.82  sd=0.38
+## 
+## Value |     N | Raw % | Valid % | Cum. %
+## ----------------------------------------
+## FALSE |  3505 |  4.87 |   17.55 |  17.55
+## TRUE  | 16471 | 22.90 |   82.45 | 100.00
+## &amp;lt;NA&amp;gt;  | 51959 | 72.23 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Los datos de clase &lt;code&gt;logical&lt;/code&gt; presentan tres posibles valores: &lt;code&gt;TRUE&lt;/code&gt; (verdadero), &lt;code&gt;FALSE&lt;/code&gt; (falso) y &lt;code&gt;NA&lt;/code&gt; (valor nulo, ausencia de dato). En este caso, las personas con valor &lt;code&gt;TRUE&lt;/code&gt; están empleados por alguien que si paga cotizaciones en previsión, mientras que las personas con valor &lt;code&gt;FALSE&lt;/code&gt; no tienen tal característica&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -29442,10 +29486,49 @@ Y bueno, aquí sigo escribiendo
       <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
       <guid>/example/01-practico/</guid>
       <description>&lt;h2 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h2&gt;
-&lt;p&gt;El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, utilizaremos GitHub que es una plataforma que permite alojar los .Rprojects y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos &lt;strong&gt;GitHub&lt;/strong&gt;&lt;em&gt;ClassRoom&lt;/em&gt; para que ustedes puedan subir sus tareas.&lt;/p&gt;
+&lt;p&gt;El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, aprenderemos cómo abrir un nuevo &lt;strong&gt;script&lt;/strong&gt; y a crear un nuevo &lt;strong&gt;proyecto de R (o Rproject)&lt;/strong&gt;. Además, utilizaremos GitHub, que es una plataforma que permite alojar los .Rproj y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos &lt;strong&gt;GitHub&lt;/strong&gt;&lt;em&gt;ClassRoom&lt;/em&gt; para que ustedes puedan subir sus tareas.&lt;/p&gt;
 &lt;p&gt;Previo a esto, deben ver el &lt;a href=&#34;https://youtu.be/Zj8yL-nx9vM&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tutorial de instalación de R&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Ahora aprenderemos a colaborar y resolver las tareas.&lt;/p&gt;
-&lt;h2 id=&#34;1-github&#34;&gt;1. GitHub&lt;/h2&gt;
+&lt;p&gt;Ahora aprenderemos a crear scripts, proyectos, colaborar y resolver las tareas.&lt;/p&gt;
+&lt;h2 id=&#34;1-crear-un-nuevo-script-r&#34;&gt;1. Crear un nuevo script (.R)&lt;/h2&gt;
+&lt;p&gt;Para que empecemos a trabajar en el lenguaje R, lo primero es saber cómo abrir un nuevo script; pero &lt;em&gt;¡¿qué es un script?!&lt;/em&gt; Dicho en términos simples, el script es la &lt;em&gt;&amp;ldquo;hoja&amp;rdquo;&lt;/em&gt; sobre la cual escribiremos y guardaremos cada uno de los códigos que trabajemos cuando estemos trabajando con datos cuantitativos. Si bien podemos ejecutar los códigos directamente desde la &lt;strong&gt;consola&lt;/strong&gt;, estos se eliminarán una vez que cerremos la sesión en RStudio:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/consola.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Así, cuando escribamos en nuestra &lt;strong&gt;script&lt;/strong&gt;, podremos archivar los códigos que vayamos ejecutando, para poder reproducirlos posteriormente, compartirlos con otras personas, entre otros. Ahora, lo que nos convoca: &lt;strong&gt;¿cómo puedo abrir un nuevo script?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Hacerlo es bastante sencillo. En la sección &lt;em&gt;superior izquierda&lt;/em&gt; de RStudio, debe hacerse click en la hoja con un signo + verde y, luego, seleccionar la opción &lt;strong&gt;R Script&lt;/strong&gt; en el menú desplegado:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/open-script.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Otra manera de abrir un nuevo script es hacer click en la opción &lt;strong&gt;File&lt;/strong&gt; de la &lt;em&gt;barra superior&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/file.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;para, posteriormente seleccionar &lt;strong&gt;New File &amp;gt; R Script&lt;/strong&gt; en los menús desplegados:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-script.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Por último, podemos mantener presionadas las teclas &lt;strong&gt;Ctrl + Shift + N&lt;/strong&gt; en Windows, o &lt;strong&gt;⌘ + Shift + N&lt;/strong&gt;
+en &lt;em&gt;Mac&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Ya hemos abierto un nuevo script (&lt;strong&gt;¡Genial!&lt;/strong&gt;), que se debe ver de la siguiente manera:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/script.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Podemos escribir en él los códigos, que se ejecutarán en la &lt;strong&gt;consola&lt;/strong&gt; una vez mantengamos presionadas las teclas &lt;strong&gt;Control + Enter&lt;/strong&gt; al inicio de la línea&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/script-console.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Ahora, por supuesto, debemos guardar nuestro script una vez terminemos de trabajar en él, a modo de no perder el trabajo avanzado. Para ello, podemos hacer click en el &lt;strong&gt;disquete&lt;/strong&gt; situado en la &lt;em&gt;barra que se encuentra sobre el código&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/save.jpg&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Para luego, elegir el directorio donde deseamos almacenar nuestro script, y asignarle un nombre determinado (en este caso &lt;strong&gt;script1&lt;/strong&gt;) que, ojalá, tenga que ver con los procedimientos ejecutados en este (por ejemplo, &lt;em&gt;procesamiento&lt;/em&gt; o &lt;em&gt;análisis&lt;/em&gt;). La extensión de los archivos que almacenan scripts es &lt;strong&gt;.R&lt;/strong&gt; (&lt;em&gt;¡no lo olvides!&lt;/em&gt;)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/save-script.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/name-script.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Una vez almacenado en una carpeta, cada vez que clickeemos en los casetes o mantengamos presionadas las teclas &lt;strong&gt;Control + S&lt;/strong&gt;, el archivo se actualizará a la última versión que hayamos guardado.&lt;/p&gt;
+&lt;h2 id=&#34;2-crear-un-nuevo-proyecto-de-r-rproj&#34;&gt;2. Crear un nuevo proyecto de R (.Rproj)&lt;/h2&gt;
+&lt;p&gt;¡Todavía nos falta algo para iniciarnos en el flujo de trabajo del curso! debemos crear un nuevo &lt;strong&gt;Proyecto de R o R Project (&lt;em&gt;.Rproj&lt;/em&gt;)&lt;/strong&gt;. ¿Qué es esto, se preguntarán ustedes? en pocas palabras, será la &lt;strong&gt;semilla de nuestra carpeta de trabajo&lt;/strong&gt;, es decir, constituye el centro a partir del cual estaremos trabajando el resto de archivos incluidos en nuestro trabajo con los datos, como los &lt;em&gt;scripts&lt;/em&gt;, los &lt;em&gt;datos&lt;/em&gt; con los que trabajamos, los &lt;em&gt;gráficos&lt;/em&gt; que generaremos durante el análisis, y todo aquello vinculado a los procesos que ejecutemos en un trabajo en específico. A lo largo del curso aprenderemos a trabajar adecuadamente con los .Rproj, manteniendo un flujo de trabajo que &lt;em&gt;facilita la reproductibilidad&lt;/em&gt; de los procesos con los que aprenderemos los contenidos, así como de las tareas que ustedes rendirán durante el semestre. Sin embargo, ahora nos limitaremos a aprender a crear un nuevo proyecto.&lt;/p&gt;
+&lt;p&gt;¿Cómo lo hacemos? Es bastante sencillo, y se asemeja a la creación de scripts. No obstante, esta vez nos dirigiremos a la sección &lt;em&gt;superior derecha de RStudio&lt;/em&gt;, donde se encuentra una &lt;em&gt;R inscrita a un cubo&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/rproj.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Haremos click en ella, y se desplegará un panel con opciones. Clickearemos en &lt;strong&gt;New Project&amp;hellip;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Emergerá una ventana que nos preguntará en qué carpeta queremos alojar nuestro nuevo proyecto. Podemos elegir crear una nueva carpeta haciendo click en &lt;strong&gt;New Directory&lt;/strong&gt;, o elegir una carpeta ya existente en nuestro computador, clickeando en &lt;strong&gt;Existing Directory&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj1.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Si optamos por lo primero, se nos preguntará qué tipo de proyecto deseamos crear. En este caso, elegiremos &lt;strong&gt;New Project&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj2.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Aparecerá una ventana que nos pregunta el nombre que queremos asignarle a la nueva carpeta que crearemos, y en qué carpeta se alojará esta. Si hacemos click en &lt;em&gt;Browse&lt;/em&gt;, podemos buscar un directorio específico en el cual queramos alojar la nueva carpeta&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj3.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;En caso de elegir lo segundo, se nos solicitará directamente en qué carpeta (ya existente) queremos alojar nuestro proyecto. Una vez más, podemos utilizar &lt;em&gt;Browse&lt;/em&gt; para navegar entre las carpetas de nuestro computador, hasta hallar aquella en que deseamos alojar este nuevo archivo&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj4.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;¡Listo! ahora sólo debemos ir a nuestra carpeta y buscar el proyecto que hemos creado. Es un archivo de extensión .Rproj, cuyo ícono es una R inscrita en un cubo.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/new-proj5.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Es fundamental que, de aquí en adelante, siempre que vayamos a trabajar en alguna tarea con R, &lt;strong&gt;creemos el nuevo proyecto y lo abramos para empezar a trabajar&lt;/strong&gt;. Ello setearé nuestro directorio de trabajo directamente en la carpeta donde se encuentra el archivo .Rproj, lo cual nos permitirá trabajar colaborativamente con mayor facilidad (¡algo &lt;strong&gt;fundamental&lt;/strong&gt; en el curso!). Además, cada vez que vayamos a retomar nuestro trabajo en algún proyecto, debemos &lt;strong&gt;siempre abrir el proyecto antes que cualquier cosa&lt;/strong&gt;, para lo cual debemos hacer doble click sobre su ícono.&lt;/p&gt;
+&lt;h2 id=&#34;3-github&#34;&gt;3. GitHub&lt;/h2&gt;
 &lt;p&gt;Es un sistema de control de versiones en línea que rastrea los cambios de códigos, facilita la colaboración y el acceso abierto. En este curso será un programa esencial para el desarrollo tanto de clases como prácticos, por lo que en este práctico vamos a aprender a utilizarlo repasando aspectos básicos. Esto además será profundizado y detallado en clases.&lt;/p&gt;
 &lt;h3 id=&#34;ventajas&#34;&gt;Ventajas:&lt;/h3&gt;
 &lt;p&gt;Las principales ventajas son:&lt;/p&gt;
@@ -29464,7 +29547,7 @@ Y bueno, aquí sigo escribiendo
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Pero la plataforma central en el curso será &lt;strong&gt;GitHub Classroom&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;2-github-classroom&#34;&gt;2. Github Classroom&lt;/h2&gt;
+&lt;h2 id=&#34;4-github-classroom&#34;&gt;4. Github Classroom&lt;/h2&gt;
 &lt;p&gt;Es una plataforma de Github que facilita la interacción y aprendizaje entre estudiantes y profesores. Esta plataforma la usaremos a lo largo del curso, principalmente porque permite estudiantes trabajen individual y colectivamente usando los repositorios de github. En esta plataforma entregarán sus tareas, recibirán comentarios y retroalimentaciones pudiendo trabajar colaborativamente.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Pasos para ingresar a Github classroom&lt;/li&gt;
