@@ -22,7 +22,7 @@ En este práctico trabajaremos con datos de la **Encuesta Suplementaria de Ingre
 
 Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
-- [<i class="fas fa-file-archive"></i> `02-class.zip`](https://github.com/learn-R/02-class/raw/main/02-clase.zip) 
+- [<i class="fas fa-file-archive"></i> `03-class.zip`](https://github.com/learn-R/03-class-datatypes-/raw/main/03-clase.zip) 
 
 ## 1. Tipos de datos 
 
@@ -58,7 +58,7 @@ data <- readRDS(url("https://github.com/learn-R/www-learn-R-uah/raw/master/conte
 Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico
 
 ```{r data_summary}
-view_df(data, encoding = "UTF-8")
+view_df(data, encoding = "LATIN1")
 ```
 
 ¡Vamos a revisar cada una de ellas!

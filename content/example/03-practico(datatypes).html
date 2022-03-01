@@ -26,7 +26,7 @@ editor_options:
 <p>En este práctico trabajaremos con datos de la <strong>Encuesta Suplementaria de Ingresos (<em>ESI</em>)</strong> desarrollada por el <strong>Instituto Nacional de Estadísticas</strong> en el año 2020. Esta es “un módulo complementario que se aplica dentro de la Encuesta Nacional de Empleo (ENE) (…) Su objetivo principal es caracterizar los ingresos laborales de las personas que son clasificadas como ocupadas en la ENE y otras fuentes de ingresos de los hogares”, contando con un diseño muestral probabilístico, estratificado y bietápico. Pueden encontrar más información <a href="https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos">aquí</a>.</p>
 <p>Recuerden que los archivos asociados a este práctico se pueden descargar aquí:</p>
 <ul>
-<li><a href="https://github.com/learn-R/02-class/raw/main/02-clase.zip"><i class="fas fa-file-archive"></i> <code>02-class.zip</code></a></li>
+<li><a href="https://github.com/learn-R/03-class-datatypes-/raw/main/03-clase.zip"><i class="fas fa-file-archive"></i> <code>03-class.zip</code></a></li>
 </ul>
 </div>
 <div id="tipos-de-datos" class="section level2">
@@ -48,7 +48,7 @@ editor_options:
 <p>Para responder a esta pregunta ¡metamos las manos en la masa! (o en los datos). Como se señaló anteriormente, trabajaremos con la Encuesta Suplementaria de Ingresos en su versión 2020.</p>
 <pre class="r"><code>pacman::p_load(sjPlot, sjmisc)</code></pre>
 <p>Estos datos ya han sido procesados para ajustarse a los contenidos del curso. Por ello, contamos con 5 variables que permitirán ilustrar los contenidos que atañen a este práctico</p>
-<pre class="r"><code>view_df(data, encoding = &quot;UTF-8&quot;)</code></pre>
+<pre class="r"><code>view_df(data, encoding = &quot;LATIN1&quot;)</code></pre>
 <table style="border-collapse:collapse; border:none;">
 <caption>
 Data frame: data
