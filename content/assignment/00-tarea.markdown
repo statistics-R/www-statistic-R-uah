@@ -1,8 +1,8 @@
 ---
-title: "Tarea 0. Colaborando en GitHub"
-linktitle: "0: Colaborando en GitHub"
-date: "2021-08-09"
-due_date: "2021-08-13"
+title: "Tarea 0. Reporte en RMarkdown"
+linktitle: "0: Reporte en RMarkdown"
+date: "2021-08-16"
+due_date: "2022-03-25"
 due_time: "11:59 PM"
 menu:
   assignment:
@@ -10,108 +10,124 @@ menu:
     weight: 1
 type: docs
 toc: true
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
 
-# Instrucciones
+Esta tarea debe ser rusuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/zYM3oL16). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
 
-Esta tarea debe ser resolvida en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/Mh3me9e0). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
+## Objetivo
 
-## Objetivo de la tarea y resultados del aprendizaje
+La tarea N°0 consiste en la creación de un archivo **RMarkdown**, donde deben incorporar elementos claves para la creación de estos archivos, lo que permitirá crear informes que incluyan texto y códigos en R, facilitando la reproducibilidad. 
 
-El objetivo de esta tarea es ser una breve introducción a GitHub. Para ello debes leer la siguiente guía y responder algunas preguntas. Luego de responder esas preguntas debes hacer "push" a tu tarea.
+## Instrucciones
 
-# Básicos: antes de iniciar
+Para completar la tarea ustedes deben incorporar los siguientes elementos en el archivo creado
 
-## Perfil de usuario
+1. Un encabezado (YAML) con el título: "Tarea N°0". También deben incorporar aspectos formales, como su nombre, fecha, información institucional y del curso (nombre de la profesora y ayudante). Este encabezado debe tener una salida (output), esta debe ser en **html** 
 
-Su página de perfil le dice a la gente la historia de su trabajo a través de los repositorios que le interesan, las contribuciones que ha hecho y las conversaciones que ha tenido. No olvides que tu cuenta de GitHub te permite acceder a *RStudio Cloud* y a otros beneficios como estudiante. 
+2. Texto que indique tres subtítulos que separarán los dos procedimientos que deben contenerse en la entrega (`## 1. Carga de paquetes`, `## 2. flujo` y `## 3. Descriptivos`). 
 
-## Usando markdown en GitHub (¡y pronto en R!)
+3. Chunks:
 
-Sí... estas escribiendo en algo que parece una consola. Este *texto plano* te permite escribir y comunicar sin restricciones de software. Markdown se abre en todos los editores de texto, y no requiere ser pagado (como en Word). También se pueden incorporar imágenes, **remarcar** palabras o hacerlas *cursivas*. Aprenderemos de esto la próxima sesión, pero si te quieres adelantar [revisa esto](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax).
+En el apartado `## 1. Carga de paquetes` debes cargar uno de los paquetes más importantes para el curso. El chunk no se debe ver en el documento final, pero si en tu .Rmd
 
-## 1. Git and GitHub <i class="fab fa-github"></i>
+- Debes explicar:
+  - El nombre del paquete cargado
+  - Para qué puede utilizarse
+  - Un link que dé cuenta de dónde saco la información del paquete (este debe ser uno de los lugares recomendados en la clase [Ver clase 1](https://learn-r-uah.netlify.app/content/01-content/)), debes dejar el link en formato Markdown [Ver práctico 2](https://learn-r-uah.netlify.app/example/02-practico/) o en [Recursos](https://learn-r-uah.netlify.app/resource/markdown/)
+  
+En el apartado `## 2. Flujo` debes cargar la imagen `flujo.png` (ya sea con formato markdown o en un chunk) y explicar qué elementos van dentro de las siguientes carpetas
 
-Git es un **sistema de control de versiones distribuido (VCS)**, lo que significa que es una herramienta útil para rastrear fácilmente los cambios en su código, colaborar y compartir. Con Git puede realizar un seguimiento de los cambios que realiza en su proyecto para que siempre tenga un registro de lo que ha trabajado y pueda volver fácilmente a una versión anterior si es necesario. También facilita el trabajo con otras personas: ¡varios grupos de personas pueden trabajar juntas en el mismo proyecto y fusionar sus cambios en una fuente final!
+  - **input**:
+  - **R**:
+  - **output**:
+  - Para qué sirve el archivo con extensión **.Rproj** (que es lo mismo que el Tipo Rproject)
 
-GitHub es una forma de usar el mismo poder de Git todo en línea con una interfaz fácil de usar. Se utiliza en todo el mundo del software y más allá para colaborar y mantener el historial de proyectos.
+En el apartado `## 3. Gráfico` debes incorporar una imagen llamada `grafico01.jpg`. Esta imagen la puedes incorporar en formato Markdown o con chunks. Deja una breve explicación de ese gráfico, intenta utilizar _**lenguaje Markdown**_
 
+Finalmente, deben crear una _**tabla simple**_ de un tema interesante para ustedes, junto a una breve descripción.
 
-## 2. El flujo de GitHub
+## Pasos para realizar la tarea
 
-El flujo de trabajo en  GitHub permite experimentar y colaborar en sus proyectos fácilmente, sin el riesgo de perder su trabajo anterior. Revisemos sus partes:
+1. Entra a GitHub Class Room para realizar la tarea N°1 (aceptar tarea). Debes clonar este repositorio. Si tienes dudas sobre este procedimiento, revisa el [práctico N°1](https://learn-r-uah.netlify.app/example/01-practico/) o contáctanos vía slack.
 
-### 2.1  Repositorios
-Un repositorio es donde ocurre el trabajo de su proyecto; como la carpeta de su proyecto. Contiene todos los archivos y el historial de revisiones de su proyecto. Puede trabajar solo dentro de un repositorio o invitar a otros a colaborar con usted en esos archivos.
+2. Una vez la tarea en tu computadora, no olvides crear un .Rproject llamado 00-tarea.Rproj que provenga de una "Carpeta existente"
 
-Dentro de los repositorios encontrarás los archivos **README.md** (o léame). Estos archivos de extensión *markdown* (.md) indican información general o básica de su proyecto. 
+3. En la carpeta input habrá una carpeta llamada "imagenes". Dentro de esta carpeta encontrarás la imágen `flujo.png` y deberás dejar el `gráfico01.jpg`. Este puede ser cualquiera que resulte interesante para tí.
 
-Para obtener más información sobre los repositorios, lea ["Creating, Cloning, and Archiving Repositories](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-repositories) y ["About README's"](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-readmes). 
+4. Una vez finalizado todos los pasos del documento **no olvides hacer knit** para que se compile tu documento final.
 
+## Puntaje adicional
 
-### 2.2  Clonar
+Si averiguas como dejar un archivo en pdf **y** explicarlo en el canal #tareas, obtendrás un puntaje adicional para 01-tarea
 
-Cuando se crea un repositorio con GitHub, se almacena de forma remota en la nube. **Puede clonar un repositorio para crear una copia local en su computadora y luego usar GitHub Desktop para sincronizar los dos**. Para obtener más información sobre la clonación, lea ["clonación de un repositorio"](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+## Pauta
 
-### 2.3 Commit y Push
+1. RMarkdown, este ítem evalúa aspectos propios de los archivos .Rmd, desde su estructura hasta su correcto funcionamiento. Es necesario considerar:
 
-**Commit** y **Push** es la forma en que puede agregar los cambios que realizó en su computador local al repositorio remoto en GitHub. De esa manera, la profesora y/o compañeras/os de curso pueden ver su último trabajo cuando está listo para compartirlo.
-
-- El "commit": mensaje descriptivo "útil" para recordar y comunicar el cambio que se hizo (eg. "Agregué análisis descriptivo" o "Edité los gráficos").
-
-- El "push":  comando que permite subir el cambio una vez que hayas confirmado que quieres subir este cambio. En un push puedes tener varios "commits" de un proyecto. 
-
-
-### 2.4 Otros términos del flujo
-
-Los siguientes conceptos no los utilizaremos en el curso, pero de todas formas nunca está demás conocerlos.
-
-
-####  Branches
-
-Son ramas de los repositorios.  Uno puede tomar el "tronco" principal de un proyecto-repositorio (*main* o *master*) y experimentar con él mientras otros también lo hacen. Una vez que quieres mostrar los cambios o tests que hiciste en el repositorio, puedes solicitar su revisión a través de un *pull request*.
-
-Para obtener más información sobre los branches, lea ["About Branches"](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches).
-
-#### Forks
-
-Un Fork es otra forma de copiar un repositorio, pero generalmente se usa cuando desea copiar un proyecto o contribuir en este. Esto le permite experimentar libremente con los cambios sin afectar el proyecto original y es muy popular cuando se contribuye a proyectos de software de código abierto. Para obtener más información sobre Forks, lea ["Fork a repo"](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
-
-#### Pull requests
-
-Ya lo mencionábamos. Cuando trabajamos con "branches" (ramas) utilizamos las "pull request" o solicitdes para informar a otros sobre los cambios que desea realizar y solicitar sus comentarios. Dentro de estas solicitudes se pueden discutir y revisar cada uno de los cambios.
-
-Una vez que una solicitud  está lista para usarse, se puede fusionar en su rama principal (*merge to master*). Para obtener más información sobre las solicitudes de estracción, lea ["About Pull Requests"](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-
-##  Tarea 0
-
-Luego de leer esta breve introducción, debes contestar esta guía:
-
-1. ¿Cuál es tu nombre?
-
-R:
-
-2. ¿Cuál es la diferencia entre R y RStudio?
+   a. Aspectos formales: títulos, nombres, información institucional, fecha, etc.
+    
+   b. Estructura de los archivos .Rmd
+    
+   c. Uso correcto y constante de markdown
+    
+   d. Aspectos solicitados según cada tarea, por ejemplo:
+    - Análisis: en estos archivos irán tanto sus reportes como el análisis que realicen
+    - Replicación de informes: esto incluye la replicación de análisis con sus outputs, ya sean tablas, gráficos o lo que se solicite en la respectiva tarea.
 
 
-R:
 
-3. ¿Con qué comando puedes **subir** los cambios del repositorio local al remoto?
+1. Flujo: Este ítem se encarga de evaluar el flujo de trabajo desarrollado en el curso, para ello se debe considerar los elementos que hacen posible el correcto uso del flujo, para obtener buen puntaje en este ítem deben:
 
-4. Crea un .Rproject llamado 00-tarea.Rproject
+   a. Seguir detalladamente las instrucciones
+  
+   b. Crear las carpetas y archivos requeridos en cada tarea
+  
+   c. Nombrar **adecuadamente** los archivos/datos/carpetas 
+  
+   d. Todos los archivos por utilizar deben estar en su lugar correspondiente.
+   
 
-5. En el repositorio, crea una carpeta llamada "imagenes". Dentro de esta carpeta deja una imagen de tu sociólogo/a o cientista social preferido/a. Al archivo debes llamarlo "sociologo-preferido.jpg"
+
+1. R: Este ítem evalúa elementos relacionados a archivos .R. Este puede dividirse en dos etapas a lo largo del curso (Debe seguir un orden lógico):
+
+   a. Carga: esta etapa es necesaria para pasar a procesamiento 
+  
+   b. Procesamiento: etapa donde se preparan los datos para ser utilizados en el análisis. 
+
+
+
+1. Markdown: este ítem evalúa aspectos propios del formato en markdown, ya que su uso será constante en este curso [ver recursos](https://learn-r-uah.netlify.app/resource/markdown/) 
+
+
+1. Reproducibilidad: En este curso es muy relevante la reproducibilidad, para ello es necesario tener en cuenta lo siguiente:
+    
+   a. El archivo .R debe poder ejecutarse sin problemas por cualquier persona con el programa, siguiendo el orden lógico requerido para ello.
+  
+   b. El archivo .Rmd debe poder ejecutarse sin problemas por cualquier persona con el programa. Esto implica que tanto los archivos/tablas/códigos deben visualizarse correctamente en su producto (output) final
+Este punto será esencial para lo que más adelante veremos como condición de suficiencia.
+
+1. Condición de suficiencia: son elementos esenciales que si no son cumplidos la asignación de puntaje del ítem será 0, independiente de si lo que sigue a ese punto está realizado correctamente. Deben tener en cuenta que este ítem no será inmediato, sino que será a medida vaya avanzando el curso.
+
+1. Bonus: En el curso habrá constantemente aspectos que brindarán puntos y/o décimas dependiendo de la tarea.
+
+1. Descuentos: ítem que considera descuentos en puntos o décimas por el no logro o ausencia de aspectos de los ítems anteriores.
+
+Si utiliza otros paquetes para resolver la tarea **DEBE** explicar la razón del uso esos paquetes y qué ventajas tienen por sobre los utilizados en el curso, de no ser así se descontará con 0.5 puntos. 
 
 
 ## Recursos
 
-¿Quiéres aprender más? Siempre es posible. Te dejamos unos documentos adicionales 
-- <i class="fab fa-youtube"></i> [Un breve video que explica qué es GitHub](https://www.youtube.com/watch?v=w3jLJU7DT5E&feature=youtu.be) 
+- <i class="fas fa-book"></i> Hadley Wickham, ["R para ciencia de datos - Como usar RMarkdown"](https://es.r4ds.hadley.nz/r-markdown.html) 
 
-- <i class="fas fa-book"></i> [Recursos de aprendizaje de Git y GitHub](https://docs.github.com/en/github/getting-started-with-github/git-and-github-learning-resources) 
+- <i class="fab fa-book"></i> Tutoriales
+  - [R Markdown](https://rmarkdown.rstudio.com/) 
+  - [Tutoriales Markdown](https://rmarkdown.rstudio.com/lesson-1.html) 
+  - [cheatsheets](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+  - Para practicar ir a [Tutorial de Markdown](https://www.markdowntutorial.com/es/)
 
-- <i class="fas fa-external-link-square-alt"></i> [Comprender el flujo de GitHub](https://guides.github.com/introduction/flow/)
+- <i class="fas fa-external-link-square-alt"></i> [Sesión N°2](/content/02-content)
 
+- <i class="fas fa-external-link-square-alt"></i> [Práctico N°2](/example/02-practico)

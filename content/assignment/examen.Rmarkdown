@@ -2,7 +2,7 @@
 title: "Examen. Proyecto de investigación final"
 linktitle: "Examen: Proyecto final"
 date: "2021-11-08"
-due_date: "2021-11-22"
+due_date: "2022-07-04"
 due_time: "23:59 PM"
 menu:
   assignment:
@@ -14,7 +14,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Descripción general
+
+## Descripción general
 
 El **Proyecto de investigación final** es la instancia de evaluación **final e individual** del curso de Análisis de Datos en R. Su objetivo es *evaluar los conocimientos y aprendizajes obtenidos en el curso de manera integra*. Para ello deberán elaborar una investigación simple cuyo centro no está en el contenido de la misma, sino en que sean capaces de mostrar sus habilidades para poder desarrollar sus proyectos de *análisis de datos* utilizando **R**
 
@@ -45,7 +46,7 @@ Para ello pueden elegir uno de los siguientes datos (aquellos que tienen un aste
 
 Para todas las encuestas **deben elegir la última versión disponible**
 
-Una vez definidos sus datos, pueden inscribirse con estos hasta el viernes 12 de noviembre en el [siguiente link](https://docs.google.com/spreadsheets/d/1o_zXJVkQ9C7odalXsREdU2-pT8H5ETN0oKrBplQtJrk/edit?usp=sharing)
+Una vez definidos sus datos, pueden inscribirse con estos hasta el viernes 24 de junio en el [siguiente link](https://docs.google.com/spreadsheets/d/1o_zXJVkQ9C7odalXsREdU2-pT8H5ETN0oKrBplQtJrk/edit?usp=sharing)
 
 ## Análisis
 
@@ -81,7 +82,7 @@ Para reportar estos análisis deben hacer al menos **2 tablas y 2 gráficos.**
   
 ## Proyecto
 
-1. [Deben crear un repositorio en el link de GitHub Class Room que se habilitará el día viernes 12 de noviembre]()
+1. [Deben crear un repositorio en el link de GitHub Class Room]( https://classroom.github.com/a/HdDXMYn2)
 2. Deben hacer un README.md explicando aspectos generales del repositorio
 
 # Criterios de evaluación
