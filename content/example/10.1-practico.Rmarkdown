@@ -1,11 +1,11 @@
 ---
-title: "Regresiones lineales, predictores categóricos y representación gráfica"
-linktitle: "8: Regresiones lineales, predictores categóricos y representación gráfica"
+title: "Regresiones lineales"
+linktitle: "10.1: Regresiones lineales"
 date: "2021-08-13"
 menu:
   example:
     parent: Ejemplos
-    weight: 8
+    weight: 10
 type: docs
 toc: true
 editor_options: 
@@ -14,12 +14,12 @@ editor_options:
 
 # 0. Objetivo de la práctica
 
-El objetivo del práctico, es avanzar en la etapa de análisis de los datos a través del uso de **regresiones lineales**, para esto usaremos datos previamente procesados de la base de datos a utilizar. Recordemos que estamos en el proceso que nos encontramos del curso y con ello el flujo a utilizar.
+El objetivo del práctico, es avanzar en la etapa de análisis de los datos a través del uso de **regresiones lineales**. Para esto usaremos datos previamente procesados de la base de datos a utilizar. ¡No olvidemos que nos encontramos en el análisis de datos!
 
 
 ![](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)
 
-Entonces, en esta práctica aprenderemos trabajar las __regresiones lineales__, también trabajaremos los __predictores categóricos__, luego veremos las diferencias de la estimación simple con **pesos muestrales**, para continuar con la __extracción de objetos__ y finalmente veremos como __representarlos mediante gráficos y tablas__. 
+Entonces, en esta práctica aprenderemos trabajar las __regresiones lineales__, trabajando con __predictores continuos y categóricos__. Luego veremos las diferencias de la estimación simple con **pesos muestrales**, para continuar con la __extracción de objetos__ y finalmente veremos como __representarlos mediante gráficos y tablas__. 
 
 
 # 1. Recursos del práctico
@@ -32,15 +32,24 @@ En este práctico utilizamos los **datos procesados** de la [**Encuesta Suplemen
 
 # 2. Paquetes a utilizar
 
-Para este práctico utilizaremos `srvyr` y `survey`, para estimar los modelos con peso muestral, `sjPlot` para la creación de tablas, `tidyverse` de este universo de paquetes utilizaremos `dplyr` (para la manipulación de datos) y `magrittr` (para utilizar el operador pipe). Recuerden que pueden ver más de las funciones de cada paquetes en la sección de recursos (*Cheatsheets*)
+En este práctico utilizaremos siete paquetes
+
+1. `pacman`: este facilita y agiliza la lectura de los paquetes a utilizar en R;
+
+2. `tidyverse`: colección de paquetes;
+
+3. `srvyr`: para crear el objeto encuesta;
+
+4. `survey`: para crear modelos incorporando el diseño muestral;
+
+5. `sjPlot`: para presentar tablas y gráficos con los modelos creados;
 
 
 ```{r librerias, echo=TRUE, results='hide'}
 pacman::p_load(sjPlot, 
                tidyverse, 
                srvyr,
-               survey,
-               magrittr)
+               survey)
 ```
 
 
@@ -51,7 +60,7 @@ Una vez cargado los paquetes a utilizar, debemos cargar los datos procesados.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-datos <- readRDS(url("https://github.com/learn-R/09-class/raw/main/08-clase/output/data/datos_proc.rds"))
+datos <- readRDS(url("https://github.com/learn-R/09-class/raw/main/output/data/datos_proc.rds"))
 
 ```
 
@@ -59,7 +68,7 @@ datos <- readRDS(url("https://github.com/learn-R/09-class/raw/main/08-clase/outp
 datos <- readRDS("output/data/datos_proc.rds")
 ```
 
-## Explorar datos
+## 4. Explorar datos
 
 Es relevante explorar los datos que utilizaremos, cómo están previamente procesados ¡no sabemos con que variables estamos trabajando!
 
@@ -81,7 +90,7 @@ sjPlot::view_df(datos,
 
 Perfecto, podemos ver las variables que tenemos y sus categorías de respuesta pasaremos a la **regresión**
 
-# 5. Modelo de regresión
+# 5. Modelo de regresión lineal
 
 ## 5.1 Formula
 
@@ -109,7 +118,7 @@ Donde
 
 Previo a revisar regresiones en R, es necesario aprender cómo están hechas estas ecuaciones
 
-Para realizar esto hay dos formas de hacerlo, para ello será muy importante el signo `$`, ¿por qué? Porque hay varias formas de crearlo y en la mayoría se utiliza. Para entenderlo usaremos el ejemplo que está arriba 
+Hay dos maneras de realizarlo. Para ello será muy importante el signo `$`. Para entenderlo usaremos el ejemplo que está arriba 
 
 Forma 1 de ecuación: Esta forma se utiliza para que la fórmula esté centrada en una linea específica       
 
@@ -127,23 +136,22 @@ Forma 1 de ecuación: Esta forma se utiliza para que la fórmula esté centrada 
 
 - Con 
 
-\begin le indicamos el inicio y con las corcheas le explicamos que queremos escribir una ecuación {equation}
-\widehat le especificamos la ecuación
-\end le decimos a R que es el fin de la ecuación {equation}
+\begin indicamos el inicio y con las llaves ({}) especificamos que queremos escribir una ecuación {equation}
+\widehat  especificamos la ecuación
+\end decimos a R que es el fin de la ecuación {equation}
 
 
 Forma 2: Esta forma se utiliza para que la fórmula este de forma contínua en el texto (_inline_)
 
-
 ```
-${Y}=b_{0} +b_{1}X$
+${Y} = b_{0} +b_{1}X$
 ```
 
 - Resultado
 
 ${Y}=b_{0} +b_{1}X$
 
-Forma 3: Con esta forma también la ecuación se verá centrada
+Forma 3: Con esta forma la ecuación se verá centrada
 
 ```
 $${Y}=b_{0} +b_{1}X$$
@@ -153,7 +161,7 @@ $${Y}=b_{0} +b_{1}X$$
 
 $${Y}=b_{0} +b_{1}X$$
 
-Si quieres aprender más sobre el uso de ecuaciones en LateX pueden ir [acá](https://manualdelatex.com/tutoriales/ecuaciones)
+Si quieres aprender más sobre el uso de ecuaciones en LateX, dirígete [acá](https://manualdelatex.com/tutoriales/ecuaciones)
 
 {{</div>}}
 
@@ -165,8 +173,7 @@ Para la regresión lineal simple se utiliza la siguiente estructura:
 objeto <- lm(dependiente ~ independiente, data=datos)
 ```
 
-Mientras que para la regresión lineal múltiple, sólo se añaden más variables
-
+Mientras que para la regresión lineal múltiple, sólo se añaden más variables con el signo **+**
 
 ```
 objeto <- lm(dependiente ~ independiente1 + independiente 2 + independientex, data=datos)
@@ -213,24 +220,23 @@ Entonces ¿qué diferencias hay?
 summary(modelo0);summary(modelo0_sin)
 ```
 
-Entonces, esto en ecuación se vería reflejado de la siguiente forma:
+Utilizando ecuaciones en LateX, se vería de la siguiente manera 
 
 Modelo sin muestral
 
 \begin{equation}
-\widehat{Y}= 206355 +b_{1}X
+\widehat{Y}= 206355 + b_{1}X
 \end{equation}
 
 Modelo con peso muestral
 
 \begin{equation}
-\widehat{Y}= 256201 +b_{1}X
+\widehat{Y}= 256201 + b_{1}X
 \end{equation}
 
 Hay diferencias en el intercepto y en los errores estándar, ya que uno asume pesos de precisión y otro asume pesos muestrales.
 
-Por ello es muy importante incorporar el peso muestral en el análisis, sino los estimadores puntuales no serán válidos y menos la inferencia que se realiza posteriormente, debido a la sobrestimación de la precisión de los estimadores. 
-
+Por ello es muy importante incorporar el peso muestral en el análisis, sino los estimadores puntuales no serán exactos, **no podremos realizar inferencia a nivel poblacional a partir del modelo**, debido a la sobrestimación de la precisión de los estimadores. 
 
 ## 5.3 Regresión lineal simple 
 
@@ -293,7 +299,7 @@ Para ello utilizamos `forcats` un paquete del universo `tidyverse` con la funci�
 datos$sexo <-  forcats::as_factor(datos$sexo) #Recuerden que esto debería ir en el código de preparación
 ```
 
-Listo ahora veremos el modelo
+¡Vamos al modelo!
 
 ```{r}
 modelo2 <- lm(ing_t_t ~ sexo,
@@ -305,14 +311,14 @@ modelo2 <- lm(ing_t_t ~ sexo,
 summary(modelo2)
 ```
 
-Como pueden ver ahora especifica qué categoría de respuesta utiliza para la comparación, esto en la variable sexo quizá puede ser intuitivo, pero ¿qué pasaría con las que tienen otras categorías de respuesta?
+Como pueden ver, ahora especifica qué categoría de respuesta utiliza como nivel de referencia, esto en la variable sexo quizá puede ser intuitivo, pero ¿qué pasaría con las que tienen otras categorías de respuesta?
 
 intentémoslo con `ciuo08` y `est_conyugal`
 
 ```{r}
 datos$ciuo08 <-  forcats::as_factor(datos$ciuo08) 
 datos$est_conyugal <-  forcats::as_factor(datos$est_conyugal)
-# recuerden que es para el ejemplo, esto debía hacerse en el procesamiento
+# ¡No olviden que esto debe ir en el código de procesamiento!
 ```
 
 Modelo para `ciuo08`
@@ -340,10 +346,11 @@ modelo4 <- lm(ing_t_t ~ est_conyugal,
 summary(modelo4)
 ```
 
+En síntesis, el nivel de referencia **siempre será el level más bajo de cada variable**. Por ello es fundamental asegurarnos de que los factores que generemos en el código de procesamiento sea correcto y se adecue a nuestros fines. 
 
-## 5.3  Regresión múltiple
+## 5.4  Regresión lineal múltiple
 
-Ahora queremos incorporar las demás variables al modelo, para lo haremos de la siguiente manera ( con +)
+¡Incorporemos más variables con el signo más (+)!
 
 ```{r regmult, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
 modelo5 <- lm(ing_t_t ~ edad + sexo + ciuo08 + est_conyugal,
@@ -359,11 +366,11 @@ summary(modelo5)
 
 [`stats`](https://www.rdocumentation.org/packages/stats/versions/3.6.2)
 
-`stats` tiene su función para hacer diverso tipo de regresiones, esta es `glm`, la cual tiene una estructura similar a la anterior, sólo que esta se debe especificar es tipo de regresión que se necesita en el argumento [`family`](https://www.statmethods.net/advstats/glm.html). Así quedaría nuestro modelo:
+`stats` tiene su función para generar diversos tipo de regresiones. Esta función es `glm()`, y tiene una estructura similar a `lm()`, sólo que en esta se debe especificar el tipo de regresión que se necesita en el argumento [`family`](https://www.statmethods.net/advstats/glm.html). Así quedaría nuestro modelo de regresión lineal:
 
 ```{r}
 modelo5_glm <- glm(ing_t_t ~ edad + sexo + ciuo08 + est_conyugal,
-               family = gaussian(link = "identity"),
+               family = gaussian(link = "identity"), #Especificamos la regresión lineal
                data = datos, 
                weights = fact_cal_esi)
 ```
@@ -396,6 +403,7 @@ Ahora visualizamos
 summary(modelo5_survey)
 ```
 
+## Modelos de regresión logística
 
 ## 5.4 Información de los modelos
 
@@ -433,7 +441,7 @@ summary(modelo5)$r.squared
 ```
 
 
-Para los valores predichos utilizaremos la función de `sjPlot::get_model_data`
+Para los valores predichos utilizaremos la función de `sjPlot::get_model_data()`
 
 
 ```{r eval=FALSE, include=T}
@@ -450,9 +458,10 @@ get_model_data(modelo5,
 
 
 {{< div "note" >}}
+
 ### BONUS
 
-con `broom`, podemos convertir objetos en dataframes, inclusive si lo dejamos a un objeto, podemos imprimirlo con `tab_df` de `sjPlot`
+Con `broom`, podemos convertir objetos en dataframes, lo cual nos permitirá presentarlo con `tab_df` de `sjPlot`
 
 ```{r}
 print <- broom::augment(modelo5) 
@@ -492,7 +501,7 @@ sjPlot::tab_model(modelo0,
                   file = "output/figures/regnc_tab.doc")
 ```
 
-Las ventajas de este código es que se puede especificar el `encoding`, y se puede exportar la tabla, que tiene mejor visualización que la que arroja la consola con `summary`
+Las ventajas de este código es que se puede especificar el `encoding`, así como exportar la tabla, cuya presentación es superior al output de la función `summary()`
 
 Pero además se pueden incluir más modelos creados en una sola tabla, para eso usaremos nuevamente la función `tab_model` de `sjPlot` 
 
@@ -540,7 +549,7 @@ Terminamos por este práctico ¡Pero aún falta la regresión logística!, para 
 
 En este práctico aprendimos a 
 
-- Crear y visualizar regresiones lineales
+- Crear y visualizar regresiones lineales y logísticas binomiales
 - Incorporar predictores categóricos
 - Crear y visualizar regresiones múltiples
 

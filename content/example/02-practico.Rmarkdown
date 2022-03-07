@@ -46,7 +46,7 @@ Recuerden que los archivos asociados a este práctico se pueden descargar aquí:
 
 ### Paso 1: Instalación de paquetes
 
-Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita "compilar" los archivos construidos en .Rmd a formatos como `.pdf`, `.html`, `.doc`. Para ello instalaremos 2 paquetes `knitr` y `rmarkdown`
+Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita "compilar" los archivos construidos en .Rmd a formatos como `.pdf`, `.html`, `.doc`. Para ello instalaremos 2 paquetes: `knitr` y `rmarkdown`
 
 Usualmente para cargar paquetes lo hacemos de la siguiente manera:
 
@@ -55,14 +55,14 @@ Usualmente para cargar paquetes lo hacemos de la siguiente manera:
   library(paquete)
 ```
 
-Pero en esta ocasión utilizaremos un paquete llamado **pacman**, este facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:
+Pero en esta ocasión utilizaremos un paquete llamado **pacman**, que facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:
 
 ```{r eval=FALSE, include=TRUE}
 install.packages("pacman")
 library (pacman)
 ```
 
-Luego cargaremos así los paquetes de R, esto agiliza la carga de paquetes. Para este práctico cargaremos el paquete **rmarkdown** y **knit**.
+Luego instalaremos y cargaremos los paquetes de R de la siguiente manera, volviendo más eficiente el procedimiento de carga de paquetes. Para este práctico cargaremos el paquete **rmarkdown** y **knit**.
 
 ```{r eval=FALSE, include=TRUE}
 pacman::p_load(rmarkdown,
@@ -77,26 +77,26 @@ pacman::p_load(rmarkdown,
     knitr::include_graphics("/img/example/02practico/open_rmark_file.png", error = FALSE)
 ```
 
-2. Luego deben darle un título, poner su nombre y especificar un _formato de salida_ ya sea en **HTML**, **PDF** o **Word**
+2. Luego deben darle un título, poner su nombre y especificar un _formato de salida_, ya sea en **HTML**, **PDF** o **Word**
 
 ```{r, echo=FALSE}
     knitr::include_graphics("/img/example/02practico/open_rmark_file2.png", error = FALSE)
 ```
 
-3. Les creará un archivo con un **_YAML_**, que tendrá la información general del documento y un **_chunk_** 
+3. Se creará un archivo con un **_YAML_**, que tendrá la información general del documento; y un **_chunk_**, o trozo de código
 
 ```{r, echo=FALSE}
     knitr::include_graphics("/img/example/02practico/open_rmark_file3.png", error = FALSE)
 ```
 
-4. Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las [configuraciones para dejarlo más lindo](#config)
+4. Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las [configuraciones para dejarlo más lindo y presentable](#config)
 
 ### Paso 3: Crear el archivo con formato desde el .Rmd
 
 ![](https://github.com/hadley/r4ds/raw/master/images/RMarkdownFlow.png)
 
 {{< div "note" >}}
-Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML (¡y por eso es tan importante también!) 
+Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R (insertado en *chunks*) y como el texto plano, a partir de las instrucciones que dimos en el YAML (¡por eso es tan importante!) 
 
 {{< /div >}}
 
@@ -104,11 +104,11 @@ Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrit
 knitr::include_graphics("/img/assignments/knit-button.png", error = FALSE)
 ```
 
-Es **importante** que sepan que cuando se hace **Knit**, R ejecuta cada uno de los trozos **secuencialmente**. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) [^1], lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)
+Es **fundamental** que sepan que, cuando se hace **Knit**, RStudio ejecuta cada uno de los trozos **secuencialmente**. No es necesario entender el proceso posterior a cabalidad (aún) [^1]: lo importante que debes saber  es que, si todo lo que está dentro de tu .Rmd está bien hecho, deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc o .html).
 
 
 
-[^1]: Luego de apretar knit, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Luego, RStudio hace "pasar" ese documento vía [pandoc](https://pandoc.org/) para convertirlo en HTML o PDF o Word (o cualquier salida que haya seleccionado).
+[^1]: Luego de presionar *knit*, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Posteriormente, RStudio hace "pasar" ese documento vía [pandoc](https://pandoc.org/) para convertirlo en HTML, PDF o Word (o cualquier salida que haya seleccionado).
 
 
 
@@ -116,11 +116,11 @@ Es **importante** que sepan que cuando se hace **Knit**, R ejecuta cada uno de l
 
 ### 3.1 Encabezado (YAML)
 
-Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama [YAML](https://learn.getgrav.org/16/advanced/yaml).
+Al inicio del Markdown siempre especificar cierta información sobre el documento, por ejemplo, el título, la fecha, autor, entre otras. Esta parte del Markdown se llama [YAML](https://learn.getgrav.org/16/advanced/yaml).
 
 Básicamente, con esto establecemos las "configuraciones" del texto.
 
-Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La "cabeza" del Markdown o **YAMLS** está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (`---`).
+Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La "cabeza" del Markdown o **YAML** está dividida del resto del cuerpo del texto al inicio y al final con tres guiones (`---`).
 
 ```yaml
 ---
@@ -129,7 +129,7 @@ date: "16 de Agosto, 2021"
 author: "Estudiante UAH"
 ---
 ```
-Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  `Mi tesis: la más "genial" de Chile`), entonces ponemos
+Debes poner el texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  `Mi tesis: la más "genial" de Chile`), entonces ponemos
 
 ```yaml
 ---
@@ -140,7 +140,7 @@ title: `Mi tesis: la más "genial" de Chile`
 
 #### Instrucciones de salida en YAML (Output formats)
 
-Los formatos de salida se ven en el encabezado (**YAML**) del documento, aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma puedes especificar qué tipo de documento creas cuando _"Kniteas"_  (es como _"tejer"_, *construir*) 
+Los formatos de salida se ven en el encabezado (**YAML**) del documento: aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma, puedes especificar qué tipo de documento creas cuando _"Kniteas"_  (es como _"tejer"_, *construir*) 
 
 ```yaml
 ---
@@ -162,7 +162,7 @@ El primer tipo de salida que aparece en `output:` será el que se genere al puls
 
 ##### Adicionales en YAML
 
-El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección `output` suele verse:
+El encabezado o YAML es **importantísimo**, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección `output` suele verse:
 
 
 ```yaml
@@ -194,13 +194,14 @@ En el **YAML** o **encabezado** del documento, se puede modificar:
 - `date`: fecha, puede ser escrita como ustedes quieran
 
 - `output`: opciones de salida (html, pdf, doc, ¡incluso ppt!)
-  - `toc`: "Table of contents" o en español, índice. El término `depth` indica "profundidad" para ver cuántos títulos mostrar y `float` para ver si se desliza automáticamente
+
+- `toc`: "Table of contents" o, en español, índice. El término `depth` indica "profundidad" para ver cuántos títulos mostrar y `float` para ver si se desliza automáticamente
 
 Si quieres ver más opciones, [temas para tu documento puedes ver aquí](https://bookdown.org/yihui/rmarkdown/html-document.html)
 
 ### 3.2 Texto (Markdown)
 
-Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo [en la sección recurso](https://learn-r-uah.netlify.app/resource/markdown/) o [acá](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo [en la sección recursos](https://learn-r-uah.netlify.app/resource/markdown/) o [acá](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 <table>
 <colgroup>
@@ -382,7 +383,6 @@ Las opciones de chunk más comunes son estas:
 
 - `echo=FALSE`: El código no se muestra en el documento final, pero los resultados si
 
-
 - `message=FALSE`: Se omiten los mensajes que genera R (como todas las notas que aparecen después de cargar un paquete)
 
 - `warning=FALSE`: Se omiten las advertencias que genera R
@@ -398,11 +398,11 @@ knitr::include_graphics("/img/reference/chunk-options.png", error = FALSE)
 
 ## 4. Resumen
 
-Dentro de la creación de archivos en RMarkdown, hay algunos **conceptos claves** que si o si debes manejar para ir construyendo tus documentos en RMarkdown. 
+Dentro de la creación de archivos en RMarkdown, hay algunos **conceptos claves** que _sí o sií_ debes manejar para ir construyendo tus documentos en RMarkdown. 
 
 1. **YAML**: Es un encabezado al inicio del documento que inicia y acaba con tres guiones **---***. Acá se introducen aspectos básicos del documento, como el título, el autor, la fecha y el formato de salida (output)
 
-2. **Chunk**: son **trozos** de códigos de R, estor permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final 
+2. **Chunk**: son **trozos** de códigos de R, que permiten hacer análisis estadísticos dentro del documento, visualizando los resultados **directamente** en el documento final 
 
 3. **Knit**: Es el botón que permite *compilar* (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML
 

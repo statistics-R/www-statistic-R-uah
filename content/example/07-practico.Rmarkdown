@@ -1,320 +1,354 @@
 ---
-title: "Muestras complejas y precisión de inferencia estadística"
-linktitle: "7: Muestras complejas y precisión de inferencia estadística"
-date: "2021-09-16"
+title: "Análisis descriptivo univariado"
+linktitle: "7: Análisis descriptivo univariado"
+date: "2021-09-13"
 menu:
   example:
     parent: Ejemplos
     weight: 7
 type: docs
+toc: true
 editor_options: 
   chunk_output_type: console
-output: 
-  html_document: 
-    toc: yes
 ---
+
+#  0. Objetivo del práctico
+
+El objetivo del práctico es avanzar en el análisis de los datos a través del uso de **estadísticos descriptivos**. Para esto ya debemos contar con datos previamente [procesados del práctico N°6](https://learn-r-uah.netlify.app/example/04-practico/). Previo a eso, **siempre es importante** que recordemos en qué parte del proceso estamos
+
+![](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)
+
+
+En este práctico veremos tanto la _estimación puntual_ de estadísticos descriptivos, como su _visualización_ para reportes, ya sea a través de tablas o de gráficos. 
+
+
+##  Recursos del práctico
+
+En este práctico utilizamos los **datos** procesados *CASEN 2020*, que proviene de los datos originales de la [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020). Recuerden _**siempre**_ consultar el [**libro códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar datos.
+
+No olviden que los archivos asociados a este práctico se pueden descargar aquí:
+
+- [<i class="fas fa-file-archive"></i> `06-class.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
+
+#  1. Paquetes a utilizar
+
+Para este práctico utilizaremos, principalmente, las librerías `sjmisc` y `sjPlot`. 
+
+`sjmisc`: esta paquete tiene múltiples funciones, desde la transformación de datos y variables. Este paquete suele complementar a `dplyr` de `tidyverse` en sus funciones. 
+
+`sjPlot`: su principal función es la visualización de datos para estadística en ciencias sociales mediante tablas y gráficos.
+
+Cargaremos los paquetes con `pacman`, si aún tienes dudas sobre cómo trabajar con `pacman` puedes [revisar el práctico 2](https://learn-r-uah.netlify.app/example/02-practico/#paso-1-instalaci%C3%B3n-de-paquetes)
+
+```{r librerias, echo=TRUE, results='hide'}
+pacman::p_load(sjmisc,
+               sjPlot,
+               tidyverse,
+               magrittr)
+```
+
+#  2. Importar datos
+
+Una vez cargados los paquetes a utilizar, debemos continuar cargar los datos. Como indicamos al inicio, seguiremos utilizando los datos **CASEN** que fueron procesados en el práctico anterior, pero incorporando una nueva variable.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+load(url("https://github.com/learn-R/06-class/raw/main/06-clase/output/data/datos_proc.RData"))
+
 ```
 
-## 0. Objetivo del práctico
-
-Este práctico tiene por objetivo introducir el trabajo estadístico con **muestras complejas en R**, es decir, cuando se trabaja con muestras que busquen ser representativas de la población a estudiar, bajo determinados parámetros. Buscaremos calcular estimadores puntuales e intervalos de confianza, que nos permiten reportar el error asociado a la inferencia. 
-
-## 1. Recursos del práctico
-
-El presente práctico será realizado con datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Estos datos ya han sido previamente procesados para su correcta realización, recodificando y eliminando casos perdidos, y renombrando y seleccionando variables. Esto es **muy importante**: para trabajar correctamente con muestreos complejos, **deben** asegurarse de que los datos estén bien preparados para ello. 
-
-Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
-
-### Material del práctico
-
-- [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
-
-
-## 2. Librerías a utilizar
-
-Utilizaremos las siguientes librerías:
-
-1. `pacman`: para facilitar y agilizar la lectura de los paquetes a utilizar en R
-
-2. `sjmisc`: para explorar datos
-
-3. `srvyr`: para trabajar con objetos encuesta, y realizar cálculos en diálogo con `dplyr`
-
-4. `dplyr`: para manipular datos
-
-5. `tidyr`: para pivotear la estructura de los datos
-
-# Pasos del procesamiento
-
-## 1. Cargar librerías
-
-Cargamos los paquetes anteriormente señalados:
-
-```{r packages}
-pacman::p_load(tidyverse,
-               sjmisc,
-               srvyr,
-               dplyr,
-               tidyr)
+```{r, eval = F }
+load("output/data/datos_proc.RData")
 ```
 
+#  3. Explorar datos
 
-## 2. Cargar datos
+Pero ¿cómo sabremos cuales son las nuevas variables que componen la base de datos procesada?, ¡Simple! usaremos dos códigos que vimos en el [práctico 4](https://learn-r-uah.netlify.app/example/04-practico/#2-cargar-base-de-datos) para conocer los **datos procesados** que usaremos en esta ocasión:
 
-Como se señaló anteriormente, trabajaremos con datos de CASEN 2020, ya procesados con anterioridad
+Primero, usaremos el código `names`, que nos entrega los nombres de las variables que componen los datos
 
-```{r readRDS, include=F}
-data <- readRDS(gzcon(url("https://github.com/learn-R/07-class/blob/main/input/data/casen_proc.rds?raw=true")))
+```{r names, echo=TRUE, results='markup'}
+names(datos_proc)
 ```
 
-```{r dim}
-dim(data)
+Mientras que la función `head` nos entrega el nombre y las primeras 10 filas que lo componen.
+
+```{r head, echo=TRUE, results='markup'}
+head(datos_proc)
+```
+
+Estos códigos nos permiten establecer una aproximación a los datos con los cuales trabajaremos, como los posibles valores que pueden adoptar, el tipo de dato para cada variable, entre otros. No obstante, por prácticos anteriores sabemos que podemos explorar nuestros datos con `sjPlot::view_df()`
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+sjPlot::view_df(datos_proc,
+                encoding = "UTF-8")
+```
+
+#  4. Descripción de variables
+
+Una vez conocidas las variables que incluye nuestros datos procesados ¿cómo podemos realizar un análisis descriptivo univariado para algún informe o reporte? Veamos algunas de las más comunes
+
+## 4.1. Medidas de tendencia central
+
+Para conocer las medidas de tendencia central de las variables hay dos opciones. Por una parte, podemos calcular un estadístico directamente a través de código, obteniendo el valor directamente en la consola (o en nuestro .Rmd, si hemos configurado adecuadamente el chunk respectivo). Por otra, podemos generar un código que presente directamente una tabla resumen de los datos.  
+
+### Media
+
+Para conocer la media de una variable se utiliza la función `mean()`, cuya estructura es:
+
+```{r ejemplo mean, eval=FALSE, include=TRUE}
+mean(datos$variable, na.rm=TRUE)
 ```
 
 
-Como podemos ver, estos datos tienen 185.339 filas (observaciones), así como 7 columnas. Inspeccionemos: 
+El argumento `na.rm=TRUE` excluye del cálculo a los casos perdidos. Si deséaramos estimar la media de `ingreso_percapita`, debemos codificar lo siguiente
 
-```{r head1}
-head(data)
+```{r casen mean, echo=TRUE, results='markup'}
+mean(datos_proc$ingreso_percapita, na.rm=TRUE)
 ```
 
-Tenemos tanto variables numéricas (exp, varunit, varstrat e ing_tot_hog) como factores (region, pobreza y sexo). ¡Explorémoslas!
+### Media recortada
 
-## 3. Explorar datos
+Pero, ¿qué pasa si, dada la distribución de los valores de la variable `ingreso_percapita`, su media se ve fuertemente afectadas por casos atípicos o fuera de rango (por ejemplo, que esta adopte un valor más alto producto de una alta concentración de ingresos)? En tal caso, una buena manera de evitar el efecto de casos influyentes en la estimación pasa por calcular la media recortada, incorporando el argumento `trim` para excluir al 5% de la muestra en la estimación (es decir, el 2.5% de cada extremo)
 
-Con `frq()` de `sjmisc`, exploraremos las categorías de las variables factor:
-
-```{r frq1}
-frq(data$region)
-frq(data$pobreza)
-frq(data$sexo)
+```{r casen mean trim, echo=TRUE, results='markup'}
+mean(datos_proc$ingreso_percapita, na.rm=TRUE, trim = 0.025)
 ```
 
-Como podemos ver, *region* provee información sobre la región a la que pertenecen los hogares; *pobreza* nos provee información respecto de la situación de pobreza por ingresos (o no) de los hogares; y *sexo*, información sobre el sexo de la persona que responde el cuestionario. 
+¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de `r mean(datos_proc$ingreso_percapita, na.rm=TRUE)- mean(datos_proc$ingreso_percapita, na.rm=TRUE, trim = 0.025)`.
 
-Ahora vamos con `descr()` de `sjmisc` para las variables numéricas
+Una vez conocemos el valor medio de la variable `ingreso_percapita`, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana! 
 
-```{r descr1}
-descr(data$exp) #Ponderador regional
-sum(data$exp) #Total de la población
-descr(data$varstrat) #Estrato de varianza
-descr(data$varunit) #Conglomerado de varianza
-descr(data$ing_tot_hog)
+### Mediana
+
+¿Cuál es el ingreso per cápita máximo al que puede acceder el 50% de los hogares chilenos en el momento en que se recolectaron los datos de CASEN 2020? Para el cálculo de la mediana se utiliza la función `median()`, que presenta una estructura similar a la de `mean()`:
+
+```{r ejemplo median, eval=FALSE, include=TRUE}
+median(datos$variable, na.rm =TRUE)
 ```
 
-*ing_tot_hog* presenta información respecto de los ingresos totales de los hogares; *exp* es el ponderador regional, cuya suma es el número total de habitantes de la población objetivo; *varstrat* provee información sobre el estrato de varianza; y *varunit* sobre el conglomerado de varianza, es decir, la unidad mínima de observación que, en este caso, son los hogares. Estas últimas tres variables serán **sumamente relevantes** para este práctico. 
-## 4. Cálculo con muestras complejas
-
-Una vez explorados nuestros datos, es hora de empezar a realizar nuestros cálculos con muestras complejas. Para ello, lo primero es crear un **objeto encuesta** de modo que, posteriormente, podamos calcular promedios con nuestras variables cuantitativas, y proporciones para nuestras variables categóricas (entre muchos otros estimadores). 
-
-### a) Creación de objeto encuesta (srvyr)
-
-Como ya se señaló, lo primero es crear un **objeto encuesta (survey)**. Este corresponde a una lista (*List*) que nos permitirá realizar los cálculos que deseemos, considerando las varables de diseño (en este caso, varunit, varstrat y exp). Para ello, utilizaremos la función `as_survey_design()` de la librería `srvyr`. Sin embargo, primero crearemos la variable *stratn*, para obtener la cantidad de personas por estrato a nivel poblacional
-
-```{r stratn}
-data <- data %>% 
-  group_by(varstrat) %>% #Agrupando por varstrat
-  mutate(stratn = sum(exp)) #Calculamos el total de personas por estrato
+```{r casen median, echo=TRUE, results='markup'}
+median(datos_proc$ingreso_percapita, na.rm =TRUE)
 ```
 
-Construimos el objeto encuesta:
+Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de **$229.184** o menos.
 
-```{r srvyr}
-casen_regional <- data %>% #Creamos un nuevo objeto llamado casen_regional con la información de data
-  as_survey_design(ids = varunit, #Aplicamos diseño muestral, especificando los ids a partir de varunit,
-                   strata = varstrat,#los estratos a partir de varstrat,
-                   fpc = stratn, #especificando que la estimación es con una población finita
-                   weights = exp) #y los ponderadores con exp
+Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿debemos estimar la media y la mediana de cada todas nuestras variables *una por una*? **¡No!**, para ello `sjmisc` tiene diferentes funciones que nos permitirán estimar y presentar gráficamente tales estimaciones, y las conoceremos a continuación:
+
+
+## Un resumen
+
+Por ello ocuparemos la función `descr()` de `sjmisc`, que nos presenta un resumen de los estadísticos básicos, incluyendo las etiquetas de cada variable.
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, include=TRUE}
+sjmisc::descr(datos_proc$ingreso_percapita,
+        show = "all",
+        out = "viewer",
+        encoding = "UTF-8",
+        file = "output/figures/tabla-ingreso.doc")
 ```
 
-Fijándonos en nuestro entorno, nos daremos cuenta de que se creó una lista con 9 elementos llamada **casen_regional**. Si bien la información que nos entrega por sí sólo nos resulta algo críptica, este objeto nos permitirá realizar cálculos aplicando las variables de diseño muestral complejo. Algo interesante de los objetos encuesta creados con `srvyr`, es que podemos interactuar con las funciones de `dplyr`, como `group_by()` o `summarise()`. Es decir, **nos permite trabajar con listas como si fueran un data frame** (datos tabulados) incluyendo, por ejemplo, el uso de *metadata*.
-
-![](https://github.com/learn-R/07-class/raw/main/input/img/img-list.png)
-
-*cluster* nos presenta información sobre los conglomerados de varianza, o la unidad mínima de inferencia. *strata*, sobre los estratos de varianza, unidades que integran a los conglomerados de varianza. *prob* y *allprob* proveen información sobre la probabilidad de cada sujeto de ser seleccionado en una muestra al azar. *variables* nos presenta todas las variables incluidas en la lista. Por último, *fpc* provee información sobre los tamaños de la población y la muestra. 
-
-### b) Cálculo de medias para variables numéricas
-
-Una vez creado nuestro objeto encuesta, podemos realizar diversos tipos de cálculos. Calculemos, por ejemplo, la media de ingresos a nivel poblacional, con la función `survey_mean()` de `srvyr`
-
-```{r mean_num}
-casen_regional %>% #Con casen_regional
-  summarise(ing_medio = survey_mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio poblacional
+```{r echo=FALSE}
+sjmisc::descr(datos_proc$ingreso_percapita)
 ```
 
-Comparemos con la media calculada a nivel muestral:
+**¡Atención!** utilizaremos la función `descr()` **sólo para variables de clase `numeric`** ¿Qué sentido tiene calcular el promedio de equipos de futbol, o de religiones que existen?
 
-```{r no_enc}
-data %>% #Con data
-  summarise(ing_medio = mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio poblacional
+Como ya adelantamos anteriorme, `sjmisc` dialoga con el universo `tidyverse`, por lo cual es posible complementar con funciones como `select()` de `dplyr`, seleccionando más de una variable a la vez para nuestras estimaciones de estadísticos de resumen. Además, el argumento `file =` nos permite **exportar** la tabla de estadísticos que acabamos de generar en formato .doc (¡y otros!). 
+
+```{r,  eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+datos_proc %>%
+select(ingreso_percapita, ife, horas_mens) %>% 
+sjmisc::descr(
+  show = "all",
+  out = "viewer",
+  encoding = "UTF-8",
+  file = "output/figures/tabla1.doc")
 ```
 
-Efectivamente, la estimación a nivel poblacional (o parámetro) es superior a la estimación muestral. Sin embargo, trabajar con muestras complejas siempre significará considerar un posible **error de medición**. El trabajar con muestras representativas (aunque no sean aleatorias) nos permitirá realizar nuestros cálculos, conociendo la probabilidad de equivocarnos en nuestra estimación. Es decir, podemos conocer el **nivel de confianza** (o el **nivel de error**) de nuestras estimaciones, a partir de ciertas características de la muestra.
-
-En virtud de ello, `survey_mean()` también nos permite incorporar los intervalos de confianza, especificando `vartype = "ci"`:
-
-```{r mean_num_ci}
-casen_regional %>%#Con casen_regional
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el 
-                                                                           #ingreso medio poblacional, 
-                                                                           #y sus intervalos de confianza
+```{r, echo=FALSE}
+datos_proc %>% 
+  select(ingreso_percapita, ife, horas_mens) %>% 
+  sjmisc::descr()
 ```
 
-El argumento `level = ` nos permite especificar el nivel de confianza que estamos dispuestas/os a aceptar. Comparemos el cálculo de la media de ingresos a un 95% y a un 99% de confianza
+Como podemos ver, `descr()` nos presenta diversa información, como el nombre de la variable en `var`; su tipo en `type`; su etiqueta en `label`; los casos válidos en `n`; el porcentaje de casos perdidos en `NA.prc`; y las diversas medidas de tendencia central, posición de dispersión para cada una de nuestra variables, como la media y la mediana, los cuartiles, la desviación estándar, y muchas otras.
 
-```{r ci_95_99}
-casen_regional %>% #Con casen_regional
-  summarise(ing_medio95 = survey_mean(ing_tot_hog, vartype = "ci", level = .95, na.rm=T), #Al 95%
-            ing_medio99 = survey_mean(ing_tot_hog, vartype = "ci", level = .99, na.rm=T)) #Al 99%
+
+## 4.3. Frecuencias 
+
+### Frecuencias absolutas
+
+Podemos utilizar la función `table()` del paquete `base` de R, que presenta la frecuencia absoluta de cada un de los valores que puede alcanzar alguna de nuestras variables categóricas.
+
+```{r casen table, echo=TRUE, results='markup'}
+table(datos_proc$sexo) 
 ```
 
-Trabajar con un mayor nivel de confianza nos permitirá estar más seguras/os de que nuestra estimación incluirá al parámetro poblacional. Sin embargo, esto no es gratis: un mayor nivel de confianza implica una **pérdida de precisión** en nuestros cálculos; y viceversa. Es decir, un mayor nivel de confianza ampliará los límites inferior y superior de nuestros intervalos de confianza, lo cual hace la estimación menos precisa, mientras que un menor nivel de confianza estrechará tales límites, haciendo la estimación más precisa. Sin embargo, en el primer caso, la probabilidad de contener al parámetro poblacional es mayor que en el segundo. La decisión del nivel de confianza con el cual trabajaremos dependerá de qué es lo que queramos calcular, y no es objeto de este curso. 
+También podemos emplear la función `flat_table()`, que permite agrupar la frecuencia absoluta de las categorías de dos o más de nuestras variables categóricas.
 
-También es posible utilizar `group_by()` para calcular la media de ingresos (y sus intervalos de confianza) según sexo:
+```{r casen flat_table, echo=TRUE, results='markup'}
+flat_table(datos_proc, sexo, ocupacion, ife)
+```
 
-```{r mean_num_sexo}
-casen_regional %>% #Con casen_regional
-  group_by(sexo) %>% #Agrupamos por sexo
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el ingreso medio 
-                                                                           #poblacional, y sus intervalos de 
-                                                                           #confianza
+No obstante, el output de ambas funciones **no se resulta visualmente atractivo** ¿cómo podríamos reportar las frecuencias absolutas (y relativas) en nuestros informes? Si queremos una tabla general usaremos la función `frq()` de `sjmisc`, cuyo output es una tabla de frecuencia que presenta. Esta función devuelve una tabla de frecuencias absolutas y relativas para nuestras variables categóricas (**¡genial!**). Además, si nuestros datos son números etiquetados (`dbl + lbl`), presenta tanto los valores numéricos como las etiquetas asociadas a cada uno de ellos (¡`table()` sólo presenta los valores numéricos! no incluye metadata en su output)
+
+```{r casen frq error, echo=TRUE, results='markup'}
+sjmisc::frq(datos_proc$sexo,
+        out = "viewer",
+        title = "Frecuencias",
+        encoding = "UTF-8",
+        file = "output/figures/tabla2.doc") 
 ```
 
 
-Asimismo, es posible calcular la media de ingresos agrupando por región: 
+#  5. Visualización
 
-```{r mean_num_byregion}
-casen_regional %>% #Con casen_regional
-  group_by(region) %>% #Agrupamos por region
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el ingreso medio 
-                                                                           #poblacional, y sus intervalos de 
-                                                                           #confianza
+Ahora que ya sabemos cómo obtener todos los estadísticos necesarios para escribir nuestros reportes, viene el segundo paso: *visualizar tales estadísticos*. ¡Siempre es mejor presentar un buen gráfico, antes de mostrar un número y ya! Para ello, emplearemos la librería `sjPlot`
+
+Para visualizar las frecuencias usaremos la función `plot_frq`, que se estructura de la siguiente manera
+
+```{r ejemplo_frecuencias, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+plot_frq(datos,  #base
+  ...,          #variable
+  title = "",   # título
+  type = c("bar", "dot", "histogram", "line", "density", "boxplot", "violin") #tipo de gráfico a especificar 
+  
 ```
 
-¿Y si quisiéramos crear una tabla con una columna por región, cuyas observaciones nos indiquen la media de ingreso para cada una de ellas? ¡Simplemente acudimos a `pivot_wider()` de `tidyr`!
+Para los gráficos, tenemos los siguientes códigos
 
-```{r wide_num}
-ing_region <- casen_regional %>% 
-  group_by(sexo) %>% #Agrupamos por region
-  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) %>% #Calculamos el ingreso medio poblacional, y sus intervalos de confianza
-  select(sexo, ing_medio) %>% #Seleccionamos region e ing_medio
-  pivot_wider(names_from = "sexo", #Pivoteamos, extrayendo los nombres de las columnas desde region
-              values_from = "ing_medio") #Y los valores desde ing_medio
-head(ing_region) #Visualizamos
+1. Gráfico de barras de frecuencias simple
+
+Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categoría de respuesta, podemos presentarla de la siguiente forma:
+
+
+```{r casen_barras_simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc, edad_tramo,
+          title = "Gráfico de frecuencias, barras",
+          type = "bar")
+```
+
+{{< div "note" >}}
+
+Además de la visualización es importante el guardar los datos que se producen y `sjPlot` tiene su propio código para hacerlo a través de la función `save_plot()`, su estructura es esta:
+
+```{r ejemplo_save, eval=FALSE, include=TRUE}
+save_plot("ruta/imagen.jpg", fig = last_plot())  #se deja el formato del archivo (.png, .jpg, .svg o .tif) y la ruta de la carpeta
+```
+
+Así guardaríamos el gráfico anterior
+
+```{r eval=F, include=TRUE}
+save_plot("output/figures/tab.png", fig = last_plot())
+```
+{{< /div >}}
+
+
+2. Gráfico de puntos
+
+Para variables numéricas ¡podemos presentar un gráfico de puntos!
+
+```{r casen_puntos_simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc, ingreso_percapita,
+          title = "Gráfico de frecuencias, puntos",
+          type = "dot")
+```
+
+También podemos cambiar el orden de los ejes *x* e *y*
+
+```{r casen_puntos cambiados, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+plot_frq(datos_proc$edad_tramo, type = "dot", show.ci = TRUE, sort.frq = "desc",
+  coord.flip = TRUE, expand.grid = TRUE, vjust = "bottom", hjust = "left", title = "Gráfico de frecuencias, puntos cambiado"
+)
+```
+    
+Pero, ¿cuál es el argumento que hace esto?
+
+A la hora de trabajar en R, siempre debemos conocer los argumentos que utilizamos en nuestros códigos, puede que un argumento sea innecesario o esté generando un error, para eso debemos consultar en la sección **Help**. Los pasos son los siguientes:
+
+a. Escribe en la consola anteponiendo un `?` en la función que quieres conocer, en este caso será `plot_frq?`, quedando así:
+
+![](https://github.com/learn-R/06-class/raw/main/input/img/image.png)
+
+
+b. Una vez le des a *Enter*, en la sección **Help** aparecerá información sobre la función, cómo se usa y qué se puede hacer con ella. En **Arguments** explicará la función de cada argumento
+
+![](https://github.com/learn-R/06-class/raw/main/input/img/image2.png)
+
+¡Ahora podrán definir, con completo conocimiento, cómo están personalizando sus gráficos!
+
+3. Histogramas        
+       
+Otra función que podemos hacer es graficar histogramas. Sin embargo, como ya hemos visto, la variable `ingreso_percapita` tiene casos fuera de rango que distorsionan la imagen que nos podemos hacer de la distribución de la variable en la muestra. Para solucionar esto, ocuparemos lo aprendido en [el práctico anterior](https://learn-r-udp.netlify.app/example/03-practico/) y filtraremos la variable, eliminando de la presentación los ingresos mayores a `$2.000.000`, con la función `filter` de `dplyr`
+
+```{r casen_histograma, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>% 
+plot_frq(., ingreso_percapita,
+          title = "Histograma",
+          type = "histogram")
+```
+
+4. Densidad
+
+Ahora que vemos la distribución del histograma ¿cómo podemos graficar su densidad? es muy simple: podemos generar un gráfico de densidad con el siguiente código
+
+```{r casen_densidad, echo=TRUE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+plot_frq(., ingreso_percapita,
+          title = "Gráfico de densidad",
+          type = "density")
 ```
 
 
-### c) Cálculo de proporciones para variables categóricas
+5. Gráfico de líneas
+        
+¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable `ife`, para lo que usaremos este código:
 
-También podemos utilizar la función `survey_prop()` de `srvyr` para calcular proporciones. Sin embargo, el código para calcular proporciones de variables categóricas **no se construye de la misma manera** que el código para calcular medias de variables continuas:
+```{r casen_lineas, echo=TRUE, results='markup'}
+plot_frq(datos_proc, ife,
+          title = "Gráfico de líneas",
+          type = "line")
 
-```{r error, warning=TRUE, eval=FALSE}
-casen_regional %>% #Con casen_regional
-  summarise(prop = survey_prop(pobreza, na.rm = T)) #Y calculamos las proporciones
 ```
 
-Debemos recurrir a `group_by()` para especificar nuestra variable categórica, y luego realizar el cálculo en `summarise()`
+6. Gráfico de cajas
 
-```{r prop_factor}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T)) #Y calculamos las proporciones
+Para graficar algunas medidas de posición de una variable y, en específico, los cuartiles de esta, podemos elaborar un gráfico de cajas, para lo cual usaremos este código:
+
+```{r casen box, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+plot_frq(., ingreso_percapita,
+          title = "Gráfico de caja",
+          type = "boxplot")
 ```
 
-De todos modos, hay que considerar que `survey_prop()` y `survey_mean()` son (hasta cierto punto) intercambiables:
+          
+7. Gráfico de violín
 
-```{r mean_factor}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_mean(na.rm = T)) #Y calculamos las proporciones
+Finalmente, si queremos presentar gráficos de violín, usamos este código
+          
+```{r casen violin, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
+datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
+    plot_frq(., ingreso_percapita,
+          title = "Gráfico de violín",
+          type = "violin")
 ```
+          
+Como pueden ver, el único argumento que se modificaba era `type = `: es decir, para hacer diversos gráficos, sólo se debe especificar el tipo de gráfico que queremos, y luego personalizarlo según nuestro requerimientos, especificando el resto de argumentos.
 
-Muchas veces nos interesa más trabajar con porcentajes que con proporciones. Con `mutate()` podemos multiplicar por 100 nuestras proporciones, y así obtener los porcentajes deseados
 
-```{r per_factor}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T))%>% #Calculamos las proporciones
-  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
-```
+# 6. Resumen del práctico
 
-La función `survey_total()` de `srvyr` nos permite calcular el total de personas en cada categoría a **nivel poblacional**.
+¡Eso es todo por este práctico! Hoy aprendimos a:
 
-```{r per_tot_factor}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(na.rm = T), #Calculamos las proporciones
-            total = survey_total(na.rm=T))%>% #Y el total por categorías
-  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
-```
+- Estimar estadísticos de medidas de tendencia central, posición y dispersión para variables cuantitativas
+- Calcular las frecuencias absolutas y relativas para cada una de las categorías de respuesta con variables cualitativas
+- Presentar ambas estimaciones
+- Generar y personalizar gráficos descriptivos univariados para variables categóricas y continuas
 
-Por supuesto, también es posible incorporar intervalos de confianza, tal como cuando calculamos medias
-
-```{r prop_factor_ci}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T)) #Incorporamos intervalos de confianza
-```
-
-Y, además, podemos convertir en porcentajes nuestros intervalos de confianza, tal como lo hicimos con la estimación puntual
-
-```{r per_factor_ci}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T)) %>% #Incorporamos intervalos de confianza
-  mutate(prop = prop*100, #Multiplicamos las proporciones *100,
-         prop_low = prop_low*100, #así como el límite inferior 
-         prop_upp = prop_upp*100) #y superior, para obtener porcentajes
-```
-
-Incluimos el total
-
-```{r per_tot_factor_ci}
-casen_regional %>% #Con casen_regional
-  group_by(pobreza) %>% #Agrupamos por pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(prop = prop*100, #Multiplicamos las proporciones *100,
-         prop_low = prop_low*100, #así como el límite inferior 
-         prop_upp = prop_upp*100) #y superior, para obtener porcentajes
-```
-
-También podemos cruzar dos variables. Veamos, por ejemplo, cómo se distribuye la pobreza según sexo
-
-```{r pobreza_sexo}
-casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
-  group_by(pobreza, sexo) %>% #Agrupamos por pobreza y sexo
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(prop = prop*100)
-```
-
-Por último, podemos crear una tabla ancha (wide) con `pivot_wider()` de `tidyr` para trabajar con nuestros cálculos de forma más cómoda en un data frame 
-
-```{r wide_factor}
-pobreza_reg <- casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
-  group_by(region, pobreza) %>% #Agrupamos por region y pobreza
-  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
-            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
-  mutate(per = prop*100) %>% #Multiplicamos las proporciones *100 para obtener porcentajes
-  select(region, pobreza, per, total) %>% #Seleccionamos region, pobreza, per y total
-  pivot_wider(names_from = "pobreza", #Pivoteamos a lo ancho, extrayendo los nombres de las columnas desde pobreza
-              values_from = c("per", "total")) #y los valores desde per y total
-head(pobreza_reg)
-```
-
-## 5. Resumen
-
-¡Y eso es todo! En este práctico aprendimos a:
-
-1. Crear un objeto encuesta
-2. Realizar cálculos de medias a nivel poblacional para variables continuas
-3. Realizar cálculos de proporciones y cantidades a nivel poblacional para variables categóricas
-4. Crear una tabla ancha (wide) para trabajar nuestros cálculos.
-
-## 6. Reporte de progreso
+# 7. Reporte de progreso
 
 ¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
+

@@ -1,11 +1,11 @@
 ---
 title: "Calidad de modelos y otras técnicas de estimación"
-linktitle: "10: Calidad de modelos y otras técnicas de estimación"
+linktitle: "11 (BONUS): Calidad de modelos y otras técnicas de estimación"
 date: "2021-11-08"
 menu:
   example:
     parent: Ejemplos
-    weight: 11
+    weight: 12
 type: docs
 toc: true
 editor_options: 
@@ -82,22 +82,20 @@ Variable                               Etiqueta                                 
 sexo\                                  Sexo                                       1\. Hombre\                          481 (38.1%)\              IIIIIII \          
 [factor]                                                                          2\. Mujer                            780 (61.9%)               IIIIIIIIIIII       
 
-edad\                                  Edad                                       Media (d-s) : 48.8 (18.2)\           75 valores distintos      \                  
-[numeric]                                                                         min < mediana < max:\                                          \ \ : .\           
-                                                                                  18 < 48 < 96\                                                  \ \ : : : : . .\   
-                                                                                  RI (CV) : 30 (0.4)                                             : : : : : : : .\   
-                                                                                                                                                 : : : : : : : :\   
+edad\                                  Edad                                       Media (d-s) : 48.8 (18.2)\           75 valores distintos      \ \ : .\           
+[numeric]                                                                         min < mediana < max:\                                          \ \ : : : : . .\   
+                                                                                  18 < 48 < 96\                                                  : : : : : : : .\   
+                                                                                  RI (CV) : 30 (0.4)                                             : : : : : : : :\   
                                                                                                                                                  : : : : : : : : :  
 
-trabaja\                               Durante la semana pasada, Â¿trabajÃ³ al    1\. Sí\                              612 (48.5%)\              IIIIIIIII \        
+trabaja\                               Durante la semana pasada, ¿trabajó al      1\. Sí\                              612 (48.5%)\              IIIIIIIII \        
 [factor]                               menos una hora, sin considerar los         2\. No                               649 (51.5%)               IIIIIIIIII         
                                        quehace                                                                                                                      
 
-ingreso\                               Monto de ingreso total de su hogar el      Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \                  
+ingreso\                               Monto de ingreso total de su hogar el      Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     :\                 
 [numeric]                              mes de noviembre de 2020                   min < mediana < max:\                                          :\                 
                                                                                   0 < 4e+05 < 1.2e+07\                                           :\                 
                                                                                   RI (CV) : 450000 (1.2)                                         :\                 
-                                                                                                                                                 :\                 
                                                                                                                                                  : .                
 
 tingreso\                              Tramo de ingreso total de su hogar el      1\. Menos de $200 mil pesos\         47 (22.5%)\               IIII \             
@@ -122,36 +120,36 @@ tamanohogar\                                                                    
                                                                                                                        12 :   1 ( 0.1%)\         \                  
                                                                                                                        14 :   1 ( 0.1%)                             
 
-c2_1\                                  Ãšltimas 2 semanas: se ha sentido          1\. Nunca\                           573 (45.7%)\              IIIIIIIII \        
+c2_1\                                  Últimas 2 semanas: se ha sentido           1\. Nunca\                           573 (45.7%)\              IIIIIIIII \        
 [factor]                               nervioso, ansioso o con los nervios de     2\. Varios días\                     389 (31.0%)\              IIIIII \           
                                        punta                                      3\. Más de la mitad de los dí\       91 ( 7.3%)\               I \                
                                                                                   4\. Casi todos los días\             200 (16.0%)\              III \              
                                                                                   5\. No sabe\                         0 ( 0.0%)\                \                  
                                                                                   6\. No responde                      0 ( 0.0%)                                    
 
-c2_2\                                  Ãšltimas 2 semanas: No ha podido dejar de  1\. Nunca\                           629 (50.2%)\              IIIIIIIIII \       
+c2_2\                                  Últimas 2 semanas: No ha podido dejar de   1\. Nunca\                           629 (50.2%)\              IIIIIIIIII \       
 [factor]                               preocuparse o no ha podido controlar su    2\. Varios días\                     377 (30.1%)\              IIIIII \           
                                                                                   3\. Más de la mitad de los dí\       101 ( 8.1%)\              I \                
                                                                                   4\. Casi todos los días\             145 (11.6%)\              II \               
                                                                                   5\. No sabe\                         0 ( 0.0%)\                \                  
                                                                                   6\. No responde                      0 ( 0.0%)                                    
 
-c2_3\                                  Ãšltimas 2 semanas: Se ha sentido          1\. Nunca\                           529 (42.3%)\              IIIIIIII \         
+c2_3\                                  Últimas 2 semanas: Se ha sentido           1\. Nunca\                           529 (42.3%)\              IIIIIIII \         
 [factor]                               bajoneado, deprimido, irritable o          2\. Varios días\                     454 (36.3%)\              IIIIIII \          
                                        desesperanzad                              3\. Más de la mitad de los dí\       104 ( 8.3%)\              I \                
                                                                                   4\. Casi todos los días\             165 (13.2%)\              II \               
                                                                                   5\. No sabe\                         0 ( 0.0%)\                \                  
                                                                                   6\. No responde                      0 ( 0.0%)                                    
 
-c2_4\                                  Ãšltimas 2 semanas: Ha sentido poco        1\. Nunca\                           679 (54.1%)\              IIIIIIIIII \       
-[factor]                               interÃ©s o placer al hacer las cosas       2\. Varios días\                     358 (28.5%)\              IIIII \            
+c2_4\                                  Últimas 2 semanas: Ha sentido poco         1\. Nunca\                           679 (54.1%)\              IIIIIIIIII \       
+[factor]                               interés o placer al hacer las cosas        2\. Varios días\                     358 (28.5%)\              IIIII \            
                                                                                   3\. Más de la mitad de los dí\       89 ( 7.1%)\               I \                
                                                                                   4\. Casi todos los días\             128 (10.2%)\              II \               
                                                                                   5\. No sabe\                         0 ( 0.0%)\                \                  
                                                                                   6\. No responde                      0 ( 0.0%)                                    
 
-fatiga\                                Me siento cada vez mÃ¡s desmotivado para   Media (d-s) : 2.8 (1.1)\             1 :  84 ( 6.8%)\          I \                
-[haven_labelled, vctrs_vctr, double]   seguir las medidas de protecciÃ³n...       min < mediana < max:\                2 : 588 (47.3%)\          IIIIIIIII \        
+fatiga\                                Me siento cada vez más desmotivado para    Media (d-s) : 2.8 (1.1)\             1 :  84 ( 6.8%)\          I \                
+[haven_labelled, vctrs_vctr, double]   seguir las medidas de protección...        min < mediana < max:\                2 : 588 (47.3%)\          IIIIIIIII \        
                                                                                   1 < 2 < 5\                           3 :  76 ( 6.1%)\          I \                
                                                                                   RI (CV) : 2 (0.4)                    4 : 432 (34.8%)\          IIIIII \           
                                                                                                                        5 :  63 ( 5.1%)           I                  
@@ -372,7 +370,7 @@ Podemos saber si se cumple este supuesto a partir de un *gráfico de dispersión
 check_model(model1, check = c("ncv", "linearity"))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 
 En este caso podemos notar claramente que no hay una relación lineal. En caso de que no sea claro, una forma numérica para chequear este supuesto es que el valor promedio de los residuos sea cero. Si esto no es así los residuos están sesgados sistemáticamente, entonces probable que el modelo no sea realmente lineal, y esta desviación de los residuos deba corregirse re-especificando (medir de otra manera la variable) algún término de la ecuación de regresión al cuadrado o al cubo. Un modo que se ocupa para testear la necesidad de esta re-especificación es el test RESET de Ramsey que indica que:
@@ -454,7 +452,7 @@ Para evaluar esto ocuparemos el comando `check_collinearity()`. Como podemos ver
 plot(check_collinearity(model1))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 Ahora bien, dado que sabemos que las correlaciones en ciencias sociales nunca son tan altas, un criterio que se ocupa en nuestras disciplinas para evaluar *multicolinealidad* es es evitar valores del VIF mayores a 2.5.
 
@@ -491,7 +489,7 @@ Primero podemos graficar la influencia de los casos con `check_outliers()` dentr
 plot(check_outliers(model1))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 Luego para verificar si la ausencia o presencia de eliminar algunos de estos casos que presentan mayor distancia producen una **diferencia** significativa en la estimación del modelo, realizamos
 
@@ -624,11 +622,10 @@ print(dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "
 --------------------------------------------------------------------------------------------------------------------------------------------------
 Variable    Etiqueta                                Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos  
 ----------- --------------------------------------- ------------------------------------ ------------------------- ---------- --------- ----------
-ingreso\    Monto de ingreso total de su hogar el   Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     \          942\      319\      
+ingreso\    Monto de ingreso total de su hogar el   Media (d-s) : 679414.7 (836325.7)\   151 valores distintos     :\         942\      319\      
 [numeric]   mes de noviembre de 2020                min < mediana < max:\                                          :\         (74.7%)   (25.3%)   
                                                     0 < 4e+05 < 1.2e+07\                                           :\                             
                                                     RI (CV) : 450000 (1.2)                                         :\                             
-                                                                                                                   :\                             
                                                                                                                    : .                            
 
 tingreso\   Tramo de ingreso total de su hogar el   1\. Menos de $200 mil pesos\         47 (22.5%)\               IIII \     209\      1052\     
@@ -678,11 +675,10 @@ print(dfSummary(., headings = FALSE, method = "render", varnumbers = F, lang = "
 ----------------------------------------------------------------------------------------------------------
 Variable    Estadísticas / Valores               Frec. (% sobre válidos)   Gráfico    Válido    Perdidos  
 ----------- ------------------------------------ ------------------------- ---------- --------- ----------
-ingreso\    Media (d-s) : 664667.4 (811775.8)\   155 valores distintos     \          1151\     110\      
+ingreso\    Media (d-s) : 664667.4 (811775.8)\   155 valores distintos     :\         1151\     110\      
 [numeric]   min < mediana < max:\                                          :\         (91.3%)   (8.7%)    
             0 < 4e+05 < 1.2e+07\                                           :\                             
             RI (CV) : 450000 (1.2)                                         :\                             
-                                                                           :\                             
                                                                            : .                            
 
 tingreso\   Media (d-s) : 598198.6 (688242.3)\   200000 : 47 (22.5%)\      IIII \     209\      1052\     
@@ -844,19 +840,19 @@ Luego, podemos hacer un chequeo general de diagnósticos de robustez con `check_
 check_model(model1_fit, check = c("vif","normality", "linearity", "ncv", "homogeneity"))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 ```r
 check_model(model2, check = c("vif",  "normality", "linearity", "ncv", "homogeneity"))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-29-2.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-29-2.png" width="672" />
 
 ```r
 check_model(model3, check = c("vif",  "homogeneity"))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-29-3.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-29-3.png" width="672" />
 
 
 Existen otros diagnósticos posibles para abordar en nuestros modelos, todo con el propósito de mejorar la calidad de estos. Uno de ellos, y que no abordaremos por su extensión, es la ausencia de
@@ -1176,16 +1172,16 @@ compare_performance(model1_fit, model2) %>%
 
 Table: Comparison of Model Performance Indices
 
-|Name       | Model |     AIC |     BIC |   R2 | R2 (adj.) | RMSE | Sigma |
-|:----------|:-----:|:-------:|:-------:|:----:|:---------:|:----:|:-----:|
-|model1_fit |    lm | 3452.28 | 3487.48 | 0.02 |      0.01 | 1.11 |  1.11 |
-|model2     |    lm | 3452.24 | 3487.44 | 0.02 |      0.01 | 1.11 |  1.11 |
+|Name       | Model |     AIC | AIC weights |     BIC | BIC weights |   R2 | R2 (adj.) | RMSE | Sigma |
+|:----------|:-----:|:-------:|:-----------:|:-------:|:-----------:|:----:|:---------:|:----:|:-----:|
+|model1_fit |    lm | 3452.28 |       0.495 | 3487.48 |       0.495 | 0.02 |      0.01 | 1.11 |  1.11 |
+|model2     |    lm | 3452.24 |       0.505 | 3487.44 |       0.505 | 0.02 |      0.01 | 1.11 |  1.11 |
 
 ```r
 plot(compare_performance(model1_fit, model2))
 ```
 
-<img src="/example/10-practico_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="/example/11-practico_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 Ahora bien, esto no quita que, considerando que el ajuste entre el `model1_fit` y el `modelo2` no cambia sustantivamente, consideremos en seleccionar el `modelo3` por criterios más sustantivos. Podemos asegurarnos de esta comparación entre el modelo1 y modelo2 con un test que permite facilitar la decisión sobre la significancia de los índices que estamos viendo
 

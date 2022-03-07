@@ -1,11 +1,11 @@
 ---
 title: "Importar, explorar y limpiar datos"
-linktitle: "3: Importar, explorar y limpiar datos"
+linktitle: "4: Importar, explorar y limpiar datos"
 date: "2021-08-23"
 menu:
   example:
     parent: Ejemplos
-    weight: 3
+    weight: 4
 type: docs
 toc: true
 editor_options: 
@@ -14,7 +14,7 @@ editor_options:
 <link href="/rmarkdown-libs/tile-view/tile-view.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/tile-view/tile-view.js"></script>
 <link href="/rmarkdown-libs/animate.css/animate.xaringan.css" rel="stylesheet" />
-<script type="application/json" id="xaringanExtra-editable-docid">{"id":"x2b4e31848f848f790fd255bd7752802","expires":14}</script>
+<script type="application/json" id="xaringanExtra-editable-docid">{"id":"x6629835701e402f90aac53c608d8cd6","expires":14}</script>
 <script src="/rmarkdown-libs/himalaya/himalaya.js"></script>
 <script src="/rmarkdown-libs/js-cookie/js.cookie.js"></script>
 <link href="/rmarkdown-libs/editable/editable.css" rel="stylesheet" />
@@ -27,7 +27,7 @@ editor_options:
 <script src="/rmarkdown-libs/fabric/fabric.min.js"></script>
 <link href="/rmarkdown-libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/xaringanExtra-scribble/scribble.js"></script>
-<script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+<script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
 <script src="/rmarkdown-libs/clipboard/clipboard.min.js"></script>
 <link href="/rmarkdown-libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
@@ -46,25 +46,26 @@ Este práctico tiene por objeto introducir a las y los estudiantes del curso en 
 
 ## 1. Recursos de la práctica
 
-Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego _input/data_ de su repositorio. Para descomprimir los [archivos revisen](resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` o en STATA `Casen en Pandemia 2020 SPSS.dta`
+Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego descomprimirlo en la carpeta _input/data_ de su repositorio. Para descomprimir los [archivos revisen](resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` y en STATA `Casen en Pandemia 2020 SPSS.dta`
 
 Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
 ## 2. Librerias a utilizar
 
-En este práctico utilizaremos cuatro paquetes
+En este práctico utilizaremos seis paquetes
 
 1. `pacman`: este facilita y agiliza la lectura de los paquetes a utilizar en R
 
 2. `sjmisc`: explorar datos
 
-3. `tidyverse`: colección de paquetes, del cuál utilizaremos `dplyr` y `haven`
+3. `tidyverse`: colección de paquetes, de la cual utilizaremos `dplyr` y `haven`
 
-4. `haven`: cargar y exportar bases de datos en formatos .sav y .dta
+4. `dplyr`: nos permite seleccionar variables de un set de datos
 
-5. `readxl` y `writexl`: para cargar y exportar bases de datos en formato .xlsx y .xls
+5. `haven`: cargar y exportar bases de datos en formatos .sav y .dta
 
-6. `dplyr`: nos permite seleccionar variables de un set de datos
+6. `readxl` y `writexl`: para cargar y exportar bases de datos en formato .xlsx y .xls
+
 
 # Pasos del procesamiento
 
@@ -86,7 +87,7 @@ pacman::p_load(sjmisc,
 
 Para poder realizar análisis estadístico de cualquier tipo, el primer paso - sin considerar, por supuesto, la formulación de un problema de investigación, y la búsqueda de datos que permitan resolverlo - es **importar una base de datos**. Por razones obvias, si no hemos cargados los datos en el *entorno*, no seremos capaces de realizar ningún otro procedimiento, ni de preparación de los datos - por ejemplo, seleccionar variables, recodificarlas, construir variables sumativas, entre otros -, ni de análisis de estos - ya sean descriptivos, relacionales, explicativos, y así. 
 
-Una de las bondades de **R** es que es posible importar fácilmente datos que se encuentren en *cualquier formato*: ya sea .csv, .dta, .sav, .xlsx y, por supuesto, .RData. Para poder hacerlo, sin embargo, lo primero es *instalar* y *cargar* las **librerías** que contienen las **funciones** necesarias para la importación de distintos tipos de archivos. 
+Una de las bondades de **R** es que es posible importar y exportar fácilmente datos que se encuentren en *cualquier formato*: ya sea .csv, .dta, .sav, .xlsx y, por supuesto, .rds y .RData. Para poder hacerlo, sin embargo, lo primero es *instalar* y *cargar* las **librerías** que contienen las **funciones** necesarias para la importación de distintos tipos de archivos. 
 
 
 ### 2.1. Cargar set de datos
@@ -97,9 +98,9 @@ Una vez cargado el paquete `haven`, procedemos a *importar* los datos anteriorme
 
 
 
-Antes ¿dónde están nuestros datos? Por lo general, nuestros datos los dejaremos en la carpeta `input/data`. En el [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing) podrán descargar el archivo .zip que contiene la base de CASEN. Si aún no sabes como descomprimir datos, por favor revisa [aquí](https://learn-r-udp.netlify.app/resource/unzipping/). 
+Antes ¿dónde están nuestros datos? Por lo general, nuestros datos los dejaremos en la carpeta `input/data`. En el [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing) podrán descargar el archivo .zip que contiene la base de CASEN 2020. Si aún no sabes como descomprimir datos, por favor revisa [aquí](https://learn-r-udp.netlify.app/resource/unzipping/). 
 
-Luego de que hayas **descargado y descomprimido los datos** asegurate de dejar el archivo `.sav` y `.dta` en la carpeta de tu proyecto `input/data`. Los datos se llamarán en formato SPPS `Casen en Pandemia 2020 SPSS.sav` o en STATA `Casen en Pandemia 2020 SPSS.dta`.
+Luego de que hayas **descargado y descomprimido los datos** asegurate de dejar el archivo `.sav` y `.dta` en la carpeta de tu proyecto `input/data`. Los datos tendrán distinto nombre según su formato: `Casen en Pandemia 2020 SPSS.sav` o `Casen en Pandemia 2020 SPSS.dta`.
 
 
 {{< div "note" >}}
@@ -112,7 +113,7 @@ Para **importar** los datos en R debemos tener en consideración tres cosas:
 3. El lugar de donde están alojados nuestros datos. 
 {{< /div >}}
 
-El [paquete `haven`](https://haven.tidyverse.org/) tiene una serie de funciones para cargar datos llamadas `read_*` (el asterisco indica el formato). Para oculparlo solo debes tener en claro los puntos anteriores
+El [paquete `haven`](https://haven.tidyverse.org/) tiene una serie de funciones para cargar datos llamadas `read_*` (luego del asterisco, debemos indicar el formato de los datos). Para ocuparlo solo debes tener en claro los puntos anteriores
 
 `read_*("ruta_hacia_archivo/nombre_archivo.*"``. En nuestro caso:
 
@@ -130,25 +131,25 @@ Los dos primeros comandos no funcionan porque
 
 2. El nombre de la base no es exacto
 
-¡Dos errores muy frecuentes cuando uno se inicia! Ahora, ¿cómo se si está bien mi base? Primero, notarás que en tu **Enviroment** se ha creado un objeto. En nuestro caso objeto posee650 variables (columnas), pero conserva las filas 185.437 (u observaciones)
+¡Dos errores muy frecuentes cuando uno se inicia! Ahora, ¿cómo sé si están bien los datos que acabo de cargar? Primero, notarás que en tu **Enviroment** se ha creado un objeto. En nuestro caso objeto posee 650 variables (columnas), y 185.437 filas (u observaciones)
 
 ¡Ahora es tu turno! Intenta hacer este procedimiento con los datos en `.dta`. También puedes encontrar este archivo en el enlace.
 
 ### 2.1.1 Cargar set de datos en otros formatos. 
 
-Ahora bien, no siempre este procedimiento será tan fácil sobre todo pues no siempre vendrán en formatos "limpios". La gran forma de lidiar con eso es con la **manipulación de datos** (algo que nos tomará tiempo en este curso), pero de todas formas es de gran ayuda utilizar de manera correcta la importación de datos. Nos puede solucionar varios problemas de codificación y lectura. 
+Ahora bien, no siempre este procedimiento será tan fácil sobre todo pues no siempre vendrán en formatos "limpios". La gran forma de lidiar con eso es con la **manipulación de datos** (algo que nos tomará tiempo en este curso), pero de todas formas es de gran ayuda importar los datos de manera correcta, pues ello nos puede solucionar varios problemas de codificación y lectura. 
 
-Para poder abordar esto de la mejor manera es necesario utilizar funciones *ad hoc* al formato de nuestros datos. Como se mencionó anteriormente, con R es muy flexible en esto. En los siguientes pasos les mostraremos como cargar en otros formatos y reconociendo algunos de los *problemas comunes con los cuáles te encontrarás* (de seguro...)
+Para poder abordar esto de la mejor manera es necesario utilizar funciones *ad hoc* al formato de nuestros datos. Como se mencionó anteriormente, R es muy flexible en esto. En los siguientes pasos les mostraremos como cargar datos en otros formatos, reconociendo algunos de los *problemas comunes con los cuáles te encontrarás* (de seguro...)
 
 #### a) `.dta`
 
-Este es el formato específico de base de datos para STATA. Por ello, utilizaremos la función `read_dta()` (también está como `read_stata()`), incluida en el paquete `haven`.
+Este es el formato específico de base de datos para STATA. Por ello, utilizaremos la función `read_dta()` (o `read_stata()`, que es lo mismo), incluida en el paquete `haven`.
 
 
 
 #### b) .RData y .rds
 
-¿Y R tiene formato de datos? ¡Sí! Como son propios del programa **no es necesario cargar paquetes** pues sus funciones provienen del paquete  `base`. La diferencia básica entre `.RData` y `.rds` es que `.rds` puede contener solo un objeto del *Enviroment* de R, mientras que `.RData` puede contener múltiples objetos que han sido guardados en `.rds`.
+¿Y R tiene formato de datos? ¡Sí! Como son propios del programa **no es necesario cargar paquetes**, pues las funciones para importarlos provienen del paquete `base`. La diferencia básica entre `.RData` y `.rds` es que `.rds` puede contener solo un objeto del *Enviroment* de R, mientras que `.RData` puede contener múltiples objetos que han sido guardados en el entorno (¡no sólo datos! también se guardarán gráficos, modelos, entre otros).
 
 {{< div "note" >}}
 *Leer un objeto proveniente de un archivo*
@@ -159,7 +160,7 @@ readRDS(file = "datos.rds")
 load(file = "datos.RData")
 {{</div>}}
 
-Además de **nunca olvidar la ruta**, no debes olvidar una diferencia de codificación entre ambas funciones: con `load()` los objetos se cargan *automáticamente* en el ambiente, mientras que en `readRDS()` no. Solamente "llama" a los archivos, pero no los deja como un objeto dentro del *Enviroment*. 
+Además de **nunca olvidar la ruta**, no debes olvidar una diferencia de codificación entre ambas funciones: con `load()` los objetos se cargan *automáticamente* en el ambiente, por lo cual no debemos utilizar operadores de asignación (`<-` o `=`) para crear un nuevo objeto, mientras que en `readRDS()` **sí debemos asignar un nuevo objeto en el ambiente**. 
 
 
 ```r
@@ -201,6 +202,7 @@ Su estructura es muy simple `read.*(file = "datos.*")`. Ahora bien tiene una ser
 - [`sep`]: indica con qué están separadas las columnas (*; , -*)
 
 - [`dec`]: indica como están separados los decimales (*. ,*)
+
 - [`na-strings`]: indica como están codificados los `NA` (¡podría ser más de una forma!)
 
 - [`encoding`]:puede ser `UTF-8` o `Latin-1`
@@ -223,12 +225,14 @@ Muchos problemas, ¡vamos solucionado!
 ```r
 datos <- read.csv("input/data/CASEN.csv", sep=";", 
                   encoding = "Latin-1", stringsAsFactors = F, na.strings = c("No sabe", NA))
+
+head(datos)
 ```
 
 
 #### d) `.xlsx` 
 
-A partir del paquete `readxl` de `tidyverse` podremos obtener datos que provienen de Excel (tanto en formato `.xls` como `.xlsx`). Ocuparemos la función `read_excel()`, la cual tiene similares argumentos a `read.csv()`
+A partir del paquete `readxl` de `tidyverse` podremos obtener datos que provienen de Excel (tanto en formato `.xls` como `.xlsx`). Ocuparemos la función `read_excel()`, la cual tiene argumentos similares a los que revisamos en `read.csv()`
 
 {{< div "note" >}}
 `read_excel("datos.xlsx", sheet = "Hoja 1", range = "A1:C40")`
@@ -261,7 +265,7 @@ datos <- read_dta("input/data/Casen en Pandemia 2020 SPSS.dta")
 
 ## 3. Explorar datos 
 
-Lo más probable es que, una vez importados los datos a utilizar, no trabajemos con el total de variables incluidas en estos (que, en este caso, suman un total de *650* columnas). Es por ello, que debemos **seleccionar** las variables de interés para resolver nuestro problema de investigación (sea el que sea). 
+Lo más probable es que, una vez importados los datos a utilizar, no trabajemos con el total de variables incluidas en estos (que, en este caso, suman un total de *650* columnas ¡imaginen qué locura sería!). Es por ello que debemos **seleccionar** las variables de interés para resolver nuestro problema de investigación (sea el que sea). 
 
 Antes de seleccionar las variables debemos **explorar nuestros datos**, si no ¿cómo saber qué seleccionar y qué no? En R base las funciones clásicas para explorar datos son
 
@@ -273,7 +277,7 @@ dim(datos) # Dimensiones
 str(datos) # Estructura de los datos (las clases y categorias de repuesta)
 ```
 
-A pesar de que son fáciles de aprender, no tienen una visualización muy amena. Un excelente paquete para explorar datos es `sjmisc` quien tiene tres funciones claves:
+A pesar de que son fáciles de aprender, no tienen una visualización muy amena. Un excelente paquete para explorar datos es `sjmisc`, que tiene tres funciones claves:
 
 - [`View_df()`]: que en el visor "Viewer" les mostrará una tabla que tiene el nombre de variable, etiqueta y categorías de respuesta
 
@@ -283,7 +287,7 @@ A pesar de que son fáciles de aprender, no tienen una visualización muy amena.
 
 - [`descr()`]: nos otorga estadísticos de tendencia central para la variable numérica seleccionada. 
 
-*Ver datos en el visor*
+*Ver datos en el visor de RStudio*
 
 ```r
 sjPlot::view_df(datos)
@@ -1479,34 +1483,9 @@ Para las variables numeric, en cambio, podemos utilizar la función `descr()` de
 
 Un punto que ya se hace evidente de empezar a trabajar son como reconocer y trabajar **los distintos tipos de variables en R**. Si bien al inicio no es tan intuitivo ¡no te preocupes! Cuando uno avanza en el aprendizaje del programa de a poco estos conceptos se asimilan más. 
 
-Partamos por lo básico que ustedes ya saben de sus cursos de estadística: **los niveles de medición**:  sabemos que el nivel de medición de la variable *género* es *nominal* y, por lo tanto, sólo nos permite clasificar a unas personas u otras. Por ello, no podemos, por ejemplo, calcular el promedio del género de una muestra. Por otra parte, la variable *edad* presenta un nivel de medición *de razón*, por lo cual sí podemos realizar con ella operaciones aritméticas y, en consecuencia, es posible, por ejemplo, calcular el promedio de edad de la muestra con que estamos trabajando. 
+Partamos por lo básico que ustedes ya saben de sus cursos de estadística: **los niveles de medición**.  Sabemos que el nivel de medición de la variable *género* es *nominal* y, por lo tanto, sólo nos permite clasificar a unas personas u otras. Por ello, no podemos, por ejemplo, calcular el promedio del género de una muestra. Por otra parte, la variable *edad* presenta un nivel de medición *de razón*, por lo cual sí podemos realizar con ella operaciones aritméticas y, en consecuencia, es posible, por ejemplo, calcular el promedio de edad de la muestra con que estamos trabajando. 
 
-La función `class()`, incluido en el *paquete base* de R, nos permite saber la *clase* de una variable determinada con la cual deseemos trabajar. También nos permite conocer la clase de otros objetos en R, pero no es algo que utilizaremos (aún).
-
-### a) `numeric`
-
-Una variable puede presentar la clase  `numeric`, lo cual significa que sus datos *sólo incorporan números*. Así, es posible, por ejemplo, calcular el promedio para este tipo de variables. En *Casen en Pandemia 2020*, una de las variables `numeric` incluidas es *Ingreso total per cápita del hogar corregido* (codificada como ypchtotcor).
-
-
-```r
-class(datos$ypchtotcor)
-```
-
-```
-## [1] "numeric"
-```
-
-### b) `character`
-
-Una variable de clase `character` puede incluir tanto números como letras. Si bien con estas variables no es posible calcular, por ejemplo, promedios, sí podemos calcular frecuencias (absolutas y relativas), entre otros. 
-
-### c) `Logic`
-
-Una variable de clase `Logic` incluye valores lógicos, como TRUE (T) o FALSE (F). Los valores nulos (NA) también son valores lógicos. Este tipo de variables nos pueden servir a la hora de crear funciones, lo cual no se revisará en este práctico.
-
-### d) `factor`
-
-Una variable de clase `factor` puede incluir tanto números como letras. Es una especie de variable `character`, pero recodificada de modo que los posibles valores sean etiquetados. Las bases de datos no suelen incluirlas a priori, por lo que lo usual es que debamos realizar un proceso de *recodificación* para poder trabajar una variable como factor. ¡Esto último será tratado en el siguiente práctico!
+Como revisamos en el práctico anterior La función `class()`, incluido en el *paquete base* de R, nos permite saber la *clase* de una variable determinada con la cual deseemos trabajar. También nos permite conocer la clase de otros objetos en R, pero no es algo que utilizaremos (aún).
 
 #### En resumen:
 
@@ -1520,20 +1499,22 @@ Una variable de clase `factor` puede incluir tanto números como letras. Es una 
 
 ## 3.1. Selección de variables
 
-Luego de revisar el nivel de medición de las variables y reconociendo la distribución de los datos que tenemos, es evidente que lo mejor es solamente trabajar con un *subset* de una base de datos con las variables que queremos transformar.
+Luego de revisar el nivel de medición de las variables, y reconociendo la distribución de los datos que tenemos, es evidente que lo mejor es solamente trabajar con un *subconjunto* de los datos con las variables que queremos transformar.
 
-Para asegurarnos que variables queremos utilizar deberíamos ir al libro de códigos, pero también podemos elegir y decidir de manera más certera qué variables incorporar a partir de la revisión con `find_var()`. En esta sección no profundizaremos distintas formas de seleccionar datos. Solo les mostraremos de manera simple como seleccionar dos variables de nuestro interés:
+Para asegurarnos de saber exactamente qué variables queremos utilizar deberíamos ir al libro de códigos, pero también podemos elegir y decidir de manera más certera qué variables incorporar a partir de la revisión con `find_var()`. En esta sección no profundizaremos en distintas formas de seleccionar datos (¡ello lo veremos **a fondo** en el siguiente práctico!). Solo les mostraremos de manera simple cómo seleccionar algunas variables de nuestro interés:
 
 - `ypchtotcor`: Ingresos del hogar
 - `v13`: "Su hogar, ¿bajo qué situación ocupa la vivienda?"
 - `v29`: "¿Cuántos dormitorios de uso exclusivo ocupa su hogar en esta vivienda?"
 - `p6`: "¿Cuántas personas viven habitualmente en esta vivienda?"
 
-Crearemos una base procesada llamado `datos_proc`, que sólo incluirá estas tres variables. 
+Crearemos una base procesada llamada `datos_proc`, que sólo incluirá estas cuatro variables. 
 
 
 
 Como podemos ver en el ambiente (Environment), se creó un nuevo objeto llamado `datos_proc`, que tiene la misma cantidad de observaciones (filas) que datos, pero que sólo incluye 4 de las 650 variables iniciales. 
+
+**IMPORTANTE**: objetos que tengan el mismo nombre **se sobreescriben**. Les recomendamos que, siempre que seleccionen variables (o que manipulen sus datos de cualquier manera), creen un objeto cuyo nombre sea distinto al original. Podemos, por ejemplo, incorporar el sufijo **_proc** como lo hicimos en este práctico.
 
 ## 4. Limpieza de datos
 
@@ -1594,7 +1575,7 @@ nrow(datos_proc) #La nueva base de datos tiene 5.387 filas y 4 columnas
 
 Por último, una vez que hayamos procesado los datos, es importante que los **guardemos** en una nueva base de datos procesada, para no tener que llevar a cabo el procesamiento otra vez.
 
-Al igual que en el paso de carga de datos, y a partir del flujo de `input-R-output`propuesto, es esperable que estos datos procesados (o intermedios) los guardemos en `output/data` para que se entienda que provienen de un proceso de manipulación personal
+Al igual que en el paso de carga de datos, y a partir del flujo de `input-R-output` propuesto, es esperable que estos datos procesados (o intermedios) los guardemos en `output/data`, pues son el resultado de un proceso de manipulación anterior (como pueden ser aquellos que realizamos en nuestro **código de procesamiento**)
 
 El archivo se puede guardar en distintos formatos: 
 
@@ -1614,8 +1595,15 @@ Es lo recomendable, si el resto del análisis lo realizaremos en R.
 
 
 ```r
-save(datos_proc, file = "output/data/datos_proc.RData") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.RData. 
+save(file = "output/data/datos_proc.RData") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.RData. 
+```
 
+```
+## Warning in save(file = "output/data/datos_proc.RData"): nothing specified to be
+## save()d
+```
+
+```r
 saveRDS(datos_proc, file= "output/data/datos_proc.rds") #Guardamos el objeto datos_proc en la ruta de trabajo actual, bajo el nombre de datos_proc.rds. 
 ```
 

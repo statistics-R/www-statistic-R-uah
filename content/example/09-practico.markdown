@@ -1,2001 +1,733 @@
 ---
-title: "Regresión logística"
-linktitle: "9: Regresión logística"
-date: "2021-08-24"
+title: "Muestras complejas y precisión de inferencia estadística"
+linktitle: "9: Muestras complejas y precisión de inferencia estadística"
+date: "2021-09-16"
 menu:
   example:
     parent: Ejemplos
-    weight: 10
+    weight: 9
 type: docs
-toc: yes
 editor_options: 
   chunk_output_type: console
+output: 
+  html_document: 
+    toc: yes
 ---
 
 
 
-## 0. Objetivos del práctico
+## 0. Objetivo del práctico
 
-Este práctico tiene por objetivo presentar cómo crear modelos de regresión logística - con y sin consideración de diseño muestral - en R, con predictores categóricos y cuantitativos; cómo exponenciar los coeficientes para facilitar su interpretación; y, por último, herramientas de visualización de los modelos generados (sobre todo con `texreg`). Por supuesto, seguimos en el proceso de **análisis de datos**
-
-![](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)
+Este práctico tiene por objetivo introducir el trabajo estadístico con **muestras complejas en R**, es decir, cuando se trabaja con muestras que busquen ser representativas de la población a estudiar, bajo determinados parámetros. Buscaremos calcular estimadores puntuales e intervalos de confianza, que nos permiten reportar el error asociado a la inferencia. 
 
 ## 1. Recursos del práctico
 
-Este práctico fue elaborado con datos de la [**Encuesta Suplementaria de Ingresos (ESI)**](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos) en su versión 2020. Cuando trabajen con algún set de datos, nunca olviden revisar la documentación metodológica anexa, así como el [libro de códigos](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-guía-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4) correspondiente. 
+El presente práctico será realizado con datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Estos datos ya han sido previamente procesados para su correcta realización, recodificando y eliminando casos perdidos, y renombrando y seleccionando variables. Esto es **muy importante**: para trabajar correctamente con muestreos complejos, **deben** asegurarse de que los datos estén bien preparados para ello. 
 
-Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo `factor`. Pueden revisar el script `proc.R` ubicado en la carpeta `R`, para profundizar en el tratamiento de los datos. 
+Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
+
+### Material del práctico
+
+- [<i class="fas fa-file-archive"></i> `07-clase.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
+
 
 ## 2. Librerías a utilizar
 
-En este práctico utilizaremos seis paquetes
+Utilizaremos las siguientes librerías:
 
-1. `pacman`: este facilita y agiliza la lectura de los paquetes a utilizar en R;
+1. `pacman`: para facilitar y agilizar la lectura de los paquetes a utilizar en R
 
-2. `tidyverse`: colección de paquetes;
+2. `sjmisc`: para explorar datos y hacer cálculos agrupados
 
-3. `srvyr`: para crear el objeto encuesta;
+3. `srvyr`: para trabajar con objetos encuesta
 
-4. `survey`: para crear modelos incorporando el diseño muestral;
+4. `survey`: para realizar estimaciones a nivel poblacional en diálogo con `dplyr`
 
-5. `sjPlot`: para presentar tablas y gráficos con los modelos creados;
-
-6. `remotes`: para instalar `texreg` desde GitHub;
-
-7. `texreg`: para crear tablas en formato publicable. 
+4. `dplyr`: para manipular datos
 
 # Pasos del procesamiento
 
 ## 1. Cargar librerías
 
-Como en las prácticas anteriores, empleamos la función `p_load` de la librería `pacman`. También utilizamos la función `install_github()` de `remotes` para poder instalar la librería `texreg`
+Cargamos los paquetes anteriormente señalados:
 
 
 ```r
-remotes::install_github("leifeld/texreg", force = T)
-```
-
-```
-## mime (0.10 -> 0.12 ) [CRAN]
-## curl (4.3  -> 4.3.2) [CRAN]
-## package 'mime' successfully unpacked and MD5 sums checked
-## package 'curl' successfully unpacked and MD5 sums checked
-```
-
-```
-## Warning: cannot remove prior installation of package 'curl'
-```
-
-```
-## Warning in file.copy(savedcopy, lib, recursive = TRUE): problema al copiar C:
-## \Program Files\R\R-4.0.4\library\00LOCK\curl\libs\x64\curl.dll a C:\Program
-## Files\R\R-4.0.4\library\curl\libs\x64\curl.dll: Permission denied
-```
-
-```
-## Warning: restored 'curl'
-```
-
-```
-## 
-## The downloaded binary packages are in
-## 	C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\downloaded_packages
-##   
-  
-  
-   checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' ...
-  
-   checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' ... 
-  
-v  checking for file 'C:\Users\Valentina Andrade\AppData\Local\Temp\RtmpIPjCpe\remotes2f0467945c23\leifeld-texreg-92e3931/DESCRIPTION' (392ms)
-## 
-  
-  
-  
--  preparing 'texreg': (2.1s)
-##    checking DESCRIPTION meta-information ...
-  
-   checking DESCRIPTION meta-information ... 
-  
-v  checking DESCRIPTION meta-information
-## 
-  
-  
-  
--  checking for LF line-endings in source and make files and shell scripts (836ms)
-## 
-  
-  
-  
--  checking for empty or unneeded directories
-## 
-  
-  
-  
--  building 'texreg_1.38.2.tar.gz'
-## 
-  
-   
-## 
-```
-
-```r
-pacman::p_load(sjPlot, 
-               tidyverse, 
+pacman::p_load(tidyverse,
+               sjmisc,
                srvyr,
                survey,
-               remotes,
-               texreg)
+               dplyr)
 ```
+
 
 ## 2. Cargar datos
 
-Como se señaló anteriormente, en este práctico se trabajará con los datos de la **Encuesta Suplementaria de Ingresos (ESI)** en su versión 2020. Esta se encuentra en la carpeta "input/data", en formato .rds, habiendo sido procesada anteriormente. Por ello, empleamos la función `readRDS()` de la librería `base` de R.
+Como se señaló anteriormente, trabajaremos con datos de CASEN 2020, ya procesados con anterioridad
+
+
 
 
 ```r
-datos <- readRDS("input/data/data_proc.rds")
+dim(data)
 ```
 
-Podemos darnos cuenta de que el set de datos presenta 26.821 observaciones (o filas), y 7 variables (o columnas), que incluyen a las variables `ing_t_t`,, `edad`, `sexo`, `est_conyugal`, `ciuo08`, `fact_cal_esi` y `ing_medio`. Esta última discrimina si el sujeto presenta ingresos mayores o iguales (1) a la media de `ing_t_t` o no (0). Para mayor detalle, revisar el script `proc.R` ubicado en la carpeta `R`, para profundizar en el tratamiento de los datos. 
+```
+## [1] 185339      7
+```
+
+Como podemos ver, estos datos tienen 185.339 filas (observaciones), así como 7 columnas. Inspeccionemos: 
+
+
+```r
+head(data)
+```
+
+```
+## # A tibble: 6 x 7
+##     exp varunit varstrat region   pobreza   ing_tot_hog sexo  
+##   <dbl>   <dbl>    <dbl> <fct>    <fct>           <dbl> <fct> 
+## 1    67       3        1 Tarapacá No pobres      390833 Mujer 
+## 2    67       3        1 Tarapacá No pobres      390833 Mujer 
+## 3    67       3        1 Tarapacá No pobres      947583 Mujer 
+## 4    67       3        1 Tarapacá No pobres      947583 Hombre
+## 5    67       3        1 Tarapacá No pobres      947583 Mujer 
+## 6    67       3        1 Tarapacá No pobres     3004167 Hombre
+```
+
+Tenemos tanto variables numéricas (exp, varunit, varstrat e ing_tot_hog) como factores (region, pobreza y sexo). ¡Explorémoslas!
 
 ## 3. Explorar datos
 
-A continuación, usaremos la función `view_df()` del paquete `sjPlot`, que presenta un resumen de las variables contenidas en el set de datos, que nos permitirá identificar la _etiqueta_ de cada variable y de cada una de sus alternativas de respuesta. 
+Con `frq()` de `sjmisc`, exploraremos las categorías de las variables factor:
 
 
 ```r
-sjPlot::view_df(datos,
-                encoding = 'latin9')
+frq(data$region)
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<caption>Data frame: datos</caption>
-<tr>
-<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">ing_t_t</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Total ingresos del trabajo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0.0-18045761.6</em></td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">edad</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Edad de la persona</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 15-93</em></td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">sexo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Sexo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Hombre<br>Mujer</td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">est_conyugal</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Con pareja<br>Sin pareja</td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">ciuo08</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">b1. Grupo ocupacional segÃºn CIUO 08 - 1 dÃ­gito</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Directores, gerentes y administradores<br>Profesionales, cientÃ­ficos e intelectuales<br>TÃ©cnicos y profesionales de nivel medio<br>Personal de apoyo administrativo<br>Trabajadores de los servicios y vendedores de comercios y mercados<br>Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros<br>Artesanos y operarios de oficios<br>Operadores de instalaciones, maquinas y ensambladores<br>Ocupaciones elementales<br>Otros no identificados<br>Sin clasificaciÃ³n</td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">fact_cal_esi</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Factor de expansiÃ³n ESI con nueva calibraciÃ³n,<br>proyecciones de poblaciÃ³n</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 6.7-7070.1</em></td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">7</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">ing_medio</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Â¿Mayor que el ingreso medio?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">0<br>1</td>
-</tr>
-
-</table>
-
-Podemos ver que tenemos tres variables cuantitativas (`ing_t_t`, `edad` y `fact_cal_esi`), y cuatro variables categóricas (`sexo`, `est_conyugal`, `ciuo08` e `ing_medio`). Estas últimas tienen 2, 2, 10 y 2 categorías, respectivamente. 
-
-## 4. Creación del modelo de regresión logística binaria
-
-### La regresión logística binaria
-
-Recordemos que, en el caso de la regresión logística, el resultado predicho es el **logit** (logatirmos de los odds), siendo los **odds** una razón de probabilidades (chances). Para llegar hasta la regresión logística, debemos pasar por los odds y los odds-ratio (proporción de chances). 
-
-Las **odds** son _la probabilidad de que algo ocurra_ (por ejemplo, tener un ingreso mayor o igual a la media) dividido por la probabilidad de que _no ocurra_:
-
-`\begin{equation}
-\ Odds = p/1-p
-\end{equation}`
-
-Odds de 1 significan chances iguales, mientras que odds inferiores a 1 son negativas, y mayores a 1, positivas. 
-
-Las **Odds ratio (OR)**, por su parte, reflejan la asociación entre las chances de dos variables dicotómicas:
-
-`\begin{equation}
-\ OR = p_1/(1-p_1)/p_0/(1-p_0)
-\end{equation}`
-
-Las OR permiten, entonces, presentar en _un único número_ la relación entre dos variables categóricas. Por ello, es una versión del β para **variables dependientes categóricas**. Una de las transformaciones que permite estimar una regresión con variables dependientes dicotómicas es el **logit**, **logaritmo de los odds**
-
-`\begin{equation}
-\ Logit = ln(Odd) = ln(p/1-p)
-\end{equation}`
-
-Luego, la fórmula para un modelo de regresión logística binaria simple es
-
-`\begin{equation}
-\ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X)
-\end{equation}`
-
-Donde
-
-- `\(E(Y)\)` es el valor estimado/predicho de `\(Y\)`
-- `\(P\)` es la **probabilidad predicha** 
-- `\(b_{0}\)` es el intercepto 
-- `\(b_{1}\)` es el **coeficiente de regresión** que, en este caso, presenta valores en _log-odds_
-
-Y para la regresión logística binaria múltiple
-
-`\begin{equation}
-\ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n})
-\end{equation}`
-
-Donde
-
-- `\(E(Y)\)` es el valor estimado/predicho de `\(Y\)`
-- `\(P\)` es la **probabilidad predicha** 
-- `\(b_{0}\)` es el intercepto 
-- `\(b_{1}\)` es el **coeficiente de regresión del primer predictor** que, en este caso, presenta valores en _log-odds_
-- `\(b_{n}\)` es el **coeficiente de regresión del predictor n** que, en este caso, presenta valores en _log-odds_
-
-{{< div "note" >}}
-
-### a) Modelo nulo
-
-Una vez realizado lo anterior, es momento de generar nuestro modelo de regresión logística. Emplearemos la función `glm()` del paquete base de `R`, especificando el argumento `family` como `"binomial"`. Lo primero es especificar las variables con las cuales construiremos el modelo: antes de la virgulilla (~) escribiremos nuestra variable dependiente (en este caso, `ing_medio`), y luego, las variables independientes separadas con un signo más (+). Para crear el modelo nulo, en lugar de variables predictoras, especificamos un 1. En síntesis, las diferencias entre crear un modelo de regresión lineal (como se revisó en el práctico anterior) son: 
-
-  + Se utiliza la función `glm()` en lugar de `lm()`
-  + Se especifica el argumento `family = 'binomial'`   
-
-
+```
+## 
+## x <categorical>
+## # total N=185339  valid N=185339  mean=8.79  sd=4.23
+## 
+## Value              |     N | Raw % | Valid % | Cum. %
+## -----------------------------------------------------
+## Tarapacá           |  8386 |  4.52 |    4.52 |   4.52
+## Antofagasta        |  7597 |  4.10 |    4.10 |   8.62
+## Atacama            |  7393 |  3.99 |    3.99 |  12.61
+## Coquimbo           |  8159 |  4.40 |    4.40 |  17.01
+## Valparaíso         | 18501 |  9.98 |    9.98 |  27.00
+## OHiggins           | 12346 |  6.66 |    6.66 |  33.66
+## Maule              | 12423 |  6.70 |    6.70 |  40.36
+## Biobío             | 17669 |  9.53 |    9.53 |  49.89
+## La Araucanía       | 11858 |  6.40 |    6.40 |  56.29
+## Los Lagos          | 10511 |  5.67 |    5.67 |  61.96
+## Aysén              |  4579 |  2.47 |    2.47 |  64.43
+## Magallanes         |  5087 |  2.74 |    2.74 |  67.18
+## Metropolitana      | 39266 | 21.19 |   21.19 |  88.37
+## Los Ríos           |  7992 |  4.31 |    4.31 |  92.68
+## Arica y Parinacota |  7224 |  3.90 |    3.90 |  96.57
+## Ñuble              |  6348 |  3.43 |    3.43 | 100.00
+## <NA>               |     0 |  0.00 |    <NA> |   <NA>
+```
 
 ```r
-modelo0 <- glm(ing_medio ~ 1,
-              data = datos, 
-              weights = fact_cal_esi,
-              family = binomial(link = "logit"))
+frq(data$pobreza)
 ```
 
-**Examinemos** el modelo creado:
-
+```
+## 
+## x <categorical>
+## # total N=185339  valid N=185339  mean=2.84  sd=0.48
+## 
+## Value              |      N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------
+## Pobres extremos    |   8439 |  4.55 |    4.55 |   4.55
+## Pobres no extremos |  12891 |  6.96 |    6.96 |  11.51
+## No pobres          | 164009 | 88.49 |   88.49 | 100.00
+## <NA>               |      0 |  0.00 |    <NA> |   <NA>
+```
 
 ```r
-summary(modelo0)
+frq(data$sexo)
 ```
 
 ```
 ## 
-## Call:
-## glm(formula = ing_medio ~ 1, family = binomial(link = "logit"), 
-##     data = datos, weights = fact_cal_esi)
+## Sexo (x) <categorical>
+## # total N=185339  valid N=185339  mean=1.54  sd=0.50
 ## 
-## Deviance Residuals: 
-##    Min      1Q  Median      3Q     Max  
-## -625.3     0.0     0.0     0.0     0.0  
-## 
-## Coefficients:
-##                     Estimate       Std. Error     z value            Pr(>|z|)
-## (Intercept) 1615045593563038            23644 68307515464 <0.0000000000000002
-##                
-## (Intercept) ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance:   8361355  on 26820  degrees of freedom
-## Residual deviance: 124161070  on 26820  degrees of freedom
-## AIC: 124159719
-## 
-## Number of Fisher Scoring iterations: 6
-```
-
-Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado `modelo0_sin`, que consta de una lista con 30 elementos.
-
-
-### b) Modelo con predictores numéricos
-
-No obstante, el modelo nulo no es interpretable. Incorporemos edad, predictor `numérico`, y revisemos el modelo estimado
-
-
-```r
-modelo1 <- glm(ing_medio ~ edad,
-              data = datos, 
-              family = binomial(link = "logit"))
-
-summary(modelo1)
-```
-
-```
-## 
-## Call:
-## glm(formula = ing_medio ~ edad, family = binomial(link = "logit"), 
-##     data = datos)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.7254   0.7211   0.7409   0.7576   0.8079  
-## 
-## Coefficients:
-##              Estimate Std. Error z value             Pr(>|z|)    
-## (Intercept)  1.287250   0.048275   26.66 < 0.0000000000000002 ***
-## edad        -0.003642   0.001026   -3.55             0.000385 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 29882  on 26820  degrees of freedom
-## Residual deviance: 29869  on 26819  degrees of freedom
-## AIC: 29873
-## 
-## Number of Fisher Scoring iterations: 4
-```
-
-### c) Modelo con predictores categóricos
-
-Asimismo, gran parte de las veces queremos utilizar variables categóricas (como el sexo, la ocupación o el estado conyugal de las personas) como variables predictoras: 
-
-
-```r
-modelo2 <- glm(ing_medio ~ sexo,
-              data = datos, 
-              family = binomial(link = "logit"))
-
-summary(modelo2)
-```
-
-```
-## 
-## Call:
-## glm(formula = ing_medio ~ sexo, family = binomial(link = "logit"), 
-##     data = datos)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.7766   0.6799   0.6799   0.8397   0.8397  
-## 
-## Coefficients:
-##             Estimate Std. Error z value            Pr(>|z|)    
-## (Intercept)  1.34711    0.01996   67.48 <0.0000000000000002 ***
-## sexoMujer   -0.48607    0.02855  -17.03 <0.0000000000000002 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 29882  on 26820  degrees of freedom
-## Residual deviance: 29592  on 26819  degrees of freedom
-## AIC: 29596
-## 
-## Number of Fisher Scoring iterations: 4
-```
-
-### d) Modelo completo
-
-¡Incorporemos todas las variables que seleccionamos!
-
-
-```r
-modelo3 <- glm(ing_medio ~ edad + sexo + ciuo08 + est_conyugal,
-              data = datos, 
-              family = binomial(link = "logit"))
-
-summary(modelo3)
-```
-
-```
-## 
-## Call:
-## glm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
-##     family = binomial(link = "logit"), data = datos)
-## 
-## Deviance Residuals: 
-##      Min        1Q    Median        3Q       Max  
-## -2.59360   0.00095   0.50005   0.82422   1.34623  
-## 
-## Coefficients:
-##                                                                                      Estimate
-## (Intercept)                                                                          3.184303
-## edad                                                                                 0.002147
-## sexoMujer                                                                           -0.756990
-## ciuo08Profesionales, científicos e intelectuales                                    -0.040840
-## ciuo08Técnicos y profesionales de nivel medio                                       -0.344910
-## ciuo08Personal de apoyo administrativo                                              -0.439180
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1.989663
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -2.695957
-## ciuo08Artesanos y operarios de oficios                                              -2.346364
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1.273414
-## ciuo08Ocupaciones elementales                                                       -2.208624
-## ciuo08Otros no identificados                                                        11.524044
-## ciuo08Sin clasificación                                                             -2.460523
-## est_conyugalSin pareja                                                              -0.167130
-##                                                                                     Std. Error
-## (Intercept)                                                                           0.165321
-## edad                                                                                  0.001101
-## sexoMujer                                                                             0.033434
-## ciuo08Profesionales, científicos e intelectuales                                      0.168604
-## ciuo08Técnicos y profesionales de nivel medio                                         0.166762
-## ciuo08Personal de apoyo administrativo                                                0.179496
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados              0.156859
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros   0.165042
-## ciuo08Artesanos y operarios de oficios                                                0.158416
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.166563
-## ciuo08Ocupaciones elementales                                                         0.156421
-## ciuo08Otros no identificados                                                         70.479870
-## ciuo08Sin clasificación                                                               0.490312
-## est_conyugalSin pareja                                                                0.039472
-##                                                                                     z value
-## (Intercept)                                                                          19.261
-## edad                                                                                  1.949
-## sexoMujer                                                                           -22.642
-## ciuo08Profesionales, científicos e intelectuales                                     -0.242
-## ciuo08Técnicos y profesionales de nivel medio                                        -2.068
-## ciuo08Personal de apoyo administrativo                                               -2.447
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -12.684
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -16.335
-## ciuo08Artesanos y operarios de oficios                                              -14.811
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -7.645
-## ciuo08Ocupaciones elementales                                                       -14.120
-## ciuo08Otros no identificados                                                          0.164
-## ciuo08Sin clasificación                                                              -5.018
-## est_conyugalSin pareja                                                               -4.234
-##                                                                                                 Pr(>|z|)
-## (Intercept)                                                                         < 0.0000000000000002
-## edad                                                                                              0.0513
-## sexoMujer                                                                           < 0.0000000000000002
-## ciuo08Profesionales, científicos e intelectuales                                                  0.8086
-## ciuo08Técnicos y profesionales de nivel medio                                                     0.0386
-## ciuo08Personal de apoyo administrativo                                                            0.0144
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            < 0.0000000000000002
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros < 0.0000000000000002
-## ciuo08Artesanos y operarios de oficios                                              < 0.0000000000000002
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.0000000000000209
-## ciuo08Ocupaciones elementales                                                       < 0.0000000000000002
-## ciuo08Otros no identificados                                                                      0.8701
-## ciuo08Sin clasificación                                                               0.0000005213460582
-## est_conyugalSin pareja                                                                0.0000229391302821
-##                                                                                        
-## (Intercept)                                                                         ***
-## edad                                                                                .  
-## sexoMujer                                                                           ***
-## ciuo08Profesionales, científicos e intelectuales                                       
-## ciuo08Técnicos y profesionales de nivel medio                                       *  
-## ciuo08Personal de apoyo administrativo                                              *  
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
-## ciuo08Artesanos y operarios de oficios                                              ***
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
-## ciuo08Ocupaciones elementales                                                       ***
-## ciuo08Otros no identificados                                                           
-## ciuo08Sin clasificación                                                             ***
-## est_conyugalSin pareja                                                              ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 29882  on 26820  degrees of freedom
-## Residual deviance: 26541  on 26807  degrees of freedom
-## AIC: 26569
-## 
-## Number of Fisher Scoring iterations: 13
-```
-
-### e) Incorporando el diseño muestral 
-
-No obstante, como se revisó en el práctico anterior, es **fundamental** utilizar los ponderadores para estimar de forma más precisa, al incorporar el diseño muestral en el modelamiento. En aras de ello, especificamos `fact_cal_esi` (nuestro ponderador) en el argumento `weights = `
-
-
-```r
-modelo3_dis <- glm(ing_medio ~ edad + sexo + ciuo08 + est_conyugal,
-              data = datos, 
-              weights = fact_cal_esi,
-              family = binomial(link = "logit"))
-
-summary(modelo3_dis)
-```
-
-```
-## 
-## Call:
-## glm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
-##     family = binomial(link = "logit"), data = datos, weights = fact_cal_esi)
-## 
-## Deviance Residuals: 
-##    Min      1Q  Median      3Q     Max  
-## -625.3     0.0     0.0     0.0   571.7  
-## 
-## Coefficients:
-##                                                                                             Estimate
-## (Intercept)                                                                          734490901694669
-## edad                                                                                   1396302676615
-## sexoMujer                                                                           -977967704379870
-## ciuo08Profesionales, científicos e intelectuales                                     -54746519092886
-## ciuo08Técnicos y profesionales de nivel medio                                        696469468409673
-## ciuo08Personal de apoyo administrativo                                               432112479093228
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            1765629792332694
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -364742422184976
-## ciuo08Artesanos y operarios de oficios                                              1343303108100302
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -143012874087013
-## ciuo08Ocupaciones elementales                                                        975377515779369
-## ciuo08Otros no identificados                                                         531401274444271
-## ciuo08Sin clasificación                                                             1382778698593716
-## est_conyugalSin pareja                                                               -79208396226639
-##                                                                                           Std. Error
-## (Intercept)                                                                                   152111
-## edad                                                                                            1863
-## sexoMujer                                                                                      51328
-## ciuo08Profesionales, científicos e intelectuales                                              136122
-## ciuo08Técnicos y profesionales de nivel medio                                                 139620
-## ciuo08Personal de apoyo administrativo                                                        157031
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados                      133142
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros           195056
-## ciuo08Artesanos y operarios de oficios                                                        139181
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                                   148683
-## ciuo08Ocupaciones elementales                                                                 133676
-## ciuo08Otros no identificados                                                                  369810
-## ciuo08Sin clasificación                                                                       747979
-## est_conyugalSin pareja                                                                         58047
-##                                                                                          z value
-## (Intercept)                                                                           4828655221
-## edad                                                                                   749631359
-## sexoMujer                                                                           -19053496735
-## ciuo08Profesionales, científicos e intelectuales                                      -402186339
-## ciuo08Técnicos y profesionales de nivel medio                                         4988340807
-## ciuo08Personal de apoyo administrativo                                                2751772874
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             13261260571
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -1869940506
-## ciuo08Artesanos y operarios de oficios                                                9651508941
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                           -961866725
-## ciuo08Ocupaciones elementales                                                         7296603904
-## ciuo08Otros no identificados                                                          1436959492
-## ciuo08Sin clasificación                                                               1848685437
-## est_conyugalSin pareja                                                               -1364553727
-##                                                                                                Pr(>|z|)
-## (Intercept)                                                                         <0.0000000000000002
-## edad                                                                                <0.0000000000000002
-## sexoMujer                                                                           <0.0000000000000002
-## ciuo08Profesionales, científicos e intelectuales                                    <0.0000000000000002
-## ciuo08Técnicos y profesionales de nivel medio                                       <0.0000000000000002
-## ciuo08Personal de apoyo administrativo                                              <0.0000000000000002
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            <0.0000000000000002
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros <0.0000000000000002
-## ciuo08Artesanos y operarios de oficios                                              <0.0000000000000002
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         <0.0000000000000002
-## ciuo08Ocupaciones elementales                                                       <0.0000000000000002
-## ciuo08Otros no identificados                                                        <0.0000000000000002
-## ciuo08Sin clasificación                                                             <0.0000000000000002
-## est_conyugalSin pareja                                                              <0.0000000000000002
-##                                                                                        
-## (Intercept)                                                                         ***
-## edad                                                                                ***
-## sexoMujer                                                                           ***
-## ciuo08Profesionales, científicos e intelectuales                                    ***
-## ciuo08Técnicos y profesionales de nivel medio                                       ***
-## ciuo08Personal de apoyo administrativo                                              ***
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
-## ciuo08Artesanos y operarios de oficios                                              ***
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
-## ciuo08Ocupaciones elementales                                                       ***
-## ciuo08Otros no identificados                                                        ***
-## ciuo08Sin clasificación                                                             ***
-## est_conyugalSin pareja                                                              ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance:   8361355  on 26820  degrees of freedom
-## Residual deviance: 172389943  on 26807  degrees of freedom
-## AIC: 172388965
-## 
-## Number of Fisher Scoring iterations: 25
-```
-
-Sin embargo, como podemos darnos cuenta, el output que generamos incorporando este argumento resulta problemático, y difiere en demasía del modelo que no contempla los ponderadores en su estimación. ¿Qué podemos hacer? ¡pues recurriremos a una librería ya conocida! Nos referimos a `srvyr`, que nos permitirá crear un **objeto encuesta**
-
-
-```r
-esi_design <- as_survey_design(datos, 
-                               ids = 1, 
-                               weights = fact_cal_esi)
-```
-
-¿`srvyr` también tiene una función para crear modelos de regresión logística? Lamentablemente **no**. No obstante, y tal como se revisó en el práctico anterior, la librería ``survey` incluye la función `svyglm()`, que permite estimar modelos de diversas características, considerando el **diseño muestral** de los datos. Esto se especifica con el argumento `design =`, donde debemos especificar el objeto encuesta con que nos hallamos trabajando (es el símil de `data =` en `glm()`). 
-
-
-```r
-modelo3_survey <- svyglm(ing_medio ~ edad + sexo + ciuo08 + est_conyugal,
-                         family = binomial(link = "logit"),
-                         design = esi_design)
-
-summary(modelo3_survey)
-```
-
-```
-## 
-## Call:
-## svyglm(formula = ing_medio ~ edad + sexo + ciuo08 + est_conyugal, 
-##     design = esi_design, family = binomial(link = "logit"))
-## 
-## Survey design:
-## Called via srvyr
-## 
-## Coefficients:
-##                                                                                      Estimate
-## (Intercept)                                                                          3.299012
-## edad                                                                                 0.003268
-## sexoMujer                                                                           -0.697013
-## ciuo08Profesionales, científicos e intelectuales                                    -0.433479
-## ciuo08Técnicos y profesionales de nivel medio                                       -0.611823
-## ciuo08Personal de apoyo administrativo                                              -0.786611
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -2.191474
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -2.844311
-## ciuo08Artesanos y operarios de oficios                                              -2.488899
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1.434649
-## ciuo08Ocupaciones elementales                                                       -2.226708
-## ciuo08Otros no identificados                                                        11.317728
-## ciuo08Sin clasificación                                                             -2.074388
-## est_conyugalSin pareja                                                              -0.120082
-##                                                                                     Std. Error
-## (Intercept)                                                                           0.220901
-## edad                                                                                  0.001796
-## sexoMujer                                                                             0.053237
-## ciuo08Profesionales, científicos e intelectuales                                      0.230493
-## ciuo08Técnicos y profesionales de nivel medio                                         0.225032
-## ciuo08Personal de apoyo administrativo                                                0.244913
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados              0.210180
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros   0.221381
-## ciuo08Artesanos y operarios de oficios                                                0.212019
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                           0.224929
-## ciuo08Ocupaciones elementales                                                         0.208978
-## ciuo08Otros no identificados                                                          0.235485
-## ciuo08Sin clasificación                                                               0.646857
-## est_conyugalSin pareja                                                                0.062022
-##                                                                                     t value
-## (Intercept)                                                                          14.934
-## edad                                                                                  1.820
-## sexoMujer                                                                           -13.093
-## ciuo08Profesionales, científicos e intelectuales                                     -1.881
-## ciuo08Técnicos y profesionales de nivel medio                                        -2.719
-## ciuo08Personal de apoyo administrativo                                               -3.212
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -10.427
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -12.848
-## ciuo08Artesanos y operarios de oficios                                              -11.739
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -6.378
-## ciuo08Ocupaciones elementales                                                       -10.655
-## ciuo08Otros no identificados                                                         48.061
-## ciuo08Sin clasificación                                                              -3.207
-## est_conyugalSin pareja                                                               -1.936
-##                                                                                                 Pr(>|t|)
-## (Intercept)                                                                         < 0.0000000000000002
-## edad                                                                                             0.06883
-## sexoMujer                                                                           < 0.0000000000000002
-## ciuo08Profesionales, científicos e intelectuales                                                 0.06003
-## ciuo08Técnicos y profesionales de nivel medio                                                    0.00656
-## ciuo08Personal de apoyo administrativo                                                           0.00132
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            < 0.0000000000000002
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros < 0.0000000000000002
-## ciuo08Artesanos y operarios de oficios                                              < 0.0000000000000002
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                               0.000000000182
-## ciuo08Ocupaciones elementales                                                       < 0.0000000000000002
-## ciuo08Otros no identificados                                                        < 0.0000000000000002
-## ciuo08Sin clasificación                                                                          0.00134
-## est_conyugalSin pareja                                                                           0.05287
-##                                                                                        
-## (Intercept)                                                                         ***
-## edad                                                                                .  
-## sexoMujer                                                                           ***
-## ciuo08Profesionales, científicos e intelectuales                                    .  
-## ciuo08Técnicos y profesionales de nivel medio                                       ** 
-## ciuo08Personal de apoyo administrativo                                              ** 
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            ***
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros ***
-## ciuo08Artesanos y operarios de oficios                                              ***
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         ***
-## ciuo08Ocupaciones elementales                                                       ***
-## ciuo08Otros no identificados                                                        ***
-## ciuo08Sin clasificación                                                             ** 
-## est_conyugalSin pareja                                                              .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1.023958)
-## 
-## Number of Fisher Scoring iterations: 13
-```
-
-## 5. Extracción de elementos 
-
-La extracción de elementos en modelos de regresión logística no difiere de la extracción de elementos de modelos de regresión lineal (ni de cualquier lista).
-
-**Coeficientes**:
-
-
-```r
-modelo3$coefficients
-```
-
-```
-##                                                                         (Intercept) 
-##                                                                         3.184303390 
-##                                                                                edad 
-##                                                                         0.002146798 
-##                                                                           sexoMujer 
-##                                                                        -0.756990374 
-##                                    ciuo08Profesionales, científicos e intelectuales 
-##                                                                        -0.040840086 
-##                                       ciuo08Técnicos y profesionales de nivel medio 
-##                                                                        -0.344910420 
-##                                              ciuo08Personal de apoyo administrativo 
-##                                                                        -0.439180226 
-##            ciuo08Trabajadores de los servicios y vendedores de comercios y mercados 
-##                                                                        -1.989663484 
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros 
-##                                                                        -2.695957420 
-##                                              ciuo08Artesanos y operarios de oficios 
-##                                                                        -2.346363767 
-##                         ciuo08Operadores de instalaciones, maquinas y ensambladores 
-##                                                                        -1.273413838 
-##                                                       ciuo08Ocupaciones elementales 
-##                                                                        -2.208623846 
-##                                                        ciuo08Otros no identificados 
-##                                                                        11.524043703 
-##                                                             ciuo08Sin clasificación 
-##                                                                        -2.460523471 
-##                                                              est_conyugalSin pareja 
-##                                                                        -0.167129643
-```
-
-**Sexto coeficiente** (considerando el intercepto como primero):
-
-
-```r
-modelo3$coefficients[6]
-```
-
-```
-## ciuo08Personal de apoyo administrativo 
-##                             -0.4391802
-```
-
-**Coeficiente de estado conyugal (sin pareja)**:
-
-
-```r
-modelo3$coefficients["est_conyugalSin pareja"]
-```
-
-```
-## est_conyugalSin pareja 
-##             -0.1671296
-```
-
-También podemos extraer elementos de los modelos creados con `svyglm()`; por ejemplo:
-
-**Devianza**
-
-
-```r
-summary(modelo3_survey)$deviance
-```
-
-```
-## [1] 25003.52
-```
-
-**Criterio de Información de Akaike (AIC)**
-
-
-```r
-summary(modelo3_survey)$aic
-```
-
-```
-## [1] 23784.76
-```
-
-Podemos utilizar, tal como en el práctico anterior, `sjPlot::get_model_data()` para extraer los valores predichos
-
-
-```r
-get_model_data(modelo3_survey, 
-               type = "pred")
-```
-
-```
-## $edad
-## # Predicted probabilities of ¿Mayor que el ingreso medio?
-## # x = Edad de la persona
-## 
-##   x | Predicted | group_col |       95% CI
-## ------------------------------------------
-##  10 |      0.97 |      edad | [0.95, 0.98]
-##  20 |      0.97 |      edad | [0.95, 0.98]
-##  30 |      0.97 |      edad | [0.95, 0.98]
-##  40 |      0.97 |      edad | [0.95, 0.98]
-##  60 |      0.97 |      edad | [0.96, 0.98]
-##  70 |      0.97 |      edad | [0.96, 0.98]
-##  80 |      0.97 |      edad | [0.96, 0.98]
-## 100 |      0.97 |      edad | [0.96, 0.98]
-## 
-## Adjusted for:
-## *         sexo =                                 Hombre
-## *       ciuo08 = Directores, gerentes y administradores
-## * est_conyugal =                             Con pareja
-## 
-## $sexo
-## # Predicted probabilities of ¿Mayor que el ingreso medio?
-## # x = Sexo
-## 
-## x | Predicted | group_col |       95% CI
-## ----------------------------------------
-## 1 |      0.97 |      sexo | [0.95, 0.98]
-## 2 |      0.94 |      sexo | [0.91, 0.96]
-## 
-## Adjusted for:
-## *         edad =                                  42.13
-## *       ciuo08 = Directores, gerentes y administradores
-## * est_conyugal =                             Con pareja
-## 
-## $ciuo08
-## # Predicted probabilities of ¿Mayor que el ingreso medio?
-## # x = b1. Grupo ocupacional según CIUO 08 - 1 dígito
-## 
-##  x | Predicted | group_col |       95% CI
+## Value  |     N | Raw % | Valid % | Cum. %
 ## -----------------------------------------
-##  1 |      0.97 |    ciuo08 | [0.95, 0.98]
-##  2 |      0.95 |    ciuo08 | [0.94, 0.96]
-##  4 |      0.93 |    ciuo08 | [0.91, 0.95]
-##  5 |      0.78 |    ciuo08 | [0.75, 0.80]
-##  6 |      0.64 |    ciuo08 | [0.60, 0.69]
-##  7 |      0.72 |    ciuo08 | [0.69, 0.75]
-##  8 |      0.88 |    ciuo08 | [0.86, 0.90]
-## 11 |      0.80 |    ciuo08 | [0.54, 0.93]
+## Hombre | 86091 | 46.45 |   46.45 |  46.45
+## Mujer  | 99248 | 53.55 |   53.55 | 100.00
+## <NA>   |     0 |  0.00 |    <NA> |   <NA>
+```
+
+Como podemos ver, *region* provee información sobre la región a la que pertenecen los hogares; *pobreza* nos provee información respecto de la situación de pobreza por ingresos (o no) de los hogares; y *sexo*, información sobre el sexo de la persona que responde el cuestionario. 
+
+Ahora vamos con `descr()` de `sjmisc` para las variables numéricas
+
+
+```r
+descr(data$exp) #Ponderador regional
+```
+
+```
 ## 
-## Adjusted for:
-## *         edad =      42.13
-## *         sexo =     Hombre
-## * est_conyugal = Con pareja
+## ## Basic descriptive statistics
 ## 
-## $est_conyugal
-## # Predicted probabilities of ¿Mayor que el ingreso medio?
-## # x = est_conyugal
+##  var    type label      n NA.prc   mean     sd   se md trimmed           range
+##   dd numeric    dd 185339      0 105.39 157.05 0.36 79   88.54 19042 (4-19046)
+##  iqr  skew
+##   78 70.57
+```
+
+```r
+sum(data$exp) #Total de la población
+```
+
+```
+## [1] 19532480
+```
+
+```r
+descr(data$varstrat) #Estrato de varianza
+```
+
+```
 ## 
-## x | Predicted |    group_col |       95% CI
-## -------------------------------------------
-## 1 |      0.97 | est_conyugal | [0.95, 0.98]
-## 2 |      0.96 | est_conyugal | [0.95, 0.98]
+## ## Basic descriptive statistics
 ## 
-## Adjusted for:
-## *   edad =                                  42.13
-## *   sexo =                                 Hombre
-## * ciuo08 = Directores, gerentes y administradores
-```
-
-### Exponenciación de coeficientes
-
-Como bien sabemos, los _log-odds_ son difícilmente interpretables. Para subsanar ello, podemos **exponenciar** los logaritmos de las chances que figuran en los coeficientes de nuestros modelos de regresión logística, recurriendo a la función `exp()`. Esto permitirá que nuestro coeficientes pasen de estar en log-odds a **Odds-ratio**, cuya interpretación es mucho más sencilla. Probemos con el coeficiente para las personas cuyo estatus conyugal es _Sin pareja_
-
-
-```r
-exp(modelo3_survey$coefficients["est_conyugalSin pareja"])
-```
-
-```
-## est_conyugalSin pareja 
-##              0.8868479
-```
-
-Luego, podemos crear los OR en nuestro modelo:
-
-
-```r
-modelo3_survey$or <- exp(modelo3_survey$coefficients)
-```
-
-¡Comprobemos!
-
-
-```r
-modelo3_survey$or["est_conyugalSin pareja"]
-```
-
-```
-## est_conyugalSin pareja 
-##              0.8868479
+##  var    type label      n NA.prc   mean     sd   se  md trimmed       range iqr
+##   dd numeric    dd 185339      0 294.34 185.06 0.43 319  298.56 587 (1-588) 346
+##   skew
+##  -0.22
 ```
 
 ```r
-modelo3_survey$coefficients["est_conyugalSin pareja"]
+descr(data$varunit) #Conglomerado de varianza
 ```
 
 ```
-## est_conyugalSin pareja 
-##             -0.1200818
+## 
+## ## Basic descriptive statistics
+## 
+##  var    type label      n NA.prc   mean     sd   se  md trimmed         range
+##   dd numeric    dd 185339      0 739.42 439.72 1.02 744  739.27 1493 (1-1494)
+##  iqr  skew
+##  778 -0.01
 ```
 
-## 6. Presentación del modelo creado
+```r
+descr(data$ing_tot_hog)
+```
 
-### a) Tablas 
+```
+## 
+## ## Basic descriptive statistics
+## 
+##  var    type label      n NA.prc    mean      sd      se     md trimmed
+##   dd numeric    dd 185339      0 1085076 1574919 3658.26 731009  835756
+##                    range    iqr  skew
+##  225200000 (0-225200000) 785357 27.45
+```
 
-En este práctico revisaremos dos maneras de presentar nuestros modelos. La primera sigue la línea de la práctica anterior, empleando `sjPlot::tab_model()`. La segunda es algo mas sofisticada: utilizaremos la librería `texreg` para presentar nuestros modelos, incorporando elementos adicionales a los coeficientes, como lo pueden ser las medidas de ajuste. 
+*ing_tot_hog* presenta información respecto de los ingresos totales de los hogares; *exp* es el ponderador regional, cuya suma es el número total de habitantes de la población objetivo; *varstrat* provee información sobre el estrato de varianza; y *varunit* sobre el conglomerado de varianza, es decir, la unidad mínima de observación que, en este caso, son los hogares. Estas últimas tres variables serán **sumamente relevantes** para este práctico. 
 
-#### Con `sjPlot::tab_model()`
+## 4. Cálculo con muestras complejas
 
-Seguimos la misma idea del práctico anterior: 
+Una vez explorados nuestros datos, es hora de empezar a realizar nuestros cálculos con muestras complejas. Para ello, lo primero es crear un **objeto encuesta** de modo que, posteriormente, podamos calcular promedios con nuestras variables cuantitativas, y proporciones para nuestras variables categóricas (entre muchos otros estimadores). 
+
+### La función `group_by()`
+
+Antes de empezar a trabajar con objetos encuesta, es fundamental conocer otra de las funciones de `dplyr` que hace posible manipular los datos: `group_by()`. Esta nos permitirá trabajar agrupando los valores a partir de determinadas **columnas**. Calculemos ahora la media de `ing_tot_hog` con la función `mean()`, agrupando por `sexo`:
 
 
 ```r
-sjPlot::tab_model(modelo0, 
-                  show.ci=FALSE,
-                  df.method = 'wald', #Para realizar más rápidamente el cálculo de los intervalos de confianza
-                  encoding = "UTF-8") 
+data %>% 
+  group_by(sexo) %>% #Espeficicamos que agruparemos por sexo
+  summarise(media = mean(ing_tot_hog)) #Creamos una columna llamada media, calculando la media ingresos con la función `mean`
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Â¿Mayor que el ingreso<br>medio?</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictors</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">Odds Ratios</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">p</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">Inf</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">26821</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> Tjur</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">0.000</td>
-</tr>
+```
+## # A tibble: 2 x 2
+##   sexo      media
+##   <fct>     <dbl>
+## 1 Hombre 1125264.
+## 2 Mujer  1050215.
+```
 
-</table>
+Es importante destacar que la función `summarise()` (o `summarize()`) de `dplyr` nos permite crear un nuevo data frame con una o más filas para cada combinación y agrupación de variables. En este caso, tenemos dos filas: una para Hombre y otra para Mujer. En caso de no agrupar variables, sólo tendremos una columna que **resuma** las observaciones especificadas. 
 
-Podemos incorporar más de un modelo de regresión a la tabla. Esto es muy útil para comparar los diversos modelos que creamos
+Algo interesante es que podemos combinar `group_by()` con algunas funciones de `sjmisc`. Probemos calculando la frecuencia de las diferentes categorías de pobreza, agrupando por sexo:
 
 
 ```r
-sjPlot::tab_model(list(modelo0, modelo1, modelo2), # los modelos estimados
-                  show.ci=FALSE, # no mostrar intervalo de confianza (por defecto lo hace)
-                  p.style = "stars", # asteriscos de significación estadística
-                  df.method = 'wald',
-                  dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"), # etiquetas de modelos o variables dep.
-                  string.pred = "Predictores", string.est = "β", # nombre predictores y símbolo beta en tabla
-                  encoding =  "UTF-8")
+data %>% 
+  group_by(sexo) %>% 
+  frq(pobreza)
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Modelo 1</th>
-<th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Modelo 2</th>
-<th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Modelo 3</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictores</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">&szlig;</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">&szlig;</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">&szlig;</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">Inf <sup>***</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">3.62 <sup>***</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">3.85 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Edad de la persona</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">1.00 <sup>***</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Sexo: Mujer</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.62 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">26821</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">26821</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">26821</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> Tjur</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.000</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.001</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.011</td>
-</tr>
-<tr>
-<td colspan="4" style="font-style:italic; border-top:double black; text-align:right;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
-</tr>
+```
+## 
+## pobreza <categorical>
+## # grouped by: Hombre
+## # total N=86091  valid N=86091  mean=2.84  sd=0.47
+## 
+## Value              |     N | Raw % | Valid % | Cum. %
+## -----------------------------------------------------
+## Pobres extremos    |  3805 |  4.42 |    4.42 |   4.42
+## Pobres no extremos |  5807 |  6.75 |    6.75 |  11.16
+## No pobres          | 76479 | 88.84 |   88.84 | 100.00
+## <NA>               |     0 |  0.00 |    <NA> |   <NA>
+## 
+## 
+## pobreza <categorical>
+## # grouped by: Mujer
+## # total N=99248  valid N=99248  mean=2.84  sd=0.48
+## 
+## Value              |     N | Raw % | Valid % | Cum. %
+## -----------------------------------------------------
+## Pobres extremos    |  4634 |  4.67 |    4.67 |   4.67
+## Pobres no extremos |  7084 |  7.14 |    7.14 |  11.81
+## No pobres          | 87530 | 88.19 |   88.19 | 100.00
+## <NA>               |     0 |  0.00 |    <NA> |   <NA>
+```
 
-</table>
-
-No obstante, hay algo que resulta _un poco **problemático**_: el output de `tab_model()` cuando presentamos modelos de regresión logística, por defecto, presenta los coeficientes en **log-Odds** (logaritmo de las chances). Estos valores son difícilmente interpretables. Sin embargo ¡existe una solución! Si especificamos el argumento `transform = "exp"`, el output de la tabla estará en formato **Odds ratio** (OR), lo cual permite interpretar los coeficientes de manera sencilla. 
+Obtendremos una tabla por cada una de las categorías de la variable por la cual agrupamos (en este caso, una por cada sexp), que señala las frecuencias absolutas y relativas de cada nivel de pobreza. Por supuesto, también podemos hacer el mismo ejercicio con `descr()`. Probemos haciendo un análisis descriptivos de ingresos para cada sexo:
 
 
 ```r
-sjPlot::tab_model(modelo3, # modelo con todas las variables
-                  show.ci=FALSE, # no mostrar intervalo de confianza (por defecto lo hace)
-                  transform = 'exp', # exponenciamos los coeficientes
-                  p.style = "stars", # asteriscos de significación estadística
-                  df.method = 'wald', #Para realizar más rápidamente el cálculo de los intervalos de confianza
-                  dv.labels = "Modelo con todas las variables", # etiquetas de modelos o variables dep.
-                  string.pred = "Predictores", string.est = "β", # nombre predictores y símbolo beta en tabla
-                  encoding =  "latin9")
+data %>% 
+  group_by(sexo) %>% 
+  descr(ing_tot_hog)
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Modelo con todas las variables</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictores</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">ÃŸ</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">24.15 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Edad de la persona</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">1.00 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Sexo: Mujer</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.47 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Profesionales,cientÃ­ficos<br>e intelectuales</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.96 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>TÃ©cnicos y profesionales<br>de nivel medio</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.71 <sup>*</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Personal de apoyo<br>administrativo</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.64 <sup>*</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Trabajadores de los<br>servicios y vendedores de<br>comercios y mercados</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.14 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Agricultores y<br>trabajadores calificados<br>agropecuarios,forestales<br>y pesqueros</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.07 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Artesanos y operarios de<br>oficios</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.10 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Operadores de<br>instalaciones,maquinas y<br>ensambladores</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.28 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Ocupaciones elementales</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.11 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Otros no identificados</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">101118.03 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Sin clasificaciÃ³n</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.09 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">est conyugal: Sin pareja</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.85 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">26821</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> Tjur</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.118</td>
-</tr>
-<tr>
-<td colspan="2" style="font-style:italic; border-top:double black; text-align:right;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
-</tr>
+```
+## 
+## ## Basic descriptive statistics
+## 
+## 
+## Grouped by: Hombre
+## 
+##          var    type       label     n NA.prc    mean      sd      se     md
+##  ing_tot_hog numeric ing_tot_hog 86091      0 1125264 1718674 5857.53 755156
+##   trimmed                   range      iqr  skew
+##  864763.9 225200000 (0-225200000) 817406.5 35.86
+## 
+## 
+## Grouped by: Mujer
+## 
+##          var    type       label     n NA.prc    mean      sd      se     md
+##  ing_tot_hog numeric ing_tot_hog 99248      0 1050215 1437734 4563.71 710153
+##  trimmed                 range    iqr skew
+##   811101 92666667 (0-92666667) 762500 14.2
+```
 
-</table>
+En este caso, obtenemos dos tablas: una por cada `sexo`, cada una indicando las estadísticas de resumen para la variable `ing_tot`
 
-¡Ahora podemos interpretar los coeficientes de manera sencilla, para cada categoría de respuesta!
+### a) Creación de objeto encuesta (srvyr)
 
-¿Y si queremos integrar el **diseño muestral**?
+Como ya se señaló, lo primero es crear un **objeto encuesta (survey)**. Este corresponde a una lista (*List*) que nos permitirá realizar los cálculos que deseemos, considerando las varables de diseño (en este caso, varunit, varstrat y exp). Para ello, utilizaremos la función `as_survey_design()` de la librería `srvyr`. Sin embargo, primero crearemos la variable *stratn*, para obtener la cantidad de personas por estrato a nivel poblacional
 
 
 ```r
-sjPlot::tab_model(modelo3_survey, # modelo con todas las variables
-                  show.ci=FALSE, # no mostrar intervalo de confianza (por defecto lo hace)
-                  transform = 'exp', # exponenciamos los coeficientes
-                  p.style = "stars", # asteriscos de significación estadística
-                  df.method = 'wald',#Para realizar más rápidamente el cálculo de los intervalos de confianza
-                  dv.labels = "Modelo con todas las variables", # etiquetas de modelos o variables dep.
-                  string.pred = "Predictores", string.est = "β", # nombre predictores y símbolo beta en tabla
-                  encoding =  "UTF-8")
+data <- data %>% 
+  group_by(varstrat) %>% #Agrupando por varstrat
+  mutate(stratn = sum(exp)) %>%  #Calculamos el total de personas por estrato
+  ungroup() #desagrupamos
 ```
 
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">&nbsp;</th>
-<th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">Modelo con todas las variables</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">Predictores</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">ÃŸ</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">27.09 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Edad de la persona</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">1.00 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Sexo: Mujer</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.50 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Profesionales,cientÃ­ficos<br>e intelectuales</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.65 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>TÃ©cnicos y profesionales<br>de nivel medio</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.54 <sup>**</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Personal de apoyo<br>administrativo</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.46 <sup>**</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Trabajadores de los<br>servicios y vendedores de<br>comercios y mercados</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.11 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Agricultores y<br>trabajadores calificados<br>agropecuarios,forestales<br>y pesqueros</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.06 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Artesanos y operarios de<br>oficios</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.08 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Operadores de<br>instalaciones,maquinas y<br>ensambladores</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.24 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Ocupaciones elementales</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.11 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Otros no identificados</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">82267.21 <sup>***</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">b 1.Grupo ocupacional<br>segÃºn CIUO 08-1 dÃ­gito:<br>Sin clasificaciÃ³n</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.13 <sup>**</sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">est conyugal: Sin pareja</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">0.89 <sup></sup></td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">26821</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.102 / 0.101</td>
-</tr>
-<tr>
-<td colspan="2" style="font-style:italic; border-top:double black; text-align:right;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
-</tr>
+**¡Precaución!** no siempre tendremos la posibilidad de corregir por población finita, por lo cual este paso no es obligatorio. Es fundamental que, antes de trabajar con objetos encuesta, **revisen exhaustivamente la documentación metodológica asociada a sus datos**.
 
-</table>
-
-#### Con `texreg`
-
-La segunda forma de presentar nuestro modelo de en formato tabla es con `texreg`. Hay diversas funciones:
-
-  + `screenreg()`: muestra la tabla en la consola de R.
-  + `htmlreg()`: produce una tabla en formato html. Es la que utilizaremos en este práctico. 
-  + `texreg()`: produce una tabla en formato LaTex para documentos en PDF.
-  
-Si no especificamos ningún argumento, `htmlreg()` presenta de forma directa una tabla publicable, con sus respectivas medidas de ajuste. Algo fundamental es especificar `results='asis'` en las opciones del chunk pues, de lo contrario, la tabla no aparecerá en el documento renderizado. 
+Construimos el objeto encuesta:
 
 
 ```r
-htmlreg(modelo3, doctype = F)
+casen_regional <- data %>% #Creamos un nuevo objeto llamado casen_regional con la información de data
+  as_survey_design(ids = varunit, #Aplicamos diseño muestral, especificando los ids a partir de varunit,
+                   strata = varstrat,#los estratos a partir de varstrat,
+                   fpc = stratn, #especificando que la estimación es con una población finita
+                   weights = exp) #y los ponderadores con exp
 ```
 
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>Statistical models</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">&nbsp;</th>
-<th style="padding-left: 5px;padding-right: 5px;">Model 1</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">(Intercept)</td>
-<td style="padding-left: 5px;padding-right: 5px;">3.18<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">edad</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.00</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.00)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">sexoMujer</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.76<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.03)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Profesionales, científicos e intelectuales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.04</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Técnicos y profesionales de nivel medio</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.34<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Personal de apoyo administrativo</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.44<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.18)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Trabajadores de los servicios y vendedores de comercios y mercados</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.99<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.70<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Artesanos y operarios de oficios</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.35<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Operadores de instalaciones, maquinas y ensambladores</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.27<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Ocupaciones elementales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.21<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Otros no identificados</td>
-<td style="padding-left: 5px;padding-right: 5px;">11.52</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(70.48)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Sin clasificación</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.46<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.49)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">est_conyugalSin pareja</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.17<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.04)</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">AIC</td>
-<td style="padding-left: 5px;padding-right: 5px;">26569.19</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">BIC</td>
-<td style="padding-left: 5px;padding-right: 5px;">26683.95</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Log Likelihood</td>
-<td style="padding-left: 5px;padding-right: 5px;">-13270.60</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Deviance</td>
-<td style="padding-left: 5px;padding-right: 5px;">26541.19</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Num. obs.</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="2"><sup>&#42;&#42;&#42;</sup>p &lt; 0.001; <sup>&#42;&#42;</sup>p &lt; 0.01; <sup>&#42;</sup>p &lt; 0.05</td>
-</tr>
-</tfoot>
-</table>
+Fijándonos en nuestro entorno, nos daremos cuenta de que se creó una lista con 9 elementos llamada **casen_regional**. Si bien la información que nos entrega por sí sólo nos resulta algo críptica, este objeto nos permitirá realizar cálculos aplicando las variables de diseño muestral complejo. Algo interesante de los objetos encuesta creados con `srvyr`, es que podemos interactuar con las funciones de `dplyr`, como `group_by()` o `summarise()`. Es decir, **nos permite trabajar con listas como si fueran un data frame** (datos tabulados) incluyendo, por ejemplo, el uso de *metadata*.
 
-¡Podemos incluir más de un modelo!
+![](https://github.com/learn-R/07-class/raw/main/input/img/img-list.png)
+
+*cluster* nos presenta información sobre los conglomerados de varianza, o la unidad mínima de inferencia. *strata*, sobre los estratos de varianza, unidades que integran a los conglomerados de varianza. *prob* y *allprob* proveen información sobre la probabilidad de cada sujeto de ser seleccionado en una muestra al azar. *variables* nos presenta todas las variables incluidas en la lista. Por último, *fpc* provee información sobre los tamaños de la población y la muestra. 
+
+### b) Cálculo de medias para variables numéricas
+
+Una vez creado nuestro objeto encuesta, podemos realizar diversos tipos de cálculos. Calculemos, por ejemplo, la media de ingresos a nivel poblacional, con la función `survey_mean()` de `srvyr`
 
 
 ```r
-htmlreg(l = list(modelo3, modelo3_survey))
+casen_regional %>% #Con casen_regional
+  summarise(ing_medio = survey_mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio poblacional
 ```
 
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>Statistical models</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">&nbsp;</th>
-<th style="padding-left: 5px;padding-right: 5px;">Model 1</th>
-<th style="padding-left: 5px;padding-right: 5px;">Model 2</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">(Intercept)</td>
-<td style="padding-left: 5px;padding-right: 5px;">3.18<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">3.30<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">edad</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.00</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.00</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.00)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.00)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">sexoMujer</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.76<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.70<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.03)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.05)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Profesionales, científicos e intelectuales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.04</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.43</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Técnicos y profesionales de nivel medio</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.34<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.61<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Personal de apoyo administrativo</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.44<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.79<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.18)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Trabajadores de los servicios y vendedores de comercios y mercados</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.99<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.19<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.70<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.84<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Artesanos y operarios de oficios</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.35<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.49<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Operadores de instalaciones, maquinas y ensambladores</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.27<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.43<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.17)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Ocupaciones elementales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.21<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.23<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.16)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Otros no identificados</td>
-<td style="padding-left: 5px;padding-right: 5px;">11.52</td>
-<td style="padding-left: 5px;padding-right: 5px;">11.32<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(70.48)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Sin clasificación</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.46<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.07<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.49)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.65)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">est_conyugalSin pareja</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.17<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.12</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.04)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.06)</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">AIC</td>
-<td style="padding-left: 5px;padding-right: 5px;">26569.19</td>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">BIC</td>
-<td style="padding-left: 5px;padding-right: 5px;">26683.95</td>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Log Likelihood</td>
-<td style="padding-left: 5px;padding-right: 5px;">-13270.60</td>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Deviance</td>
-<td style="padding-left: 5px;padding-right: 5px;">26541.19</td>
-<td style="padding-left: 5px;padding-right: 5px;">25003.52</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Num. obs.</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Dispersion</td>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.02</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="3"><sup>&#42;&#42;&#42;</sup>p &lt; 0.001; <sup>&#42;&#42;</sup>p &lt; 0.01; <sup>&#42;</sup>p &lt; 0.05</td>
-</tr>
-</tfoot>
-</table>
+```
+## # A tibble: 1 x 2
+##   ing_medio ing_medio_se
+##       <dbl>        <dbl>
+## 1  1156457.       17960.
+```
 
-A diferencia de `tab_model()`, `htmlreg()` arroja, por defecto, los coeficientes en log-odds. Podemos realizar la transformación a OR de la siguiente manera, recurriendo a la función `extract()` de `texreg`
+Comparemos con la media calculada a nivel muestral:
 
 
 ```r
-or <- texreg::extract(modelo3_survey) #Extraemos info del modelo 
-or@coef <- exp(or@coef) #Exponenciamos los coeficientes
+data %>% #Con data
+  summarise(ing_medio = mean(ing_tot_hog, na.rm=T)) #Calculamos el ingreso medio poblacional
 ```
 
-Y ahora construimos la tabla
+```
+## # A tibble: 1 x 1
+##   ing_medio
+##       <dbl>
+## 1  1085076.
+```
+
+Efectivamente, la estimación a nivel poblacional (o parámetro) es superior a la estimación muestral. Sin embargo, trabajar con muestras complejas siempre significará considerar un posible **error de medición**. El trabajar con muestras representativas (aunque no sean aleatorias) nos permitirá realizar nuestros cálculos, conociendo la probabilidad de equivocarnos en nuestra estimación. Es decir, podemos conocer el **nivel de confianza** (o el **nivel de error**) de nuestras estimaciones, a partir de ciertas características de la muestra.
+
+En virtud de ello, `survey_mean()` también nos permite incorporar los intervalos de confianza, especificando `vartype = "ci"`:
 
 
 ```r
-htmlreg(l = list(modelo3_survey, or))
+casen_regional %>%#Con casen_regional
+  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el 
 ```
 
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
-<caption>Statistical models</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">&nbsp;</th>
-<th style="padding-left: 5px;padding-right: 5px;">Model 1</th>
-<th style="padding-left: 5px;padding-right: 5px;">Model 2</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">(Intercept)</td>
-<td style="padding-left: 5px;padding-right: 5px;">3.30<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">27.09<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">edad</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.00</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.00</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.00)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.00)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">sexoMujer</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.70<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.50<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.05)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.05)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Profesionales, científicos e intelectuales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.43</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.65</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Técnicos y profesionales de nivel medio</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.61<sup>&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.54<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.23)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Personal de apoyo administrativo</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.79<sup>&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.46<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Trabajadores de los servicios y vendedores de comercios y mercados</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.19<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.11<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.84<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.06<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Artesanos y operarios de oficios</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.49<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.08<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Operadores de instalaciones, maquinas y ensambladores</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.43<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.24<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.22)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Ocupaciones elementales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.23<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.11<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.21)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Otros no identificados</td>
-<td style="padding-left: 5px;padding-right: 5px;">11.32<sup>&#42;&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">82267.21<sup>&#42;&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.24)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Sin clasificación</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.07<sup>&#42;&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.13<sup>&#42;&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.65)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.65)</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">est_conyugalSin pareja</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.12</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.89</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.06)</td>
-<td style="padding-left: 5px;padding-right: 5px;">(0.06)</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Deviance</td>
-<td style="padding-left: 5px;padding-right: 5px;">25003.52</td>
-<td style="padding-left: 5px;padding-right: 5px;">25003.52</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Dispersion</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.02</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.02</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Num. obs.</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="3"><sup>&#42;&#42;&#42;</sup>p &lt; 0.001; <sup>&#42;&#42;</sup>p &lt; 0.01; <sup>&#42;</sup>p &lt; 0.05</td>
-</tr>
-</tfoot>
-</table>
+```
+## # A tibble: 1 x 3
+##   ing_medio ing_medio_low ing_medio_upp
+##       <dbl>         <dbl>         <dbl>
+## 1  1156457.      1121220.      1191694.
+```
 
-¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la [documentación de la función](https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg).
+```r
+                                                                           #ingreso medio poblacional, 
+                                                                           #y sus intervalos de confianza
+```
+
+El argumento `level = ` nos permite especificar el nivel de confianza que estamos dispuestas/os a aceptar. Comparemos el cálculo de la media de ingresos a un 95% y a un 99% de confianza
 
 
 ```r
-htmlreg(l = list(modelo3_survey, or), 
-          doctype = F, #No incluimos doctype
-          caption = "Leyenda", #Leyenda de la tabla 
-          caption.above = T, # Presentar la leyenda en la sección superior. Si = FALSE (predeterminado), la leyenda se sitúa bajo la tabla
-          custom.model.names = c("Modelo 3", "Modelo 3 (OR)"), #Personalizar los títulos de la tabla 
-          ci.force = c(TRUE,TRUE), #Presentar intervalos de confianza
-          override.coef = list(coef(modelo3_survey), or@coef), #Sobreescribir los coeficientes a partir de los coeficientes de los modelos
-          custom.note = "$^{***}$ p < 0.001; $^{**}$ p < 0.01; $^{*}$ p < 0.05 <br> Errores estándar entre paréntesis. <br> **Nota**: La significancia estadística de los coeficientes en unidades de Odds ratio está calculada en base a los valores $t$, <br> los cuales a su vez se calculan en base a $log(Odds)/SE$") #Incorporamos una nota al pie de la tabla
+casen_regional %>% #Con casen_regional
+  summarise(ing_medio95 = survey_mean(ing_tot_hog, vartype = "ci", level = .95, na.rm=T), #Al 95%
+            ing_medio99 = survey_mean(ing_tot_hog, vartype = "ci", level = .99, na.rm=T)) #Al 99%
 ```
 
-<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;color: #000000;border-top: 2px solid #000000;">
-<caption>Leyenda</caption>
-<thead>
-<tr>
-<th style="padding-left: 5px;padding-right: 5px;">&nbsp;</th>
-<th style="padding-left: 5px;padding-right: 5px;">Modelo 3</th>
-<th style="padding-left: 5px;padding-right: 5px;">Modelo 3 (OR)</th>
-</tr>
-</thead>
-<tbody>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">(Intercept)</td>
-<td style="padding-left: 5px;padding-right: 5px;">3.30<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">27.09<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[ 2.87;  3.73]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   26.65;    27.52]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">edad</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.00</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.00<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-0.00;  0.01]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[    1.00;     1.01]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">sexoMujer</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.70<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.50<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-0.80; -0.59]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[    0.39;     0.60]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Profesionales, científicos e intelectuales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.43</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.65<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-0.89;  0.02]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[    0.20;     1.10]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Técnicos y profesionales de nivel medio</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.61<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.54<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-1.05; -0.17]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[    0.10;     0.98]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Personal de apoyo administrativo</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.79<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.46</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-1.27; -0.31]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.02;     0.94]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Trabajadores de los servicios y vendedores de comercios y mercados</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.19<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.11</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-2.60; -1.78]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.30;     0.52]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.84<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.06</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-3.28; -2.41]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.38;     0.49]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Artesanos y operarios de oficios</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.49<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.08</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-2.90; -2.07]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.33;     0.50]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Operadores de instalaciones, maquinas y ensambladores</td>
-<td style="padding-left: 5px;padding-right: 5px;">-1.43<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.24</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-1.88; -0.99]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.20;     0.68]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Ocupaciones elementales</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.23<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.11</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-2.64; -1.82]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -0.30;     0.52]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Otros no identificados</td>
-<td style="padding-left: 5px;padding-right: 5px;">11.32<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">82267.21<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[10.86; 11.78]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[82266.75; 82267.67]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">ciuo08Sin clasificación</td>
-<td style="padding-left: 5px;padding-right: 5px;">-2.07<sup>&#42;</sup></td>
-<td style="padding-left: 5px;padding-right: 5px;">0.13</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-3.34; -0.81]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[   -1.14;     1.39]</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">est_conyugalSin pareja</td>
-<td style="padding-left: 5px;padding-right: 5px;">-0.12</td>
-<td style="padding-left: 5px;padding-right: 5px;">0.89<sup>&#42;</sup></td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">&nbsp;</td>
-<td style="padding-left: 5px;padding-right: 5px;">[-0.24;  0.00]</td>
-<td style="padding-left: 5px;padding-right: 5px;">[    0.77;     1.01]</td>
-</tr>
-<tr style="border-top: 1px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Deviance</td>
-<td style="padding-left: 5px;padding-right: 5px;">25003.52</td>
-<td style="padding-left: 5px;padding-right: 5px;">25003.52</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">Dispersion</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.02</td>
-<td style="padding-left: 5px;padding-right: 5px;">1.02</td>
-</tr>
-<tr style="border-bottom: 2px solid #000000;">
-<td style="padding-left: 5px;padding-right: 5px;">Num. obs.</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-<td style="padding-left: 5px;padding-right: 5px;">26821</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="font-size: 0.8em;" colspan="3">$^{***}$ p < 0.001; `\(^{**}\)` p < 0.01; `\(^{*}\)` p < 0.05 <br> Errores estándar entre paréntesis. <br> **Nota**: La significancia estadística de los coeficientes en unidades de Odds ratio está calculada en base a los valores `\(t\)`, <br> los cuales a su vez se calculan en base a `\(log(Odds)/SE\)`</td>
-</tr>
-</tfoot>
-</table>
+```
+## # A tibble: 1 x 6
+##   ing_medio95 ing_medio95_low ing_medio95_upp ing_medio99 ing_medio99_low
+##         <dbl>           <dbl>           <dbl>       <dbl>           <dbl>
+## 1    1156457.        1121220.        1191694.    1156457.        1110121.
+## # ... with 1 more variable: ing_medio99_upp <dbl>
+```
 
-### b) Gráficos
+Trabajar con un mayor nivel de confianza nos permitirá estar más seguras/os de que nuestra estimación incluirá al parámetro poblacional. Sin embargo, esto no es gratis: un mayor nivel de confianza implica una **pérdida de precisión** en nuestros cálculos; y viceversa. Es decir, un mayor nivel de confianza ampliará los límites inferior y superior de nuestros intervalos de confianza, lo cual hace la estimación menos precisa, mientras que un menor nivel de confianza estrechará tales límites, haciendo la estimación más precisa. Sin embargo, en el primer caso, la probabilidad de contener al parámetro poblacional es mayor que en el segundo. La decisión del nivel de confianza con el cual trabajaremos dependerá de qué es lo que queramos calcular, y no es objeto de este curso. 
 
-(Una vez más) tal como en el práctico anterior, utilizaremos la librería `sjPlot` para graficar nuestros modelos. En particular, su función `plot_model()` nos permitirá presentar los modelos de manera gráfica. Esta vez, no obstante, el output por defecto es en _Odds ratio_. `
+También es posible utilizar `group_by()` para calcular la media de ingresos (y sus intervalos de confianza) según sexo:
 
 
 ```r
-sjPlot::plot_model(modelo3, 
-                   show.p = T,
-                   show.values =  T,
-                   ci.lvl = 0.95, 
-                   title = "Estimación de predictores",
-                   vline.color = "green")
+casen_regional %>% #Con casen_regional
+  group_by(sexo) %>% #Agrupamos por sexo
+  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el ingreso medio 
 ```
 
-<img src="/example/09-practico_files/figure-html/plot_model-1.png" width="672" />
+```
+## # A tibble: 2 x 4
+##   sexo   ing_medio ing_medio_low ing_medio_upp
+##   <fct>      <dbl>         <dbl>         <dbl>
+## 1 Hombre  1199636.      1165434.      1233837.
+## 2 Mujer   1119514.      1081919.      1157110.
+```
+
+```r
+                                                                           #poblacional, y sus intervalos de 
+                                                                           #confianza
+```
+
+Asimismo, es posible calcular la media de ingresos agrupando por región: 
 
 
-## 7. Resumen 
+```r
+casen_regional %>% #Con casen_regional
+  group_by(region) %>% #Agrupamos por region
+  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm=T)) #Calculamos el ingreso medio 
+```
 
-En este práctico aprendimos a
+```
+## # A tibble: 16 x 4
+##    region             ing_medio ing_medio_low ing_medio_upp
+##    <fct>                  <dbl>         <dbl>         <dbl>
+##  1 Tarapacá            1141383.      1035448.      1247318.
+##  2 Antofagasta         1307063.      1187223.      1426903.
+##  3 Atacama             1077501.       995455.      1159547.
+##  4 Coquimbo             921887.       858537.       985238.
+##  5 Valparaíso          1014265.       952490.      1076040.
+##  6 OHiggins             951390.       882157.      1020624.
+##  7 Maule                863768.       801938.       925598.
+##  8 Biobío               945557.       892262.       998852.
+##  9 La Araucanía         836515.       782771.       890260.
+## 10 Los Lagos            967411.       902996.      1031826.
+## 11 Aysén               1252366.      1152001.      1352732.
+## 12 Magallanes          1458963.      1317465.      1600461.
+## 13 Metropolitana       1408060.      1330071.      1486049.
+## 14 Los Ríos             926921.       841025.      1012816.
+## 15 Arica y Parinacota   952832.       897814.      1007851.
+## 16 Ñuble                788551.       716981.       860122.
+```
 
-- Crear **modelos de regresión logística binomial**
-- Calcular tales modelos incorporando el diseño muestral
-- Representar gráficamente los modelos con tablas y gráficos
-- Personalizar tales tablas y gráficos
+```r
+                                                                           #poblacional, y sus intervalos de 
+                                                                           #confianza
+```
 
-# 8. Recursos
+¿Y si quisiéramos crear una tabla con una columna por nivel de pobreza, cuyas observaciones nos indiquen la media de ingreso para cada una de ellas? Probemos con el siguiente código
 
-- [texreg](https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg) 
-- [survey](https://cran.r-project.org/web/packages/survey/survey.pdf)
 
-# 9. Reporte de progreso
+```r
+ing_pobreza <- casen_regional %>% 
+  group_by(pobreza) %>% 
+  summarise(ing_medio = survey_mean(ing_tot_hog, vartype = "ci", na.rm = T)) %>% 
+  ungroup()  
 
-¡Recuerda rellenar tu [reporte de progreso](). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
+ing_pobreza_p <- ing_pobreza %>% 
+  mutate('Pobres extremos' = c(.$ing_medio[1], .$ing_medio_low[1], .$ing_medio_upp[1]), # Extraemos los valores correspondientes a la primera fila en cada una de nuestras variables
+         'Pobres no extremos' = c(.$ing_medio[2], .$ing_medio_low[2], .$ing_medio_upp[2]), # Extraemos los valores correspondientes a la segunda fila en cada una de nuestras variables
+         'No pobres' = c(.$ing_medio[3], .$ing_medio_low[3], .$ing_medio_upp[3])) %>% # Extraemos los valores correspondientes a la tercera fila en cada una de nuestras variables
+  select('Pobres extremos', 'Pobres no extremos', 'No pobres')
+
+head(ing_pobreza) #Visualizamos
+```
+
+```
+## # A tibble: 3 x 4
+##   pobreza            ing_medio ing_medio_low ing_medio_upp
+##   <fct>                  <dbl>         <dbl>         <dbl>
+## 1 Pobres extremos      163743.       155589.       171896.
+## 2 Pobres no extremos   344812.       337494.       352130.
+## 3 No pobres           1263508.      1224884.      1302132.
+```
+
+### c) Cálculo de proporciones para variables categóricas
+
+También podemos utilizar la función `survey_prop()` de `srvyr` para calcular proporciones. Sin embargo, el código para calcular proporciones de variables categóricas **no se construye de la misma manera** que el código para calcular medias de variables continuas:
+
+
+```r
+casen_regional %>% #Con casen_regional
+  summarise(prop = survey_prop(pobreza, na.rm = T)) #Y calculamos las proporciones
+```
+
+Debemos recurrir a `group_by()` para especificar nuestra variable categórica, y luego realizar el cálculo en `summarise()`
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(na.rm = T)) #Y calculamos las proporciones
+```
+
+```
+## # A tibble: 3 x 3
+##   pobreza              prop prop_se
+##   <fct>               <dbl>   <dbl>
+## 1 Pobres extremos    0.0426 0.00125
+## 2 Pobres no extremos 0.0656 0.00162
+## 3 No pobres          0.892  0.00215
+```
+
+De todos modos, hay que considerar que `survey_prop()` y `survey_mean()` son (hasta cierto punto) intercambiables:
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_mean(na.rm = T)) #Y calculamos las proporciones
+```
+
+```
+## # A tibble: 3 x 3
+##   pobreza              prop prop_se
+##   <fct>               <dbl>   <dbl>
+## 1 Pobres extremos    0.0426 0.00125
+## 2 Pobres no extremos 0.0656 0.00162
+## 3 No pobres          0.892  0.00215
+```
+
+Muchas veces nos interesa más trabajar con porcentajes que con proporciones. Con `mutate()` podemos multiplicar por 100 nuestras proporciones, y así obtener los porcentajes deseados
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(na.rm = T))%>% #Calculamos las proporciones
+  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
+```
+
+```
+## # A tibble: 3 x 4
+##   pobreza              prop prop_se   per
+##   <fct>               <dbl>   <dbl> <dbl>
+## 1 Pobres extremos    0.0426 0.00125  4.26
+## 2 Pobres no extremos 0.0656 0.00162  6.56
+## 3 No pobres          0.892  0.00215 89.2
+```
+
+La función `survey_total()` de `srvyr` nos permite calcular el total de personas en cada categoría a **nivel poblacional**.
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(na.rm = T), #Calculamos las proporciones
+            total = survey_total(na.rm=T))%>% #Y el total por categorías
+  mutate(per = prop*100) #Creamos una nueva columna multiplicando las proporciones *100 para obtener porcentajes
+```
+
+```
+## # A tibble: 3 x 6
+##   pobreza              prop prop_se    total total_se   per
+##   <fct>               <dbl>   <dbl>    <dbl>    <dbl> <dbl>
+## 1 Pobres extremos    0.0426 0.00125   831232   24534.  4.26
+## 2 Pobres no extremos 0.0656 0.00162  1280953   31988.  6.56
+## 3 No pobres          0.892  0.00215 17420295  231034. 89.2
+```
+
+Por supuesto, también es posible incorporar intervalos de confianza, tal como cuando calculamos medias
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(vartype = "ci", na.rm = T)) #Incorporamos intervalos de confianza
+```
+
+```
+## # A tibble: 3 x 4
+##   pobreza              prop prop_low prop_upp
+##   <fct>               <dbl>    <dbl>    <dbl>
+## 1 Pobres extremos    0.0426   0.0401   0.0450
+## 2 Pobres no extremos 0.0656   0.0624   0.0688
+## 3 No pobres          0.892    0.888    0.896
+```
+
+Y, además, podemos convertir en porcentajes nuestros intervalos de confianza, tal como lo hicimos con la estimación puntual
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(vartype = "ci", na.rm = T)) %>% #Incorporamos intervalos de confianza
+  mutate(prop = prop*100, #Multiplicamos las proporciones *100,
+         prop_low = prop_low*100, #así como el límite inferior 
+         prop_upp = prop_upp*100) #y superior, para obtener porcentajes
+```
+
+```
+## # A tibble: 3 x 4
+##   pobreza             prop prop_low prop_upp
+##   <fct>              <dbl>    <dbl>    <dbl>
+## 1 Pobres extremos     4.26     4.01     4.50
+## 2 Pobres no extremos  6.56     6.24     6.88
+## 3 No pobres          89.2     88.8     89.6
+```
+
+Incluimos el total
+
+
+```r
+casen_regional %>% #Con casen_regional
+  group_by(pobreza) %>% #Agrupamos por pobreza
+  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
+            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
+  mutate(prop = prop*100, #Multiplicamos las proporciones *100,
+         prop_low = prop_low*100, #así como el límite inferior 
+         prop_upp = prop_upp*100) #y superior, para obtener porcentajes
+```
+
+```
+## # A tibble: 3 x 7
+##   pobreza             prop prop_low prop_upp    total total_low total_upp
+##   <fct>              <dbl>    <dbl>    <dbl>    <dbl>     <dbl>     <dbl>
+## 1 Pobres extremos     4.26     4.01     4.50   831232   783097.   879367.
+## 2 Pobres no extremos  6.56     6.24     6.88  1280953  1218194.  1343712.
+## 3 No pobres          89.2     88.8     89.6  17420295 16967009. 17873581.
+```
+
+También podemos cruzar dos variables. Veamos, por ejemplo, cómo se distribuye la pobreza según sexo
+
+
+```r
+casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
+  group_by(pobreza, sexo) %>% #Agrupamos por pobreza y sexo
+  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
+            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
+  mutate(prop = prop*100)
+```
+
+```
+## # A tibble: 6 x 8
+## # Groups:   pobreza [3]
+##   pobreza            sexo    prop prop_low prop_upp   total total_low total_upp
+##   <fct>              <fct>  <dbl>    <dbl>    <dbl>   <dbl>     <dbl>     <dbl>
+## 1 Pobres extremos    Hombre  45.4    0.442    0.466  377149   353131.   401167.
+## 2 Pobres extremos    Mujer   54.6    0.534    0.558  454083   425853.   482313.
+## 3 Pobres no extremos Hombre  44.7    0.438    0.457  573200   543298.   603102.
+## 4 Pobres no extremos Mujer   55.3    0.543    0.562  707753   670391.   745115.
+## 5 No pobres          Hombre  46.2    0.459    0.466 8055786  7856474.  8255098.
+## 6 No pobres          Mujer   53.8    0.534    0.541 9364509  9094186.  9634832.
+```
+
+¡Presentemos sólo lo que nos interesa! Las frecuencias de cada categoría de pobreza agrupando por sexo
+
+
+```r
+pobreza_sexo <- casen_regional %>% #Creamos un objeto llamado pobreza_reg con datos de casen_regional
+  group_by(sexo, pobreza) %>% #Agrupamos por region y pobreza
+  summarise(prop = survey_prop(vartype = "ci", na.rm = T), #Calculamos las proporciones con intervalos de confianza
+            total = survey_total(vartype = "ci", na.rm=T)) %>% #Así como el total por categoría
+  mutate(per = prop*100) %>%  #Multiplicamos las proporciones *100 para obtener porcentajes
+  ungroup() #desagrupamos
+
+# ¡Extraigamos los valores que nos interesan!
+
+pobreza_sexo_p <- pobreza_sexo %>% 
+  mutate(sexo = c('Hombre', 'Mujer', 0, 0, 0, 0), #Dejamos en el orden deseado y rellenamos con 0 
+         'Pobres extremos' = c(.$per[1], .$per[4], 0, 0, 0, 0), # Seleccionamos los valores que nos interesan y rellenamos con 0 
+         'Pobres no extremos' = c(.$per[2], .$per[5], 0, 0, 0, 0), # Seleccionamos los valores que nos interesan y rellenamos con 0 
+         'No pobres' = c(.$per[3], .$per[6], 0, 0, 0, 0)) %>%  # Seleccionamos los valores que nos interesan y rellenamos con 0 
+  select(-c(pobreza, starts_with('prop'), starts_with('total'), per)) %>%  #Seleccionamos sólo las variables que nos interesan
+  filter(sexo != 0) # Filtramos todas las filas con 0 de relleno
+
+head(pobreza_sexo_p)
+```
+
+```
+## # A tibble: 2 x 4
+##   sexo   `Pobres extremos` `Pobres no extremos` `No pobres`
+##   <chr>              <dbl>                <dbl>       <dbl>
+## 1 Hombre              4.19                 6.36        89.4
+## 2 Mujer               4.31                 6.72        89.0
+```
+
+## 5. Resumen
+
+¡Y eso es todo! En este práctico aprendimos a:
+
+1. Crear un objeto encuesta
+2. Realizar cálculos de medias a nivel poblacional para variables continuas
+3. Realizar cálculos de proporciones y cantidades a nivel poblacional para variables categóricas
+4. Crear una tabla ancha (wide) para presentar nuestros cálculos.
+
+## 6. Reporte de progreso
+
+¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
