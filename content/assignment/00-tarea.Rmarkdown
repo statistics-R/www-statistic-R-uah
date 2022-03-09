@@ -15,7 +15,7 @@ editor_options:
 ---
 
 
-Esta tarea debe ser rusuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/zYM3oL16). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/zYM3oL16). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
 
 ## Objetivo
 
