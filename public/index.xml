@@ -27673,7 +27673,7 @@ Este punto será esencial para lo que más adelante veremos como condición de s
 &lt;span style=&#34;color:#a6e22e&#34;&gt;library &lt;/span&gt;(pacman)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Luego instalaremos y cargaremos los paquetes de R de la siguiente manera, volviendo más eficiente el procedimiento de carga de paquetes. Para este práctico cargaremos el paquete &lt;strong&gt;rmarkdown&lt;/strong&gt; y &lt;strong&gt;knit&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(rmarkdown,
-               knit)
+               knitr)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;paso-2-crear-un-nuevo-archivo-en-rmarkdown&#34;&gt;Paso 2: Crear un nuevo archivo en Rmarkdown&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;Una vez cargados los paquetes deben dirigirse a &lt;code&gt;File &amp;gt; New File &amp;gt; R Markdown&lt;/code&gt;&lt;/li&gt;

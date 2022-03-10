@@ -69,7 +69,7 @@ Luego instalaremos y cargaremos los paquetes de R de la siguiente manera, volvie
 
 ```r
 pacman::p_load(rmarkdown,
-               knit)
+               knitr)
 ```
 
 ### Paso 2: Crear un nuevo archivo en Rmarkdown
