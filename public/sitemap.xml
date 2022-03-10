@@ -61,7 +61,7 @@
   </url>
   
   <url>
-    <loc>/example/10-practico/</loc>
+    <loc>/example/11-practico/</loc>
     <lastmod>2021-11-08T00:00:00+00:00</lastmod>
   </url>
   
@@ -81,11 +81,6 @@
   </url>
   
   <url>
-    <loc>/assignment/05-tarea/</loc>
-    <lastmod>2021-10-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/assignment/04-tarea/</loc>
     <lastmod>2021-10-06T00:00:00+00:00</lastmod>
   </url>
@@ -101,17 +96,17 @@
   </url>
   
   <url>
-    <loc>/example/07-practico/</loc>
+    <loc>/example/09-practico/</loc>
     <lastmod>2021-09-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/example/06-practico/</loc>
+    <loc>/content/07-content/</loc>
     <lastmod>2021-09-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/content/07-content/</loc>
+    <loc>/example/07-practico/</loc>
     <lastmod>2021-09-13T00:00:00+00:00</lastmod>
   </url>
   
@@ -121,17 +116,27 @@
   </url>
   
   <url>
+    <loc>/example/08-practico/</loc>
+    <lastmod>2021-09-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/assignment/01-tarea/</loc>
+    <lastmod>2021-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/assignment/02-tarea/</loc>
     <lastmod>2021-09-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/example/04-practico/</loc>
+    <loc>/content/05-content/</loc>
     <lastmod>2021-08-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/content/05-content/</loc>
+    <loc>/example/06-practico/</loc>
     <lastmod>2021-08-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -141,13 +146,8 @@
   </url>
   
   <url>
-    <loc>/example/09-practico/</loc>
+    <loc>/example/10.2-practico/</loc>
     <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/example/03-practico/</loc>
-    <lastmod>2021-08-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -156,7 +156,12 @@
   </url>
   
   <url>
-    <loc>/assignment/01-tarea/</loc>
+    <loc>/example/03-practico/</loc>
+    <lastmod>2021-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/assignment/00-tarea/</loc>
     <lastmod>2021-08-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -166,8 +171,13 @@
   </url>
   
   <url>
-    <loc>/example/03-practicodatatypes/</loc>
+    <loc>/example/04-practico/</loc>
     <lastmod>2021-08-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/example/10.1-practico/</loc>
+    <lastmod>2021-08-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -176,18 +186,8 @@
   </url>
   
   <url>
-    <loc>/example/08-practico/</loc>
-    <lastmod>2021-08-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/resource/markdown/</loc>
     <lastmod>2021-08-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/assignment/00-tarea/</loc>
-    <lastmod>2021-08-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>

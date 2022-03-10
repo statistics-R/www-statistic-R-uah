@@ -670,12 +670,7 @@
 
       
       <li >
-        <a href="/example/03-practico/">3: Importar, explorar y limpiar datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/04-practico/">4: Transformar y seleccionar variables</a>
+        <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
       </li>
 
       
@@ -685,32 +680,42 @@
 
       
       <li >
-        <a href="/example/06-practico/">6: Análisis descriptivo</a>
+        <a href="/example/06-practico/">6: Transformar y seleccionar variables</a>
       </li>
 
       
       <li >
-        <a href="/example/07-practico/">7: Muestras complejas y precisión de inferencia estadística</a>
+        <a href="/example/07-practico/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li >
-        <a href="/example/08-practico/">8: Regresiones lineales, predictores categóricos y representación gráfica</a>
+        <a href="/example/08-practico/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li >
-        <a href="/example/09-practico/">9: Regresión logística</a>
+        <a href="/example/09-practico/">9: Muestras complejas y precisión de inferencia estadística</a>
       </li>
 
       
       <li >
-        <a href="/example/10-practico/">10: Calidad de modelos y otras técnicas de estimación</a>
+        <a href="/example/10.1-practico/">10.1: Regresiones lineales</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practicodatatypes/">3: Tipos de datos</a>
+        <a href="/example/10.2-practico/">10.2: Regresión logística</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/04-practico/">3: Tipos de datos</a>
       </li>
 
       
@@ -810,14 +815,14 @@
 <p>¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd</p>
 <h2 id="2-paso-a-paso-para-crear-un-rmarkdown">2. Paso a paso para crear un RMarkdown</h2>
 <h3 id="paso-1-instalación-de-paquetes">Paso 1: Instalación de paquetes</h3>
-<p>Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita &ldquo;compilar&rdquo; los archivos construidos en .Rmd a formatos como <code>.pdf</code>, <code>.html</code>, <code>.doc</code>. Para ello instalaremos 2 paquetes <code>knitr</code> y <code>rmarkdown</code></p>
+<p>Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita &ldquo;compilar&rdquo; los archivos construidos en .Rmd a formatos como <code>.pdf</code>, <code>.html</code>, <code>.doc</code>. Para ello instalaremos 2 paquetes: <code>knitr</code> y <code>rmarkdown</code></p>
 <p>Usualmente para cargar paquetes lo hacemos de la siguiente manera:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;paquete&#34;</span>)
   <span style="color:#a6e22e">library</span>(paquete)
-</code></pre></div><p>Pero en esta ocasión utilizaremos un paquete llamado <strong>pacman</strong>, este facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:</p>
+</code></pre></div><p>Pero en esta ocasión utilizaremos un paquete llamado <strong>pacman</strong>, que facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;pacman&#34;</span>)
 <span style="color:#a6e22e">library </span>(pacman)
-</code></pre></div><p>Luego cargaremos así los paquetes de R, esto agiliza la carga de paquetes. Para este práctico cargaremos el paquete <strong>rmarkdown</strong> y <strong>knit</strong>.</p>
+</code></pre></div><p>Luego instalaremos y cargaremos los paquetes de R de la siguiente manera, volviendo más eficiente el procedimiento de carga de paquetes. Para este práctico cargaremos el paquete <strong>rmarkdown</strong> y <strong>knit</strong>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pacman<span style="color:#f92672">::</span><span style="color:#a6e22e">p_load</span>(rmarkdown,
                knit)
 </code></pre></div><h3 id="paso-2-crear-un-nuevo-archivo-en-rmarkdown">Paso 2: Crear un nuevo archivo en Rmarkdown</h3>
@@ -826,40 +831,40 @@
 </ol>
 <p><img src="/img/example/02practico/open_rmark_file.png" alt=""><!-- --></p>
 <ol start="2">
-<li>Luego deben darle un título, poner su nombre y especificar un <em>formato de salida</em> ya sea en <strong>HTML</strong>, <strong>PDF</strong> o <strong>Word</strong></li>
+<li>Luego deben darle un título, poner su nombre y especificar un <em>formato de salida</em>, ya sea en <strong>HTML</strong>, <strong>PDF</strong> o <strong>Word</strong></li>
 </ol>
 <p><img src="/img/example/02practico/open_rmark_file2.png" alt=""><!-- --></p>
 <ol start="3">
-<li>Les creará un archivo con un <strong><em>YAML</em></strong>, que tendrá la información general del documento y un <strong><em>chunk</em></strong></li>
+<li>Se creará un archivo con un <strong><em>YAML</em></strong>, que tendrá la información general del documento; y un <strong><em>chunk</em></strong>, o trozo de código</li>
 </ol>
 <p><img src="/img/example/02practico/open_rmark_file3.png" alt=""><!-- --></p>
 <ol start="4">
-<li>Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las <a href="#config">configuraciones para dejarlo más lindo</a></li>
+<li>Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las <a href="#config">configuraciones para dejarlo más lindo y presentable</a></li>
 </ol>
 <h3 id="paso-3-crear-el-archivo-con-formato-desde-el-rmd">Paso 3: Crear el archivo con formato desde el .Rmd</h3>
 <p><img src="https://github.com/hadley/r4ds/raw/master/images/RMarkdownFlow.png" alt=""></p>
 <div class="note">
-Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML (¡y por eso es tan importante también!)
+Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R (insertado en <em>chunks</em>) y como el texto plano, a partir de las instrucciones que dimos en el YAML (¡por eso es tan importante!)
 </div>
 
 <p><img src="/img/assignments/knit-button.png" width="30%" /></p>
-<p>Es <strong>importante</strong> que sepan que cuando se hace <strong>Knit</strong>, R ejecuta cada uno de los trozos <strong>secuencialmente</strong>. El proceso que sigue no es necesario que lo entiendas a cabalidad (aún) <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, lo importante es que debes saber que si todo lo que está dentro de tu .Rmd está bien hecho deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc)</p>
+<p>Es <strong>fundamental</strong> que sepan que, cuando se hace <strong>Knit</strong>, RStudio ejecuta cada uno de los trozos <strong>secuencialmente</strong>. No es necesario entender el proceso posterior a cabalidad (aún) <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>: lo importante que debes saber  es que, si todo lo que está dentro de tu .Rmd está bien hecho, deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc o .html).</p>
 <h2 id="config">3. Configuraciones del RMarkdown</h2>
 <h3 id="31-encabezado-yaml">3.1 Encabezado (YAML)</h3>
-<p>Al inicio del Markdown siempre debemos poner algunas informaciones sobre el documento, por ejemplo, el título, la fecha, autor, etc. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>.</p>
+<p>Al inicio del Markdown siempre especificar cierta información sobre el documento, por ejemplo, el título, la fecha, autor, entre otras. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>.</p>
 <p>Básicamente, con esto establecemos las &ldquo;configuraciones&rdquo; del texto.</p>
-<p>Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &ldquo;cabeza&rdquo; del Markdown o <strong>YAMLS</strong> está dividida del resto del cuerpo del texto al inicio y al final con tres líneas (<code>---</code>).</p>
+<p>Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &ldquo;cabeza&rdquo; del Markdown o <strong>YAML</strong> está dividida del resto del cuerpo del texto al inicio y al final con tres guiones (<code>---</code>).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
 <span style="color:#f92672">title</span>: <span style="color:#ae81ff">Título de mi tesis</span>
 <span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;16 de Agosto, 2021&#34;</span>
 <span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Estudiante UAH&#34;</span>
 ---
-</code></pre></div><p>Debes poner este texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  <code>Mi tesis: la más &quot;genial&quot; de Chile</code>), entonces ponemos</p>
+</code></pre></div><p>Debes poner el texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  <code>Mi tesis: la más &quot;genial&quot; de Chile</code>), entonces ponemos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
 <span style="color:#f92672">title: `Mi tesis</span>: <span style="color:#ae81ff">la más &#34;genial&#34; de Chile`</span>
 ---
 </code></pre></div><h4 id="instrucciones-de-salida-en-yaml-output-formats">Instrucciones de salida en YAML (Output formats)</h4>
-<p>Los formatos de salida se ven en el encabezado (<strong>YAML</strong>) del documento, aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma puedes especificar qué tipo de documento creas cuando <em>&ldquo;Kniteas&rdquo;</em>  (es como <em>&ldquo;tejer&rdquo;</em>, <em>construir</em>)</p>
+<p>Los formatos de salida se ven en el encabezado (<strong>YAML</strong>) del documento: aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma, puedes especificar qué tipo de documento creas cuando <em>&ldquo;Kniteas&rdquo;</em>  (es como <em>&ldquo;tejer&rdquo;</em>, <em>construir</em>)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
 <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Mi documento&#34;</span>
 <span style="color:#f92672">output</span>:
@@ -871,7 +876,7 @@ Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos
 <p><img src="/img/reference/output-options.png" width="35%" /></p>
 <p>El primer tipo de salida que aparece en <code>output:</code> será el que se genere al pulsar el botón <strong>&ldquo;Knit&rdquo;</strong> o al pulsar el atajo de teclado (<code>⌘⇧K</code> en macOS; <code>control + shift + K</code> en Windows). Si elige una salida diferente con el menú del botón &ldquo;Knit&rdquo;, esa salida se moverá a la parte superior de la sección <code>output</code>.</p>
 <h5 id="adicionales-en-yaml">Adicionales en YAML</h5>
-<p>El encabezado o YAML es importante, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección <code>output</code> suele verse:</p>
+<p>El encabezado o YAML es <strong>importantísimo</strong>, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección <code>output</code> suele verse:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
 <span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Mi tesis&#34;</span>
 <span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Valentina Andrade&#34;</span>
@@ -902,14 +907,14 @@ Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos
 </li>
 <li>
 <p><code>output</code>: opciones de salida (html, pdf, doc, ¡incluso ppt!)</p>
-<ul>
-<li><code>toc</code>: &ldquo;Table of contents&rdquo; o en español, índice. El término <code>depth</code> indica &ldquo;profundidad&rdquo; para ver cuántos títulos mostrar y <code>float</code> para ver si se desliza automáticamente</li>
-</ul>
+</li>
+<li>
+<p><code>toc</code>: &ldquo;Table of contents&rdquo; o, en español, índice. El término <code>depth</code> indica &ldquo;profundidad&rdquo; para ver cuántos títulos mostrar y <code>float</code> para ver si se desliza automáticamente</p>
 </li>
 </ul>
 <p>Si quieres ver más opciones, <a href="https://bookdown.org/yihui/rmarkdown/html-document.html" target="_blank" rel="noopener">temas para tu documento puedes ver aquí</a></p>
 <h3 id="32-texto-markdown">3.2 Texto (Markdown)</h3>
-<p>Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener">en la sección recurso</a> o <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">acá</a></p>
+<p>Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener">en la sección recursos</a> o <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">acá</a></p>
 <table>
 <colgroup>
 <col width="40%" />
@@ -1088,13 +1093,13 @@ Título 3
 <p>También puedes configurar las opciones del chunk haciendo clic en el pequeño icono del engranaje en la esquina superior derecha de cualquier chunk:</p>
 <p><img src="/img/reference/chunk-options.png" width="70%" /></p>
 <h2 id="4-resumen">4. Resumen</h2>
-<p>Dentro de la creación de archivos en RMarkdown, hay algunos <strong>conceptos claves</strong> que si o si debes manejar para ir construyendo tus documentos en RMarkdown.</p>
+<p>Dentro de la creación de archivos en RMarkdown, hay algunos <strong>conceptos claves</strong> que <em>sí o sií</em> debes manejar para ir construyendo tus documentos en RMarkdown.</p>
 <ol>
 <li>
 <p><strong>YAML</strong>: Es un encabezado al inicio del documento que inicia y acaba con tres guiones <strong>&mdash;</strong>*. Acá se introducen aspectos básicos del documento, como el título, el autor, la fecha y el formato de salida (output)</p>
 </li>
 <li>
-<p><strong>Chunk</strong>: son <strong>trozos</strong> de códigos de R, estor permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final</p>
+<p><strong>Chunk</strong>: son <strong>trozos</strong> de códigos de R, que permiten hacer análisis estadísticos dentro del documento, visualizando los resultados <strong>directamente</strong> en el documento final</p>
 </li>
 <li>
 <p><strong>Knit</strong>: Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML</p>
@@ -1130,7 +1135,7 @@ Título 3
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>Luego de apretar knit, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Luego, RStudio hace &ldquo;pasar&rdquo; ese documento vía <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> para convertirlo en HTML o PDF o Word (o cualquier salida que haya seleccionado). <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Luego de presionar <em>knit</em>, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Posteriormente, RStudio hace &ldquo;pasar&rdquo; ese documento vía <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> para convertirlo en HTML, PDF o Word (o cualquier salida que haya seleccionado). <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -1157,7 +1162,7 @@ Título 3
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/example/03-practicodatatypes/" rel="prev">Tipos de datos</a>
+    <a href="/example/04-practico/" rel="prev">Tipos de datos</a>
   </div>
   
 </div>

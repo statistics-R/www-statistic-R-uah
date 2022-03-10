@@ -28,7 +28,7 @@ Las principales ventajas son:
 
 - Se encuentra en constante actualización y desarrollo
 
-Para descargar **R**, deben dirigirse al siguiente [link](https://cran.dcc.uchile.cl), y seguir los pasos de instalación según su sistema operativo. Para el caso de *Windows* y *macOS*, se debe descargar el instalador de R, ejecutarlo, y proseguir con la instalación. Lo recomendado es instalarlo en español, y mantener las opciones de instalación que vienen por defecto.
+Para descargar **R**, deben dirigirse al siguiente [link](https://cran.r-project.org), y seguir los pasos de instalación según su sistema operativo. Para el caso de *Windows* y *macOS*, se debe descargar el instalador de R, ejecutarlo, y proseguir con la instalación. Lo recomendado es instalarlo en español, y mantener las opciones de instalación que vienen por defecto.
 
 <img src="/img/tutorial/install/r-versions-os.png" width="60%" />
 

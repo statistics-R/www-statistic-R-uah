@@ -670,12 +670,7 @@
 
       
       <li >
-        <a href="/example/03-practico/">3: Importar, explorar y limpiar datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/04-practico/">4: Transformar y seleccionar variables</a>
+        <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
       </li>
 
       
@@ -685,32 +680,42 @@
 
       
       <li >
-        <a href="/example/06-practico/">6: Análisis descriptivo</a>
+        <a href="/example/06-practico/">6: Transformar y seleccionar variables</a>
       </li>
 
       
       <li >
-        <a href="/example/07-practico/">7: Muestras complejas y precisión de inferencia estadística</a>
+        <a href="/example/07-practico/">7: Análisis descriptivo univariado</a>
       </li>
 
       
       <li >
-        <a href="/example/08-practico/">8: Regresiones lineales, predictores categóricos y representación gráfica</a>
+        <a href="/example/08-practico/">8: Análisis descriptivo bivariado</a>
       </li>
 
       
       <li >
-        <a href="/example/09-practico/">9: Regresión logística</a>
+        <a href="/example/09-practico/">9: Muestras complejas y precisión de inferencia estadística</a>
       </li>
 
       
       <li >
-        <a href="/example/10-practico/">10: Calidad de modelos y otras técnicas de estimación</a>
+        <a href="/example/10.1-practico/">10.1: Regresiones lineales</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practicodatatypes/">3: Tipos de datos</a>
+        <a href="/example/10.2-practico/">10.2: Regresión logística</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/04-practico/">3: Tipos de datos</a>
       </li>
 
       
@@ -806,7 +811,7 @@
 <h2 id="1-cargar-librerías">1. Cargar librerías</h2>
 <p>Lo primero es <em>cargar las librerías</em> a utilizar. Para ello, acudimos a la función <code>p_load</code> del paquete <code>pacman</code>. Asumimos que ya está instalado, así que sólo lo cargaremos con la función <code>library()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(pacman)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">Warning</span>: <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">pacman</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">was</span> <span style="color:#a6e22e">built</span> <span style="color:#a6e22e">under</span> <span style="color:#a6e22e">R</span> <span style="color:#a6e22e">version</span> <span style="color:#ae81ff">4.0.5</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">Warning</span>: <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">pacman</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">was</span> <span style="color:#a6e22e">built</span> <span style="color:#a6e22e">under</span> <span style="color:#a6e22e">R</span> <span style="color:#a6e22e">version</span> <span style="color:#ae81ff">4.1.2</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pacman<span style="color:#f92672">::</span><span style="color:#a6e22e">p_load</span>(tidyverse, <span style="color:#75715e">#Universo de librerías para manipular datos</span>
                tidyr, <span style="color:#75715e">#Para pivotear la estructura de los datos</span>
                dplyr,<span style="color:#75715e">#Para manipular datos </span>
@@ -1151,14 +1156,14 @@ row_un <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">bind
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/example/03-practicodatatypes/" rel="next">Tipos de datos</a>
+    <a href="/example/10.1-practico/" rel="next">Regresiones lineales</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/example/08-practico/" rel="prev">Regresiones lineales, predictores categóricos y representación gráfica</a>
+    <a href="/example/01-practico/" rel="prev">Bienvenido/a a R, RStudio y Github</a>
   </div>
   
 </div>

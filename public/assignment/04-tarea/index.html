@@ -287,7 +287,7 @@
   
   <meta property="og:site_name" content="Análisis Estadístico en R" />
   <meta property="og:url" content="/assignment/04-tarea/" />
-  <meta property="og:title" content="Tarea 4. Muestras complejas | Análisis Estadístico en R" />
+  <meta property="og:title" content="Tarea 4. Análisis de regresión | Análisis Estadístico en R" />
   <meta property="og:description" content="Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la  Tarea N°4 hacer click aquí. Si aún tienes dudas de cómo interactuar con GitHub Class Roomm revisa el práctico" /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
@@ -324,7 +324,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Tarea 4. Muestras complejas | Análisis Estadístico en R</title>
+  <title>Tarea 4. Análisis de regresión | Análisis Estadístico en R</title>
 </head>
 
 
@@ -655,32 +655,27 @@
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/assignment/00-tarea/">0: Colaborando en GitHub</a>
+        <a href="/assignment/00-tarea/">0: Reporte en RMarkdown</a>
       </li>
 
       
       <li >
-        <a href="/assignment/01-tarea/">1: Reporte en RMarkdown</a>
+        <a href="/assignment/01-tarea/">1: Procesamiento de datos en R</a>
       </li>
 
       
       <li >
-        <a href="/assignment/02-tarea/">2: Procesamiento de datos en R</a>
+        <a href="/assignment/02-tarea/">2: Análisis descriptivo</a>
       </li>
 
       
       <li >
-        <a href="/assignment/03-tarea/">3: Análisis descriptivo</a>
+        <a href="/assignment/03-tarea/">3: Muestras complejas</a>
       </li>
 
       
       <li class="active">
-        <a href="/assignment/04-tarea/">4: Muestras complejas</a>
-      </li>
-
-      
-      <li >
-        <a href="/assignment/05-tarea/">5: Análisis de regresión múltiple</a>
+        <a href="/assignment/04-tarea/">4: Análisis de regresión</a>
       </li>
 
       
@@ -716,16 +711,14 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#objetivo">Objetivo</a>
+    <li><a href="#objetivo">Objetivo</a></li>
+    <li><a href="#i-análisis-de-correlación">I. Análisis de Correlación</a></li>
+    <li><a href="#ii-regresión-lineal-múltiple">II. Regresión Lineal Múltiple</a>
       <ul>
-        <li><a href="#instrucciones">Instrucciones</a>
-          <ul>
-            <li><a href="#instrucciones-específicas-para-cada-informe">Instrucciones específicas para cada informe</a></li>
-          </ul>
-        </li>
-        <li><a href="#sobre-el-reporte">Sobre el reporte</a></li>
+        <li><a href="#iii-modelo-logístico">III. Modelo logístico</a></li>
       </ul>
     </li>
+    <li><a href="#pauta">Pauta</a></li>
     <li><a href="#formato">Formato</a></li>
     <li><a href="#recursos">Recursos</a></li>
   </ul>
@@ -740,11 +733,11 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Tarea 4. Muestras complejas</h1>
+                    <h1>Tarea 4. Análisis de regresión</h1>
 
                     
                     <div class="due-date p-2 mb-3 bg-assignment text-white">
-                        Hasta las <strong>23:59 PM</strong> del 15,Oct
+                        Hasta las <strong>23:59 PM</strong> del 17,Jun
                     </div>
                     
 
@@ -753,132 +746,149 @@
                     
 
                     <div class="article-style">
-                        <p>Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  <a href="https://classroom.github.com/a/_pxaKjrh" target="_blank" rel="noopener">Tarea N°4 hacer click aquí</a>. Si aún tienes dudas de cómo interactuar con <a href="https://learn-r-uah.netlify.app/example/01-practico/" target="_blank" rel="noopener">GitHub Class Roomm revisa el práctico</a></p>
+                        <p>Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  <a href="https://classroom.github.com/a/-TJ484eg" target="_blank" rel="noopener">Tarea N°4 hacer click aquí</a>. Si aún tienes dudas de cómo interactuar con <a href="https://learn-r-uah.netlify.app/example/01-practico/" target="_blank" rel="noopener">GitHub Class Roomm revisa el práctico</a></p>
 <h2 id="objetivo">Objetivo</h2>
-<p>La tarea N°4 busca evaluar la unidad de muestras complejas utilizando R, en base a la creación de un <em>informe reproducible en RMarkdown</em>. Este informe se basa en la repiblicación de estadísticos reportados por otras instituciones públicas y académicas. Considere que los conocimientos a evaluar en la tarea N°4 requieren de un manejo sustantivo de los contenidos anteriormente vistos en clases.</p>
-<h3 id="instrucciones">Instrucciones</h3>
-<p>Debe seleccionar alguno de los dos siguientes reportes para su replicación</p>
+<p>El objetivo de esta tarea consiste en realizar un análisis de regresión lineal y logística utilizando R. Para ello debe utilizar los datos según según sus apellidos <a href="https://github.com/learn-R/www-learn-R-uah/tree/master/content/assignment/05-tarea/bases/originales" target="_blank" rel="noopener">(eg. &lsquo;Andrade.sav&rsquo;) los cuales podrán encontrar en el siguiente repositorio</a>. Estas bases contienen una muestra aleatoria de 1000 casos de la encuesta MOVID-IMPACT (2020) del módulo “Orientaciones del Trabajo”. <br><br></p>
+<p>La pregunta de investigación que buscamos contestar en esta tarea es <strong>“¿Qué factores inciden el cumplimiento de la distancia física para cuidarse del COVID-19?”</strong> a partir de contestar la frecuencia con que se <em>“Evitar reunirse con más de 10 personas en un espacio cerrado”.</em></p>
+<p>Para responder a esta pregunta, nos basamos en la investigación de <em>Gerber et al (2021)</em> que indica que tanto factores psicosociales como sociodemográficos son relevantes para predecir la adherencia a las medidas de cuidado contra el COVID-19.  Desde esta investigación, planteamos las siguientes dos hipótesis:</p>
+<ul>
+<li>
+<p><code>\(H_1\)</code>: A mayor percepción de riesgo contra el COVID-19, mayor frecuencia de cumplimiento de la distancia física</p>
+</li>
+<li>
+<p><code>\(H_2\)</code>: Las personas que trabajan presentan menor posibilidad de mantener distancia física.</p>
+</li>
+<li>
+<p><code>\(H_3\)</code>: Las mujeres presentarán mayor frecuencia de mantener distancia física que los hombres</p>
+</li>
+<li>
+<p><code>\(H_4\)</code>: Los adultos mayores presentarán mayor frecuencia de mantener distancia física para cuidarse del COVID-19 que los jóvenes.</p>
+</li>
+</ul>
+<p>Considera las siguientes variables:</p>
+<ul>
+<li>
+<p><strong>Mantener distancia física</strong>: Frecuencia semanal a la frase “Evitar reunirse con más de 10 personas en un espacio cerrado” (1= Casi nunca hasta 5= Siempre), nombre a la variable: ‘cuidarse’.</p>
+<ul>
+<li>A partir de esa variable, cree una nueva variable llamada <code>dummy_cuidarse</code> donde quiénes contesten &ldquo;Frecuentemente&rdquo;, &ldquo;Casi siempre&rdquo; y &ldquo;Siempre&rdquo; presentarán la categoría 1, y el resto 0.</li>
+</ul>
+</li>
+<li>
+<p><strong>Percepción de riesgo al COVID-19</strong>: Nivel de acuerdo con la frase “¿Qué tan peligroso cree que es el coronavirus para usted y sus cercanos?” (1=Nada peligroso hasta 5=Muy peligroso), nombre de variable: ‘riesgo’</p>
+</li>
+<li>
+<p><strong>Trabajar</strong>: Con la pregunta “Durante la semana pasada, ¿trabajó al menos una hora, sin considerar los quehaceres domésticos?”. (1=Si 2=No), nombre de variable: ‘trabaja’</p>
+</li>
+<li>
+<p><strong>Edad</strong>: Con la pregunta “¿Cuál es su edad?” se clasificó a “Jóvenes”, “Adultos” y “Adultos mayores” (1=Jóvenes, 2=Adultos, 3= Adultos mayores), nombre de variable: ‘edad’</p>
+</li>
+</ul>
+<h2 id="i-análisis-de-correlación">I. Análisis de Correlación</h2>
+<p><em>Interpretación del output</em>: ¿Existen asociaciones significativas entre el <em>cumplimiento de las medidas de cuidado</em> y la percepción de riesgo?</p>
+<p>a.	Lleva a cabo un análisis de correlación entre  ambas variables [4 puntos]</p>
+<p>b.	Describe la dirección, fuerza  y significancia de la asociación [1 puntos]</p>
+<p><em>Formato</em>: Para este punto puede presentar una tabla de correlaciones o gráfico.</p>
+<h2 id="ii-regresión-lineal-múltiple">II. Regresión Lineal Múltiple</h2>
+<p><em>Interpretación del output</em>: ¿Predicen la percepción de riesgo, el trabajar y la edad, el <em>cumplimiento de las medidas de cuidado</em>? Lleva a cabo los siguientes pasos:</p>
+<p>a.	Lleva a cabo un análisis de regresión lineal múltiple definiendo  el <em>cumplimiento de las medidas de cuidado</em> como la variable dependiente (Y). Define la percepción de riesgo, el trabajar y la edad (Xs) [1 punto c/u]</p>
+<ul>
+<li>Modelo 1 con percepción de riesgo como continua</li>
+<li>Modelo 2 con percepción de riesgo como ordinal donde &ldquo;Nada peligroso&rdquo; sea la categoría de referencia</li>
+</ul>
+<p>b.	Representa los modelos en una tabla única con título y columnas en español [6 puntos]</p>
+<ul>
+<li>
+<p>Los modelos deben ser nombrados como &ldquo;Modelo 1&rdquo; y &ldquo;Modelo 2&rdquo;</p>
+</li>
+<li>
+<p>El nivel de significancia debe estar representado por asteriscos. El intervalo de confianza no debe aparecer</p>
+</li>
+<li>
+<p>La tabla debe contener 3 dígitos</p>
+</li>
+</ul>
+<p>c.	Escribe la ecuación de la recta de regresión estimada del <em>modelo 1</em> en formato LateX-Markdown [6 puntos]</p>
+<p>d.	Interpreta los coeficientes de regresión para el modelo 2 con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [3 puntos]</p>
+<p>e.	Para cada una de las hipótesis planteadas, argumenta si observas evidencia a favor o no en los resultados de tus análisis. Para este punto es necesario que muestres un <em>forest plot</em> del modelo 2 [9 puntos]</p>
+<ul>
+<li>Muestre el intercepto, tamaño efecto y valores p, con 3 dígitos</li>
+<li>Título en debido formato</li>
+</ul>
+<p>f.	¿Qué porcentaje de la varianza en la actitud hacia los sindicatos es explicada por el modelo 1 y 2? Reporte, además, el estadístico F[3 puntos]</p>
+<p><em>Formato</em>: puede ir escribiendo los <code>\(R^2\)</code> y <code>\(F\)</code> con <code>inline code de R</code> o hacer una tabla.</p>
+<p>g.	Utiliza la ecuación estimada para calcular el cumplimiento de las medidas de cuidado <em>esperada</em> para quiénes trabajan y para quienes no lo hacen. Puedes presentar los resultados en una tabla o en un gráfico. [9 puntos]</p>
+<p><em>Formato</em>: en el punto N°1 debe presentar una tabla, una ecuación en formato Markdown y un forest plot.</p>
+<h3 id="iii-modelo-logístico">III. Modelo logístico</h3>
+<p><em>Interpretación del output</em>: ¿Predicen la percepción de salarios, la discriminación y el sexo una actitud <strong>favorable</strong> hacia los sindicatos? Lleva a cabo los siguientes pasos:</p>
+<p>a.	Construye múltiples modelos logísticos con la variable <em>dummy</em> actitud hacia los sindicatos [1 punto c/u]</p>
+<ul>
+<li>Modelo nulo</li>
+<li>Modelo 3 con edad</li>
+<li>Modelo 4 con trabajo</li>
+<li>Modelo 5 con edad y trabajo</li>
+<li>Modelo 6 con todos los predictores (riesgo en factor)</li>
+<li>Modelo 6 con todos los predictores para nivel polacional</li>
+</ul>
+<p>b.	Representa los modelos en una tabla única con coeficientes exponenciados [6 puntos]</p>
+<p>c.	Interpreta los coeficientes de regresión para el modelo con todas las variables independientes en términos de la dirección y fuerza de la asociación. Describe los efectos aún si los efectos no sean significativos. [6 puntos]</p>
+<p>d. Realiza un gráfico de valores predichos con el modelo 6 para el cumplimiento de las medidas de cuidado según edad[9 puntos]</p>
+<p>e. Compare la estimación del modelo 6 con R base y modelo 6 utilizando diseño complejo de encuestas. Reporte ambos modelo y reflexione sobre la importancia del uso de ciertos paquetes y argumentos para la estimación de modelos [9 puntos]</p>
+<p><em>Formato</em>: en este punto debe presentar una tabla y un margin plot.</p>
+<h2 id="pauta">Pauta</h2>
 <ol>
 <li>
-<p><a href="https://drive.google.com/file/d/1Yh8KajQsmHs2X-kt5kSuliUFuBDfV5-h/view" target="_blank" rel="noopener">Radiografía del cambio social</a> en base a la Encuesta Longitudinal Social del Centro de Estudios de Conflicto y Cohesión Social <a href="https://coes.cl/encuesta-panel/" target="_blank" rel="noopener">(COES)</a></p>
+<p>RMarkdown, este ítem evalúa aspectos propios de los archivos .Rmd, desde su estructura hasta su correcto funcionamiento. Es necesario considerar:</p>
+<p>a. Aspectos formales: títulos, nombres, información institucional, fecha, etc.</p>
+<p>b. Estructura de los archivos .Rmd</p>
+<p>c. Uso correcto y constante de markdown</p>
+<p>d. Aspectos solicitados según cada tarea, por ejemplo:</p>
+<ul>
+<li>Análisis: en estos archivos irán tanto sus reportes como el análisis que realicen</li>
+<li>Replicación de informes: esto incluye la replicación de análisis con sus outputs, ya sean tablas, gráficos o lo que se solicite en la respectiva tarea.</li>
+</ul>
 </li>
 <li>
-<p><a href="https://www.ine.cl/docs/default-source/sueldos-y-salarios/boletines/espa%C3%B1ol/base-anual-2016-100/m%C3%B3dulo-covid-19-ir-icmo/bolet%C3%ADn-covid-19-%28abril-a-julio-2021%29.pdf?sfvrsn=ec4ca210_5" target="_blank" rel="noopener">Modulo COVID - Boletín Complementario</a> en base a la encuesta Índice de Remuneraciones e Índice de Costo de Mano de Obra (ICMO-IR) del <a href="https://www.ine.cl/ine-ciudadano/definiciones-estadisticas/economia/indice-de-remuneraciones" target="_blank" rel="noopener">Instituto Nacional de Estadística</a></p>
+<p>Flujo: Este ítem se encarga de evaluar el flujo de trabajo desarrollado en el curso, para ello se debe considerar los elementos que hacen posible el correcto uso del flujo, para obtener buen puntaje en este ítem deben:</p>
+<p>a. Seguir detalladamente las instrucciones</p>
+<p>b. Crear las carpetas y archivos requeridos en cada tarea</p>
+<p>c. Nombrar <strong>adecuadamente</strong> los archivos/datos/carpetas</p>
+<p>d. Todos los archivos por utilizar deben estar en su lugar correspondiente.</p>
+</li>
+<li>
+<p>R: Este ítem evalúa elementos relacionados a archivos .R. Este puede dividirse en dos etapas a lo largo del curso (Debe seguir un orden lógico):</p>
+<p>a. Carga: esta etapa es necesaria para pasar a procesamiento</p>
+<p>b. Procesamiento: etapa donde se preparan los datos para ser utilizados en el análisis.</p>
+</li>
+<li>
+<p>Markdown: este ítem evalúa aspectos propios del formato en markdown, ya que su uso será constante en este curso <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener">ver recursos</a></p>
+</li>
+<li>
+<p>Reproducibilidad: En este curso es muy relevante la reproducibilidad, para ello es necesario tener en cuenta lo siguiente:</p>
+<p>a. El archivo .R debe poder ejecutarse sin problemas por cualquier persona con el programa, siguiendo el orden lógico requerido para ello.</p>
+<p>b. El archivo .Rmd debe poder ejecutarse sin problemas por cualquier persona con el programa. Esto implica que tanto los archivos/tablas/códigos deben visualizarse correctamente en su producto (output) final
+Este punto será esencial para lo que más adelante veremos como condición de suficiencia.</p>
+</li>
+<li>
+<p>Condición de suficiencia: son elementos esenciales que si no son cumplidos la asignación de puntaje del ítem será 0, independiente de si lo que sigue a ese punto está realizado correctamente. Deben tener en cuenta que este ítem no será inmediato, sino que será a medida vaya avanzando el curso.</p>
+</li>
+<li>
+<p>Bonus: En el curso habrá constantemente aspectos que brindarán puntos y/o décimas dependiendo de la tarea.</p>
+</li>
+<li>
+<p>Descuentos: ítem que considera descuentos en puntos o décimas por el no logro o ausencia de aspectos de los ítems anteriores.</p>
 </li>
 </ol>
-<h4 id="instrucciones-específicas-para-cada-informe">Instrucciones específicas para cada informe</h4>
-<p><strong>1. <a href="https://drive.google.com/file/d/1Yh8KajQsmHs2X-kt5kSuliUFuBDfV5-h/view" target="_blank" rel="noopener">Radiografía del cambio social</a></strong></p>
-<ul>
-<li>
-<p>Debe utilizar la Encuesta Longitudinal Social del Centro de Estudios de Conflicto y Cohesión Social <a href="https://coes.cl/encuesta-panel/" target="_blank" rel="noopener">(COES)</a> del año 2019</p>
-</li>
-<li>
-<p>Debe replicar los análisis reportados en la lámina 44, 45, 53, 58 y 74</p>
-</li>
-<li>
-<p>Además de la estimación puntual debe reportar los intervalos de confianza.</p>
-</li>
-<li>
-<p>Con los datos construidos debe crear al menos una tabla y un gráfico (puede seleccionar cualquier indicador para el gráfico).</p>
-</li>
-<li>
-<p>En caso de no llegar a los mismos resultados, investigue y discuta posibles razones de porqué no llegó al mismo resultado del informe.</p>
-</li>
-</ul>
-<p><strong>2. <a href="https://www.ine.cl/docs/default-source/sueldos-y-salarios/boletines/espa%C3%B1ol/base-anual-2016-100/m%C3%B3dulo-covid-19-ir-icmo/bolet%C3%ADn-covid-19-%28abril-a-julio-2021%29.pdf?sfvrsn=ec4ca210_5" target="_blank" rel="noopener">Modulo COVID - Boletín Complementario</a></strong></p>
-<ul>
-<li>
-<p>Debe utilizar la encuesta Índice de Remuneraciones e Índice de Costo de Mano de Obra (ICMO-IR) del <a href="https://www.ine.cl/ine-ciudadano/definiciones-estadisticas/economia/indice-de-remuneraciones" target="_blank" rel="noopener">Instituto Nacional de Estadística</a> del mes de julio 2021.</p>
-</li>
-<li>
-<p>Debe replicar los análisis reportados en la tabla N°1, N°2, N°3 y N°6.</p>
-</li>
-<li>
-<p>Además de la estimación puntual, debe reportar los intervalos de confianza.</p>
-</li>
-<li>
-<p>Con los datos construidos debe crear al menos una tabla y un gráfico (puede seleccionar cualquier indicador para el gráfico).</p>
-</li>
-<li>
-<p>En caso de no llegar a los mismos resultados, investigue y discuta posibles razones de porqué no llegó al mismo resultado del informe.</p>
-</li>
-</ul>
-<p><strong>En general</strong>, su proyecto de R (tarea-04.Rproj) debe contener:</p>
-<p><strong>1. R script con procesamiento de datos modificado (<code>R/01-proc.R</code>)</strong></p>
-<p>1.1 Datos originales en carpeta <em>input</em> (si son muy pesados, indicar en el .gitignore) 
-1.2 Datos procesados (<code>output/datos/datos_proc.rds</code>)</p>
-<p><strong>2. Informe descriptivo de los datos</strong></p>
-<p>2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 03-analisis.Rmd
-2.2 Archivo en html que contiene el informe compilado (02-analisis.html). <em>Si logra dejar el informe en .pdf tendrá 0.3 adicionales a su nota. Hint: descargar y revisar el paquete tinytext</em></p>
-<p><strong>3. Adicionales</strong> (0.2 décimas por cada uno)</p>
-<ul>
-<li>
-<p>3.1 README.md con explicaciones generales para que cualquier usuario pueda reproducir sus análisis (explicar las carpetas, datos descargados y desde donde). Algunos elementos del procesamiento deben ser indicados aquí</p>
-</li>
-<li>
-<p>3.2 Contribuir con preguntas de compañeras/os sobre <strong>problemas en código</strong> (no sobre instrucciones sobre la tarea)</p>
-</li>
-<li>
-<p>3.3 Documentos que <a href="https://www.datadreaming.org/post/r-markdown-theme-gallery/" target="_blank" rel="noopener">editen su formato en html</a></p>
-</li>
-<li>
-<p>3.4 Cambiar color y editar sus gráficos de sjPlot.</p>
-</li>
-</ul>
-<h3 id="sobre-el-reporte">Sobre el reporte</h3>
-<p>Deben crear un reporte en RMarkdown reproducible que contenga</p>
-<ol>
-<li>
-<p>Título, subítulo, nombre de autores, fecha. Además información institucional que puede poner en los subtitulos (carrera, Universidad,,Profesora, ayudantes)</p>
-</li>
-<li>
-<p>Presentación de la base</p>
-</li>
-</ol>
-<ul>
-<li>
-<p>Descripción de la base en fecha de realización, número de observaciones e indicar las variables utilizadas en el análisis.</p>
-</li>
-<li>
-<p><em>No mostrar chunk de funciones que les dan dimensiones</em></p>
-</li>
-<li>
-<p>Indicar paquetes con los cuales se realizará el análisis</p>
-</li>
-<li>
-<p>Mostrar chunk donde se cargan paquetes</p>
-</li>
-</ul>
-<ol start="3">
-<li>Tablas y gráficos</li>
-</ol>
-<ul>
-<li>
-<p>Deben ser realizados preferentemente con sjPlot</p>
-</li>
-<li>
-<p>Las tablas también pueden ser realizadas con <em>kable</em></p>
-</li>
-</ul>
-<p><strong>No olvide los conocimientos evaluados en la tarea N°1</strong> pues también son evaluados. Solo para recordar deben incorporar los siguientes elementos:</p>
-<ol>
-<li>
-<p>Un encabezado (YAML) con el título: “Tarea N°1”. También deben incorporar su nombre y fecha. Este encabezado debe tener una salida (output), esta debe ser en html (<em>si logran agregar una en pdf tendrán bonus</em>)</p>
-</li>
-<li>
-<p>Texto que indique dos subtítulos que separarán los apartados del documento. Deben ocupar <strong>negritas</strong>, <em>cursivas</em> y otros aspectos del formato md cuando sea necesario.</p>
-</li>
-<li>
-<p>Chunks: no olvide las opciones de los chunks (algunos deben estar ocultos y otros no).</p>
-</li>
-</ol>
+<p>Si utiliza otros paquetes para resolver la tarea <strong>DEBE</strong> explicar la razón del uso esos paquetes y qué ventajas tienen por sobre los utilizados en el curso, de no ser así se descontará con 0.5 puntos.</p>
 <h2 id="formato">Formato</h2>
 <ul>
 <li>
-<p>Recuerden que puede ser realizada en pareja, la misma durante todo el semestre.</p>
+<p>Todos los reportes deben estar con 3 dígitos (<em>ojo</em> eso no implica que los cálculos estén hechos a tres dígitos)</p>
 </li>
 <li>
-<p>La tarea se puede entregar hasta el día viernes 15 de octubre a las 23.59</p>
+<p>Todo el informe debe reemplazar los puntos decimales por comas, de modo de estar <em>ad hoc</em> a la escritura en español.</p>
+</li>
+<li>
+<p>No deben mostrar explícitamente ningún chunk en el informe generado. Noten que algunos temas en html permiten &ldquo;esconder&rdquo; el código, pero mostrarlo si el usuario quiere verlo. Quiénes logren hacer esta modificación en su texto tendrán un bonus de 0,2 décimas.</p>
 </li>
 </ul>
 <h2 id="recursos">Recursos</h2>
@@ -927,15 +937,6 @@
 <p><i class="fas fa-external-link-square-alt"></i> <a href="/example/07-practico">Práctico N°7</a></p>
 </li>
 </ul>
-<h1 id="solucion-04tarea">Solución tarea</h1>
-<ul>
-<li>
-<p><a href="https://github.com/learn-R/04-tarea-docentes-ir_icmo" target="_blank" rel="noopener">Módulo COVID-19 - ICMO-IR (INE)</a></p>
-</li>
-<li>
-<p><a href="https://github.com/learn-R/04-tarea-docentes-elsoc/" target="_blank" rel="noopener">ELSOC (COES)</a></p>
-</li>
-</ul>
 
                     </div>
 
@@ -952,14 +953,14 @@
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/assignment/05-tarea/" rel="next">Tarea 5. Análisis de regresión múltiple</a>
+    <a href="/assignment/examen/" rel="next">Examen. Proyecto de investigación final</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/assignment/03-tarea/" rel="prev">Tarea 3. Análisis descriptivo</a>
+    <a href="/assignment/03-tarea/" rel="prev">Tarea 3. Muestras complejas</a>
   </div>
   
 </div>

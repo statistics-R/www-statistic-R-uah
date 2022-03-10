@@ -36,7 +36,7 @@
 &lt;p&gt;Se encuentra en constante actualización y desarrollo&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Para descargar &lt;strong&gt;R&lt;/strong&gt;, deben dirigirse al siguiente &lt;a href=&#34;https://cran.dcc.uchile.cl&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;, y seguir los pasos de instalación según su sistema operativo. Para el caso de &lt;em&gt;Windows&lt;/em&gt; y &lt;em&gt;macOS&lt;/em&gt;, se debe descargar el instalador de R, ejecutarlo, y proseguir con la instalación. Lo recomendado es instalarlo en español, y mantener las opciones de instalación que vienen por defecto.&lt;/p&gt;
+&lt;p&gt;Para descargar &lt;strong&gt;R&lt;/strong&gt;, deben dirigirse al siguiente &lt;a href=&#34;https://cran.r-project.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;, y seguir los pasos de instalación según su sistema operativo. Para el caso de &lt;em&gt;Windows&lt;/em&gt; y &lt;em&gt;macOS&lt;/em&gt;, se debe descargar el instalador de R, ejecutarlo, y proseguir con la instalación. Lo recomendado es instalarlo en español, y mantener las opciones de instalación que vienen por defecto.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/tutorial/install/r-versions-os.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A continuación, se presentan imágenes del proceso de instalación de R en &lt;em&gt;Windows&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Se aceptan las condiciones de uso&lt;/p&gt;
@@ -371,7 +371,7 @@ less
 &lt;p&gt;El proceso de referenciar es uno de los más relevantes dentro de la vida académica, sin embargo este puede ser difícil y sujeto a muchos errores. Por ello, el sistematizar y facilitar este proceso no sólo puede ahorrar tiempo en trabajos, investigaciones, entre otros. Sino que potenciará el proceso volviéndolo más expedito.&lt;/p&gt;
 &lt;p&gt;Para ello hay distintas formas de faciltarlo, uno de ellos es &lt;strong&gt;Zotero&lt;/strong&gt;, pero ¿por qué utilizar Zotero y no otro gestor?&lt;/p&gt;
 &lt;h1 id=&#34;1-qué-es-zotero&#34;&gt;1. Qué es Zotero&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&#34;www.zotero.org&#34;&gt;Zotero&lt;/a&gt; es un software libre que almacena y administra las referencias bibliográficas, este no sólo es útil como aplicación sino que también tiene extensiones para navegadores como &lt;strong&gt;Chrome, Mozilla Firefox, Safari y Opera&lt;/strong&gt;. Estos sincronizan la aplicación mientras se navega guardando los recursos a utilizar.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;www.zotero.org&#34;&gt;Zotero&lt;/a&gt; (&lt;a href=&#34;http://www.zotero.org&#34;&gt;www.zotero.org&lt;/a&gt;) es un software libre que almacena y administra las referencias bibliográficas, este no sólo es útil como aplicación sino que también tiene extensiones para navegadores como &lt;strong&gt;Chrome, Mozilla Firefox, Safari y Opera&lt;/strong&gt;. Estos sincronizan la aplicación mientras se navega guardando los recursos a utilizar.&lt;/p&gt;
 &lt;p&gt;Sus ventajas son:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;La automatización del almacenamiento de las referencias bibliográficas&lt;/li&gt;
