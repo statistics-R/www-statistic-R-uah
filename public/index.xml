@@ -3030,13 +3030,13 @@ ing_pobreza_p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; i
          &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;No pobres&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(.$ing_medio[3], .$ing_medio_low[3], .$ing_medio_upp[3])) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# Extraemos los valores correspondientes a la tercera fila en cada una de nuestras variables&lt;/span&gt;
   &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Pobres extremos&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Pobres no extremos&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;No pobres&amp;#39;&lt;/span&gt;)
 
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(ing_pobreza) &lt;span style=&#34;color:#75715e&#34;&gt;#Visualizamos&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 3 x 4
-##   pobreza            ing_medio ing_medio_low ing_medio_upp
-##   &amp;lt;fct&amp;gt;                  &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;
-## 1 Pobres extremos      163743.       155589.       171896.
-## 2 Pobres no extremos   344812.       337494.       352130.
-## 3 No pobres           1263508.      1224884.      1302132.
+&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(ing_pobreza_p) &lt;span style=&#34;color:#75715e&#34;&gt;#Visualizamos&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 3 x 3
+##   `Pobres extremos` `Pobres no extremos` `No pobres`
+##               &amp;lt;dbl&amp;gt;                &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt;
+## 1           163743.              344812.    1263508.
+## 2           155589.              337494.    1224884.
+## 3           171896.              352130.    1302132.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;c-cálculo-de-proporciones-para-variables-categóricas&#34;&gt;c) Cálculo de proporciones para variables categóricas&lt;/h3&gt;
 &lt;p&gt;También podemos utilizar la función &lt;code&gt;survey_prop()&lt;/code&gt; de &lt;code&gt;srvyr&lt;/code&gt; para calcular proporciones. Sin embargo, el código para calcular proporciones de variables categóricas &lt;strong&gt;no se construye de la misma manera&lt;/strong&gt; que el código para calcular medias de variables continuas:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;casen_regional &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Con casen_regional&lt;/span&gt;

@@ -505,16 +505,16 @@ ing_pobreza_p <- ing_pobreza %>%
          'No pobres' = c(.$ing_medio[3], .$ing_medio_low[3], .$ing_medio_upp[3])) %>% # Extraemos los valores correspondientes a la tercera fila en cada una de nuestras variables
   select('Pobres extremos', 'Pobres no extremos', 'No pobres')
 
-head(ing_pobreza) #Visualizamos
+head(ing_pobreza_p) #Visualizamos
 ```
 
 ```
-## # A tibble: 3 x 4
-##   pobreza            ing_medio ing_medio_low ing_medio_upp
-##   <fct>                  <dbl>         <dbl>         <dbl>
-## 1 Pobres extremos      163743.       155589.       171896.
-## 2 Pobres no extremos   344812.       337494.       352130.
-## 3 No pobres           1263508.      1224884.      1302132.
+## # A tibble: 3 x 3
+##   `Pobres extremos` `Pobres no extremos` `No pobres`
+##               <dbl>                <dbl>       <dbl>
+## 1           163743.              344812.    1263508.
+## 2           155589.              337494.    1224884.
+## 3           171896.              352130.    1302132.
 ```
 
 ### c) Cálculo de proporciones para variables categóricas

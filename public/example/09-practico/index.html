@@ -1043,13 +1043,13 @@ ing_pobreza_p <span style="color:#f92672">&lt;-</span> ing_pobreza <span style="
          <span style="color:#e6db74">&#39;No pobres&#39;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(.$ing_medio[3], .$ing_medio_low[3], .$ing_medio_upp[3])) <span style="color:#f92672">%&gt;%</span> <span style="color:#75715e"># Extraemos los valores correspondientes a la tercera fila en cada una de nuestras variables</span>
   <span style="color:#a6e22e">select</span>(<span style="color:#e6db74">&#39;Pobres extremos&#39;</span>, <span style="color:#e6db74">&#39;Pobres no extremos&#39;</span>, <span style="color:#e6db74">&#39;No pobres&#39;</span>)
 
-<span style="color:#a6e22e">head</span>(ing_pobreza) <span style="color:#75715e">#Visualizamos</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 3 x 4
-##   pobreza            ing_medio ing_medio_low ing_medio_upp
-##   &lt;fct&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 Pobres extremos      163743.       155589.       171896.
-## 2 Pobres no extremos   344812.       337494.       352130.
-## 3 No pobres           1263508.      1224884.      1302132.
+<span style="color:#a6e22e">head</span>(ing_pobreza_p) <span style="color:#75715e">#Visualizamos</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 3 x 3
+##   `Pobres extremos` `Pobres no extremos` `No pobres`
+##               &lt;dbl&gt;                &lt;dbl&gt;       &lt;dbl&gt;
+## 1           163743.              344812.    1263508.
+## 2           155589.              337494.    1224884.
+## 3           171896.              352130.    1302132.
 </code></pre></div><h3 id="c-cálculo-de-proporciones-para-variables-categóricas">c) Cálculo de proporciones para variables categóricas</h3>
 <p>También podemos utilizar la función <code>survey_prop()</code> de <code>srvyr</code> para calcular proporciones. Sin embargo, el código para calcular proporciones de variables categóricas <strong>no se construye de la misma manera</strong> que el código para calcular medias de variables continuas:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">casen_regional <span style="color:#f92672">%&gt;%</span> <span style="color:#75715e">#Con casen_regional</span>
