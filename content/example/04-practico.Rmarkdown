@@ -1,6 +1,6 @@
 ---
-title: "Importar, explorar y limpiar datos"
-linktitle: "4: Importar, explorar y limpiar datos"
+title: "Importar, explorar y exportar datos"
+linktitle: "4: Importar, explorar y exportar datos"
 date: "2021-08-23"
 menu:
   example:
@@ -30,7 +30,7 @@ htmltools::tagList(
 
 ## 0. Objetivo del práctico
 
-Este práctico tiene por objeto introducir a las y los estudiantes del curso en herramientas que les permitan a) **importar bases de datos en diversos formatos**; b)**seleccionar variables** de las bases de datos importadas; c) limpiar los datos, eliminando las filas con casos perdidos; y d) **exportar bases de datos** procesadas. Para ello, se trabajará con los paquetes `haven` (que forma parte, a su vez, del mundo de paquetes `tidyverse`), y `dplyr`, para poder importar  y exportar los datos, y manipular estos datos, respectivamente.
+Este práctico tiene por objeto introducir a las y los estudiantes del curso en herramientas que les permitan a) **importar bases de datos en diversos formatos**; b)**explorar las variables** de las bases de datos importadas; y c) **exportar bases de datos** procesadas. Para ello, se trabajará con los paquetes `haven` (que forma parte, a su vez, del mundo de paquetes `tidyverse`), y `dplyr`, para poder importar  y exportar los datos, y manipular estos datos, respectivamente.
 
 ## 1. Recursos de la práctica
 
@@ -311,7 +311,7 @@ Como revisamos en el práctico anterior La función `class()`, incluido en el *p
 
 ## 3.1. Selección de variables
 
-Luego de revisar el nivel de medición de las variables, y reconociendo la distribución de los datos que tenemos, es evidente que lo mejor es solamente trabajar con un *subconjunto* de los datos con las variables que queremos transformar.
+Luego de revisar el nivel de medición de las variables, y reconociendo la distribución de los datos que tenemos, es evidente que lo mejor es solamente trabajar con un *subconjunto* de los datos con las variables que queremos transformar. Si bien en el práctico 5 profundizaremos en la selección de variables, este es un primer adelanto que nos permitirá exportar datos que sólo contengan la información que nos interesa.
 
 Para asegurarnos de saber exactamente qué variables queremos utilizar deberíamos ir al libro de códigos, pero también podemos elegir y decidir de manera más certera qué variables incorporar a partir de la revisión con `find_var()`. En esta sección no profundizaremos en distintas formas de seleccionar datos (¡ello lo veremos **a fondo** en el siguiente práctico!). Solo les mostraremos de manera simple cómo seleccionar algunas variables de nuestro interés:
 
@@ -330,41 +330,7 @@ Como podemos ver en el ambiente (Environment), se creó un nuevo objeto llamado 
 
 **IMPORTANTE**: objetos que tengan el mismo nombre **se sobreescriben**. Les recomendamos que, siempre que seleccionen variables (o que manipulen sus datos de cualquier manera), creen un objeto cuyo nombre sea distinto al original. Podemos, por ejemplo, incorporar el sufijo **_proc** como lo hicimos en este práctico.
 
-## 4. Limpieza de datos
-
-Los datos con los que trabajamos suelen incorporar valores nulos (`NA`), casos perdidos ingresados como valores de clase `Logic`. Estos valores no nos entregan información útil para nuestros análisis, y pueden generar problemas al momento de, por ejemplo, calcular _medidas de tendencia central_, u otros procedimientos estadísticos.
-
-Hay diversas maneras de trabajar los valores nulos, tales como realizar procesos de imputación, entre otros. Sin embargo, la más sencilla consiste en **eliminar los valores nulos** que se encuentran presentes en nuestros datos (aunque no recomendable)
-
-Para ello, lo primero es _identificar valores nulos_ en el set de datos en general, o en alguna variable en específico. Para ello, empleamos la función `is.na()`.
-
-```{r, eval=FALSE}
-
-is.na(datos_proc) #Revisamos si hay casos perdidos en el total del set de datos 
-is.na(datos_proc$ypchtotcor) #Revisamos si hay casos perdidos en Ingresos per cápita
-
-```
-
-Sin embargo, esto no resulta muy práctico para el análisis. Es por ello que emplearemos la función `sum()` para _contar cuántos valores nulos_ hay en el set de datos en general, o en alguna variable en particular. 
-
-```{r}
-
-sum(is.na(datos_proc)) #Contamos los valores nulos del set de datos en general, que suman un total de 180.148
-sum(is.na(datos_proc$ypchtotcor)) #Contaremos los valores nulos de la variable Ingresos per cápita, que alcanzan un total de 98
-
-```
-
-Una vez identificamos los _valores nulos_, podemos proceder a **eliminarlos** del set de datos. El comando `na.omit()` eliminará _todas las filas_ que presenten casos perdidos. 
-
-```{r}
-nrow(datos_proc)
-datos_proc <- na.omit(datos_proc) #Eliminamos las filas con casos perdidos
-nrow(datos_proc) #La nueva base de datos tiene 5.387 filas y 4 columnas
-```
-
-¡La próxima sesión aprenderemos a recodificarlas!
-
-## 5. Guardar y exportar datos
+## 4. Guardar y exportar datos
 
 Por último, una vez que hayamos procesado los datos, es importante que los **guardemos** en una nueva base de datos procesada, para no tener que llevar a cabo el procesamiento otra vez.
 
@@ -421,8 +387,7 @@ writexl::write_xlsx(datos_proc, "output/data/datos_proc.xlsx") #Guardamos el obj
 ¡Eso es todo por este práctico! Aquí, aprendimos a: 
 - 1) Importar datos en diferentes formatos.
 - 2) Seleccionar variables (y hacer una revisión de ciertos aspectos de estas).
-- 3) Limpiar los datos, eliminando casos perdidos
-- 4) Guardar y exportar los datos procesados, en distintos formatos.
+- 3) Guardar y exportar los datos procesados, en distintos formatos.
 
 ## Reporte de progreso
 
