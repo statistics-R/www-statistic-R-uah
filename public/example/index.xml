@@ -9217,370 +9217,6 @@ datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;est_conyugal &lt;sp
     </item>
     
     <item>
-      <title>Tidydata y manipulación de datos</title>
-      <link>/example/05-practico/</link>
-      <pubDate>Fri, 13 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>/example/05-practico/</guid>
-      <description>&lt;h2 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h2&gt;
-&lt;p&gt;El objetivo del presente práctico es aprender a manipular datos, en particular, agrupar datos según alguna(s) columna(s) o filas en particular,  pivotando sets de datos, y uniendo y/o separando datos.&lt;/p&gt;
-&lt;h2 id=&#34;1-recursos-de-la-práctica&#34;&gt;1. Recursos de la práctica&lt;/h2&gt;
-&lt;p&gt;Los datos a utilizar provienen de la &lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Encuesta Suplementaria de Ingresos (ESI) en su versión 2020&lt;/a&gt;, módulo de la Encuesta Nacional de Empleo (ENE), levantada una vez al año para caracterizar los ingresos laborales de quienes son clasificadas/os como ocupadas/os en la ENE, y otras fuentes de ingresos de los hogares. No olvides que, cuando trabajes con datos, debes revisar la &lt;strong&gt;documentación anexa&lt;/strong&gt;, como el &lt;a href=&#34;https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%c3%ada-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;libro de códigos&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;2-librerías-a-utilizar&#34;&gt;2. Librerías a utilizar&lt;/h2&gt;
-&lt;p&gt;En este práctico utilizaremos las siguientes librerías&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;pacman&lt;/code&gt;: este facilita y agiliza la lectura de los paquetes a utilizar en R&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;tidyverse&lt;/code&gt;: colección de librerías, de la cual utilizaremos &lt;code&gt;tidyr&lt;/code&gt;, &lt;code&gt;haven&lt;/code&gt; y &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;tidyr&lt;/code&gt;: permite pivotear los set de datos con los cuales estamos trabajando&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt;: para manipular datos&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;sjmisc&lt;/code&gt;: para explorar datos&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&#34;procesamiento-de-datos&#34;&gt;Procesamiento de datos&lt;/h1&gt;
-&lt;h2 id=&#34;1-cargar-librerías&#34;&gt;1. Cargar librerías&lt;/h2&gt;
-&lt;p&gt;Lo primero es &lt;em&gt;cargar las librerías&lt;/em&gt; a utilizar. Para ello, acudimos a la función &lt;code&gt;p_load&lt;/code&gt; del paquete &lt;code&gt;pacman&lt;/code&gt;. Asumimos que ya está instalado, así que sólo lo cargaremos con la función &lt;code&gt;library()&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;library&lt;/span&gt;(pacman)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;pacman&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;was&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;built&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;under&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;R&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;version&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4.1.2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(tidyverse, &lt;span style=&#34;color:#75715e&#34;&gt;#Universo de librerías para manipular datos&lt;/span&gt;
-               tidyr, &lt;span style=&#34;color:#75715e&#34;&gt;#Para pivotear la estructura de los datos&lt;/span&gt;
-               dplyr,&lt;span style=&#34;color:#75715e&#34;&gt;#Para manipular datos &lt;/span&gt;
-               sjmisc)&lt;span style=&#34;color:#75715e&#34;&gt;#Para explorar datos&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-importar-bases-de-datos&#34;&gt;2. Importar bases de datos&lt;/h2&gt;
-&lt;p&gt;Cargaremos los datos&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;readRDS&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;gzcon&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://github.com/learn-R/05-class/blob/main/input/data/ESI2020.rds?raw=true&amp;#34;&lt;/span&gt;)))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;En el panel &lt;strong&gt;Environment&lt;/strong&gt;, visualizamos los nuevos objetos, que poseen 18.985 observaciones (o filas) y 9 variables (columnas).&lt;/p&gt;
-&lt;h2 id=&#34;3-explorar-datos&#34;&gt;3. Explorar datos&lt;/h2&gt;
-&lt;p&gt;A continuación, utilizaremos la función &lt;code&gt;View()&lt;/code&gt; del paquete &lt;code&gt;base&lt;/code&gt;, para revisar el set de datos.&lt;/p&gt;
-&lt;p&gt;Ocupamos, además, la función &lt;code&gt;frq()&lt;/code&gt; de la librería &lt;code&gt;sjmisc&lt;/code&gt;, para explorar las categorías de las variables de clase factor:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sector)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## x &amp;lt;categorical&amp;gt;
-## # total N=18985  valid N=18985  mean=1.12  sd=0.44
-## 
-## Value                    |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------------------------
-## Sector formal            | 17576 | 92.58 |   92.58 |  92.58
-## Sector informal          |   593 |  3.12 |    3.12 |  95.70
-## Hogares como empleadores |   816 |  4.30 |    4.30 | 100.00
-## &amp;lt;NA&amp;gt;                     |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## x &amp;lt;categorical&amp;gt;
-## # total N=18985  valid N=18985  mean=1.43  sd=0.50
-## 
-## Value  |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------
-## Hombre | 10810 | 56.94 |   56.94 |  56.94
-## Mujer  |  8175 | 43.06 |   43.06 | 100.00
-## &amp;lt;NA&amp;gt;   |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;prevision)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## x &amp;lt;categorical&amp;gt;
-## # total N=18985  valid N=18985  mean=1.14  sd=0.34
-## 
-## Value |     N | Raw % | Valid % | Cum. %
-## ----------------------------------------
-## Si    | 16366 | 86.20 |   86.20 |  86.20
-## No    |  2619 | 13.80 |   13.80 | 100.00
-## &amp;lt;NA&amp;gt;  |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;salud)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## x &amp;lt;categorical&amp;gt;
-## # total N=18985  valid N=18985  mean=1.12  sd=0.32
-## 
-## Value |     N | Raw % | Valid % | Cum. %
-## ----------------------------------------
-## Si    | 16761 | 88.29 |   88.29 |  88.29
-## No    |  2224 | 11.71 |   11.71 | 100.00
-## &amp;lt;NA&amp;gt;  |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;contrato_dur)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## x &amp;lt;categorical&amp;gt;
-## # total N=18985  valid N=18985  mean=1.72  sd=0.45
-## 
-## Value      |     N | Raw % | Valid % | Cum. %
-## ---------------------------------------------
-## Definido   |  5263 | 27.72 |   27.72 |  27.72
-## Indefinido | 13722 | 72.28 |   72.28 | 100.00
-## &amp;lt;NA&amp;gt;       |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos darnos cuenta de que la variable &lt;code&gt;sector&lt;/code&gt; provee información sobre el &lt;em&gt;sector donde se encuentra ocupado/a el/la trabajador/a&lt;/em&gt;; la variable &lt;code&gt;sexo&lt;/code&gt; indica el &lt;em&gt;sexo de las y los trabajadores&lt;/em&gt;; las columnas &lt;code&gt;prevision&lt;/code&gt; y &lt;code&gt;salud&lt;/code&gt; proveen información sobre &lt;em&gt;si el/la empleador/a paga cotizaciones relativas a los sistemas previsional y de salud&lt;/em&gt; a las y los trabajadores; y la variable &lt;code&gt;contrato_dur&lt;/code&gt; provee información sobre la &lt;em&gt;duración del contrato&lt;/em&gt; de las y los trabajadores.&lt;/p&gt;
-&lt;p&gt;Ahora exploremos las variables numéricas con &lt;code&gt;descr()&lt;/code&gt; de &lt;code&gt;sjmisc&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ss_t) &lt;span style=&#34;color:#75715e&#34;&gt;#Ingresos por sueldo y salarios netos&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc     mean       sd      se       md  trimmed
-##   dd numeric    dd 18985      0 567520.6 585556.6 4249.75 400526.4 469716.4
-##            range      iqr skew
-##  9e+06 (0-9e+06) 401607.8 3.57
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;svar_t) &lt;span style=&#34;color:#75715e&#34;&gt;#Ingresos por sueldos y salarios variables&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc     mean       sd     se md trimmed
-##   dd numeric    dd 18985      0 13730.59 78880.74 572.49  0  816.25
-##                      range iqr  skew
-##  5006580.18 (0-5006580.18)   0 22.33
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(datos&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;reg_t) &lt;span style=&#34;color:#75715e&#34;&gt;#Total ingresos por regalías (beneficios entregados por el empleador)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc    mean       sd     se md trimmed
-##   dd numeric    dd 18985      0 8392.62 38868.17 282.09  0       0
-##                      range iqr skew
-##  1071408.16 (0-1071408.16)   0 9.44
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Estas variables proveen información sobre &lt;em&gt;Ingresos por sueldo y salarios netos&lt;/em&gt; (&lt;code&gt;ss_t&lt;/code&gt;); &lt;em&gt;Ingresos por sueldos y salarios variables&lt;/em&gt; (&lt;code&gt;svar_t&lt;/code&gt;); y respecto a &lt;em&gt;Total ingresos por regalías (beneficios entregados por el empleador)&lt;/em&gt; (&lt;code&gt;reg_t&lt;/code&gt;).&lt;/p&gt;
-&lt;h2 id=&#34;4-agrupar-por-filas-con-rowwise&#34;&gt;4. Agrupar por filas con &lt;code&gt;rowwise()&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;Como sabemos, la librería &lt;code&gt;dplyr&lt;/code&gt; de &lt;code&gt;tidyverse&lt;/code&gt; provee diversas herramientas que nos permiten manipular los datos con los cuales nos encontramos trabajando. Una de ellas es su función &lt;code&gt;rowwise()&lt;/code&gt;, que posibilita &lt;strong&gt;agrupar los datos en razón de las filas&lt;/strong&gt;. Esto es particularmente útil cuando, por ejemplo, queremos construir algún índice. En este caso, utilizaremos las diversas variables de ingresos para construir la variable &lt;code&gt;ing_tot&lt;/code&gt;, que incluirá los ingresos totales percibidos por las y los trabajadores, en razón de sus sueldos y salarios netos; sus sueldos y salarios variables; y por las regalías entregadas por parte de las y los empleadores.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos que trabajaremos con el dataframe datos&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;rowwise&lt;/span&gt;() &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos que agruparemos por filas&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(ing_tot &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(ss_t, svar_t, reg_t)) &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos una nueva variable llamada ing_tot, sumando los valores de ss_t, svar_t y reg_t para cada fila &lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(datos)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 10
-## # Rowwise: 
-##   sector   sexo  prevision salud contrato_dur   ss_t svar_t reg_t     id ing_tot
-##   &amp;lt;fct&amp;gt;    &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;         &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;
-## 1 Sector ~ Mujer Si        Si    Indefinido   3.20e5      0     0  20256 320421.
-## 2 Sector ~ Mujer Si        Si    Definido     7.5 e5      0     0  24592 750000 
-## 3 Sector ~ Mujer Si        Si    Indefinido   9   e5      0     0  35136 900000 
-## 4 Hogares~ Mujer No        No    Indefinido   3.02e5      0     0 235953 302042.
-## 5 Sector ~ Homb~ Si        Si    Indefinido   9   e5      0     0 251187 900000 
-## 6 Sector ~ Homb~ Si        Si    Indefinido   0           0     0 318992      0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Como vemos, ahora el set de datos pasó de tener 8 a 10 variables (columnas). Sin embargo, la cantidad de filas se mantiene constante, con un total de 18.985.&lt;/p&gt;
-&lt;p&gt;Sin embargo, como ya no utilizaremos &lt;code&gt;ss_t&lt;/code&gt;, &lt;code&gt;svar_t&lt;/code&gt; ni &lt;code&gt;reg_t&lt;/code&gt; por separado, las des-seleccionaremos con &lt;code&gt;select()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(ss_t, svar_t, reg_t))
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(datos)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 7
-## # Rowwise: 
-##   sector                   sexo   prevision salud contrato_dur     id ing_tot
-##   &amp;lt;fct&amp;gt;                    &amp;lt;fct&amp;gt;  &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;         &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;
-## 1 Sector formal            Mujer  Si        Si    Indefinido    20256 320421.
-## 2 Sector formal            Mujer  Si        Si    Definido      24592 750000 
-## 3 Sector formal            Mujer  Si        Si    Indefinido    35136 900000 
-## 4 Hogares como empleadores Mujer  No        No    Indefinido   235953 302042.
-## 5 Sector formal            Hombre Si        Si    Indefinido   251187 900000 
-## 6 Sector formal            Hombre Si        Si    Indefinido   318992      0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;5-agrupar-por-columnas-con-group_by&#34;&gt;5. Agrupar por columnas con &lt;code&gt;group_by()&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;Otra de las funciones de &lt;code&gt;dplyr&lt;/code&gt; que nos permiten manipular los datos es &lt;code&gt;group_by&lt;/code&gt;. En este caso, en lugar de agrupar los valores por filas, podremos hacerlo en razón de las &lt;strong&gt;columnas&lt;/strong&gt;. Calculemos ahora la media de &lt;code&gt;ing_tot&lt;/code&gt; con la función &lt;code&gt;mean()&lt;/code&gt;, agrupando por &lt;code&gt;sexo&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(sexo) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Espeficicamos que agruparemos por sexo&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;summarise&lt;/span&gt;(media &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(ing_tot)) &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos una columna llamada media, calculando la media ingresos con la función `mean`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 2 x 2
-##   sexo     media
-##   &amp;lt;fct&amp;gt;    &amp;lt;dbl&amp;gt;
-## 1 Hombre 630757.
-## 2 Mujer  535278.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Es importante destacar que la función &lt;code&gt;summarise()&lt;/code&gt; (o &lt;code&gt;summarize()&lt;/code&gt;) de &lt;code&gt;dplyr&lt;/code&gt; nos permite crear un nuevo data frame con una o más filas para cada combinación y agrupación de variables. En este caso, tenemos dos filas: una para Hombre, y otra para Mujer. En caso de no agrupar variables, sólo tendremos una columna que &lt;strong&gt;resuma&lt;/strong&gt; las observaciones especificadas.&lt;/p&gt;
-&lt;p&gt;Algo interesante es que podemos combinar &lt;code&gt;group_by()&lt;/code&gt; con algunas funciones de &lt;code&gt;sjmisc&lt;/code&gt;. Probemos calculando la frecuencia de hombres y mujeres agrupando por cada sector:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(sector) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;frq&lt;/span&gt;(sexo)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## sexo &amp;lt;categorical&amp;gt;
-## # grouped by: Sector formal
-## # total N=17576  valid N=17576  mean=1.42  sd=0.49
-## 
-## Value  |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------
-## Hombre | 10212 | 58.10 |   58.10 |  58.10
-## Mujer  |  7364 | 41.90 |   41.90 | 100.00
-## &amp;lt;NA&amp;gt;   |     0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-## 
-## 
-## sexo &amp;lt;categorical&amp;gt;
-## # grouped by: Sector informal
-## # total N=593  valid N=593  mean=1.17  sd=0.37
-## 
-## Value  |   N | Raw % | Valid % | Cum. %
-## ---------------------------------------
-## Hombre | 493 | 83.14 |   83.14 |  83.14
-## Mujer  | 100 | 16.86 |   16.86 | 100.00
-## &amp;lt;NA&amp;gt;   |   0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-## 
-## 
-## sexo &amp;lt;categorical&amp;gt;
-## # grouped by: Hogares como empleadores
-## # total N=816  valid N=816  mean=1.87  sd=0.34
-## 
-## Value  |   N | Raw % | Valid % | Cum. %
-## ---------------------------------------
-## Hombre | 105 | 12.87 |   12.87 |  12.87
-## Mujer  | 711 | 87.13 |   87.13 | 100.00
-## &amp;lt;NA&amp;gt;   |   0 |  0.00 |    &amp;lt;NA&amp;gt; |   &amp;lt;NA&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Obtendremos una tabla por cada una de las categorías de la variable por la cual agrupamos (en este caso, una por cada sector), que señala las frecuencias absolutas y relativas de cada sexo para cada sector. Por supuesto, también podemos hacer el mismo ejercicio con &lt;code&gt;descr()&lt;/code&gt;. Probemos haciendo un análisis descriptivos de ingresos para cada sexo:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;group_by&lt;/span&gt;(sexo) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;descr&lt;/span&gt;(ing_tot)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## 
-## ## Basic descriptive statistics
-## 
-## 
-## Grouped by: Hombre
-## 
-##      var    type   label     n NA.prc     mean       sd      se       md
-##  ing_tot numeric ing_tot 10810      0 630757.4 665519.9 6401.01 448028.4
-##   trimmed                     range    iqr skew
-##  515273.1 9312239.14 (0-9312239.14) 419636 3.63
-## 
-## 
-## Grouped by: Mujer
-## 
-##      var    type   label    n NA.prc     mean       sd      se    md  trimmed
-##  ing_tot numeric ing_tot 8175      0 535278.2 512300.3 5666.05 4e+05 455651.4
-##                      range      iqr skew
-##  6208159.43 (0-6208159.43) 407377.7 3.12
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;En este caso, obtenemos dos tablas: una por cada &lt;code&gt;sexo&lt;/code&gt;, cada una indicando las estadísticas de resumen para la variable &lt;code&gt;ing_tot&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;6-manipulación-de-datos-tidydata&#34;&gt;6. Manipulación de datos (tidydata)&lt;/h2&gt;
-&lt;p&gt;Otra de las librerías de &lt;code&gt;tidyverse&lt;/code&gt; que resulta de gran utilidad es &lt;code&gt;tidyr&lt;/code&gt;. En este caso, cada una de las filas de nuestros datos indican a un sujeto (el cual constituye la unidad de análisis). Las funciones &lt;code&gt;pivot_longer()&lt;/code&gt; y &lt;code&gt;pivot_wider()&lt;/code&gt; de la librería anteriormente señalada nos permitirán pivotear los datos, para transformarlos a un dataframe de formato &lt;strong&gt;long&lt;/strong&gt; (largo) o &lt;strong&gt;wide&lt;/strong&gt; (ancho), respectivamente.&lt;/p&gt;
-&lt;h3 id=&#34;a-pivot_longer&#34;&gt;a) &lt;code&gt;pivot_longer()&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;Como ya se señaló, &lt;code&gt;pivot_longer()&lt;/code&gt;nos permitirá pivotear los datos de manera tal que estos se transformen a un tabulado en formato &lt;strong&gt;long&lt;/strong&gt;. Ello implica que el tabulado tendrá un mayor número de observaciones, reduciendo su cantidad de columnas. En este caso, pivotearemos todas las columnas salvo &lt;code&gt;sector&lt;/code&gt;, lo cual significa que tales columnas se subsumirán en una sola (en este caso, llamada &amp;ldquo;variable&amp;rdquo;), y sus respectivos valores en otra (en este caso, llamada &amp;ldquo;value&amp;rdquo;). Luego, la unidad de análisis pasará, de ser sujetos, a ser las variables. Para ello usamos el siguiente código:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;long &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos un nuevo objeto a partir de datos&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;ing_tot) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#Des-seleccionamos la variable ing_tot, pues es de class numeric&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_longer&lt;/span&gt;(cols&lt;span style=&#34;color:#f92672&#34;&gt;=-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, id), &lt;span style=&#34;color:#75715e&#34;&gt;#Pivoteamos a lo largo todas las columnas salvo la primera (sector) &lt;/span&gt;
-               names_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;variable&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos que la columna &amp;#34;variable&amp;#34; incluirá los nombres de cada una de las columnas pivoteadas&lt;/span&gt;
-               values_to &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos que la columna &amp;#34;value&amp;#34; incluirá los valores de cada una de las columnas pivoteadas&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(long)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 4
-##   sector           id variable     value     
-##   &amp;lt;fct&amp;gt;         &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;        &amp;lt;fct&amp;gt;     
-## 1 Sector formal 20256 sexo         Mujer     
-## 2 Sector formal 20256 prevision    Si        
-## 3 Sector formal 20256 salud        Si        
-## 4 Sector formal 20256 contrato_dur Indefinido
-## 5 Sector formal 24592 sexo         Mujer     
-## 6 Sector formal 24592 prevision    Si
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos darnos cuenta de que ahora nuestro set de datos sólo contiene 4 columnas, pero 75.940 filas. Podemos darnos cuenta que ahora, cada cuatro columnas, tenemos a un sujeto de la muestra.&lt;/p&gt;
-&lt;h3 id=&#34;b-pivot_wider&#34;&gt;b) &lt;code&gt;pivot_wider&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;Asimismo, las tablas largas (long) pueden ser transformadas a tablas anchas (wide) con la función &lt;code&gt;pivot_wider()&lt;/code&gt;, lo cual implica que nuestra tabla reducirá su cantidad de filas y aumentará su número de columnas. Para ello, sólo debemos especificar desde dónde extraeremos los nombres y los valores asociados a las nuevas columnas:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;wide &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; long &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos un nuevo objeto a partir de los datos de long &lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;pivot_wider&lt;/span&gt;(names_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;variable&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Pivoteamos, tomando el nombre de las columnas desde la columna &amp;#34;variable&amp;#34;&lt;/span&gt;
-              values_from &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;) 
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(wide)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 6
-##   sector                       id sexo   prevision salud contrato_dur
-##   &amp;lt;fct&amp;gt;                     &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;  &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;       
-## 1 Sector formal             20256 Mujer  Si        Si    Indefinido  
-## 2 Sector formal             24592 Mujer  Si        Si    Definido    
-## 3 Sector formal             35136 Mujer  Si        Si    Indefinido  
-## 4 Hogares como empleadores 235953 Mujer  No        No    Indefinido  
-## 5 Sector formal            251187 Hombre Si        Si    Indefinido  
-## 6 Sector formal            318992 Hombre Si        Si    Indefinido
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Los datos se &amp;ldquo;ensancharon&amp;rdquo;, pasando a tener 18.985 filas y 6 columnas.&lt;/p&gt;
-&lt;h2 id=&#34;7-separate&#34;&gt;7. &lt;code&gt;separate()&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;La función &lt;code&gt;separate()&lt;/code&gt; de &lt;code&gt;tidyr&lt;/code&gt; nos permite convertir un character individual de una columna en múltiples columnas. En este caso, crearemos una nueva variable &lt;code&gt;sobre_prom&lt;/code&gt;, que nos indicará si los ingresos de los sujetos están por sobre o por debajo de la media de ingresos. Luego, separaremos la primera y la segunda palabra (caracteres) de cada unos de los valores en dos columnas distintas.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;separate &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos un nuevo objeto desde datos&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;mutate&lt;/span&gt;(sobre_prom &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;case_when&lt;/span&gt;(ing_tot &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(ing_tot) &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Bajo media&amp;#34;&lt;/span&gt;, 
-                                ing_tot &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;mean&lt;/span&gt;(ing_tot) &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Sobre media&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Creamos una variable condicional con case_when(), para identificar quienes estan bajo y sobre la media de ingreso&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;separate&lt;/span&gt;(sobre_prom, &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos la columna que queremos separar&lt;/span&gt;
-           into &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sobre_o_bajo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;media&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos en cuántas columnas queremos separar los characteres, y cómo se llamarán tales columnas&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(separate)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 9
-##   sector    sexo  prevision salud contrato_dur     id ing_tot sobre_o_bajo media
-##   &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;         &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;
-## 1 Sector f~ Mujer Si        Si    Indefinido    20256 320421. Bajo         media
-## 2 Sector f~ Mujer Si        Si    Definido      24592 750000  Bajo         media
-## 3 Sector f~ Mujer Si        Si    Indefinido    35136 900000  Bajo         media
-## 4 Hogares ~ Mujer No        No    Indefinido   235953 302042. Bajo         media
-## 5 Sector f~ Homb~ Si        Si    Indefinido   251187 900000  Bajo         media
-## 6 Sector f~ Homb~ Si        Si    Indefinido   318992      0  Bajo         media
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;8-unite&#34;&gt;8. &lt;code&gt;unite()&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;También podemos unir caracteres de columnas distintas, con la función &lt;code&gt;unite()&lt;/code&gt; de &lt;code&gt;tidyr&lt;/code&gt;. En este caso, volveremos a unir las columnas ¿Sobre o bajo? y Media en una sola, llamada sobre_prom. Por defecto, &lt;code&gt;unite()&lt;/code&gt; une los caracteres con guiones bajos (_). Podemos especificar un nuevo separador con el argumento &lt;code&gt;sep&lt;/code&gt;. En este caso, el separador será un espacio (&amp;quot; &amp;ldquo;)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;separate &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; separate &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#Modificamos el objeto separate&lt;/span&gt;
-  &lt;span style=&#34;color:#a6e22e&#34;&gt;unite&lt;/span&gt;(col &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; sobre_media, &lt;span style=&#34;color:#75715e&#34;&gt;#Unimos en una nueva columna llamada sobre_media&lt;/span&gt;
-        sobre_o_bajo&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;media, &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos las columnas que deseamos unir&lt;/span&gt;
-        sep &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos el separador&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(separate)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 8
-##   sector           sexo  prevision salud contrato_dur     id ing_tot sobre_media
-##   &amp;lt;fct&amp;gt;            &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;         &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;      
-## 1 Sector formal    Mujer Si        Si    Indefinido    20256 320421. Bajo media 
-## 2 Sector formal    Mujer Si        Si    Definido      24592 750000  Bajo media 
-## 3 Sector formal    Mujer Si        Si    Indefinido    35136 900000  Bajo media 
-## 4 Hogares como em~ Mujer No        No    Indefinido   235953 302042. Bajo media 
-## 5 Sector formal    Homb~ Si        Si    Indefinido   251187 900000  Bajo media 
-## 6 Sector formal    Homb~ Si        Si    Indefinido   318992      0  Bajo media
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;9-unir-datos&#34;&gt;9. Unir datos&lt;/h2&gt;
-&lt;p&gt;Otra de las herramientas fundamentales a la hora de trabajar con la estructura de los datos es unir dos tabulados distintos con los cuales estemos trabajando.&lt;/p&gt;
-&lt;h3 id=&#34;a-merge&#34;&gt;a) &lt;code&gt;merge&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;Una de las funciones más utilizadas para ello es &lt;code&gt;merge&lt;/code&gt; del paquete &lt;code&gt;base&lt;/code&gt; de R. Esta nos permite unir dos tabulados (data frames) que compartan una columna, y que tengan la misma cantidad de filas.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;esi2020_m &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;readRDS&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;gzcon&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://github.com/learn-R/05-class/blob/main/input/data/ESI2020m.rds?raw=true&amp;#34;&lt;/span&gt;))) &lt;span style=&#34;color:#75715e&#34;&gt;#Cargamos los datos que deseamos unir&lt;/span&gt;
-datos_unidos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;merge&lt;/span&gt;(x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, &lt;span style=&#34;color:#75715e&#34;&gt;#Unimos el dataframe datos&lt;/span&gt;
-      y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; esi2020_m, &lt;span style=&#34;color:#75715e&#34;&gt;#con el dataframe esi2020_m&lt;/span&gt;
-      by &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sexo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ing_tot&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;#a partir de las columnas &amp;#34;sexo&amp;#34; e &amp;#34;ing_tot&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(datos_unidos)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;##     sexo ing_tot        sector prevision salud contrato_dur        id efectivas
-## 1 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        21
-## 2 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        40
-## 3 Hombre       0 Sector formal        Si    Si   Indefinido 346362449         0
-## 4 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
-## 5 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
-## 6 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos ver que ahora el tabulado &lt;code&gt;datos&lt;/code&gt; tiene 7 columnas el lugar de 6, pues se incorporó la columna &lt;code&gt;efectivas&lt;/code&gt;, que estaba presente en &lt;code&gt;esi2020_m&lt;/code&gt;, pero no en &lt;code&gt;datos&lt;/code&gt;.&lt;/p&gt;
-&lt;h3 id=&#34;b-bind_cols&#34;&gt;b) &lt;code&gt;bind_cols()&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;Otra cosa que podemos hacer es, simplemente, pegar una columna de un dataframe a otro. Para ello recurrimos a la función &lt;code&gt;bind_cols()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# Seleccionamos las primeras cinco columnas de datos&lt;/span&gt;
-b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# Seleccionamos las últimas cinco columnas de datos&lt;/span&gt;
-col_un &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_cols&lt;/span&gt;(a, b) &lt;span style=&#34;color:#75715e&#34;&gt;#Unimos ambos dataframes a partir de sus columnas&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## New names:
-## * prevision -&amp;gt; prevision...3
-## * salud -&amp;gt; salud...4
-## * contrato_dur -&amp;gt; contrato_dur...5
-## * prevision -&amp;gt; prevision...6
-## * salud -&amp;gt; salud...7
-## * ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(col_un)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 10
-## # Rowwise: 
-##   sector  sexo  prevision...3 salud...4 contrato_dur...5 prevision...6 salud...7
-##   &amp;lt;fct&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;         &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt;            &amp;lt;fct&amp;gt;         &amp;lt;fct&amp;gt;    
-## 1 Sector~ Mujer Si            Si        Indefinido       Si            Si       
-## 2 Sector~ Mujer Si            Si        Definido         Si            Si       
-## 3 Sector~ Mujer Si            Si        Indefinido       Si            Si       
-## 4 Hogare~ Mujer No            No        Indefinido       No            No       
-## 5 Sector~ Homb~ Si            Si        Indefinido       Si            Si       
-## 6 Sector~ Homb~ Si            Si        Indefinido       Si            Si       
-## # ... with 3 more variables: contrato_dur...8 &amp;lt;fct&amp;gt;, id &amp;lt;dbl&amp;gt;, ing_tot &amp;lt;dbl&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Vemos que simplemente pegó  &lt;code&gt;a&lt;/code&gt; y &lt;code&gt;b&lt;/code&gt;. Eso implica que tenemos columnas repetidas. Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos &lt;code&gt;merge()&lt;/code&gt; mientras que, si estos no comparten ninguna columna, recurrimos a &lt;code&gt;bing_cols()&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;c-bind_rows&#34;&gt;c) &lt;code&gt;bind_rows()&lt;/code&gt;&lt;/h3&gt;
-&lt;p&gt;También podemos unir dos dataframes a partir de sus filas, con la función &lt;code&gt;bind_rows()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;a &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; a[1&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10000&lt;/span&gt;,] &lt;span style=&#34;color:#75715e&#34;&gt;# Seleccionamos las primeras 10.000 filas de a&lt;/span&gt;
-b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; b[10001&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;18985&lt;/span&gt;,] &lt;span style=&#34;color:#75715e&#34;&gt;# Seleccionamos las últimas 8.985 filas de b&lt;/span&gt;
-row_un &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_rows&lt;/span&gt;(a, b)
-&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(row_un)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 7
-## # Rowwise: 
-##   sector                   sexo   prevision salud contrato_dur    id ing_tot
-##   &amp;lt;fct&amp;gt;                    &amp;lt;fct&amp;gt;  &amp;lt;fct&amp;gt;     &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;        &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;
-## 1 Sector formal            Mujer  Si        Si    Indefinido      NA      NA
-## 2 Sector formal            Mujer  Si        Si    Definido        NA      NA
-## 3 Sector formal            Mujer  Si        Si    Indefinido      NA      NA
-## 4 Hogares como empleadores Mujer  No        No    Indefinido      NA      NA
-## 5 Sector formal            Hombre Si        Si    Indefinido      NA      NA
-## 6 Sector formal            Hombre Si        Si    Indefinido      NA      NA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;bind_rows()&lt;/code&gt; nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (&lt;code&gt;NA&lt;/code&gt;)&lt;/p&gt;
-&lt;h1 id=&#34;resumen&#34;&gt;Resumen&lt;/h1&gt;
-&lt;p&gt;En este práctico aprendimos a&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Agrupar datos por filas y columnas.&lt;/li&gt;
-&lt;li&gt;Manipular datos (tidydata), transformando la estructura de estos a una ancha o larga.&lt;/li&gt;
-&lt;li&gt;Separar y unir caracteres de una columna.&lt;/li&gt;
-&lt;li&gt;Unir datos, a partir de filas y columnas.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&#34;reporte-de-progreso&#34;&gt;Reporte de progreso&lt;/h1&gt;
-&lt;p&gt;¡No olviden llenar el &lt;a href=&#34;https://learn-r.formr.org&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;reporte de progreso&lt;/a&gt;! En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Bienvenido/a a R, RStudio y Github</title>
       <link>/example/01-practico/</link>
       <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
@@ -9817,6 +9453,533 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
 &lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;https://www.youtube.com/watch?v=Zj8yL-nx9vM&#34; frameborder=&#34;0&#34; allow=&#34;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&#34; allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Limpieza de datos</title>
+      <link>/example/05-practico/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>/example/05-practico/</guid>
+      <description>&lt;h2 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h2&gt;
+&lt;p&gt;El objetivo de este práctico es introducir en la manipulacón de la estructura de los datos que posteriormente serán analizados. Ello incluye la selección de variables, el filtrado de filas, la eliminación de valores nulos, entre otros.&lt;/p&gt;
+&lt;p&gt;Es así como esta práctica se enmarca en el proceso de &lt;strong&gt;procesamiento de los datos&lt;/strong&gt;. Ello significa que &lt;strong&gt;todos&lt;/strong&gt; los procedimientos que aprenderemos en esta sesión deben ser incorporados necesariamente en el código de procesamiento, a modo de elaborar un posterior código de análisis lo más limpio posible.&lt;/p&gt;
+&lt;h2 id=&#34;1-recursos-de-la-práctica&#34;&gt;1. Recursos de la práctica&lt;/h2&gt;
+&lt;p&gt;En este práctico utilizaremos la base de datos de la &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta de Caracterización Socioeconómica (CASEN)&lt;/strong&gt;&lt;/a&gt;, la cual fue procesada en el &lt;a href=&#34;&#34;&gt;Práctico anterior&lt;/a&gt;.Recuerden siempre consultar el &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;manual/libro de códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar una base de datos.&lt;/p&gt;
+&lt;h2 id=&#34;2-librerías-a-utilizar&#34;&gt;2. Librerías a utilizar&lt;/h2&gt;
+&lt;p&gt;En este práctico utilizaremos las siguientes librerías&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;pacman&lt;/code&gt;: este facilita y agiliza la lectura de los paquetes a utilizar en R&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;tidyverse&lt;/code&gt;: colección de librerías, de la cual utilizaremos &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt;: para manipular datos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sjmisc&lt;/code&gt;: para explorar datos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;magrittr&lt;/code&gt;: nos permitirá ocupar dos operadores que en R son &lt;strong&gt;muy&lt;/strong&gt; utilizados&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;procesamiento-de-datos&#34;&gt;Procesamiento de datos&lt;/h1&gt;
+&lt;h2 id=&#34;1-cargar-librerías&#34;&gt;1. Cargar librerías&lt;/h2&gt;
+&lt;p&gt;Lo primero es &lt;em&gt;cargar las librerías&lt;/em&gt; a utilizar. Para ello, acudimos a la función &lt;code&gt;p_load&lt;/code&gt; del paquete &lt;code&gt;pacman&lt;/code&gt;. Asumimos que ya está instalado, así que sólo lo cargaremos con la función &lt;code&gt;library()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(tidyverse, &lt;span style=&#34;color:#75715e&#34;&gt;#Universo de librerías para manipular datos&lt;/span&gt;
+               haven, &lt;span style=&#34;color:#75715e&#34;&gt;#Para cargar datos&lt;/span&gt;
+               dplyr,&lt;span style=&#34;color:#75715e&#34;&gt;#Para manipular datos &lt;/span&gt;
+               sjmisc,&lt;span style=&#34;color:#75715e&#34;&gt;#Para explorar datos&lt;/span&gt;
+               magrittr) &lt;span style=&#34;color:#75715e&#34;&gt;#Para el operador pipeline (%&amp;gt;%)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-importar-bases-de-datos&#34;&gt;2. Importar bases de datos&lt;/h2&gt;
+&lt;p&gt;Cargaremos los datos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;read_dta&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;input/Casen en Pandemia 2020 STATA.dta&amp;#34;&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;En el panel &lt;strong&gt;Environment&lt;/strong&gt;, visualizamos los nuevos objetos, que poseen 185.437 observaciones (o filas) y 650 variables (columnas).&lt;/p&gt;
+&lt;h2 id=&#34;3-explorar-datos&#34;&gt;3. Explorar datos&lt;/h2&gt;
+&lt;p&gt;A continuación, utilizaremos la función &lt;code&gt;head()&lt;/code&gt; del paquete &lt;code&gt;base&lt;/code&gt;, para revisar las primeras cinco filas del set de datos.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 5 x 650
+##          folio     o id_persona id_vivienda  region provincia     comuna    zona
+##          &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt;       &amp;lt;dbl&amp;gt; &amp;lt;dbl+l&amp;gt; &amp;lt;dbl+lbl&amp;gt;  &amp;lt;dbl+lbl&amp;gt; &amp;lt;dbl+l&amp;gt;
+## 1 110110010101     1          5  1101100101 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 2 110110010101     2          6  1101100101 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 3 110110010201     2         31  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 4 110110010201     1         32  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 5 110110010201     3         30  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## # ... with 642 more variables: area &amp;lt;dbl+lbl&amp;gt;, segmento &amp;lt;dbl&amp;gt;, estrato &amp;lt;dbl&amp;gt;,
+## #   cod_upm &amp;lt;dbl&amp;gt;, hogar &amp;lt;dbl&amp;gt;, p6_p_con &amp;lt;dbl+lbl&amp;gt;, expr &amp;lt;dbl&amp;gt;, expp &amp;lt;dbl&amp;gt;,
+## #   expc &amp;lt;dbl&amp;gt;, varstrat &amp;lt;dbl&amp;gt;, varunit &amp;lt;dbl&amp;gt;, fecha_entrev &amp;lt;date&amp;gt;,
+## #   metodologia_entrev &amp;lt;dbl+lbl&amp;gt;, tot_hog &amp;lt;dbl&amp;gt;, numviv &amp;lt;dbl&amp;gt;,
+## #   informante_idoneo &amp;lt;dbl+lbl&amp;gt;, tel1 &amp;lt;dbl+lbl&amp;gt;, tel2 &amp;lt;dbl+lbl&amp;gt;,
+## #   tel3 &amp;lt;dbl+lbl&amp;gt;, tel4 &amp;lt;dbl+lbl&amp;gt;, tel5 &amp;lt;dbl+lbl&amp;gt;, tel6 &amp;lt;dbl+lbl&amp;gt;,
+## #   tel7 &amp;lt;dbl+lbl&amp;gt;, tel8 &amp;lt;dbl+lbl&amp;gt;, p0a &amp;lt;dbl+lbl&amp;gt;, p0b &amp;lt;dbl+lbl&amp;gt;, ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos ver diversas variables, tanto numéricas como con números etiquetados (¡esto último es un &lt;em&gt;clásico&lt;/em&gt; cuando trabajamos con datos en .dta y .sav!)&lt;/p&gt;
+&lt;h2 id=&#34;4-un-aspecto-clave-antes-de-comenzar-los-operadoresaspectos-claves-antes-de-comenzar&#34;&gt;4. Un aspecto clave antes de comenzar: los operadoresAspectos claves antes de comenzar&lt;/h2&gt;
+&lt;p&gt;Previo a trabajar con la base de datos, debemos repasar el concepto de &lt;strong&gt;operadores&lt;/strong&gt;. Estos símbolos no son de uso exclusivo en R ¡probablemente los conoces desde tus cursos de matemática! Ahora bien, no todos tienen el mismo significado que en otros softwares.&lt;/p&gt;
+&lt;p&gt;Los &lt;strong&gt;operadores&lt;/strong&gt; serán símbolos que permitirán, en los distintos procedimientos de procesamiento, simplificar procesos. Por ejemplo, serán útilizados cuando filtremos nuestros datos para personas de ciertas categorías, cuando calculemos variables nuevas (de manera aritmética o condicional) o, simplemente, cuando queramos hacer procesos &amp;ldquo;concatenados&amp;rdquo;.&lt;/p&gt;
+&lt;h4 id=&#34;operadores-relacionales&#34;&gt;Operadores relacionales&lt;/h4&gt;
+&lt;p&gt;Se usan para hacer comparaciones. Cuando en la &lt;em&gt;Tabla 1&lt;/em&gt; nos referimos a &lt;code&gt;un valor&lt;/code&gt;, esto refiere tambien a &lt;code&gt;variables&lt;/code&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Símbolo&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Función&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;&amp;lt;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es menor que otro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es mayor que otro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;==&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es igual que otro &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;&amp;lt;=&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es menor o igual que otro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;&amp;gt;=&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es mayor o igual que otro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;!=&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor es distinto o diferente que otro&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;%in%&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Un valor pertenece al conjunto designado &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;is.na()&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;El valor es perdido o &lt;code&gt;NA&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;!is.na()&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;El valor es distinto de  &lt;code&gt;NA&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;operadores-aritméticos&#34;&gt;Operadores aritméticos&lt;/h4&gt;
+&lt;p&gt;Realizan operaciones, como la suma, resta, división, entre otros.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Símbolo&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Función&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;+&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Suma&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;-&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Resta&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;*&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Multiplicación&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;/&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;División&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;^&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Elevado&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;operadores-de-asignación&#34;&gt;Operadores de asignación&lt;/h4&gt;
+&lt;p&gt;Hay dos formas de asignar &lt;code&gt;objetoA &amp;lt;- objetoB&lt;/code&gt; o &lt;code&gt;objetoA = objetoB&lt;/code&gt;. Ambas implican que lo que se este realizando en el &lt;em&gt;objetoB&lt;/em&gt; implica que eso va a producir o generar al &lt;em&gt;objetoA&lt;/em&gt;&lt;/p&gt;
+&lt;h4 id=&#34;operadores-booleanos&#34;&gt;Operadores booleanos&lt;/h4&gt;
+&lt;p&gt;Describen relaciones &lt;strong&gt;lógicas&lt;/strong&gt; o &lt;strong&gt;condicionales&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Símbolo&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Función&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;&amp;amp;&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Indica un &lt;em&gt;y&lt;/em&gt; lógico&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;|&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Indica un &lt;em&gt;o&lt;/em&gt; lógico&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;xor()&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Excluye la condición&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;!&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Distinto de &amp;hellip;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;any&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Ninguna de las condiciones serán utilizadas&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;&lt;code&gt;all&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Todas las condiciones serán ocupadas&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src=&#34;/img/example/operad.png&#34; width=&#34;60%&#34; /&gt;
+Figura 1: Resumen de operadores&lt;/p&gt;
+&lt;h3 id=&#34;operador-pipeline-&#34;&gt;Operador pipeline %&amp;gt;%&lt;/h3&gt;
+&lt;p&gt;¡Aquí mucha atención! Este operador &lt;code&gt;%&amp;gt;%&lt;/code&gt; (llamado &lt;code&gt;pipe&lt;/code&gt;) no es un operador que esté contenido en las funciones base del lenguaje R. Más bien proviene del paquete &lt;code&gt;magrittr&lt;/code&gt; de &lt;code&gt;tidyverse&lt;/code&gt;, y es de los operadores más útiles y utilizados en R.&lt;/p&gt;
+&lt;p&gt;¿Para qué sirve? pues nos permite concatenar múltiples funciones y procesos. &lt;em&gt;Imagina que quieres filtrar una base de datos a partir de tramos etarios. Pero no tienes esa variable creada. ¿Que hacer? La respuesta: concatenar el proceso de creación de variables y luego filtrar.&lt;/em&gt; Eso se puede hacer gracias a &lt;code&gt;%&amp;gt;%&lt;/code&gt; (ya mostraremos como utilizar esta herramienta), que por lo demás es muy fácil de ejecutar.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Ctrl + shift + M&lt;/code&gt; Para Windows&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;⌘ + shift + M&lt;/code&gt; Para Mac&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5-seleccionar-variables&#34;&gt;5. Seleccionar variables&lt;/h2&gt;
+&lt;p&gt;Lo primero que tenemos que considerar cuando trabajaremos con datos cuantitativos es tener claro qué análisis deseamos hacer. ¿Qué queremos investigar? ¿qué fenómeno de la realidad social me resulta interesante o relevante de conocer en profundidad? ¿&lt;strong&gt;qué variables me permiten encontrar las respuestas que estoy buscando&lt;/strong&gt;?&lt;/p&gt;
+&lt;p&gt;Ello permite destacar la estrecha relación existente entre el problema de investigación y el trabajo en R. En específico, &lt;strong&gt;seleccionar sólo las variables que nos interesan&lt;/strong&gt; para trabajar facilitará la posterior manipulación de los datos, hará menos confuso el proceso e, incluso ¡hará que nuestros procedimientos sean menos exigentes en términos de memoria!&lt;/p&gt;
+&lt;p&gt;Aprenderemos dos maneras de seleccionar las variables que necesitamos&lt;/p&gt;
+&lt;h3 id=&#34;a-con-r-base&#34;&gt;a) Con R &lt;code&gt;base&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Si bien puede resultar menos cómodo que trabajar con paquetes como &lt;code&gt;dplyr&lt;/code&gt;, aprender a trabajar con las librerías de R &lt;code&gt;base&lt;/code&gt; puede ser sumamente útil en ciertas situaciones particulares.&lt;/p&gt;
+&lt;p&gt;En este caso, estaremos interactuando con corchetes (&amp;quot;[ ]&amp;quot;). Para especificar a R que trabajaremos con columnas, debemos incorporar una coma luego del primer corchete (&amp;quot;[, ]&amp;quot;). Seleccionemos la primera variable de nuestros datos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos[, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Podemos seleccionar más de una variable! Probemos con las variables número uno, dos y tres&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos[, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También podemos seleccionar desde la variable X hasta la Y. En este caso, seleccionemos desde la primera a la quinta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos[, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Y, obviamente, podemos utilizar el &lt;strong&gt;nombre&lt;/strong&gt; de las variables&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos[, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sexo&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;metodologia_entrev&amp;#39;&lt;/span&gt;)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;En este último caso, no olvidemos que el nombre de las variables debe ir entre comillas (&amp;quot;&amp;quot;), pues R entiende que las palabras son &lt;code&gt;character&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;b-con-select-de-dplyr&#34;&gt;b) Con &lt;code&gt;select()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;De manera similar, la función &lt;code&gt;select()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt; facilita el trabajo a la hora de seleccionar variables. Podemos utilizar tanto los nombres de las variables (¡esta vez no son necesarias las comillas!), como su número. Conozcamos la estructura de la función&lt;/p&gt;
+&lt;p&gt;Si queremos incluir las variables &lt;code&gt;variable1&lt;/code&gt;, &lt;code&gt;variable2&lt;/code&gt; y &lt;code&gt;variable3&lt;/code&gt;
+&lt;div class=&#34;note&#34;&gt;
+select(datos, variable1, variable2, variable3)
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;Si queremos excluir anteponemos un menos &lt;code&gt;-variable1&lt;/code&gt;
+&lt;div class=&#34;note&#34;&gt;
+select(datos, -variable1)
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;Hay un montón de maneras de usar &lt;code&gt;select()&lt;/code&gt; ¡vamos a conocerlas!&lt;/p&gt;
+&lt;h4 id=&#34;select-por-indexación&#34;&gt;&lt;code&gt;select()&lt;/code&gt; por indexación&lt;/h4&gt;
+&lt;p&gt;La indexación refiere al orden que tiene la columna o variable dentro de los datos. Imaginemos que queremos seleccionar:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# la primera y la segunda columna&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# la primera hasta la cuarta columna&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;# la primera, la cuarta y la quinta columna columna&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;select-por-nombre-de-columna&#34;&gt;&lt;code&gt;select()&lt;/code&gt; por nombre de columna&lt;/h4&gt;
+&lt;p&gt;Si conocemos el nombre de la variable simplemente lo podemos poner y se seleccionará.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, edad, sexo, o1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También puedo renombrar en el mismo proceso de selección indicando &lt;code&gt;nuevo_nombre = nombre_original&lt;/code&gt; en el proceso de selección&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, edad, sexo, ocupacion &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; o1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;select-para-reordenar-variables&#34;&gt;&lt;code&gt;select()&lt;/code&gt; para reordenar variables&lt;/h4&gt;
+&lt;p&gt;Podemos seleccionar variables y luego indicar que queremos todo el resto de las variables (&lt;code&gt;everything()&lt;/code&gt;). Solo por una cosa de orden. Esto será útil sobre todo cuando tengamos identificadores&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, id_persona, sexo, edad, &lt;span style=&#34;color:#a6e22e&#34;&gt;everything&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;select-con-patrones-de-texto&#34;&gt;&lt;code&gt;select()&lt;/code&gt; con patrones de texto&lt;/h4&gt;
+&lt;p&gt;Podemos seleccionar variables considerando los prefijos, sufijos o partes de &lt;em&gt;cómo están nombradas las variables&lt;/em&gt;. Independiente de qué tipo de patrón estes buscando, como todo texto y expresión regular en R (y gran parte de los carácteres) este texto debe venir entre &lt;strong&gt;comillas&lt;/strong&gt;. Algunas de las funciones que posibilitan este proceso son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;starts_with()&lt;/code&gt;: prefijo&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ends_with() &lt;/code&gt;:  sufijo&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;contains()&lt;/code&gt; : contiene una cadena de texto literal&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;matches()&lt;/code&gt; : coincide con una expresión regular&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;starts_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#a6e22e&#34;&gt;ends_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;preg&amp;#34;&lt;/span&gt;))
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# También se pueden combinar con operadores logicos&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;starts_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;y1&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ends_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;preg&amp;#34;&lt;/span&gt;)) 
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;contains&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pobre&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;contains&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;vivienda&amp;#34;&lt;/span&gt;))
+&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;matches&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pobreza_|vivienda&amp;#34;&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;select-y-condiciones-lógicas&#34;&gt;&lt;code&gt;select()&lt;/code&gt; y condiciones lógicas&lt;/h4&gt;
+&lt;p&gt;Si combinamos &lt;code&gt;select()&lt;/code&gt; con &lt;code&gt;where()&lt;/code&gt; obtendremos algo así como una frase &lt;em&gt;&amp;ldquo;seleciona donde&amp;rdquo;&lt;/em&gt;, ese &lt;em&gt;donde&lt;/em&gt; responde a una condición que cumple cierta variable. Por ejemplo, queremos seleccionar todas las variables que son carácteres (&lt;code&gt;is.character&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, &lt;span style=&#34;color:#a6e22e&#34;&gt;where&lt;/span&gt;(is.character))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Luego de la revisión del libro de códigos y la exploración de datos mediante a funciones como &lt;code&gt;find_var()&lt;/code&gt; de &lt;code&gt;sjmisc&lt;/code&gt; decidimos trabajar con las siguientes variables.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;edad&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sexo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;s13&lt;/code&gt;: previsión de salud&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tot_per&lt;/code&gt;: número de personas en el hogar&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ytoth&lt;/code&gt;: ingresos totales del hogar&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;o1&lt;/code&gt;: ocupación&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;y26d_total&lt;/code&gt;: Monto del IFE&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;y26d_hog&lt;/code&gt;: ¿Alguien recibió el IFE?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;¡Apliquémos conocimientos!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, folio, edad, sexo, prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;592&lt;/span&gt;, ocupacion &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; o1, tot_per, ytoth, &lt;span style=&#34;color:#a6e22e&#34;&gt;starts_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;y26d_&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;matches&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;total|hog&amp;#34;&lt;/span&gt;), o2, o3, o4, o6)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Es una buena práctica trabajar solo con las columnas que utilizaremos para el análisis, principalmente pues disminuye el &lt;em&gt;uso de memoria&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(datos, folio,  edad, sexo, prev &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;592&lt;/span&gt;, ocupacion &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; o1, tot_per, ytoth, &lt;span style=&#34;color:#a6e22e&#34;&gt;starts_with&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;y26d_&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;matches&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;total|hog&amp;#34;&lt;/span&gt;), o2, o3, o4, o6)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;El nuevo objeto posee650 variables (columnas), pero conserva las filas 185.437 (u observaciones) ¿Qué pasa si quiero trabajar con un &lt;em&gt;subset&lt;/em&gt; de casos? La respuesta es &lt;code&gt;filter()&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;6-filtrar-valores&#34;&gt;6. Filtrar valores&lt;/h2&gt;
+&lt;p&gt;Asimismo, así como no siempre vamos a trabajar con todas las variables que contiene un conjunto de datos en su versión original (¡imaginen trabajar con las más de 500 variables de CASEN al mismo tiempo!), no siempre desearemos trabajar con todas las observaciones que tenemos en los datos. Tal como en el caso de la selección de variables, podemos recurrir tanto a R &lt;code&gt;base&lt;/code&gt; como a &lt;code&gt;dplyr&lt;/code&gt; para filtrar nuestros datos.&lt;/p&gt;
+&lt;h3 id=&#34;a-con-r-base-1&#34;&gt;a) Con R &lt;code&gt;base&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;En este caso, en lugar de poner la coma junto al primer corchete (&amp;quot;[, ]&amp;quot;), lo haremos antes del segundo (&amp;quot;[ ,]&amp;quot;) ¡veamos cómo hacerlo!&lt;/p&gt;
+&lt;p&gt;Filtramos para sólo presentar a los hombres&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc[datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Incluso es posible incorporar más de un filtro a la vez ¡simplemente ocuparemos los operadores que revisamos al inicio!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc[datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;33&lt;/span&gt;,]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;También podemos ocupar el operador &lt;code&gt;%in%&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc[datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;prev &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;),]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;b-con-filter-de-dplyr&#34;&gt;b) Con &lt;code&gt;filter&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;La función &lt;code&gt;filter()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt; escoge o extrae filas basados en sus valores, subdivide un data frame (&lt;em&gt;subset&lt;/em&gt;), reteniendo todas las filas que satisfacen sus condiciones.&lt;/p&gt;
+&lt;p&gt;Con &lt;code&gt;filter()&lt;/code&gt; será esencial el uso de los &lt;strong&gt;operadores&lt;/strong&gt; que ya vimos, dado que las observaciones que preservarán en nuestros datos (y aquellas que no), están definidas por condiciones lógicas (relacionales o booleanas)&lt;/p&gt;
+&lt;div class=&#34;note&#34;&gt;
+filter(datos, condicion_para filtrar)
+Esta condición para filtrar podría ser, por ejemplo
+variable1 &amp;gt;= 3
+&lt;/div&gt;
+
+&lt;h4 id=&#34;filter-con-números&#34;&gt;&lt;code&gt;filter&lt;/code&gt; con números&lt;/h4&gt;
+&lt;p&gt;Imaginémos que queremos una base con las personas mayores de 15 años. Pero también que pertenezcan a hogares con menos de 7 personas.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; tot_per &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¿Y si quiero filtrar para saber el valor máximo de ingresos (&lt;code&gt;ytoth&lt;/code&gt;)?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, ytoth &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;max&lt;/span&gt;(ytoth))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 1 x 13
+##          folio  edad    sexo    prev ocupacion tot_per  ytoth y26d_hog y26d_total
+##          &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl+l&amp;gt; &amp;lt;dbl+l&amp;gt; &amp;lt;dbl+lbl&amp;gt;   &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl+lb&amp;gt;  &amp;lt;dbl+lbl&amp;gt;
+## 1 730830031501    41 1 [Hom~ 1 [Sis~    1 [Sí]       1 2.25e8   2 [No]         NA
+## # ... with 4 more variables: o2 &amp;lt;dbl+lbl&amp;gt;, o3 &amp;lt;dbl+lbl&amp;gt;, o4 &amp;lt;dbl+lbl&amp;gt;,
+## #   o6 &amp;lt;dbl+lbl&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Gana $225.200.000, es Hombre y tiene 41 años! (y vive solo&amp;hellip;)&lt;/p&gt;
+&lt;h4 id=&#34;filter-con-caracteres&#34;&gt;&lt;code&gt;filter()&lt;/code&gt; con caracteres&lt;/h4&gt;
+&lt;p&gt;Si queremos filtrar por la variable &lt;code&gt;sexo&lt;/code&gt; solo a las mujeres, tengo dos opciones: o solo selecciono a las mujeres (&lt;code&gt;==&lt;/code&gt;) o excluyo a los hombres (&lt;code&gt;!=&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Ahora bien, antes hay que hacer una precisión importante: en los datos &lt;code&gt;sexo&lt;/code&gt; es una variable que está como &lt;code&gt;dbl&lt;/code&gt; y &lt;code&gt;lbl&lt;/code&gt; (número etiquetado), por lo que no es que en la base aparezcan &amp;ldquo;Mujeres&amp;rdquo; y &amp;ldquo;Hombres&amp;rdquo;, sino que 2 y 1.&lt;/p&gt;
+&lt;p&gt;Por ello, con el siguiente código aparecerá un error.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, sexo &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mujer&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Error: Problem with `filter()` input `..1`.
+## i Input `..1` is `sexo == &amp;#34;Mujer&amp;#34;`.
+## x Can&amp;#39;t combine `..1` &amp;lt;character&amp;gt; and `..2` &amp;lt;double&amp;gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Una función &lt;strong&gt;muy muy útil&lt;/strong&gt; (sobre todo cuando trabajemos con regresiones) es &lt;code&gt;as_factor()&lt;/code&gt; que permite conservar los niveles pero definiendo sus categorías de respuesta en base a la etiqueta que traen (el &lt;code&gt;lbl&lt;/code&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;sexo)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Ahora si funcionará!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, sexo &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mujer&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, sexo &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hombre&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;note&#34;&gt;
+&lt;strong&gt;Ojo&lt;/strong&gt;. R es &lt;em&gt;sensible&lt;/em&gt; a cómo está escrito el texto. Si pones el mismo código pero sin respetar mayúsuculas y minúsculas el código no funcionará
+&lt;/div&gt;
+
+&lt;p&gt;¡Por último! ¿Cómo se seleccionan dos condiciones en carácter? Con el operador &lt;code&gt;%in%&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;prev &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;as_factor&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;prev)
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(datos_proc, prev &lt;span style=&#34;color:#f92672&#34;&gt;%in%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Sistema Público FONASA&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ISAPRE&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;65&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;7-tratamiento-de-casos-perdidos-na&#34;&gt;7. Tratamiento de casos perdidos (&lt;code&gt;NA&lt;/code&gt;)&lt;/h2&gt;
+&lt;p&gt;Los datos con los que trabajamos suelen incorporar valores nulos (&lt;code&gt;NA&lt;/code&gt;), casos perdidos ingresados como valores de clase &lt;code&gt;Logic&lt;/code&gt;. Estos valores no nos entregan información útil para nuestros análisis, y pueden generar problemas al momento de, por ejemplo, calcular &lt;em&gt;medidas de tendencia central&lt;/em&gt;, u otros procedimientos estadísticos.&lt;/p&gt;
+&lt;p&gt;Hay diversas maneras de trabajar los valores nulos, tales como realizar procesos de imputación, entre otros. Sin embargo, la más sencilla consiste en &lt;strong&gt;eliminar los valores nulos&lt;/strong&gt; que se encuentran presentes en nuestros datos (aunque no recomendable)&lt;/p&gt;
+&lt;p&gt;Para ello, lo primero es &lt;em&gt;identificar valores nulos&lt;/em&gt; en el set de datos en general, o en alguna variable en específico. Para ello, empleamos la función &lt;code&gt;is.na()&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(datos_proc) &lt;span style=&#34;color:#75715e&#34;&gt;#Revisamos si hay casos perdidos en el total del set de datos &lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ytoth) &lt;span style=&#34;color:#75715e&#34;&gt;#Revisamos si hay casos perdidos en Ingresos per cápita&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sin embargo, esto no resulta muy práctico para el análisis. Es por ello que emplearemos la función &lt;code&gt;sum()&lt;/code&gt; para &lt;em&gt;contar cuántos valores nulos&lt;/em&gt; hay en el set de datos en general, o en alguna variable en particular.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(datos_proc)) &lt;span style=&#34;color:#75715e&#34;&gt;#Contamos los valores nulos del set de datos en general, que suman un total de 180.148&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 623037
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sum&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;is.na&lt;/span&gt;(datos_proc&lt;span style=&#34;color:#f92672&#34;&gt;$&lt;/span&gt;ytoth)) &lt;span style=&#34;color:#75715e&#34;&gt;#Contaremos los valores nulos de la variable Ingresos per cápita, que alcanzan un total de 98&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Una vez identificamos los &lt;em&gt;valores nulos&lt;/em&gt;, podemos proceder a &lt;strong&gt;eliminarlos&lt;/strong&gt; del set de datos. El comando &lt;code&gt;na.omit()&lt;/code&gt; eliminará &lt;em&gt;todas las filas&lt;/em&gt; que presenten casos perdidos.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;nrow&lt;/span&gt;(datos_proc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 185437
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;na.omit&lt;/span&gt;(datos_proc) &lt;span style=&#34;color:#75715e&#34;&gt;#Eliminamos las filas con casos perdidos&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;nrow&lt;/span&gt;(datos_proc) &lt;span style=&#34;color:#75715e&#34;&gt;#La nueva base de datos tiene 5.387 filas y 4 columnas&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## [1] 1920
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡La próxima sesión aprenderemos a recodificarlas!&lt;/p&gt;
+&lt;h2 id=&#34;8-resumen-con-procesamiento-de-las-variables&#34;&gt;8. Resumen con procesamiento de las variables&lt;/h2&gt;
+&lt;p&gt;Hasta ahora, solo hemos creado una base de datos que selecciona variables. Ahora nos resta incorporar en un nuevo objeto los cambios que nos parezcan relevantes para la base de datos procesada que utilizaremos en nuestros análisis.&lt;/p&gt;
+&lt;p&gt;Como ya conocemos operadores que permiten concatenar procesos ( &lt;code&gt;%&amp;gt;%&lt;/code&gt;  y &lt;code&gt;%$%&lt;/code&gt;) este procedimiento será mucho más fácil.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+ &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; tot_per &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+ &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(folio, sexo, edad, ocupacion, ytoth, tot_per, ife &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y26d_hog, o2, o3, o4, o6) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+ &lt;span style=&#34;color:#a6e22e&#34;&gt;na.omit&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;¡Ahora que estamos seguras/os sobre-escribimos la base!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+               &lt;span style=&#34;color:#a6e22e&#34;&gt;filter&lt;/span&gt;(edad &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; tot_per &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt;
+               &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(folio, sexo, edad, ocupacion, ytoth, tot_per, ife &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; y26d_hog, o2, o3, o4, o6) &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+               &lt;span style=&#34;color:#a6e22e&#34;&gt;na.omit&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos visualizar la base resultante a partir de &lt;code&gt;view_df()&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;view_df&lt;/span&gt;(datos_proc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Registered S3 methods overwritten by &amp;#39;parameters&amp;#39;:
+##   method                           from      
+##   as.double.parameters_kurtosis    datawizard
+##   as.double.parameters_skewness    datawizard
+##   as.double.parameters_smoothness  datawizard
+##   as.numeric.parameters_kurtosis   datawizard
+##   as.numeric.parameters_skewness   datawizard
+##   as.numeric.parameters_smoothness datawizard
+##   print.parameters_distribution    datawizard
+##   print.parameters_kurtosis        datawizard
+##   print.parameters_skewness        datawizard
+##   summary.parameters_kurtosis      datawizard
+##   summary.parameters_skewness      datawizard
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in sprintf(&amp;#34;%i&amp;#34;, as.integer(range(x[[index]], na.rm = T))): NAs
+## introduced by coercion to integer range
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#34;border-collapse:collapse; border:none;&#34;&gt;
+&lt;caption&gt;Data frame: datos_proc&lt;/caption&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ID&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Name&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Label&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Values&lt;/th&gt;&lt;th style=&#34;border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Value Labels&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;folio&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;IdentificaciÃ³n hogar (comuna area seg viv hogar)&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: NA-NA&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Sexo&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Hombre&lt;br&gt;Mujer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;edad&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Edad&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 18-98&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;ocupacion&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o1. La semana pasada, Â¿trabajÃ³ al menos una hora?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ytoth&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;Ingreso total del hogar&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 0-8332378&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;tot_per&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;Total de personas en el hogar&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34; colspan=&#34;2&#34;&gt;&lt;em&gt;range: 1-6&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;ife&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;y26d_hog. Ãšltimos 12 meses, Â¿alguien recibiÃ³&lt;br&gt;Ingreso Familiar de Emergencia?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;br&gt;9&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;br&gt;No sabe&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;8&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o2. Aunque no trabajÃ³ la semana pasada, Â¿realizÃ³&lt;br&gt;alguna actividad?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;9&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o3&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o3. Aunque no trabajÃ³, Â¿tenÃ­a algÃºn empleo del&lt;br&gt;cual estuvo ausente temporalmente&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;10&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o4&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;o4. Â¿Ha trabajado alguna vez?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;11&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o6&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;o6. Â¿BuscÃ³ trabajo remunerado o cuenta propia en&lt;br&gt;las Ãºltimas cuatro semanas?&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;1&lt;br&gt;2&lt;/td&gt;
+&lt;td style=&#34;padding:0.2cm; text-align:left; vertical-align:top;&#34;&gt;SÃ­&lt;br&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;9-unir-datos&#34;&gt;9. Unir datos&lt;/h2&gt;
+&lt;p&gt;Otra de las herramientas fundamentales a la hora de trabajar con la estructura de los datos es unir dos tabulados distintos con los cuales estemos trabajando.&lt;/p&gt;
+&lt;p&gt;Dividamos datos_proc en dos dataframes diferentes, que luego unificaremos&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;proc_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(folio, sexo, ocupacion, ytoth)
+proc_1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; proc_1[1&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;908&lt;/span&gt;,] &lt;span style=&#34;color:#75715e&#34;&gt;#Seleccionamos la mitad de las filas&lt;/span&gt;
+proc_2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; datos_proc &lt;span style=&#34;color:#f92672&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;select&lt;/span&gt;(folio, sexo, edad, tot_per, ife)
+proc_2 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; proc_2[909&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1816&lt;/span&gt;,] &lt;span style=&#34;color:#75715e&#34;&gt;#Seleccionamos la mitad de las filas&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;a-merge&#34;&gt;a) &lt;code&gt;merge&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Una de las funciones más utilizadas para unificar datos es &lt;code&gt;merge()&lt;/code&gt; del paquete &lt;code&gt;base&lt;/code&gt; de R. Esta nos permite unir dos tabulados (data frames) que compartan una columna, ojalá una variable que cumpla el rol de identificador (¡como la columna folio!)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;merge &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;merge&lt;/span&gt;(proc_1, proc_2, &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos data frames a unificar&lt;/span&gt;
+               by &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;folio&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sexo&amp;#34;&lt;/span&gt;), &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos la variable a partir de la cual se realiza la unificación (puede ser más de una, como folio y sexo)&lt;/span&gt;
+               all &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T) &lt;span style=&#34;color:#75715e&#34;&gt;#Especificamos que queremos mantener total de filas, sumando las de x (proc_1) e y (proc_2)&lt;/span&gt;
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(merge)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;##          folio   sexo ocupacion   ytoth edad tot_per ife
+## 1 110110030201 Hombre         2  302083   NA      NA  NA
+## 2 110110110101  Mujer         2  213838   NA      NA  NA
+## 3 110110170101  Mujer         2  384907   NA      NA  NA
+## 4 110110290701  Mujer         2 1478196   NA      NA  NA
+## 5 110110310601  Mujer         2  434783   NA      NA  NA
+## 6 110110402001  Mujer         2 1298426   NA      NA  NA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Podemos ver que ahora el tabulado &lt;code&gt;merge&lt;/code&gt; tiene 7 columnas, lo cual constituye la suma del número de columnas de los datos iniciales (4 de proc_1 y 5 para comp) menos las columnas compartidas en ambos (folio y sexo). En este caso, dado que no se comparten filas, el número de filas se suma, lo cual resulta en 1.602 + 1.602 = 3.204.&lt;/p&gt;
+&lt;h3 id=&#34;b-bind_cols&#34;&gt;b) &lt;code&gt;bind_cols()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Otra cosa que podemos hacer es, simplemente, pegar una columna de un dataframe a otro. Para ello recurrimos a la función &lt;code&gt;bind_cols()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;bind_columnas &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_cols&lt;/span&gt;(proc_1, proc_2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## New names:
+## * folio -&amp;gt; folio...1
+## * sexo -&amp;gt; sexo...2
+## * folio -&amp;gt; folio...5
+## * sexo -&amp;gt; sexo...6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(bind_columnas)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 9
+##    folio...1 sexo...2 ocupacion   ytoth  folio...5 sexo...6  edad tot_per    ife
+##        &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;    &amp;lt;dbl+lbl&amp;gt;   &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;    &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl+&amp;gt;
+## 1    1.10e11 Hombre      2 [No]  302083    9.10e11 Mujer       28       5 1 [Sí]
+## 2    1.10e11 Mujer       2 [No]  213838    9.10e11 Mujer       64       3 1 [Sí]
+## 3    1.10e11 Mujer       2 [No]  384907    9.10e11 Mujer       47       3 1 [Sí]
+## 4    1.10e11 Mujer       2 [No] 1478196    9.10e11 Mujer       28       4 1 [Sí]
+## 5    1.10e11 Mujer       2 [No]  434783    9.10e11 Mujer       19       3 1 [Sí]
+## 6    1.10e11 Mujer       2 [No] 1298426    9.10e11 Mujer       57       2 1 [Sí]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Vemos que simplemente pegó  &lt;code&gt;a&lt;/code&gt; y &lt;code&gt;b&lt;/code&gt;. Eso implica que tenemos columnas repetidas (a saber, folio y sexo). Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos &lt;code&gt;merge()&lt;/code&gt; mientras que, si estos no comparten ninguna columna, recurrimos a &lt;code&gt;bing_cols()&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;c-bind_rows&#34;&gt;c) &lt;code&gt;bind_rows()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;También podemos unir dos dataframes a partir de sus filas, con la función &lt;code&gt;bind_rows()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;bind_filas &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bind_rows&lt;/span&gt;(proc_1, proc_2)
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(bind_filas)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 7
+##          folio sexo   ocupacion   ytoth  edad tot_per       ife
+##          &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;  &amp;lt;dbl+lbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl+lbl&amp;gt;
+## 1 110110030201 Hombre    2 [No]  302083    NA      NA        NA
+## 2 110110110101 Mujer     2 [No]  213838    NA      NA        NA
+## 3 110110170101 Mujer     2 [No]  384907    NA      NA        NA
+## 4 110110290701 Mujer     2 [No] 1478196    NA      NA        NA
+## 5 110110310601 Mujer     2 [No]  434783    NA      NA        NA
+## 6 110110402001 Mujer     2 [No] 1298426    NA      NA        NA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;bind_rows()&lt;/code&gt; nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (&lt;code&gt;NA&lt;/code&gt;). En este caso, la unión es perfecta en tanto proc_1 y proc_2 se conformaron a partir del mismo data frame.&lt;/p&gt;
+&lt;h2 id=&#34;10-guardar-base-procesada&#34;&gt;10. Guardar base procesada&lt;/h2&gt;
+&lt;p&gt;Para guardar la base de datos procesada, debes dirigir la ruta desde tu RProject. En este caso, guardaremos datos_proc&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;saveRDS&lt;/span&gt;(datos_proc, file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;output/datos_proc.rds&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;resumen&#34;&gt;Resumen&lt;/h1&gt;
+&lt;p&gt;En ete práctico&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Conocimos los &lt;strong&gt;operadores booleanos, de asignación y condicionales&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Aprendimos a seleccionar variables con R &lt;code&gt;base&lt;/code&gt; y &lt;code&gt;dplyr&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Aprendimos a filtrar valores con R &lt;code&gt;base&lt;/code&gt; y &lt;code&gt;dplyr&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Aprendimos a concatenar procesos con el operador &lt;code&gt;pipe (%&amp;gt;%)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Unificar datos (´merge()´, ´bind_cols()´ y ´bind_rows()´)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;¡Atención! Fíjate bien que &lt;code&gt;==&lt;/code&gt; y &lt;code&gt;=&lt;/code&gt; son distintos. En R &lt;code&gt;==&lt;/code&gt; es indicar &lt;em&gt;&amp;ldquo;igual a&amp;rdquo;&lt;/em&gt;, mientras que  &lt;code&gt;=&lt;/code&gt; es &lt;em&gt;asignar&lt;/em&gt; (sinónimo de &lt;code&gt;&amp;lt;-&lt;/code&gt;) &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Este operador es &lt;strong&gt;muy utilizado&lt;/strong&gt;, sirve para indicar que algo está dentro de una cadena de valores. &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 </description>
     </item>
     

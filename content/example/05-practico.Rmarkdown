@@ -551,10 +551,6 @@ proc_2 <- datos_proc %>% select(folio, sexo, edad, tot_per, ife)
 proc_2 <- proc_2[909:1816,] #Seleccionamos la mitad de las filas
 ```
 
-Mientras que datos_proc tiene `r format( nrow(datos_proc), decimal.mark="," , big.mark = ".")` observaciones (o filas) y `r format(ncol(datos_proc), decimal.mark="," , big.mark = ".")` variables (columnas), comp presenta `r format( nrow(comp), decimal.mark="," , big.mark = ".")` observaciones (o filas) y `r format(ncol(comp), decimal.mark="," , big.mark = ".")` variables (columnas). 
-
-Además, comp tiene variables que refieren al sexo, el sistema de salud y el nivel educacional más alto alcanzado por el informante, por lo que comparte 2 columnas con datos_proc (a saber, folio y sexo). Asimismo, hay una diferencia considerable en el número de observaciones de ambos conjuntos de datos. 
-
 ### a) `merge`
 
 Una de las funciones más utilizadas para unificar datos es `merge()` del paquete `base` de R. Esta nos permite unir dos tabulados (data frames) que compartan una columna, ojalá una variable que cumpla el rol de identificador (¡como la columna folio!)

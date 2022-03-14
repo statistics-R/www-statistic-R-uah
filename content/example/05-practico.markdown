@@ -1,7 +1,7 @@
 ---
-title: "Tidydata y manipulación de datos"
-linktitle: "5: Tidydata y manipulación de datos"
-date: "2021-08-13"
+title: "Limpieza de datos"
+linktitle: "5: Limpieza de datos"
+date: "2021-03-12"
 menu:
   example:
     parent: Ejemplos
@@ -16,11 +16,13 @@ editor_options:
 
 ## 0. Objetivo del práctico
 
-El objetivo del presente práctico es aprender a manipular datos, en particular, agrupar datos según alguna(s) columna(s) o filas en particular,  pivotando sets de datos, y uniendo y/o separando datos. 
+El objetivo de este práctico es introducir en la manipulacón de la estructura de los datos que posteriormente serán analizados. Ello incluye la selección de variables, el filtrado de filas, la eliminación de valores nulos, entre otros. 
+
+Es así como esta práctica se enmarca en el proceso de **procesamiento de los datos**. Ello significa que **todos** los procedimientos que aprenderemos en esta sesión deben ser incorporados necesariamente en el código de procesamiento, a modo de elaborar un posterior código de análisis lo más limpio posible. 
 
 ## 1. Recursos de la práctica
 
-Los datos a utilizar provienen de la [Encuesta Suplementaria de Ingresos (ESI) en su versión 2020](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos), módulo de la Encuesta Nacional de Empleo (ENE), levantada una vez al año para caracterizar los ingresos laborales de quienes son clasificadas/os como ocupadas/os en la ENE, y otras fuentes de ingresos de los hogares. No olvides que, cuando trabajes con datos, debes revisar la **documentación anexa**, como el [**libro de códigos**](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-guía-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4).
+En este práctico utilizaremos la base de datos de la [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020), la cual fue procesada en el [Práctico anterior]().Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
 ## 2. Librerías a utilizar
 
@@ -28,14 +30,13 @@ En este práctico utilizaremos las siguientes librerías
 
 1. `pacman`: este facilita y agiliza la lectura de los paquetes a utilizar en R
 
-2. `tidyverse`: colección de librerías, de la cual utilizaremos `tidyr`, `haven` y `dplyr`
+2. `tidyverse`: colección de librerías, de la cual utilizaremos `dplyr`
 
-3. `tidyr`: permite pivotear los set de datos con los cuales estamos trabajando
+3. `dplyr`: para manipular datos
 
-4. `dplyr`: para manipular datos
+4. `sjmisc`: para explorar datos
 
-5. `sjmisc`: para explorar datos
-
+5. `magrittr`: nos permitirá ocupar dos operadores que en R son **muy** utilizados
 
 # Procesamiento de datos
 
@@ -45,18 +46,11 @@ Lo primero es _cargar las librerías_ a utilizar. Para ello, acudimos a la funci
 
 
 ```r
-library(pacman)
-```
-
-```
-## Warning: package 'pacman' was built under R version 4.1.2
-```
-
-```r
 pacman::p_load(tidyverse, #Universo de librerías para manipular datos
-               tidyr, #Para pivotear la estructura de los datos
+               haven, #Para cargar datos
                dplyr,#Para manipular datos 
-               sjmisc)#Para explorar datos
+               sjmisc,#Para explorar datos
+               magrittr) #Para el operador pipeline (%>%)
 ```
 
 ## 2. Importar bases de datos
@@ -64,435 +58,636 @@ pacman::p_load(tidyverse, #Universo de librerías para manipular datos
 Cargaremos los datos 
 
 
+
+
 ```r
-datos <- readRDS(gzcon(url("https://github.com/learn-R/05-class/blob/main/input/data/ESI2020.rds?raw=true")))
+datos <- read_dta("input/Casen en Pandemia 2020 STATA.dta") 
 ```
 
-En el panel **Environment**, visualizamos los nuevos objetos, que poseen 18.985 observaciones (o filas) y 9 variables (columnas).
+En el panel **Environment**, visualizamos los nuevos objetos, que poseen 185.437 observaciones (o filas) y 650 variables (columnas).
 
 ## 3. Explorar datos
 
-A continuación, utilizaremos la función `View()` del paquete `base`, para revisar el set de datos.  
+A continuación, utilizaremos la función `head()` del paquete `base`, para revisar las primeras cinco filas del set de datos.  
 
 
+```
+## # A tibble: 5 x 650
+##          folio     o id_persona id_vivienda  region provincia     comuna    zona
+##          <dbl> <dbl>      <dbl>       <dbl> <dbl+l> <dbl+lbl>  <dbl+lbl> <dbl+l>
+## 1 110110010101     1          5  1101100101 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 2 110110010101     2          6  1101100101 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 3 110110010201     2         31  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 4 110110010201     1         32  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## 5 110110010201     3         30  1101100102 1 [Reg~ 11 [Iqui~ 1101 [Iqu~ 1 [Urb~
+## # ... with 642 more variables: area <dbl+lbl>, segmento <dbl>, estrato <dbl>,
+## #   cod_upm <dbl>, hogar <dbl>, p6_p_con <dbl+lbl>, expr <dbl>, expp <dbl>,
+## #   expc <dbl>, varstrat <dbl>, varunit <dbl>, fecha_entrev <date>,
+## #   metodologia_entrev <dbl+lbl>, tot_hog <dbl>, numviv <dbl>,
+## #   informante_idoneo <dbl+lbl>, tel1 <dbl+lbl>, tel2 <dbl+lbl>,
+## #   tel3 <dbl+lbl>, tel4 <dbl+lbl>, tel5 <dbl+lbl>, tel6 <dbl+lbl>,
+## #   tel7 <dbl+lbl>, tel8 <dbl+lbl>, p0a <dbl+lbl>, p0b <dbl+lbl>, ...
+```
 
-Ocupamos, además, la función `frq()` de la librería `sjmisc`, para explorar las categorías de las variables de clase factor:
+Podemos ver diversas variables, tanto numéricas como con números etiquetados (¡esto último es un *clásico* cuando trabajamos con datos en .dta y .sav!)
+
+## 4. Un aspecto clave antes de comenzar: los operadoresAspectos claves antes de comenzar 
+
+Previo a trabajar con la base de datos, debemos repasar el concepto de **operadores**. Estos símbolos no son de uso exclusivo en R ¡probablemente los conoces desde tus cursos de matemática! Ahora bien, no todos tienen el mismo significado que en otros softwares.
+
+Los **operadores** serán símbolos que permitirán, en los distintos procedimientos de procesamiento, simplificar procesos. Por ejemplo, serán útilizados cuando filtremos nuestros datos para personas de ciertas categorías, cuando calculemos variables nuevas (de manera aritmética o condicional) o, simplemente, cuando queramos hacer procesos "concatenados".
+
+#### Operadores relacionales 
+
+Se usan para hacer comparaciones. Cuando en la *Tabla 1* nos referimos a `un valor`, esto refiere tambien a `variables`
+
+| Símbolo  | Función |
+|---------:|:--------|
+| `<`      |  Un valor es menor que otro |
+| `>`      |  Un valor es mayor que otro |
+| `==`     |  Un valor es igual que otro [^1] |
+| `<=`     |  Un valor es menor o igual que otro |
+| `>=`     |  Un valor es mayor o igual que otro |
+| `!=`     |  Un valor es distinto o diferente que otro|
+| `%in%`   |  Un valor pertenece al conjunto designado [^2] |
+| `is.na()`|  El valor es perdido o `NA` |
+| `!is.na()`| El valor es distinto de  `NA` |
+
+[^1]: ¡Atención! Fíjate bien que `==` y `=` son distintos. En R `==` es indicar *"igual a"*, mientras que  `=` es *asignar* (sinónimo de `<-`)
+
+[^2]: Este operador es **muy utilizado**, sirve para indicar que algo está dentro de una cadena de valores. 
+
+#### Operadores aritméticos
+
+Realizan operaciones, como la suma, resta, división, entre otros.
+
+| Símbolo  | Función |
+|---------:|:--------|
+| `+`      |  Suma |
+| `-`      |  Resta|
+| `*`     |  Multiplicación |
+| `/`     |  División |
+| `^`     |  Elevado |
+
+#### Operadores de asignación
+
+Hay dos formas de asignar `objetoA <- objetoB` o `objetoA = objetoB`. Ambas implican que lo que se este realizando en el *objetoB* implica que eso va a producir o generar al *objetoA*
+
+#### Operadores booleanos
+
+Describen relaciones **lógicas** o **condicionales**
+
+| Símbolo  | Función |
+|---------:|:--------|
+| `&`      |  Indica un *y* lógico |
+| `|`      |  Indica un *o* lógico |
+| `xor()`  |  Excluye la condición  |
+| `!`      |  Distinto de ... |
+| `any`    |  Ninguna de las condiciones serán utilizadas |
+| `all`    |  Todas las condiciones serán ocupadas |
+
+
+<img src="/img/example/operad.png" width="60%" />
+Figura 1: Resumen de operadores
+
+### Operador pipeline %>% 
+
+¡Aquí mucha atención! Este operador `%>%` (llamado `pipe`) no es un operador que esté contenido en las funciones base del lenguaje R. Más bien proviene del paquete `magrittr` de `tidyverse`, y es de los operadores más útiles y utilizados en R.
+
+¿Para qué sirve? pues nos permite concatenar múltiples funciones y procesos. *Imagina que quieres filtrar una base de datos a partir de tramos etarios. Pero no tienes esa variable creada. ¿Que hacer? La respuesta: concatenar el proceso de creación de variables y luego filtrar.* Eso se puede hacer gracias a ` %>% ` (ya mostraremos como utilizar esta herramienta), que por lo demás es muy fácil de ejecutar.
+
+- `Ctrl + shift + M` Para Windows
+- `⌘ + shift + M` Para Mac
+
+## 5. Seleccionar variables
+
+Lo primero que tenemos que considerar cuando trabajaremos con datos cuantitativos es tener claro qué análisis deseamos hacer. ¿Qué queremos investigar? ¿qué fenómeno de la realidad social me resulta interesante o relevante de conocer en profundidad? ¿**qué variables me permiten encontrar las respuestas que estoy buscando**? 
+
+Ello permite destacar la estrecha relación existente entre el problema de investigación y el trabajo en R. En específico, **seleccionar sólo las variables que nos interesan** para trabajar facilitará la posterior manipulación de los datos, hará menos confuso el proceso e, incluso ¡hará que nuestros procedimientos sean menos exigentes en términos de memoria!
+
+Aprenderemos dos maneras de seleccionar las variables que necesitamos
+
+### a) Con R `base`
+
+Si bien puede resultar menos cómodo que trabajar con paquetes como `dplyr`, aprender a trabajar con las librerías de R `base` puede ser sumamente útil en ciertas situaciones particulares. 
+
+En este caso, estaremos interactuando con corchetes ("[ ]"). Para especificar a R que trabajaremos con columnas, debemos incorporar una coma luego del primer corchete ("[, ]"). Seleccionemos la primera variable de nuestros datos
 
 
 ```r
-frq(datos$sector)
+datos[, 1]
 ```
 
-```
-## 
-## x <categorical>
-## # total N=18985  valid N=18985  mean=1.12  sd=0.44
-## 
-## Value                    |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------------------------
-## Sector formal            | 17576 | 92.58 |   92.58 |  92.58
-## Sector informal          |   593 |  3.12 |    3.12 |  95.70
-## Hogares como empleadores |   816 |  4.30 |    4.30 | 100.00
-## <NA>                     |     0 |  0.00 |    <NA> |   <NA>
-```
 
-```r
-frq(datos$sexo)
-```
-
-```
-## 
-## x <categorical>
-## # total N=18985  valid N=18985  mean=1.43  sd=0.50
-## 
-## Value  |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------
-## Hombre | 10810 | 56.94 |   56.94 |  56.94
-## Mujer  |  8175 | 43.06 |   43.06 | 100.00
-## <NA>   |     0 |  0.00 |    <NA> |   <NA>
-```
-
-```r
-frq(datos$prevision)
-```
-
-```
-## 
-## x <categorical>
-## # total N=18985  valid N=18985  mean=1.14  sd=0.34
-## 
-## Value |     N | Raw % | Valid % | Cum. %
-## ----------------------------------------
-## Si    | 16366 | 86.20 |   86.20 |  86.20
-## No    |  2619 | 13.80 |   13.80 | 100.00
-## <NA>  |     0 |  0.00 |    <NA> |   <NA>
-```
-
-```r
-frq(datos$salud)
-```
-
-```
-## 
-## x <categorical>
-## # total N=18985  valid N=18985  mean=1.12  sd=0.32
-## 
-## Value |     N | Raw % | Valid % | Cum. %
-## ----------------------------------------
-## Si    | 16761 | 88.29 |   88.29 |  88.29
-## No    |  2224 | 11.71 |   11.71 | 100.00
-## <NA>  |     0 |  0.00 |    <NA> |   <NA>
-```
-
-```r
-frq(datos$contrato_dur)
-```
-
-```
-## 
-## x <categorical>
-## # total N=18985  valid N=18985  mean=1.72  sd=0.45
-## 
-## Value      |     N | Raw % | Valid % | Cum. %
-## ---------------------------------------------
-## Definido   |  5263 | 27.72 |   27.72 |  27.72
-## Indefinido | 13722 | 72.28 |   72.28 | 100.00
-## <NA>       |     0 |  0.00 |    <NA> |   <NA>
-```
-
-Podemos darnos cuenta de que la variable `sector` provee información sobre el _sector donde se encuentra ocupado/a el/la trabajador/a_; la variable `sexo` indica el _sexo de las y los trabajadores_; las columnas `prevision` y `salud` proveen información sobre _si el/la empleador/a paga cotizaciones relativas a los sistemas previsional y de salud_ a las y los trabajadores; y la variable `contrato_dur` provee información sobre la _duración del contrato_ de las y los trabajadores. 
-
-Ahora exploremos las variables numéricas con `descr()` de `sjmisc`
+¡Podemos seleccionar más de una variable! Probemos con las variables número uno, dos y tres
 
 
 ```r
-descr(datos$ss_t) #Ingresos por sueldo y salarios netos
+datos[, c(1,2,3)]
 ```
 
-```
-## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc     mean       sd      se       md  trimmed
-##   dd numeric    dd 18985      0 567520.6 585556.6 4249.75 400526.4 469716.4
-##            range      iqr skew
-##  9e+06 (0-9e+06) 401607.8 3.57
-```
 
-```r
-descr(datos$svar_t) #Ingresos por sueldos y salarios variables
-```
-
-```
-## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc     mean       sd     se md trimmed
-##   dd numeric    dd 18985      0 13730.59 78880.74 572.49  0  816.25
-##                      range iqr  skew
-##  5006580.18 (0-5006580.18)   0 22.33
-```
-
-```r
-descr(datos$reg_t) #Total ingresos por regalías (beneficios entregados por el empleador)
-```
-
-```
-## 
-## ## Basic descriptive statistics
-## 
-##  var    type label     n NA.prc    mean       sd     se md trimmed
-##   dd numeric    dd 18985      0 8392.62 38868.17 282.09  0       0
-##                      range iqr skew
-##  1071408.16 (0-1071408.16)   0 9.44
-```
-
-Estas variables proveen información sobre _Ingresos por sueldo y salarios netos_ (`ss_t`); _Ingresos por sueldos y salarios variables_ (`svar_t`); y respecto a _Total ingresos por regalías (beneficios entregados por el empleador)_ (`reg_t`).
-
-## 4. Agrupar por filas con `rowwise()`
-
-Como sabemos, la librería `dplyr` de `tidyverse` provee diversas herramientas que nos permiten manipular los datos con los cuales nos encontramos trabajando. Una de ellas es su función `rowwise()`, que posibilita **agrupar los datos en razón de las filas**. Esto es particularmente útil cuando, por ejemplo, queremos construir algún índice. En este caso, utilizaremos las diversas variables de ingresos para construir la variable `ing_tot`, que incluirá los ingresos totales percibidos por las y los trabajadores, en razón de sus sueldos y salarios netos; sus sueldos y salarios variables; y por las regalías entregadas por parte de las y los empleadores. 
+También podemos seleccionar desde la variable X hasta la Y. En este caso, seleccionemos desde la primera a la quinta:
 
 
 ```r
-datos <- datos %>% #Especificamos que trabajaremos con el dataframe datos
-  rowwise() %>% #Especificamos que agruparemos por filas
-  mutate(ing_tot = sum(ss_t, svar_t, reg_t)) #Creamos una nueva variable llamada ing_tot, sumando los valores de ss_t, svar_t y reg_t para cada fila 
-head(datos)
+datos[, 1:5]
 ```
 
-```
-## # A tibble: 6 x 10
-## # Rowwise: 
-##   sector   sexo  prevision salud contrato_dur   ss_t svar_t reg_t     id ing_tot
-##   <fct>    <fct> <fct>     <fct> <fct>         <dbl>  <dbl> <dbl>  <dbl>   <dbl>
-## 1 Sector ~ Mujer Si        Si    Indefinido   3.20e5      0     0  20256 320421.
-## 2 Sector ~ Mujer Si        Si    Definido     7.5 e5      0     0  24592 750000 
-## 3 Sector ~ Mujer Si        Si    Indefinido   9   e5      0     0  35136 900000 
-## 4 Hogares~ Mujer No        No    Indefinido   3.02e5      0     0 235953 302042.
-## 5 Sector ~ Homb~ Si        Si    Indefinido   9   e5      0     0 251187 900000 
-## 6 Sector ~ Homb~ Si        Si    Indefinido   0           0     0 318992      0
-```
 
-Como vemos, ahora el set de datos pasó de tener 8 a 10 variables (columnas). Sin embargo, la cantidad de filas se mantiene constante, con un total de 18.985.
 
-Sin embargo, como ya no utilizaremos `ss_t`, `svar_t` ni `reg_t` por separado, las des-seleccionaremos con `select()` de `dplyr`
+Y, obviamente, podemos utilizar el **nombre** de las variables
 
 
 ```r
-datos <- datos %>% 
-  select(-c(ss_t, svar_t, reg_t))
-head(datos)
-```
-
-```
-## # A tibble: 6 x 7
-## # Rowwise: 
-##   sector                   sexo   prevision salud contrato_dur     id ing_tot
-##   <fct>                    <fct>  <fct>     <fct> <fct>         <dbl>   <dbl>
-## 1 Sector formal            Mujer  Si        Si    Indefinido    20256 320421.
-## 2 Sector formal            Mujer  Si        Si    Definido      24592 750000 
-## 3 Sector formal            Mujer  Si        Si    Indefinido    35136 900000 
-## 4 Hogares como empleadores Mujer  No        No    Indefinido   235953 302042.
-## 5 Sector formal            Hombre Si        Si    Indefinido   251187 900000 
-## 6 Sector formal            Hombre Si        Si    Indefinido   318992      0
+datos[, c('sexo', 'metodologia_entrev')]
 ```
 
 
-## 5. Agrupar por columnas con `group_by()`
 
-Otra de las funciones de `dplyr` que nos permiten manipular los datos es `group_by`. En este caso, en lugar de agrupar los valores por filas, podremos hacerlo en razón de las **columnas**. Calculemos ahora la media de `ing_tot` con la función `mean()`, agrupando por `sexo`:
+En este último caso, no olvidemos que el nombre de las variables debe ir entre comillas (""), pues R entiende que las palabras son `character`.
+
+### b) Con `select()` de `dplyr`
+
+De manera similar, la función `select()` de `dplyr` facilita el trabajo a la hora de seleccionar variables. Podemos utilizar tanto los nombres de las variables (¡esta vez no son necesarias las comillas!), como su número. Conozcamos la estructura de la función 
+
+Si queremos incluir las variables `variable1`, `variable2` y `variable3`
+{{< div "note" >}}
+select(datos, variable1, variable2, variable3)
+{{< /div >}}
+
+Si queremos excluir anteponemos un menos `-variable1`
+{{< div "note" >}}
+select(datos, -variable1)
+{{< /div >}}
+
+Hay un montón de maneras de usar `select()` ¡vamos a conocerlas!
+
+#### `select()` por indexación
+
+La indexación refiere al orden que tiene la columna o variable dentro de los datos. Imaginemos que queremos seleccionar:
 
 
 ```r
-datos %>% 
-  group_by(sexo) %>% #Espeficicamos que agruparemos por sexo
-  summarise(media = mean(ing_tot)) #Creamos una columna llamada media, calculando la media ingresos con la función `mean`
+select(datos, 1, 2) # la primera y la segunda columna
+
+select(datos, 1:4) # la primera hasta la cuarta columna
+
+select(datos, c(1, 4, 5)) # la primera, la cuarta y la quinta columna columna
 ```
 
-```
-## # A tibble: 2 x 2
-##   sexo     media
-##   <fct>    <dbl>
-## 1 Hombre 630757.
-## 2 Mujer  535278.
-```
 
-Es importante destacar que la función `summarise()` (o `summarize()`) de `dplyr` nos permite crear un nuevo data frame con una o más filas para cada combinación y agrupación de variables. En este caso, tenemos dos filas: una para Hombre, y otra para Mujer. En caso de no agrupar variables, sólo tendremos una columna que **resuma** las observaciones especificadas. 
 
-Algo interesante es que podemos combinar `group_by()` con algunas funciones de `sjmisc`. Probemos calculando la frecuencia de hombres y mujeres agrupando por cada sector:
+#### `select()` por nombre de columna
+
+Si conocemos el nombre de la variable simplemente lo podemos poner y se seleccionará.
 
 
 ```r
-datos %>% 
-  group_by(sector) %>% 
-  frq(sexo)
+select(datos, edad, sexo, o1)
 ```
 
-```
-## 
-## sexo <categorical>
-## # grouped by: Sector formal
-## # total N=17576  valid N=17576  mean=1.42  sd=0.49
-## 
-## Value  |     N | Raw % | Valid % | Cum. %
-## -----------------------------------------
-## Hombre | 10212 | 58.10 |   58.10 |  58.10
-## Mujer  |  7364 | 41.90 |   41.90 | 100.00
-## <NA>   |     0 |  0.00 |    <NA> |   <NA>
-## 
-## 
-## sexo <categorical>
-## # grouped by: Sector informal
-## # total N=593  valid N=593  mean=1.17  sd=0.37
-## 
-## Value  |   N | Raw % | Valid % | Cum. %
-## ---------------------------------------
-## Hombre | 493 | 83.14 |   83.14 |  83.14
-## Mujer  | 100 | 16.86 |   16.86 | 100.00
-## <NA>   |   0 |  0.00 |    <NA> |   <NA>
-## 
-## 
-## sexo <categorical>
-## # grouped by: Hogares como empleadores
-## # total N=816  valid N=816  mean=1.87  sd=0.34
-## 
-## Value  |   N | Raw % | Valid % | Cum. %
-## ---------------------------------------
-## Hombre | 105 | 12.87 |   12.87 |  12.87
-## Mujer  | 711 | 87.13 |   87.13 | 100.00
-## <NA>   |   0 |  0.00 |    <NA> |   <NA>
-```
 
-Obtendremos una tabla por cada una de las categorías de la variable por la cual agrupamos (en este caso, una por cada sector), que señala las frecuencias absolutas y relativas de cada sexo para cada sector. Por supuesto, también podemos hacer el mismo ejercicio con `descr()`. Probemos haciendo un análisis descriptivos de ingresos para cada sexo:
+
+También puedo renombrar en el mismo proceso de selección indicando `nuevo_nombre = nombre_original` en el proceso de selección
 
 
 ```r
-datos %>% 
-  group_by(sexo) %>% 
-  descr(ing_tot)
+select(datos, edad, sexo, ocupacion = o1)
 ```
 
-```
-## 
-## ## Basic descriptive statistics
-## 
-## 
-## Grouped by: Hombre
-## 
-##      var    type   label     n NA.prc     mean       sd      se       md
-##  ing_tot numeric ing_tot 10810      0 630757.4 665519.9 6401.01 448028.4
-##   trimmed                     range    iqr skew
-##  515273.1 9312239.14 (0-9312239.14) 419636 3.63
-## 
-## 
-## Grouped by: Mujer
-## 
-##      var    type   label    n NA.prc     mean       sd      se    md  trimmed
-##  ing_tot numeric ing_tot 8175      0 535278.2 512300.3 5666.05 4e+05 455651.4
-##                      range      iqr skew
-##  6208159.43 (0-6208159.43) 407377.7 3.12
-```
 
-En este caso, obtenemos dos tablas: una por cada `sexo`, cada una indicando las estadísticas de resumen para la variable `ing_tot`
 
-## 6. Manipulación de datos (tidydata)
+#### `select()` para reordenar variables
 
-Otra de las librerías de `tidyverse` que resulta de gran utilidad es `tidyr`. En este caso, cada una de las filas de nuestros datos indican a un sujeto (el cual constituye la unidad de análisis). Las funciones `pivot_longer()` y `pivot_wider()` de la librería anteriormente señalada nos permitirán pivotear los datos, para transformarlos a un dataframe de formato **long** (largo) o **wide** (ancho), respectivamente. 
-
-### a) `pivot_longer()`
-
-Como ya se señaló, `pivot_longer()`nos permitirá pivotear los datos de manera tal que estos se transformen a un tabulado en formato **long**. Ello implica que el tabulado tendrá un mayor número de observaciones, reduciendo su cantidad de columnas. En este caso, pivotearemos todas las columnas salvo `sector`, lo cual significa que tales columnas se subsumirán en una sola (en este caso, llamada "variable"), y sus respectivos valores en otra (en este caso, llamada "value"). Luego, la unidad de análisis pasará, de ser sujetos, a ser las variables. Para ello usamos el siguiente código:
+Podemos seleccionar variables y luego indicar que queremos todo el resto de las variables (`everything()`). Solo por una cosa de orden. Esto será útil sobre todo cuando tengamos identificadores
 
 
 ```r
-long <- datos %>% #Creamos un nuevo objeto a partir de datos
-  select(-ing_tot) %>%  #Des-seleccionamos la variable ing_tot, pues es de class numeric
-  pivot_longer(cols=-c(1, id), #Pivoteamos a lo largo todas las columnas salvo la primera (sector) 
-               names_to = "variable", #Especificamos que la columna "variable" incluirá los nombres de cada una de las columnas pivoteadas
-               values_to = "value") #Especificamos que la columna "value" incluirá los valores de cada una de las columnas pivoteadas
-head(long)
+select(datos, id_persona, sexo, edad, everything())
 ```
 
-```
-## # A tibble: 6 x 4
-##   sector           id variable     value     
-##   <fct>         <dbl> <chr>        <fct>     
-## 1 Sector formal 20256 sexo         Mujer     
-## 2 Sector formal 20256 prevision    Si        
-## 3 Sector formal 20256 salud        Si        
-## 4 Sector formal 20256 contrato_dur Indefinido
-## 5 Sector formal 24592 sexo         Mujer     
-## 6 Sector formal 24592 prevision    Si
-```
 
-Podemos darnos cuenta de que ahora nuestro set de datos sólo contiene 4 columnas, pero 75.940 filas. Podemos darnos cuenta que ahora, cada cuatro columnas, tenemos a un sujeto de la muestra. 
 
-### b) `pivot_wider`
+#### `select()` con patrones de texto
 
-Asimismo, las tablas largas (long) pueden ser transformadas a tablas anchas (wide) con la función `pivot_wider()`, lo cual implica que nuestra tabla reducirá su cantidad de filas y aumentará su número de columnas. Para ello, sólo debemos especificar desde dónde extraeremos los nombres y los valores asociados a las nuevas columnas: 
+Podemos seleccionar variables considerando los prefijos, sufijos o partes de *cómo están nombradas las variables*. Independiente de qué tipo de patrón estes buscando, como todo texto y expresión regular en R (y gran parte de los carácteres) este texto debe venir entre **comillas**. Algunas de las funciones que posibilitan este proceso son:
+
+- `starts_with()`: prefijo 
+- `ends_with() `:  sufijo
+- `contains()` : contiene una cadena de texto literal
+- `matches()` : coincide con una expresión regular
 
 
 ```r
-wide <- long %>% #Creamos un nuevo objeto a partir de los datos de long 
-  pivot_wider(names_from = "variable", #Pivoteamos, tomando el nombre de las columnas desde la columna "variable"
-              values_from = "value") 
-head(wide)
+select(datos, starts_with("a"), ends_with("preg"))
+
+# También se pueden combinar con operadores logicos
+
+select(datos, starts_with("y1")&ends_with("preg")) 
+select(datos, contains("pobre")|contains("vivienda"))
+select(datos, matches("pobreza_|vivienda"))
 ```
 
-```
-## # A tibble: 6 x 6
-##   sector                       id sexo   prevision salud contrato_dur
-##   <fct>                     <dbl> <fct>  <fct>     <fct> <fct>       
-## 1 Sector formal             20256 Mujer  Si        Si    Indefinido  
-## 2 Sector formal             24592 Mujer  Si        Si    Definido    
-## 3 Sector formal             35136 Mujer  Si        Si    Indefinido  
-## 4 Hogares como empleadores 235953 Mujer  No        No    Indefinido  
-## 5 Sector formal            251187 Hombre Si        Si    Indefinido  
-## 6 Sector formal            318992 Hombre Si        Si    Indefinido
-```
 
-Los datos se "ensancharon", pasando a tener 18.985 filas y 6 columnas. 
 
-## 7. `separate()`
+#### `select()` y condiciones lógicas
 
-La función `separate()` de `tidyr` nos permite convertir un character individual de una columna en múltiples columnas. En este caso, crearemos una nueva variable `sobre_prom`, que nos indicará si los ingresos de los sujetos están por sobre o por debajo de la media de ingresos. Luego, separaremos la primera y la segunda palabra (caracteres) de cada unos de los valores en dos columnas distintas.
+Si combinamos `select()` con `where()` obtendremos algo así como una frase *"seleciona donde"*, ese *donde* responde a una condición que cumple cierta variable. Por ejemplo, queremos seleccionar todas las variables que son carácteres (`is.character`):
 
 
 ```r
-separate <- datos %>% #Creamos un nuevo objeto desde datos
-  mutate(sobre_prom = case_when(ing_tot <= mean(ing_tot) ~ "Bajo media", 
-                                ing_tot > mean(ing_tot) ~ "Sobre media")) %>% #Creamos una variable condicional con case_when(), para identificar quienes estan bajo y sobre la media de ingreso
-  separate(sobre_prom, #Especificamos la columna que queremos separar
-           into = c("sobre_o_bajo", "media")) #Especificamos en cuántas columnas queremos separar los characteres, y cómo se llamarán tales columnas
-head(separate)
+select(datos, where(is.character))
 ```
 
-```
-## # A tibble: 6 x 9
-##   sector    sexo  prevision salud contrato_dur     id ing_tot sobre_o_bajo media
-##   <fct>     <fct> <fct>     <fct> <fct>         <dbl>   <dbl> <chr>        <chr>
-## 1 Sector f~ Mujer Si        Si    Indefinido    20256 320421. Bajo         media
-## 2 Sector f~ Mujer Si        Si    Definido      24592 750000  Bajo         media
-## 3 Sector f~ Mujer Si        Si    Indefinido    35136 900000  Bajo         media
-## 4 Hogares ~ Mujer No        No    Indefinido   235953 302042. Bajo         media
-## 5 Sector f~ Homb~ Si        Si    Indefinido   251187 900000  Bajo         media
-## 6 Sector f~ Homb~ Si        Si    Indefinido   318992      0  Bajo         media
-```
 
-## 8. `unite()`
 
-También podemos unir caracteres de columnas distintas, con la función `unite()` de `tidyr`. En este caso, volveremos a unir las columnas ¿Sobre o bajo? y Media en una sola, llamada sobre_prom. Por defecto, `unite()` une los caracteres con guiones bajos (_). Podemos especificar un nuevo separador con el argumento `sep`. En este caso, el separador será un espacio (" ")
+Luego de la revisión del libro de códigos y la exploración de datos mediante a funciones como `find_var()` de `sjmisc` decidimos trabajar con las siguientes variables.
+
+- `edad`
+- `sexo`
+- `s13`: previsión de salud
+- `tot_per`: número de personas en el hogar
+- `ytoth`: ingresos totales del hogar
+- `o1`: ocupación
+- `y26d_total`: Monto del IFE
+- `y26d_hog`: ¿Alguien recibió el IFE?
+
+¡Apliquémos conocimientos!
 
 
 ```r
-separate <- separate %>% #Modificamos el objeto separate
-  unite(col = sobre_media, #Unimos en una nueva columna llamada sobre_media
-        sobre_o_bajo:media, #Especificamos las columnas que deseamos unir
-        sep = " ") #Especificamos el separador
-head(separate)
+select(datos, folio, edad, sexo, prev =592, ocupacion = o1, tot_per, ytoth, starts_with("y26d_")&matches("total|hog"), o2, o3, o4, o6)
+```
+
+
+
+Es una buena práctica trabajar solo con las columnas que utilizaremos para el análisis, principalmente pues disminuye el *uso de memoria*
+
+
+```r
+datos_proc <- select(datos, folio,  edad, sexo, prev = 592, ocupacion = o1, tot_per, ytoth, starts_with("y26d_")&matches("total|hog"), o2, o3, o4, o6)
+```
+
+El nuevo objeto posee650 variables (columnas), pero conserva las filas 185.437 (u observaciones) ¿Qué pasa si quiero trabajar con un *subset* de casos? La respuesta es `filter()`
+
+## 6. Filtrar valores
+
+Asimismo, así como no siempre vamos a trabajar con todas las variables que contiene un conjunto de datos en su versión original (¡imaginen trabajar con las más de 500 variables de CASEN al mismo tiempo!), no siempre desearemos trabajar con todas las observaciones que tenemos en los datos. Tal como en el caso de la selección de variables, podemos recurrir tanto a R `base` como a `dplyr` para filtrar nuestros datos.
+
+### a) Con R `base`
+
+En este caso, en lugar de poner la coma junto al primer corchete ("[, ]"), lo haremos antes del segundo ("[ ,]") ¡veamos cómo hacerlo!
+
+Filtramos para sólo presentar a los hombres
+
+
+```r
+datos_proc[datos_proc$sexo == 2,]
+```
+
+
+
+Incluso es posible incorporar más de un filtro a la vez ¡simplemente ocuparemos los operadores que revisamos al inicio!
+
+
+```r
+datos_proc[datos_proc$sexo == 2 & datos_proc$edad >= 33,]
+```
+
+
+
+También podemos ocupar el operador `%in%`
+
+
+```r
+datos_proc[datos_proc$prev %in% c(1,3,4),]
+```
+
+
+
+### b) Con `filter` de `dplyr`
+
+La función `filter()` de `dplyr` escoge o extrae filas basados en sus valores, subdivide un data frame (*subset*), reteniendo todas las filas que satisfacen sus condiciones.
+
+Con `filter()` será esencial el uso de los **operadores** que ya vimos, dado que las observaciones que preservarán en nuestros datos (y aquellas que no), están definidas por condiciones lógicas (relacionales o booleanas)
+
+{{< div "note" >}}
+filter(datos, condicion_para filtrar)
+Esta condición para filtrar podría ser, por ejemplo
+variable1 >= 3
+{{< /div >}}
+
+#### `filter` con números
+
+Imaginémos que queremos una base con las personas mayores de 15 años. Pero también que pertenezcan a hogares con menos de 7 personas. 
+
+
+```r
+filter(datos_proc, edad >= 15)
+filter(datos_proc, edad >= 15 & tot_per <7)
+```
+
+
+
+¿Y si quiero filtrar para saber el valor máximo de ingresos (`ytoth`)?
+
+
+```r
+filter(datos_proc, ytoth == max(ytoth))
 ```
 
 ```
-## # A tibble: 6 x 8
-##   sector           sexo  prevision salud contrato_dur     id ing_tot sobre_media
-##   <fct>            <fct> <fct>     <fct> <fct>         <dbl>   <dbl> <chr>      
-## 1 Sector formal    Mujer Si        Si    Indefinido    20256 320421. Bajo media 
-## 2 Sector formal    Mujer Si        Si    Definido      24592 750000  Bajo media 
-## 3 Sector formal    Mujer Si        Si    Indefinido    35136 900000  Bajo media 
-## 4 Hogares como em~ Mujer No        No    Indefinido   235953 302042. Bajo media 
-## 5 Sector formal    Homb~ Si        Si    Indefinido   251187 900000  Bajo media 
-## 6 Sector formal    Homb~ Si        Si    Indefinido   318992      0  Bajo media
+## # A tibble: 1 x 13
+##          folio  edad    sexo    prev ocupacion tot_per  ytoth y26d_hog y26d_total
+##          <dbl> <dbl> <dbl+l> <dbl+l> <dbl+lbl>   <dbl>  <dbl> <dbl+lb>  <dbl+lbl>
+## 1 730830031501    41 1 [Hom~ 1 [Sis~    1 [Sí]       1 2.25e8   2 [No]         NA
+## # ... with 4 more variables: o2 <dbl+lbl>, o3 <dbl+lbl>, o4 <dbl+lbl>,
+## #   o6 <dbl+lbl>
 ```
+
+¡Gana \$225.200.000, es Hombre y tiene 41 años! (y vive solo...)
+
+
+#### `filter()` con caracteres
+
+Si queremos filtrar por la variable `sexo` solo a las mujeres, tengo dos opciones: o solo selecciono a las mujeres (`==`) o excluyo a los hombres (`!=`).
+
+Ahora bien, antes hay que hacer una precisión importante: en los datos `sexo` es una variable que está como `dbl` y `lbl` (número etiquetado), por lo que no es que en la base aparezcan "Mujeres" y "Hombres", sino que 2 y 1.
+
+Por ello, con el siguiente código aparecerá un error.
+
+
+```r
+filter(datos_proc, sexo == "Mujer")
+```
+
+```
+## Error: Problem with `filter()` input `..1`.
+## i Input `..1` is `sexo == "Mujer"`.
+## x Can't combine `..1` <character> and `..2` <double>.
+```
+
+Una función **muy muy útil** (sobre todo cuando trabajemos con regresiones) es `as_factor()` que permite conservar los niveles pero definiendo sus categorías de respuesta en base a la etiqueta que traen (el `lbl`) 
+
+
+```r
+datos_proc$sexo <- as_factor(datos_proc$sexo)
+```
+
+¡Ahora si funcionará!
+
+
+```r
+filter(datos_proc, sexo == "Mujer")
+filter(datos_proc, sexo != "Hombre")
+```
+
+
+
+{{< div "note" >}}
+**Ojo**. R es *sensible* a cómo está escrito el texto. Si pones el mismo código pero sin respetar mayúsuculas y minúsculas el código no funcionará
+{{< /div >}}
+
+¡Por último! ¿Cómo se seleccionan dos condiciones en carácter? Con el operador `%in%`
+
+
+```r
+datos_proc$prev <- as_factor(datos_proc$prev)
+
+filter(datos_proc, prev %in% c("Sistema Público FONASA", "ISAPRE") & edad >= 65)
+```
+
+
+
+## 7. Tratamiento de casos perdidos (`NA`)
+
+Los datos con los que trabajamos suelen incorporar valores nulos (`NA`), casos perdidos ingresados como valores de clase `Logic`. Estos valores no nos entregan información útil para nuestros análisis, y pueden generar problemas al momento de, por ejemplo, calcular _medidas de tendencia central_, u otros procedimientos estadísticos.
+
+Hay diversas maneras de trabajar los valores nulos, tales como realizar procesos de imputación, entre otros. Sin embargo, la más sencilla consiste en **eliminar los valores nulos** que se encuentran presentes en nuestros datos (aunque no recomendable)
+
+Para ello, lo primero es _identificar valores nulos_ en el set de datos en general, o en alguna variable en específico. Para ello, empleamos la función `is.na()`.
+
+
+```r
+is.na(datos_proc) #Revisamos si hay casos perdidos en el total del set de datos 
+is.na(datos_proc$ytoth) #Revisamos si hay casos perdidos en Ingresos per cápita
+```
+
+
+
+Sin embargo, esto no resulta muy práctico para el análisis. Es por ello que emplearemos la función `sum()` para _contar cuántos valores nulos_ hay en el set de datos en general, o en alguna variable en particular. 
+
+
+```r
+sum(is.na(datos_proc)) #Contamos los valores nulos del set de datos en general, que suman un total de 180.148
+```
+
+```
+## [1] 623037
+```
+
+```r
+sum(is.na(datos_proc$ytoth)) #Contaremos los valores nulos de la variable Ingresos per cápita, que alcanzan un total de 98
+```
+
+```
+## [1] 0
+```
+
+Una vez identificamos los _valores nulos_, podemos proceder a **eliminarlos** del set de datos. El comando `na.omit()` eliminará _todas las filas_ que presenten casos perdidos. 
+
+
+```r
+nrow(datos_proc)
+```
+
+```
+## [1] 185437
+```
+
+```r
+datos_proc <- na.omit(datos_proc) #Eliminamos las filas con casos perdidos
+nrow(datos_proc) #La nueva base de datos tiene 5.387 filas y 4 columnas
+```
+
+```
+## [1] 1920
+```
+
+¡La próxima sesión aprenderemos a recodificarlas!
+
+## 8. Resumen con procesamiento de las variables
+
+Hasta ahora, solo hemos creado una base de datos que selecciona variables. Ahora nos resta incorporar en un nuevo objeto los cambios que nos parezcan relevantes para la base de datos procesada que utilizaremos en nuestros análisis. 
+
+Como ya conocemos operadores que permiten concatenar procesos ( `%>%`  y `%$%`) este procedimiento será mucho más fácil. 
+
+
+```r
+datos_proc %>% 
+ filter(edad >= 15 & tot_per <7) %>%
+ select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6) %>% 
+ na.omit()
+```
+
+
+
+¡Ahora que estamos seguras/os sobre-escribimos la base!
+
+```r
+datos_proc <- datos_proc %>% 
+               filter(edad >= 15 & tot_per <7) %>%
+               select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6) %>% 
+               na.omit()
+```
+
+Podemos visualizar la base resultante a partir de `view_df()` de `sjPlot`
+
+```r
+sjPlot::view_df(datos_proc)
+```
+
+```
+## Registered S3 methods overwritten by 'parameters':
+##   method                           from      
+##   as.double.parameters_kurtosis    datawizard
+##   as.double.parameters_skewness    datawizard
+##   as.double.parameters_smoothness  datawizard
+##   as.numeric.parameters_kurtosis   datawizard
+##   as.numeric.parameters_skewness   datawizard
+##   as.numeric.parameters_smoothness datawizard
+##   print.parameters_distribution    datawizard
+##   print.parameters_kurtosis        datawizard
+##   print.parameters_skewness        datawizard
+##   summary.parameters_kurtosis      datawizard
+##   summary.parameters_skewness      datawizard
+```
+
+```
+## Warning in sprintf("%i", as.integer(range(x[[index]], na.rm = T))): NAs
+## introduced by coercion to integer range
+```
+
+<table style="border-collapse:collapse; border:none;">
+<caption>Data frame: datos_proc</caption>
+<tr>
+<th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">ID</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Name</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Label</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Values</th><th style="border-bottom:double; font-style:italic; font-weight:normal; padding:0.2cm; text-align:left; vertical-align:top;">Value Labels</th>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">folio</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">IdentificaciÃ³n hogar (comuna area seg viv hogar)</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: NA-NA</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">sexo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Sexo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Hombre<br>Mujer</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ocupacion</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o1. La semana pasada, Â¿trabajÃ³ al menos una hora?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">tot_per</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Total de personas en el hogar</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-6</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">7</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">ife</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">y26d_hog. Ãšltimos 12 meses, Â¿alguien recibiÃ³<br>Ingreso Familiar de Emergencia?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2<br>9</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No<br>No sabe</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">8</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2. Aunque no trabajÃ³ la semana pasada, Â¿realizÃ³<br>alguna actividad?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">9</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3. Aunque no trabajÃ³, Â¿tenÃ­a algÃºn empleo del<br>cual estuvo ausente temporalmente</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">10</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4. Â¿Ha trabajado alguna vez?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">11</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6. Â¿BuscÃ³ trabajo remunerado o cuenta propia en<br>las Ãºltimas cuatro semanas?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+</tr>
+
+</table>
 
 ## 9. Unir datos 
 
 Otra de las herramientas fundamentales a la hora de trabajar con la estructura de los datos es unir dos tabulados distintos con los cuales estemos trabajando. 
 
-### a) `merge`
-
-Una de las funciones más utilizadas para ello es `merge` del paquete `base` de R. Esta nos permite unir dos tabulados (data frames) que compartan una columna, y que tengan la misma cantidad de filas. 
+Dividamos datos_proc en dos dataframes diferentes, que luego unificaremos
 
 
 ```r
-esi2020_m <- readRDS(gzcon(url("https://github.com/learn-R/05-class/blob/main/input/data/ESI2020m.rds?raw=true"))) #Cargamos los datos que deseamos unir
-datos_unidos <- merge(x = datos, #Unimos el dataframe datos
-      y = esi2020_m, #con el dataframe esi2020_m
-      by = c("sexo", "ing_tot")) #a partir de las columnas "sexo" e "ing_tot"
-head(datos_unidos)
+proc_1 <- datos_proc %>% select(folio, sexo, ocupacion, ytoth)
+proc_1 <- proc_1[1:908,] #Seleccionamos la mitad de las filas
+proc_2 <- datos_proc %>% select(folio, sexo, edad, tot_per, ife)
+proc_2 <- proc_2[909:1816,] #Seleccionamos la mitad de las filas
+```
+
+### a) `merge`
+
+Una de las funciones más utilizadas para unificar datos es `merge()` del paquete `base` de R. Esta nos permite unir dos tabulados (data frames) que compartan una columna, ojalá una variable que cumpla el rol de identificador (¡como la columna folio!)
+
+
+```r
+merge <- merge(proc_1, proc_2, #Especificamos data frames a unificar
+               by = c("folio", "sexo"), #Especificamos la variable a partir de la cual se realiza la unificación (puede ser más de una, como folio y sexo)
+               all = T) #Especificamos que queremos mantener total de filas, sumando las de x (proc_1) e y (proc_2)
+
+head(merge)
 ```
 
 ```
-##     sexo ing_tot        sector prevision salud contrato_dur        id efectivas
-## 1 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        21
-## 2 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        40
-## 3 Hombre       0 Sector formal        Si    Si   Indefinido 346362449         0
-## 4 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
-## 5 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
-## 6 Hombre       0 Sector formal        Si    Si   Indefinido 346362449        45
+##          folio   sexo ocupacion   ytoth edad tot_per ife
+## 1 110110030201 Hombre         2  302083   NA      NA  NA
+## 2 110110110101  Mujer         2  213838   NA      NA  NA
+## 3 110110170101  Mujer         2  384907   NA      NA  NA
+## 4 110110290701  Mujer         2 1478196   NA      NA  NA
+## 5 110110310601  Mujer         2  434783   NA      NA  NA
+## 6 110110402001  Mujer         2 1298426   NA      NA  NA
 ```
 
-Podemos ver que ahora el tabulado `datos` tiene 7 columnas el lugar de 6, pues se incorporó la columna `efectivas`, que estaba presente en `esi2020_m`, pero no en `datos`.
+Podemos ver que ahora el tabulado `merge` tiene 7 columnas, lo cual constituye la suma del número de columnas de los datos iniciales (4 de proc_1 y 5 para comp) menos las columnas compartidas en ambos (folio y sexo). En este caso, dado que no se comparten filas, el número de filas se suma, lo cual resulta en 1.602 + 1.602 = 3.204. 
 
 ### b) `bind_cols()`
 
@@ -500,40 +695,34 @@ Otra cosa que podemos hacer es, simplemente, pegar una columna de un dataframe a
 
 
 ```r
-a <- select(datos, 1:5) # Seleccionamos las primeras cinco columnas de datos
-b <- select(datos, 3:7) # Seleccionamos las últimas cinco columnas de datos
-col_un <- bind_cols(a, b) #Unimos ambos dataframes a partir de sus columnas
+bind_columnas <- bind_cols(proc_1, proc_2)
 ```
 
 ```
 ## New names:
-## * prevision -> prevision...3
-## * salud -> salud...4
-## * contrato_dur -> contrato_dur...5
-## * prevision -> prevision...6
-## * salud -> salud...7
-## * ...
+## * folio -> folio...1
+## * sexo -> sexo...2
+## * folio -> folio...5
+## * sexo -> sexo...6
 ```
 
 ```r
-head(col_un)
+head(bind_columnas)
 ```
 
 ```
-## # A tibble: 6 x 10
-## # Rowwise: 
-##   sector  sexo  prevision...3 salud...4 contrato_dur...5 prevision...6 salud...7
-##   <fct>   <fct> <fct>         <fct>     <fct>            <fct>         <fct>    
-## 1 Sector~ Mujer Si            Si        Indefinido       Si            Si       
-## 2 Sector~ Mujer Si            Si        Definido         Si            Si       
-## 3 Sector~ Mujer Si            Si        Indefinido       Si            Si       
-## 4 Hogare~ Mujer No            No        Indefinido       No            No       
-## 5 Sector~ Homb~ Si            Si        Indefinido       Si            Si       
-## 6 Sector~ Homb~ Si            Si        Indefinido       Si            Si       
-## # ... with 3 more variables: contrato_dur...8 <fct>, id <dbl>, ing_tot <dbl>
+## # A tibble: 6 x 9
+##    folio...1 sexo...2 ocupacion   ytoth  folio...5 sexo...6  edad tot_per    ife
+##        <dbl> <fct>    <dbl+lbl>   <dbl>      <dbl> <fct>    <dbl>   <dbl> <dbl+>
+## 1    1.10e11 Hombre      2 [No]  302083    9.10e11 Mujer       28       5 1 [Sí]
+## 2    1.10e11 Mujer       2 [No]  213838    9.10e11 Mujer       64       3 1 [Sí]
+## 3    1.10e11 Mujer       2 [No]  384907    9.10e11 Mujer       47       3 1 [Sí]
+## 4    1.10e11 Mujer       2 [No] 1478196    9.10e11 Mujer       28       4 1 [Sí]
+## 5    1.10e11 Mujer       2 [No]  434783    9.10e11 Mujer       19       3 1 [Sí]
+## 6    1.10e11 Mujer       2 [No] 1298426    9.10e11 Mujer       57       2 1 [Sí]
 ```
 
-Vemos que simplemente pegó  `a` y `b`. Eso implica que tenemos columnas repetidas. Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos `merge()` mientras que, si estos no comparten ninguna columna, recurrimos a `bing_cols()`
+Vemos que simplemente pegó  `a` y `b`. Eso implica que tenemos columnas repetidas (a saber, folio y sexo). Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos `merge()` mientras que, si estos no comparten ninguna columna, recurrimos a `bing_cols()`.
 
 ### c) `bind_rows()`
 
@@ -541,38 +730,40 @@ También podemos unir dos dataframes a partir de sus filas, con la función `bin
 
 
 ```r
-a <- a[1:10000,] # Seleccionamos las primeras 10.000 filas de a
-b <- b[10001:18985,] # Seleccionamos las últimas 8.985 filas de b
-row_un <- bind_rows(a, b)
-head(row_un)
+bind_filas <- bind_rows(proc_1, proc_2)
+
+head(bind_filas)
 ```
 
 ```
 ## # A tibble: 6 x 7
-## # Rowwise: 
-##   sector                   sexo   prevision salud contrato_dur    id ing_tot
-##   <fct>                    <fct>  <fct>     <fct> <fct>        <dbl>   <dbl>
-## 1 Sector formal            Mujer  Si        Si    Indefinido      NA      NA
-## 2 Sector formal            Mujer  Si        Si    Definido        NA      NA
-## 3 Sector formal            Mujer  Si        Si    Indefinido      NA      NA
-## 4 Hogares como empleadores Mujer  No        No    Indefinido      NA      NA
-## 5 Sector formal            Hombre Si        Si    Indefinido      NA      NA
-## 6 Sector formal            Hombre Si        Si    Indefinido      NA      NA
+##          folio sexo   ocupacion   ytoth  edad tot_per       ife
+##          <dbl> <fct>  <dbl+lbl>   <dbl> <dbl>   <dbl> <dbl+lbl>
+## 1 110110030201 Hombre    2 [No]  302083    NA      NA        NA
+## 2 110110110101 Mujer     2 [No]  213838    NA      NA        NA
+## 3 110110170101 Mujer     2 [No]  384907    NA      NA        NA
+## 4 110110290701 Mujer     2 [No] 1478196    NA      NA        NA
+## 5 110110310601 Mujer     2 [No]  434783    NA      NA        NA
+## 6 110110402001 Mujer     2 [No] 1298426    NA      NA        NA
 ```
 
-`bind_rows()` nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (`NA`)
+`bind_rows()` nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (`NA`). En este caso, la unión es perfecta en tanto proc_1 y proc_2 se conformaron a partir del mismo data frame. 
+
+## 10. Guardar base procesada
+
+Para guardar la base de datos procesada, debes dirigir la ruta desde tu RProject. En este caso, guardaremos datos_proc
+
+
+```r
+saveRDS(datos_proc, file = "output/datos_proc.rds")
+```
 
 # Resumen
 
-En este práctico aprendimos a
+En ete práctico 
 
-1. Agrupar datos por filas y columnas.
-2. Manipular datos (tidydata), transformando la estructura de estos a una ancha o larga. 
-3. Separar y unir caracteres de una columna.
-4. Unir datos, a partir de filas y columnas. 
-
-# Reporte de progreso
-
-¡No olviden llenar el [reporte de progreso](https://learn-r.formr.org)! En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
-
-
+1. Conocimos los **operadores booleanos, de asignación y condicionales**
+1. Aprendimos a seleccionar variables con R `base` y `dplyr`
+1. Aprendimos a filtrar valores con R `base` y `dplyr`
+1. Aprendimos a concatenar procesos con el operador `pipe (%>%)` 
+1. Unificar datos (´merge()´, ´bind_cols()´ y ´bind_rows()´)

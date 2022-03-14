@@ -181,11 +181,6 @@
   </url>
   
   <url>
-    <loc>/example/05-practico/</loc>
-    <lastmod>2021-08-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/resource/markdown/</loc>
     <lastmod>2021-08-11T00:00:00+00:00</lastmod>
   </url>
@@ -198,6 +193,11 @@
   <url>
     <loc>/content/02-content/</loc>
     <lastmod>2021-08-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/example/05-practico/</loc>
+    <lastmod>2021-03-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
