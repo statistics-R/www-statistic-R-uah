@@ -11,5 +11,3 @@ weight: 1
 Recuerden visitar esta sección una vez que han finalizado ver la clase y revisar los otros recursos. Estas contienen una descripción detallada de códifo de R y otras informaciones complementarias que serán **indispensables** para su aprendizaje como estudiantes. 
 
 En algunos casos existirán videos tutoriales y talleres complementarios donde codificamos en vivo o explicamos aspectos más desarrollados. 
-
-Al finalizar los prácticos recuerden rellenar los **reportes de progreso**. Su link personal les llegará al correo una vez que hayan hecho la primera inscripción. 

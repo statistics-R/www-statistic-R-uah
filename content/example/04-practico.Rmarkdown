@@ -389,6 +389,3 @@ writexl::write_xlsx(datos_proc, "output/data/datos_proc.xlsx") #Guardamos el obj
 - 2) Seleccionar variables (y hacer una revisión de ciertos aspectos de estas).
 - 3) Guardar y exportar los datos procesados, en distintos formatos.
 
-## Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.

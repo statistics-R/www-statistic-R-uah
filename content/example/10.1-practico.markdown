@@ -87,14 +87,14 @@ head(datos)
 
 ```
 ## # A tibble: 6 x 6
-##   ing_t_t  edad      sexo est_conyugal                       ciuo08 fact_cal_esi
-##     <dbl> <dbl> <dbl+lbl> <chr>                           <dbl+lbl>        <dbl>
-## 1 320421.    29 2 [Mujer] Con pareja   5 [Trabajadores de los serv~        346. 
-## 2 750000     30 2 [Mujer] Sin pareja   2 [Profesionales, científic~       1056. 
-## 3 900000     43 2 [Mujer] Sin pareja   2 [Profesionales, científic~         41.6
-## 4 251701.    31 2 [Mujer] Con pareja   7 [Artesanos y operarios de~        730. 
-## 5 140782.    54 2 [Mujer] Con pareja   5 [Trabajadores de los serv~        270. 
-## 6 302042.    67 2 [Mujer] Con pareja   9 [Ocupaciones elementales]          98.7
+##   ing_t_t  edad       sexo est_conyugal                      ciuo08 fact_cal_esi
+##     <dbl> <dbl>  <dbl+lbl> <chr>                          <dbl+lbl>        <dbl>
+## 1 320421.    29 2 [Mujer]  Con pareja    5 [Trabajadores de los se~        346. 
+## 2 750000     30 2 [Mujer]  Sin pareja    2 [Profesionales, científ~       1056. 
+## 3 900000     43 2 [Mujer]  Sin pareja    2 [Profesionales, científ~         41.6
+## 4      0     15 2 [Mujer]  Sin pareja   NA                                 265. 
+## 5      0     11 1 [Hombre] <NA>         NA                                 282. 
+## 6      0     62 2 [Mujer]  Sin pareja   NA                                 165.
 ```
 
 Ahora sabemos que trabajaremos con seis variables: `"ing_t_t"`, `"est_conyugal"`, `"ciuo08"`, `"sexo"`, `"edad"` y `"fact_cal_esi"`,. Ahora inclusive podemos explorar nuestros datos con `sjPlot::view_df()`
@@ -114,13 +114,13 @@ sjPlot::view_df(datos,
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ing_t_t</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Total ingresos del trabajo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 2000.0-18045761.6</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0.0-18045761.6</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">edad</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Edad de la persona</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 15-93</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0-106</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
@@ -147,7 +147,7 @@ sjPlot::view_df(datos,
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">fact_cal_esi</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Factor de expansiÃ³n ESI con nueva calibraciÃ³n,<br>proyecciones de poblaciÃ³n </td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 6.7-7070.1</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 2.8-7070.1</em></td>
 </tr>
 
 </table>
@@ -270,15 +270,15 @@ summary(modelo0_sin)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-##  -574112  -316357  -176112    93888 17469649 
+##  -206355  -206355  -206355    94039 17839407 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   576112       4103   140.4   <2e-16 ***
+## (Intercept)   206355       1795     115   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 658700 on 25765 degrees of freedom
+## Residual standard error: 481300 on 71934 degrees of freedom
 ```
 
 
@@ -307,15 +307,15 @@ summary(modelo0)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -38750076  -5356996  -3077725    311705 314425380 
+## -21542431  -3770518  -2542853    488353 328574529 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   646174       4581   141.1   <2e-16 ***
+## (Intercept)   256201       2090   122.6   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12750000 on 25765 degrees of freedom
+## Residual standard error: 9240000 on 71934 degrees of freedom
 ```
 
 Entonces ¿qué diferencias hay?
@@ -332,15 +332,15 @@ summary(modelo0);summary(modelo0_sin)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -38750076  -5356996  -3077725    311705 314425380 
+## -21542431  -3770518  -2542853    488353 328574529 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   646174       4581   141.1   <2e-16 ***
+## (Intercept)   256201       2090   122.6   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12750000 on 25765 degrees of freedom
+## Residual standard error: 9240000 on 71934 degrees of freedom
 ```
 
 ```
@@ -350,15 +350,15 @@ summary(modelo0);summary(modelo0_sin)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-##  -574112  -316357  -176112    93888 17469649 
+##  -206355  -206355  -206355    94039 17839407 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   576112       4103   140.4   <2e-16 ***
+## (Intercept)   206355       1795     115   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 658700 on 25765 degrees of freedom
+## Residual standard error: 481300 on 71934 degrees of freedom
 ```
 
 Utilizando ecuaciones en LateX, se vería de la siguiente manera 
@@ -404,18 +404,18 @@ summary(modelo1)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -39801664  -5462338  -3118742    226651 315462835 
+## -21658308  -3745508  -2285119     35317 329034133 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 516522.4    15556.3   33.20   <2e-16 ***
-## edad          3062.4      351.2    8.72   <2e-16 ***
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 127658.05    4042.33   31.58   <2e-16 ***
+## edad          3511.38      94.84   37.03   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12730000 on 25764 degrees of freedom
-## Multiple R-squared:  0.002943,	Adjusted R-squared:  0.002904 
-## F-statistic: 76.04 on 1 and 25764 DF,  p-value: < 2.2e-16
+## Residual standard error: 9153000 on 71933 degrees of freedom
+## Multiple R-squared:  0.0187,	Adjusted R-squared:  0.01869 
+## F-statistic:  1371 on 1 and 71933 DF,  p-value: < 2.2e-16
 ```
 
 Ecuación:
@@ -460,18 +460,18 @@ summary(modelo2_sin)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -42449840  -5344720  -2982432    244613 312602632 
+## -27280367  -3615240  -2145275    120699 325618868 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   823052      13809   59.60   <2e-16 ***
-## sexo         -126640       9331  -13.57   <2e-16 ***
+## (Intercept)   498448       6568   75.89   <2e-16 ***
+## sexo         -160784       4138  -38.86   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12710000 on 25764 degrees of freedom
-## Multiple R-squared:  0.007099,	Adjusted R-squared:  0.00706 
-## F-statistic: 184.2 on 1 and 25764 DF,  p-value: < 2.2e-16
+## Residual standard error: 9145000 on 71933 degrees of freedom
+## Multiple R-squared:  0.02056,	Adjusted R-squared:  0.02055 
+## F-statistic:  1510 on 1 and 71933 DF,  p-value: < 2.2e-16
 ```
 
 ¡Pero espera! ¡`sexo` no es una variable continua!
@@ -508,18 +508,18 @@ summary(modelo2)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -42449840  -5344720  -2982432    244613 312602632 
+## -27280367  -3615240  -2145275    120699 325618868 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   696412       5877  118.50   <2e-16 ***
-## sexoMujer    -126640       9331  -13.57   <2e-16 ***
+## (Intercept)   337664       2945  114.65   <2e-16 ***
+## sexoMujer    -160784       4138  -38.86   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12710000 on 25764 degrees of freedom
-## Multiple R-squared:  0.007099,	Adjusted R-squared:  0.00706 
-## F-statistic: 184.2 on 1 and 25764 DF,  p-value: < 2.2e-16
+## Residual standard error: 9145000 on 71933 degrees of freedom
+## Multiple R-squared:  0.02056,	Adjusted R-squared:  0.02055 
+## F-statistic:  1510 on 1 and 71933 DF,  p-value: < 2.2e-16
 ```
 
 Como pueden ver, ahora especifica qué categoría de respuesta utiliza como nivel de referencia, esto en la variable sexo quizá puede ser intuitivo, pero ¿qué pasaría con las que tienen otras categorías de respuesta?
@@ -554,45 +554,45 @@ summary(modelo3)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -81911179  -3310355   -992160   1038477 260945245 
+## -81184669  -3408145   -828630   1334160 263027210 
 ## 
 ## Coefficients:
 ##                                                                                     Estimate
-## (Intercept)                                                                          2120172
-## ciuo08Profesionales, científicos e intelectuales                                     -943199
-## ciuo08Técnicos y profesionales de nivel medio                                       -1349130
-## ciuo08Personal de apoyo administrativo                                              -1569243
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1696772
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1739656
-## ciuo08Artesanos y operarios de oficios                                              -1694924
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1576635
-## ciuo08Ocupaciones elementales                                                       -1799092
-## ciuo08Otros no identificados                                                        -1076981
-## ciuo08Sin clasificación                                                             -1723660
+## (Intercept)                                                                          2062790
+## ciuo08Profesionales, científicos e intelectuales                                     -925708
+## ciuo08Técnicos y profesionales de nivel medio                                       -1327327
+## ciuo08Personal de apoyo administrativo                                              -1551221
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1687053
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1717604
+## ciuo08Artesanos y operarios de oficios                                              -1672564
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1550495
+## ciuo08Ocupaciones elementales                                                       -1782209
+## ciuo08Otros no identificados                                                        -1019599
+## ciuo08Sin clasificación                                                             -1737325
 ##                                                                                     Std. Error
-## (Intercept)                                                                              19632
-## ciuo08Profesionales, científicos e intelectuales                                         21840
-## ciuo08Técnicos y profesionales de nivel medio                                            22478
-## ciuo08Personal de apoyo administrativo                                                   25513
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados                 21530
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros      32153
-## ciuo08Artesanos y operarios de oficios                                                   22622
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                              24045
-## ciuo08Ocupaciones elementales                                                            21760
-## ciuo08Otros no identificados                                                             58948
-## ciuo08Sin clasificación                                                                 131257
+## (Intercept)                                                                              19190
+## ciuo08Profesionales, científicos e intelectuales                                         21334
+## ciuo08Técnicos y profesionales de nivel medio                                            21921
+## ciuo08Personal de apoyo administrativo                                                   24706
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados                 20888
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros      30756
+## ciuo08Artesanos y operarios de oficios                                                   21957
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                              23380
+## ciuo08Ocupaciones elementales                                                            21067
+## ciuo08Otros no identificados                                                             58328
+## ciuo08Sin clasificación                                                                 118089
 ##                                                                                     t value
-## (Intercept)                                                                          107.99
-## ciuo08Profesionales, científicos e intelectuales                                     -43.19
-## ciuo08Técnicos y profesionales de nivel medio                                        -60.02
-## ciuo08Personal de apoyo administrativo                                               -61.51
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -78.81
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -54.10
-## ciuo08Artesanos y operarios de oficios                                               -74.92
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -65.57
-## ciuo08Ocupaciones elementales                                                        -82.68
-## ciuo08Otros no identificados                                                         -18.27
-## ciuo08Sin clasificación                                                              -13.13
+## (Intercept)                                                                          107.49
+## ciuo08Profesionales, científicos e intelectuales                                     -43.39
+## ciuo08Técnicos y profesionales de nivel medio                                        -60.55
+## ciuo08Personal de apoyo administrativo                                               -62.79
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -80.77
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -55.85
+## ciuo08Artesanos y operarios de oficios                                               -76.17
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -66.32
+## ciuo08Ocupaciones elementales                                                        -84.60
+## ciuo08Otros no identificados                                                         -17.48
+## ciuo08Sin clasificación                                                              -14.71
 ##                                                                                     Pr(>|t|)
 ## (Intercept)                                                                           <2e-16
 ## ciuo08Profesionales, científicos e intelectuales                                      <2e-16
@@ -620,10 +620,10 @@ summary(modelo3)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10700000 on 24559 degrees of freedom
-##   (1196 observations deleted due to missingness)
-## Multiple R-squared:  0.3151,	Adjusted R-squared:  0.3148 
-## F-statistic:  1130 on 10 and 24559 DF,  p-value: < 2.2e-16
+## Residual standard error: 10600000 on 26814 degrees of freedom
+##   (45110 observations deleted due to missingness)
+## Multiple R-squared:  0.3095,	Adjusted R-squared:  0.3092 
+## F-statistic:  1202 on 10 and 26814 DF,  p-value: < 2.2e-16
 ```
 
 Modelo para `est_conyugal`
@@ -647,19 +647,19 @@ summary(modelo4)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -42035438  -5370700  -2894698    331144 311360136 
+## -34630072  -4193409  -2453049    492227 322927197 
 ## 
 ## Coefficients:
 ##                        Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)              730657       6067   120.4   <2e-16 ***
-## est_conyugalSin pareja  -192272       9154   -21.0   <2e-16 ***
+## (Intercept)              411851       3546  116.13   <2e-16 ***
+## est_conyugalSin pareja  -185302       4956  -37.39   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12640000 on 25761 degrees of freedom
-##   (3 observations deleted due to missingness)
-## Multiple R-squared:  0.01684,	Adjusted R-squared:  0.0168 
-## F-statistic: 441.2 on 1 and 25761 DF,  p-value: < 2.2e-16
+## Residual standard error: 9845000 on 58830 degrees of freedom
+##   (13103 observations deleted due to missingness)
+## Multiple R-squared:  0.02321,	Adjusted R-squared:  0.0232 
+## F-statistic:  1398 on 1 and 58830 DF,  p-value: < 2.2e-16
 ```
 
 En síntesis, el nivel de referencia **siempre será el level más bajo de cada variable**. Por ello es fundamental asegurarnos de que los factores que generemos en el código de procesamiento sea correcto y se adecue a nuestros fines. 
@@ -688,54 +688,54 @@ summary(modelo5)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -80151479  -3320947  -1039859   1354642 259596606 
+## -77029860  -3327667   -903696   1562319 261766339 
 ## 
 ## Coefficients:
 ##                                                                                       Estimate
-## (Intercept)                                                                          2039330.6
-## edad                                                                                    3576.1
-## sexoMujer                                                                            -187485.0
-## ciuo08Profesionales, científicos e intelectuales                                     -856662.0
-## ciuo08Técnicos y profesionales de nivel medio                                       -1267119.0
-## ciuo08Personal de apoyo administrativo                                              -1485803.7
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1611892.6
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1777816.0
-## ciuo08Artesanos y operarios de oficios                                              -1699115.4
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1611308.3
-## ciuo08Ocupaciones elementales                                                       -1739664.0
-## ciuo08Otros no identificados                                                        -1101499.0
-## ciuo08Sin clasificación                                                             -1691645.6
-## est_conyugalSin pareja                                                               -111300.1
+## (Intercept)                                                                          1977240.3
+## edad                                                                                    3645.5
+## sexoMujer                                                                            -179308.4
+## ciuo08Profesionales, científicos e intelectuales                                     -838561.6
+## ciuo08Técnicos y profesionales de nivel medio                                       -1245145.4
+## ciuo08Personal de apoyo administrativo                                              -1467502.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1600971.8
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1752079.3
+## ciuo08Artesanos y operarios de oficios                                              -1675160.8
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1578961.8
+## ciuo08Ocupaciones elementales                                                       -1718318.8
+## ciuo08Otros no identificados                                                        -1042107.7
+## ciuo08Sin clasificación                                                             -1693602.6
+## est_conyugalSin pareja                                                               -113981.1
 ##                                                                                     Std. Error
-## (Intercept)                                                                            24309.7
-## edad                                                                                     307.7
-## sexoMujer                                                                               8405.0
-## ciuo08Profesionales, científicos e intelectuales                                       21623.4
-## ciuo08Técnicos y profesionales de nivel medio                                          22218.8
-## ciuo08Personal de apoyo administrativo                                                 25190.0
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               21304.8
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    31639.0
-## ciuo08Artesanos y operarios de oficios                                                 22241.0
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23688.3
-## ciuo08Ocupaciones elementales                                                          21454.3
-## ciuo08Otros no identificados                                                           57959.8
-## ciuo08Sin clasificación                                                               128848.7
-## est_conyugalSin pareja                                                                  7993.1
+## (Intercept)                                                                            23485.6
+## edad                                                                                     290.2
+## sexoMujer                                                                               7968.4
+## ciuo08Profesionales, científicos e intelectuales                                       21117.6
+## ciuo08Técnicos y profesionales de nivel medio                                          21664.4
+## ciuo08Personal de apoyo administrativo                                                 24391.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               20672.5
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    30256.0
+## ciuo08Artesanos y operarios de oficios                                                 21582.2
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23049.0
+## ciuo08Ocupaciones elementales                                                          20781.6
+## ciuo08Otros no identificados                                                           57343.4
+## ciuo08Sin clasificación                                                               115936.4
+## est_conyugalSin pareja                                                                  7609.8
 ##                                                                                     t value
-## (Intercept)                                                                           83.89
-## edad                                                                                  11.62
-## sexoMujer                                                                            -22.31
-## ciuo08Profesionales, científicos e intelectuales                                     -39.62
-## ciuo08Técnicos y profesionales de nivel medio                                        -57.03
-## ciuo08Personal de apoyo administrativo                                               -58.98
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -75.66
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -56.19
-## ciuo08Artesanos y operarios de oficios                                               -76.40
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.02
-## ciuo08Ocupaciones elementales                                                        -81.09
-## ciuo08Otros no identificados                                                         -19.00
-## ciuo08Sin clasificación                                                              -13.13
-## est_conyugalSin pareja                                                               -13.92
+## (Intercept)                                                                           84.19
+## edad                                                                                  12.56
+## sexoMujer                                                                            -22.50
+## ciuo08Profesionales, científicos e intelectuales                                     -39.71
+## ciuo08Técnicos y profesionales de nivel medio                                        -57.47
+## ciuo08Personal de apoyo administrativo                                               -60.16
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -77.44
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -57.91
+## ciuo08Artesanos y operarios de oficios                                               -77.62
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.50
+## ciuo08Ocupaciones elementales                                                        -82.69
+## ciuo08Otros no identificados                                                         -18.17
+## ciuo08Sin clasificación                                                              -14.61
+## est_conyugalSin pareja                                                               -14.98
 ##                                                                                     Pr(>|t|)
 ## (Intercept)                                                                           <2e-16
 ## edad                                                                                  <2e-16
@@ -769,10 +769,10 @@ summary(modelo5)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10500000 on 24553 degrees of freedom
-##   (1199 observations deleted due to missingness)
-## Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3403 
-## F-statistic: 975.9 on 13 and 24553 DF,  p-value: < 2.2e-16
+## Residual standard error: 10400000 on 26807 degrees of freedom
+##   (45114 observations deleted due to missingness)
+## Multiple R-squared:  0.3351,	Adjusted R-squared:  0.3348 
+## F-statistic:  1039 on 13 and 26807 DF,  p-value: < 2.2e-16
 ```
 
 ### Regresión con paquete  
@@ -802,54 +802,54 @@ summary(modelo5_glm)
 ## 
 ## Deviance Residuals: 
 ##       Min         1Q     Median         3Q        Max  
-## -80151479   -3320947   -1039859    1354642  259596606  
+## -77029860   -3327667    -903696    1562319  261766339  
 ## 
 ## Coefficients:
 ##                                                                                       Estimate
-## (Intercept)                                                                          2039330.6
-## edad                                                                                    3576.1
-## sexoMujer                                                                            -187485.0
-## ciuo08Profesionales, científicos e intelectuales                                     -856662.0
-## ciuo08Técnicos y profesionales de nivel medio                                       -1267119.0
-## ciuo08Personal de apoyo administrativo                                              -1485803.7
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1611892.6
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1777816.0
-## ciuo08Artesanos y operarios de oficios                                              -1699115.4
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1611308.3
-## ciuo08Ocupaciones elementales                                                       -1739664.0
-## ciuo08Otros no identificados                                                        -1101499.0
-## ciuo08Sin clasificación                                                             -1691645.6
-## est_conyugalSin pareja                                                               -111300.1
+## (Intercept)                                                                          1977240.3
+## edad                                                                                    3645.5
+## sexoMujer                                                                            -179308.4
+## ciuo08Profesionales, científicos e intelectuales                                     -838561.6
+## ciuo08Técnicos y profesionales de nivel medio                                       -1245145.4
+## ciuo08Personal de apoyo administrativo                                              -1467502.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1600971.8
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1752079.3
+## ciuo08Artesanos y operarios de oficios                                              -1675160.8
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1578961.8
+## ciuo08Ocupaciones elementales                                                       -1718318.8
+## ciuo08Otros no identificados                                                        -1042107.7
+## ciuo08Sin clasificación                                                             -1693602.6
+## est_conyugalSin pareja                                                               -113981.1
 ##                                                                                     Std. Error
-## (Intercept)                                                                            24309.7
-## edad                                                                                     307.7
-## sexoMujer                                                                               8405.0
-## ciuo08Profesionales, científicos e intelectuales                                       21623.4
-## ciuo08Técnicos y profesionales de nivel medio                                          22218.8
-## ciuo08Personal de apoyo administrativo                                                 25190.0
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               21304.8
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    31639.0
-## ciuo08Artesanos y operarios de oficios                                                 22241.0
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23688.3
-## ciuo08Ocupaciones elementales                                                          21454.3
-## ciuo08Otros no identificados                                                           57959.8
-## ciuo08Sin clasificación                                                               128848.7
-## est_conyugalSin pareja                                                                  7993.1
+## (Intercept)                                                                            23485.6
+## edad                                                                                     290.2
+## sexoMujer                                                                               7968.4
+## ciuo08Profesionales, científicos e intelectuales                                       21117.6
+## ciuo08Técnicos y profesionales de nivel medio                                          21664.4
+## ciuo08Personal de apoyo administrativo                                                 24391.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               20672.5
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    30256.0
+## ciuo08Artesanos y operarios de oficios                                                 21582.2
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23049.0
+## ciuo08Ocupaciones elementales                                                          20781.6
+## ciuo08Otros no identificados                                                           57343.4
+## ciuo08Sin clasificación                                                               115936.4
+## est_conyugalSin pareja                                                                  7609.8
 ##                                                                                     t value
-## (Intercept)                                                                           83.89
-## edad                                                                                  11.62
-## sexoMujer                                                                            -22.31
-## ciuo08Profesionales, científicos e intelectuales                                     -39.62
-## ciuo08Técnicos y profesionales de nivel medio                                        -57.03
-## ciuo08Personal de apoyo administrativo                                               -58.98
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -75.66
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -56.19
-## ciuo08Artesanos y operarios de oficios                                               -76.40
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.02
-## ciuo08Ocupaciones elementales                                                        -81.09
-## ciuo08Otros no identificados                                                         -19.00
-## ciuo08Sin clasificación                                                              -13.13
-## est_conyugalSin pareja                                                               -13.92
+## (Intercept)                                                                           84.19
+## edad                                                                                  12.56
+## sexoMujer                                                                            -22.50
+## ciuo08Profesionales, científicos e intelectuales                                     -39.71
+## ciuo08Técnicos y profesionales de nivel medio                                        -57.47
+## ciuo08Personal de apoyo administrativo                                               -60.16
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -77.44
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -57.91
+## ciuo08Artesanos y operarios de oficios                                               -77.62
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.50
+## ciuo08Ocupaciones elementales                                                        -82.69
+## ciuo08Otros no identificados                                                         -18.17
+## ciuo08Sin clasificación                                                              -14.61
+## est_conyugalSin pareja                                                               -14.98
 ##                                                                                     Pr(>|t|)
 ## (Intercept)                                                                           <2e-16
 ## edad                                                                                  <2e-16
@@ -883,12 +883,12 @@ summary(modelo5_glm)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.101982e+14)
+## (Dispersion parameter for gaussian family taken to be 1.08223e+14)
 ## 
-##     Null deviance: 4.1037e+18  on 24566  degrees of freedom
-## Residual deviance: 2.7057e+18  on 24553  degrees of freedom
-##   (1199 observations deleted due to missingness)
-## AIC: 734148
+##     Null deviance: 4.3633e+18  on 26820  degrees of freedom
+## Residual deviance: 2.9011e+18  on 26807  degrees of freedom
+##   (45114 observations deleted due to missingness)
+## AIC: 801135
 ## 
 ## Number of Fisher Scoring iterations: 2
 ```
@@ -930,54 +930,54 @@ summary(modelo5_survey)
 ## Called via srvyr
 ## 
 ## Coefficients:
-##                                                                                     Estimate
-## (Intercept)                                                                          2039331
-## edad                                                                                    3576
-## sexoMujer                                                                            -187485
-## ciuo08Profesionales, científicos e intelectuales                                     -856662
-## ciuo08Técnicos y profesionales de nivel medio                                       -1267119
-## ciuo08Personal de apoyo administrativo                                              -1485804
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1611893
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1777816
-## ciuo08Artesanos y operarios de oficios                                              -1699115
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1611308
-## ciuo08Ocupaciones elementales                                                       -1739664
-## ciuo08Otros no identificados                                                        -1101499
-## ciuo08Sin clasificación                                                             -1691646
-## est_conyugalSin pareja                                                               -111300
+##                                                                                       Estimate
+## (Intercept)                                                                          1977240.3
+## edad                                                                                    3645.5
+## sexoMujer                                                                            -179308.4
+## ciuo08Profesionales, científicos e intelectuales                                     -838561.6
+## ciuo08Técnicos y profesionales de nivel medio                                       -1245145.4
+## ciuo08Personal de apoyo administrativo                                              -1467502.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1600971.8
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1752079.3
+## ciuo08Artesanos y operarios de oficios                                              -1675160.8
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1578961.8
+## ciuo08Ocupaciones elementales                                                       -1718318.8
+## ciuo08Otros no identificados                                                        -1042107.7
+## ciuo08Sin clasificación                                                             -1693602.6
+## est_conyugalSin pareja                                                               -113981.1
 ##                                                                                     Std. Error
-## (Intercept)                                                                              89856
-## edad                                                                                       484
-## sexoMujer                                                                                14275
-## ciuo08Profesionales, científicos e intelectuales                                         87705
-## ciuo08Técnicos y profesionales de nivel medio                                            86726
-## ciuo08Personal de apoyo administrativo                                                   85466
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados                 84699
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros      84427
-## ciuo08Artesanos y operarios de oficios                                                   84297
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                              84639
-## ciuo08Ocupaciones elementales                                                            84032
-## ciuo08Otros no identificados                                                            104390
-## ciuo08Sin clasificación                                                                 126774
-## est_conyugalSin pareja                                                                   12473
+## (Intercept)                                                                            88363.0
+## edad                                                                                     452.1
+## sexoMujer                                                                              13546.1
+## ciuo08Profesionales, científicos e intelectuales                                       86714.7
+## ciuo08Técnicos y profesionales de nivel medio                                          85675.3
+## ciuo08Personal de apoyo administrativo                                                 84472.8
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               83698.5
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    83437.6
+## ciuo08Artesanos y operarios de oficios                                                 83301.6
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                            83666.1
+## ciuo08Ocupaciones elementales                                                          83108.3
+## ciuo08Otros no identificados                                                          103555.4
+## ciuo08Sin clasificación                                                               118605.3
+## est_conyugalSin pareja                                                                 11951.0
 ##                                                                                     t value
-## (Intercept)                                                                          22.695
-## edad                                                                                  7.388
-## sexoMujer                                                                           -13.133
-## ciuo08Profesionales, científicos e intelectuales                                     -9.768
-## ciuo08Técnicos y profesionales de nivel medio                                       -14.611
-## ciuo08Personal de apoyo administrativo                                              -17.385
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -19.031
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -21.058
-## ciuo08Artesanos y operarios de oficios                                              -20.156
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -19.037
-## ciuo08Ocupaciones elementales                                                       -20.702
-## ciuo08Otros no identificados                                                        -10.552
-## ciuo08Sin clasificación                                                             -13.344
-## est_conyugalSin pareja                                                               -8.923
+## (Intercept)                                                                          22.376
+## edad                                                                                  8.063
+## sexoMujer                                                                           -13.237
+## ciuo08Profesionales, científicos e intelectuales                                     -9.670
+## ciuo08Técnicos y profesionales de nivel medio                                       -14.533
+## ciuo08Personal de apoyo administrativo                                              -17.372
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -19.128
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -20.999
+## ciuo08Artesanos y operarios de oficios                                              -20.110
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -18.872
+## ciuo08Ocupaciones elementales                                                       -20.676
+## ciuo08Otros no identificados                                                        -10.063
+## ciuo08Sin clasificación                                                             -14.279
+## est_conyugalSin pareja                                                               -9.537
 ##                                                                                     Pr(>|t|)
 ## (Intercept)                                                                          < 2e-16
-## edad                                                                                1.53e-13
+## edad                                                                                7.74e-16
 ## sexoMujer                                                                            < 2e-16
 ## ciuo08Profesionales, científicos e intelectuales                                     < 2e-16
 ## ciuo08Técnicos y profesionales de nivel medio                                        < 2e-16
@@ -1008,7 +1008,7 @@ summary(modelo5_survey)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 366281647071)
+## (Dispersion parameter for gaussian family taken to be 398202555644)
 ## 
 ## Number of Fisher Scoring iterations: 2
 ```
@@ -1028,41 +1028,41 @@ str(modelo5)
 
 ```
 ## List of 15
-##  $ coefficients : Named num [1:14] 2039331 3576 -187485 -856662 -1267119 ...
+##  $ coefficients : Named num [1:14] 1977240 3645 -179308 -838562 -1245145 ...
 ##   ..- attr(*, "names")= chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
-##  $ residuals    : Named num [1:24567] -23240 -241167 -137657 -11889 -292282 ...
+##  $ residuals    : Named num [1:26821] 17742 -204754 -102145 15920 -253034 ...
 ##   ..- attr(*, "label")= chr "Total ingresos del trabajo"
 ##   ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..- attr(*, "names")= chr [1:24567] "1" "2" "3" "4" ...
-##  $ fitted.values: Named num [1:24567] 343661 991167 1037657 263590 433064 ...
+##   ..- attr(*, "names")= chr [1:26821] "1" "2" "3" "7" ...
+##  $ fitted.values: Named num [1:26821] 302679 954754 1002145 235781 393816 ...
 ##   ..- attr(*, "label")= chr "Total ingresos del trabajo"
 ##   ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..- attr(*, "names")= chr [1:24567] "1" "2" "3" "4" ...
-##  $ effects      : Named num [1:24567] -1.81e+09 1.12e+08 1.70e+08 6.65e+08 2.65e+08 ...
+##   ..- attr(*, "names")= chr [1:26821] "1" "2" "3" "7" ...
+##  $ effects      : Named num [1:26821] -1.74e+09 1.33e+08 1.76e+08 6.89e+08 2.83e+08 ...
 ##   ..- attr(*, "label")= chr "Total ingresos del trabajo"
 ##   ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..- attr(*, "names")= chr [1:24567] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
-##  $ weights      : num [1:24567] 345.8 1056.5 41.6 730.4 270.1 ...
+##   ..- attr(*, "names")= chr [1:26821] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
+##  $ weights      : num [1:26821] 345.8 1056.5 41.6 730.4 270.1 ...
 ##  $ rank         : int 14
 ##  $ assign       : int [1:14] 0 1 2 3 3 3 3 3 3 3 ...
 ##  $ qr           :List of 5
-##   ..$ qr   : num [1:24567, 1:14] -2.72e+03 1.19e-02 2.37e-03 9.92e-03 6.03e-03 ...
+##   ..$ qr   : num [1:26821, 1:14] -2.84e+03 1.15e-02 2.27e-03 9.52e-03 5.79e-03 ...
 ##   .. ..- attr(*, "assign")= int [1:14] 0 1 2 3 3 3 3 3 3 3 ...
 ##   .. ..- attr(*, "contrasts")=List of 3
 ##   .. .. ..$ sexo        : chr "contr.treatment"
 ##   .. .. ..$ ciuo08      : chr "contr.treatment"
 ##   .. .. ..$ est_conyugal: chr "contr.treatment"
 ##   .. ..- attr(*, "dimnames")=List of 2
-##   .. .. ..$ : chr [1:24567] "1" "2" "3" "4" ...
+##   .. .. ..$ : chr [1:26821] "1" "2" "3" "7" ...
 ##   .. .. ..$ : chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
 ##   ..$ qraux: num [1:14] 1.01 1.01 1 1.01 1 ...
 ##   ..$ pivot: int [1:14] 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..$ tol  : num 1e-07
 ##   ..$ rank : int 14
 ##   ..- attr(*, "class")= chr "qr"
-##  $ df.residual  : int 24553
-##  $ na.action    : 'omit' Named int [1:1199] 50 60 62 93 179 180 202 211 214 219 ...
-##   ..- attr(*, "names")= chr [1:1199] "50" "60" "62" "93" ...
+##  $ df.residual  : int 26807
+##  $ na.action    : 'omit' Named int [1:45114] 4 5 6 8 11 14 16 17 19 21 ...
+##   ..- attr(*, "names")= chr [1:45114] "4" "5" "6" "8" ...
 ##  $ contrasts    :List of 3
 ##   ..$ sexo        : chr "contr.treatment"
 ##   ..$ ciuo08      : chr "contr.treatment"
@@ -1086,19 +1086,19 @@ str(modelo5)
 ##   .. ..- attr(*, "predvars")= language list(ing_t_t, edad, sexo, ciuo08, est_conyugal)
 ##   .. ..- attr(*, "dataClasses")= Named chr [1:6] "numeric" "numeric" "factor" "factor" ...
 ##   .. .. ..- attr(*, "names")= chr [1:6] "ing_t_t" "edad" "sexo" "ciuo08" ...
-##  $ model        :'data.frame':	24567 obs. of  6 variables:
-##   ..$ ing_t_t     : num [1:24567] 320421 750000 900000 251701 140782 ...
+##  $ model        :'data.frame':	26821 obs. of  6 variables:
+##   ..$ ing_t_t     : num [1:26821] 320421 750000 900000 251701 140782 ...
 ##   .. ..- attr(*, "label")= chr "Total ingresos del trabajo"
 ##   .. ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..$ edad        : num [1:24567] 29 30 43 31 54 67 50 43 40 48 ...
+##   ..$ edad        : num [1:26821] 29 30 43 31 54 67 50 43 59 40 ...
 ##   .. ..- attr(*, "label")= chr "Edad de la persona"
 ##   .. ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..$ sexo        : Factor w/ 2 levels "Hombre","Mujer": 2 2 2 2 2 2 1 2 2 1 ...
+##   ..$ sexo        : Factor w/ 2 levels "Hombre","Mujer": 2 2 2 2 2 2 1 2 1 2 ...
 ##   .. ..- attr(*, "label")= chr "Sexo"
-##   ..$ ciuo08      : Factor w/ 11 levels "Directores, gerentes y administradores",..: 5 2 2 7 5 9 4 4 5 9 ...
+##   ..$ ciuo08      : Factor w/ 11 levels "Directores, gerentes y administradores",..: 5 2 2 7 5 9 4 4 8 5 ...
 ##   .. ..- attr(*, "label")= chr "b1. Grupo ocupacional según CIUO 08 - 1 dígito"
-##   ..$ est_conyugal: Factor w/ 2 levels "Con pareja","Sin pareja": 1 2 2 1 1 1 1 2 2 1 ...
-##   ..$ (weights)   : num [1:24567] 345.8 1056.5 41.6 730.4 270.1 ...
+##   ..$ est_conyugal: Factor w/ 2 levels "Con pareja","Sin pareja": 1 2 2 1 1 1 1 2 1 2 ...
+##   ..$ (weights)   : num [1:26821] 345.8 1056.5 41.6 730.4 270.1 ...
 ##   .. ..- attr(*, "label")= chr "Factor de expansión ESI con nueva calibración, proyecciones de población "
 ##   .. ..- attr(*, "format.stata")= chr "%10.0g"
 ##   ..- attr(*, "terms")=Classes 'terms', 'formula'  language ing_t_t ~ edad + sexo + ciuo08 + est_conyugal
@@ -1115,8 +1115,8 @@ str(modelo5)
 ##   .. .. ..- attr(*, "predvars")= language list(ing_t_t, edad, sexo, ciuo08, est_conyugal)
 ##   .. .. ..- attr(*, "dataClasses")= Named chr [1:6] "numeric" "numeric" "factor" "factor" ...
 ##   .. .. .. ..- attr(*, "names")= chr [1:6] "ing_t_t" "edad" "sexo" "ciuo08" ...
-##   ..- attr(*, "na.action")= 'omit' Named int [1:1199] 50 60 62 93 179 180 202 211 214 219 ...
-##   .. ..- attr(*, "names")= chr [1:1199] "50" "60" "62" "93" ...
+##   ..- attr(*, "na.action")= 'omit' Named int [1:45114] 4 5 6 8 11 14 16 17 19 21 ...
+##   .. ..- attr(*, "names")= chr [1:45114] "4" "5" "6" "8" ...
 ##  - attr(*, "class")= chr "lm"
 ```
 
@@ -1135,54 +1135,54 @@ summary(modelo5)
 ## 
 ## Weighted Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -80151479  -3320947  -1039859   1354642 259596606 
+## -77029860  -3327667   -903696   1562319 261766339 
 ## 
 ## Coefficients:
 ##                                                                                       Estimate
-## (Intercept)                                                                          2039330.6
-## edad                                                                                    3576.1
-## sexoMujer                                                                            -187485.0
-## ciuo08Profesionales, científicos e intelectuales                                     -856662.0
-## ciuo08Técnicos y profesionales de nivel medio                                       -1267119.0
-## ciuo08Personal de apoyo administrativo                                              -1485803.7
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1611892.6
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1777816.0
-## ciuo08Artesanos y operarios de oficios                                              -1699115.4
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1611308.3
-## ciuo08Ocupaciones elementales                                                       -1739664.0
-## ciuo08Otros no identificados                                                        -1101499.0
-## ciuo08Sin clasificación                                                             -1691645.6
-## est_conyugalSin pareja                                                               -111300.1
+## (Intercept)                                                                          1977240.3
+## edad                                                                                    3645.5
+## sexoMujer                                                                            -179308.4
+## ciuo08Profesionales, científicos e intelectuales                                     -838561.6
+## ciuo08Técnicos y profesionales de nivel medio                                       -1245145.4
+## ciuo08Personal de apoyo administrativo                                              -1467502.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados            -1600971.8
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros -1752079.3
+## ciuo08Artesanos y operarios de oficios                                              -1675160.8
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                         -1578961.8
+## ciuo08Ocupaciones elementales                                                       -1718318.8
+## ciuo08Otros no identificados                                                        -1042107.7
+## ciuo08Sin clasificación                                                             -1693602.6
+## est_conyugalSin pareja                                                               -113981.1
 ##                                                                                     Std. Error
-## (Intercept)                                                                            24309.7
-## edad                                                                                     307.7
-## sexoMujer                                                                               8405.0
-## ciuo08Profesionales, científicos e intelectuales                                       21623.4
-## ciuo08Técnicos y profesionales de nivel medio                                          22218.8
-## ciuo08Personal de apoyo administrativo                                                 25190.0
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               21304.8
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    31639.0
-## ciuo08Artesanos y operarios de oficios                                                 22241.0
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23688.3
-## ciuo08Ocupaciones elementales                                                          21454.3
-## ciuo08Otros no identificados                                                           57959.8
-## ciuo08Sin clasificación                                                               128848.7
-## est_conyugalSin pareja                                                                  7993.1
+## (Intercept)                                                                            23485.6
+## edad                                                                                     290.2
+## sexoMujer                                                                               7968.4
+## ciuo08Profesionales, científicos e intelectuales                                       21117.6
+## ciuo08Técnicos y profesionales de nivel medio                                          21664.4
+## ciuo08Personal de apoyo administrativo                                                 24391.5
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados               20672.5
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros    30256.0
+## ciuo08Artesanos y operarios de oficios                                                 21582.2
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                            23049.0
+## ciuo08Ocupaciones elementales                                                          20781.6
+## ciuo08Otros no identificados                                                           57343.4
+## ciuo08Sin clasificación                                                               115936.4
+## est_conyugalSin pareja                                                                  7609.8
 ##                                                                                     t value
-## (Intercept)                                                                           83.89
-## edad                                                                                  11.62
-## sexoMujer                                                                            -22.31
-## ciuo08Profesionales, científicos e intelectuales                                     -39.62
-## ciuo08Técnicos y profesionales de nivel medio                                        -57.03
-## ciuo08Personal de apoyo administrativo                                               -58.98
-## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -75.66
-## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -56.19
-## ciuo08Artesanos y operarios de oficios                                               -76.40
-## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.02
-## ciuo08Ocupaciones elementales                                                        -81.09
-## ciuo08Otros no identificados                                                         -19.00
-## ciuo08Sin clasificación                                                              -13.13
-## est_conyugalSin pareja                                                               -13.92
+## (Intercept)                                                                           84.19
+## edad                                                                                  12.56
+## sexoMujer                                                                            -22.50
+## ciuo08Profesionales, científicos e intelectuales                                     -39.71
+## ciuo08Técnicos y profesionales de nivel medio                                        -57.47
+## ciuo08Personal de apoyo administrativo                                               -60.16
+## ciuo08Trabajadores de los servicios y vendedores de comercios y mercados             -77.44
+## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros  -57.91
+## ciuo08Artesanos y operarios de oficios                                               -77.62
+## ciuo08Operadores de instalaciones, maquinas y ensambladores                          -68.50
+## ciuo08Ocupaciones elementales                                                        -82.69
+## ciuo08Otros no identificados                                                         -18.17
+## ciuo08Sin clasificación                                                              -14.61
+## est_conyugalSin pareja                                                               -14.98
 ##                                                                                     Pr(>|t|)
 ## (Intercept)                                                                           <2e-16
 ## edad                                                                                  <2e-16
@@ -1216,10 +1216,10 @@ summary(modelo5)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10500000 on 24553 degrees of freedom
-##   (1199 observations deleted due to missingness)
-## Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3403 
-## F-statistic: 975.9 on 13 and 24553 DF,  p-value: < 2.2e-16
+## Residual standard error: 10400000 on 26807 degrees of freedom
+##   (45114 observations deleted due to missingness)
+## Multiple R-squared:  0.3351,	Adjusted R-squared:  0.3348 
+## F-statistic:  1039 on 13 and 26807 DF,  p-value: < 2.2e-16
 ```
 
 ¿Pero que pasa si queremos un elemento en particular del modelo?, como este es un objeto, se puede utilizar el símbolo `$` para extraer información de este
@@ -1231,33 +1231,33 @@ modelo5$coefficients
 
 ```
 ##                                                                         (Intercept) 
-##                                                                         2039330.557 
+##                                                                         1977240.278 
 ##                                                                                edad 
-##                                                                            3576.126 
+##                                                                            3645.488 
 ##                                                                           sexoMujer 
-##                                                                         -187484.985 
+##                                                                         -179308.422 
 ##                                    ciuo08Profesionales, científicos e intelectuales 
-##                                                                         -856661.950 
+##                                                                         -838561.638 
 ##                                       ciuo08Técnicos y profesionales de nivel medio 
-##                                                                        -1267118.965 
+##                                                                        -1245145.411 
 ##                                              ciuo08Personal de apoyo administrativo 
-##                                                                        -1485803.669 
+##                                                                        -1467502.547 
 ##            ciuo08Trabajadores de los servicios y vendedores de comercios y mercados 
-##                                                                        -1611892.572 
+##                                                                        -1600971.794 
 ## ciuo08Agricultores y trabajadores calificados agropecuarios, forestales y pesqueros 
-##                                                                        -1777815.958 
+##                                                                        -1752079.303 
 ##                                              ciuo08Artesanos y operarios de oficios 
-##                                                                        -1699115.410 
+##                                                                        -1675160.786 
 ##                         ciuo08Operadores de instalaciones, maquinas y ensambladores 
-##                                                                        -1611308.324 
+##                                                                        -1578961.831 
 ##                                                       ciuo08Ocupaciones elementales 
-##                                                                        -1739664.023 
+##                                                                        -1718318.836 
 ##                                                        ciuo08Otros no identificados 
-##                                                                        -1101498.994 
+##                                                                        -1042107.683 
 ##                                                             ciuo08Sin clasificación 
-##                                                                        -1691645.597 
+##                                                                        -1693602.555 
 ##                                                              est_conyugalSin pareja 
-##                                                                         -111300.104
+##                                                                         -113981.138
 ```
 
 ```r
@@ -1266,7 +1266,7 @@ modelo5$coefficients[2]
 
 ```
 ##     edad 
-## 3576.126
+## 3645.488
 ```
 
 ```r
@@ -1275,7 +1275,7 @@ modelo5$coefficients["edad"]
 
 ```
 ##     edad 
-## 3576.126
+## 3645.488
 ```
 
 ¿Qué otros elementos puedo extraer?, para eso `str` nos dirá estructura y elementos que podremos utilizar
@@ -1302,29 +1302,29 @@ str(summary(modelo5))
 ##   .. ..- attr(*, "predvars")= language list(ing_t_t, edad, sexo, ciuo08, est_conyugal)
 ##   .. ..- attr(*, "dataClasses")= Named chr [1:6] "numeric" "numeric" "factor" "factor" ...
 ##   .. .. ..- attr(*, "names")= chr [1:6] "ing_t_t" "edad" "sexo" "ciuo08" ...
-##  $ weights      : num [1:24567] 345.8 1056.5 41.6 730.4 270.1 ...
-##  $ residuals    : Named num [1:24567] -432145 -7838732 -888011 -321310 -4803287 ...
+##  $ weights      : num [1:26821] 345.8 1056.5 41.6 730.4 270.1 ...
+##  $ residuals    : Named num [1:26821] 329915 -6655171 -658927 430264 -4158305 ...
 ##   ..- attr(*, "label")= chr "Total ingresos del trabajo"
 ##   ..- attr(*, "format.stata")= chr "%10.0g"
-##   ..- attr(*, "names")= chr [1:24567] "1" "2" "3" "4" ...
-##  $ coefficients : num [1:14, 1:4] 2039331 3576 -187485 -856662 -1267119 ...
+##   ..- attr(*, "names")= chr [1:26821] "1" "2" "3" "7" ...
+##  $ coefficients : num [1:14, 1:4] 1977240 3645 -179308 -838562 -1245145 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
 ##   .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(>|t|)"
 ##  $ aliased      : Named logi [1:14] FALSE FALSE FALSE FALSE FALSE FALSE ...
 ##   ..- attr(*, "names")= chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
-##  $ sigma        : num 10497535
-##  $ df           : int [1:3] 14 24553 14
-##  $ r.squared    : num 0.341
-##  $ adj.r.squared: num 0.34
-##  $ fstatistic   : Named num [1:3] 976 13 24553
+##  $ sigma        : num 10403029
+##  $ df           : int [1:3] 14 26807 14
+##  $ r.squared    : num 0.335
+##  $ adj.r.squared: num 0.335
+##  $ fstatistic   : Named num [1:3] 1039 13 26807
 ##   ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
-##  $ cov.unscaled : num [1:14, 1:14] 5.36e-06 -4.05e-08 -1.76e-07 -3.52e-06 -3.47e-06 ...
+##  $ cov.unscaled : num [1:14, 1:14] 5.10e-06 -3.68e-08 -1.59e-07 -3.41e-06 -3.38e-06 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
 ##   .. ..$ : chr [1:14] "(Intercept)" "edad" "sexoMujer" "ciuo08Profesionales, científicos e intelectuales" ...
-##  $ na.action    : 'omit' Named int [1:1199] 50 60 62 93 179 180 202 211 214 219 ...
-##   ..- attr(*, "names")= chr [1:1199] "50" "60" "62" "93" ...
+##  $ na.action    : 'omit' Named int [1:45114] 4 5 6 8 11 14 16 17 19 21 ...
+##   ..- attr(*, "names")= chr [1:45114] "4" "5" "6" "8" ...
 ##  - attr(*, "class")= chr "summary.lm"
 ```
 
@@ -1334,8 +1334,8 @@ summary(modelo5)$fstatistic
 ```
 
 ```
-##      value      numdf      dendf 
-##   975.8893    13.0000 24553.0000
+##     value     numdf     dendf 
+##  1039.257    13.000 26807.000
 ```
 
 ```r
@@ -1343,7 +1343,7 @@ summary(modelo5)$r.squared
 ```
 
 ```
-## [1] 0.3406743
+## [1] 0.3351
 ```
 
 
@@ -1358,7 +1358,7 @@ modelo5$fitted.values
 
 ```r
 get_model_data(modelo5, 
-               type = c("pred"))
+               type = "pred")
 ```
 
 ```
@@ -1367,14 +1367,14 @@ get_model_data(modelo5,
 ## 
 ## edad | Predicted | group_col |               95% CI
 ## ---------------------------------------------------
-##   10 |  2.08e+06 |      edad | [2.03e+06, 2.12e+06]
-##   20 |  2.11e+06 |      edad | [2.07e+06, 2.15e+06]
-##   30 |  2.15e+06 |      edad | [2.11e+06, 2.19e+06]
-##   40 |  2.18e+06 |      edad | [2.14e+06, 2.22e+06]
-##   60 |  2.25e+06 |      edad | [2.21e+06, 2.29e+06]
-##   70 |  2.29e+06 |      edad | [2.25e+06, 2.33e+06]
-##   80 |  2.33e+06 |      edad | [2.28e+06, 2.37e+06]
-##  100 |  2.40e+06 |      edad | [2.35e+06, 2.45e+06]
+##   10 |  2.01e+06 |      edad | [1.97e+06, 2.06e+06]
+##   20 |  2.05e+06 |      edad | [2.01e+06, 2.09e+06]
+##   30 |  2.09e+06 |      edad | [2.05e+06, 2.13e+06]
+##   40 |  2.12e+06 |      edad | [2.09e+06, 2.16e+06]
+##   60 |  2.20e+06 |      edad | [2.16e+06, 2.23e+06]
+##   70 |  2.23e+06 |      edad | [2.19e+06, 2.27e+06]
+##   80 |  2.27e+06 |      edad | [2.23e+06, 2.31e+06]
+##  100 |  2.34e+06 |      edad | [2.29e+06, 2.39e+06]
 ## 
 ## Adjusted for:
 ## *         sexo =                                 Hombre
@@ -1386,11 +1386,11 @@ get_model_data(modelo5,
 ## 
 ## sexo | Predicted | group_col |               95% CI
 ## ---------------------------------------------------
-##    1 |  2.19e+06 |      sexo | [2.15e+06, 2.23e+06]
-##    2 |  2.00e+06 |      sexo | [1.96e+06, 2.04e+06]
+##    1 |  2.13e+06 |      sexo | [2.09e+06, 2.17e+06]
+##    2 |  1.95e+06 |      sexo | [1.91e+06, 1.99e+06]
 ## 
 ## Adjusted for:
-## *         edad =                                  42.33
+## *         edad =                                  42.13
 ## *       ciuo08 = Directores, gerentes y administradores
 ## * est_conyugal =                             Con pareja
 ## 
@@ -1399,17 +1399,17 @@ get_model_data(modelo5,
 ## 
 ## ciuo08 | Predicted | group_col |               95% CI
 ## -----------------------------------------------------
-##      1 |  2.19e+06 |    ciuo08 | [2.15e+06, 2.23e+06]
-##      2 |  1.33e+06 |    ciuo08 | [1.31e+06, 1.36e+06]
-##      4 |  7.05e+05 |    ciuo08 | [6.72e+05, 7.38e+05]
-##      5 |  5.79e+05 |    ciuo08 | [5.58e+05, 5.99e+05]
-##      6 |  4.13e+05 |    ciuo08 | [3.63e+05, 4.63e+05]
-##      7 |  4.92e+05 |    ciuo08 | [4.69e+05, 5.14e+05]
-##      8 |  5.79e+05 |    ciuo08 | [5.52e+05, 6.07e+05]
-##     11 |  4.99e+05 |    ciuo08 | [2.49e+05, 7.49e+05]
+##      1 |  2.13e+06 |    ciuo08 | [2.09e+06, 2.17e+06]
+##      2 |  1.29e+06 |    ciuo08 | [1.27e+06, 1.31e+06]
+##      4 |  6.63e+05 |    ciuo08 | [6.32e+05, 6.95e+05]
+##      5 |  5.30e+05 |    ciuo08 | [5.11e+05, 5.49e+05]
+##      6 |  3.79e+05 |    ciuo08 | [3.32e+05, 4.26e+05]
+##      7 |  4.56e+05 |    ciuo08 | [4.34e+05, 4.77e+05]
+##      8 |  5.52e+05 |    ciuo08 | [5.26e+05, 5.78e+05]
+##     11 |  4.37e+05 |    ciuo08 | [2.13e+05, 6.61e+05]
 ## 
 ## Adjusted for:
-## *         edad =      42.33
+## *         edad =      42.13
 ## *         sexo =     Hombre
 ## * est_conyugal = Con pareja
 ## 
@@ -1418,11 +1418,11 @@ get_model_data(modelo5,
 ## 
 ## est_conyugal | Predicted |    group_col |               95% CI
 ## --------------------------------------------------------------
-##            1 |  2.19e+06 | est_conyugal | [2.15e+06, 2.23e+06]
-##            2 |  2.08e+06 | est_conyugal | [2.04e+06, 2.12e+06]
+##            1 |  2.13e+06 | est_conyugal | [2.09e+06, 2.17e+06]
+##            2 |  2.02e+06 | est_conyugal | [1.98e+06, 2.06e+06]
 ## 
 ## Adjusted for:
-## *   edad =                                  42.33
+## *   edad =                                  42.13
 ## *   sexo =                                 Hombre
 ## * ciuo08 = Directores, gerentes y administradores
 ```
@@ -1438,11 +1438,11 @@ get_model_data(modelo5,
 ## 
 ## sexo | Predicted | group_col |               95% CI
 ## ---------------------------------------------------
-##    1 |  2.19e+06 |         1 | [2.15e+06, 2.23e+06]
-##    2 |  2.00e+06 |         1 | [1.96e+06, 2.04e+06]
+##    1 |  2.13e+06 |         1 | [2.09e+06, 2.17e+06]
+##    2 |  1.95e+06 |         1 | [1.91e+06, 1.99e+06]
 ## 
 ## Adjusted for:
-## *         edad =                                  42.33
+## *         edad =                                  42.13
 ## *       ciuo08 = Directores, gerentes y administradores
 ## * est_conyugal =                             Con pareja
 ```
@@ -1508,12 +1508,12 @@ sjPlot::tab_model(modelo0,
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">646174.23</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">256201.13</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "><strong>&lt;0.001</strong></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">25766</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">71935</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
@@ -1552,33 +1552,33 @@ sjPlot::tab_model(list(modelo0, modelo1, modelo2), # los modelos estimados
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">(Intercept)</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">646174.23 <sup>***</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">516522.40 <sup>***</sup></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">696412.08 <sup>***</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">256201.13 <sup>***</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">127658.05 <sup>***</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">337663.87 <sup>***</sup></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Edad de la persona</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">3062.36 <sup>***</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">3511.38 <sup>***</sup></td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Sexo: Mujer</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "></td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;126639.91 <sup>***</sup></td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">&#45;160784.29 <sup>***</sup></td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">Observations</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">25766</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">25766</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">25766</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">71935</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">71935</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1">71935</td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.000 / 0.000</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.003 / 0.003</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.007 / 0.007</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.019 / 0.019</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1">0.021 / 0.021</td>
 </tr>
 <tr>
 <td colspan="4" style="font-style:italic; border-top:double black; text-align:right;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
@@ -1631,7 +1631,3 @@ En este práctico aprendimos a
 - [sjPlot](https://strengejacke.github.io/sjPlot/) 
 - [tidyverse](https://www.tidyverse.org/packages/)
 - [magrittr](https://magrittr.tidyverse.org/)
-
-# 9. Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.

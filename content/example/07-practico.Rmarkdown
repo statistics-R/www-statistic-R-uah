@@ -54,12 +54,12 @@ Una vez cargados los paquetes a utilizar, debemos continuar cargar los datos. Co
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-load(url("https://github.com/learn-R/06-class/raw/main/06-clase/output/data/datos_proc.RData"))
+datos_proc <- readRDS(url("https://github.com/learn-R/07-class/raw/main/input/data/datos_proc.rds"))
 
 ```
 
 ```{r, eval = F }
-load("output/data/datos_proc.RData")
+datos_proc <- readRDS("input/data/datos_proc.rds")
 ```
 
 #  3. Explorar datos
@@ -74,7 +74,7 @@ names(datos_proc)
 
 Mientras que la función `head` nos entrega el nombre y las primeras 10 filas que lo componen.
 
-```{r head, echo=TRUE, results='markup'}
+```{r head, echo=TRUE, results='markup', warning=F}
 head(datos_proc)
 ```
 
@@ -102,23 +102,23 @@ mean(datos$variable, na.rm=TRUE)
 ```
 
 
-El argumento `na.rm=TRUE` excluye del cálculo a los casos perdidos. Si deséaramos estimar la media de `ingreso_percapita`, debemos codificar lo siguiente
+El argumento `na.rm=TRUE` excluye del cálculo a los casos perdidos. Si deséaramos estimar la media de `ing_pc`, debemos codificar lo siguiente
 
 ```{r casen mean, echo=TRUE, results='markup'}
-mean(datos_proc$ingreso_percapita, na.rm=TRUE)
+mean(datos_proc$ing_pc, na.rm=TRUE)
 ```
 
 ### Media recortada
 
-Pero, ¿qué pasa si, dada la distribución de los valores de la variable `ingreso_percapita`, su media se ve fuertemente afectadas por casos atípicos o fuera de rango (por ejemplo, que esta adopte un valor más alto producto de una alta concentración de ingresos)? En tal caso, una buena manera de evitar el efecto de casos influyentes en la estimación pasa por calcular la media recortada, incorporando el argumento `trim` para excluir al 5% de la muestra en la estimación (es decir, el 2.5% de cada extremo)
+Pero, ¿qué pasa si, dada la distribución de los valores de la variable `ing_pc`, su media se ve fuertemente afectadas por casos atípicos o fuera de rango (por ejemplo, que esta adopte un valor más alto producto de una alta concentración de ingresos)? En tal caso, una buena manera de evitar el efecto de casos influyentes en la estimación pasa por calcular la media recortada, incorporando el argumento `trim` para excluir al 5% de la muestra en la estimación (es decir, el 2.5% de cada extremo)
 
 ```{r casen mean trim, echo=TRUE, results='markup'}
-mean(datos_proc$ingreso_percapita, na.rm=TRUE, trim = 0.025)
+mean(datos_proc$ing_pc, na.rm=TRUE, trim = 0.025)
 ```
 
-¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de `r mean(datos_proc$ingreso_percapita, na.rm=TRUE)- mean(datos_proc$ingreso_percapita, na.rm=TRUE, trim = 0.025)`.
+¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de `r mean(datos_proc$ing_pc, na.rm=TRUE)- mean(datos_proc$ing_pc, na.rm=TRUE, trim = 0.025)`.
 
-Una vez conocemos el valor medio de la variable `ingreso_percapita`, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana! 
+Una vez conocemos el valor medio de la variable `ing_pc`, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana! 
 
 ### Mediana
 
@@ -129,10 +129,10 @@ median(datos$variable, na.rm =TRUE)
 ```
 
 ```{r casen median, echo=TRUE, results='markup'}
-median(datos_proc$ingreso_percapita, na.rm =TRUE)
+median(datos_proc$ing_pc, na.rm =TRUE)
 ```
 
-Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de **$229.184** o menos.
+Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de `r median(datos_proc$ing_pc, na.rm =TRUE)` o menos.
 
 Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿debemos estimar la media y la mediana de cada todas nuestras variables *una por una*? **¡No!**, para ello `sjmisc` tiene diferentes funciones que nos permitirán estimar y presentar gráficamente tales estimaciones, y las conoceremos a continuación:
 
@@ -142,7 +142,7 @@ Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿debemos
 Por ello ocuparemos la función `descr()` de `sjmisc`, que nos presenta un resumen de los estadísticos básicos, incluyendo las etiquetas de cada variable.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE, include=TRUE}
-sjmisc::descr(datos_proc$ingreso_percapita,
+sjmisc::descr(datos_proc$ing_pc,
         show = "all",
         out = "viewer",
         encoding = "UTF-8",
@@ -150,7 +150,7 @@ sjmisc::descr(datos_proc$ingreso_percapita,
 ```
 
 ```{r echo=FALSE}
-sjmisc::descr(datos_proc$ingreso_percapita)
+sjmisc::descr(datos_proc$ing_pc)
 ```
 
 **¡Atención!** utilizaremos la función `descr()` **sólo para variables de clase `numeric`** ¿Qué sentido tiene calcular el promedio de equipos de futbol, o de religiones que existen?
@@ -159,7 +159,7 @@ Como ya adelantamos anteriorme, `sjmisc` dialoga con el universo `tidyverse`, po
 
 ```{r,  eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 datos_proc %>%
-select(ingreso_percapita, ife, horas_mens) %>% 
+select(ing_pc, ytoth, tot_per) %>% 
 sjmisc::descr(
   show = "all",
   out = "viewer",
@@ -169,7 +169,7 @@ sjmisc::descr(
 
 ```{r, echo=FALSE}
 datos_proc %>% 
-  select(ingreso_percapita, ife, horas_mens) %>% 
+  select(ing_pc, ytoth, tot_per) %>% 
   sjmisc::descr()
 ```
 
@@ -194,12 +194,19 @@ flat_table(datos_proc, sexo, ocupacion, ife)
 
 No obstante, el output de ambas funciones **no se resulta visualmente atractivo** ¿cómo podríamos reportar las frecuencias absolutas (y relativas) en nuestros informes? Si queremos una tabla general usaremos la función `frq()` de `sjmisc`, cuyo output es una tabla de frecuencia que presenta. Esta función devuelve una tabla de frecuencias absolutas y relativas para nuestras variables categóricas (**¡genial!**). Además, si nuestros datos son números etiquetados (`dbl + lbl`), presenta tanto los valores numéricos como las etiquetas asociadas a cada uno de ellos (¡`table()` sólo presenta los valores numéricos! no incluye metadata en su output)
 
-```{r casen frq error, echo=TRUE, results='markup'}
+```{r casen frq error, eval = F, results='markup'}
 sjmisc::frq(datos_proc$sexo,
         out = "viewer",
         title = "Frecuencias",
         encoding = "UTF-8",
         file = "output/figures/tabla2.doc") 
+```
+
+```{r include=F}
+sjmisc::frq(datos_proc$sexo,
+        out = "viewer",
+        title = "Frecuencias",
+        encoding = "UTF-8") 
 ```
 
 
@@ -225,7 +232,7 @@ Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categor�
 
 
 ```{r casen_barras_simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-plot_frq(datos_proc, edad_tramo,
+plot_frq(datos_proc, sexo,
           title = "Gráfico de frecuencias, barras",
           type = "bar")
 ```
@@ -248,10 +255,10 @@ save_plot("output/figures/tab.png", fig = last_plot())
 
 2. Gráfico de puntos
 
-Para variables numéricas ¡podemos presentar un gráfico de puntos!
+¡Podemos presentar un gráfico de puntos!
 
 ```{r casen_puntos_simple, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-plot_frq(datos_proc, ingreso_percapita,
+plot_frq(datos_proc, sexo,
           title = "Gráfico de frecuencias, puntos",
           type = "dot")
 ```
@@ -259,7 +266,7 @@ plot_frq(datos_proc, ingreso_percapita,
 También podemos cambiar el orden de los ejes *x* e *y*
 
 ```{r casen_puntos cambiados, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-plot_frq(datos_proc$edad_tramo, type = "dot", show.ci = TRUE, sort.frq = "desc",
+plot_frq(datos_proc$sexo_edad_tramo, type = "dot", show.ci = TRUE, sort.frq = "desc",
   coord.flip = TRUE, expand.grid = TRUE, vjust = "bottom", hjust = "left", title = "Gráfico de frecuencias, puntos cambiado"
 )
 ```
@@ -270,22 +277,22 @@ A la hora de trabajar en R, siempre debemos conocer los argumentos que utilizamo
 
 a. Escribe en la consola anteponiendo un `?` en la función que quieres conocer, en este caso será `plot_frq?`, quedando así:
 
-![](https://github.com/learn-R/06-class/raw/main/input/img/image.png)
+![](https://github.com/learn-R/07-class/raw/main/input/img/image.png)
 
 
 b. Una vez le des a *Enter*, en la sección **Help** aparecerá información sobre la función, cómo se usa y qué se puede hacer con ella. En **Arguments** explicará la función de cada argumento
 
-![](https://github.com/learn-R/06-class/raw/main/input/img/image2.png)
+![](https://github.com/learn-R/07-class/raw/main/input/img/image2.png)
 
 ¡Ahora podrán definir, con completo conocimiento, cómo están personalizando sus gráficos!
 
 3. Histogramas        
        
-Otra función que podemos hacer es graficar histogramas. Sin embargo, como ya hemos visto, la variable `ingreso_percapita` tiene casos fuera de rango que distorsionan la imagen que nos podemos hacer de la distribución de la variable en la muestra. Para solucionar esto, ocuparemos lo aprendido en [el práctico anterior](https://learn-r-udp.netlify.app/example/03-practico/) y filtraremos la variable, eliminando de la presentación los ingresos mayores a `$2.000.000`, con la función `filter` de `dplyr`
+Otra función que podemos hacer es graficar histogramas. Sin embargo, como ya hemos visto, la variable `ing_pc` tiene casos fuera de rango que distorsionan la imagen que nos podemos hacer de la distribución de la variable en la muestra. Para solucionar esto, ocuparemos lo aprendido en [el práctico anterior](https://learn-r-udp.netlify.app/example/03-practico/) y filtraremos la variable, eliminando de la presentación los ingresos mayores a `$2.000.000`, con la función `filter` de `dplyr`
 
 ```{r casen_histograma, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-datos_proc %>%  filter(ingreso_percapita <= 2000000) %>% 
-plot_frq(., ingreso_percapita,
+datos_proc %>%  filter(ing_pc <= 2000000) %>% 
+plot_frq(., ing_pc,
           title = "Histograma",
           type = "histogram")
 ```
@@ -295,8 +302,8 @@ plot_frq(., ingreso_percapita,
 Ahora que vemos la distribución del histograma ¿cómo podemos graficar su densidad? es muy simple: podemos generar un gráfico de densidad con el siguiente código
 
 ```{r casen_densidad, echo=TRUE, results='markup'}
-datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
-plot_frq(., ingreso_percapita,
+datos_proc %>%  filter(ing_pc <= 2000000) %>%
+plot_frq(., ing_pc,
           title = "Gráfico de densidad",
           type = "density")
 ```
@@ -307,7 +314,7 @@ plot_frq(., ingreso_percapita,
 ¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable `ife`, para lo que usaremos este código:
 
 ```{r casen_lineas, echo=TRUE, results='markup'}
-plot_frq(datos_proc, ife,
+plot_frq(datos_proc, tot_per,
           title = "Gráfico de líneas",
           type = "line")
 
@@ -318,8 +325,8 @@ plot_frq(datos_proc, ife,
 Para graficar algunas medidas de posición de una variable y, en específico, los cuartiles de esta, podemos elaborar un gráfico de cajas, para lo cual usaremos este código:
 
 ```{r casen box, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
-plot_frq(., ingreso_percapita,
+datos_proc %>%  filter(ing_pc <= 2000000) %>%
+plot_frq(., ing_pc,
           title = "Gráfico de caja",
           type = "boxplot")
 ```
@@ -330,8 +337,8 @@ plot_frq(., ingreso_percapita,
 Finalmente, si queremos presentar gráficos de violín, usamos este código
           
 ```{r casen violin, echo=TRUE, message=FALSE, warning=FALSE, results='markup'}
-datos_proc %>%  filter(ingreso_percapita <= 2000000) %>%
-    plot_frq(., ingreso_percapita,
+datos_proc %>%  filter(ing_pc <= 2000000) %>%
+    plot_frq(., ing_pc,
           title = "Gráfico de violín",
           type = "violin")
 ```
@@ -348,7 +355,4 @@ Como pueden ver, el único argumento que se modificaba era `type = `: es decir, 
 - Presentar ambas estimaciones
 - Generar y personalizar gráficos descriptivos univariados para variables categóricas y continuas
 
-# 7. Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
 

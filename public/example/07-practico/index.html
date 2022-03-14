@@ -670,6 +670,11 @@
 
       
       <li >
+        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
+      </li>
+
+      
+      <li >
         <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
       </li>
 
@@ -680,7 +685,7 @@
 
       
       <li >
-        <a href="/example/06-practico/">6: Transformar y seleccionar variables</a>
+        <a href="/example/06-practico/">6: Transformar variables</a>
       </li>
 
       
@@ -711,11 +716,6 @@
       
       <li >
         <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/04-practico/">3: Tipos de datos</a>
       </li>
 
       
@@ -796,27 +796,27 @@
                magrittr)
 </code></pre></div><h1 id="2-importar-datos">2. Importar datos</h1>
 <p>Una vez cargados los paquetes a utilizar, debemos continuar cargar los datos. Como indicamos al inicio, seguiremos utilizando los datos <strong>CASEN</strong> que fueron procesados en el práctico anterior, pero incorporando una nueva variable.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">load</span>(<span style="color:#e6db74">&#34;output/data/datos_proc.RData&#34;</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readRDS</span>(<span style="color:#e6db74">&#34;input/data/datos_proc.rds&#34;</span>)
 </code></pre></div><h1 id="3-explorar-datos">3. Explorar datos</h1>
 <p>Pero ¿cómo sabremos cuales son las nuevas variables que componen la base de datos procesada?, ¡Simple! usaremos dos códigos que vimos en el <a href="https://learn-r-uah.netlify.app/example/04-practico/#2-cargar-base-de-datos" target="_blank" rel="noopener">práctico 4</a> para conocer los <strong>datos procesados</strong> que usaremos en esta ocasión:</p>
 <p>Primero, usaremos el código <code>names</code>, que nos entrega los nombres de las variables que componen los datos</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">names</span>(datos_proc)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##  [1] &#34;sexo&#34;              &#34;edad_tramo&#34;        &#34;ocupacion&#34;        
-##  [4] &#34;o2&#34;                &#34;o3&#34;                &#34;o4&#34;               
-##  [7] &#34;o6&#34;                &#34;ingreso_percapita&#34; &#34;ife&#34;              
-## [10] &#34;horas_mens&#34;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##  [1] &#34;folio&#34;           &#34;sexo&#34;            &#34;edad&#34;            &#34;ocupacion&#34;      
+##  [5] &#34;ytoth&#34;           &#34;tot_per&#34;         &#34;ife&#34;             &#34;o2&#34;             
+##  [9] &#34;o3&#34;              &#34;o4&#34;              &#34;o6&#34;              &#34;ife_d&#34;          
+## [13] &#34;sexo_edad_tramo&#34; &#34;ing_pc&#34;
 </code></pre></div><p>Mientras que la función <code>head</code> nos entrega el nombre y las primeras 10 filas que lo componen.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(datos_proc)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 6 x 10
-##         sexo edad_tramo ocupacion        o2        o3        o4      o6 ingreso_percapi~
-##    &lt;dbl+lbl&gt; &lt;chr&gt;      &lt;fct&gt;     &lt;dbl+lbl&gt; &lt;dbl+lbl&gt; &lt;dbl+lbl&gt; &lt;dbl+l&gt;            &lt;dbl&gt;
-## 1 2 [Mujer]  Joven      No           1 [Sí]   NA        NA      NA               195416.
-## 2 1 [Hombre] Adulto     Sí          NA        NA        NA      NA               315861 
-## 3 2 [Mujer]  Joven      No           1 [Sí]   NA        NA      NA               315861 
-## 4 1 [Hombre] Adulto     Sí          NA        NA        NA      NA              1001389 
-## 5 1 [Hombre] Joven      No           2 [No]    2 [No]    2 [No]  2 [No]         1001389 
-## 6 2 [Mujer]  Adulto     No           2 [No]    2 [No]    1 [Sí]  2 [No]         1001389 
-## # ... with 2 more variables: ife &lt;dbl+lbl&gt;, horas_mens &lt;dbl&gt;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 6 x 14
+##       folio sexo     edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
+##       &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
+## 1   1.10e11 Mascul~    56 No        3.02e5       2 Sí    No    No    Sí    No   
+## 2   1.10e11 Femeni~    66 No        2.14e5       1 Sí    No    No    Sí    No   
+## 3   1.10e11 Femeni~    65 No        3.85e5       1 Sí    No    No    No    No   
+## 4   1.10e11 Femeni~    76 No        1.48e6       5 Sí    No    No    Sí    No   
+## 5   1.10e11 Femeni~    27 No        4.35e5       5 Sí    No    No    Sí    Sí   
+## 6   1.10e11 Femeni~    35 No        1.30e6       5 Sí    No    No    Sí    No   
+## # ... with 3 more variables: ife_d &lt;dbl&gt;, sexo_edad_tramo &lt;chr&gt;, ing_pc &lt;dbl&gt;
 </code></pre></div><p>Estos códigos nos permiten establecer una aproximación a los datos con los cuales trabajaremos, como los posibles valores que pueden adoptar, el tipo de dato para cada variable, entre otros. No obstante, por prácticos anteriores sabemos que podemos explorar nuestros datos con <code>sjPlot::view_df()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjPlot<span style="color:#f92672">::</span><span style="color:#a6e22e">view_df</span>(datos_proc,
                 encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>)
@@ -827,71 +827,95 @@
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">1</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">sexo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Sexo</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">Hombre<br>Mujer</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">folio</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">IdentificaciÃ³n hogar (comuna area seg viv hogar)</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: NA-NA</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">edad_tramo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">sexo</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">&lt;output omitted&gt;</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Masculino<br>Femenino</td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">ocupacion</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">o1. La semana pasada, Â¿trabajÃ³ al menos una hora?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2. Aunque no trabajÃ³ la semana pasada, Â¿realizÃ³<br>alguna actividad?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">1<br>2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ocupacion</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o1. La semana pasada, Â¿trabajÃ³ al menos una hora?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3. Aunque no trabajÃ³, Â¿tenÃ­a algÃºn empleo del<br>cual estuvo ausente temporalmente</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4. Â¿Ha trabajado alguna vez?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">1<br>2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">tot_per</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Total de personas en el hogar</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-6</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">7</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6. Â¿BuscÃ³ trabajo remunerado o cuenta propia en<br>las Ãºltimas cuatro semanas?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">8</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ingreso_percapita</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">Ingreso total del hogar</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0.0-225200000.0</em></td>
-</tr>
-<tr>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">9</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ife</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">y26d_hog. Ãšltimos 12 meses, Â¿alguien recibiÃ³<br>Ingreso Familiar de Emergencia?</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;">1<br>2<br>9</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No<br>No sabe</td>
 </tr>
 <tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">8</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o2. Aunque no trabajÃ³ la semana pasada, Â¿realizÃ³<br>alguna actividad?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">9</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o3. Aunque no trabajÃ³, Â¿tenÃ­a algÃºn empleo del<br>cual estuvo ausente temporalmente</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+</tr>
+<tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">10</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">horas_mens</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">y2_hrs. NÃºmero de horas mensuales pactadas con<br>empleador</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 1-720</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">o4. Â¿Ha trabajado alguna vez?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">11</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">o6. Â¿BuscÃ³ trabajo remunerado o cuenta propia en<br>las Ãºltimas cuatro semanas?</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">SÃ­<br>No</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">12</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ife_d</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0-0</em></td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">13</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">sexo_edad_tramo</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;">&lt;output omitted&gt;</td>
+</tr>
+<tr>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">14</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ing_pc</td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0.0-2105347.0</em></td>
 </tr>
 </table>
 <h1 id="4-descripción-de-variables">4. Descripción de variables</h1>
@@ -901,25 +925,25 @@
 <h3 id="media">Media</h3>
 <p>Para conocer la media de una variable se utiliza la función <code>mean()</code>, cuya estructura es:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>(datos<span style="color:#f92672">$</span>variable, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-</code></pre></div><p>El argumento <code>na.rm=TRUE</code> excluye del cálculo a los casos perdidos. Si deséaramos estimar la media de <code>ingreso_percapita</code>, debemos codificar lo siguiente</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>(datos_proc<span style="color:#f92672">$</span>ingreso_percapita, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 355472.1
+</code></pre></div><p>El argumento <code>na.rm=TRUE</code> excluye del cálculo a los casos perdidos. Si deséaramos estimar la media de <code>ing_pc</code>, debemos codificar lo siguiente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>(datos_proc<span style="color:#f92672">$</span>ing_pc, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 169531.3
 </code></pre></div><h3 id="media-recortada">Media recortada</h3>
-<p>Pero, ¿qué pasa si, dada la distribución de los valores de la variable <code>ingreso_percapita</code>, su media se ve fuertemente afectadas por casos atípicos o fuera de rango (por ejemplo, que esta adopte un valor más alto producto de una alta concentración de ingresos)? En tal caso, una buena manera de evitar el efecto de casos influyentes en la estimación pasa por calcular la media recortada, incorporando el argumento <code>trim</code> para excluir al 5% de la muestra en la estimación (es decir, el 2.5% de cada extremo)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>(datos_proc<span style="color:#f92672">$</span>ingreso_percapita, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>, trim <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025</span>)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 305707.9
-</code></pre></div><p>¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de 4.9764257\times 10^{4}.</p>
-<p>Una vez conocemos el valor medio de la variable <code>ingreso_percapita</code>, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana!</p>
+<p>Pero, ¿qué pasa si, dada la distribución de los valores de la variable <code>ing_pc</code>, su media se ve fuertemente afectadas por casos atípicos o fuera de rango (por ejemplo, que esta adopte un valor más alto producto de una alta concentración de ingresos)? En tal caso, una buena manera de evitar el efecto de casos influyentes en la estimación pasa por calcular la media recortada, incorporando el argumento <code>trim</code> para excluir al 5% de la muestra en la estimación (es decir, el 2.5% de cada extremo)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">mean</span>(datos_proc<span style="color:#f92672">$</span>ing_pc, na.rm<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>, trim <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.025</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 159720.1
+</code></pre></div><p>¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de 9811.1762637.</p>
+<p>Una vez conocemos el valor medio de la variable <code>ing_pc</code>, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana!</p>
 <h3 id="mediana">Mediana</h3>
 <p>¿Cuál es el ingreso per cápita máximo al que puede acceder el 50% de los hogares chilenos en el momento en que se recolectaron los datos de CASEN 2020? Para el cálculo de la mediana se utiliza la función <code>median()</code>, que presenta una estructura similar a la de <code>mean()</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">median</span>(datos<span style="color:#f92672">$</span>variable, na.rm <span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">median</span>(datos_proc<span style="color:#f92672">$</span>ingreso_percapita, na.rm <span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 229184.5
-</code></pre></div><p>Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de <strong>$229.184</strong> o menos.</p>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">median</span>(datos_proc<span style="color:#f92672">$</span>ing_pc, na.rm <span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 139660.4
+</code></pre></div><p>Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de 1.396604\times 10^{5} o menos.</p>
 <p>Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿debemos estimar la media y la mediana de cada todas nuestras variables <em>una por una</em>? <strong>¡No!</strong>, para ello <code>sjmisc</code> tiene diferentes funciones que nos permitirán estimar y presentar gráficamente tales estimaciones, y las conoceremos a continuación:</p>
 <h2 id="un-resumen">Un resumen</h2>
 <p>Por ello ocuparemos la función <code>descr()</code> de <code>sjmisc</code>, que nos presenta un resumen de los estadísticos básicos, incluyendo las etiquetas de cada variable.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</span>(datos_proc<span style="color:#f92672">$</span>ingreso_percapita,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</span>(datos_proc<span style="color:#f92672">$</span>ing_pc,
         show <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;all&#34;</span>,
         out <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;viewer&#34;</span>,
         encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>,
@@ -927,14 +951,14 @@
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## 
 ## ## Basic descriptive statistics
 ## 
-##  var    type                   label      n NA.prc     mean       sd   se
-##   dd numeric Ingreso total del hogar 144418      0 355472.2 834151.2 2195
-##        md  trimmed                   range      iqr   skew
-##  229184.5 266168.1 225200000 (0-225200000) 252277.6 152.42
+##  var    type label    n NA.prc     mean       sd      se       md  trimmed
+##   dd numeric    dd 1816      0 169531.3 139381.2 3270.74 139660.4 151367.6
+##                range      iqr skew
+##  2105347 (0-2105347) 132592.8 3.75
 </code></pre></div><p><strong>¡Atención!</strong> utilizaremos la función <code>descr()</code> <strong>sólo para variables de clase <code>numeric</code></strong> ¿Qué sentido tiene calcular el promedio de equipos de futbol, o de religiones que existen?</p>
 <p>Como ya adelantamos anteriorme, <code>sjmisc</code> dialoga con el universo <code>tidyverse</code>, por lo cual es posible complementar con funciones como <code>select()</code> de <code>dplyr</code>, seleccionando más de una variable a la vez para nuestras estimaciones de estadísticos de resumen. Además, el argumento <code>file =</code> nos permite <strong>exportar</strong> la tabla de estadísticos que acabamos de generar en formato .doc (¡y otros!).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>
-<span style="color:#a6e22e">select</span>(ingreso_percapita, ife, horas_mens) <span style="color:#f92672">%&gt;%</span> 
+<span style="color:#a6e22e">select</span>(ing_pc, ytoth, tot_per) <span style="color:#f92672">%&gt;%</span> 
 sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</span>(
   show <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;all&#34;</span>,
   out <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;viewer&#34;</span>,
@@ -943,84 +967,37 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## 
 ## ## Basic descriptive statistics
 ## 
-##                var    type
-##  ingreso_percapita numeric
-##                ife numeric
-##         horas_mens numeric
-##                                                                         label
-##                                                       Ingreso total del hogar
-##  y26d_hog. Últimos 12 meses, ¿alguien recibió Ingreso Familiar de Emergencia?
-##                      y2_hrs. Número de horas mensuales pactadas con empleador
-##       n NA.prc      mean        sd     se       md   trimmed
-##  144418   0.00 355472.15 834151.23 2195.0 229184.5 266168.13
-##  144418   0.00      1.77      1.00    0.0      2.0      1.70
-##   33338  76.92    152.83     54.69    0.3    180.0    159.83
-##                    range      iqr   skew
-##  225200000 (0-225200000) 252277.6 152.42
-##                  8 (1-9)      1.0   5.41
-##              719 (1-720)     34.0  -0.98
+##      var    type                         label    n NA.prc      mean        sd
+##   ing_pc numeric                        ing_pc 1816      0 169531.26 139381.18
+##    ytoth numeric       Ingreso total del hogar 1816      0 534175.29 445792.98
+##  tot_per numeric Total de personas en el hogar 1816      0      3.44      1.35
+##        se       md   trimmed               range      iqr skew
+##   3270.74 139660.4 151367.61 2105347 (0-2105347) 132592.8 3.75
+##  10461.05 453810.0 480588.77 8332378 (0-8332378) 437848.5 5.20
+##      0.03      3.0      3.43             5 (1-6)      2.0 0.08
 </code></pre></div><p>Como podemos ver, <code>descr()</code> nos presenta diversa información, como el nombre de la variable en <code>var</code>; su tipo en <code>type</code>; su etiqueta en <code>label</code>; los casos válidos en <code>n</code>; el porcentaje de casos perdidos en <code>NA.prc</code>; y las diversas medidas de tendencia central, posición de dispersión para cada una de nuestra variables, como la media y la mediana, los cuartiles, la desviación estándar, y muchas otras.</p>
 <h2 id="43-frecuencias">4.3. Frecuencias</h2>
 <h3 id="frecuencias-absolutas">Frecuencias absolutas</h3>
 <p>Podemos utilizar la función <code>table()</code> del paquete <code>base</code> de R, que presenta la frecuencia absoluta de cada un de los valores que puede alcanzar alguna de nuestras variables categóricas.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">table</span>(datos_proc<span style="color:#f92672">$</span>sexo) 
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## 
-##     1     2 
-## 65474 78944
+## Masculino  Femenino 
+##       364      1452
 </code></pre></div><p>También podemos emplear la función <code>flat_table()</code>, que permite agrupar la frecuencia absoluta de las categorías de dos o más de nuestras variables categóricas.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">flat_table</span>(datos_proc, sexo, ocupacion, ife)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##                  ife    Sí    No No sabe
-## sexo   ocupacion                        
-## Hombre Sí             9695 23979     473
-##        No            11263 19571     493
-## Mujer  Sí             7527 18488     317
-##        No            20084 31701     827
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##                     ife   Sí   No No sabe
+## sexo      ocupacion                      
+## Masculino Sí               0    0       0
+##           No             364    0       0
+## Femenino  Sí               0    0       0
+##           No            1452    0       0
 </code></pre></div><p>No obstante, el output de ambas funciones <strong>no se resulta visualmente atractivo</strong> ¿cómo podríamos reportar las frecuencias absolutas (y relativas) en nuestros informes? Si queremos una tabla general usaremos la función <code>frq()</code> de <code>sjmisc</code>, cuyo output es una tabla de frecuencia que presenta. Esta función devuelve una tabla de frecuencias absolutas y relativas para nuestras variables categóricas (<strong>¡genial!</strong>). Además, si nuestros datos son números etiquetados (<code>dbl + lbl</code>), presenta tanto los valores numéricos como las etiquetas asociadas a cada uno de ellos (¡<code>table()</code> sólo presenta los valores numéricos! no incluye metadata en su output)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">frq</span>(datos_proc<span style="color:#f92672">$</span>sexo,
         out <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;viewer&#34;</span>,
         title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Frecuencias&#34;</span>,
         encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UTF-8&#34;</span>,
         file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;output/figures/tabla2.doc&#34;</span>) 
-</code></pre></div><table style="border-collapse:collapse; border:none;">
-<caption style="font-weight: bold; text-align:left;">Frecuencias</caption>
-<tr>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left;text-align:left; ">val</th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: left;">label</th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;">frq</th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;">raw.prc</th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;">valid.prc</th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align: right;">cum.prc</th>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; ">1</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: left;">Hombre</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">65474</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">45.34</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">45.34</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">45.34</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; ">2</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: left;">Mujer</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">78944</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">54.66</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">54.66</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; text-align: right;">100.00</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left;text-align:left; border-bottom: 1px solid; ">NA</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: left;">NA</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;">0</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;">0.00</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;">NA</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: 1px solid; text-align: right;">NA</td>
-</tr>
-<tr>
-<td colspan="7" style="font-style:italic; border-top:double black; text-align:right;">total N=144418 &middot; valid N=144418 &middot; x&#772;=1.55 &middot; &sigma;=0.50
-</td>
-</tr>
-</table>
-<h1 id="5-visualización">5. Visualización</h1>
+</code></pre></div><h1 id="5-visualización">5. Visualización</h1>
 <p>Ahora que ya sabemos cómo obtener todos los estadísticos necesarios para escribir nuestros reportes, viene el segundo paso: <em>visualizar tales estadísticos</em>. ¡Siempre es mejor presentar un buen gráfico, antes de mostrar un número y ya! Para ello, emplearemos la librería <code>sjPlot</code></p>
 <p>Para visualizar las frecuencias usaremos la función <code>plot_frq</code>, que se estructura de la siguiente manera</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos,  <span style="color:#75715e">#base</span>
@@ -1032,7 +1009,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Gráfico de barras de frecuencias simple</li>
 </ol>
 <p>Si quisiéramos presentar gráficos que entreguen la frecuencia de cada categoría de respuesta, podemos presentarla de la siguiente forma:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, edad_tramo,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, sexo,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de frecuencias, barras&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bar&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_barras_simple-1.png" width="672" /></p>
@@ -1047,29 +1024,29 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <ol start="2">
 <li>Gráfico de puntos</li>
 </ol>
-<p>Para variables numéricas ¡podemos presentar un gráfico de puntos!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, ingreso_percapita,
+<p>¡Podemos presentar un gráfico de puntos!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, sexo,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de frecuencias, puntos&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_puntos_simple-1.png" width="672" /></p>
 <p>También podemos cambiar el orden de los ejes <em>x</em> e <em>y</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc<span style="color:#f92672">$</span>edad_tramo, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>, show.ci <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, sort.frq <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;desc&#34;</span>,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc<span style="color:#f92672">$</span>sexo_edad_tramo, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dot&#34;</span>, show.ci <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, sort.frq <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;desc&#34;</span>,
   coord.flip <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, expand.grid <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, vjust <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bottom&#34;</span>, hjust <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;left&#34;</span>, title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de frecuencias, puntos cambiado&#34;</span>
 )
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_puntos cambiados-1.png" width="672" /></p>
 <p>Pero, ¿cuál es el argumento que hace esto?</p>
 <p>A la hora de trabajar en R, siempre debemos conocer los argumentos que utilizamos en nuestros códigos, puede que un argumento sea innecesario o esté generando un error, para eso debemos consultar en la sección <strong>Help</strong>. Los pasos son los siguientes:</p>
 <p>a. Escribe en la consola anteponiendo un <code>?</code> en la función que quieres conocer, en este caso será <code>plot_frq?</code>, quedando así:</p>
-<p><img src="https://github.com/learn-R/06-class/raw/main/input/img/image.png" alt=""></p>
+<p><img src="https://github.com/learn-R/07-class/raw/main/input/img/image.png" alt=""></p>
 <p>b. Una vez le des a <em>Enter</em>, en la sección <strong>Help</strong> aparecerá información sobre la función, cómo se usa y qué se puede hacer con ella. En <strong>Arguments</strong> explicará la función de cada argumento</p>
-<p><img src="https://github.com/learn-R/06-class/raw/main/input/img/image2.png" alt=""></p>
+<p><img src="https://github.com/learn-R/07-class/raw/main/input/img/image2.png" alt=""></p>
 <p>¡Ahora podrán definir, con completo conocimiento, cómo están personalizando sus gráficos!</p>
 <ol start="3">
 <li>Histogramas</li>
 </ol>
-<p>Otra función que podemos hacer es graficar histogramas. Sin embargo, como ya hemos visto, la variable <code>ingreso_percapita</code> tiene casos fuera de rango que distorsionan la imagen que nos podemos hacer de la distribución de la variable en la muestra. Para solucionar esto, ocuparemos lo aprendido en <a href="https://learn-r-udp.netlify.app/example/03-practico/" target="_blank" rel="noopener">el práctico anterior</a> y filtraremos la variable, eliminando de la presentación los ingresos mayores a <code>$2.000.000</code>, con la función <code>filter</code> de <code>dplyr</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span> 
-<span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
+<p>Otra función que podemos hacer es graficar histogramas. Sin embargo, como ya hemos visto, la variable <code>ing_pc</code> tiene casos fuera de rango que distorsionan la imagen que nos podemos hacer de la distribución de la variable en la muestra. Para solucionar esto, ocuparemos lo aprendido en <a href="https://learn-r-udp.netlify.app/example/03-practico/" target="_blank" rel="noopener">el práctico anterior</a> y filtraremos la variable, eliminando de la presentación los ingresos mayores a <code>$2.000.000</code>, con la función <code>filter</code> de <code>dplyr</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ing_pc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span> 
+<span style="color:#a6e22e">plot_frq</span>(., ing_pc,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Histograma&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;histogram&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_histograma-1.png" width="672" /></p>
@@ -1077,8 +1054,8 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Densidad</li>
 </ol>
 <p>Ahora que vemos la distribución del histograma ¿cómo podemos graficar su densidad? es muy simple: podemos generar un gráfico de densidad con el siguiente código</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
-<span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ing_pc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
+<span style="color:#a6e22e">plot_frq</span>(., ing_pc,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de densidad&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;density&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_densidad-1.png" width="672" /></p>
@@ -1086,7 +1063,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Gráfico de líneas</li>
 </ol>
 <p>¿Que pasa si me piden un gráfico de lineas?, también hay una función para eso. En esta ocasión queremos graficar la variable <code>ife</code>, para lo que usaremos este código:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, ife,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">plot_frq</span>(datos_proc, tot_per,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de líneas&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;line&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen_lineas-1.png" width="672" /></p>
@@ -1094,8 +1071,8 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Gráfico de cajas</li>
 </ol>
 <p>Para graficar algunas medidas de posición de una variable y, en específico, los cuartiles de esta, podemos elaborar un gráfico de cajas, para lo cual usaremos este código:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
-<span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ing_pc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
+<span style="color:#a6e22e">plot_frq</span>(., ing_pc,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de caja&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;boxplot&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen box-1.png" width="672" /></p>
@@ -1103,8 +1080,8 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Gráfico de violín</li>
 </ol>
 <p>Finalmente, si queremos presentar gráficos de violín, usamos este código</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ingreso_percapita <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
-    <span style="color:#a6e22e">plot_frq</span>(., ingreso_percapita,
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span>  <span style="color:#a6e22e">filter</span>(ing_pc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2000000</span>) <span style="color:#f92672">%&gt;%</span>
+    <span style="color:#a6e22e">plot_frq</span>(., ing_pc,
           title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Gráfico de violín&#34;</span>,
           type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;violin&#34;</span>)
 </code></pre></div><p><img src="/example/07-practico_files/figure-html/casen violin-1.png" width="672" /></p>
@@ -1117,8 +1094,6 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
 <li>Presentar ambas estimaciones</li>
 <li>Generar y personalizar gráficos descriptivos univariados para variables categóricas y continuas</li>
 </ul>
-<h1 id="7-reporte-de-progreso">7. Reporte de progreso</h1>
-<p>¡Recuerda rellenar tu <a href="https://learn-r.formr.org/" target="_blank" rel="noopener">reporte de progreso</a>. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.</p>
 
                     </div>
 

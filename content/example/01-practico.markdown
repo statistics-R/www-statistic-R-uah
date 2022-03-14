@@ -290,7 +290,3 @@ Recuerden que el [video de asociado a este práctico](https://www.youtube.com/wa
 <iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=Zj8yL-nx9vM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
-
-## 8. Reporte de progreso
-
-¡Recuerda rellenar tu reporte de progreso! En [https://learn-r.formr.org/](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.

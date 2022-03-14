@@ -67,7 +67,7 @@ pacman::p_load(tidyverse,
 Como se señaló anteriormente, trabajaremos con datos de CASEN 2020, ya procesados con anterioridad
 
 ```{r readRDS, include=F}
-data <- readRDS(gzcon(url("https://github.com/learn-R/07-class/blob/main/input/data/casen_proc.rds?raw=true")))
+data <- readRDS(url("https://github.com/learn-R/09-class/raw/main/input/data/casen_proc.rds"))
 ```
 
 ```{r dim}
@@ -360,7 +360,3 @@ head(pobreza_sexo_p)
 2. Realizar cálculos de medias a nivel poblacional para variables continuas
 3. Realizar cálculos de proporciones y cantidades a nivel poblacional para variables categóricas
 4. Crear una tabla ancha (wide) para presentar nuestros cálculos.
-
-## 6. Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](https://learn-r.formr.org/). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.

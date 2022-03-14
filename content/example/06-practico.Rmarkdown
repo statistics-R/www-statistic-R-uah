@@ -62,7 +62,7 @@ pacman::p_load(tidyverse,
 ## 2. Cargar base de datos
 
 ```{r include=FALSE, warning= FALSE , message = F}
-
+datos <- readRDS(url("https://github.com/learn-R/06-class/raw/main/input/data/datos_proc.rds"))
 ```
 
 ```{r eval=FALSE, include=TRUE}
@@ -115,11 +115,6 @@ datos %$%
  
 *Ojo: %$% es el primo hermano de %>% (básicamente funcionan igual, por lo que podemos emplear tranquilamente %>% si nos encontramos trabajando con `mutate`)*
 {{< /div >}}
-
-```{r}
-datos %$% 
-  car::recode(.$ife, '9=NA')
-```
 
 ¡Recodifiquemos caracteres! incluso: podemos transformar inmediatamente en `factor`, y asignar un orden específico a los niveles que alcanza la variable. Incluyamos la recodificación en `mutate()`
 
@@ -287,7 +282,7 @@ datos %>%
 
 ¡Ahora que estamos seguras/os sobre-escribimos la base!
 ```{r}
-datos <- datos %>% 
+datos_proc <- datos %>% 
   mutate(sexo = car::recode(.$sexo, c('"Mujer"="Femenino";"Hombre"= "Masculino"'), 
               as.factor = T, # Transformar en factor
               levels = c("Masculino", "Femenino")),

@@ -670,6 +670,11 @@
 
       
       <li >
+        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
+      </li>
+
+      
+      <li >
         <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
       </li>
 
@@ -680,7 +685,7 @@
 
       
       <li >
-        <a href="/example/06-practico/">6: Transformar y seleccionar variables</a>
+        <a href="/example/06-practico/">6: Transformar variables</a>
       </li>
 
       
@@ -711,11 +716,6 @@
       
       <li >
         <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/04-practico/">3: Tipos de datos</a>
       </li>
 
       
@@ -807,9 +807,7 @@
 <h2 id="1-cargar-librerías">1. Cargar librerías</h2>
 <p>Como en las prácticas anteriores, empleamos la función <code>p_load</code> de la librería <code>pacman</code>. También utilizamos la función <code>install_github()</code> de <code>remotes</code> para poder instalar la librería <code>texreg</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remotes<span style="color:#f92672">::</span><span style="color:#a6e22e">install_github</span>(<span style="color:#e6db74">&#34;leifeld/texreg&#34;</span>, force <span style="color:#f92672">=</span> T)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">openssl</span>  (<span style="color:#ae81ff">1.4.5</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">2.0.0</span>) [<span style="color:#a6e22e">CRAN</span>]
-<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">jsonlite</span> (<span style="color:#ae81ff">1.7.2</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">1.8.0</span>) [<span style="color:#a6e22e">CRAN</span>]
-<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">openssl</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">successfully</span> <span style="color:#a6e22e">unpacked</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">MD5</span> <span style="color:#a6e22e">sums</span> <span style="color:#a6e22e">checked</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">jsonlite</span> (<span style="color:#ae81ff">1.7.2</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">1.8.0</span>) [<span style="color:#a6e22e">CRAN</span>]
 <span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">jsonlite</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">successfully</span> <span style="color:#a6e22e">unpacked</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">MD5</span> <span style="color:#a6e22e">sums</span> <span style="color:#a6e22e">checked</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">Warning</span>: <span style="color:#a6e22e">cannot</span> <span style="color:#a6e22e">remove</span> <span style="color:#a6e22e">prior</span> <span style="color:#a6e22e">installation</span> <span style="color:#a6e22e">of</span> <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">jsonlite</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## Warning in file.copy(savedcopy, lib, recursive = TRUE):
@@ -820,18 +818,18 @@
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## Warning: restored &#39;jsonlite&#39;
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> 
 <span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">The</span> <span style="color:#a6e22e">downloaded</span> <span style="color:#a6e22e">binary</span> <span style="color:#a6e22e">packages</span> <span style="color:#a6e22e">are</span> <span style="color:#a6e22e">in</span>
-<span style="color:#960050;background-color:#1e0010">##</span> 	<span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpEnzyH6</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">downloaded_packages</span>
+<span style="color:#960050;background-color:#1e0010">##</span> 	<span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">downloaded_packages</span>
 <span style="color:#960050;background-color:#1e0010">##</span>   
   
   
-   <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpEnzyH6</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes20f864f47e6e</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">...</span>
+   <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes88055f8457b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">...</span>
   
-<span style="color:#a6e22e">v</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpEnzyH6</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes20f864f47e6e</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> (<span style="color:#ae81ff">703</span><span style="color:#a6e22e">ms</span>)
+<span style="color:#a6e22e">v</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes88055f8457b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> (<span style="color:#ae81ff">431</span><span style="color:#a6e22e">ms</span>)
 <span style="color:#960050;background-color:#1e0010">##</span> 
   
   
   
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">preparing</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg</span><span style="color:#960050;background-color:#1e0010">&#39;</span>: (<span style="color:#ae81ff">3.2</span><span style="color:#a6e22e">s</span>)
+<span style="color:#f92672">-</span>  <span style="color:#a6e22e">preparing</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg</span><span style="color:#960050;background-color:#1e0010">&#39;</span>: (<span style="color:#ae81ff">2.2</span><span style="color:#a6e22e">s</span>)
 <span style="color:#960050;background-color:#1e0010">##</span>    <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span> <span style="color:#f92672">...</span>
   
    <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span> <span style="color:#f92672">...</span> 
@@ -841,17 +839,17 @@
   
   
   
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">installing</span> <span style="color:#a6e22e">the</span> <span style="color:#f92672">package</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">process</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">pages</span> (<span style="color:#ae81ff">2.7</span><span style="color:#a6e22e">s</span>)
+<span style="color:#f92672">-</span>  <span style="color:#a6e22e">installing</span> <span style="color:#a6e22e">the</span> <span style="color:#f92672">package</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">process</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">pages</span> (<span style="color:#ae81ff">643</span><span style="color:#a6e22e">ms</span>)
 <span style="color:#960050;background-color:#1e0010">##</span> 
   
   
   
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">saving</span> <span style="color:#a6e22e">partial</span> <span style="color:#a6e22e">Rd</span> <span style="color:#a6e22e">database</span> (<span style="color:#ae81ff">48.1</span><span style="color:#a6e22e">s</span>)
+<span style="color:#f92672">-</span>  <span style="color:#a6e22e">saving</span> <span style="color:#a6e22e">partial</span> <span style="color:#a6e22e">Rd</span> <span style="color:#a6e22e">database</span> (<span style="color:#ae81ff">27.5</span><span style="color:#a6e22e">s</span>)
 <span style="color:#960050;background-color:#1e0010">##</span> 
   
   
   
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">LF</span> <span style="color:#a6e22e">line</span><span style="color:#f92672">-</span><span style="color:#a6e22e">endings</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">source</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">make</span> <span style="color:#a6e22e">files</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">shell</span> <span style="color:#a6e22e">scripts</span> (<span style="color:#ae81ff">515</span><span style="color:#a6e22e">ms</span>)
+<span style="color:#f92672">-</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">LF</span> <span style="color:#a6e22e">line</span><span style="color:#f92672">-</span><span style="color:#a6e22e">endings</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">source</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">make</span> <span style="color:#a6e22e">files</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">shell</span> <span style="color:#a6e22e">scripts</span> (<span style="color:#ae81ff">474</span><span style="color:#a6e22e">ms</span>)
 <span style="color:#960050;background-color:#1e0010">##</span> 
   
   
@@ -874,7 +872,7 @@
                texreg)
 </code></pre></div><h2 id="2-cargar-datos">2. Cargar datos</h2>
 <p>Como se señaló anteriormente, en este práctico se trabajará con los datos de la <strong>Encuesta Suplementaria de Ingresos (ESI)</strong> en su versión 2020. Esta se encuentra en la carpeta &ldquo;input/data&rdquo;, en formato .rds, habiendo sido procesada anteriormente. Por ello, empleamos la función <code>readRDS()</code> de la librería <code>base</code> de R.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readRDS</span>(<span style="color:#a6e22e">url</span>(<span style="color:#e6db74">&#34;https://github.com/learn-R/10-class/raw/main/input/data/data_proc.rds&#34;</span>))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">readRDS</span>(<span style="color:#a6e22e">url</span>(<span style="color:#e6db74">&#34;https://github.com/learn-R/10.2-class/raw/main/input/data/data_proc.rds&#34;</span>))
 </code></pre></div><p>Podemos darnos cuenta de que el set de datos presenta 26.821 observaciones (o filas), y 7 variables (o columnas), que incluyen a las variables <code>ing_t_t</code>,, <code>edad</code>, <code>sexo</code>, <code>est_conyugal</code>, <code>ciuo08</code>, <code>fact_cal_esi</code> y <code>ing_medio</code>. Esta última discrimina si el sujeto presenta ingresos mayores o iguales (1) a la media de <code>ing_t_t</code> o no (0). Para mayor detalle, revisar el script <code>proc.R</code> ubicado en la carpeta <code>R</code>, para profundizar en el tratamiento de los datos.</p>
 <h2 id="3-explorar-datos">3. Explorar datos</h2>
 <p>A continuación, usaremos la función <code>view_df()</code> del paquete <code>sjPlot</code>, que presenta un resumen de las variables contenidas en el set de datos, que nos permitirá identificar la <em>etiqueta</em> de cada variable y de cada una de sus alternativas de respuesta.</p>
@@ -2479,8 +2477,6 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
 <li><a href="https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg">texreg</a></li>
 <li><a href="https://cran.r-project.org/web/packages/survey/survey.pdf">survey</a></li>
 </ul>
-<h1 id="9-reporte-de-progreso">9. Reporte de progreso</h1>
-<p>¡Recuerda rellenar tu <a href="">reporte de progreso</a>. En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.</p>
 
 </div>
 
@@ -2500,14 +2496,14 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/example/06-practico/" rel="next">Transformar y seleccionar variables</a>
+    <a href="/example/06-practico/" rel="next">Transformar variables</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/example/03-practico/" rel="prev">Importar, explorar y limpiar datos</a>
+    <a href="/example/04-practico/" rel="prev">Importar, explorar y exportar datos</a>
   </div>
   
 </div>

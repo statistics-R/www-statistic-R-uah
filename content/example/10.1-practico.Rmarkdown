@@ -60,7 +60,7 @@ Una vez cargado los paquetes a utilizar, debemos cargar los datos procesados.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-datos <- readRDS(url("https://github.com/learn-R/09-class/raw/main/output/data/datos_proc.rds"))
+datos <- readRDS(url("https://github.com/learn-R/10.1-class/raw/main/input/data/datos_proc.rds"))
 
 ```
 
@@ -450,7 +450,7 @@ modelo5$fitted.values
 
 ```{r}
 get_model_data(modelo5, 
-               type = c("pred"))
+               type = "pred")
 get_model_data(modelo5, 
                type = "pred", 
                terms = "sexo")
@@ -558,7 +558,3 @@ En este práctico aprendimos a
 - [sjPlot](https://strengejacke.github.io/sjPlot/) 
 - [tidyverse](https://www.tidyverse.org/packages/)
 - [magrittr](https://magrittr.tidyverse.org/)
-
-# 9. Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.

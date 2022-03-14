@@ -414,7 +414,3 @@ La actividad tendrá relación con la entrega de la [**Tarea 1**](). Esta activi
 - [Tutoriales Markdown](https://rmarkdown.rstudio.com/lesson-1.html) 
 - [cheatsheets](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 - Para practicar ir a [Tutorial de Markdown](https://www.markdowntutorial.com/es/)
-
-## 6. Reporte de progreso
-
-¡Recuerda rellenar tu reporte de progreso! En [https://learn-r.formr.org/](https://learn-r.formr.org/). Te llegó un código único a tu correo electrónico. Mediante él debes acceder para actualizar tu estado de avance del curso.

@@ -56,9 +56,7 @@ remotes::install_github("leifeld/texreg", force = T)
 ```
 
 ```
-## openssl  (1.4.5 -> 2.0.0) [CRAN]
 ## jsonlite (1.7.2 -> 1.8.0) [CRAN]
-## package 'openssl' successfully unpacked and MD5 sums checked
 ## package 'jsonlite' successfully unpacked and MD5 sums checked
 ```
 
@@ -81,18 +79,18 @@ remotes::install_github("leifeld/texreg", force = T)
 ```
 ## 
 ## The downloaded binary packages are in
-## 	C:\Users\nicol\AppData\Local\Temp\RtmpEnzyH6\downloaded_packages
+## 	C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\downloaded_packages
 ##   
   
   
-   checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpEnzyH6\remotes20f864f47e6e\leifeld-texreg-d7e1ba8/DESCRIPTION' ...
+   checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\remotes88055f8457b\leifeld-texreg-d7e1ba8/DESCRIPTION' ...
   
-v  checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpEnzyH6\remotes20f864f47e6e\leifeld-texreg-d7e1ba8/DESCRIPTION' (703ms)
+v  checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\remotes88055f8457b\leifeld-texreg-d7e1ba8/DESCRIPTION' (431ms)
 ## 
   
   
   
--  preparing 'texreg': (3.2s)
+-  preparing 'texreg': (2.2s)
 ##    checking DESCRIPTION meta-information ...
   
    checking DESCRIPTION meta-information ... 
@@ -102,17 +100,17 @@ v  checking DESCRIPTION meta-information
   
   
   
--  installing the package to process help pages (2.7s)
+-  installing the package to process help pages (643ms)
 ## 
   
   
   
--  saving partial Rd database (48.1s)
+-  saving partial Rd database (27.5s)
 ## 
   
   
   
--  checking for LF line-endings in source and make files and shell scripts (515ms)
+-  checking for LF line-endings in source and make files and shell scripts (474ms)
 ## 
   
   
@@ -144,7 +142,7 @@ Como se señaló anteriormente, en este práctico se trabajará con los datos de
 
 
 ```r
-datos <- readRDS(url("https://github.com/learn-R/10-class/raw/main/input/data/data_proc.rds"))
+datos <- readRDS(url("https://github.com/learn-R/10.2-class/raw/main/input/data/data_proc.rds"))
 ```
 
 Podemos darnos cuenta de que el set de datos presenta 26.821 observaciones (o filas), y 7 variables (o columnas), que incluyen a las variables `ing_t_t`,, `edad`, `sexo`, `est_conyugal`, `ciuo08`, `fact_cal_esi` y `ing_medio`. Esta última discrimina si el sujeto presenta ingresos mayores o iguales (1) a la media de `ing_t_t` o no (0). Para mayor detalle, revisar el script `proc.R` ubicado en la carpeta `R`, para profundizar en el tratamiento de los datos. 
@@ -2001,7 +1999,3 @@ En este práctico aprendimos a
 
 - [texreg](https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg) 
 - [survey](https://cran.r-project.org/web/packages/survey/survey.pdf)
-
-# 9. Reporte de progreso
-
-¡Recuerda rellenar tu [reporte de progreso](). En tu correo electrónico está disponible el código mediante al cuál debes acceder para actualizar tu estado de avance del curso.
