@@ -178,9 +178,8 @@ Empleador cotiza en prevision (AFP)
 <p>Las variables de tipo <code>Factor</code> son las ideales a la hora de trabajar con variables de tipo nominal u ordinal. Esto se debe a dos motivos: en primer lugar, su comptabilidad con librerías como <code>sjPlot</code>, <code>sjmisc</code> o <code>ggplot2</code>, que nos permiten presentar de manera cómoda estos datos; así como su compatibilidad con funciones dedicadas a la generación de distintos modelos estadísticos, como modelos de análisis de clases latentes o de regresión. En segundo término, porque cabe la posibilidad de <strong>establecer un orden (distinto al alfabético)</strong> entre las categorías de la variable, lo cual es <em>fundamental</em> si trabajamos con variables ordinales, como el <strong>nivel educacional</strong> de las/os informantes</p>
 <pre class="r"><code>class(data$nivel)</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
-<pre><code>## 
-## Nivel educacional mas alto aprobado (x) &lt;categorical&gt;
-## # total N=71935  valid N=71152  mean=2.43  sd=1.40
+<pre><code>## Nivel educacional mas alto aprobado (x) &lt;categorical&gt; 
+## # total N=71935 valid N=71152 mean=2.43 sd=1.40
 ## 
 ## Value                     |     N | Raw % | Valid % | Cum. %
 ## ------------------------------------------------------------
@@ -212,9 +211,8 @@ Empleador cotiza en prevision (AFP)
 <p>Es bastante usual (como veremos en el siguiente práctico) que, aunque estemos trabajando en lenguaje R, los datos que emplearemos estén en formato SPSS (.sav) o Stata (.dta). En ambos casos, los datos (sobre todo las variables categóricas) presentan una estructura de números etiquetados, donde el valor principal de la variable es un número, pero el cual presenta una etiqueta en palabras que identifica a qué refiere cada una de las categorías de la variable. En general, cuando preguntamos sobre la clase de una variable dbl+lbl, obtendremos algo así:</p>
 <pre class="r"><code>class(data$a6)</code></pre>
 <pre><code>## [1] &quot;haven_labelled&quot; &quot;vctrs_vctr&quot;     &quot;double&quot;</code></pre>
-<pre><code>## 
-## a6. ¿Por qué razón no trabajó la semana pasada? (x) &lt;numeric&gt;
-## # total N=71935  valid N=2635  mean=5.39  sd=3.56
+<pre><code>## a6. ¿Por qué razón no trabajó la semana pasada? (x) &lt;numeric&gt; 
+## # total N=71935 valid N=2635 mean=5.39 sd=3.56
 ## 
 ## Value |                                                 Label |     N | Raw % | Valid % | Cum. %
 ## ------------------------------------------------------------------------------------------------
@@ -243,9 +241,8 @@ Empleador cotiza en prevision (AFP)
 <p>¡El último tipo de dato! Los valores lógicos (<code>logical</code>) son bastante frecuentes al estar trabajando con datos</p>
 <pre class="r"><code>class(data$afp)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre><code>## 
-## Empleador cotiza en prevision (AFP) (x) &lt;lgl&gt;
-## # total N=71935  valid N=19976  mean=0.82  sd=0.38
+<pre><code>## Empleador cotiza en prevision (AFP) (x) &lt;lgl&gt; 
+## # total N=71935 valid N=19976 mean=0.82 sd=0.38
 ## 
 ## Value |     N | Raw % | Valid % | Cum. %
 ## ----------------------------------------
