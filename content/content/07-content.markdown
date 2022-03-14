@@ -87,13 +87,8 @@ slides: "06-slides"
 # Materiales adicionales
 
 -   [Tidy Messy data](https://tidyr.tidyverse.org/)
-
 -   <i class="fab fa-youtube"></i> Tutoriales, [“Learn-R”](https://www.youtube.com/watch?v=UOoMzaWOQJA)
-
     -   [<i class="fas fa-file-o"></i> Descomprimir archivos](/resource/unzipping)
     -   [<i class="fas fa-file-o"></i> Tipos de datos en R](/resource/r-data-types-example)
     -   [<i class="fas fa-file-o"></i> Tipos de variables](/resource/r-data-types)
-
 -   <i class="fas fa-book"></i> Hadley Wickham, [“Tidy data”](https://r4ds.had.co.nz/tidy-data.html)
-
--   <i class="fas fa-external-link-square-alt"></i> [Contestar reporte de registro](https://learn-r.formr.org)
