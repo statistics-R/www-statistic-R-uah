@@ -94,9 +94,13 @@ slides: "09-slides"
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `09-clase.zip`](https://github.com/learn-R/10-class/raw/main/09-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `10.1-clase.zip`](https://github.com/learn-R/10.1-class/raw/main/10.1-clase.zip)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/09-practico/)
+-   [<i class="fas fa-file-archive"></i> `10.2-clase.zip`](https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip)
+
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/10.1-practico/)
+
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/10.2-practico/)
 
 # Tareas
 

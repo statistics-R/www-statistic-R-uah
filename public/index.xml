@@ -949,11 +949,12 @@ los pasos a seguir&lt;/p&gt;
 &lt;/div&gt;
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/03-class/raw/main/03-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;03-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/example/03-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/03-class/raw/main/03-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;03-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;/example/03-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
 &lt;ul&gt;
@@ -2010,10 +2011,10 @@ posibles &lt;strong&gt;interacciones&lt;/strong&gt; entre las variables que no h
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/10-class/raw/main/10-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;10-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/11-class/raw/main/11-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;11-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;/example/10-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/example/11-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;examen&#34;&gt;Examen&lt;/h1&gt;
@@ -2223,10 +2224,16 @@ posibles &lt;strong&gt;interacciones&lt;/strong&gt; entre las variables que no h
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/10-class/raw/main/09-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;09-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/10.1-class/raw/main/10.1-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;10.1-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;/example/09-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;10.2-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;/example/10.1-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;/example/10.2-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;tareas&#34;&gt;Tareas&lt;/h1&gt;
@@ -2717,10 +2724,10 @@ Este punto será esencial para lo que más adelante veremos como condición de s
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/07-class/raw/main/07-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;07-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/09-class/raw/main/09-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;09-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;/example/07-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/example/09-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
@@ -3227,13 +3234,10 @@ pobreza_sexo_p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; 
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/07-class/raw/main/07-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;07-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;lt;i class=“fas fa-laptop-code”&lt;/i&gt;Datos para la clase - ESI&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;/example/06-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/example/07-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
@@ -3639,13 +3643,10 @@ sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/08-class/raw/main/08-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;08-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&amp;lt;i class=“fas fa-laptop-code”&lt;/i&gt;Datos para la clase - ESI&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;/example/06-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/example/08-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
@@ -4728,7 +4729,7 @@ Este punto será esencial para lo que más adelante veremos como condición de s
     </item>
     
     <item>
-      <title>Selección de variables y filtrar datos</title>
+      <title>Limpieza de datos</title>
       <link>/content/05-content/</link>
       <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
       <guid>/content/05-content/</guid>
@@ -4810,11 +4811,115 @@ Este punto será esencial para lo que más adelante veremos como condición de s
 &lt;/ul&gt;
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/04-class/raw/main/04-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;04-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/05-class/raw/main/05-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;05-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/example/04-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/example/05-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/unzipping&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Descomprimir archivos&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types-example&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de datos en R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/resource/r-data-types&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de variables&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Data Science: How is it Different To Statistics?”&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transformación de variales</title>
+      <link>/content/06-content/</link>
+      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>/content/06-content/</guid>
+      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
+&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link active&#34; id=&#34;básicos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#básicos&#34; role=&#34;tab&#34; aria-controls=&#34;básicos&#34; aria-selected=&#34;true&#34;&gt;Básicos&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;procesar-datos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#procesar-datos&#34; role=&#34;tab&#34; aria-controls=&#34;procesar-datos&#34; aria-selected=&#34;false&#34;&gt;Procesar datos&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;operadores-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#operadores&#34; role=&#34;tab&#34; aria-controls=&#34;operadores&#34; aria-selected=&#34;false&#34;&gt;Operadores&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;seleccionar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#seleccionar&#34; role=&#34;tab&#34; aria-controls=&#34;seleccionar&#34; aria-selected=&#34;false&#34;&gt;Seleccionar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;filtrar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#filtrar&#34; role=&#34;tab&#34; aria-controls=&#34;filtrar&#34; aria-selected=&#34;false&#34;&gt;Filtrar&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;crear-variables-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#crear-variables&#34; role=&#34;tab&#34; aria-controls=&#34;crear-variables&#34; aria-selected=&#34;false&#34;&gt;Crear variables&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&#34;nav-item&#34;&gt;
+&lt;a class=&#34;nav-link&#34; id=&#34;pipe-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#pipe&#34; role=&#34;tab&#34; aria-controls=&#34;pipe&#34; aria-selected=&#34;false&#34;&gt;Pipe&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
+&lt;div id=&#34;básicos&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;básicos-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#11&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;procesar-datos&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;procesar-datos-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#14&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;operadores&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;operadores-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#29&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;seleccionar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;seleccionar-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#35&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;filtrar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;filtrar-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#45&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;crear-variables&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;crear-variables-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#52&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pipe&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;pipe-tab&#34;&gt;
+&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
+&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#55&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;fyi&#34;&gt;
+&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
+&lt;/div&gt;
+&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;/example/06-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
 &lt;ul&gt;
@@ -5352,109 +5457,6 @@ TRUE ~ NA_real_)&lt;/p&gt;
 &lt;li&gt;Construir variables condicionales con &lt;code&gt;ifelse()&lt;/code&gt; y &lt;code&gt;case_when()&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Construir índices agrupando por filas con &lt;code&gt;rowwise()&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Transformación de variales</title>
-      <link>/content/06-content/</link>
-      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>/content/06-content/</guid>
-      <description>&lt;h1 id=&#34;slides&#34;&gt;Slides&lt;/h1&gt;
-&lt;p&gt;&lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.html&#34;&gt;&lt;i class=&#34;fas fa-external-link-alt&#34;&gt;&lt;/i&gt; Ver las slides en una nueva ventana&lt;/a&gt; &lt;a class=&#34;btn btn-primary btn-lg&#34; target=&#34;_blank&#34; href=&#34;/slides/04-slides.pdf&#34; role=&#34;button&#34;&gt;&lt;i class=&#34;far fa-file-pdf&#34;&gt;&lt;/i&gt; Descargar las slides en PDF&lt;/a&gt;&lt;/p&gt;
-&lt;ul class=&#34;nav nav-tabs&#34; id=&#34;slide-tabs&#34; role=&#34;tablist&#34;&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link active&#34; id=&#34;básicos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#básicos&#34; role=&#34;tab&#34; aria-controls=&#34;básicos&#34; aria-selected=&#34;true&#34;&gt;Básicos&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;procesar-datos-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#procesar-datos&#34; role=&#34;tab&#34; aria-controls=&#34;procesar-datos&#34; aria-selected=&#34;false&#34;&gt;Procesar datos&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;operadores-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#operadores&#34; role=&#34;tab&#34; aria-controls=&#34;operadores&#34; aria-selected=&#34;false&#34;&gt;Operadores&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;seleccionar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#seleccionar&#34; role=&#34;tab&#34; aria-controls=&#34;seleccionar&#34; aria-selected=&#34;false&#34;&gt;Seleccionar&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;filtrar-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#filtrar&#34; role=&#34;tab&#34; aria-controls=&#34;filtrar&#34; aria-selected=&#34;false&#34;&gt;Filtrar&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;crear-variables-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#crear-variables&#34; role=&#34;tab&#34; aria-controls=&#34;crear-variables&#34; aria-selected=&#34;false&#34;&gt;Crear variables&lt;/a&gt;
-&lt;/li&gt;
-&lt;li class=&#34;nav-item&#34;&gt;
-&lt;a class=&#34;nav-link&#34; id=&#34;pipe-tab&#34; data-toggle=&#34;tab&#34; href=&#34;#pipe&#34; role=&#34;tab&#34; aria-controls=&#34;pipe&#34; aria-selected=&#34;false&#34;&gt;Pipe&lt;/a&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div id=&#34;slide-tabs&#34; class=&#34;tab-content&#34;&gt;
-&lt;div id=&#34;básicos&#34; class=&#34;tab-pane fade show active&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;básicos-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#11&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;procesar-datos&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;procesar-datos-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#14&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;operadores&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;operadores-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#29&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;seleccionar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;seleccionar-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#35&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;filtrar&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;filtrar-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#45&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;crear-variables&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;crear-variables-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#52&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pipe&#34; class=&#34;tab-pane fade&#34; role=&#34;tabpanel&#34; aria-labelledby=&#34;pipe-tab&#34;&gt;
-&lt;div class=&#34;embed-responsive embed-responsive-16by9&#34;&gt;
-&lt;iframe class=&#34;embed-responsive-item&#34; src=&#34;/slides/04-slides.html#55&#34;&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;fyi&#34;&gt;
-&lt;strong&gt;¿Cómo ocupar&lt;/strong&gt;: Si presionas &lt;kbd&gt;?&lt;/kbd&gt; (o &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;/&lt;/kbd&gt;) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
-&lt;/div&gt;
-&lt;h1 id=&#34;video-de-la-clase&#34;&gt;Video de la clase&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zoom.us/rec/share/aOFcfYCGklH3cO41xd-WeFzC5oLS72a61wec84SYdTdDTiP-aGjV4rRWWWOj3mcj.1tjrSMe4RddJNO9i?startTime=1630364611000&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-video&#34;&gt;&lt;/i&gt; &lt;code&gt;Video de la clase&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/04-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;04-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/example/06-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;i class=&#34;fab fa-youtube&#34;&gt;&lt;/i&gt; Tutoriales, &lt;a href=&#34;https://www.youtube.com/watch?v=UOoMzaWOQJA&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Learn-R”&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/unzipping&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Descomprimir archivos&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/r-data-types-example&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de datos en R&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/resource/r-data-types&#34;&gt;&lt;i class=&#34;fas fa-file-o&#34;&gt;&lt;/i&gt; Tipos de variables&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;i class=&#34;fas fa-book&#34;&gt;&lt;/i&gt; Hadley Wickham, &lt;a href=&#34;http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;“Data Science: How is it Different To Statistics?”&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
@@ -7230,11 +7232,11 @@ or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef &lt;span style=&#
 &lt;/ul&gt;
 &lt;h1 id=&#34;material-de-la-clase&#34;&gt;Material de la clase&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/03-class/raw/main/03-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;03-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/04-class/raw/main/04-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;04-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;-&lt;a href=&#34;https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-&lt;Datos para la clase&#34;&gt;&lt;/i&gt; &lt;code&gt;datos&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;/example/03-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/example/04-practico/&#34;&gt;&lt;i class=&#34;fas fa-laptop-code&#34;&gt;&lt;/i&gt; Práctico&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;materiales-adicionales&#34;&gt;Materiales adicionales&lt;/h1&gt;
 &lt;ul&gt;

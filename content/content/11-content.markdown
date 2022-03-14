@@ -64,9 +64,9 @@ slides: "10-slides"
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `10-clase.zip`](https://github.com/learn-R/10-class/raw/main/10-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `11-clase.zip`](https://github.com/learn-R/11-class/raw/main/11-clase.zip)
 
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/10-practico/)
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/11-practico/)
 
 # Examen
 

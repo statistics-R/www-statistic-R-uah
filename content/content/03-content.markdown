@@ -90,8 +90,6 @@ slides: "03-slides"
 
 -   [<i class="fas fa-file-archive"></i> `03-clase.zip`](https://github.com/learn-R/03-class/raw/main/03-clase.zip)
 
-\-[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
-
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/03-practico/)
 
 # Materiales adicionales

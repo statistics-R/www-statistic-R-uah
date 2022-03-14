@@ -1,6 +1,6 @@
 ---
 title: "Transformación de variales"
-linktitle: "6:Transformación de variales"
+linktitle: "6: Transformación de variales"
 date: "2021-08-30"
 start_date: "2021-08-23"
 end_date: "2021-09-06"
@@ -50,9 +50,7 @@ slide_tabs(slide_details, "/slides/04-slides.html")
 
 # Material de la clase
 
-- [<i class="fas fa-file-archive"></i> `04-clase.zip`](https://github.com/learn-R/04-class/raw/main/06-clase.zip)
-
--[<i class="fas fa-<Datos para la clase"></i> `datos`](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing)
+- [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
 
 - [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
 

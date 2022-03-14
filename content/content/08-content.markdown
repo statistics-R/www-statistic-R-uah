@@ -80,11 +80,9 @@ slides: "06-slides"
 
 # Material de la clase
 
--   [<i class="fas fa-file-archive"></i> `06-clase.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
+-   [<i class="fas fa-file-archive"></i> `08-clase.zip`](https://github.com/learn-R/08-class/raw/main/08-clase.zip)
 
--   [&lt;i class=“fas fa-laptop-code”</i>Datos para la clase - ESI](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos)
-
--   [<i class="fas fa-laptop-code"></i> Práctico](/example/06-practico/)
+-   [<i class="fas fa-laptop-code"></i> Práctico](/example/08-practico/)
 
 # Materiales adicionales
 
