@@ -66,7 +66,7 @@ datos <- readRDS(url("https://github.com/learn-R/06-class/raw/main/input/data/da
 ```
 
 ```{r eval=FALSE, include=TRUE}
-datos <- read_dta("input/Casen en Pandemia 2020 STATA.dta") 
+datos <- read_dta("input/data/datos_proc.rds") 
 ```
 
 En el panel **Environment**, visualizamos el nuevo objeto, que posee `r format( nrow(datos), decimal.mark="," , big.mark = ".")` observaciones (o filas), y `r format(ncol(datos), decimal.mark="," , big.mark = ".")` variables (columnas)

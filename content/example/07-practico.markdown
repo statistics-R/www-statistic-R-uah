@@ -88,12 +88,12 @@ head(datos_proc)
 ## # A tibble: 6 x 14
 ##       folio sexo     edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
 ##       <dbl> <fct>   <dbl> <fct>      <dbl>   <dbl> <fct> <fct> <fct> <fct> <fct>
-## 1   1.10e11 Mascul~    56 No        3.02e5       2 Sí    No    No    Sí    No   
-## 2   1.10e11 Femeni~    66 No        2.14e5       1 Sí    No    No    Sí    No   
-## 3   1.10e11 Femeni~    65 No        3.85e5       1 Sí    No    No    No    No   
-## 4   1.10e11 Femeni~    76 No        1.48e6       5 Sí    No    No    Sí    No   
-## 5   1.10e11 Femeni~    27 No        4.35e5       5 Sí    No    No    Sí    Sí   
-## 6   1.10e11 Femeni~    35 No        1.30e6       5 Sí    No    No    Sí    No   
+## 1   1.10e11 Mascul~    20 No        3.00e6       3 No    No    No    No    No   
+## 2   1.10e11 Femeni~    56 No        3.00e6       3 No    No    No    Sí    No   
+## 3   1.10e11 Mascul~    77 No        6.10e5       2 No    No    No    Sí    No   
+## 4   1.10e11 Femeni~    60 No        6.10e5       2 No    No    No    Sí    No   
+## 5   1.10e11 Mascul~    18 No        1.32e6       4 Sí    No    No    No    No   
+## 6   1.10e11 Mascul~    82 No        1.11e6       4 No    No    No    Sí    No   
 ## # ... with 3 more variables: ife_d <dbl>, sexo_edad_tramo <chr>, ing_pc <dbl>
 ```
 
@@ -127,7 +127,7 @@ sjPlot::view_df(datos_proc,
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 15-110</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
@@ -140,7 +140,7 @@ sjPlot::view_df(datos_proc,
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-92666667</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
@@ -200,7 +200,7 @@ sjPlot::view_df(datos_proc,
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">14</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">ing_pc</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee"></td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0.0-2105347.0</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee" colspan="2"><em>range: 0.0-18533333.4</em></td>
 </tr>
 
 </table>
@@ -231,7 +231,7 @@ mean(datos_proc$ing_pc, na.rm=TRUE)
 ```
 
 ```
-## [1] 169531.3
+## [1] 270487.2
 ```
 
 ### Media recortada
@@ -244,10 +244,10 @@ mean(datos_proc$ing_pc, na.rm=TRUE, trim = 0.025)
 ```
 
 ```
-## [1] 159720.1
+## [1] 240518
 ```
 
-¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de 9811.1762637.
+¿Ven cómo se modifica el valor que obtenemos a partir de esta estimación? La diferencia entre la media y la media recortada al 5% de los ingresos per cápita es de 2.9969194\times 10^{4}.
 
 Una vez conocemos el valor medio de la variable `ing_pc`, podemos tener una idea más clara de cómo se caracterizan los ingresos per cápita del país a nivel general entre quienes fueron encuestada/os en CASEN. Sin embargo, hay otros estadísticos que nos permitirán generar una representación más clara de los ingresos de los hogares chilenos ¡vamos a estimar la mediana! 
 
@@ -266,10 +266,10 @@ median(datos_proc$ing_pc, na.rm =TRUE)
 ```
 
 ```
-## [1] 139660.4
+## [1] 197508
 ```
 
-Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de 1.396604\times 10^{5} o menos.
+Ahora ya sabemos que un 50% de los hogares en Chile tiene un ingreso per cápita de 1.97508\times 10^{5} o menos.
 
 Ya tenemos los estadísticos principales, pero ¿cómo los reportamos? ¿debemos estimar la media y la mediana de cada todas nuestras variables *una por una*? **¡No!**, para ello `sjmisc` tiene diferentes funciones que nos permitirán estimar y presentar gráficamente tales estimaciones, y las conoceremos a continuación:
 
@@ -292,10 +292,10 @@ sjmisc::descr(datos_proc$ing_pc,
 ## 
 ## ## Basic descriptive statistics
 ## 
-##  var    type label    n NA.prc     mean       sd      se       md  trimmed
-##   dd numeric    dd 1816      0 169531.3 139381.2 3270.74 139660.4 151367.6
-##                range      iqr skew
-##  2105347 (0-2105347) 132592.8 3.75
+##  var    type label     n NA.prc     mean       sd      se     md  trimmed
+##   dd numeric    dd 76935      0 270487.2 339959.2 1225.65 197508 218746.6
+##                      range      iqr  skew
+##  18533333.4 (0-18533333.4) 194679.3 13.49
 ```
 
 **¡Atención!** utilizaremos la función `descr()` **sólo para variables de clase `numeric`** ¿Qué sentido tiene calcular el promedio de equipos de futbol, o de religiones que existen?
@@ -318,14 +318,14 @@ sjmisc::descr(
 ## 
 ## ## Basic descriptive statistics
 ## 
-##      var    type                         label    n NA.prc      mean        sd
-##   ing_pc numeric                        ing_pc 1816      0 169531.26 139381.18
-##    ytoth numeric       Ingreso total del hogar 1816      0 534175.29 445792.98
-##  tot_per numeric Total de personas en el hogar 1816      0      3.44      1.35
-##        se       md   trimmed               range      iqr skew
-##   3270.74 139660.4 151367.61 2105347 (0-2105347) 132592.8 3.75
-##  10461.05 453810.0 480588.77 8332378 (0-8332378) 437848.5 5.20
-##      0.03      3.0      3.43             5 (1-6)      2.0 0.08
+##      var    type                         label     n NA.prc      mean
+##   ing_pc numeric                        ing_pc 76935      0 270487.24
+##    ytoth numeric       Ingreso total del hogar 76935      0 841208.14
+##  tot_per numeric Total de personas en el hogar 76935      0      3.32
+##          sd      se     md   trimmed                     range      iqr  skew
+##   339959.20 1225.65 197508 218746.62 18533333.4 (0-18533333.4) 194679.3 13.49
+##  1205921.22 4347.67 600000 664578.15     92666667 (0-92666667) 606322.0 23.32
+##        1.33    0.00      3      3.28                   5 (1-6)      2.0  0.21
 ```
 
 Como podemos ver, `descr()` nos presenta diversa información, como el nombre de la variable en `var`; su tipo en `type`; su etiqueta en `label`; los casos válidos en `n`; el porcentaje de casos perdidos en `NA.prc`; y las diversas medidas de tendencia central, posición de dispersión para cada una de nuestra variables, como la media y la mediana, los cuartiles, la desviación estándar, y muchas otras.
@@ -345,7 +345,7 @@ table(datos_proc$sexo)
 ```
 ## 
 ## Masculino  Femenino 
-##       364      1452
+##     28416     48519
 ```
 
 También podemos emplear la función `flat_table()`, que permite agrupar la frecuencia absoluta de las categorías de dos o más de nuestras variables categóricas.
@@ -356,12 +356,12 @@ flat_table(datos_proc, sexo, ocupacion, ife)
 ```
 
 ```
-##                     ife   Sí   No No sabe
-## sexo      ocupacion                      
-## Masculino Sí               0    0       0
-##           No             364    0       0
-## Femenino  Sí               0    0       0
-##           No            1452    0       0
+##                     ife    Sí    No No sabe
+## sexo      ocupacion                        
+## Masculino Sí                0     0       0
+##           No            10323 17640     453
+## Femenino  Sí                0     0       0
+##           No            18702 29032     785
 ```
 
 No obstante, el output de ambas funciones **no se resulta visualmente atractivo** ¿cómo podríamos reportar las frecuencias absolutas (y relativas) en nuestros informes? Si queremos una tabla general usaremos la función `frq()` de `sjmisc`, cuyo output es una tabla de frecuencia que presenta. Esta función devuelve una tabla de frecuencias absolutas y relativas para nuestras variables categóricas (**¡genial!**). Además, si nuestros datos son números etiquetados (`dbl + lbl`), presenta tanto los valores numéricos como las etiquetas asociadas a cada uno de ellos (¡`table()` sólo presenta los valores numéricos! no incluye metadata en su output)

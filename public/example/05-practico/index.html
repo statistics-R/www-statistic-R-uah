@@ -1143,8 +1143,7 @@ variable1 &gt;= 3
 </code></pre></div><p>Una vez identificamos los <em>valores nulos</em>, podemos proceder a <strong>eliminarlos</strong> del set de datos. El comando <code>na.omit()</code> eliminará <em>todas las filas</em> que presenten casos perdidos.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">nrow</span>(datos_proc)
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 185437
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">na.omit</span>(datos_proc) <span style="color:#75715e">#Eliminamos las filas con casos perdidos</span>
-<span style="color:#a6e22e">nrow</span>(datos_proc) <span style="color:#75715e">#La nueva base de datos tiene 5.387 filas y 4 columnas</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">nrow</span>(<span style="color:#a6e22e">na.omit</span>(datos_proc)) <span style="color:#75715e">#Eliminamos las filas con casos perdidos y contamos el nuevo numero de filas</span>
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## [1] 1920
 </code></pre></div><p>¡La próxima sesión aprenderemos a recodificarlas!</p>
 <h2 id="8-resumen-con-procesamiento-de-las-variables">8. Resumen con procesamiento de las variables</h2>
@@ -1152,13 +1151,11 @@ variable1 &gt;= 3
 <p>Como ya conocemos operadores que permiten concatenar procesos ( <code>%&gt;%</code>  y <code>%$%</code>) este procedimiento será mucho más fácil.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">%&gt;%</span> 
  <span style="color:#a6e22e">filter</span>(edad <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">15</span> <span style="color:#f92672">&amp;</span> tot_per <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">7</span>) <span style="color:#f92672">%&gt;%</span>
- <span style="color:#a6e22e">select</span>(folio, sexo, edad, ocupacion, ytoth, tot_per, ife <span style="color:#f92672">=</span> y26d_hog, o2, o3, o4, o6) <span style="color:#f92672">%&gt;%</span> 
- <span style="color:#a6e22e">na.omit</span>()
+ <span style="color:#a6e22e">select</span>(folio, sexo, edad, ocupacion, ytoth, tot_per, ife <span style="color:#f92672">=</span> y26d_hog, o2, o3, o4, o6) 
 </code></pre></div><p>¡Ahora que estamos seguras/os sobre-escribimos la base!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">datos_proc <span style="color:#f92672">&lt;-</span> datos_proc <span style="color:#f92672">%&gt;%</span> 
                <span style="color:#a6e22e">filter</span>(edad <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">15</span> <span style="color:#f92672">&amp;</span> tot_per <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">7</span>) <span style="color:#f92672">%&gt;%</span>
-               <span style="color:#a6e22e">select</span>(folio, sexo, edad, ocupacion, ytoth, tot_per, ife <span style="color:#f92672">=</span> y26d_hog, o2, o3, o4, o6) <span style="color:#f92672">%&gt;%</span> 
-               <span style="color:#a6e22e">na.omit</span>()
+               <span style="color:#a6e22e">select</span>(folio, sexo, edad, ocupacion, ytoth, tot_per, ife <span style="color:#f92672">=</span> y26d_hog, o2, o3, o4, o6)
 </code></pre></div><p>Podemos visualizar la base resultante a partir de <code>view_df()</code> de <code>sjPlot</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjPlot<span style="color:#f92672">::</span><span style="color:#a6e22e">view_df</span>(datos_proc)
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## Registered S3 methods overwritten by &#39;parameters&#39;:
@@ -1198,7 +1195,7 @@ variable1 &gt;= 3
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 15-110</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
@@ -1211,7 +1208,7 @@ variable1 &gt;= 3
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-225200000</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
@@ -1269,13 +1266,13 @@ proc_2 <span style="color:#f92672">&lt;-</span> proc_2[909<span style="color:#f9
                all <span style="color:#f92672">=</span> T) <span style="color:#75715e">#Especificamos que queremos mantener total de filas, sumando las de x (proc_1) e y (proc_2)</span>
 
 <span style="color:#a6e22e">head</span>(merge)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##          folio   sexo ocupacion   ytoth edad tot_per ife
-## 1 110110030201 Hombre         2  302083   NA      NA  NA
-## 2 110110110101  Mujer         2  213838   NA      NA  NA
-## 3 110110170101  Mujer         2  384907   NA      NA  NA
-## 4 110110290701  Mujer         2 1478196   NA      NA  NA
-## 5 110110310601  Mujer         2  434783   NA      NA  NA
-## 6 110110402001  Mujer         2 1298426   NA      NA  NA
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">##        folio   sexo ocupacion   ytoth edad tot_per ife
+## 1 1.1011e+11  Mujer         2  390833   NA      NA  NA
+## 2 1.1011e+11 Hombre         1  947583   NA      NA  NA
+## 3 1.1011e+11  Mujer         2  947583   NA      NA  NA
+## 4 1.1011e+11 Hombre         1 3004167   NA      NA  NA
+## 5 1.1011e+11 Hombre         2 3004167   NA      NA  NA
+## 6 1.1011e+11  Mujer         2 3004167   NA      NA  NA
 </code></pre></div><p>Podemos ver que ahora el tabulado <code>merge</code> tiene 7 columnas, lo cual constituye la suma del número de columnas de los datos iniciales (4 de proc_1 y 5 para comp) menos las columnas compartidas en ambos (folio y sexo). En este caso, dado que no se comparten filas, el número de filas se suma, lo cual resulta en 1.602 + 1.602 = 3.204.</p>
 <h3 id="b-bind_cols">b) <code>bind_cols()</code></h3>
 <p>Otra cosa que podemos hacer es, simplemente, pegar una columna de un dataframe a otro. Para ello recurrimos a la función <code>bind_cols()</code> de <code>dplyr</code>:</p>
@@ -1289,12 +1286,12 @@ proc_2 <span style="color:#f92672">&lt;-</span> proc_2[909<span style="color:#f9
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 6 x 9
 ##    folio...1 sexo...2 ocupacion   ytoth  folio...5 sexo...6  edad tot_per    ife
 ##        &lt;dbl&gt; &lt;fct&gt;    &lt;dbl+lbl&gt;   &lt;dbl&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl+&gt;
-## 1    1.10e11 Hombre      2 [No]  302083    9.10e11 Mujer       28       5 1 [Sí]
-## 2    1.10e11 Mujer       2 [No]  213838    9.10e11 Mujer       64       3 1 [Sí]
-## 3    1.10e11 Mujer       2 [No]  384907    9.10e11 Mujer       47       3 1 [Sí]
-## 4    1.10e11 Mujer       2 [No] 1478196    9.10e11 Mujer       28       4 1 [Sí]
-## 5    1.10e11 Mujer       2 [No]  434783    9.10e11 Mujer       19       3 1 [Sí]
-## 6    1.10e11 Mujer       2 [No] 1298426    9.10e11 Mujer       57       2 1 [Sí]
+## 1    1.10e11 Mujer       2 [No]  390833    1.10e11 Mujer       50       5 2 [No]
+## 2    1.10e11 Hombre      1 [Sí]  947583    1.10e11 Mujer       79       5 2 [No]
+## 3    1.10e11 Mujer       2 [No]  947583    1.10e11 Hombre      53       5 2 [No]
+## 4    1.10e11 Hombre      1 [Sí] 3004167    1.10e11 Mujer       70       1 2 [No]
+## 5    1.10e11 Hombre      2 [No] 3004167    1.10e11 Hombre      16       5 2 [No]
+## 6    1.10e11 Mujer       2 [No] 3004167    1.10e11 Mujer       46       5 2 [No]
 </code></pre></div><p>Vemos que simplemente pegó  <code>a</code> y <code>b</code>. Eso implica que tenemos columnas repetidas (a saber, folio y sexo). Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos <code>merge()</code> mientras que, si estos no comparten ninguna columna, recurrimos a <code>bing_cols()</code>.</p>
 <h3 id="c-bind_rows">c) <code>bind_rows()</code></h3>
 <p>También podemos unir dos dataframes a partir de sus filas, con la función <code>bind_rows()</code> de <code>dplyr</code></p>
@@ -1304,12 +1301,12 @@ proc_2 <span style="color:#f92672">&lt;-</span> proc_2[909<span style="color:#f9
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 6 x 7
 ##          folio sexo   ocupacion   ytoth  edad tot_per       ife
 ##          &lt;dbl&gt; &lt;fct&gt;  &lt;dbl+lbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl+lbl&gt;
-## 1 110110030201 Hombre    2 [No]  302083    NA      NA        NA
-## 2 110110110101 Mujer     2 [No]  213838    NA      NA        NA
-## 3 110110170101 Mujer     2 [No]  384907    NA      NA        NA
-## 4 110110290701 Mujer     2 [No] 1478196    NA      NA        NA
-## 5 110110310601 Mujer     2 [No]  434783    NA      NA        NA
-## 6 110110402001 Mujer     2 [No] 1298426    NA      NA        NA
+## 1 110110010101 Mujer     2 [No]  390833    NA      NA        NA
+## 2 110110010201 Hombre    1 [Sí]  947583    NA      NA        NA
+## 3 110110010201 Mujer     2 [No]  947583    NA      NA        NA
+## 4 110110010301 Hombre    1 [Sí] 3004167    NA      NA        NA
+## 5 110110010301 Hombre    2 [No] 3004167    NA      NA        NA
+## 6 110110010301 Mujer     2 [No] 3004167    NA      NA        NA
 </code></pre></div><p><code>bind_rows()</code> nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (<code>NA</code>). En este caso, la unión es perfecta en tanto proc_1 y proc_2 se conformaron a partir del mismo data frame.</p>
 <h2 id="10-guardar-base-procesada">10. Guardar base procesada</h2>
 <p>Para guardar la base de datos procesada, debes dirigir la ruta desde tu RProject. En este caso, guardaremos datos_proc</p>

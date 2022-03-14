@@ -67,10 +67,10 @@ pacman::p_load(tidyverse,
 
 
 ```r
-datos <- read_dta("input/Casen en Pandemia 2020 STATA.dta") 
+datos <- read_dta("input/data/datos_proc.rds") 
 ```
 
-En el panel **Environment**, visualizamos el nuevo objeto, que posee 1.816 observaciones (o filas), y 11 variables (columnas)
+En el panel **Environment**, visualizamos el nuevo objeto, que posee 76.935 observaciones (o filas), y 11 variables (columnas)
 
 
 ```r
@@ -81,12 +81,12 @@ head(datos)
 ## # A tibble: 6 x 11
 ##          folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##          <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-## 1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-## 4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+## 1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+## 2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+## 3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## 4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## 5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+## 6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
 ## # ... with 1 more variable: o6 <dbl+lbl>
 ```
 
@@ -109,20 +109,20 @@ mutate(datos, nueva_variable = 3+2)
 ```
 
 ```
-## # A tibble: 1,816 x 12
+## # A tibble: 76,935 x 12
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 2 more variables: o6 <dbl+lbl>,
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 2 more variables: o6 <dbl+lbl>,
 ## #   nueva_variable <dbl>
 ```
 
@@ -132,20 +132,20 @@ mutate(datos, nueva_variable = 3+2,
 ```
 
 ```
-## # A tibble: 1,816 x 13
+## # A tibble: 76,935 x 13
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 3 more variables: o6 <dbl+lbl>,
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 3 more variables: o6 <dbl+lbl>,
 ## #   nueva_variable <dbl>, ingreso_percapita <dbl>
 ```
 
@@ -162,20 +162,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##        folio sexo    edad ocupacion   ytoth tot_per     ife     o2     o3     o4
 ##        <dbl> <fct>  <dbl> <dbl+lbl>   <dbl>   <dbl> <dbl+l> <dbl+> <dbl+> <dbl+>
-##  1   1.10e11 Mascu~    56    2 [No]  302083       2  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2   1.10e11 Femen~    66    2 [No]  213838       1  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3   1.10e11 Femen~    65    2 [No]  384907       1  1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4   1.10e11 Femen~    76    2 [No] 1478196       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5   1.10e11 Femen~    27    2 [No]  434783       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6   1.10e11 Femen~    35    2 [No] 1298426       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7   1.10e11 Femen~    43    2 [No]  375509       4  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8   1.10e11 Femen~    56    2 [No] 1317526       4  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9   1.10e11 Femen~    64    2 [No] 1171840       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10   1.10e11 Femen~    45    2 [No] 1171840       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 1 more variable: o6 <dbl+lbl>
+##  1   1.10e11 Mascu~    20    2 [No] 3004167       3  2 [No] 2 [No] 2 [No] 2 [No]
+##  2   1.10e11 Femen~    56    2 [No] 3004167       3  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3   1.10e11 Mascu~    77    2 [No]  610250       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4   1.10e11 Femen~    60    2 [No]  610250       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5   1.10e11 Mascu~    18    2 [No] 1321481       4  1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6   1.10e11 Mascu~    82    2 [No] 1110000       4  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7   1.10e11 Mascu~    56    2 [No]  302083       2  1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8   1.10e11 Femen~    77    2 [No]  739833       1  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9   1.10e11 Femen~    17    2 [No] 2190000       4  2 [No] 2 [No] 2 [No] 2 [No]
+## 10   1.10e11 Femen~    74    2 [No] 1220000       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 1 more variable: o6 <dbl+lbl>
 ```
 
 El problema de la función `recode()` de `dplyr` es que, si recodifico números etiquetados, se perderá la etiqueta, conservándose el nuevo valor. Esto es un problema recurrente si, por ejemplo, sólo deseo recodificar valores nulos (por ejemplo, transformar los valores `88` y `99` como `NA`). 
@@ -200,20 +200,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##        folio sexo    edad ocupacion   ytoth tot_per     ife     o2     o3     o4
 ##        <dbl> <fct>  <dbl> <dbl+lbl>   <dbl>   <dbl> <dbl+l> <dbl+> <dbl+> <dbl+>
-##  1   1.10e11 Mascu~    56    2 [No]  302083       2  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2   1.10e11 Femen~    66    2 [No]  213838       1  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3   1.10e11 Femen~    65    2 [No]  384907       1  1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4   1.10e11 Femen~    76    2 [No] 1478196       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5   1.10e11 Femen~    27    2 [No]  434783       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6   1.10e11 Femen~    35    2 [No] 1298426       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7   1.10e11 Femen~    43    2 [No]  375509       4  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8   1.10e11 Femen~    56    2 [No] 1317526       4  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9   1.10e11 Femen~    64    2 [No] 1171840       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10   1.10e11 Femen~    45    2 [No] 1171840       5  1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 1 more variable: o6 <dbl+lbl>
+##  1   1.10e11 Mascu~    20    2 [No] 3004167       3  2 [No] 2 [No] 2 [No] 2 [No]
+##  2   1.10e11 Femen~    56    2 [No] 3004167       3  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3   1.10e11 Mascu~    77    2 [No]  610250       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4   1.10e11 Femen~    60    2 [No]  610250       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5   1.10e11 Mascu~    18    2 [No] 1321481       4  1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6   1.10e11 Mascu~    82    2 [No] 1110000       4  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7   1.10e11 Mascu~    56    2 [No]  302083       2  1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8   1.10e11 Femen~    77    2 [No]  739833       1  2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9   1.10e11 Femen~    17    2 [No] 2190000       4  2 [No] 2 [No] 2 [No] 2 [No]
+## 10   1.10e11 Femen~    74    2 [No] 1220000       2  2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 1 more variable: o6 <dbl+lbl>
 ```
 
 Notemos que los *`character` siempre van entre comillas*
@@ -236,20 +236,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 12
+## # A tibble: 76,935 x 12
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 2 more variables: o6 <dbl+lbl>, ife_d <dbl>
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 2 more variables: o6 <dbl+lbl>, ife_d <dbl>
 ```
 
 Recordemos que usamos 1 porque `ife` es una variable de tipo haven_labelled, por lo que es un número etiquetado. Ahora asignemos 1 a las **mujeres que accedieron al IFE**
@@ -261,20 +261,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 12
+## # A tibble: 76,935 x 12
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 2 more variables: o6 <dbl+lbl>, ife_d <dbl>
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 2 more variables: o6 <dbl+lbl>, ife_d <dbl>
 ```
 
 También podemos ocupar esta función como validador, por ejemplo, rellenando con valores lógicos como `FALSE` cuando no hay información válida en `ytoth`. Luego esos `FALSE` podrían ser contados en otros procesos estadísticos
@@ -286,20 +286,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 12
+## # A tibble: 76,935 x 12
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 2 more variables: o6 <dbl+lbl>,
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 2 more variables: o6 <dbl+lbl>,
 ## #   validador_ingreso <lgl>
 ```
 
@@ -327,20 +327,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 2
+## # A tibble: 76,935 x 2
 ##     edad edad_tramo  
 ##    <dbl> <chr>       
-##  1    56 Adulto      
-##  2    66 Adulto mayor
-##  3    65 Adulto mayor
-##  4    76 Adulto mayor
-##  5    27 Joven       
-##  6    35 Joven       
-##  7    43 Adulto      
-##  8    56 Adulto      
-##  9    64 Adulto mayor
-## 10    45 Adulto      
-## # ... with 1,806 more rows
+##  1    20 Joven       
+##  2    56 Adulto      
+##  3    77 Adulto mayor
+##  4    60 Adulto mayor
+##  5    18 Joven       
+##  6    82 Adulto mayor
+##  7    56 Adulto      
+##  8    77 Adulto mayor
+##  9    17 Joven       
+## 10    74 Adulto mayor
+## # ... with 76,925 more rows
 ```
 
 Como se puede ver, no solamente indicamos tramos de la variable edad, sino que utilizamos operadores lógicos (`&`). Podríamos ocupar el que necesitemos, y sobre todo, también combinar variables (por ejemplo, crear una variable `sexo-edad`)
@@ -359,20 +359,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 3
+## # A tibble: 76,935 x 3
 ##    sexo    edad sexo_edad_tramo
 ##    <fct>  <dbl> <chr>          
-##  1 Hombre    56 Hombre adulto  
-##  2 Mujer     66 Adulta mayor   
-##  3 Mujer     65 Adulta mayor   
-##  4 Mujer     76 Adulta mayor   
-##  5 Mujer     27 Mujer joven    
-##  6 Mujer     35 Mujer joven    
-##  7 Mujer     43 Mujer adulta   
-##  8 Mujer     56 Mujer adulta   
-##  9 Mujer     64 Adulta mayor   
-## 10 Mujer     45 Mujer adulta   
-## # ... with 1,806 more rows
+##  1 Hombre    20 Hombre joven   
+##  2 Mujer     56 Mujer adulta   
+##  3 Hombre    77 Adulto mayor   
+##  4 Mujer     60 Adulta mayor   
+##  5 Hombre    18 Hombre joven   
+##  6 Hombre    82 Adulto mayor   
+##  7 Hombre    56 Hombre adulto  
+##  8 Mujer     77 Adulta mayor   
+##  9 Mujer     17 Mujer joven    
+## 10 Mujer     74 Adulta mayor   
+## # ... with 76,925 more rows
 ```
 
 ### Calcular índices con `rowwise()`
@@ -388,20 +388,20 @@ datos %>% #Especificamos que trabajaremos con el dataframe datos
 ```
 
 ```
-## # A tibble: 1,816 x 12
+## # A tibble: 76,935 x 12
 ##           folio sexo    edad ocupacion  ytoth tot_per    ife     o2     o3     o4
 ##           <dbl> <fct>  <dbl> <dbl+lbl>  <dbl>   <dbl> <dbl+> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66    2 [No] 2.14e5       1 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65    2 [No] 3.85e5       1 1 [Sí] 2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76    2 [No] 1.48e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27    2 [No] 4.35e5       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35    2 [No] 1.30e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43    2 [No] 3.76e5       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45    2 [No] 1.17e6       5 1 [Sí] 2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 2 more variables: o6 <dbl+lbl>, ing_pc <dbl>
+##  1 110110010301 Hombre    20    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56    2 [No] 3.00e6       3 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60    2 [No] 6.10e5       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18    2 [No] 1.32e6       4 1 [Sí] 2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82    2 [No] 1.11e6       4 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56    2 [No] 3.02e5       2 1 [Sí] 2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77    2 [No] 7.40e5       1 2 [No] 2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17    2 [No] 2.19e6       4 2 [No] 2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74    2 [No] 1.22e6       2 2 [No] 2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 2 more variables: o6 <dbl+lbl>, ing_pc <dbl>
 ```
 
 ## 4. Las variantes de `mutate()`
@@ -422,20 +422,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##           folio sexo    edad ocupacion   ytoth tot_per ife       o2     o3     o4
 ##           <dbl> <fct>  <dbl> <fct>       <dbl>   <dbl> <fct> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56 No         302083       2 Si    2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66 No         213838       1 Si    2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65 No         384907       1 Si    2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76 No        1478196       5 Si    2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27 No         434783       5 Si    2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35 No        1298426       5 Si    2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43 No         375509       4 Si    2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56 No        1317526       4 Si    2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64 No        1171840       5 Si    2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45 No        1171840       5 Si    2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 1 more variable: o6 <dbl+lbl>
+##  1 110110010301 Hombre    20 No        3004167       3 No    2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56 No        3004167       3 No    2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77 No         610250       2 No    2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60 No         610250       2 No    2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18 No        1321481       4 Si    2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82 No        1110000       4 No    2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56 No         302083       2 Si    2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77 No         739833       1 No    2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17 No        2190000       4 No    2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74 No        1220000       2 No    2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 1 more variable: o6 <dbl+lbl>
 ```
 
 ¿Un poco largo, no? `mutate_at()` nos permite realizar el mismo procedimiento de recodificación a ambas variables, lo cual hace posible un código más eficiente. Tenemos que incorporar dos argumentos: 
@@ -451,20 +451,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##           folio sexo    edad ocupacion   ytoth tot_per ife       o2     o3     o4
 ##           <dbl> <fct>  <dbl> <fct>       <dbl>   <dbl> <fct> <dbl+> <dbl+> <dbl+>
-##  1 110110030201 Hombre    56 No         302083       2 Si    2 [No] 2 [No] 1 [Sí]
-##  2 110110110101 Mujer     66 No         213838       1 Si    2 [No] 2 [No] 1 [Sí]
-##  3 110110170101 Mujer     65 No         384907       1 Si    2 [No] 2 [No] 2 [No]
-##  4 110110290701 Mujer     76 No        1478196       5 Si    2 [No] 2 [No] 1 [Sí]
-##  5 110110310601 Mujer     27 No         434783       5 Si    2 [No] 2 [No] 1 [Sí]
-##  6 110110402001 Mujer     35 No        1298426       5 Si    2 [No] 2 [No] 1 [Sí]
-##  7 110110440501 Mujer     43 No         375509       4 Si    2 [No] 2 [No] 1 [Sí]
-##  8 110110450401 Mujer     56 No        1317526       4 Si    2 [No] 2 [No] 1 [Sí]
-##  9 110111021801 Mujer     64 No        1171840       5 Si    2 [No] 2 [No] 1 [Sí]
-## 10 110111021801 Mujer     45 No        1171840       5 Si    2 [No] 2 [No] 1 [Sí]
-## # ... with 1,806 more rows, and 1 more variable: o6 <dbl+lbl>
+##  1 110110010301 Hombre    20 No        3004167       3 No    2 [No] 2 [No] 2 [No]
+##  2 110110010301 Mujer     56 No        3004167       3 No    2 [No] 2 [No] 1 [Sí]
+##  3 110110010401 Hombre    77 No         610250       2 No    2 [No] 2 [No] 1 [Sí]
+##  4 110110010401 Mujer     60 No         610250       2 No    2 [No] 2 [No] 1 [Sí]
+##  5 110110020301 Hombre    18 No        1321481       4 Si    2 [No] 2 [No] 2 [No]
+##  6 110110030101 Hombre    82 No        1110000       4 No    2 [No] 2 [No] 1 [Sí]
+##  7 110110030201 Hombre    56 No         302083       2 Si    2 [No] 2 [No] 1 [Sí]
+##  8 110110030301 Mujer     77 No         739833       1 No    2 [No] 2 [No] 1 [Sí]
+##  9 110110030901 Mujer     17 No        2190000       4 No    2 [No] 2 [No] 2 [No]
+## 10 110110031401 Mujer     74 No        1220000       2 No    2 [No] 2 [No] 1 [Sí]
+## # ... with 76,925 more rows, and 1 more variable: o6 <dbl+lbl>
 ```
 
 ¡Podemos intearctuar también con otras funciones que ya hemos utilizado, como `starts_with()`!
@@ -482,20 +482,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##         folio sexo   edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
 ##         <dbl> <fct> <dbl> <fct>      <dbl>   <dbl> <fct> <fct> <fct> <fct> <fct>
-##  1    1.10e11 Homb~    56 No        3.02e5       2 Sí    No    No    Sí    No   
-##  2    1.10e11 Mujer    66 No        2.14e5       1 Sí    No    No    Sí    No   
-##  3    1.10e11 Mujer    65 No        3.85e5       1 Sí    No    No    No    No   
-##  4    1.10e11 Mujer    76 No        1.48e6       5 Sí    No    No    Sí    No   
-##  5    1.10e11 Mujer    27 No        4.35e5       5 Sí    No    No    Sí    Sí   
-##  6    1.10e11 Mujer    35 No        1.30e6       5 Sí    No    No    Sí    No   
-##  7    1.10e11 Mujer    43 No        3.76e5       4 Sí    No    No    Sí    No   
-##  8    1.10e11 Mujer    56 No        1.32e6       4 Sí    No    No    Sí    Sí   
-##  9    1.10e11 Mujer    64 No        1.17e6       5 Sí    No    No    Sí    No   
-## 10    1.10e11 Mujer    45 No        1.17e6       5 Sí    No    No    Sí    No   
-## # ... with 1,806 more rows
+##  1    1.10e11 Homb~    20 No        3.00e6       3 No    No    No    No    No   
+##  2    1.10e11 Mujer    56 No        3.00e6       3 No    No    No    Sí    No   
+##  3    1.10e11 Homb~    77 No        6.10e5       2 No    No    No    Sí    No   
+##  4    1.10e11 Mujer    60 No        6.10e5       2 No    No    No    Sí    No   
+##  5    1.10e11 Homb~    18 No        1.32e6       4 Sí    No    No    No    No   
+##  6    1.10e11 Homb~    82 No        1.11e6       4 No    No    No    Sí    No   
+##  7    1.10e11 Homb~    56 No        3.02e5       2 Sí    No    No    Sí    No   
+##  8    1.10e11 Mujer    77 No        7.40e5       1 No    No    No    Sí    No   
+##  9    1.10e11 Mujer    17 No        2.19e6       4 No    No    No    No    No   
+## 10    1.10e11 Mujer    74 No        1.22e6       2 No    No    No    Sí    No   
+## # ... with 76,925 more rows
 ```
 
 ### c) mutate_all()
@@ -509,20 +509,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 11
+## # A tibble: 76,935 x 11
 ##    folio      sexo  edad  ocupacion ytoth  tot_per ife   o2    o3    o4    o6   
 ##    <chr>      <chr> <chr> <chr>     <chr>  <chr>   <chr> <chr> <chr> <chr> <chr>
-##  1 110110030~ Homb~ 56    2         302083 2       1     2     2     1     2    
-##  2 110110110~ Mujer 66    2         213838 1       1     2     2     1     2    
-##  3 110110170~ Mujer 65    2         384907 1       1     2     2     2     2    
-##  4 110110290~ Mujer 76    2         14781~ 5       1     2     2     1     2    
-##  5 110110310~ Mujer 27    2         434783 5       1     2     2     1     1    
-##  6 110110402~ Mujer 35    2         12984~ 5       1     2     2     1     2    
-##  7 110110440~ Mujer 43    2         375509 4       1     2     2     1     2    
-##  8 110110450~ Mujer 56    2         13175~ 4       1     2     2     1     1    
-##  9 110111021~ Mujer 64    2         11718~ 5       1     2     2     1     2    
-## 10 110111021~ Mujer 45    2         11718~ 5       1     2     2     1     2    
-## # ... with 1,806 more rows
+##  1 110110010~ Homb~ 20    2         30041~ 3       2     2     2     2     2    
+##  2 110110010~ Mujer 56    2         30041~ 3       2     2     2     1     2    
+##  3 110110010~ Homb~ 77    2         610250 2       2     2     2     1     2    
+##  4 110110010~ Mujer 60    2         610250 2       2     2     2     1     2    
+##  5 110110020~ Homb~ 18    2         13214~ 4       1     2     2     2     2    
+##  6 110110030~ Homb~ 82    2         11100~ 4       2     2     2     1     2    
+##  7 110110030~ Homb~ 56    2         302083 2       1     2     2     1     2    
+##  8 110110030~ Mujer 77    2         739833 1       2     2     2     1     2    
+##  9 110110030~ Mujer 17    2         21900~ 4       2     2     2     2     2    
+## 10 110110031~ Mujer 74    2         12200~ 2       2     2     2     1     2    
+## # ... with 76,925 more rows
 ```
 
 Como podrán darse cuenta, en este caso no especificamos el argumento `vars =`, pues con `mutate_all()` estamos considerando a **todas las variables**. 
@@ -554,20 +554,20 @@ datos %>%
 ```
 
 ```
-## # A tibble: 1,816 x 14
+## # A tibble: 76,935 x 14
 ##        folio sexo    edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
 ##        <dbl> <fct>  <dbl> <fct>      <dbl>   <dbl> <fct> <fct> <fct> <fct> <fct>
-##  1   1.10e11 Mascu~    56 No        3.02e5       2 Sí    No    No    Sí    No   
-##  2   1.10e11 Femen~    66 No        2.14e5       1 Sí    No    No    Sí    No   
-##  3   1.10e11 Femen~    65 No        3.85e5       1 Sí    No    No    No    No   
-##  4   1.10e11 Femen~    76 No        1.48e6       5 Sí    No    No    Sí    No   
-##  5   1.10e11 Femen~    27 No        4.35e5       5 Sí    No    No    Sí    Sí   
-##  6   1.10e11 Femen~    35 No        1.30e6       5 Sí    No    No    Sí    No   
-##  7   1.10e11 Femen~    43 No        3.76e5       4 Sí    No    No    Sí    No   
-##  8   1.10e11 Femen~    56 No        1.32e6       4 Sí    No    No    Sí    Sí   
-##  9   1.10e11 Femen~    64 No        1.17e6       5 Sí    No    No    Sí    No   
-## 10   1.10e11 Femen~    45 No        1.17e6       5 Sí    No    No    Sí    No   
-## # ... with 1,806 more rows, and 3 more variables: ife_d <dbl>,
+##  1   1.10e11 Mascu~    20 No        3.00e6       3 No    No    No    No    No   
+##  2   1.10e11 Femen~    56 No        3.00e6       3 No    No    No    Sí    No   
+##  3   1.10e11 Mascu~    77 No        6.10e5       2 No    No    No    Sí    No   
+##  4   1.10e11 Femen~    60 No        6.10e5       2 No    No    No    Sí    No   
+##  5   1.10e11 Mascu~    18 No        1.32e6       4 Sí    No    No    No    No   
+##  6   1.10e11 Mascu~    82 No        1.11e6       4 No    No    No    Sí    No   
+##  7   1.10e11 Mascu~    56 No        3.02e5       2 Sí    No    No    Sí    No   
+##  8   1.10e11 Femen~    77 No        7.40e5       1 No    No    No    Sí    No   
+##  9   1.10e11 Femen~    17 No        2.19e6       4 No    No    No    No    No   
+## 10   1.10e11 Femen~    74 No        1.22e6       2 No    No    No    Sí    No   
+## # ... with 76,925 more rows, and 3 more variables: ife_d <dbl>,
 ## #   sexo_edad_tramo <chr>, ing_pc <dbl>
 ```
 
@@ -641,7 +641,7 @@ sjPlot::view_df(datos)
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 15-110</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
@@ -654,7 +654,7 @@ sjPlot::view_df(datos)
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-92666667</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>

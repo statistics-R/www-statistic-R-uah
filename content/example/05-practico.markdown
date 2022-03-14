@@ -507,8 +507,7 @@ nrow(datos_proc)
 ```
 
 ```r
-datos_proc <- na.omit(datos_proc) #Eliminamos las filas con casos perdidos
-nrow(datos_proc) #La nueva base de datos tiene 5.387 filas y 4 columnas
+nrow(na.omit(datos_proc)) #Eliminamos las filas con casos perdidos y contamos el nuevo numero de filas
 ```
 
 ```
@@ -527,8 +526,7 @@ Como ya conocemos operadores que permiten concatenar procesos ( `%>%`  y `%$%`) 
 ```r
 datos_proc %>% 
  filter(edad >= 15 & tot_per <7) %>%
- select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6) %>% 
- na.omit()
+ select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6) 
 ```
 
 
@@ -538,8 +536,7 @@ datos_proc %>%
 ```r
 datos_proc <- datos_proc %>% 
                filter(edad >= 15 & tot_per <7) %>%
-               select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6) %>% 
-               na.omit()
+               select(folio, sexo, edad, ocupacion, ytoth, tot_per, ife = y26d_hog, o2, o3, o4, o6)
 ```
 
 Podemos visualizar la base resultante a partir de `view_df()` de `sjPlot`
@@ -591,7 +588,7 @@ sjPlot::view_df(datos_proc)
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">3</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">edad</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Edad</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 18-98</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 15-110</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">4</td>
@@ -604,7 +601,7 @@ sjPlot::view_df(datos_proc)
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">5</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">ytoth</td>
 <td style="padding:0.2cm; text-align:left; vertical-align:top;">Ingreso total del hogar</td>
-<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-8332378</em></td>
+<td style="padding:0.2cm; text-align:left; vertical-align:top;" colspan="2"><em>range: 0-225200000</em></td>
 </tr>
 <tr>
 <td style="padding:0.2cm; text-align:left; vertical-align:top; background-color:#eeeeee">6</td>
@@ -678,13 +675,13 @@ head(merge)
 ```
 
 ```
-##          folio   sexo ocupacion   ytoth edad tot_per ife
-## 1 110110030201 Hombre         2  302083   NA      NA  NA
-## 2 110110110101  Mujer         2  213838   NA      NA  NA
-## 3 110110170101  Mujer         2  384907   NA      NA  NA
-## 4 110110290701  Mujer         2 1478196   NA      NA  NA
-## 5 110110310601  Mujer         2  434783   NA      NA  NA
-## 6 110110402001  Mujer         2 1298426   NA      NA  NA
+##        folio   sexo ocupacion   ytoth edad tot_per ife
+## 1 1.1011e+11  Mujer         2  390833   NA      NA  NA
+## 2 1.1011e+11 Hombre         1  947583   NA      NA  NA
+## 3 1.1011e+11  Mujer         2  947583   NA      NA  NA
+## 4 1.1011e+11 Hombre         1 3004167   NA      NA  NA
+## 5 1.1011e+11 Hombre         2 3004167   NA      NA  NA
+## 6 1.1011e+11  Mujer         2 3004167   NA      NA  NA
 ```
 
 Podemos ver que ahora el tabulado `merge` tiene 7 columnas, lo cual constituye la suma del número de columnas de los datos iniciales (4 de proc_1 y 5 para comp) menos las columnas compartidas en ambos (folio y sexo). En este caso, dado que no se comparten filas, el número de filas se suma, lo cual resulta en 1.602 + 1.602 = 3.204. 
@@ -714,12 +711,12 @@ head(bind_columnas)
 ## # A tibble: 6 x 9
 ##    folio...1 sexo...2 ocupacion   ytoth  folio...5 sexo...6  edad tot_per    ife
 ##        <dbl> <fct>    <dbl+lbl>   <dbl>      <dbl> <fct>    <dbl>   <dbl> <dbl+>
-## 1    1.10e11 Hombre      2 [No]  302083    9.10e11 Mujer       28       5 1 [Sí]
-## 2    1.10e11 Mujer       2 [No]  213838    9.10e11 Mujer       64       3 1 [Sí]
-## 3    1.10e11 Mujer       2 [No]  384907    9.10e11 Mujer       47       3 1 [Sí]
-## 4    1.10e11 Mujer       2 [No] 1478196    9.10e11 Mujer       28       4 1 [Sí]
-## 5    1.10e11 Mujer       2 [No]  434783    9.10e11 Mujer       19       3 1 [Sí]
-## 6    1.10e11 Mujer       2 [No] 1298426    9.10e11 Mujer       57       2 1 [Sí]
+## 1    1.10e11 Mujer       2 [No]  390833    1.10e11 Mujer       50       5 2 [No]
+## 2    1.10e11 Hombre      1 [Sí]  947583    1.10e11 Mujer       79       5 2 [No]
+## 3    1.10e11 Mujer       2 [No]  947583    1.10e11 Hombre      53       5 2 [No]
+## 4    1.10e11 Hombre      1 [Sí] 3004167    1.10e11 Mujer       70       1 2 [No]
+## 5    1.10e11 Hombre      2 [No] 3004167    1.10e11 Hombre      16       5 2 [No]
+## 6    1.10e11 Mujer       2 [No] 3004167    1.10e11 Mujer       46       5 2 [No]
 ```
 
 Vemos que simplemente pegó  `a` y `b`. Eso implica que tenemos columnas repetidas (a saber, folio y sexo). Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos `merge()` mientras que, si estos no comparten ninguna columna, recurrimos a `bing_cols()`.
@@ -739,12 +736,12 @@ head(bind_filas)
 ## # A tibble: 6 x 7
 ##          folio sexo   ocupacion   ytoth  edad tot_per       ife
 ##          <dbl> <fct>  <dbl+lbl>   <dbl> <dbl>   <dbl> <dbl+lbl>
-## 1 110110030201 Hombre    2 [No]  302083    NA      NA        NA
-## 2 110110110101 Mujer     2 [No]  213838    NA      NA        NA
-## 3 110110170101 Mujer     2 [No]  384907    NA      NA        NA
-## 4 110110290701 Mujer     2 [No] 1478196    NA      NA        NA
-## 5 110110310601 Mujer     2 [No]  434783    NA      NA        NA
-## 6 110110402001 Mujer     2 [No] 1298426    NA      NA        NA
+## 1 110110010101 Mujer     2 [No]  390833    NA      NA        NA
+## 2 110110010201 Hombre    1 [Sí]  947583    NA      NA        NA
+## 3 110110010201 Mujer     2 [No]  947583    NA      NA        NA
+## 4 110110010301 Hombre    1 [Sí] 3004167    NA      NA        NA
+## 5 110110010301 Hombre    2 [No] 3004167    NA      NA        NA
+## 6 110110010301 Mujer     2 [No] 3004167    NA      NA        NA
 ```
 
 `bind_rows()` nos permite pegar filas, independientemente si ambos dataframes comparten las mismas columnas. En caso de que ambos dataframes no compartan alguna columna, esta función rellenará con valores nulos (`NA`). En este caso, la unión es perfecta en tanto proc_1 y proc_2 se conformaron a partir del mismo data frame. 
