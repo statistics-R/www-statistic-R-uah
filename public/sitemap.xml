@@ -161,17 +161,17 @@
   </url>
   
   <url>
-    <loc>/example/03-practico/</loc>
-    <lastmod>2021-08-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/assignment/00-tarea/</loc>
     <lastmod>2021-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/example/02-practico/</loc>
+    <lastmod>2021-08-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/example/03-practico/</loc>
     <lastmod>2021-08-16T00:00:00+00:00</lastmod>
   </url>
   

@@ -670,12 +670,12 @@
 
       
       <li >
-        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
+        <a href="/example/03-practico/">3: Tipos de datos</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
+        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
       </li>
 
       
@@ -902,7 +902,7 @@ mutate(datos, nueva_variable = cálculo o condición)
 </code></pre></div><p>El problema de la función <code>recode()</code> de <code>dplyr</code> es que, si recodifico números etiquetados, se perderá la etiqueta, conservándose el nuevo valor. Esto es un problema recurrente si, por ejemplo, sólo deseo recodificar valores nulos (por ejemplo, transformar los valores <code>88</code> y <code>99</code> como <code>NA</code>).</p>
 <p>Frente a ello, con el tiempo nos hemos convencido de que la mejor solución hasta ahora es ocupar <code>recode()</code> del paquete <code>car</code>. Si recuerdan, dos funciones con el mismo nombre podrían producir <em>conflictos</em> y, por ello, especificaremos con <code>car::recode()</code> que la función <code>recode()</code> que ocupamos proviene del paquete <code>car</code></p>
 <div class="note">
-<p>datos %$% 
+<p>datos %$%
 car::recode(.$variable, c(&lsquo;valor_orig1=nuevo_valor1;valor_org2=nuevo_valor2&rsquo;))</p>
 <p><em>Ojo: %$% es el primo hermano de %&gt;% (básicamente funcionan igual, por lo que podemos emplear tranquilamente %&gt;% si nos encontramos trabajando con <code>mutate</code>)</em></p>
 
@@ -1445,7 +1445,7 @@ TRUE ~ NA_real_)</p>
     
 
     
-    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
 
     
     

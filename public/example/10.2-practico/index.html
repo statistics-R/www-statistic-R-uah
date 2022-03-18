@@ -670,12 +670,12 @@
 
       
       <li >
-        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
+        <a href="/example/03-practico/">3: Tipos de datos</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
+        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
       </li>
 
       
@@ -935,14 +935,14 @@
 <h3 id="la-regresión-logística-binaria">La regresión logística binaria</h3>
 <p>Recordemos que, en el caso de la regresión logística, el resultado predicho es el <strong>logit</strong> (logatirmos de los odds), siendo los <strong>odds</strong> una razón de probabilidades (chances). Para llegar hasta la regresión logística, debemos pasar por los odds y los odds-ratio (proporción de chances).</p>
 <p>Las <strong>odds</strong> son <em>la probabilidad de que algo ocurra</em> (por ejemplo, tener un ingreso mayor o igual a la media) dividido por la probabilidad de que <em>no ocurra</em>:</p>
-<p><code>\begin{equation} \ Odds = p/1-p \end{equation}</code></p>
+<p><code>\begin{equation} \ Odds = p/1-p \end{equation}</code></p>
 <p>Odds de 1 significan chances iguales, mientras que odds inferiores a 1 son negativas, y mayores a 1, positivas.</p>
 <p>Las <strong>Odds ratio (OR)</strong>, por su parte, reflejan la asociación entre las chances de dos variables dicotómicas:</p>
-<p><code>\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}</code></p>
+<p><code>\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}</code></p>
 <p>Las OR permiten, entonces, presentar en <em>un único número</em> la relación entre dos variables categóricas. Por ello, es una versión del β para <strong>variables dependientes categóricas</strong>. Una de las transformaciones que permite estimar una regresión con variables dependientes dicotómicas es el <strong>logit</strong>, <strong>logaritmo de los odds</strong></p>
-<p><code>\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}</code></p>
+<p><code>\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}</code></p>
 <p>Luego, la fórmula para un modelo de regresión logística binaria simple es</p>
-<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}</code></p>
+<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}</code></p>
 <p>Donde</p>
 <ul>
 <li><code>\(E(Y)\)</code> es el valor estimado/predicho de <code>\(Y\)</code></li>
@@ -951,7 +951,7 @@
 <li><code>\(b_{1}\)</code> es el <strong>coeficiente de regresión</strong> que, en este caso, presenta valores en <em>log-odds</em></li>
 </ul>
 <p>Y para la regresión logística binaria múltiple</p>
-<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}</code></p>
+<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}</code></p>
 <p>Donde</p>
 <ul>
 <li><code>\(E(Y)\)</code> es el valor estimado/predicho de <code>\(Y\)</code></li>
@@ -2620,7 +2620,7 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
     
 
     
-    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
 
     
     

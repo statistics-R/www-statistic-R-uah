@@ -670,12 +670,12 @@
 
       
       <li >
-        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
+        <a href="/example/03-practico/">3: Tipos de datos</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">4: Importar, explorar y limpiar datos</a>
+        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
       </li>
 
       
@@ -884,9 +884,9 @@
 <h1 id="5-modelo-de-regresión-lineal">5. Modelo de regresión lineal</h1>
 <h2 id="51-formula">5.1 Formula</h2>
 <p>Previo a eso recordemos que la fórmula de la regresión lineal simple es:</p>
-<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}</code></p>
 <p>Mientras que en la regresión lineal múltiple es:</p>
-<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X +b_{2}X +b_{x}X \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X +b_{2}X +b_{x}X \end{equation}</code></p>
 <p>Donde</p>
 <ul>
 <li><code>\(\widehat{Y}\)</code> es el valor estimado/predicho de <code>\(Y\)</code></li>
@@ -904,7 +904,7 @@
 </code></pre></div><ul>
 <li>Resultado</li>
 </ul>
-<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}</code></p>
 <ul>
 <li>Con</li>
 </ul>
@@ -1011,9 +1011,9 @@
 ## Residual standard error: 481300 on 71934 degrees of freedom
 </code></pre></div><p>Utilizando ecuaciones en LateX, se vería de la siguiente manera</p>
 <p>Modelo sin muestral</p>
-<p><code>\begin{equation} \widehat{Y}= 206355 + b_{1}X \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{Y}= 206355 + b_{1}X \end{equation}</code></p>
 <p>Modelo con peso muestral</p>
-<p><code>\begin{equation} \widehat{Y}= 256201 + b_{1}X \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{Y}= 256201 + b_{1}X \end{equation}</code></p>
 <p>Hay diferencias en el intercepto y en los errores estándar, ya que uno asume pesos de precisión y otro asume pesos muestrales.</p>
 <p>Por ello es muy importante incorporar el peso muestral en el análisis, sino los estimadores puntuales no serán exactos, <strong>no podremos realizar inferencia a nivel poblacional a partir del modelo</strong>, debido a la sobrestimación de la precisión de los estimadores.</p>
 <h2 id="53-regresión-lineal-simple">5.3 Regresión lineal simple</h2>
@@ -1052,7 +1052,7 @@ Reemplazamos
 \widehat{ing_t_t}= 127658.05 + 3511.38*edad
 \end{equation}
 </code></pre></div><p>Resultado:</p>
-<p><code>\begin{equation} \widehat{ing_t_t}= 127658.05 + 3511.38*edad \end{equation}</code></p>
+<p><code>\begin{equation} \widehat{ing_t_t}= 127658.05 + 3511.38*edad \end{equation}</code></p>
 <p>También podemos ver la relación entre ingresos y sexo (<code>ing_t_t</code>, <code>sexo</code>)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">modelo2_sin <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(ing_t_t <span style="color:#f92672">~</span> sexo,
               data <span style="color:#f92672">=</span> datos, 
@@ -2023,7 +2023,7 @@ datos<span style="color:#f92672">$</span>est_conyugal <span style="color:#f92672
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/example/02-practico/" rel="next">RStudio, tidyverse y RMarkdown</a>
+    <a href="/example/03-practico/" rel="next">Tipos de datos</a>
   </div>
   
   
@@ -2147,7 +2147,7 @@ datos<span style="color:#f92672">$</span>est_conyugal <span style="color:#f92672
     
 
     
-    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
 
     
     
