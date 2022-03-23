@@ -268,7 +268,7 @@ d. Vincular la dirección de la carpeta
   
 ### 6.4 Tarea 0
 
-¡Puedes ver las instrucciones de la [tarea en el siguiente link](../assignment/00-tarea) o en [GitHub Class Room](https://classroom.github.com/a/zYM3oL16)
+¡Puedes ver las instrucciones de la [tarea en el siguiente link](/assignment/00-tarea/) o en [GitHub Class Room](https://classroom.github.com/a/zYM3oL16)
 
 ### 6.5 Subir una tarea
 
