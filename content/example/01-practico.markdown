@@ -237,7 +237,7 @@ d. Vincular la dirección de la carpeta
 
 ### 6.1 Recibir una tarea 
 
-### 6.2 Ingresa el [link](https://classroom.github.com/classrooms/86887318-learn-r-uah-2022)
+### 6.2 Ingresa el [link](https://classroom.github.com/a/zYM3oL16)
 
   a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un _**repositorio**_ que contendrá la *información* y las *instrucciones* de la tarea.
 
@@ -258,7 +258,7 @@ d. Vincular la dirección de la carpeta
   
 ### 6.3 Resolver una tarea
 
-  a. Ahora resolveremos la **Tarea 0** en conjunto, una vez abierto el [repositorio         clonado](https://classroom.github.com/classrooms/86887318-learn-r-uah-2022). Recuerden que es en este repositorio donde deben completar y subir la tarea
+  a. Ahora resolveremos la **Tarea 0** en conjunto, una vez abierto el [repositorio         clonado](https://classroom.github.com/a/zYM3oL16). Recuerden que es en este repositorio donde deben completar y subir la tarea
 
   b. La tarea se encuentra en un archivo llamado `*README*` con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.
  
@@ -268,7 +268,7 @@ d. Vincular la dirección de la carpeta
   
 ### 6.4 Tarea 0
 
-¡Puedes ver las instrucciones de la [tarea en el siguiente link](../assignment/00-tarea) o en [GitHub Class Room](https://classroom.github.com/classrooms/86887318-learn-r-uah-2022)
+¡Puedes ver las instrucciones de la [tarea en el siguiente link](../assignment/00-tarea) o en [GitHub Class Room](https://classroom.github.com/a/zYM3oL16)
 
 ### 6.5 Subir una tarea
 
