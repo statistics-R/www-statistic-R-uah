@@ -12,7 +12,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "03-slides"
+slides: "03-slides-22"
 ---
 
 # Slides
@@ -40,7 +40,7 @@ slides: "03-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-t">
+<iframe class="embed-responsive-item" src="/slides/03-slides-22.html#data-t">
 </iframe>
 
 </div>
@@ -51,7 +51,7 @@ slides: "03-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#data-s">
+<iframe class="embed-responsive-item" src="/slides/03-slides-22.html#data-s">
 </iframe>
 
 </div>
@@ -62,7 +62,7 @@ slides: "03-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#df">
+<iframe class="embed-responsive-item" src="/slides/03-slides-22.html#df">
 </iframe>
 
 </div>
@@ -73,7 +73,7 @@ slides: "03-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/03-slides.html#ej">
+<iframe class="embed-responsive-item" src="/slides/03-slides-22.html#ej">
 </iframe>
 
 </div>
