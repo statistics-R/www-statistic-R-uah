@@ -28,7 +28,7 @@ En este práctico utilizamos los **datos** procesados *CASEN 2020*, que proviene
 
 No olviden que los archivos asociados a este práctico se pueden descargar aquí:
 
-- [<i class="fas fa-file-archive"></i> `06-class.zip`](https://github.com/learn-R/06-class/raw/main/06-clase.zip)
+- [<i class="fas fa-file-archive"></i> `07-class.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
 
 #  1. Paquetes a utilizar
 
@@ -86,14 +86,14 @@ head(datos_proc)
 
 ```
 ## # A tibble: 6 x 14
-##       folio sexo     edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
-##       <dbl> <fct>   <dbl> <fct>      <dbl>   <dbl> <fct> <fct> <fct> <fct> <fct>
-## 1   1.10e11 Mascul~    20 No        3.00e6       3 No    No    No    No    No   
-## 2   1.10e11 Femeni~    56 No        3.00e6       3 No    No    No    Sí    No   
-## 3   1.10e11 Mascul~    77 No        6.10e5       2 No    No    No    Sí    No   
-## 4   1.10e11 Femeni~    60 No        6.10e5       2 No    No    No    Sí    No   
-## 5   1.10e11 Mascul~    18 No        1.32e6       4 Sí    No    No    No    No   
-## 6   1.10e11 Mascul~    82 No        1.11e6       4 No    No    No    Sí    No   
+##         folio sexo   edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
+##         <dbl> <fct> <dbl> <fct>      <dbl>   <dbl> <fct> <fct> <fct> <fct> <fct>
+## 1     1.10e11 Masc~    20 No        3.00e6       3 No    No    No    No    No   
+## 2     1.10e11 Feme~    56 No        3.00e6       3 No    No    No    Sí    No   
+## 3     1.10e11 Masc~    77 No        6.10e5       2 No    No    No    Sí    No   
+## 4     1.10e11 Feme~    60 No        6.10e5       2 No    No    No    Sí    No   
+## 5     1.10e11 Masc~    18 No        1.32e6       4 Sí    No    No    No    No   
+## 6     1.10e11 Masc~    82 No        1.11e6       4 No    No    No    Sí    No   
 ## # ... with 3 more variables: ife_d <dbl>, sexo_edad_tramo <chr>, ing_pc <dbl>
 ```
 
