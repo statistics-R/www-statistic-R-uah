@@ -26,8 +26,8 @@ Entonces, en esta práctica aprenderemos trabajar las __regresiones lineales__, 
 
 En este práctico utilizamos los **datos procesados** de la [**Encuesta Suplementaria de Ingresos (ESI) 2020**](https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos).Recuerden _**siempre**_ consultar el [**libro códigos**](https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%C3%ADa-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4) antes de trabajar datos.
 
+- [<i class="fas fa-file-archive"></i> `10.1-clase.zip`](https://github.com/learn-R/10.1-class/raw/main/10.1-clase.zip)
 
-- [<i class="fas fa-file-archive"></i> `08-class.zip`](https://github.com/learn-R/09-class/raw/main/08-clase.zip)
 
 
 # 2. Paquetes a utilizar

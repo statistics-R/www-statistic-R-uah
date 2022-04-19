@@ -29,6 +29,8 @@ Este práctico fue elaborado con datos de la [**Encuesta Suplementaria de Ingres
 
 Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo `factor`. Pueden revisar el script `proc.R` ubicado en la carpeta `R`, para profundizar en el tratamiento de los datos. 
 
+- [<i class="fas fa-file-archive"></i> `10.2-clase.zip`](https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip)
+
 ## 2. Librerías a utilizar
 
 En este práctico utilizaremos seis paquetes
@@ -53,7 +55,7 @@ En este práctico utilizaremos seis paquetes
 
 Como en las prácticas anteriores, empleamos la función `p_load` de la librería `pacman`. También utilizamos la función `install_github()` de `remotes` para poder instalar la librería `texreg`
 
-```{r packages, include=TRUE, message=F}
+```{r packages, message=FALSE, warning=FALSE, include=TRUE}
 remotes::install_github("leifeld/texreg", force = T)
 
 pacman::p_load(sjPlot, 
@@ -163,6 +165,8 @@ summary(modelo0)
 ```
 
 Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado `modelo0_sin`, que consta de una lista con 30 elementos.
+
+{{< /div >}}
 
 
 ### b) Modelo con predictores numéricos

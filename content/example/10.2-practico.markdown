@@ -26,6 +26,8 @@ Este práctico fue elaborado con datos de la [**Encuesta Suplementaria de Ingres
 
 Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo `factor`. Pueden revisar el script `proc.R` ubicado en la carpeta `R`, para profundizar en el tratamiento de los datos. 
 
+- [<i class="fas fa-file-archive"></i> `10.2-clase.zip`](https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip)
+
 ## 2. Librerías a utilizar
 
 En este práctico utilizaremos seis paquetes
@@ -56,74 +58,15 @@ remotes::install_github("leifeld/texreg", force = T)
 ```
 
 ```
-## jsonlite (1.7.2 -> 1.8.0) [CRAN]
-## package 'jsonlite' successfully unpacked and MD5 sums checked
-```
-
-```
-## Warning: cannot remove prior installation of package 'jsonlite'
-```
-
-```
-## Warning in file.copy(savedcopy, lib, recursive = TRUE):
-## problema al copiar C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\00LOCK\jsonlite\libs\x64\jsonlite.dll
-## a C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\jsonlite\libs\x64\jsonlite.dll: Permission denied
-```
-
-```
-## Warning: restored 'jsonlite'
-```
-
-```
 ## 
-## The downloaded binary packages are in
-## 	C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\downloaded_packages
-##   
-  
-  
-   checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\remotes88055f8457b\leifeld-texreg-d7e1ba8/DESCRIPTION' ...
-  
-v  checking for file 'C:\Users\nicol\AppData\Local\Temp\RtmpKMWBkn\remotes88055f8457b\leifeld-texreg-d7e1ba8/DESCRIPTION' (431ms)
-## 
-  
-  
-  
--  preparing 'texreg': (2.2s)
-##    checking DESCRIPTION meta-information ...
-  
-   checking DESCRIPTION meta-information ... 
-  
-v  checking DESCRIPTION meta-information
-## 
-  
-  
-  
--  installing the package to process help pages (643ms)
-## 
-  
-  
-  
--  saving partial Rd database (27.5s)
-## 
-  
-  
-  
--  checking for LF line-endings in source and make files and shell scripts (474ms)
-## 
-  
-  
-  
--  checking for empty or unneeded directories
-## 
-  
-  
-  
--  building 'texreg_1.38.5.tar.gz'
-## 
-  
-   
+## * checking for file 'C:\Users\dafne\AppData\Local\Temp\RtmpaoqnDt\remotes4ec2e6490b\leifeld-texreg-a80fce7/DESCRIPTION' ... OK
+## * preparing 'texreg':
+## * checking DESCRIPTION meta-information ... OK
+## * installing the package to process help pages
+## * saving partial Rd database
+## * checking for LF line-endings in source and make files and shell scripts
+## * checking for empty or unneeded directories
+## * building 'texreg_1.38.6.tar.gz'
 ## 
 ```
 
@@ -319,6 +262,8 @@ summary(modelo0)
 ```
 
 Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado `modelo0_sin`, que consta de una lista con 30 elementos.
+
+{{< /div >}}
 
 
 ### b) Modelo con predictores numéricos
