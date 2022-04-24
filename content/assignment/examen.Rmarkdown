@@ -82,7 +82,7 @@ Para reportar estos análisis deben hacer al menos **2 tablas y 2 gráficos.**
   
 ## Proyecto
 
-1. [Deben crear un repositorio en el link de GitHub Class Room]( https://classroom.github.com/a/HdDXMYn2)
+1. [Deben crear un repositorio en el link de GitHub Class Room](https://classroom.github.com/a/yFHGOnrx)
 2. Deben hacer un README.md explicando aspectos generales del repositorio
 
 # Criterios de evaluación
