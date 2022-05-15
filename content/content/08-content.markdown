@@ -7,7 +7,7 @@ end_date: "2021-09-20"
 menu:
   content:
     parent: Contenido
-    weight: 6
+    weight: 8
 type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
@@ -83,6 +83,8 @@ slides: "07-slides"
 -   [<i class="fas fa-file-archive"></i> `08-clase.zip`](https://github.com/learn-R/08-class/raw/main/08-clase.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/08-practico/)
+
+-   [<i class="fas fa-file-archive"></i> `taller_descriptivos.zip`](https://github.com/learn-R/taller_descriptivos/raw/main/taller_descriptivos.zip)
 
 # Materiales adicionales
 
