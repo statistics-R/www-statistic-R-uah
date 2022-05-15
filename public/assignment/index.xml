@@ -82,7 +82,7 @@
 &lt;/ol&gt;
 &lt;h2 id=&#34;proyecto&#34;&gt;Proyecto&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://classroom.github.com/a/HdDXMYn2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Deben crear un repositorio en el link de GitHub Class Room&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://classroom.github.com/a/yFHGOnrx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Deben crear un repositorio en el link de GitHub Class Room&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Deben hacer un README.md explicando aspectos generales del repositorio&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id=&#34;criterios-de-evaluación&#34;&gt;Criterios de evaluación&lt;/h1&gt;
@@ -151,7 +151,7 @@
       <link>/assignment/04-tarea/</link>
       <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/04-tarea/</guid>
-      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/-TJ484eg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°4 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/jv91XaPO&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°4 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
 &lt;p&gt;El objetivo de esta tarea consiste en realizar un análisis de regresión lineal y logística utilizando R. Para ello debe utilizar los datos según según sus apellidos &lt;a href=&#34;https://github.com/learn-R/www-learn-R-uah/tree/master/content/assignment/05-tarea/bases/originales&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(eg. &amp;lsquo;Andrade.sav&amp;rsquo;) los cuales podrán encontrar en el siguiente repositorio&lt;/a&gt;. Estas bases contienen una muestra aleatoria de 1000 casos de la encuesta MOVID-IMPACT (2020) del módulo “Orientaciones del Trabajo”. &lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;La pregunta de investigación que buscamos contestar en esta tarea es &lt;strong&gt;“¿Qué factores inciden el cumplimiento de la distancia física para cuidarse del COVID-19?”&lt;/strong&gt; a partir de contestar la frecuencia con que se &lt;em&gt;“Evitar reunirse con más de 10 personas en un espacio cerrado”.&lt;/em&gt;&lt;/p&gt;
@@ -350,7 +350,7 @@ Este punto será esencial para lo que más adelante veremos como condición de s
       <link>/assignment/03-tarea/</link>
       <pubDate>Fri, 01 Oct 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/03-tarea/</guid>
-      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/6Rt6MGsi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°3 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/y5stOTeF&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°3 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
 &lt;p&gt;La tarea N°3 busca evaluar la unidad de muestras complejas utilizando R, en base a la creación de un &lt;em&gt;informe reproducible en RMarkdown&lt;/em&gt;. Este informe se basa en la replicación de estadísticos reportados por otras instituciones públicas y académicas. Considere que los conocimientos a evaluar en la tarea N°3 requieren de un manejo sustantivo de los contenidos anteriormente vistos en clases.&lt;/p&gt;
 &lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
@@ -725,7 +725,7 @@ Este punto será esencial para lo que más adelante veremos como condición de s
       <link>/assignment/02-tarea/</link>
       <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
       <guid>/assignment/02-tarea/</guid>
-      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/l_98Ad50&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la &lt;i class=&#34;fas fa-external-link-square-alt&#34;&gt;&lt;/i&gt;  &lt;a href=&#34;https://classroom.github.com/a/8WcwkjQq&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Tarea N°2 hacer click aquí&lt;/a&gt;. Si aún tienes dudas de cómo interactuar con &lt;a href=&#34;https://learn-r-uah.netlify.app/example/01-practico/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Roomm revisa el práctico&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;objetivo&#34;&gt;Objetivo&lt;/h2&gt;
 &lt;p&gt;La tarea N°2 implica la continuación de la tarea N°1 donde procesaron datos que servirían de &amp;ldquo;input&amp;rdquo; para los análisis que deberán presentar en el siguiente ejercicio.&lt;/p&gt;
 &lt;h3 id=&#34;instrucciones&#34;&gt;Instrucciones&lt;/h3&gt;
@@ -733,14 +733,14 @@ Este punto será esencial para lo que más adelante veremos como condición de s
 &lt;p&gt;Además, le han pedido una serie de cambios respecto a sus datos de modo de que el informe de avance contenga los aspectos necesarios para ser presentados.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;En general&lt;/strong&gt;, su proyecto de R (02-tarea.Rproj) debe contener:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. R script con procesamiento de datos modificado (&lt;code&gt;R/01-proc.R&lt;/code&gt;)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1.1 Datos originales en carpeta &lt;em&gt;input&lt;/em&gt; (si son muy pesados, indicar en el .gitignore)
+&lt;p&gt;1.1 Datos originales en carpeta &lt;em&gt;input&lt;/em&gt; (si son muy pesados, indicar en el .gitignore) 
 1.2 Datos procesados (&lt;code&gt;input/datos/datos_proc.rds&lt;/code&gt;)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2. Informe descriptivo de los datos&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 02-analisis.Rmd
+&lt;p&gt;2.1 Archivo en RMarkdown que contiene los análisis solicitados en el equipo 02-analisis.Rmd 
 2.2 Archivo en html que contiene el informe compilado (02-analisis.html). &lt;em&gt;Si logra dejar el informe en .pdf tendrá 0.3 adicionales a su nota. Hint: descargar y revisar el paquete tinytext&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;3. Adicionales&lt;/strong&gt; (0.2 décimas por cada uno)&lt;/p&gt;
 &lt;p&gt;3.1 README.md con explicaciones generales para que cualquier usuario pueda reproducir sus análisis (explicar las carpetas, datos descargados y desde donde). Algunos elementos del procesamiento deben ser indicados aquí   3.2 Contribuir con preguntas de compañeras/os sobre &lt;strong&gt;problemas en código&lt;/strong&gt; (no sobre instrucciones sobre la tarea)
-3.3 Procesamientos adicionales indicados con [**]
+3.3 Procesamientos adicionales indicados con [**] 
 3.4 Documentos que &lt;a href=&#34;https://www.datadreaming.org/post/r-markdown-theme-gallery/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;editen su formato en html&lt;/a&gt;
 3.5 Cambiar color y editar sus gráficos de sjPlot.&lt;/p&gt;
 &lt;h3 id=&#34;1-modificaciones-en-el-procesamiento-en-r&#34;&gt;1. Modificaciones en el procesamiento (en .R)&lt;/h3&gt;

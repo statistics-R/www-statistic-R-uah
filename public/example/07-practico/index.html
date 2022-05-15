@@ -783,7 +783,7 @@
 <p>En este práctico utilizamos los <strong>datos</strong> procesados <em>CASEN 2020</em>, que proviene de los datos originales de la <a href="http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020" target="_blank" rel="noopener"><strong>Encuesta de Caracterización Socioeconómica (CASEN)</strong></a>. Recuerden <em><strong>siempre</strong></em> consultar el <a href="http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf" target="_blank" rel="noopener"><strong>libro códigos</strong></a> antes de trabajar datos.</p>
 <p>No olviden que los archivos asociados a este práctico se pueden descargar aquí:</p>
 <ul>
-<li><a href="https://github.com/learn-R/06-class/raw/main/06-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>06-class.zip</code></a></li>
+<li><a href="https://github.com/learn-R/07-class/raw/main/07-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>07-class.zip</code></a></li>
 </ul>
 <h1 id="1-paquetes-a-utilizar">1. Paquetes a utilizar</h1>
 <p>Para este práctico utilizaremos, principalmente, las librerías <code>sjmisc</code> y <code>sjPlot</code>.</p>
@@ -808,14 +808,14 @@
 </code></pre></div><p>Mientras que la función <code>head</code> nos entrega el nombre y las primeras 10 filas que lo componen.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(datos_proc)
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## # A tibble: 6 x 14
-##       folio sexo     edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
-##       &lt;dbl&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
-## 1   1.10e11 Mascul~    20 No        3.00e6       3 No    No    No    No    No   
-## 2   1.10e11 Femeni~    56 No        3.00e6       3 No    No    No    Sí    No   
-## 3   1.10e11 Mascul~    77 No        6.10e5       2 No    No    No    Sí    No   
-## 4   1.10e11 Femeni~    60 No        6.10e5       2 No    No    No    Sí    No   
-## 5   1.10e11 Mascul~    18 No        1.32e6       4 Sí    No    No    No    No   
-## 6   1.10e11 Mascul~    82 No        1.11e6       4 No    No    No    Sí    No   
+##         folio sexo   edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
+##         &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;
+## 1     1.10e11 Masc~    20 No        3.00e6       3 No    No    No    No    No   
+## 2     1.10e11 Feme~    56 No        3.00e6       3 No    No    No    Sí    No   
+## 3     1.10e11 Masc~    77 No        6.10e5       2 No    No    No    Sí    No   
+## 4     1.10e11 Feme~    60 No        6.10e5       2 No    No    No    Sí    No   
+## 5     1.10e11 Masc~    18 No        1.32e6       4 Sí    No    No    No    No   
+## 6     1.10e11 Masc~    82 No        1.11e6       4 No    No    No    Sí    No   
 ## # ... with 3 more variables: ife_d &lt;dbl&gt;, sexo_edad_tramo &lt;chr&gt;, ing_pc &lt;dbl&gt;
 </code></pre></div><p>Estos códigos nos permiten establecer una aproximación a los datos con los cuales trabajaremos, como los posibles valores que pueden adoptar, el tipo de dato para cada variable, entre otros. No obstante, por prácticos anteriores sabemos que podemos explorar nuestros datos con <code>sjPlot::view_df()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">sjPlot<span style="color:#f92672">::</span><span style="color:#a6e22e">view_df</span>(datos_proc,
@@ -1234,7 +1234,7 @@ sjmisc<span style="color:#f92672">::</span><span style="color:#a6e22e">descr</sp
     
 
     
-    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
 
     
     

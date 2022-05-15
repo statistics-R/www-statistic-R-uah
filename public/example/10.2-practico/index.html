@@ -749,8 +749,29 @@
     <li><a href="#4-creación-del-modelo-de-regresión-logística-binaria">4. Creación del modelo de regresión logística binaria</a>
       <ul>
         <li><a href="#la-regresión-logística-binaria">La regresión logística binaria</a></li>
+        <li><a href="#b-modelo-con-predictores-numéricos">b) Modelo con predictores numéricos</a></li>
+        <li><a href="#c-modelo-con-predictores-categóricos">c) Modelo con predictores categóricos</a></li>
+        <li><a href="#d-modelo-completo">d) Modelo completo</a></li>
+        <li><a href="#e-incorporando-el-diseño-muestral">e) Incorporando el diseño muestral</a></li>
       </ul>
     </li>
+    <li><a href="#5-extracción-de-elementos">5. Extracción de elementos</a>
+      <ul>
+        <li><a href="#exponenciación-de-coeficientes">Exponenciación de coeficientes</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-presentación-del-modelo-creado">6. Presentación del modelo creado</a>
+      <ul>
+        <li><a href="#a-tablas">a) Tablas</a>
+          <ul>
+            <li><a href="#con-sjplottab_model">Con <code>sjPlot::tab_model()</code></a></li>
+            <li><a href="#con-texreg">Con <code>texreg</code></a></li>
+          </ul>
+        </li>
+        <li><a href="#b-gráficos">b) Gráficos</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-resumen">7. Resumen</a></li>
   </ul>
 </nav>
 
@@ -778,6 +799,9 @@
 <h2 id="1-recursos-del-práctico">1. Recursos del práctico</h2>
 <p>Este práctico fue elaborado con datos de la <a href="https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos" target="_blank" rel="noopener"><strong>Encuesta Suplementaria de Ingresos (ESI)</strong></a> en su versión 2020. Cuando trabajen con algún set de datos, nunca olviden revisar la documentación metodológica anexa, así como el <a href="https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%c3%ada-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4" target="_blank" rel="noopener">libro de códigos</a> correspondiente.</p>
 <p>Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo <code>factor</code>. Pueden revisar el script <code>proc.R</code> ubicado en la carpeta <code>R</code>, para profundizar en el tratamiento de los datos.</p>
+<ul>
+<li><a href="https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>10.2-clase.zip</code></a></li>
+</ul>
 <h2 id="2-librerías-a-utilizar">2. Librerías a utilizar</h2>
 <p>En este práctico utilizaremos seis paquetes</p>
 <ol>
@@ -807,62 +831,15 @@
 <h2 id="1-cargar-librerías">1. Cargar librerías</h2>
 <p>Como en las prácticas anteriores, empleamos la función <code>p_load</code> de la librería <code>pacman</code>. También utilizamos la función <code>install_github()</code> de <code>remotes</code> para poder instalar la librería <code>texreg</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">remotes<span style="color:#f92672">::</span><span style="color:#a6e22e">install_github</span>(<span style="color:#e6db74">&#34;leifeld/texreg&#34;</span>, force <span style="color:#f92672">=</span> T)
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">jsonlite</span> (<span style="color:#ae81ff">1.7.2</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">1.8.0</span>) [<span style="color:#a6e22e">CRAN</span>]
-<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">jsonlite</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">successfully</span> <span style="color:#a6e22e">unpacked</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">MD5</span> <span style="color:#a6e22e">sums</span> <span style="color:#a6e22e">checked</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">Warning</span>: <span style="color:#a6e22e">cannot</span> <span style="color:#a6e22e">remove</span> <span style="color:#a6e22e">prior</span> <span style="color:#a6e22e">installation</span> <span style="color:#a6e22e">of</span> <span style="color:#f92672">package</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">jsonlite</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## Warning in file.copy(savedcopy, lib, recursive = TRUE):
-## problema al copiar C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\00LOCK\jsonlite\libs\x64\jsonlite.dll
-## a C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\jsonlite\libs\x64\jsonlite.dll: Permission denied
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">## Warning: restored &#39;jsonlite&#39;
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#960050;background-color:#1e0010">##</span> 
-<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#a6e22e">The</span> <span style="color:#a6e22e">downloaded</span> <span style="color:#a6e22e">binary</span> <span style="color:#a6e22e">packages</span> <span style="color:#a6e22e">are</span> <span style="color:#a6e22e">in</span>
-<span style="color:#960050;background-color:#1e0010">##</span> 	<span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">downloaded_packages</span>
-<span style="color:#960050;background-color:#1e0010">##</span>   
-  
-  
-   <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes88055f8457b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">...</span>
-  
-<span style="color:#a6e22e">v</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">nicol</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpKMWBkn</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes88055f8457b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">d7e1ba8</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> (<span style="color:#ae81ff">431</span><span style="color:#a6e22e">ms</span>)
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">preparing</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg</span><span style="color:#960050;background-color:#1e0010">&#39;</span>: (<span style="color:#ae81ff">2.2</span><span style="color:#a6e22e">s</span>)
-<span style="color:#960050;background-color:#1e0010">##</span>    <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span> <span style="color:#f92672">...</span>
-  
-   <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span> <span style="color:#f92672">...</span> 
-  
-<span style="color:#a6e22e">v</span>  <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span>
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">installing</span> <span style="color:#a6e22e">the</span> <span style="color:#f92672">package</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">process</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">pages</span> (<span style="color:#ae81ff">643</span><span style="color:#a6e22e">ms</span>)
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">saving</span> <span style="color:#a6e22e">partial</span> <span style="color:#a6e22e">Rd</span> <span style="color:#a6e22e">database</span> (<span style="color:#ae81ff">27.5</span><span style="color:#a6e22e">s</span>)
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">LF</span> <span style="color:#a6e22e">line</span><span style="color:#f92672">-</span><span style="color:#a6e22e">endings</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">source</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">make</span> <span style="color:#a6e22e">files</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">shell</span> <span style="color:#a6e22e">scripts</span> (<span style="color:#ae81ff">474</span><span style="color:#a6e22e">ms</span>)
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">empty</span> <span style="color:#a6e22e">or</span> <span style="color:#a6e22e">unneeded</span> <span style="color:#a6e22e">directories</span>
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-  
-  
-<span style="color:#f92672">-</span>  <span style="color:#a6e22e">building</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg_1</span><span style="color:#ae81ff">.38.5</span>.<span style="color:#a6e22e">tar</span>.<span style="color:#a6e22e">gz</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
-<span style="color:#960050;background-color:#1e0010">##</span> 
-  
-   
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">file</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">C</span>:<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Users</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">dafne</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">AppData</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Local</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">Temp</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">RtmpaoqnDt</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">remotes4ec2e6490b</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#a6e22e">leifeld</span><span style="color:#f92672">-</span><span style="color:#a6e22e">texreg</span><span style="color:#f92672">-</span><span style="color:#a6e22e">a80fce7</span><span style="color:#f92672">/</span><span style="color:#a6e22e">DESCRIPTION</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#f92672">...</span> <span style="color:#a6e22e">OK</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">preparing</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg</span><span style="color:#960050;background-color:#1e0010">&#39;</span>:
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">checking</span> <span style="color:#a6e22e">DESCRIPTION</span> <span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">information</span> <span style="color:#f92672">...</span> <span style="color:#a6e22e">OK</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">installing</span> <span style="color:#a6e22e">the</span> <span style="color:#f92672">package</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">process</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">pages</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">saving</span> <span style="color:#a6e22e">partial</span> <span style="color:#a6e22e">Rd</span> <span style="color:#a6e22e">database</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">LF</span> <span style="color:#a6e22e">line</span><span style="color:#f92672">-</span><span style="color:#a6e22e">endings</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">source</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">make</span> <span style="color:#a6e22e">files</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">shell</span> <span style="color:#a6e22e">scripts</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">checking</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">empty</span> <span style="color:#a6e22e">or</span> <span style="color:#a6e22e">unneeded</span> <span style="color:#a6e22e">directories</span>
+<span style="color:#960050;background-color:#1e0010">##</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">building</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">texreg_1</span><span style="color:#ae81ff">.38.6</span>.<span style="color:#a6e22e">tar</span>.<span style="color:#a6e22e">gz</span><span style="color:#960050;background-color:#1e0010">&#39;</span>
 <span style="color:#960050;background-color:#1e0010">##</span> 
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pacman<span style="color:#f92672">::</span><span style="color:#a6e22e">p_load</span>(sjPlot, 
                tidyverse, 
@@ -935,14 +912,14 @@
 <h3 id="la-regresión-logística-binaria">La regresión logística binaria</h3>
 <p>Recordemos que, en el caso de la regresión logística, el resultado predicho es el <strong>logit</strong> (logatirmos de los odds), siendo los <strong>odds</strong> una razón de probabilidades (chances). Para llegar hasta la regresión logística, debemos pasar por los odds y los odds-ratio (proporción de chances).</p>
 <p>Las <strong>odds</strong> son <em>la probabilidad de que algo ocurra</em> (por ejemplo, tener un ingreso mayor o igual a la media) dividido por la probabilidad de que <em>no ocurra</em>:</p>
-<p><code>\begin{equation} \ Odds = p/1-p \end{equation}</code></p>
+<p><code>\begin{equation} \ Odds = p/1-p \end{equation}</code></p>
 <p>Odds de 1 significan chances iguales, mientras que odds inferiores a 1 son negativas, y mayores a 1, positivas.</p>
 <p>Las <strong>Odds ratio (OR)</strong>, por su parte, reflejan la asociación entre las chances de dos variables dicotómicas:</p>
-<p><code>\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}</code></p>
+<p><code>\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}</code></p>
 <p>Las OR permiten, entonces, presentar en <em>un único número</em> la relación entre dos variables categóricas. Por ello, es una versión del β para <strong>variables dependientes categóricas</strong>. Una de las transformaciones que permite estimar una regresión con variables dependientes dicotómicas es el <strong>logit</strong>, <strong>logaritmo de los odds</strong></p>
-<p><code>\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}</code></p>
+<p><code>\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}</code></p>
 <p>Luego, la fórmula para un modelo de regresión logística binaria simple es</p>
-<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}</code></p>
+<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}</code></p>
 <p>Donde</p>
 <ul>
 <li><code>\(E(Y)\)</code> es el valor estimado/predicho de <code>\(Y\)</code></li>
@@ -951,7 +928,7 @@
 <li><code>\(b_{1}\)</code> es el <strong>coeficiente de regresión</strong> que, en este caso, presenta valores en <em>log-odds</em></li>
 </ul>
 <p>Y para la regresión logística binaria múltiple</p>
-<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}</code></p>
+<p><code>\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}</code></p>
 <p>Donde</p>
 <ul>
 <li><code>\(E(Y)\)</code> es el valor estimado/predicho de <code>\(Y\)</code></li>
@@ -998,6 +975,9 @@
 ## 
 ## Number of Fisher Scoring iterations: 6
 </code></pre></div><p>Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado <code>modelo0_sin</code>, que consta de una lista con 30 elementos.</p>
+
+</div>
+
 <h3 id="b-modelo-con-predictores-numéricos">b) Modelo con predictores numéricos</h3>
 <p>No obstante, el modelo nulo no es interpretable. Incorporemos edad, predictor <code>numérico</code>, y revisemos el modelo estimado</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">modelo1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">glm</span>(ing_medio <span style="color:#f92672">~</span> edad,
@@ -2274,7 +2254,7 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
 </tr>
 </tfoot>
 </table>
-<p>¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la <a href="https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg">documentación de la función</a>.</p>
+<p>¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la <a href="https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg" target="_blank" rel="noopener">documentación de la función</a>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">htmlreg</span>(l <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(modelo3_survey, or), 
           doctype <span style="color:#f92672">=</span> F, <span style="color:#75715e">#No incluimos doctype</span>
           caption <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Leyenda&#34;</span>, <span style="color:#75715e">#Leyenda de la tabla </span>
@@ -2474,12 +2454,9 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
 </ul>
 <h1 id="8-recursos">8. Recursos</h1>
 <ul>
-<li><a href="https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg">texreg</a></li>
-<li><a href="https://cran.r-project.org/web/packages/survey/survey.pdf">survey</a></li>
+<li><a href="https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg" target="_blank" rel="noopener">texreg</a></li>
+<li><a href="https://cran.r-project.org/web/packages/survey/survey.pdf" target="_blank" rel="noopener">survey</a></li>
 </ul>
-
-</div>
-
 
                     </div>
 
@@ -2620,7 +2597,7 @@ or<span style="color:#f92672">@</span>coef <span style="color:#f92672">&lt;-</sp
     
 
     
-    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
 
     
     

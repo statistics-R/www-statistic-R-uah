@@ -1474,7 +1474,7 @@ pobreza_sexo_p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; 
 &lt;p&gt;En este práctico utilizamos los &lt;strong&gt;datos&lt;/strong&gt; procesados &lt;em&gt;CASEN 2020&lt;/em&gt;, que proviene de los datos originales de la &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta de Caracterización Socioeconómica (CASEN)&lt;/strong&gt;&lt;/a&gt;. Recuerden &lt;em&gt;&lt;strong&gt;siempre&lt;/strong&gt;&lt;/em&gt; consultar el &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;libro códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar datos.&lt;/p&gt;
 &lt;p&gt;No olviden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/07-class/raw/main/07-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;07-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;1-paquetes-a-utilizar&#34;&gt;1. Paquetes a utilizar&lt;/h1&gt;
 &lt;p&gt;Para este práctico utilizaremos, principalmente, las librerías &lt;code&gt;sjmisc&lt;/code&gt; y &lt;code&gt;sjPlot&lt;/code&gt;.&lt;/p&gt;
@@ -1499,14 +1499,14 @@ pobreza_sexo_p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Mientras que la función &lt;code&gt;head&lt;/code&gt; nos entrega el nombre y las primeras 10 filas que lo componen.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;head&lt;/span&gt;(datos_proc)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## # A tibble: 6 x 14
-##       folio sexo     edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
-##       &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;
-## 1   1.10e11 Mascul~    20 No        3.00e6       3 No    No    No    No    No   
-## 2   1.10e11 Femeni~    56 No        3.00e6       3 No    No    No    Sí    No   
-## 3   1.10e11 Mascul~    77 No        6.10e5       2 No    No    No    Sí    No   
-## 4   1.10e11 Femeni~    60 No        6.10e5       2 No    No    No    Sí    No   
-## 5   1.10e11 Mascul~    18 No        1.32e6       4 Sí    No    No    No    No   
-## 6   1.10e11 Mascul~    82 No        1.11e6       4 No    No    No    Sí    No   
+##         folio sexo   edad ocupacion  ytoth tot_per ife   o2    o3    o4    o6   
+##         &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;
+## 1     1.10e11 Masc~    20 No        3.00e6       3 No    No    No    No    No   
+## 2     1.10e11 Feme~    56 No        3.00e6       3 No    No    No    Sí    No   
+## 3     1.10e11 Masc~    77 No        6.10e5       2 No    No    No    Sí    No   
+## 4     1.10e11 Feme~    60 No        6.10e5       2 No    No    No    Sí    No   
+## 5     1.10e11 Masc~    18 No        1.32e6       4 Sí    No    No    No    No   
+## 6     1.10e11 Masc~    82 No        1.11e6       4 No    No    No    Sí    No   
 ## # ... with 3 more variables: ife_d &amp;lt;dbl&amp;gt;, sexo_edad_tramo &amp;lt;chr&amp;gt;, ing_pc &amp;lt;dbl&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Estos códigos nos permiten establecer una aproximación a los datos con los cuales trabajaremos, como los posibles valores que pueden adoptar, el tipo de dato para cada variable, entre otros. No obstante, por prácticos anteriores sabemos que podemos explorar nuestros datos con &lt;code&gt;sjPlot::view_df()&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;sjPlot&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;view_df&lt;/span&gt;(datos_proc,
@@ -1806,7 +1806,7 @@ sjmisc&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#
 &lt;p&gt;Tal como en el práctico anterior, utilizaremos los &lt;strong&gt;datos&lt;/strong&gt; procesados &lt;em&gt;CASEN 2020&lt;/em&gt;, que proviene de los datos originales de &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020&#34;&gt;&lt;strong&gt;Encuesta de Caracterización Socioeconómica (CASEN)&lt;/strong&gt;&lt;/a&gt;.Recuerden &lt;em&gt;&lt;strong&gt;siempre&lt;/strong&gt;&lt;/em&gt; consultar el &lt;a href=&#34;http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf&#34;&gt;&lt;strong&gt;libro códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar datos.&lt;/p&gt;
 &lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/06-class/raw/main/06-clase.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;06-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/08-class/raw/main/08-clase.zip&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;08-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2578,7 +2578,7 @@ mutate(datos, nueva_variable = cálculo o condición)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;El problema de la función &lt;code&gt;recode()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt; es que, si recodifico números etiquetados, se perderá la etiqueta, conservándose el nuevo valor. Esto es un problema recurrente si, por ejemplo, sólo deseo recodificar valores nulos (por ejemplo, transformar los valores &lt;code&gt;88&lt;/code&gt; y &lt;code&gt;99&lt;/code&gt; como &lt;code&gt;NA&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;Frente a ello, con el tiempo nos hemos convencido de que la mejor solución hasta ahora es ocupar &lt;code&gt;recode()&lt;/code&gt; del paquete &lt;code&gt;car&lt;/code&gt;. Si recuerdan, dos funciones con el mismo nombre podrían producir &lt;em&gt;conflictos&lt;/em&gt; y, por ello, especificaremos con &lt;code&gt;car::recode()&lt;/code&gt; que la función &lt;code&gt;recode()&lt;/code&gt; que ocupamos proviene del paquete &lt;code&gt;car&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;note&#34;&gt;
-&lt;p&gt;datos %$%
+&lt;p&gt;datos %$% 
 car::recode(.$variable, c(&amp;lsquo;valor_orig1=nuevo_valor1;valor_org2=nuevo_valor2&amp;rsquo;))&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Ojo: %$% es el primo hermano de %&amp;gt;% (básicamente funcionan igual, por lo que podemos emplear tranquilamente %&amp;gt;% si nos encontramos trabajando con &lt;code&gt;mutate&lt;/code&gt;)&lt;/em&gt;&lt;/p&gt;
 
@@ -2995,6 +2995,9 @@ TRUE ~ NA_real_)&lt;/p&gt;
 &lt;h2 id=&#34;1-recursos-del-práctico&#34;&gt;1. Recursos del práctico&lt;/h2&gt;
 &lt;p&gt;Este práctico fue elaborado con datos de la &lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta Suplementaria de Ingresos (ESI)&lt;/strong&gt;&lt;/a&gt; en su versión 2020. Cuando trabajen con algún set de datos, nunca olviden revisar la documentación metodológica anexa, así como el &lt;a href=&#34;https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%c3%ada-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;libro de códigos&lt;/a&gt; correspondiente.&lt;/p&gt;
 &lt;p&gt;Los datos ya fueron procesados anteriormente, a modo de concentrar el práctico en la creación de los modelos. Así, por ejemplo, los predictores categóricos ya fueron transformados en variables de tipo &lt;code&gt;factor&lt;/code&gt;. Pueden revisar el script &lt;code&gt;proc.R&lt;/code&gt; ubicado en la carpeta &lt;code&gt;R&lt;/code&gt;, para profundizar en el tratamiento de los datos.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/10.2-class/raw/main/10.2-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;10.2-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;2-librerías-a-utilizar&#34;&gt;2. Librerías a utilizar&lt;/h2&gt;
 &lt;p&gt;En este práctico utilizaremos seis paquetes&lt;/p&gt;
 &lt;ol&gt;
@@ -3024,62 +3027,15 @@ TRUE ~ NA_real_)&lt;/p&gt;
 &lt;h2 id=&#34;1-cargar-librerías&#34;&gt;1. Cargar librerías&lt;/h2&gt;
 &lt;p&gt;Como en las prácticas anteriores, empleamos la función &lt;code&gt;p_load&lt;/code&gt; de la librería &lt;code&gt;pacman&lt;/code&gt;. También utilizamos la función &lt;code&gt;install_github()&lt;/code&gt; de &lt;code&gt;remotes&lt;/code&gt; para poder instalar la librería &lt;code&gt;texreg&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;remotes&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;install_github&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;leifeld/texreg&amp;#34;&lt;/span&gt;, force &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; T)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;jsonlite&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1.7.2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&amp;gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1.8.0&lt;/span&gt;) [&lt;span style=&#34;color:#a6e22e&#34;&gt;CRAN&lt;/span&gt;]
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;jsonlite&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;successfully&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unpacked&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MD5&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sums&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checked&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Warning&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;cannot&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;remove&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;prior&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installation&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;of&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;jsonlite&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning in file.copy(savedcopy, lib, recursive = TRUE):
-## problema al copiar C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\00LOCK\jsonlite\libs\x64\jsonlite.dll
-## a C:\Users\nicol\OneDrive\Documentos\R\win-
-## library\4.1\jsonlite\libs\x64\jsonlite.dll: Permission denied
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;## Warning: restored &amp;#39;jsonlite&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;The&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;downloaded&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;binary&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;packages&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;are&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 	&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;:&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Users&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;nicol&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;AppData&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Local&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Temp&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;RtmpKMWBkn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;downloaded_packages&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt;   
-  
-  
-   &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;:&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Users&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;nicol&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;AppData&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Local&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Temp&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;RtmpKMWBkn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;remotes88055f8457b&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;leifeld&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;d7e1ba8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
-  
-&lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;:&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Users&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;nicol&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;AppData&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Local&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Temp&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;RtmpKMWBkn&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;remotes88055f8457b&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;leifeld&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;d7e1ba8&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;431&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ms&lt;/span&gt;)
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;preparing&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;: (&lt;span style=&#34;color:#ae81ff&#34;&gt;2.2&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;)
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;meta&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;information&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
-  
-   &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;meta&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;information&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt; 
-  
-&lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;meta&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;information&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;installing&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;help&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pages&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;643&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ms&lt;/span&gt;)
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;saving&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;partial&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Rd&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;database&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;27.5&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;)
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LF&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;line&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;endings&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;make&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;files&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;shell&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scripts&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;474&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ms&lt;/span&gt;)
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;empty&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unneeded&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;directories&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-  
-  
-&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;building&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg_1&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;.38.5&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;tar&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;gz&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
-  
-   
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;file&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;C&lt;/span&gt;:&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Users&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;dafne&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;AppData&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Local&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Temp&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;RtmpaoqnDt&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;remotes4ec2e6490b&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;\&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;leifeld&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;a80fce7&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OK&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;preparing&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;:
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;DESCRIPTION&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;meta&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;information&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;OK&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;installing&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;the&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;help&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pages&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;saving&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;partial&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Rd&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;database&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;LF&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;line&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;endings&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;make&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;files&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;and&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;shell&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scripts&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;checking&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;empty&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;or&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unneeded&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;directories&lt;/span&gt;
+&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;building&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;texreg_1&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;.38.6&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;tar&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;gz&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;##&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;pacman&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;p_load&lt;/span&gt;(sjPlot, 
                tidyverse, 
@@ -3152,14 +3108,14 @@ TRUE ~ NA_real_)&lt;/p&gt;
 &lt;h3 id=&#34;la-regresión-logística-binaria&#34;&gt;La regresión logística binaria&lt;/h3&gt;
 &lt;p&gt;Recordemos que, en el caso de la regresión logística, el resultado predicho es el &lt;strong&gt;logit&lt;/strong&gt; (logatirmos de los odds), siendo los &lt;strong&gt;odds&lt;/strong&gt; una razón de probabilidades (chances). Para llegar hasta la regresión logística, debemos pasar por los odds y los odds-ratio (proporción de chances).&lt;/p&gt;
 &lt;p&gt;Las &lt;strong&gt;odds&lt;/strong&gt; son &lt;em&gt;la probabilidad de que algo ocurra&lt;/em&gt; (por ejemplo, tener un ingreso mayor o igual a la media) dividido por la probabilidad de que &lt;em&gt;no ocurra&lt;/em&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \ Odds = p/1-p \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ Odds = p/1-p \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Odds de 1 significan chances iguales, mientras que odds inferiores a 1 son negativas, y mayores a 1, positivas.&lt;/p&gt;
 &lt;p&gt;Las &lt;strong&gt;Odds ratio (OR)&lt;/strong&gt;, por su parte, reflejan la asociación entre las chances de dos variables dicotómicas:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ OR = p_1/(1-p_1)/p_0/(1-p_0) \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Las OR permiten, entonces, presentar en &lt;em&gt;un único número&lt;/em&gt; la relación entre dos variables categóricas. Por ello, es una versión del β para &lt;strong&gt;variables dependientes categóricas&lt;/strong&gt;. Una de las transformaciones que permite estimar una regresión con variables dependientes dicotómicas es el &lt;strong&gt;logit&lt;/strong&gt;, &lt;strong&gt;logaritmo de los odds&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ Logit = ln(Odd) = ln(p/1-p) \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Luego, la fórmula para un modelo de regresión logística binaria simple es&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X) / 1 + exp(b_{0} + b_{1}X) \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Donde&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;\(E(Y)\)&lt;/code&gt; es el valor estimado/predicho de &lt;code&gt;\(Y\)&lt;/code&gt;&lt;/li&gt;
@@ -3168,7 +3124,7 @@ TRUE ~ NA_real_)&lt;/p&gt;
 &lt;li&gt;&lt;code&gt;\(b_{1}\)&lt;/code&gt; es el &lt;strong&gt;coeficiente de regresión&lt;/strong&gt; que, en este caso, presenta valores en &lt;em&gt;log-odds&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Y para la regresión logística binaria múltiple&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \ E(Y) = P = exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) / 1 + exp(b_{0} + b_{1}X_{1} + b_{n}X_{n}) \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Donde&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;\(E(Y)\)&lt;/code&gt; es el valor estimado/predicho de &lt;code&gt;\(Y\)&lt;/code&gt;&lt;/li&gt;
@@ -3215,6 +3171,9 @@ TRUE ~ NA_real_)&lt;/p&gt;
 ## 
 ## Number of Fisher Scoring iterations: 6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Como podemos ver, se ha creado en nuestro entorno (Environment) un objeto llamado &lt;code&gt;modelo0_sin&lt;/code&gt;, que consta de una lista con 30 elementos.&lt;/p&gt;
+
+&lt;/div&gt;
+
 &lt;h3 id=&#34;b-modelo-con-predictores-numéricos&#34;&gt;b) Modelo con predictores numéricos&lt;/h3&gt;
 &lt;p&gt;No obstante, el modelo nulo no es interpretable. Incorporemos edad, predictor &lt;code&gt;numérico&lt;/code&gt;, y revisemos el modelo estimado&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;glm&lt;/span&gt;(ing_medio &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; edad,
@@ -4491,7 +4450,7 @@ or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef &lt;span style=&#
 &lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
-&lt;p&gt;¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la &lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34;&gt;documentación de la función&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;¡Personalicemos la tabla! Hay diversos argumentos (especificados a continuación) que permiten incorporar diversos elementos a la tabla, como pueden ser los intervalos de confianza para cada uno de los coeficientes, titular cada uno de los modelos presentados, agregar notas al pie de la tabla, entre otros. Si les interesa profundizar en la personalización de estas tablas, pueden dirigirse a la &lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;documentación de la función&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;htmlreg&lt;/span&gt;(l &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;list&lt;/span&gt;(modelo3_survey, or), 
           doctype &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; F, &lt;span style=&#34;color:#75715e&#34;&gt;#No incluimos doctype&lt;/span&gt;
           caption &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Leyenda&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;#Leyenda de la tabla &lt;/span&gt;
@@ -4691,12 +4650,9 @@ or&lt;span style=&#34;color:#f92672&#34;&gt;@&lt;/span&gt;coef &lt;span style=&#
 &lt;/ul&gt;
 &lt;h1 id=&#34;8-recursos&#34;&gt;8. Recursos&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34;&gt;texreg&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/survey/survey.pdf&#34;&gt;survey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rdocumentation.org/packages/texreg/versions/1.37.5/topics/htmlreg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;texreg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/survey/survey.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;survey&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;/div&gt;
-
 </description>
     </item>
     
@@ -6159,7 +6115,7 @@ save(objeto1, objeto2, file = &amp;ldquo;datos.RData)&lt;/p&gt;
       <guid>/example/02-practico/</guid>
       <description>&lt;h1 id=&#34;0-objetivo-del-práctico&#34;&gt;0. Objetivo del práctico&lt;/h1&gt;
 &lt;p&gt;El objetivo de este práctico es crear nuestro primer reporte en &lt;strong&gt;RMarkdown&lt;/strong&gt; y contener en este el &lt;strong&gt;primer paso de un código en R: cargar paquetes&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos necesarios para la creación de su propio archivo en .Rmd. Este práctico será clave para la realización de tu &lt;a href=&#34;/assignament/01-tarea&#34;&gt;tarea N°1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos necesarios para la creación de su propio archivo en .Rmd. Este práctico será clave para la realización de tu &lt;a href=&#34;/assignment/01-tarea/&#34;&gt;tarea N°1&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;materiales-de-la-sesión&#34;&gt;Materiales de la sesión&lt;/h2&gt;
 &lt;p&gt;Recuerden que los archivos asociados a este práctico se pueden descargar aquí:&lt;/p&gt;
 &lt;ul&gt;
@@ -6472,13 +6428,13 @@ Título 3
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;41-actividad-del-práctico&#34;&gt;4.1 Actividad del práctico&lt;/h3&gt;
-&lt;p&gt;La actividad tendrá relación con la entrega de la &lt;a href=&#34;&#34;&gt;&lt;strong&gt;Tarea 1&lt;/strong&gt;&lt;/a&gt;. Esta actividad consiste en la creación de un RMarkdown que contenga lo siguiente:&lt;/p&gt;
+&lt;p&gt;La actividad tendrá relación con la entrega de la &lt;a href=&#34;https://learn-r-uah.netlify.app/assignment/01-tarea/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Tarea 1&lt;/strong&gt;&lt;/a&gt;. Esta actividad consiste en la creación de un RMarkdown que contenga lo siguiente:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Un encabezado (YAML) con el título: &amp;ldquo;Práctico 2&amp;rdquo;. También deben incorporar su nombre y fecha&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Este encabezado debe tener una salida (output), deben elegit &lt;code&gt;html_output&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Este encabezado debe tener una salida (output), deben elegir &lt;code&gt;html_output&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;En el documento  deben incorporarla imagen &lt;code&gt;grafico01&lt;/code&gt; (que está en el .zip asociado a la clase)&lt;/p&gt;
@@ -6698,7 +6654,7 @@ Título 3
 &lt;h1 id=&#34;1-recursos-del-práctico&#34;&gt;1. Recursos del práctico&lt;/h1&gt;
 &lt;p&gt;En este práctico utilizamos los &lt;strong&gt;datos procesados&lt;/strong&gt; de la &lt;a href=&#34;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;Encuesta Suplementaria de Ingresos (ESI) 2020&lt;/strong&gt;&lt;/a&gt;.Recuerden &lt;em&gt;&lt;strong&gt;siempre&lt;/strong&gt;&lt;/em&gt; consultar el &lt;a href=&#34;https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/manual-y-gu%C3%ADa-de-variables/2020/personas-esi-2020.pdf?sfvrsn=f196cb4e_4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;strong&gt;libro códigos&lt;/strong&gt;&lt;/a&gt; antes de trabajar datos.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/09-class/raw/main/08-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;08-class.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/learn-R/10.1-class/raw/main/10.1-clase.zip&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;i class=&#34;fas fa-file-archive&#34;&gt;&lt;/i&gt; &lt;code&gt;10.1-clase.zip&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;2-paquetes-a-utilizar&#34;&gt;2. Paquetes a utilizar&lt;/h1&gt;
 &lt;p&gt;En este práctico utilizaremos siete paquetes&lt;/p&gt;
@@ -6793,9 +6749,9 @@ Título 3
 &lt;h1 id=&#34;5-modelo-de-regresión-lineal&#34;&gt;5. Modelo de regresión lineal&lt;/h1&gt;
 &lt;h2 id=&#34;51-formula&#34;&gt;5.1 Formula&lt;/h2&gt;
 &lt;p&gt;Previo a eso recordemos que la fórmula de la regresión lineal simple es:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Mientras que en la regresión lineal múltiple es:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X +b_{2}X +b_{x}X \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X +b_{2}X +b_{x}X \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Donde&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;\(\widehat{Y}\)&lt;/code&gt; es el valor estimado/predicho de &lt;code&gt;\(Y\)&lt;/code&gt;&lt;/li&gt;
@@ -6813,7 +6769,7 @@ Título 3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Resultado&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}=b_{0} +b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Con&lt;/li&gt;
 &lt;/ul&gt;
@@ -6920,9 +6876,9 @@ Título 3
 ## Residual standard error: 481300 on 71934 degrees of freedom
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Utilizando ecuaciones en LateX, se vería de la siguiente manera&lt;/p&gt;
 &lt;p&gt;Modelo sin muestral&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}= 206355 + b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}= 206355 + b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Modelo con peso muestral&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}= 256201 + b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{Y}= 256201 + b_{1}X \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Hay diferencias en el intercepto y en los errores estándar, ya que uno asume pesos de precisión y otro asume pesos muestrales.&lt;/p&gt;
 &lt;p&gt;Por ello es muy importante incorporar el peso muestral en el análisis, sino los estimadores puntuales no serán exactos, &lt;strong&gt;no podremos realizar inferencia a nivel poblacional a partir del modelo&lt;/strong&gt;, debido a la sobrestimación de la precisión de los estimadores.&lt;/p&gt;
 &lt;h2 id=&#34;53-regresión-lineal-simple&#34;&gt;5.3 Regresión lineal simple&lt;/h2&gt;
@@ -6961,7 +6917,7 @@ Reemplazamos
 \widehat{ing_t_t}= 127658.05 + 3511.38*edad
 \end{equation}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Resultado:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{ing_t_t}= 127658.05 + 3511.38*edad \end{equation}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\begin{equation} \widehat{ing_t_t}= 127658.05 + 3511.38*edad \end{equation}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;También podemos ver la relación entre ingresos y sexo (&lt;code&gt;ing_t_t&lt;/code&gt;, &lt;code&gt;sexo&lt;/code&gt;)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;modelo2_sin &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;lm&lt;/span&gt;(ing_t_t &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt; sexo,
               data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; datos, 
@@ -8130,7 +8086,7 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;h2 id=&#34;6-github-class-room-del-curso-learn-r-uah&#34;&gt;6. GitHub Class Room del curso (learn-R-UAH)&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Pasos para las dinámicas del curso&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;61-recibir-una-tarea&#34;&gt;6.1 Recibir una tarea&lt;/h3&gt;
-&lt;h3 id=&#34;62-ingresa-el-linkhttpsclassroomgithubcomclassrooms86887318-learn-r-uah-2022&#34;&gt;6.2 Ingresa el &lt;a href=&#34;https://classroom.github.com/classrooms/86887318-learn-r-uah-2022&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;62-ingresa-el-linkhttpsclassroomgithubcomazym3ol16&#34;&gt;6.2 Ingresa el &lt;a href=&#34;https://classroom.github.com/a/zYM3oL16&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un &lt;em&gt;&lt;strong&gt;repositorio&lt;/strong&gt;&lt;/em&gt; que contendrá la &lt;em&gt;información&lt;/em&gt; y las &lt;em&gt;instrucciones&lt;/em&gt; de la tarea.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/ingrestarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;b. Para eso deben ir a &lt;em&gt;&lt;strong&gt;GitHub Desktop&lt;/strong&gt;&lt;/em&gt;, &lt;em&gt;&lt;strong&gt;clonar&lt;/strong&gt; el respositorio desde internet&lt;/em&gt;.&lt;/p&gt;
@@ -8140,12 +8096,12 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;p&gt;d. Después deben abrir el repositorio creado a través de &lt;em&gt;&lt;strong&gt;RStudio&lt;/strong&gt;&lt;/em&gt;, ahí verán el mismo contenido pero en un archivo &lt;em&gt;&lt;strong&gt;.md&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/paso4tarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;63-resolver-una-tarea&#34;&gt;6.3 Resolver una tarea&lt;/h3&gt;
-&lt;p&gt;a. Ahora resolveremos la &lt;strong&gt;Tarea 0&lt;/strong&gt; en conjunto, una vez abierto el &lt;a href=&#34;https://classroom.github.com/classrooms/86887318-learn-r-uah-2022&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositorio         clonado&lt;/a&gt;. Recuerden que es en este repositorio donde deben completar y subir la tarea&lt;/p&gt;
+&lt;p&gt;a. Ahora resolveremos la &lt;strong&gt;Tarea 0&lt;/strong&gt; en conjunto, una vez abierto el &lt;a href=&#34;https://classroom.github.com/a/zYM3oL16&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositorio         clonado&lt;/a&gt;. Recuerden que es en este repositorio donde deben completar y subir la tarea&lt;/p&gt;
 &lt;p&gt;b. La tarea se encuentra en un archivo llamado &lt;code&gt;*README*&lt;/code&gt; con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.&lt;/p&gt;
 &lt;p&gt;c. Una vez leido deberán ir al final del archivo en &lt;strong&gt;Tarea 0&lt;/strong&gt; y responder las preguntas correspondientes&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/paso5tarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;64-tarea-0&#34;&gt;6.4 Tarea 0&lt;/h3&gt;
-&lt;p&gt;¡Puedes ver las instrucciones de la &lt;a href=&#34;../assignment/00-tarea&#34;&gt;tarea en el siguiente link&lt;/a&gt; o en &lt;a href=&#34;https://classroom.github.com/classrooms/86887318-learn-r-uah-2022&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Room&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;¡Puedes ver las instrucciones de la &lt;a href=&#34;/assignment/00-tarea/&#34;&gt;tarea en el siguiente link&lt;/a&gt; o en &lt;a href=&#34;https://classroom.github.com/a/zYM3oL16&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub Class Room&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;65-subir-una-tarea&#34;&gt;6.5 Subir una tarea&lt;/h3&gt;
 &lt;p&gt;a. Una vez listo, deberán &lt;em&gt;&lt;strong&gt;subir&lt;/strong&gt;&lt;/em&gt; la tarea al repositorio remoto a través de GitHub Desktop&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/example/paso6tarea.png&#34; width=&#34;60%&#34; /&gt;&lt;/p&gt;

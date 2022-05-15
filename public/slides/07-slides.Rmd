@@ -362,7 +362,7 @@ layout: false
 - Aprovecha estas semanas para repasar los prácticos
 - La sesión N°9 requiere de un manejo avanzado de los prácticos]
 
-. box-2[- Una buena forma de saber "cómo están" para esta segunda parte del curso es tomar nota de **cuánto** les cuesta la tarea]
+.box-2[- Una buena forma de saber "cómo están" para esta segunda parte del curso es tomar nota de **cuánto** les cuesta la tarea]
 
 ---
 .box-inv-8[¡Ahora si que si! Nos vemos después del receso]
