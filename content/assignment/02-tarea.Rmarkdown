@@ -57,7 +57,7 @@ El equipo le ha indicado una serie de consejos que se han estipulado en el *Feed
 - Grupo ocupacional a 1 dígito (CIUO)
 - Rama de actividad económica de la **empresa donde trabaja el ocupado**(CIIU)
 - Tamaño de la empresa en categorías (5 niveles)
-- Variable de informalidad (Hint: ver página 43 del Libro de Códigos) [*]
+- Variable de informalidad (Hint: ver página 61 del Libro de Códigos) [*]
 
 **Condiciones laborales**
 - Tipo de jornada (completa o parcial)
