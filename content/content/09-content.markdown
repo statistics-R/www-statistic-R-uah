@@ -82,4 +82,6 @@ slides: "09-slides"
 
 -   [<i class="fas fa-file-archive"></i> `09-clase.zip`](https://github.com/learn-R/09-class/raw/main/09-clase.zip)
 
+-   [<i class="fas fa-file-archive"></i> `taller_descriptivos.zip`](https://github.com/learn-R/taller_descriptivos/raw/main/taller_descriptivos.zip)
+
 -   [<i class="fas fa-laptop-code"></i> Práctico](/example/09-practico/)
