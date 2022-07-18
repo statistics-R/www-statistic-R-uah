@@ -2,7 +2,7 @@
 title: "Tarea 4. Análisis de regresión"
 linktitle: "4: Análisis de regresión"
 date: "2021-10-06"
-due_date: "2022-06-17"
+due_date: "2022-11-07"
 due_time: "23:59 PM"
 menu:
   assignment:
@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°4 hacer click aquí](https://classroom.github.com/a/jv91XaPO). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°4 hacer click aquí](https://classroom.github.com/a/2ABddgzu). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 ## Objetivo 
 
