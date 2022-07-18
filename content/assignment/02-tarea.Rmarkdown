@@ -2,7 +2,7 @@
 title: "Tarea 2. Análisis descriptivo"
 linktitle: "2: Análisis descriptivo"
 date: "2021-09-08"
-due_date: "2022-05-23"
+due_date: "2022-10-03"
 due_time: "23:59 PM"
 menu:
   assignment:
@@ -14,11 +14,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°2 hacer click aquí](https://classroom.github.com/a/8WcwkjQq). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°2 hacer click aquí](https://classroom.github.com/a/xGdAjvBj). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 ## Objetivo
 
-La tarea N°2 implica la continuación de la tarea N°1 donde procesaron datos que servirían de "input" para los análisis que deberán presentar en el siguiente ejercicio.
+La tarea N°2 implica la continuación de la tarea N°1 (más otros elementos) donde procesaron datos que servirían de "input" para los análisis que deberán presentar en el siguiente ejercicio.
 
 ### Instrucciones
 
