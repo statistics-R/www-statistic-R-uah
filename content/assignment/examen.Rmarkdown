@@ -2,7 +2,7 @@
 title: "Examen. Proyecto de investigación final"
 linktitle: "Examen: Proyecto final"
 date: "2021-11-08"
-due_date: "2022-07-04"
+due_date: "2022-11-21"
 due_time: "23:59 PM"
 menu:
   assignment:
@@ -82,7 +82,7 @@ Para reportar estos análisis deben hacer al menos **2 tablas y 2 gráficos.**
   
 ## Proyecto
 
-1. [Deben crear un repositorio en el link de GitHub Class Room](https://classroom.github.com/a/yFHGOnrx)
+1. Para acceder a la tarea [Deben aceptar el repositorio en el link de GitHub Class Room](https://classroom.github.com/a/crXZ_wAu)
 2. Deben hacer un README.md explicando aspectos generales del repositorio
 
 # Criterios de evaluación
