@@ -2,7 +2,7 @@
 title: "Tarea 1. Procesamiento de datos en R"
 linktitle: "1: Procesamiento de datos en R"
 date: "2021-09-08"
-due_date: "2022-04-27"
+due_date: "2022-09-12"
 due_time: "11:59 PM"
 menu:
   assignment:
@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°1 hacer click aquí](https://classroom.github.com/a/3O74wEvi). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°1 hacer click aquí](https://classroom.github.com/a/TxQTgSWu). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 ## Objetivo
 
@@ -26,7 +26,7 @@ En su nuevo trabajo como investigadores/as les han encargado hacer un estudio so
 
 1. Debe ocupar la Encuesta Nacional de Empleo (ENE) del Instituto Nacional de Estadísticas, particularmente el trimestre *Octubre-Noviembre-Diciembre* del año 2019 y del 2021. 
 
-2. Las variables que más interesan para el informe son: condición de actividad económica general (*CAE*), no general (*Condición de actividad*) y las horas de trabajo de la actividad principal (*modulo C*)
+2. Las variables que más interesan para el informe son: condición de actividad económica general (*CAE*), no general (*Condición de actividad*) y las horas de trabajo de la actividad principal (*Modulo C*)
 
 3. También le han indicado que hay ciertas variables socio demográficas de interés como el nivel educacional (*CINE*), edad y sexo 
 
@@ -34,7 +34,7 @@ En su nuevo trabajo como investigadores/as les han encargado hacer un estudio so
 
 En su equipo de investigación quieren realizar los siguientes análisis, para lo cuál usted debe construir un data set procesado llamado *datos_proc.RData* que permita realizar estos análisis de manera debida
 
-0. Los análisis solo deben considerar a las personas en edad de trabajar *según las definiciones del Instituto Nacional de Estadística. *
+0. Los análisis solo deben considerar a las personas en edad de trabajar *según las definiciones del Instituto Nacional de Estadística.*
 
 1. Un análisis de la distribución de socio demográficos de nivel educacional, edad y sexo. Le han solicitado que el nivel educacional esté solo clasificado en *"Superior completa", "Media y básica completa" y "Básica o menos incompleta"*, que la edad esté clasificada *en tramos de "15 a 39 años", "40 a 64 años" y "65 y más"*; sexo debe estar codificada como *"Mujer" y "Hombre".* 
 
