@@ -14,7 +14,7 @@ editor_options:
 
 #  0. Objetivo del práctico
 
-El objetivo del práctico es avanzar en el análisis de los datos a través del uso de **estadísticos descriptivos**. Para esto ya debemos contar con datos previamente [procesados del práctico N°6](https://learn-r-uah.netlify.app/example/04-practico/). Previo a eso, **siempre es importante** que recordemos en qué parte del proceso estamos
+El objetivo del práctico es avanzar en el análisis de los datos a través del uso de **estadísticos descriptivos**. Para esto ya debemos contar con datos previamente [procesados del práctico N°6](https://learn-r-uah.netlify.app/example/06-practico/). Previo a eso, **siempre es importante** que recordemos en qué parte del proceso estamos
 
 ![](https://github.com/learn-R/slides/raw/main/img/01/flow-rproject.png)
 
