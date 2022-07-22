@@ -14,7 +14,7 @@ editor_options:
 <link href="/rmarkdown-libs/tile-view/tile-view.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/tile-view/tile-view.js"></script>
 <link href="/rmarkdown-libs/animate.css/animate.xaringan.css" rel="stylesheet" />
-<script type="application/json" id="xaringanExtra-editable-docid">{"id":"xfec25b8f8ce415fa0f817cb39b267ea","expires":14}</script>
+<script type="application/json" id="xaringanExtra-editable-docid">{"id":"c61759ddce144eaa8d3e9b1f88db4dd8","expires":14}</script>
 <script src="/rmarkdown-libs/himalaya/himalaya.js"></script>
 <script src="/rmarkdown-libs/js-cookie/js.cookie.js"></script>
 <link href="/rmarkdown-libs/editable/editable.css" rel="stylesheet" />
@@ -46,7 +46,7 @@ Este práctico tiene por objeto introducir a las y los estudiantes del curso en 
 
 ## 1. Recursos de la práctica
 
-Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego descomprimirlo en la carpeta _input/data_ de su repositorio. Para descomprimir los [archivos revisen](resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` y en STATA `Casen en Pandemia 2020 SPSS.dta`
+Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego descomprimirlo en la carpeta _input/data_ de su repositorio. Para descomprimir los [archivos revisen](https://learn-r-uah.netlify.app/resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` y en STATA `Casen en Pandemia 2020 SPSS.dta`
 
 Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
@@ -170,18 +170,18 @@ readRDS(file = "input/data/CASEN.rds")
 
 ```
 ## # A tibble: 100 x 5
-##       id                     region      sexo      pobreza ocupacion            
-##    <dbl>                  <dbl+lbl> <dbl+lbl>    <dbl+lbl> <chr>                
-##  1   502 16 [Región de Ñuble]       2 [Mujer] 3 [No pobre~ <NA>                 
-##  2   184  6 [Región del Libertador~ 2 [Mujer] 3 [No pobre~ <NA>                 
-##  3   308  8 [Región del Biobío]     2 [Mujer] 3 [No pobre~ <NA>                 
-##  4   531  6 [Región del Libertador~ 1 [Hombr~ 3 [No pobre~ COSECHA DE GUINDAS   
-##  5   115  3 [Región de Atacama]     2 [Mujer] 3 [No pobre~ <NA>                 
-##  6   261  5 [Región de Valparaíso]  2 [Mujer] 3 [No pobre~ <NA>                 
-##  7   171  3 [Región de Atacama]     1 [Hombr~ 3 [No pobre~ ATENCIÓN PARADERO CO~
-##  8   333  7 [Región del Maule]      1 [Hombr~ 1 [Pobres e~ RECOLECTOR DE HORTAL~
-##  9    69 14 [Región de Los Ríos]    1 [Hombr~ 3 [No pobre~ EMPRESARIO DISTRIBUC~
-## 10   440  4 [Región de Coquimbo]    1 [Hombr~ 2 [Pobres n~ <NA>                 
+##       id                                        region    sexo pobreza ocupacion
+##    <dbl>                                     <dbl+lbl> <dbl+l> <dbl+l> <chr>    
+##  1   502 16 [Región de Ñuble]                          2 [Muj~ 3 [No ~ <NA>     
+##  2   184  6 [Región del Libertador Gral. Bernardo O'H~ 2 [Muj~ 3 [No ~ <NA>     
+##  3   308  8 [Región del Biobío]                        2 [Muj~ 3 [No ~ <NA>     
+##  4   531  6 [Región del Libertador Gral. Bernardo O'H~ 1 [Hom~ 3 [No ~ COSECHA ~
+##  5   115  3 [Región de Atacama]                        2 [Muj~ 3 [No ~ <NA>     
+##  6   261  5 [Región de Valparaíso]                     2 [Muj~ 3 [No ~ <NA>     
+##  7   171  3 [Región de Atacama]                        1 [Hom~ 3 [No ~ ATENCIÓN~
+##  8   333  7 [Región del Maule]                         1 [Hom~ 1 [Pob~ RECOLECT~
+##  9    69 14 [Región de Los Ríos]                       1 [Hom~ 3 [No ~ EMPRESAR~
+## 10   440  4 [Región de Coquimbo]                       1 [Hom~ 2 [Pob~ <NA>     
 ## # ... with 90 more rows
 ```
 
@@ -336,9 +336,8 @@ frq(datos$pobreza)
 ```
 
 ```
-## 
-## Situación de pobreza por ingresos (x) <numeric>
-## # total N=185437  valid N=185339  mean=2.84  sd=0.48
+## Situación de pobreza por ingresos (x) <numeric> 
+## # total N=185437 valid N=185339 mean=2.84 sd=0.48
 ## 
 ## Value |              Label |      N | Raw % | Valid % | Cum. %
 ## --------------------------------------------------------------

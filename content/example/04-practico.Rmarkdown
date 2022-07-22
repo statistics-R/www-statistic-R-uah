@@ -34,7 +34,7 @@ Este práctico tiene por objeto introducir a las y los estudiantes del curso en 
 
 ## 1. Recursos de la práctica
 
-Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego descomprimirlo en la carpeta _input/data_ de su repositorio. Para descomprimir los [archivos revisen](resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` y en STATA `Casen en Pandemia 2020 SPSS.dta`
+Para el correcto trabajo de estos materiales, deben descargar los datos de la *Encuesta de Caracterización Socioeconómica (CASEN)* en su versión 2020. Para ello, deben dirigirse al [siguiente enlace](https://drive.google.com/drive/folders/1Orgb3Qb9LcjTfjYMdIdy7SWd3xDMrTbG?usp=sharing), descargar el archivo en .zip y luego descomprimirlo en la carpeta _input/data_ de su repositorio. Para descomprimir los [archivos revisen](https://learn-r-uah.netlify.app/resource/unzipping/). Cuando lo hayan logrado verán la base en formato SPPS `Casen en Pandemia 2020 SPSS.sav` y en STATA `Casen en Pandemia 2020 SPSS.dta`
 
 Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
