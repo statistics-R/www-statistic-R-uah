@@ -24,7 +24,7 @@ Ahora aprenderemos a crear scripts, proyectos, colaborar y resolver las tareas.
 
 Para que empecemos a trabajar en el lenguaje R, lo primero es saber cómo abrir un nuevo script; pero *¡¿qué es un script?!* Dicho en términos simples, el script es la *"hoja"* sobre la cual escribiremos y guardaremos cada uno de los códigos que trabajemos cuando estemos trabajando con datos cuantitativos. Si bien podemos ejecutar los códigos directamente desde la **consola**, estos se eliminarán una vez que cerremos la sesión en RStudio:
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/consola.png", error = FALSE)
 ```
 
@@ -32,19 +32,19 @@ Así, cuando escribamos en nuestro **script**, podremos archivar los códigos qu
 
 Hacerlo es bastante sencillo. En la sección *superior izquierda* de RStudio, debe hacerse click en la hoja con un signo + verde y, luego, seleccionar la opción **R Script** en el menú desplegado: 
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/open-script.png", error = FALSE)
 ```
 
 Otra manera de abrir un nuevo script es hacer click en la opción **File** de la *barra superior*
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/file.png", error = FALSE)
 ```
 
 para, posteriormente seleccionar **New File > R Script** en los menús desplegados:
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-script.png", error = FALSE)
 ```
 
@@ -53,29 +53,29 @@ en *Mac*.
  
 Ya hemos abierto un nuevo script (**¡Genial!**), que se debe ver de la siguiente manera:
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/script.png", error = FALSE)
 ```
  
 Podemos escribir en él los códigos, que se ejecutarán en la **consola** una vez mantengamos presionadas las teclas **Control + Enter** al inicio de la línea
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/script-console.png", error = FALSE)
 ```
 
 Ahora, por supuesto, debemos guardar nuestro script una vez terminemos de trabajar en él, a modo de no perder el trabajo avanzado. Para ello, podemos hacer click en el **disquete** situado en la *barra que se encuentra sobre el código*
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/save.jpg", error = FALSE)
 ```
 
 Para luego, elegir el directorio donde deseamos almacenar nuestro script, y asignarle un nombre determinado (en este caso **script1**) que, ojalá, tenga que ver con los procedimientos ejecutados en este (por ejemplo, *procesamiento* o *análisis*). La extensión de los archivos que almacenan scripts es **.R** (*¡no lo olvides!*)
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/save-script.png", error = FALSE)
 ```
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/name-script.png", error = FALSE)
 ```
 
@@ -87,43 +87,43 @@ Una vez almacenado en una carpeta, cada vez que clickeemos en los casetes o mant
 
 ¿Cómo lo hacemos? Es bastante sencillo, y se asemeja a la creación de scripts. No obstante, esta vez nos dirigiremos a la sección *superior derecha de RStudio*, donde se encuentra una *R inscrita a un cubo*
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/rproj.png", error = FALSE)
 ```
 
 Haremos click en ella, y se desplegará un panel con opciones. Clickearemos en **New Project...**
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj.png", error = FALSE)
 ```
 
 Emergerá una ventana que nos preguntará en qué carpeta queremos alojar nuestro nuevo proyecto. Podemos elegir crear una nueva carpeta haciendo click en **New Directory**, o elegir una carpeta ya existente en nuestro computador, clickeando en **Existing Directory**
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj1.png", error = FALSE)
 ```
 
 Si optamos por lo primero, se nos preguntará qué tipo de proyecto deseamos crear. En este caso, elegiremos **New Project**
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj2.png", error = FALSE)
 ```
 
 Aparecerá una ventana que nos pregunta el nombre que queremos asignarle a la nueva carpeta que crearemos, y en qué carpeta se alojará esta. Si hacemos click en *Browse*, podemos buscar un directorio específico en el cual queramos alojar la nueva carpeta
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj3.png", error = FALSE)
 ```
 
 En caso de elegir lo segundo, se nos solicitará directamente en qué carpeta (ya existente) queremos alojar nuestro proyecto. Una vez más, podemos utilizar *Browse* para navegar entre las carpetas de nuestro computador, hasta hallar aquella en que deseamos alojar este nuevo archivo
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj4.png", error = FALSE)
 ```
 
 ¡Listo! ahora sólo debemos ir a nuestra carpeta y buscar el proyecto que hemos creado. Es un archivo de extensión .Rproj, cuyo ícono es una R inscrita en un cubo. 
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/new-proj5.png", error = FALSE)
 ```
 
@@ -159,7 +159,7 @@ Es una plataforma de Github que facilita la interacción y aprendizaje entre est
 
 2. Dirigirse al [Link](https://n9.cl/954ne ) 
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/create.png", error = FALSE)
 ```
 
@@ -173,7 +173,7 @@ Es una plataforma de Github que facilita la interacción y aprendizaje entre est
 
 7. Clickear en Crear una cuenta
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/capt.png", error = FALSE)
 ```
 
@@ -195,7 +195,7 @@ a. Instalar Github Desktop
 
 b. Dirigirse a [Link](https://desktop.github.com/) 
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/deskdown.png", error = FALSE)
 ```
 
@@ -232,7 +232,7 @@ d. Vincular la dirección de la carpeta
 
 - **Add existing repository**: incorpora un repositorio existente
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/con1desk.png", error = FALSE)
 ```
 
@@ -246,7 +246,7 @@ d. Vincular la dirección de la carpeta
 
 - **Push origin**: manda los cambios al repositorio en línea
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/con2desk.jpg", error = FALSE)
 ```
 
@@ -271,7 +271,7 @@ d. Vincular la dirección de la carpeta
 
 - **Pull requests**: Es una forma de solicitar que sean incorporados los cambios que has hecho desde un repositorio local, al repositorio original.
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/concepclav.png", error = FALSE)
 ```
 
@@ -281,54 +281,54 @@ d. Vincular la dirección de la carpeta
 
 ### 6.1 Recibir una tarea 
 
-### 6.2 Ingresa el [link](https://classroom.github.com/a/zYM3oL16)
+### 6.2 Ingresa el [link](https://classroom.github.com/a/taONcqa7)
 
   a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un _**repositorio**_ que contendrá la *información* y las *instrucciones* de la tarea.
 
   
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/ingrestarea.png", error = FALSE)
 ```
   
   b. Para eso deben ir a _**GitHub Desktop**_, _**clonar** el respositorio desde internet_.
   
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/paso2tarea.png", error = FALSE)
 ```
   
   c. Luego deben escoger el repositorio de la tarea, escoger la carpeta en la que se encontrará y clonarlo
   
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/paso3tarea.png", error = FALSE)
 ``` 
   
   d. Después deben abrir el repositorio creado a través de _**RStudio**_, ahí verán el mismo contenido pero en un archivo _**.md**_ 
 
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/paso4tarea.png", error = FALSE)
 ``` 
   
 ### 6.3 Resolver una tarea
 
-  a. Ahora resolveremos la **Tarea 0** en conjunto, una vez abierto el [repositorio         clonado](https://classroom.github.com/a/zYM3oL16). Recuerden que es en este repositorio donde deben completar y subir la tarea
+  a. Ahora resolveremos la **Tarea 0** en conjunto, una vez abierto el [repositorio         clonado](https://classroom.github.com/a/taONcqa7). Recuerden que es en este repositorio donde deben completar y subir la tarea
 
   b. La tarea se encuentra en un archivo llamado `*README*` con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.
  
   c. Una vez leido deberán ir al final del archivo en **Tarea 0** y responder las preguntas correspondientes
   
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/paso5tarea.png", error = FALSE)
 ``` 
   
 ### 6.4 Tarea 0
 
-¡Puedes ver las instrucciones de la [tarea en el siguiente link](/assignment/00-tarea/) o en [GitHub Class Room](https://classroom.github.com/a/zYM3oL16)
+¡Puedes ver las instrucciones de la [tarea en el siguiente link](/assignment/00-tarea/) o en [GitHub Class Room](https://classroom.github.com/a/taONcqa7)
 
 ### 6.5 Subir una tarea
 
   a. Una vez listo, deberán _**subir**_ la tarea al repositorio remoto a través de GitHub Desktop
   
-```{r, echo=FALSE, out.width="60%"}
+```{r echo=FALSE, warning=FALSE, out.width="60%"}
     knitr::include_graphics("/img/example/paso6tarea.png", error = FALSE)
 ``` 
 
