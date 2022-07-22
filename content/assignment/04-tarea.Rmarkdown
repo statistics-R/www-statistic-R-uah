@@ -2,7 +2,7 @@
 title: "Tarea 4. Análisis de regresión"
 linktitle: "4: Análisis de regresión"
 date: "2021-10-06"
-due_date: "2022-11-07"
+due_date: "2022-11-14"
 due_time: "23:59 PM"
 menu:
   assignment:

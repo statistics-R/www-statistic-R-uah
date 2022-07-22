@@ -2,7 +2,7 @@
 title: "Tarea 2. Análisis descriptivo"
 linktitle: "2: Análisis descriptivo"
 date: "2021-09-08"
-due_date: "2022-10-03"
+due_date: "2022-10-24"
 due_time: "23:59 PM"
 menu:
   assignment:

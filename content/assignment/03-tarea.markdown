@@ -2,7 +2,7 @@
 title: "Tarea 3. Muestras complejas"
 linktitle: "3: Muestras complejas"
 date: "2021-10-01"
-due_date: "2022-10-24"
+due_date: "2022-11-07"
 due_time: "23:59 PM"
 menu:
   assignment:

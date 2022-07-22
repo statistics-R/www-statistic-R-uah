@@ -2,7 +2,7 @@
 title: "Tarea 1. Procesamiento de datos en R"
 linktitle: "1: Procesamiento de datos en R"
 date: "2021-09-08"
-due_date: "2022-09-12"
+due_date: "2022-09-26"
 due_time: "11:59 PM"
 menu:
   assignment:

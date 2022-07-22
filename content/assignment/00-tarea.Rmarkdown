@@ -2,7 +2,7 @@
 title: "Tarea 0. Reporte en RMarkdown"
 linktitle: "0: Reporte en RMarkdown"
 date: "2021-08-16"
-due_date: "2022-08-08"
+due_date: "2022-08-22"
 due_time: "11:59 PM"
 menu:
   assignment:
@@ -15,7 +15,7 @@ editor_options:
 ---
 
 
-Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/taONcqa7). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](../example/01-practico)
+Esta tarea debe ser resuelta en GitHub Class Room. Para acceder a la <i class="fas fa-external-link-square-alt"></i>  [Tarea N°0 hacer click aquí](https://classroom.github.com/a/taONcqa7). Si aún tienes dudas de cómo interactuar con [GitHub Class Roomm revisa el práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
 ## Objetivo
 
