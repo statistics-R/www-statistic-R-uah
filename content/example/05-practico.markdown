@@ -22,7 +22,7 @@ Es así como esta práctica se enmarca en el proceso de **procesamiento de los d
 
 ## 1. Recursos de la práctica
 
-En este práctico utilizaremos la base de datos de la [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020), la cual fue procesada en el [Práctico anterior]().Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
+En este práctico utilizaremos la base de datos de la [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020), la cual fue procesada en el [Práctico anterior](https://learn-r-uah.netlify.app/example/04-practico/).Recuerden siempre consultar el [**manual/libro de códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar una base de datos.
 
 ## 2. Librerías a utilizar
 
@@ -147,7 +147,7 @@ Describen relaciones **lógicas** o **condicionales**
 | `all`    |  Todas las condiciones serán ocupadas |
 
 
-<img src="/img/example/operad.png" width="60%" />
+<img src="../img/example/operad.png" width="60%" />
 Figura 1: Resumen de operadores
 
 ### Operador pipeline %>% 
@@ -399,9 +399,9 @@ filter(datos_proc, ytoth == max(ytoth))
 
 ```
 ## # A tibble: 1 x 13
-##          folio  edad    sexo    prev ocupacion tot_per  ytoth y26d_hog y26d_total
-##          <dbl> <dbl> <dbl+l> <dbl+l> <dbl+lbl>   <dbl>  <dbl> <dbl+lb>  <dbl+lbl>
-## 1 730830031501    41 1 [Hom~ 1 [Sis~    1 [Sí]       1 2.25e8   2 [No]         NA
+##         folio  edad    sexo    prev ocupacion tot_per  ytoth y26d_hog y26d_total
+##         <dbl> <dbl> <dbl+l> <dbl+l> <dbl+lbl>   <dbl>  <dbl> <dbl+lb>  <dbl+lbl>
+## 1     7.31e11    41 1 [Hom~ 1 [Sis~    1 [Sí]       1 2.25e8   2 [No]         NA
 ## # ... with 4 more variables: o2 <dbl+lbl>, o3 <dbl+lbl>, o4 <dbl+lbl>,
 ## #   o6 <dbl+lbl>
 ```
@@ -423,9 +423,10 @@ filter(datos_proc, sexo == "Mujer")
 ```
 
 ```
-## Error: Problem with `filter()` input `..1`.
-## i Input `..1` is `sexo == "Mujer"`.
-## x Can't combine `..1` <character> and `..2` <double>.
+## Error in `filter()`:
+## ! Problem while computing `..1 = sexo == "Mujer"`.
+## Caused by error in `stop_vctrs()`:
+## ! Can't combine `..1` <character> and `..2` <double>.
 ```
 
 Una función **muy muy útil** (sobre todo cuando trabajemos con regresiones) es `as_factor()` que permite conservar los niveles pero definiendo sus categorías de respuesta en base a la etiqueta que traen (el `lbl`) 
@@ -542,28 +543,8 @@ datos_proc <- datos_proc %>%
 Podemos visualizar la base resultante a partir de `view_df()` de `sjPlot`
 
 ```r
-sjPlot::view_df(datos_proc)
-```
-
-```
-## Registered S3 methods overwritten by 'parameters':
-##   method                           from      
-##   as.double.parameters_kurtosis    datawizard
-##   as.double.parameters_skewness    datawizard
-##   as.double.parameters_smoothness  datawizard
-##   as.numeric.parameters_kurtosis   datawizard
-##   as.numeric.parameters_skewness   datawizard
-##   as.numeric.parameters_smoothness datawizard
-##   print.parameters_distribution    datawizard
-##   print.parameters_kurtosis        datawizard
-##   print.parameters_skewness        datawizard
-##   summary.parameters_kurtosis      datawizard
-##   summary.parameters_skewness      datawizard
-```
-
-```
-## Warning in sprintf("%i", as.integer(range(x[[index]], na.rm = T))): NAs
-## introduced by coercion to integer range
+sjPlot::view_df(datos_proc, 
+                encoding = "UTF-8")
 ```
 
 <table style="border-collapse:collapse; border:none;">
@@ -709,14 +690,14 @@ head(bind_columnas)
 
 ```
 ## # A tibble: 6 x 9
-##    folio...1 sexo...2 ocupacion   ytoth  folio...5 sexo...6  edad tot_per    ife
-##        <dbl> <fct>    <dbl+lbl>   <dbl>      <dbl> <fct>    <dbl>   <dbl> <dbl+>
-## 1    1.10e11 Mujer       2 [No]  390833    1.10e11 Mujer       50       5 2 [No]
-## 2    1.10e11 Hombre      1 [Sí]  947583    1.10e11 Mujer       79       5 2 [No]
-## 3    1.10e11 Mujer       2 [No]  947583    1.10e11 Hombre      53       5 2 [No]
-## 4    1.10e11 Hombre      1 [Sí] 3004167    1.10e11 Mujer       70       1 2 [No]
-## 5    1.10e11 Hombre      2 [No] 3004167    1.10e11 Hombre      16       5 2 [No]
-## 6    1.10e11 Mujer       2 [No] 3004167    1.10e11 Mujer       46       5 2 [No]
+##      folio...1 sexo...2 ocupacion  ytoth folio...5 sexo...6  edad tot_per    ife
+##          <dbl> <fct>    <dbl+lbl>  <dbl>     <dbl> <fct>    <dbl>   <dbl> <dbl+>
+## 1 110110010101 Mujer       2 [No] 3.91e5   1.10e11 Mujer       50       5 2 [No]
+## 2 110110010201 Hombre      1 [Sí] 9.48e5   1.10e11 Mujer       79       5 2 [No]
+## 3 110110010201 Mujer       2 [No] 9.48e5   1.10e11 Hombre      53       5 2 [No]
+## 4 110110010301 Hombre      1 [Sí] 3.00e6   1.10e11 Mujer       70       1 2 [No]
+## 5 110110010301 Hombre      2 [No] 3.00e6   1.10e11 Hombre      16       5 2 [No]
+## 6 110110010301 Mujer       2 [No] 3.00e6   1.10e11 Mujer       46       5 2 [No]
 ```
 
 Vemos que simplemente pegó  `a` y `b`. Eso implica que tenemos columnas repetidas (a saber, folio y sexo). Cuando estemos seguras/os de que hay columnas repetidas entre dos dataframes que queramos unir, emplearemos `merge()` mientras que, si estos no comparten ninguna columna, recurrimos a `bing_cols()`.
