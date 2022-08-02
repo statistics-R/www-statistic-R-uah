@@ -26,10 +26,6 @@ En este práctico veremos tanto la _estimación puntual_ de estadísticos descri
 
 En este práctico utilizamos los **datos** procesados *CASEN 2020*, que proviene de los datos originales de la [**Encuesta de Caracterización Socioeconómica (CASEN)**](http://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-en-pandemia-2020). Recuerden _**siempre**_ consultar el [**libro códigos**](http://observatorio.ministeriodesarrollosocial.gob.cl/storage/docs/casen/2020/Libro_de_codigos_Base_de_Datos_Casen_en_Pandemia_2020.pdf) antes de trabajar datos.
 
-No olviden que los archivos asociados a este práctico se pueden descargar aquí:
-
-- [<i class="fas fa-file-archive"></i> `07-class.zip`](https://github.com/learn-R/07-class/raw/main/07-clase.zip)
-
 #  1. Paquetes a utilizar
 
 Para este práctico utilizaremos, principalmente, las librerías `sjmisc` y `sjPlot`. 
