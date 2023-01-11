@@ -18,16 +18,22 @@ library(pander)
 
 `r blogdown::shortcode("courseinfo")`
 
+
 # Propósitos de aprendizaje
 
 El curso busca contribuir al desarrollo de habilidades de investigación cuantitativa aplicada en el área de muestreo y uso de modelos de regresión. Se espera que al término del curso los estudiantes sean capaces de:
 
 1. Explicar el rol de la teoría de muestreo en la investigación aplicada
 en ciencias sociales
+
 2. Examinar la ficha técnica de un estudio cuantitativo
+
 3. Realizar inferencia estadística con diseños de muestras complejas
+
 4. Aplicar e interpretar modelos de regresión lineal en la investigación social
+
 5. Explicar la lógica del uso de modelos teóricos y estadísticos en la investigación social
+
 6. Ejecutar adecuadamente los procedimientos necesarios para realizar los análisis anteriormente descritos con el lenguaje de programación R
 
 **¡Iniciemos este desafío juntas/os!**
