@@ -18,110 +18,93 @@ library(pander)
 
 `r blogdown::shortcode("courseinfo")`
 
-# Presentación
+# Propósitos de aprendizaje
 
-R es uno de los lenguajes de programación estadística más populares y demandados del último tiempo. Una de las razones principales es que tanto el software como la comunidad que hace uso de este se maneja en un marco de la ciencia abierta (r Open Science Tools o *rOpensci*), permitiendo el desarrollo constante de una serie de herramientas que permiten mejorar nuestras investigaciones, de manera **libre, gratis y colaborativa.** 
+El curso busca contribuir al desarrollo de habilidades de investigación cuantitativa aplicada en el área de muestreo y uso de modelos de regresión. Se espera que al término del curso los estudiantes sean capaces de:
 
-Para las ciencias sociales estos elementos no son triviales. Es frecuente encontrarse con personas de nuestro campo que se están iniciando en R y desisten de este intento dada la frustración y pensamientos de incapacidad. Aprender R puede ser difícil al iniciar – es como aprender cualquier otro lenguaje o idioma -, y poco se ha pensado en cómo implementar enseñanza a grupos más expuestos a estos prejuicios, como en las ciencias sociales y humanidades.
-
-Se propone que un curso de introducción de R para análisis de datos sociales puede abordar estos desafíos basado en enseñar herramientas concretas que faciliten y potencien las investigaciones sociales. Basada en la experiencia de enseñanza de R en contextos similares, esto implica introducir prácticas del *rOpensci* como la colaboración y reproducibilidad, que facilitan sin duda el aprendizaje colectivo y la calidad de los productos desarrollados durante el curso.
+1. Explicar el rol de la teoría de muestreo en la investigación aplicada
+en ciencias sociales
+2. Examinar la ficha técnica de un estudio cuantitativo
+3. Realizar inferencia estadística con diseños de muestras complejas
+4. Aplicar e interpretar modelos de regresión lineal en la investigación social
+5. Explicar la lógica del uso de modelos teóricos y estadísticos en la investigación social
+6. Ejecutar adecuadamente los procedimientos necesarios para realizar los análisis anteriormente descritos con el lenguaje de programación R
 
 **¡Iniciemos este desafío juntas/os!**
 
 ![](../../img/eval-flowchart.png)
 
-## Descripción
+# Contenidos
 
-Este curso busca introducir a estudiante en el uso de R y RStudio para el análisis de datos sociales. En ese sentido, será una introducción al entorno R y a la interfaz de RStudio para su uso en contextos académicos. Al mismo tiempo, el curso profundiza en temas específicos para las ciencias sociales como el análisis estadístico y la presentación de resultados (visualización de datos). 
+## Unidad I: Muestras Probabilísticas en Ciencias Sociales (2 clases)
 
-## Objetivos
+1. Introducción al Diseño de Muestras en la Investigación Social
 
-### Objetivo general
+2. Conceptos Elementales del Muestreo e Inferencia Estadística 
 
-Aprender las principales herramientas para el análisis de datos sociales en RStudio, con el fin de lograr un uso autónomo del software
+3. Muestreo Aleatorio Simple y otros tipos de muestreo
 
-### Objetivos específicos
-El curso no es un curso de programación en R , sino que una aplicación concreta del uso de R para ciencias sociales. Por ello, el curso tiene como propósito específico que los estudiantes sean capaces de
+4. Análisis de muestras complejas
 
-1.  Manejar R y herramientas asociadas a su utilización (*rOpensci*), utilizando prácticas que les permitan avanzar en su aprendizaje de manera autónoma (Unidad 1)
+## Unidad II: Modelo de Regresión Lineal (6 clases)
 
-2. Manipular, procesar y limpiar datos sociales utilizando R (Unidad 2)
-
-3. Aplicar herramientas para análisis estadísticos descriptivos en R (Unidad 3)
-
-4. Aplicar herramientas para análisis estadísticos inferenciales en R (Unidad 4)
-
-5. Presentar de resultados, a partir de la visualización de datos y construcción de documentos (transversal a todas las unidades)
+1. Uso de modelos en ciencias sociales
 
 
-# I. Contenidos
+2. Regresión lineal simple y múltiple
 
-## Unidad 1. Elementos y herramientas básicos de R
+3. Supuestos de MRL
 
-  1.1 R enviroment: interfaz de RStudio, elementos de script, workspace
+4. Inferencia y predicción
 
-  1.2 Prácticas y herramientas de consulta: CRAN, stackoverflow, Rcommunity 
+## Unidad III: Especificación y desafíos del análisis de Regresión Lineal(5 clases)
 
-  1.3 Herramientas para la colaboración y comunicación: Rprojects, GitHub y Slack
+1. Especificación
 
-  1.4 Librerías y funciones para las ciencias sociales: tidyverse y sj (sjmisc y sjPlot)
+2. Heterocedasticidad
 
-  1.5 Construcción de reportes reproducibles e integrados con código: RMarkdown
+3. Errores de medida
 
-## Unidad 2. Manipulación y limpieza de datos
+4. Omisión de variables relevantes
 
-  2.1 Importar y exportar datos en diferentes formatos
 
-  2.2 Validación y limpieza de variables (missing values)
-
-  2.3 Transformación y selección de variables
-
-  2.4 Transformación de datos en tidydata con tidyr
-
-## Unidad 3. Análisis estadístico descriptivo en R
-
-  3.1 Análisis descriptivos univariados: medidas de tendencia central, dispersión y frecuencias
-
-  3.2 Análisis descriptivo bivariado: tablas de contingencia, correlaciones y ANOVA
-
-  3.3 Representación gráfica con sjPlot: Likert, proporciones agrupadas y distribuciones
-
-## Unidad 4. Análisis estadístico inferencial en R
-
-  4.1 Muestras complejas y precisión de inferencia estadística con survey y srvyr
-  
-  4.2 Pruebas de hipótesis y representación gráfica
-  
-  4.3 Regresiones lineales, predictores categóricos y representación gráfica
-  
-  4.4 Regresiones logísticas, exponenciación y representación gráfica
-  
-  4.5 Ajuste de modelos (performance) y otras representaciones gráficas (predicción, efectos marginales e interacciones)
-
-# II. Metodología del curso
+# Metodología del curso
 
 Dado el contexto de pandemia se tendrán tres espacios principales de aprendizaje:
 
-1. **Sesiones de clases lectivas**  (<i class="fas fa-book-reader"></i>), donde se presentarán los aspectos centrales de los contenidos correspondientes a la semana vía Zoom. Tanto el documento de presentación como el video de la clase se encontrará disponible en la pestaña de [**Clases**](/content/) de este sitio web del curso.
-
-2. **Prácticas guiadas** (<i class="fas fa-laptop-code"></i>): cada tema de las sesiones se acompaña de una guía práctica de aplicación de contenidos, y que estarán disponibles en la pestaña [**Prácticos**](/example/). Estas guías están diseñadas para ser desarrolladas de manera autónoma por cada estudiante semana a semana. También serán desarrolladas y revisadas cada semana en grupos pequeños con supervisión de ayudantes para dar mayor oportunidad de participación y resolver las dudas respectivas. 
-
-<a class="btn btn-primary" href="https://learn-r.formr.org" role="button"><i class="fas fa-external-link-square-alt"></i></a> Existe un **reporte de progreso** asociado a estas guías que deberá ser completado una vez que finalices cada práctica. Estos se realizan con fines de monitoreo y retroalimentación.
-
-- [Link](https://learn-r.formr.org) <a class="btn btn-primary" href="https://learn-r.formr.org" role="button"><i class="fas fa-external-link-square-alt"></i></a> 
+1. **Sesiones de clases lectivas**  (<i class="fas fa-book-reader"></i>),donde se presentarán los aspectos centrales de los contenidos correspondientes a la semana.El documento de presentación de la clase se encontrará disponible en la pestaña de [**Clases**](/content/) de este sitio web del curso. Estas se desarrollarán en el primer bloque los días martes o jueves (depende de la sección).
 
 
-3. **Tareas**: se desarrollarán **6 tareas** que les permitirán aplicar contenidos y replicar lo aprendido en los prácticos en base a una base de datos seleccionada por ustedes **al inicio de semestre**. Esto permitirá no solo recibir retroalimentación constante, sino que aprender con datos que puedan ser útiles para otros proyectos de investigación que sean de su interés.
+2. **Prácticas guiadas** (<i class="fas fa-laptop-code"></i>): cada tema de las sesiones se acompaña de una guía práctica de aplicación de contenidos. Estas guías están diseñadas para ser desarrolladas de manera autónoma por cada estudiante semana a semana. También serán desarrolladas y revisadas cada semana en grupos pequeños con supervisión de ayudantes para dar mayor oportunidad de participación y resolver las dudas respectivas. Los prácticos se desarrollan en el segundo bloque de clase
+
+3. **Evaluaciones** (<i class="fas fa-pencil"></i>): para evaluar las clases teóricas durante el curso se tomará un control de repaso, controles sorpresa y una prueba. Además, se contempla la entrega de un proyecto de investigación grupal  para aplicar los conceptos desarrollados en las clases teóricas y práctica. Este proyecto de investigación será evaluado con una entrega parcial y final (que corresponde al examen). La siguiente tabla muestra las ponderaciones de cada tipo de evaluación:
+
+| Evaluación    | Formato       | Fecha |  Ponderación Nota Final   |
+| ------------- |:-------------:| -----:| -------------------:|
+| Control repaso | Individual   | 21-23 marzo | 8 %|
+| Controles sorpresa | Individual | Sorpresa  | 12% (en total) |
+| Avance proyecto | Grupal | 18-20 abril  | 25%  |
+| Prueba | Individual | 9-11 mayo  | 30% |
+| Final proyecto (Examen) | Grupal | Sorpresa  | 25% |
+
+
+Los controles sorpresa corresponden a evaluaciones cortas y recurrentes que medirán el nivel de aprendizaje de la materia revisada en clases y ayudantías al momento de rendirlos. Estas evaluaciones se tomarán los días lunes o miércoles durante el horario de clase. Se estima la realización de aproximadamente 6 controles sorpresa, entre los cuales no se considerará la calificación más baja a la hora de calcular el promedio de notas obtenido en estas evaluaciones.
+
+El proyecto de investigación se realizará en grupos de 3 estudiantes de una misma sección. Cada grupo de estudiantes deberá elegir a inicio del semestre un set de datos para realizar los análisis. Se deberá entregar un archivo en pdf, RMarkdown y Rscript (a través de la plataforma GitHub Classroom)
+
+La o el estudiante que obtenga una nota inferior a 3,0 en su examen final será reprobado. Si su promedio (con examen incluido) es inferior a 4,0 se le mantendrá la nota promedio como calificación final del curso. Por el contrario, si el alumno obtiene un promedio igual o superior a 4,0 el estudiante será aprobado
+
 
 ## Recursos principales de aprendizaje
 
 **1. Sitio web**
 
-El curso tiene disponible este sitio web, que he programado pues permite integrar texto y código de R, junto con hacer interactuar con otras plataformas como el *foro Disqus* y *Github*.
+El curso tiene disponible este sitio web, que he programado pues permite integrar texto y código de R, junto con hacer interactuar con otras plataformas como  *GitHub*
 
 **2. R, RStudio y RStudio Cloud** <i class="fab fa-r-project"></i>
 
-El software que se utilizará principalmente será R y su interfaz RStudio. Ahora bien, muchos usuario/as de R presentan problemas de instalación dada la capacidad de sus computadores y sistemas operativos. Por ello se promoverá el uso del servicio gratuito de [RStudio.cloud]( https://rstudio.cloud/) , que permite ejecutar la interfaz de RStudio en el navegador web y compartir el código de manera sincrónica con la docente. Dado el enfoque *rOpensci*, las plantillas para ejemplos, ejercicios y mini proyectos podrán ser implementados en esta plataforma. Si bien no es ideal pues tiene limitantes de memoria, mientras ustedes asimilan el programa será una buena herramienta.
+El software que se utilizará principalmente será R y su interfaz RStudio. Ahora bien, muchos usuario/as de R presentan problemas de instalación dada la capacidad de sus computadores y sistemas operativos. Por ello se promoverá el uso del servicio gratuito de [RStudio.cloud]( https://rstudio.cloud/).
+
 
 **3. Slack** <i class="fab fa-slack"></i>
 
@@ -133,37 +116,18 @@ El software que se utilizará principalmente será R y su interfaz RStudio. Ahor
 
 **4. GitHub** <i class="fab fa-github"></i>
 
-Github es una plataforma online que permite depositar archivos y el control de versiones (VCS), por lo que se ha transformado una herramienta fácil y popular para corregir, colaborar y compartir códigos de distintos lenguajes (no solo R). Utilizaremos esta plataforma para subir las tareas, ayudarlos/as de manera directa con su código y darles *feedback*. 
-
-**5. Zotero** <i class="fab fa-zotero"></i>
-
-Zotero es un gestor bibliográfico que permite sistematizar las referencias y archivos utilizados en una investigación o informe. Enseñaremos este de manera complementaria pues este software se puede integrar en los documentos escritos hechos en R. 
-
-# III. Evaluación de aprendizajes
-
-Las evaluaciones del curso se componen de **tareas** (70% de la nota final) y la **entrega de una investigación** (30% de la nota final), en dónde en ambos casos la/el estudiante deberá seleccionar datos y temas de interés de modo de acercar la aplicación del software a contextos de investigación propios de la/el estudiante. En concreto, cada evaluación consiste en:
-
-**1. Tareas** (*70% de la nota final*): consisten en evaluaciones parciales temáticas que buscan poner en práctica los aprendizajes expuestos en la sesión de clases y herramientas reforzadas en los prácticos. **El promedio de notas las de tareas será calculado solo con las cuatro mejores entregas** a partir de la Tarea 1 (*25% c/u*)[^1]. La evaluación es **individual** o en **parejas** (la misma durante todo el semestre).
-
-**2. Investigación final** (*30% de la nota final*): consiste en una evaluación final que aplica los conocimientos y herramientas entregadas a lo largo de curso, a un proyecto de investigación de elección por el/la estudiante. La evaluación es **individual**.
-
-[^1]: Es decir, a lo largo del semestre deberá entregar 6 tareas: 5 calificadas (Tarea 1 a Tarea 5) y 1 no (Tarea 0). De las 5 tareas restantes, solo las 4 mejores serán consideradas en su promedio de las tareas.
-
-
-# IV.  Calendario de actividades
-
-El calendario de actividades se puede revisar con detención en la [pestaña planificación](/schedule/). Un resumen breve de las tareas es
-
-| Evaluación    | Formato       | Fecha |  Ponderación Nota Final   |
-| ------------- |:-------------:| -----:| -------------------:|
-| Tarea         | 4 tareas[^1]   | *Hasta Viernes de la semana informada* | 70% (25% c/u)|
-| Investigación | Única entrega | 22 de noviembre  | 30% |
+Github es una plataforma online que permite depositar archivos y el control de versiones (VCS), por lo que se ha transformado una herramienta fácil y popular para corregir, colaborar y compartir códigos de distintos lenguajes (no solo R). Utilizaremos esta plataforma para subir los avances y reportes, ayudarlos/as de manera directa con su código y darles *feedback*. 
 
 
 
-# V. Recursos pedagógicos
+# Calendario de actividades
 
-## 1. Referencias bibliográficas
+El calendario de actividades se puede revisar con detención en la [pestaña planificación](/schedule/). 
+
+
+# Recursos pedagógicos
+
+## 0. Referencias bibliográficas sobre R
 
 - **Wickham, H., & Grolemund, G. (2016). R for data science: import, tidy, transform, visualize, and model data (First edition). Sebastopol: O’Reilly.** Libro con enfoque en el aprendizaje de R. Disponible en español como [“R para ciencia de datos”](https://es.r4ds.hadley.nz/) 
 
@@ -175,8 +139,21 @@ El calendario de actividades se puede revisar con detención en la [pestaña pla
 
 - [**Bryan, Jenny (2019) Happy Git in R**](https://happygitwithr.com/) 
 
+## 2. Referencias Unidad 1
+
+- **Lohr, S. L. (2000). Muestreo: Diseño y análisis. México:International Thomson Editores**
+
+- Pardo, Ruiz y San Martín (2015). Análisis de Datos en Ciencias Sociales y de la Salud I. Editorial Síntesis: Madrid. 
+
+## 3. Referencias Unidad 2 y 3
+
+- **Wooldridge, J. (2015), Introducción a la Econometría. Cengage Learning. Quinta edición.**
+
+- Moore, D (2005) Estadística Aplicada Básica
+
 ## 2. Sitios de consulta
 
+- [**learn-R**](learn-r-uah.netlify.app) (Learn R - UAH)
 - [*rOpensci*](https://*rOpensci*.org/) (R Open Scicnce Tools) 
 - Laboratorio de Ciencia Social Abierta, Centro de Estudios de Conflicto y Cohesión Social [(LISA-COES)](https://lisa-coes.netlify.app/) 
 - [Stackoverflow](https://stackoverflow.com/)
@@ -186,7 +163,21 @@ El calendario de actividades se puede revisar con detención en la [pestaña pla
 - [tidyverse](https://www.tidyverse.org/)
 
 
-# [Descargar programa en pdf](../files/programa-R-uah.pdf/)
+# [Descargar programa en pdf](../files/programa-2023.pdf/)
 
-<a Puedes descargar el programa apretando el siguiente botón class="btn btn-primary" href="../files/programa-R-uah.pdf/" role="button"><i class="far fa-file-pdf"></i></a>
+<a Puedes descargar el programa apretando el siguiente botón class="btn btn-primary" href="../files/programa-2023.pdf/" role="button"><i class="far fa-file-pdf"></i></a>
+
+
+# Normativa de la universidad
+
+Los justificativos por inasistencia a clases y/o evaluaciones por motivos de enfermedad y/o otras razones deben hacerse a la coordinación de la carrera en el plazo establecido por el reglamento. Quienes no lo hagan serán evaluados con nota 1,0 o con inasistencia a clases, según corresponda. Para presentarse a examen se requiere nota promedio 3,5 y haber rendido todas las evaluaciones. En caso de no cumplir tales requisitos no podrá rendir examen. Por último, la ponderación de las evaluaciones no rendidas en clases será asignada a la ponderación del examen en la nota final de cada estudiante.    
+
+Reglamento Académico del Estudiante de Pregrado. Art. 23.- Cualquier conducta de un estudiante que tienda a viciar la evaluación de actividades académicas o que constituya fraude académico, figura que contempla irregularidades tales como copia, suplantación o alteración de evaluaciones, plagio, faltas a la ética profesional, sin que esta enumeración sea taxativa, dará origen a las siguientes sanciones, según la gravedad de la falta cometida: (i) nota mínima 1,0 (uno) en la respectiva evaluación; (ii) reprobación del curso respectivo; (iii) amonestación; (iv) permanencia condicional; (v) suspensión de actividades académicas por un período académico; (vi) expulsión de la Universidad.
+
+Asimismo, toda actividad de un estudiante que entorpezca gravemente y/o dificulte el normal desarrollo académico, podrá ser sancionada de conformidad a las disposiciones establecidas en el Reglamento de Conducta y Convivencia de la Universidad Alberto Hurtado.
+
+Art. 24.- Las dos primeras sanciones previstas en el artículo anterior, a saber (i) Nota mínima 1,0; y (ii) Reprobación del Curso respectivo, son prerrogativa del docente a cargo de la asignatura, quien deberá informarlas a la Dirección de la Carrera.
+
+Para evitar el plagio todo trabajo, composición o material documental que los estudiantes realicen debe citar adecuadamente las fuentes utilizadas, ya sea a través del sistema APA (American Psychological Association) http://www.apastyle.org o MLA (Modern Language Association) http://www.mla.org/.
+
 
