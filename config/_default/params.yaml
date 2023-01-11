@@ -38,7 +38,7 @@ font_size: "M"
 site_type: "Course"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description: "Análisis de Datos Estadísticos en R, por Valentina Andrade"
+description: "Estadística II - UAH, por Valentina Andrade"
 
 
 ############################
@@ -109,34 +109,43 @@ instructor:
     El canal de contacto de preferencia es [Slack](http://learn-r-uah.slack.com/), y en segunda instancia, email.
   appointment_url: https://calendly.com/valentinaandrade/
 
-ayudante1: 
-  name: Dafne Jaime
-  email: dafne.jaime@ug.uchile.cl
-  appointment_url: https://calendly.com/dafne-jaime-vargas/
-
-ayudante2: 
+apoyo: 
   name: Nicolas Godoy
   email: nicolas.godoy.m@ug.uchile.cl
+  url: INE
+  twitter: 
+  github: nicolasggodoym
+  office: INE
   appointment_url: https://calendly.com/nicolas-godoy-m/
 
+ayudante1: 
+  name: Charo Astorga
+  email: rosarioastorgap@gmail.com
+  appointment_url: https://calendly.com/charo-astorga/
+
+ayudante2: 
+  name: Moira Martinez
+  email: moira0martinez@gmail.com
+  appointment_url: https://calendly.com/moira-martinez/
+
 course:
-  number: "2255"
-  semester: "II° Semestre- 2021"
-  days: "Clases: Lunes 16.30-17.40"
+  number: ""
+  semester: "I° Semestre- 2023"
+  days: "Clases: Martes o Jueves (1 bloque)"
   #time: ""
-  location: "Online, en link de Zoom"
-  dates: "Práctico: Lunes 18.00-19.20"
+  location: "Sala por definir"
+  dates: "Práctico: Martes o Jueves (2 bloque)"
   github: "valentinaandrade"
-  copyrightYear: "2021. Web developed by Andrew Heiss and custom by"
-  slack: "http://learn-r-uah.slack.com/"
+  copyrightYear: "2023. Web developed by Andrew Heiss and custom by"
+  slack: "http://estadisticaii-uah.slack.com/"
 
 university: 
   name: Universidad Alberto Hurtado
   url: "https://www.uahurtado.cl/"
 
 school:
-  name: Departamento de Sociología
-  url: "http://sociologia.uahurtado.cl/"
+  name: Departamento de Ciencia Política y Relaciones Internacionales
+  url: "https://www.uahurtado.cl/carreras/ciencia-politica/"
 
 
 ############################
@@ -253,7 +262,7 @@ comments:
 
   # Configuration of Disqus.
   disqus:
-    shortname: 'learn-r-uah'  # Paste the shortname from your Disqus dashboard
+    shortname: 'statistic-r-uah'  # Paste the shortname from your Disqus dashboard
     show_count: true  # Show comment count in page header? (true/false)
 
   # Configuration of Commento.

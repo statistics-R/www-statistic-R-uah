@@ -5,10 +5,10 @@ name: "Inferno"
 light: true
 
 # Primary
-primary: "#5271FF"
+primary: "#1a9875"
 
 # Links
-link: "#5271FF"
+link: "#1a9875"
 link_hover: "#04C4CC"
 
 # Menu

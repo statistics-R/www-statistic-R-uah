@@ -5,7 +5,7 @@ headless: true
 active: true
 weight: 10
 
-title: "Análisis de Datos Estadísticos en R"
+title: "Estadística II"
 
 # Hero image (optional). Enter filename of an image in the `static/media/` folder.
 hero_media: logo.png
@@ -13,14 +13,14 @@ hero_media: logo.png
 design:
   background:
     # Background gradient
-    gradient_start: '#00c4cc'
-    gradient_end: '#5271ff'
+    gradient_start: '#1a9875'
+    gradient_end: '#00b77b'
 
     # Text color (true=light or false=dark).
     text_color_light: true
 
 cta_note:
-  label: Profesora Valentina Andrade • II° Semestre 2021<br>Sociología • Universidad Alberto Hurtado
+  label: Profesora Valentina Andrade • I° Semestre 2023<br>Ciencia Política • Universidad Alberto Hurtado
 ---
 
-Introducción al procesamiento, análisis y visualización para **Ciencias Sociales**
+Análisis de regresión lineal para Ciencias Sociales
