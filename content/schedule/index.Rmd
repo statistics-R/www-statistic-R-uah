@@ -3,11 +3,12 @@ title: "Calendario"
 slug: schedule
 ---
 
-- [**Clases**](/content/) (<i class="fas fa-book-reader"></i>): Esta página contiene las presentaciones, sesiones grabadas y lecturas correspondientes al tema.
+- [**Clases**](/content/) (<i class="fas fa-book-reader"></i>): Esta página contiene las presentaciones y lecturas correspondientes al tema.
 
-- [**Prácticos**](/example/) (<i class="fas fa-laptop-code"></i>): Esta página contiene los ejercicios prácticos asociados a cada sesión de clase. Podrás encontrar tanto el código de R cómo, en algunos casos, los videos grabados del *live coding*. Esta página será **muy importante** para la entrega de las tareas. 
+- [**Prácticos**](/example/) (<i class="fas fa-laptop-code"></i>): Esta página contiene los ejercicios prácticos asociados a cada sesión de clase. Podrás encontrar el código de R. Esta página será **muy importante** para los controles sorpresa y proyecto de investigación. 
 
-- [**Evaluaciones**](/assignment/) (<i class="fas fa-pencil-ruler"></i>): Esta página contiene las instrucciones para cada tarea. **Las tareas pueden ser entregadas hasta el día viernes a las 23.59 de la semana correspondiente**. 
+- [**Evaluaciones**](/assignment/) (<i class="fas fa-pencil-ruler"></i>): Esta página contiene las instrucciones para cada evaluación.
+
 
 <div class="ical">
 Puedes suscribir la **planificación** del curso con la URL del calendario en Outlook, Google Calendar o Apple Calendar:<br><a class="btn btn-primary" href="https://bit.ly/3AYfLhR" role="button"><i class="far fa-calendar-alt"></i></a> <input id="ics_url" type="text" value="https://bit.ly/3AYfLhR" onclick="this.select()" readonly="readonly" size="60" />
@@ -16,4 +17,4 @@ Puedes suscribir la **planificación** del curso con la URL del calendario en Ou
 `r blogdown::shortcode("schedule")`
 
 <p>Puedes descargar el programa apretando el siguiente botón:
-<a Puedes descargar el programa apretando el siguiente botón class="btn btn-primary" href="../files/programa-R-uah-2-2022.pdf/" role="button"><i class="far fa-file-pdf"></i></a></p>
+<a Puedes descargar el programa apretando el siguiente botón class="btn btn-primary" href="../files/programa-uah-2023.pdf/" role="button"><i class="far fa-file-pdf"></i></a></p>
