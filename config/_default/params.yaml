@@ -71,7 +71,7 @@ privacy_pack: false
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
 edit_page:
-  repo_url: 'https://github.com/learn-R'
+  repo_url: 'https://github.com/statistics-R'
   content_dir: ''
   repo_branch: master
   editable:

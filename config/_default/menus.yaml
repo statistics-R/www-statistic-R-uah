@@ -17,11 +17,11 @@ main:
   - name: Prácticos
     url: /example/
     weight: 4
-  - name: Tareas <i class="fab fa-github"></i>
+  - name: Evaluaciones <i class="fab fa-github"></i>
     identifier: assignment
     url: /assignment/
     weight: 4
-  - name: Tareas
+  - name: Controles
     parent: assignment
     url: /assignment/
     weight: 4
@@ -54,9 +54,11 @@ example:
 assignment:
   - name: Información general
     weight: 1
-  - name: Tareas
+  - name: Controles
     weight: 2
-  - name: Proyecto final
+  - name: Prueba
+    weight: 2
+  - name: Proyecto 
     weight: 3
 resource:
   - name: Recursos

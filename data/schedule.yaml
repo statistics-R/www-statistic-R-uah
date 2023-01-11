@@ -1,176 +1,182 @@
 lessons:
-  - title: 'Análisis Estadístico en R'
+  - title: 'Estadística II'
     header: True
 
-  - title: '<span class="content-title">Unidad 1. Elementos y herramientas básicos de R</span>'
-    date: "8-22 de agosto"
-    date_start: "8 Agosto"
-    date_end: "22 Agosto"
+  - title: '<span class="content-title">Unidad 1. Muestras probabilísticas en ciencis sociales</span>'
+    date: "7-16 de agosto"
+    date_start: "7 marzo"
+    date_end: "16 marzo"
     bg: 1
     
-  - title: '1.1 R enviroment: interfaz de RStudio, elementos de script, workspace<br>1.2 Prácticas y herramientas de consulta: CRAN, stackoverflow, Rcommunity<br>1.3 Herramientas para la colaboración y comunicación: Rprojects, GitHub y Slack'
+  - title: '1.1 Introducción al Diseño de Muestras en la Investigación Social <br> 1.2 Conceptos Elementales del Muestreo e Inferencia Estadística'
     session: "Sesión 1"
-    date: "8 Agosto"
+    date: "7 y 9 marzo"
     content: "01-content"
     example: "01-practico"
     resource: "install"
     bg: 1
 
-  - title: '1.4 Librerías y funciones para las ciencias sociales: tidyverse y sj (sjmisc y sjPlot)<br>1.5 Construcción de reportes reproducibles e integrados con código: Rmarkdown'
+  - title: '1.3 Muestreo Aleatorio Simple y otros tipos de muestreo <br> 1.4 Análisis de muestras complejas'
     session: "Sesión 2"
-    date: "22 Agosto"
+    date: "14 y 16 marzo"
     content: "02-content"
     example: "02-practico"
-    assignment: "00-tarea"
     resource: "markdown"
     bg: 1
     bottomborder: True
 
-  - title: '<span class="content-title">Unidad 2. Manipulación y limpieza de datos</span>'
-    date: "29 agosto - 3 octubre"
-    date_start: "19 Agosto"
-    date_end: "3 Octubre"
+  - title: '<span class="content-title">Unidad 2. Modelo de Regresión Lineal</span>'
+    date: "21 marzo - 11 mayo"
+    date_start: "21 marzo"
+    date_end: "11 mayo"
     bg: 2
 
-  - title: '2.1 Tipos de datos en R'
+  - title: '2.1. Método científico en ciencias sociales.<br> 2.2 Causalidad y noción de control.'
     session: "Sesión 3"
-    date: "29 Agosto"
+    date: "21 y 24 marzo"
     content: "03-content"
     example: "03-practico"
+    assignment: "control-repaso"
     resource: "r-datatypes"
     bg: 2
 
-  - title: '2.2 Importar/exportar datos en diferentes formatos'
+  - title: '2.3 Definición regresion lineal simple<br> 2.4 Supuestos'
     session: "Sesión 4"
-    date: "12 Septiembre"
+    date: "28 y 30 marzo"
     content: "04-content"
     example: "04-practico"
     bg: 2
 
-  - title: '2.3 Selección de variables y filtrar datos'
+  - title: '2.5 Interpretacion coeficientes <br> 2.6 Estimador de MCO y sus propiedades.'
     session: "Sesión 5"
-    date: "26 Septiembre"
+    date: "4 y 6 abril"
     content: "05-content"
     example: "05-practico"
     bg: 2
 
-  - title: '2.4 Transformación de variales'
+  - title: '2.7 Regresion lineal múltiple <br> 2.8 Noción de efectos parciales'
     session: "Sesión 6"
-    date: "3 Octubre"
+    date: "11 y 13 abril"
     content: "06-content"
-    assignment: "01-tarea"
     example: "06-practico"
     bg: 2
-    bottomborder: True
 
-  # - title: 'Sesión de apoyo Tarea N°1'
-  #   session: ""
-  #   date: "25 Abril"
-  #   content: "01-support"
-  #   assignment: "01-tarea"
-  #   bg: 2
-  #   bottomborder: True
-    
-  - title: '<span class="content-title">Unidad 3. Análisis estadístico descriptivo en R</span>'
-    date: "17-24 de octubre"
-    date_start: "17 Octubre"
-    date_end: "24 Octubre"
-    bg: 1
-    
-  - title: '3.1 Análisis descriptivos univariados: medidas de tendencia central, dispersión y frecuencias<br>3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA'
+  - title: '2.9 Variables dependientes categóricas'
     session: "Sesión 7"
-    date: "17 Octubre"
+    date: "18 y 20 abril"
     content: "07-content"
+    assignment: "proyecto"
     example: "07-practico"
-    bg: 1
-    bottomborder: True
-
-  - title: '3.2 Análisis bivariado: tablas de contingencia, correlaciones y ANOVA'
-    session: "Sesión 8"
-    date: "24 Octubre"
-    content: "08-content"
-    example: "08-practico"
-    assignment: "02-tarea"
-    bg: 1
-    bottomborder: True
-
-  # - title: "Sesión de Apoyo Tarea N°2"
-  #   date: "23 Mayo"
-  #   content: "02-support"
-  #   bg: 1
-  #   bottomborder: True
-
-  - title: '<span class="content-title">Unidad 4. Análisis estadístico inferencial en R</span>'
-    date: "7 - 14 de novimebre"
-    date_start: "7 Noviembre"
-    date_end: "14 Noviembre"
     bg: 2
 
-  - title: '4.1 Muestras complejas y precisión de inferencia estadística'
+  - title: '2.10 Inferencia y predicción en regresión lineal múltiple'
+    session: "Sesión 8"
+    date: "25 y 27 abril"
+    content: "08-content"
+    assignment: "proyecto"
+    example: "08-practico"
+    bg: 2
+    bottomborder: True
+    
+  - title: 'Semana de receso'
+    session: ""
+    date: "2 y 4 mayo"
+    resource: "repaso"
+    bg: 1
+    bottomborder: True
+    
+  - title: 'Prueba'
+    session: ""
+    date: "9 y 11 mayo"
+    assignment: "prueba"
+    bg: 2
+    bottomborder: True
+    
+  - title: '<span class="content-title">Unidad 3. Especificación y desafíos para el análisis de regresión lineal</span>'
+    date: "16 mayo-22 junio"
+    date_start: "16 mayo"
+    date_end: "22 junio"
+    bg: 1
+    
+  - title: '3.1 Transformación de variables dependientes e independientes'
     session: "Sesión 9"
-    date: "7 Noviembre"
+    date: "16 y 18 mayo"
     content: "09-content"
     example: "09-practico"
-    assignment: "03-tarea"
-    bg: 2
-    bottomborder: True
-    
-  # - title: 'Sesión Apoyo Tarea N°3'
-  #   date: "06 junio"
-  #   content: "03-support"
-  #   bg: 2
-  #   bottomborder: True
-    
+    bg: 1
 
-  - title: '4.2 Regresiones **lineales y logísticas**, predictores categóricos y representación gráfica'
+  - title: '3.2 Relaciones no lineales (interacciones)'
     session: "Sesión 10"
-    date: "14 Noviembre"
+    date: "23 y 25 mayo"
     content: "10-content"
     example: "10-practico"
-    bg: 2
-    bottomborder: True
+    bg: 1
 
-  - title: '<i class="fas fa-dice-six"></i> **Entrega final**'
-    date: "21 Noviembre"
-    assignment: "final-project"
-    bg: 3
+  - title: '3.3. Heterocedasticidad'
+    session: "Sesión 11"
+    date: "30 mayo y 1 junio"
+    content: "11-content"
+    example: "11-practico"
+    bg: 1
+    
+  - title: '3.4. Errores de medida'
+    session: "Sesión 12"
+    date: "6 y 8 junio"
+    content: "12-content"
+    example: "12-practico"
+    bg: 1
+    
+  - title: '3.5. Omisión de variables relevantes e inclusión de variables irrelevantes.'
+    session: "Sesión 13"
+    date: "13 y 15 junio"
+    content: "13-content"
+    example: "13-practico"
+    bg: 1
+    
+  - title: '3.6. Extensiones.'
+    session: "Sesión 14"
+    date: "20 y 22 junio"
+    content: "14-content"
+    example: "14-practico"
+    bg: 1
+    bottomborder: True
+    
+  - title: '<span class="content-title">Entrega y presentación examenes</span>'
+    date: "27 junio-6 julio"
+    assignment: "proyecto"
+    bg: 2
     bottomborder: True
 
   - title: 'Resumen Evaluaciones'
     header: True
 
-  - title: '<i class="fas fa-square"></i> **Tarea 0: Colaborando en Github**'
-    date: "22 agosto"
-    assignment: "00-tarea"
+  - title: '<i class="fas fa-square"></i> **Controles sorpresa**'
+    date: "?"
+    assignment: "controles"
+    bg: 3
+    bottomborder: True
+    
+  - title: '<i class="fas fa-dice-two"></i> **Control de repaso**'
+    date: "21 a 23 marzo"
+    assignment: "control-repaso"
     bg: 3
     bottomborder: True
  
-  - title: '<i class="fas fa-dice-two"></i> **Tarea 1: Procesamiento de datos**'
-    date: "26 septiembre"
-    assignment: "02-tarea"
+  - title: '<i class="fas fa-dice-two"></i> **Entrega avance proyecto**'
+    date: "18 a 20 abril"
+    assignment: "proyecto"
     bg: 3
     bottomborder: True
 
-  - title: '<i class="fas fa-dice-two"></i> **Tarea 2: Análisis descriptivo**'
-    date: "24 octubre"
-    assignment: "03-tarea"
+  - title: '<i class="fas fa-dice-two"></i> **Prueba**'
+    date: "9 y 11 mayo"
+    assignment: "prueba"
     bg: 3
     bottomborder: True
 
-  - title: '<i class="fas fa-dice-two"></i> **Tarea 3: Muestras complejas**'
-    date: "7 noviembre"
-    assignment: "04-tarea"
+  - title: '<i class="fas fa-dice-two"></i> **Entrega final de proyecto**'
+    date: "27 a 6 julio"
+    assignment: "proyecto"
     bg: 3
     bottomborder: True
 
-  - title: '<i class="fas fa-dice-two"></i> **Tarea 4: Regresiones en R**'
-    date: "14 noviembre"
-    assignment: "05-tarea"
-    bg: 3
-    bottomborder: True
-
-  - title: '<i class="fas fa-dice-six"></i> **Entrega investigación final**'
-    date: "21 noviembre"
-    assignment: "final-project"
-    bg: 3
-    bottomborder: True
