@@ -1,9 +1,9 @@
 ---
-title: "Introduccion"
-linktitle: "1: Introduccion"
+title: "Muestras"
+linktitle: "2: Muestras"
 date: "2022-03-14"
-start_date: "2023-03-14"
-end_date: "2023-03-18"
+start_date: "2022-03-14"
+end_date: "2022-03-18"
 menu:
   content:
     parent: Contenido
@@ -23,9 +23,6 @@ slides: "01-slides"
 <li class="nav-item">
 <a class="nav-link active" id="introducción-tab" data-toggle="tab" href="#introducción" role="tab" aria-controls="introducción" aria-selected="true">Introducción</a>
 </li>
-<li class="nav-item">
-<a class="nav-link" id="detalles-del-curso-tab" data-toggle="tab" href="#detalles-del-curso" role="tab" aria-controls="detalles-del-curso" aria-selected="false">Detalles del curso</a>
-</li>
 </ul>
 
 <div id="slide-tabs" class="tab-content">
@@ -34,18 +31,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slide.html#1">
-</iframe>
-
-</div>
-
-</div>
-
-<div id="detalles-del-curso" class="tab-pane fade" role="tabpanel" aria-labelledby="detalles-del-curso-tab">
-
-<div class="embed-responsive embed-responsive-16by9">
-
-<iframe class="embed-responsive-item" src="/slides/01-slide.html#54">
+<iframe class="embed-responsive-item" src="/slides/02-slide.html#1">
 </iframe>
 
 </div>
@@ -62,7 +48,7 @@ slides: "01-slides"
 
 ## Rprojects
 
--   [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/01-practico/)
+-   [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/02-practico/)
 
 # Recomendaciones
 

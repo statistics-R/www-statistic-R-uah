@@ -1,9 +1,9 @@
 ---
-title: "Introduccion"
-linktitle: "1: Introduccion"
+title: "Regresion lineal multiple"
+linktitle: "6: Regresion lineal multiple"
 date: "2022-03-14"
-start_date: "2023-03-14"
-end_date: "2023-03-18"
+start_date: "2022-04-11"
+end_date: "2022-04-13"
 menu:
   content:
     parent: Contenido
@@ -20,7 +20,7 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
-  "Introducción", "1", TRUE, "Detalles del curso", "54", FALSE
+  "Introducción", "1", TRUE, 
 )
 ```
 
@@ -29,7 +29,7 @@ slide_details <- tibble::tribble(
 `r blogdown::shortcode("slide-buttons")`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_tabs(slide_details, "/slides/01-slide.html")
+slide_tabs(slide_details, "/slides/06-slide.html")
 ```
 
 {{% div fyi %}}
@@ -41,15 +41,12 @@ slide_tabs(slide_details, "/slides/01-slide.html")
 
 ## Rprojects
 
-- [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/01-practico/)
+- [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/06-practico/)
 
 
 # Recomendaciones
 
 - <i class="fas fa-book"></i> Hadley Wickham, ["Data Science: How is it Different To Statistics?"](http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/) 
 
-- <i class="fab fa-youtube"></i> Tutoriales, ["Learn-R"](https://www.youtube.com/watch?v=UOoMzaWOQJA) 
-    - <small>Ver Tutorial N°1 Instalación de softwares</small>
-    - <small>Ver Tutorial N°2 GitHub y GitHub Class Room</small>
 
-
+- [<i class="fas fa-laptop-code"></i> Práctico 11 - curso R](https://learn-r-uah.netlify.app/example/11-practico/)

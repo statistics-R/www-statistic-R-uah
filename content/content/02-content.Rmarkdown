@@ -1,9 +1,9 @@
 ---
-title: "Introduccion"
-linktitle: "1: Introduccion"
+title: "Muestras"
+linktitle: "2: Muestras"
 date: "2022-03-14"
-start_date: "2023-03-14"
-end_date: "2023-03-18"
+start_date: "2022-03-14"
+end_date: "2022-03-18"
 menu:
   content:
     parent: Contenido
@@ -20,7 +20,7 @@ source(here::here("R", "slide-tabs.R"))
 
 slide_details <- tibble::tribble(
   ~title, ~slide, ~active,
-  "Introducción", "1", TRUE, "Detalles del curso", "54", FALSE
+  "Introducción", "1", TRUE, 
 )
 ```
 
@@ -29,7 +29,7 @@ slide_details <- tibble::tribble(
 `r blogdown::shortcode("slide-buttons")`
 
 ```{r show-slide-tabs, echo=FALSE, results="asis"}
-slide_tabs(slide_details, "/slides/01-slide.html")
+slide_tabs(slide_details, "/slides/02-slide.html")
 ```
 
 {{% div fyi %}}
@@ -41,7 +41,7 @@ slide_tabs(slide_details, "/slides/01-slide.html")
 
 ## Rprojects
 
-- [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/01-practico/)
+- [<i class="fas fa-laptop-code"></i> Práctico](https://statistics-r-uah.netlify.app/example/02-practico/)
 
 
 # Recomendaciones
