@@ -1,9 +1,9 @@
 ---
-title: "Herramientas para el uso de R"
-linktitle: "1: Herramientas para el uso de R"
-date: "2022-03-14"
-start_date: "2022-03-14"
-end_date: "2022-03-18"
+title: "Introducción"
+linktitle: "1: Introducción"
+date: "2023-03-7"
+start_date: "2023-03-7"
+end_date: "2023-03-9"
 menu:
   content:
     parent: Contenido
@@ -40,15 +40,7 @@ slide_tabs(slide_details, "/slides/01-slides.html")
 {{% /div %}}
 
 
-# Video de la clase
-
-- [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/PdLPOrIHkpBVdTkgvXMiOg3qFFleQyGS69Oyw7NscfOm7sp22MOPAuEOzjxr_K95.1FlRHivevPxpmUBc?startTime=1628539312000)
-
 # Materiales de la clase
-
-## Rprojects
-
-- [<i class="fas fa-file-archive"></i> `01-class.zip`](https://github.com/learn-R/01-class/raw/main/01-class.zip)
 
 - [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
