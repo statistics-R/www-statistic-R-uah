@@ -1,9 +1,9 @@
 ---
-title: "Introducción"
-linktitle: "1: Introducción"
-date: "2023-03-7"
-start_date: "2023-03-7"
-end_date: "2023-03-9"
+title: "Introduccion"
+linktitle: "1: Introduccion"
+date: "2022-03-14"
+start_date: "2022-03-14"
+end_date: "2022-03-18"
 menu:
   content:
     parent: Contenido
@@ -43,7 +43,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#1">
+<iframe class="embed-responsive-item" src="/slides/01-slide.html#1">
 </iframe>
 
 </div>
@@ -54,7 +54,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#15">
+<iframe class="embed-responsive-item" src="/slides/01-slide.html#15">
 </iframe>
 
 </div>
@@ -65,7 +65,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#27">
+<iframe class="embed-responsive-item" src="/slides/01-slide.html#27">
 </iframe>
 
 </div>
@@ -76,7 +76,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#37">
+<iframe class="embed-responsive-item" src="/slides/01-slide.html#37">
 </iframe>
 
 </div>
@@ -87,7 +87,7 @@ slides: "01-slides"
 
 <div class="embed-responsive embed-responsive-16by9">
 
-<iframe class="embed-responsive-item" src="/slides/01-slides.html#54">
+<iframe class="embed-responsive-item" src="/slides/01-slide.html#54">
 </iframe>
 
 </div>
@@ -100,7 +100,15 @@ slides: "01-slides"
 **¿Cómo ocupar**: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 {{% /div %}}
 
+# Video de la clase
+
+-   [<i class="fas fa-video"></i> `Video de la clase`](https://zoom.us/rec/share/PdLPOrIHkpBVdTkgvXMiOg3qFFleQyGS69Oyw7NscfOm7sp22MOPAuEOzjxr_K95.1FlRHivevPxpmUBc?startTime=1628539312000)
+
 # Materiales de la clase
+
+## Rprojects
+
+-   [<i class="fas fa-file-archive"></i> `01-class.zip`](https://github.com/learn-R/01-class/raw/main/01-class.zip)
 
 -   [<i class="fas fa-laptop-code"></i> Práctico](https://learn-r-uah.netlify.app/example/01-practico/)
 
