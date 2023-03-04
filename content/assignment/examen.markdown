@@ -6,7 +6,7 @@ due_date: "2022-11-21"
 due_time: "23:59 PM"
 menu:
   assignment:
-    parent: Proyecto final
+    parent: Proyecto
     weight: 1
 type: docs
 toc: true
@@ -17,7 +17,7 @@ editor_options:
 
 ## Descripción general
 
-El **Proyecto de investigación final** es la instancia de evaluación **final e individual** del curso de Análisis de Datos en R. Su objetivo es *evaluar los conocimientos y aprendizajes obtenidos en el curso de manera integra*. Para ello deberán elaborar una investigación simple cuyo centro no está en el contenido de la misma, sino en que sean capaces de mostrar sus habilidades para poder desarrollar sus proyectos de *análisis de datos* utilizando **R**
+El **Proyecto de investigación** es la instancia de evaluación **final e individual** del curso de Estadistica II. Su objetivo es *evaluar los conocimientos y aprendizajes obtenidos en el curso de manera integra*. Para ello deberán elaborar una investigación simple cuyo centro está en evaluar su capacidad de hacer una investigación aplicando regresiones y en R.
 
 ## Datos
 
@@ -67,12 +67,11 @@ En este apartado encontrarán algunas de las instrucciones para su investigació
 1. Estructura: Título, Abstract (100-150 palabras), Introducción (200-250 palabras), Análisis (300-500 palabras), Conclusión (150-200 palabras) y Referencias. Debe indicar su nombre, profesora y ayudantes
   - El centro está en que al leer este breve resumen de investigación, a la docente le quede claro que tipo de transformaciones deberían haber hecho a los datos, junto con qué análisis debieron reportar. Por ejemplo, si su investigación trata sobre el *"Impacto de la educación sobre los salarios* no tiene sentido que elijan unos datos que no tiene la variable educación y salarios, que ocupen la educación como una variable continua si sus hipótesis implica comparar grupos y/o que hagan un análisis descriptivo.
   
-2. Deben escoger si hacer un análisis
-  
-  -  Poblacional (incluyendo elementos de la inferencia estadística)
-  -  Regresión lineal o logística
+2. Análisis de regresión lineal múltiple
 
-Para reportar estos análisis deben hacer al menos **2 tablas y 2 gráficos.** 
+Deben utilizar regresiones múltiples y deben construir al menos dos regresiones y compararlas (por ejemplo, cambiando sus formas funcionales o agregando más variables)
+
+Para reportar estos análisis deben hacer al menos **1 tabla y 2 gráficos.** 
 
 3. Los análisis deben ocupar de alguna forma al menos las 5 variables procesadas.
 
@@ -129,6 +128,20 @@ Además de los criterios de suficiencia tome nota de los siguientes puntos
 5. Realiza análisis para algún otro ramo, tesis o práctica (debe indicarlo en el README.md)
 6. Hace fork a su examen final y lo deja en su repositorio final
 
+# Entregas
+
+## Primera entrega
+
+- Primera entrega está agendada para la semana del 18 de abril
+
+- En esta entrega deben entregar introducción y base procesada
+
+## Examen
+
+- Entrega final esta definida para la semana del 27 de junio.
+
+- La entrega final considera todo el informe + poster que puede ser entregado hasta el 6 de julio. Ese poster final consiste en un resumen ejecutivo de su investigación y que será impreso y pegado en la Universidad. 
+
 # Otros
 
 ## Recursos
@@ -140,9 +153,20 @@ Además de los criterios de suficiencia tome nota de los siguientes puntos
 - [Material complementario y talleres](/resource/r-datatypes/)
 
 
-## Horarios de consulta y trabajo conjunto (pronto)
 
-Dado que queda mucho para la entrega del examen y la idea es apoyarlas/os en este proceso, existirán horarios de consulta colectivos y de trabajo. No se darán reuniones particulares, solo en casos excepcionales
+## Horarios de consulta y trabajo conjunto 
 
+Hay dos prácticos dedicados a trabajar en la investigación
+
+- Práctico 3
+
+- Práctico 14
 
 **Los repositorios de esta evaluación final quedarán disponibles para el futuro**
+
+
+## Ejemplos de trabajos (pronto)
+
+- Informe
+
+- Poster
