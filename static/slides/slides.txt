@@ -1,0 +1,112 @@
+Slide 1
+
+- El efecto de los años de educación sobre los salarios 
+
+- Imaginense son contratados por el estado para evaluar la efectividad de la gratuidad del transporte público en la participación en votaciones. Contar la dificultad. 
+
+- Imaginar trabajan en una investigación sobre el ciclo de auge y caida de protestas en el tiempo (ver clase de Asún). 
+
+
+- Efecto del presupuesto de campañas políticas sobre el resultado el votaciones
+
+Econometría es basada en el desarrollo de los métodos de la estadística para estimas relaciones socioeconómicas. Se ha desarrollado por separado de la estadística matemática. 
+
+La razón anticipada en primeras clases: en sociales especificamos mucho mejor con que datos trabajamos. Datos observacionales (administrativos y de encuestas) o experimentales.
+
+- Igual Evidenemtente lidiamos con mate. 
+
+
+# Steps analisis empirico
+
+1. Teoría
+
+Formular la pregunta de interés, que busca testear un aspecto de la economía, efecto a una política de gobierno
+
+
+2. Formalizar el modelo teórico
+
+Ecuaciones matemáticas que describen las relaciones. Esta es la famosa regresión.
+
+y = f(x)
+ 
+
+3. Modelo econométrico - Regresión
+
+Hay variables que son razonablemente observales y otras no.Entonces la regresión tiene una parte observable y otra no
+
+- Salario, la habilidad innata, calidad en educación, background familiar y otras cosas que podrían influir en los salarios son no observables. O quizás es dificil obtener el salario de esa persona si es informal. 
+
+Es decir en este paso tendremos en consideración **los datos**.
+
+- El término u captura todos los factores que no son observados y que podrían afectar al fenómeno de estudio. 
+
+- Veremos más adeltante que la consideración de incorporar unas u otras X depende de la formulación de hipótesis (teoría, más que de los datos propiamente tal.)
+
+# ¿Y con esto lograremos evaluar efectos causales?
+
+- Uno de los objetivos más buscados por es inferir efectos causales que tiene una variable sobre otra (educación sobre productividad). 
+
+- Encontrar asociación entre dos variables puede ser sugerente pero esto **no es sinónimo de causalidad**. 
+
+Para que algo cause a otra cosa se debe cumplir que (Judea Pearl)
+
+Condiciones fundamentales para establecer causalidad (Suart Mill, 1843) otras en Goldthorpe (2001)
+
+0. La causa debe estar estadísticamente asociada al efecto
+
+- Análisis de correlación
+
+- **Análisis de regresión**
+
+1. La causa debe preceder temporalmente al efecto
+
+- Estudios longitudinales
+
+- Estudios experimentales
+
+2. No debe existir una explicación alternativa
+
+Selección de variables sustentada en la evidencia existente
+Uso de la teoría para fundamentar asociación entre variables
+Evaluación crítica de explicaciones alternativas
+
+# Noción de ceteris paribus
+
+Un rol importante en el análisis de la causalidad juega el concepto de **ceteris paribus** que significa "que el resto de los otros factores(relevantes) se mantienen constantes constantes". 
+
+Probablemente cuando tuvieron cursos de economía se acuerden que querían estudiar el efecto que tenía el cambio del precio de un bien sobre su demanda, manteniendo el resto de los factores constantes. Pues si esto no es así, no se puede saber a ciencia cierta si el efecto fue el precio u otra cosa. 
+
+Una de las gracias del análisis de regresión es que podremos construir este análisis. De manera simple, con una regresión podemos estudiar el efecto que tienen muchas X sobre Y. Pero podemos mantenernlas todas contastantes menos 1 y así podemos obtener un efecto "ceteris paribus", tal como el caso de precio y la demanda. 
+
+
+# Efecto Parcial
+
+A esto se le conoce efecto parcial. Más adelante volveremos a esta idea, pero es importante que ya te famialirces con este concepto. 
+
+# Con esto ya tengo un efecto causal?
+
+- Es posible pesar que se pueden mantener todos los factores fijos en el análisis?. 
+
+En gran parte de las aplicaciones, el numero de factores que afectan a un fenómeno (como a los salarios o resultado electoral)  es inmenso. Como investigadores podemos hacer el mejor esfuerzo para definir nuestro modelo (¡y aprenderemos a hacerlo!) pero difícilmente solo con una regresión llegaremos puramente a estimar un efecto causal. Para ello necesitamos más instrumental
+
+Junto a ello existirán algunos  problemas asociados al termino (factores no observados) que no podemos definitivamente incluir en la regresión. Esto no hablaremos ya en la tercera unidad. 
+
+# Steps
+
+Primero iremos por los pasos
+
+1. Veremos cuales son las partes de una regresión
+
+2. Supuestos y condiciones de aplicación
+
+3. Potenciales para interpretación puntual
+
+4. Pontenciales para la inferencia. 
+
+-----
+
+Slide 4 control
+----
+
+
+

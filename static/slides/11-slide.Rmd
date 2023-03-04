@@ -1,0 +1,613 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+options(scipen = 9999)
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Relaciones no lineales
+]
+
+.class-info[
+<br>
+**Sesión N° 10**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+.box-6.medium.sp-after-half[6.Modelo cuadrático]
+
+--
+
+.box-7.medium.sp-after-half[7.Modelo con interacción (cuanti-cuanti)]
+
+--
+
+.box-1.medium.sp-after-half[8.Modelo con interacción (cuanti-cuali)]
+
+--
+
+.box-2.medium.sp-after-half[9.Modelo con interacción (cuali-cuali)]
+
+---
+class: title title-8
+
+# Datos a utilizar
+
+.small[
+- `colGPA`: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos
+
+- `hsGPA`:  promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
+
+- `ACT`: puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
+
+- `sex`: sexo del estudiante, donde `sex = 1` (Hombre) y `sex = 0` (Mujer)
+
+- `job`: si el estudiante trabaja, donde `job = 0` (No trabaja), `job = 1` (Trabaja <= de 19 horas semanales), `job = 2` (Trabaja > 19 horas semanales)]
+---
+class: title title-8
+
+# 1. Hipótesis de investigación
+
+- $H_6$: Modelo cuadrático
+
+- $H_7$: Modelo con interacción entre cuantitativas
+
+- $H_8$: Modelo con interacción entre cuantitativa y cualitativa
+
+- $H_9$: Modelo con interacción entre cualitativas
+
+---
+class: center middle main-title section-title-6 top-logo
+
+# 6.Modelo cuadrático
+
+---
+class: title title-6
+
+# 1. Hipótesis de investigación
+
+- $H_{6.1}$: A medida que aumenta la experiencia, en promedio, aumentan los salarios
+
+--
+
+- ¡Pero ese aumento no es infinito!
+
+- $H_{6.2}$: La experiencia tiene un efecto positivo en los salarios en los primeros años, pero en cierto punto su efecto empieza a decaer. 
+
+--
+
+- **¡WoW! Esta si es una hipótesis bonita**
+
+---
+class: title title-6
+
+# ¿Cómo se vería gráficamente?
+
+
+```{r, echo = F}
+
+set.seed(123)
+n <- 100
+exp <- runif(n, 0, 20)
+beta0 <- 150000
+beta1 <- 90000
+beta2 <- -5000
+wage <- beta0 + beta1*exp + beta2*exp^2 + 1000*rnorm(n, 0, 1)
+
+df <- data.frame(exp, wage)
+options(scipen = 999)
+```
+
+```{r, echo = F}
+
+ggplot(df, aes(exp, wage)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE, color = "blue") +
+  labs(title = "Quadratic vs Linear Regression",
+       x = "Experience",
+       y = "Wage",
+       color = "Regression Type") +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_minimal()
+```
+
+
+
+---
+class: title title-6
+
+# 6. Modelo cuadrático
+
+.box-inv-6[ $y = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2 + u$
+]
+.box-inv-6[ $\beta_0$= intercepto
+$\beta_1 + 2\beta_2 x_1$=pendiente ]
+
+--
+
+
+.box-6[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ ) , $y$ cambia en $\beta_1 + 2\beta_2 x_1$ unidades ( $\triangle y = \beta_1 + 2\beta_2 x_1$ )
+]
+
+.box-6[ El efecto de aumento de $x_1$ ahora **depende del nivel** que tiene $x_1$
+]
+
+---
+class: title title-inv-6
+
+# Ejemplo 1 $\beta_2 < 0$
+
+
+```{r, echo = F}
+# Linear regression
+model_lm <- lm(wage ~ exp, data = df)
+model_qr <- lm(wage ~ exp + I(exp^2), data = df)
+tab_model(model_lm, model_qr)
+```
+
+
+---
+class: title title-inv-6
+
+# Gráfico 1 $\beta_2 < 0$
+
+```{r, echo = F}
+ggplot(df, aes(exp, wage)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE, color = "blue") +
+  labs(title = "Quadratic vs Linear Regression",
+       x = "Experience",
+       y = "Wage",
+       color = "Regression Type") +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_minimal()
+```
+
+
+---
+class: title title-inv-6
+
+# Ejemplo 2 $\beta_2 > 0$
+
+
+```{r, echo = F}
+
+set.seed(123)
+n <- 100
+edad <- runif(n, 0, 50)
+beta0 <- 750
+beta1 <- -30
+beta2 <- 0.8
+caso <- beta0 + beta1*edad + beta2*edad^2 + 30*rnorm(n, 0, 1)
+
+df <- data.frame(edad, caso)
+
+# Linear regression
+model_lm <- lm(caso ~ edad, data = df)
+
+# Quadratic regression
+model_qr <- lm(caso ~ edad + I(edad^2), data = df)
+
+tab_model(model_lm, model_qr)
+```
+
+
+---
+class: title title-inv-6
+
+# Gráfico 2 $\beta_2 > 0$
+
+
+```{r, echo = F}
+
+ggplot(df, aes(edad, caso)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE, color = "blue") +
+  labs(title = "Quadratic vs Linear Regression",
+       x = "Edad",
+       y = "Hacerle caso a los padres",
+       color = "Regression Type") +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_minimal()
+
+```
+
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Interacciones con otras variables independientes
+
+---
+# Esquema
+
+---
+class: center middle main-title section-title-1 top-logo
+
+# 7.Modelo con interacción entre variables cuantitativas 
+
+
+---
+class: title title-1
+
+# 1. Hipótesis de investigación
+
+- $H_{7.1}$: A medida que aumenta la experiecia, los salarios promedio aumenta 
+
+--
+
+- $H_{7.2}$: El efecto que tiene la experiencia sobre los salarios depende de la edad. Pero entre más jóven se obtenga esa experiencia el aumento salarial será mayor. 
+
+
+---
+class: title title-7
+
+# 7. Modelo interacción (cuantitativas)
+
+.box-inv-7[ $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 +\beta_3 x_1 \cdot x_2 + u$
+]
+
+
+.box-inv-7[ $\beta_0$ = intercepto
+$\beta_1 + \beta_3 \cdot x_2$ = efecto parcial de $x_1$
+$\beta_2 + \beta_3 \cdot x_1$ = efecto parcial de $x_2$]
+
+---
+class: title title-7
+
+# 7. Modelo interacción (cuantitativas)
+
+
+- Efecto parcial de $x_1$ sobre $y$, pero a la vez $x_1$ es afectado por $x_2$
+
+- Si $\beta_1$ tiene efecto positivo
+
+  - $\beta_3$ es positivo $\Rightarrow$ entre mayor $x_2$ el aumento será mayor por cada $x_2$
+  - $\beta_3$ es negativo $\Rightarrow$ entre mayor $x_2$ el aumento será menor por cada $x_2$
+
+---
+
+.box-7[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ )
+
+- $y$ cambia en $\beta_1 + \beta_3 x_2 $ unidades
+- El efecto sobre $y$ dependerá del nivel de $x_2$
+]
+
+---
+class: title title-7
+# Ejemplo
+
+```{r, echo = F}
+set.seed(123)
+n <- 100
+exp <- runif(n, 0, 20)
+beta0 <- 500
+beta1 <- 2
+beta2 <- -0.5
+age <- runif(n, 20, 60)
+wage <- beta0 + beta1*exp + beta2*age*exp + rnorm(n, 0, 1)
+
+df <- data.frame(exp, age, wage)
+
+# Linear regression
+model_int <- lm(wage ~ exp + age, data = df)
+tab_model(model_int)
+
+```
+
+
+---
+class: title title-7
+# Gráfico 
+
+```{r, echo = F}
+ggplot(df, aes(exp, wage, color = age)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Linear Regression with Interaction term",
+       x = "Experience",
+       y = "Wage",
+       color = "Age") +
+  scale_color_viridis_c(option = "magma", name = "Age") +
+  theme_minimal()
+```
+
+
+---
+class: center middle main-title section-title-1 top-logo
+
+# 8.Modelo con interacción entre variables cuantitativas con cualitativas
+
+
+---
+class: title title-1
+
+# 1. Hipótesis de investigación
+
+- $H_{8.1}$: A medida que aumenta la experiecia, los salarios promedio aumenta 
+
+--
+
+- $H_{8.2}$: El efecto que tiene la experiencia sobre los salarios depende del sexo. Para los hombres la experiencia es más premiada salarialmente que para las mujeres 
+
+
+---
+class: title title-1
+
+# 8. Modelo interacción (cuantitativa con cualitativa)
+
+.box-inv-1[ $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 +\beta_3 x_1 \cdot x_2 + u$
+]
+
+.pull-left[ .box-inv-1[ Si $x_2 = 0$
+]
+.box-inv-1[ $y = \beta_0 + \beta_1 x_1 +  u$
+]
+.box-inv-1[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+]
+
+.pull-right[ .box-inv-1[ Si $x_2 = 1$
+]
+.box-inv-1[ $y = \beta_0 + \beta_2 + \beta_1 x_1  + \beta_3 x_1 +  u$
+]
+.box-inv-1[ $\beta_0 + \beta_2$= intercepto
+$\beta_1 + \beta_3$=pendiente ]
+]
+
+---
+# Ejemplo
+
+```{r, echo = F}
+set.seed(123)
+n <- 200
+exp <- runif(n, 0, 20)
+gender <- sample(c("male", "female"), n, replace = TRUE)
+beta0 <- 100000
+beta1 <- 500
+beta2 <- -100
+beta3 <- 1000
+beta4 <- -5000
+wage <- beta0 + beta4*(gender == "male") + beta1*exp + beta2*exp^2 + beta3*exp*(gender == "male") + 1000*rnorm(n, 0, 1)
+
+df <- data.frame(exp, gender, wage)
+
+df$gender <- as_factor(df$gender)
+
+# Quadratic regression for males
+model_int2 <- lm(wage ~ exp + I(exp^2) + exp:gender, data = df)
+
+tab_model(model_int2)
+
+```
+
+---
+
+```{r, echo = F}
+
+ggplot(df, aes(exp, wage, color = gender)) +
+  geom_point() +
+  geom_smooth(data = df %>% filter(gender == "female"), method = "lm", formula = y ~ x + I(x^2), se = FALSE, color = "red") +
+  geom_smooth(data = df %>% filter(gender == "male"), method = "lm", formula = y ~ x + I(x^2) , se = FALSE, color = "blue") +
+  labs(title = "Interaction between Experience and Gender",
+       x = "Experience",
+       y = "Wage",
+       color = "Gender") +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_minimal()
+```
+
+
+---
+class: title title-1
+
+# 8. Modelo interacción (cuantixcuali)
+
+
+- A diferencia del **modelo con variables cualitativas (2)**, los grupos tienen **distinto intercepto y pendiente**
+
+- **Intercepto**: parten del niveles distintos
+
+- **Pendiente**: el efecto de $x_1$ es distinto en cada grupo
+
+
+---
+
+.box-1[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ )
+
+- $y$ cambia en $\beta_1 $ unidades cuando $X_2 = 0$
+- $y$ cambia en $\beta_1 + \beta_3 $ unidades cuando $X_2 = 1$
+]
+
+.box-1[ La diferencia de las rectas entre los grupos es de $\beta_2 + \beta_3 x_1$
+]
+
+---
+
+class: center middle main-title section-title-2 top-logo
+
+# 9.Modelo con interacción entre variables  cualitativas
+
+
+---
+class: title title-2
+
+# 1. Hipótesis de investigación
+
+- $H_{9.1}$: En promedio, los hombres ganan un mayor salario que las mujeres 
+
+--
+
+- $H_{9.2}$: El efecto que tiene el sexo sobre los salarios depende del estado civil. Para las mujeres casadas los salarios son más bajos que para los homres casados. 
+
+
+---
+class: title title-2
+
+# 9. Modelo interacción (cualitativas)
+
+.box-inv-2[ $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 +\beta_3 x_1 \cdot x_2 + u$
+]
+
+--
+
+- $x_1$ (Sexo)
+  - 1 = Hombre
+  - 0 = Mujer
+  
+- $x_2$ (Estado Civil)
+  - 1 = Casada
+  - 0 = Soltera
+
+
+---
+class: title title-2
+
+# 8. Modelo interacción (cuantixcuali)
+
+- Veamos las combinaciones
+
+---
+class: title title-2
+
+# Ejemplo
+
+```{r, echo = F}
+
+set.seed(123)
+n <- 200
+exp <- runif(n, 0, 20)
+gender <- sample(c(0, 1), n, replace = TRUE)
+marital_status <- sample(c(0, 1), n, replace = TRUE)
+beta0 <- 10000
+beta1 <- 2000
+beta2 <- 7000
+beta3 <- -4000
+beta4 <- -10000
+wage <- beta0 + beta1*exp + beta2*gender + beta3*marital_status + beta4*gender*marital_status + 2000*rnorm(n, 0, 1)
+
+df <- data.frame(exp, gender, marital_status, wage)
+
+df <- df %>% mutate(gender = as_factor(if_else(gender == 1, "Male", "Female")),
+                    marital_status = as_factor(if_else(marital_status == 1, "Single", "Married"))) %>% 
+  unite(gen_marital, c("gender", "marital_status"), sep = "-")
+# Linear regression
+model_int3 <- lm(wage ~ exp + gender + marital_status + gender*marital_status, data = df)
+tab_model(model_int3)
+```
+
+---
+class: title title-2
+
+# Graficamente
+
+```{r, echo = F}
+ggplot(df, aes(x = exp, y = wage, color = factor(gen_marital))) +
+  geom_point() +
+  geom_smooth(aes(group = gen_marital), method = "lm", se = FALSE) +
+  scale_color_manual(values = c("red", "blue", "purple", "green")) +
+  labs(title = "Linear Regression by Gender and Marital Status",
+       x = "Experiencia",
+       y = "Salario (diario)",
+       color = "") +
+  theme_minimal()
+
+```
+
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Relaciones no lineales
+]
+
+.class-info[
+<br>
+**Sesión N° 9 y 10**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

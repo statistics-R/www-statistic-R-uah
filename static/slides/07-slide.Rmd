@@ -1,0 +1,557 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+
+# gpa <- as_tibble(wooldridge::gpa1)
+# 
+# gpa <- gpa %>%  mutate(sex = as_factor(if_else(male== 1, "Hombre", "Mujer")), job = factor(case_when(job19 == 1 ~ "Trabaja <= 19 hrs",
+#                                                                                       job20 == 1 ~ "Trabaja > 19 hrs",
+#                                                                                       TRUE ~  "No trabaja"), levels = c("No trabaja", "Trabaja <= 19 hrs", "Trabaja > 19 hrs")) )
+
+load("data/gpa.RData")
+
+model1 <- lm(colGPA ~ ACT, data = gpa)
+model2 <- lm(colGPA ~ ACT + hsGPA, data = gpa)
+model3 <- lm(colGPA ~ ACT + hsGPA + sex, data = gpa)
+model4 <- lm(colGPA ~ ACT + hsGPA + job, data = gpa)
+model5 <- lm(colGPA ~ ACT + hsGPA + sex + job, data = gpa)
+
+  
+gpa_fitted <- augment(model5)
+
+
+pacman::p_load(data.tree, DiagrammeR)
+acme <- Node$new("Variable")
+  quali <- acme$AddChild("Cualitativa")
+    nominal <- quali$AddChild("Nominal")
+    ordinal <- quali$AddChild("Ordinal")
+  quanti <- acme$AddChild("Cuantitativa")
+    discr <- quanti$AddChild("Discreta")
+    cont <- quanti$AddChild("Continua")
+    
+SetNodeStyle(acme, style = "filled,rounded", shape = "box", fillcolor = "LightGray", 
+            fontname = "helvetica", tooltip = GetDefaultTooltip)
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Regresión múltiple: predictores cualitativos
+]
+
+.class-info[
+<br>
+**Sesión N° 7**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-8.medium.sp-after-half[Predictores **dicotómicos**]
+
+--
+.box-8.medium.sp-after-half[Predictores **politómicos**]
+
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Predictores cualitativos
+
+---
+
+
+```{r, echo = F }
+plot(acme)
+```
+
+---
+class: title title-8
+
+# Predictores cualitativos
+
+- También se les llamada predictores **categóricos** pues tienen categorías de respuesta
+
+---
+class: title title-8
+
+# Predictores cualitativos
+
+- Pueden tener 2 a más categorías de respuesta:
+
+  - **Dicotómico**: 2 categorías de respuesta (Si/No, Ausencia/Presencia, Apruebo/Rechazo, Mujer/Hombre)
+  - **Politómico**: más de 2 categorías de respuesta (Bajo/Medio/Alto, Izquierda/Centro/Derecha, Mujer/Hombre/No binario )
+
+--
+
+- Si no recuerdas mucho este contenido [revisa este material](https://learn-r-uah.netlify.app/resource/r-datatypes-example/)
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# Predictores dicotómicos (*dummy*)
+
+---
+
+class: title title-8
+
+# Predictores dicotómicos 
+
+- Imaginemos que $x_3$ es una variable independiente **dicotómica**
+
+  - ( $x_3 = \lbrace 0, 1 \rbrace$ ) 
+
+$$y = \beta_0 + \beta_3 x_3 + u$$
+
+---
+class: title title-8
+
+# Predictores dicotómicos 
+
+.pull-left[ Si $x_3 = 0$
+
+$$E(y|x_3 = 0) = \beta_0 $$
+
+]
+
+
+.pull-right[ Si $x_3 = 1$
+
+$$E(y|x_3 = 1) = \beta_0  + \beta_3$$
+
+]
+
+--
+
+- ¿Cuál es la diferencia entre el grupo con $x_3 = 1$ y el grupo con $x_3 = 0$
+
+---
+class: title title-8
+
+# Predictores dicotómicos 
+
+$$E(y|x_3 = 1) - E(y|x_3 = 0) \\
+\beta_0 + \beta_3 - \beta_0 \\
+\beta_3$$
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Interpretación $\beta_3$
+
+## Diferencia **promedio** del grupo 1 respecto del grupo 0, **manteniendo el resto constante**
+
+--
+
+### Efecto parcial de $x_3 = 1$ sobre y
+
+---
+class: title title-8
+
+# Categoría de referencia
+
+- Al grupo cuando $x_3 = 0$ se le llama **categoría de referencia**
+
+--
+
+- Sobre esta categoría de referencia siempre de comparan los otros grupos. En este caso como son dos grupos, el grupo que $x_3 = 1$ se compara con $x_3 = 0$. 
+
+---
+
+class: title title-8
+
+# Ejemplo promedio universidad
+
+- Muestra de 141 estudiantes de una universidad.
+
+- `colGPA`: (col:college, GPA:notas) promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos
+
+- `hsGPA`: (hs: high school) promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
+
+- `ACT`: puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
+
+- `sex`: sexo del estudiante, donde `sex = 1` (Hombre) y `sex = 0` (Mujer)
+
+---
+
+class: title title-8
+
+# 1. Hipótesis: promedio universidad
+
+- $H_1$: A mayor puntaje en la prueba de admisión, mayores son las notas de la universidad
+
+- $H_2$: A mayor notas en enseñanza media, mayores son las notas en la universidad
+
+- $H_3$: Existen diferencias significativas **por sexo** en el promedio de notas en la universidad
+
+---
+
+class: title title-8
+
+# 2. Describir variables: univariado
+
+```{r, echo = F}
+gpa %>% select(colGPA, hsGPA, ACT) %>%  sjmisc::descr(., show = c("n", "NA.prc", "mean", "sd", "range"))
+```
+
+
+---
+
+class: title title-8
+
+# 2. Describir variables: univariado
+
+```{r, echo = F}
+sjmisc::frq(gpa$sex)
+
+```
+
+---
+class: title title-8
+
+# 2. Describir variables: bivariado
+
+```{r, echo = F, fig.dim=c(7, 3), out.width="100%"}
+ggplot(gpa_fitted, aes(x = ACT, y = colGPA)) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(x = "Prueba admisión (ptje)", y = "Notas Universidad")
+
+```
+
+---
+class: title title-8
+
+# 2. Describir variables: bivariado
+
+```{r, echo = F, fig.dim=c(7, 3), out.width="100%"}
+ggplot(gpa_fitted, aes(x = hsGPA, y = colGPA)) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(x = "Notas enseñanza media", y = "Notas Universidad")
+```
+
+---
+
+class: title title-8
+
+# 2. Describir variables: bivariado
+
+```{r, echo = F, fig.dim=c(6, 2), out.width="100%"}
+ggplot(gpa_fitted, aes(x = sex, y = colGPA)) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(x = "Sexo", y = "Notas Universidad")
+```
+
+
+--
+
+- **Usted no lo haga**
+
+---
+class: title title-8
+
+# 2. Describir variables: bivariado
+
+```{r, echo = F, fig.dim=c(7, 3), out.width="100%", warning= F}
+sjPlot::plot_grpfrq(gpa$colGPA, gpa$sex, type = "boxplot")
+```
+
+
+---
+class: title title-8
+
+# 3. Modelos
+
+```{r, eval = F}
+model1 <- lm(colGPA ~ ACT, data = gpa)
+model2 <- lm(colGPA ~ ACT + hsGPA, data = gpa)
+model3 <- lm(colGPA ~ ACT + hsGPA + sex, data = gpa)
+```
+
+---
+
+class: title title-8
+
+# 3. Modelos
+
+```{r, echo = F}
+tab_model(model1, model2, model3, show.ci = F, p.style = "stars", dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"))
+```
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## Los hombres tienen en promedio 0.01 puntos menos de nota que las mujeres, manteniendo el resto de las variables constantes
+
+--
+
+### ¡Ojo! La escala de notas va de 0 a 4 puntos.
+
+---
+# Diferencias de intercepto
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/07/22.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+---
+
+# Diferencias de intercepto
+
+```{r, fig.dim=c(7, 3), out.width="100%"}
+plot_model(model3, type = "pred", terms = c("hsGPA","sex"), title = "")
+```
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Predictores politómicos
+
+---
+class: title title-8
+# Predictores politómicos
+
+
+- Variables cualitativas con **más de 2 categorías de respuesta**
+
+- La forma de interpretar es similar a la de variables *dicotómicas*
+
+--
+
+- Es decir, los coeficientes se interpretan como **la diferencia promedio respecto a la categoría de referencia**
+
+- La **única diferencia** es que tendremos tantos coeficientes como categorías de respuesta de la variable menos la de referencia
+
+---
+class: title title-8
+
+# Predictores politómicos
+
+- Sea $x_4 = \lbrace 0, 1, 2 \rbrace$, donde $0= Bajo, 1= Medio, 2 = Alto$
+
+$$y = \beta_0 + \beta_4 * x_{4,medio} + \beta_5 * x_{4,alto}$$
+
+- $x_4$ tiene 3 categorías de respuesta, y en la regresión hay 2 coeficientes asociados a $x_4$ 
+
+---
+
+class: title title-8
+
+## $\beta_4$: Corresponde a la diferencia promedio entre el grupo "Medio" y "Bajo", manteniendo el resto constante
+
+## $\beta_5$: Corresponde a la diferencia promedio entre el grupo "Alto" y "Bajo", manteniendo el resto constante
+
+---
+class: title title-8
+
+# Categorías de referencia
+
+- Definir el grupo "base" o "referencia" es **arbitrario**
+
+- Los software entienden por lo general que la categoría con valor 0 es la de referencia.
+
+- Pero si queremos cambiar la categoría de referencia a una que haga sentido, *solo debemos recodificar*. [Link](https://learn-r-uah.netlify.app/example/06-practico/)
+
+---
+
+class: title title-8
+
+# Ejemplo promedio universidad
+
+- Muestra de 141 estudiantes de una universidad:
+
+- `colGPA`: (col:college, GPA:notas) promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos
+
+- `hsGPA`: (hs: high school) promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
+
+- `ACT`: puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
+
+- `sex`: sexo del estudiante, donde `sex = 1` (Hombre) y `sex = 0` (Mujer)
+
+--
+
+- **`job`: si el estudiante trabaja, donde `job = 0` (No trabaja), `job = 1` (Trabaja <= de 19 horas semanales), `job = 2` (Trabaja > 19 horas semanales)**
+
+---
+class: title title-8
+
+# 1. Hipótesis: promedio universidad
+
+- $H_1$: A mayor puntaje en la prueba de admisión, mayores son las notas de la universidad
+
+- $H_2$: A mayor notas en enseñanza media, mayores son las notas en la universidad
+
+- $H_3$: Existen diferencias significativas por sexo en el promedio de notas en la universidad
+
+--
+
+- $H_4$: Existen diferencias significativas en el promedio de notas en la universidad **entre estudiantes que trabajan y aquellos que no**. Entre más horas trabajadas, las notas promedio serán más bajas. 
+
+---
+class: title title-8
+
+# 2. Describir variables: univariado
+
+```{r, echo = F}
+sjmisc::frq(gpa$job)
+```
+
+---
+
+class: title title-8
+
+# 2. Describir variables: bivariado
+
+```{r, echo = F, fig.dim=c(7, 3), out.width="100%", warning= F, message = F}
+sjPlot::plot_grpfrq(gpa$colGPA, gpa$job, type = "boxplot")
+
+```
+
+---
+class: title title-8
+
+# 3. Modelos
+
+```{r, eval = F}
+model4 <- lm(colGPA ~ ACT + hsGPA + job, data = gpa)
+```
+
+---
+
+class: title title-8
+
+# 3. Modelos
+
+```{r, echo = F}
+tab_model(model1, model2, model3,model4, show.ci = F, p.style = "stars", dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"))
+```
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## Las personas que trabajan menos de 19 horas tienen en promedio 0.03 puntos menos de nota que los que no trabajan, manteniendo el resto de las variables constantes
+
+## Las personas que trabajan más de 19 horas tienen en promedio 0.07 puntos menos de nota que los que no trabajan, manteniendo el resto de las variables constantes
+
+---
+# Diferencias de intercepto
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/07/23.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+---
+
+# Diferencias de intercepto
+
+```{r, fig.dim=c(7, 3), out.width="100%", echo = F}
+plot_model(model4, type = "pred", terms = c("hsGPA","job"), title = "")
+```
+
+---
+class: title title-8
+
+# Tarea
+
+```{r, eval = F}
+model5 <- lm(colGPA ~ ACT + hsGPA + sex + job, data = gpa)
+```
+
+```{r, echo = F}
+tab_model(model3, model4,model5, show.ci = F, p.style = "stars", dv.labels = c("Modelo 3", "Modelo 4", "Modelo 5"))
+```
+
+- Interpretar cada uno de los coeficientes de la regresión
+
+- Analizar cómo cambian los resultados entre el modelo 3, modelo 4 y modelo 5
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Regresión **múltiple**: predictores categóricos
+]
+
+.class-info[
+<br>
+**Sesión N° 7**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

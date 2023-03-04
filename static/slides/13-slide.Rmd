@@ -1,0 +1,360 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+
+set.seed(123)
+n <- 50
+smoking_rate <- runif(n, 10, 40)
+median_age <- runif(n, 25, 55)
+death_rate <- 10 - 0.2 * smoking_rate + rnorm(n, 0, 1)
+death_rate <- death_rate + 0.1 * median_age
+
+# Fit simple linear regression model
+model_simple <- lm(death_rate ~ smoking_rate)
+
+# Fit multiple linear regression model
+model_multiple <- lm(death_rate ~ smoking_rate + median_age)
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Omisión de variables
+]
+
+.class-info[
+<br>
+**Sesión N° 13**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+.box-6.medium.sp-after-half[Omisión de variables relevantes]
+
+--
+
+.box-7.medium.sp-after-half[Inclusión de variables irrelevantes]
+
+--
+
+.box-8.medium.sp-after-half[Variables de control]
+
+
+---
+class: center middle main-title section-title-8
+
+# Omisión de variables relevantes
+
+
+
+---
+
+class: title title-8
+
+# Omisión de variables relevantes
+
+.box-inv-8[Poco frecuente que tengamos todas las variables que determinan a una variable dependiente]
+
+--
+
+.box-inv-8[Si $Cov(u,X) \neq 0$ entonces tenemos un **problema de endogeneidad**
+]
+
+--
+
+.box-8[¿Porqué podría pasar eso?]
+
+---
+class: title title-8
+
+# Omisión de variables relevantes
+
+Imaginemos el modelo real
+
+$$y = \beta_1 x_1 + \beta_2 x_2 + u$$
+
+Pero omitimos a $x_2$
+
+$$y = \tilde{\beta_1} x_1 + u$$
+
+---
+class: center middle main-title section-title-8
+
+## Recordemos cómo se calcula $\beta_1$
+
+$$\beta_1 = \frac{Cov(x_1,y)}{var(x_1)} - \beta_2 \frac{Cov(x_1,x_2)}{var(x_1)}$$
+### ¡Pero omitimos a $\beta_2$!
+
+
+---
+class: title title-8
+
+# Omisión de variables relevantes 
+
+.box-8[Hay dos sesgos producidos por omitir a $x_2$ ]
+
+.box-inv-8[ 1.Relación que hay entre $x_2$ e $y ~ \longrightarrow \beta_2$
+] 
+
+.box-inv-8[ 2. Relación que hay entre $x_2$ y $x_1  ~ \longrightarrow cov(x_1,x_2)$
+]
+
+--
+
+.box-8[Si alguna variable omitida cumple con (1) y (2) $\tilde \beta_1$ esta sesgada]
+
+---
+
+class: title title-8
+
+# Ejemplo
+
+```{r}
+summary(model_simple)$coefficients
+```
+
+---
+
+class: title title-8
+
+# Ejemplo
+
+```{r}
+summary(model_multiple)$coefficients
+```
+
+
+---
+class: title title-8
+
+# Tamaño del sesgo
+
+
+.box-8[ Sesgo( $\tilde \beta_1$ ) = $E(\tilde \beta_1 - \beta_1) = \beta_2 \cdot \frac{Cov(x_1, x_2)}{var(x_1)}$
+]
+
+
+---
+class: title title-8
+
+# Direcciones de sesgo
+
+
+- Podemos conocer la dirección de sesgo obteniendo el $\tilde \beta_1$ y luego $\beta_1$ y comparándolos. 
+
+--
+
+- A su vez este sesgo (positivo o negativo) dependerá del **signo** que tiene $\beta_2$
+
+
+
+---
+
+class: title title-8
+
+# Cuando $\beta_2$ es positivo
+
+
+.box-8[ Si $\tilde \beta_1 > \beta_1 \Longrightarrow$ **sesgo positivo**  $\Longrightarrow$ modelo inicial **sobreestimó el efecto de $x_2$**
+]
+
+
+
+
+.box-8[ Si $\tilde \beta_1 < \beta_1 \Longrightarrow$ **sesgo negativo**  $\Longrightarrow$ modelo inicial **subestimo el efecto de $x_2$**
+]
+
+
+
+---
+
+class: title title-8
+
+# Cuando $\beta_2$ es negativo
+
+
+.box-8[ Si $\tilde \beta_1 < \beta_1 \Longrightarrow$ **sesgo negativo**  $\Longrightarrow$ modelo inicial **subestimó el efecto de $x_2$**
+]
+
+
+
+
+.box-8[ Si $\tilde \beta_1 > \beta_1 \Longrightarrow$ **sesgo positivo**  $\Longrightarrow$ modelo inicial **sobreestimó el efecto de $x_2$**
+]
+
+
+---
+class: center middle main-title section-title-8
+
+
+# Inclusión de variables irrelevantes
+
+---
+class: title title-8
+
+# Variables irrelevantes
+
+El modelo real es 
+
+$$y = \beta_0 + \beta_1 x_1 + u$$
+
+Pero agregamos $x_2$ y pensamos que no es relevante $\beta_2 = 0$
+
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + u$$
+---
+class: title title-8
+
+# Variables irrelevantes
+
+- En ese caso, $\beta_2 = 0$, por lo que $\beta_1$ no se ve afectado (**Insesgado**).
+
+--
+
+- Pero ... si incorporamos muchas variables quizás se produzca un problema de **multicolinealidad**
+
+- En ese caso las $Var(\beta)$ se van a ver afectadas. 
+
+--
+
+- También hay que tener cuidado con el número de variables y datos (**sobre-identificación**)
+
+---
+class: center middle main-title section-title-8
+
+# Variable de control
+
+
+---
+class: title title-8
+
+# Variable de control
+
+- Se le llama así a las variables que no provienen de las **hipótesis fundamentales** de la investigación, pero que **potencialmente podrían afectar la relación del predictor y variable de respuesta**
+
+--
+
+- Imaginemos  que tenemos un estudio sobre el efecto del ingreso sobre ideología politica
+
+
+```{r, echo = F }
+set.seed(123)
+
+# Generate random data for education, income, and political ideology
+education <- rnorm(100, mean = 12, sd = 2)
+income <- rnorm(100, mean = 50000, sd = 10000)
+political_ideology <- rnorm(100, mean = 5, sd = 1.5)
+
+# Create a data frame with the variables
+df <- data.frame(education, income, political_ideology)
+
+# Fit a linear regression model with income as the only predictor
+model_simple <- lm(political_ideology ~ income, data = df)
+
+# Fit a linear regression model with both income and education as predictors
+model_multiple <- lm(political_ideology ~ income + education, data = df)
+```
+---
+
+1. Modelo solo con variable relevante
+```{r, echo = F }
+summary(model_simple)$coefficients
+```
+
+
+2. Modelo con control *educación*
+```{r, echo = F }
+summary(model_multiple)$coefficients
+```
+
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Omisión de variables
+]
+
+.class-info[
+<br>
+**Sesión N° 13**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

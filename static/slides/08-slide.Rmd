@@ -1,0 +1,613 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+
+# gpa <- as_tibble(wooldridge::gpa1)
+# 
+# gpa <- gpa %>%  mutate(sex = as_factor(if_else(male== 1, "Hombre", "Mujer")), job = factor(case_when(job19 == 1 ~ "Trabaja <= 19 hrs",
+#                                                                                       job20 == 1 ~ "Trabaja > 19 hrs",
+#                                                                                       TRUE ~  "No trabaja"), levels = c("No trabaja", "Trabaja <= 19 hrs", "Trabaja > 19 hrs")) )
+
+load("data/gpa.RData")
+
+model1 <- lm(colGPA ~ ACT, data = gpa)
+model2 <- lm(colGPA ~ ACT + hsGPA, data = gpa)
+model3 <- lm(colGPA ~ ACT + hsGPA + sex, data = gpa)
+model4 <- lm(colGPA ~ ACT + hsGPA + job, data = gpa)
+model5 <- lm(colGPA ~ ACT + hsGPA + sex + job, data = gpa)
+
+  
+gpa_fitted <- augment(model5)
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Inferencia y predicción en regresión lineal múltiple
+]
+
+.class-info[
+<br>
+**Sesión N° 8**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-8.medium.sp-after-half[Inferencia]
+
+--
+.box-8.medium.sp-after-half[Predicción]
+
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Repaso
+
+---
+
+class: title title-8
+
+# Ejemplo promedio universidad
+
+.small[
+- `colGPA`: promedio general de calificaciones de la universidad, en escala de 0 a 4 puntos
+
+- `hsGPA`:  promedio general de calificaciones en la enseñanza media, en escala de 0 a 4 puntos
+
+- `ACT`: puntaje en el examen de admisión a la universidad, que va de 16 a 33 puntos
+
+- `sex`: sexo del estudiante, donde `sex = 1` (Hombre) y `sex = 0` (Mujer)
+
+- `job`: si el estudiante trabaja, donde `job = 0` (No trabaja), `job = 1` (Trabaja <= de 19 horas semanales), `job = 2` (Trabaja > 19 horas semanales)]
+---
+class: title title-8
+
+# 1. Hipótesis: promedio universidad
+
+- $H_1$: A mayor puntaje en la prueba de admisión, mayores son las notas de la universidad
+
+- $H_2$: A mayor notas en enseñanza media, mayores son las notas en la universidad
+
+- $H_3$: Existen diferencias significativas por sexo en el promedio de notas en la universidad
+
+- $H_4$: Existen diferencias significativas en el promedio de notas en la universidad **entre estudiantes que trabajan y aquellos que no**. Entre más horas trabajadas, las notas promedio serán más bajas. 
+
+---
+class: title title-8
+
+# 2. Descriptivos
+
+- Univariados
+
+- Bivariados
+
+--
+
+- **¡No olvides el nivel de medición de las variables a la hora de elegir la tabla/gráfico!**
+
+---
+
+class: title title-8
+
+# 3. Modelos
+
+```{r, echo = F}
+tab_model(model3, model4,model5, show.ci = F, p.style = "stars", dv.labels = c("Modelo 3", "Modelo 4", "Modelo 5"))
+```
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## ¿Qué son esas estrellas que tienen los valores arriba? 🤨
+
+--
+
+## ¿Por qué tienen un *valor-p* asociado? 🤔
+---
+class: center middle main-title section-title-8 top-logo
+
+# Inferencia
+
+---
+class: title title-8
+
+# Inferencia
+
+- Regresión **poblacional** ( $\beta$) y regresión **muestral** ( $\hat \beta$)
+
+--
+
+- Insesgamiento ( $E(\hat\beta) = \beta$) y Eficiencia ( $Var(\hat \beta)$ pequeña)
+
+--
+
+- Con eso sabemos el *promedio* y *varianza* de los $\beta$ (estimación puntual)
+
+--
+
+- Pero los $\hat \beta$ tienen una **distribución** que debemos conocer para **hacer inferencia**
+
+---
+class: title title-8
+
+# Inferencia
+
+
+- Inferencia: **test de hipótesis** e **intervalos de confianza**
+
+---
+class: title title-8
+
+# Distriución de los parámetros
+
+- ¿Cuál es la distribución de los $\beta$ ?
+
+
+-- 
+
+- A priori, no sabemos 😞
+
+
+--
+
+- Los supuestos 1 al 5 que vimos antes (Teorema de Gauss Markov) no nos dicen nada sobre la distribución de los $\beta$.
+
+---
+
+class: title title-8
+
+# Supuesto 6 
+
+.box-8[Normalidad]
+.box-inv-8[El error poblacional $u$ distribuye normal]
+
+--
+
+Además sabemos que $u$
+
+- Es independiente de las variables explicativas $x$ (también, $Cov(u,x) = 0$ )
+- Tiene media cero ( $E(u) = 0$ )
+- Tiene varianza constante ( $Var(u) = \sigma ^2$ )
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Oye... pero qué poco realista es esto
+
+--
+
+## La verdad es que, no tanto. 
+
+---
+class: title title-8
+# Supuesto 6
+
+- $u$ es la suma de diferentes factores no observados que afectan $y$
+
+- Por **Teorema Central del Límite** la distribución de esos factores no observados es *aproximadamente* una **Normal**
+
+--
+
+- **Este supuesto no implica que las variables observadas $y,x$ distribuyan normal** (ex: salario mínimo) 
+
+---
+
+class: title title-8
+# Teorema: distribución normal muestral
+
+- Gracias a los supuestos 1 al 6 podemos concluir que 
+
+.box-8[$$\hat \beta \xrightarrow[]{\text{d}} Normal(E(\hat \beta), Var(\hat \beta))$$]
+
+- Por ser insesgado $E(\hat\beta) = \beta$
+
+---
+class: title title-8
+
+# Teorema: distribución normal muestral
+
+.box-8[$$\frac{\hat \beta - \beta}{sd(\hat \beta)}  \xrightarrow[]{\text{d}} Normal(0, 1)$$]
+
+
+- ¡Y la Normal(0,1) tiene una tabla conocida!
+
+
+---
+class: title title-8
+# Teorema: distribución normal muestral
+
+- Tamaño de muestra (sobre 120 es aproximadamente una normal)
+
+
+.box-inv-8[$$\frac{\hat \beta - \beta}{se(\hat \beta)}  \xrightarrow[]{\text{d}} t_{n-k-1}$$]
+
+- $n$: numero de datos
+
+- $k$: número de variables incorporadas en el modelo
+
+*También conocido como grados de libertad*
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## Ahora que sabemos la distribución de los $\beta$
+
+--
+
+## ¡Vamos a hacer inferencia!
+
+---
+class: title title-8
+
+# Pasos: Test hipótesis 
+
+.box-inv-1[1.Formular hipótesis]
+
+.box-inv-2[2.Calcular $\hat t _{n-k-1}$ muestral
+]
+
+.box-inv-3[3.Buscar en la tabla $t _{n-k-1}$ teórico
+]
+
+.box-inv-4[4.Comparar $t _{n-k-1} ~ y ~ \hat t _{n-k-1}$ y analizar si se rechaza $H_0$
+]
+
+---
+class: title title-1
+
+# 1. Formular hipótesis
+
+---
+class: title title-1
+
+# 1. Hipótesis de dos colas
+
+- Queremos testear que $\beta_1$ tiene un efecto sobre $y$
+
+> $$H_0: \beta_1 = 0 $$
+> $$H_1: \beta_1 \neq 0 $$
+
+---
+class: title title-2
+
+# 2. $\hat t _{n-k-1}$ muestral
+
+$$\hat t _{n-k-1} = \frac{\hat \beta - \beta }{se(\hat \beta)}$$
+---
+class: title title-3
+
+# 3. $t _{n-k-1}$ teórico
+
+$$t^{\frac{(1- \alpha)}{2}}_{n-k-1}$$
+
+- $n-k-1$: grados de libertad
+
+- $\alpha$: nivel de error dispuestos a incurrir. Comúnmente es $0.01, 0.05, 0.1$
+
+--
+
+**¡Van a la tabla!**
+
+---
+class: title title-4
+
+# 4. Análisis
+
+- $|\hat t _{n-k-1}| > t^{\frac{(1- \alpha)}{2}}_{n-k-1}$ entonces **se rechaza $H_0$**
+
+- Probabilidad de **rechazar la $H_0$** dado un nivel de significancia
+
+---
+
+Imagen pagina 126
+
+---
+class: title title-8
+
+# Valor p
+
+- Probabilidad de **no rechazar la $H_0$**
+
+- Esa probabilidad está dada por el nivel de significancia (o error) que estamos dispuestos a incurrir. 
+
+- **Evidentemente vamos a querer que esa probabilidad sea muy pequeña**
+
+--
+
+- Si $\hat t > t$, donde $t$ se define con un 95% de confianza $\Rightarrow p-value < 0.05$ 
+
+---
+class: title title-8
+
+# ¡A mano!
+
+
+
+
+---
+class: title title-1
+
+# 1. Hipótesis de una cola
+
+- Queremos testear si $\beta_1$ tiene un efecto **positivo** sobre $y$
+
+> $$H_0: \beta_1 > 0 $$
+> $$H_1: \beta_1 \leq 0 $$
+
+---
+class: title title-2
+
+# 2. $\hat t _{n-k-1}$ muestral
+
+$$\hat t _{n-k-1} = \frac{\hat \beta - \beta }{se(\hat \beta)}$$
+---
+class: title title-3
+
+# 3. $t _{n-k-1}$ teórico
+
+$$t^{\frac{(1- \alpha)}{2}}_{n-k-1}$$
+
+- $n-k-1$: grados de libertad
+
+- $\alpha$: nivel de error dispuestos a incurrir. Comúnmente es $0.01, 0.05, 0.1$
+
+--
+
+**¡Van a la tabla!**
+
+---
+class: title title-4
+
+# 4. Análisis
+
+- $|\hat t _{n-k-1}| > t^{\frac{(1- \alpha)}{2}}_{n-k-1}$ entonces **se rechaza $H_0$**
+
+
+> Con un 95% de confianza podemos decir que se rechaza $H_0$, es decir, que existe evidencia concluyente del efecto positivo de x sobre y a nivel poblacional, controlando por el resto de las variables del modelo. 
+
+---
+
+Imagen pagina 124
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# En general, para significancia individual podemos resumir en
+
+---
+.box-inv-1[(1) $$H_0 : \beta = a$$
+
+$a$ es nuestra hipótesis sobre el valor de $\beta$]
+
+---
+
+.box-inv-2[(2)
+
+$\hat t = \frac{\hat \beta - a}{se(\hat \beta)}$
+
+$$\hat t = \frac{estimación ~ - ~ valor ~ hipotetizado}{error estándar}$$]
+---
+
+.box-inv-3[(3)
+
+Definir nivel de significancia, calcular grados de libertad y buscar en la tabla $t-student$]
+
+
+.box-inv-4[(4)
+
+Analizar]
+
+---
+class: title title-1
+
+# 1. Hipótesis combinación de parámetros
+
+- Queremos saber si $\beta_1$ tiene el mismo efecto que $\beta_2$
+
+- Queremos testear si $\beta_1$ tiene un efecto **positivo** sobre $y$
+
+> $$H_0: \beta_1 =   \beta_2 $$
+> $$H_1: \beta_1 \leq \beta_2 $$
+
+---
+class: title title-2
+
+# $\hat t _{n-k-1}$ muestral
+
+$$\hat t _{n-k-1} = \frac{\hat \beta_1 - \hat \beta_2 }{se(\hat \beta_1 - \hat \beta_2)}$$
+---
+
+class: title title-2
+
+# $\hat t _{n-k-1}$ muestral
+
+- $se(\hat \beta_1 - \hat \beta_2)$ ?
+
+--
+
+.box-inv-2[
+$se(\hat \beta_1 - \hat \beta_2) = \sqrt{var(\hat \beta_1 - \hat \beta_2)} = \sqrt{var(\hat \beta_1)+var(\hat \beta_2) - 2cov(\hat \beta_1, \hat \beta_2)}$
+]
+
+---
+class: title title-3
+
+# $t _{n-k-1}$ teórico
+
+$$t^{\frac{(1- \alpha)}{2}}_{n-k-1}$$
+
+- $n-k-1$: grados de libertad
+
+- $\alpha$: nivel de error dispuestos a incurrir. Comúnmente es $0.01, 0.05, 0.1$
+
+--
+
+**¡Van a la tabla!**
+
+---
+class: title title-4
+
+- $|\hat t _{n-k-1}| > t^{\frac{(1- \alpha)}{2}}_{n-k-1}$ entonces **se rechaza $H_0$**
+
+
+> Con un 95% de confianza podemos decir que se rechaza $H_0$, es decir, que existe evidencia concluyente de que $x_1$ y $x_2$ tienen un efecto distinto sobre y, controlando por el resto de variables del modelo
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Test de significancia global
+---
+class: title title-1
+
+# 1. Hipótesis todos los parámetros
+
+
+> $H_0: \beta_1 = \beta_2 = \beta_3 = ... = 0$
+> $H_0:$ al menos un $\beta$ es distinto de cero
+
+---
+class: title title-2
+
+# Estadístico muestral $\hat{F}_{q,n-k-1}$
+
+- $q$ = número de parámetros que decimos que son iguales a cero
+
+- $n-k-1:$ grados de libertad
+---
+class: title title-3
+
+# F teórico
+
+- Solo ocupamos al 95% de confianza
+
+- *¡Vamos a la tabla!*
+
+---
+pagina 134
+
+---
+class: title title-4
+
+- $\hat F _{q,n-k-1} > F_{1,n-k-1}$ entonces **se rechaza $H_0$**
+
+
+> Con un 95% de confianza podemos decir que se rechaza $H_0$, es decir, que existe evidencia concluyente de que **globalmente** los parámetros incluidos en el modelo son relevantes
+
+--
+
+- ¡Eso no implica que lo sean todos!
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Intervalos de confianza
+
+---
+class: title title-8
+
+# Intervalos de confianza
+
+- Intervalo de estimación: nos dan un **rango** de valores probables para el parámetro $\beta$ en la población y *no solo un punto*
+
+--
+
+.box-inv-8[$$\beta = \hat \beta \pm se(\hat \beta)\cdot t^{\frac{(1- \alpha)}{2}}_{n-k-1} $$]
+
+--
+
+- Con ello tendremos un intervalo superior e inferior de $\beta$. 
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Inferencia y predicción en regresión lineal múltiple
+]
+
+.class-info[
+<br>
+**Sesión N° 8**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
