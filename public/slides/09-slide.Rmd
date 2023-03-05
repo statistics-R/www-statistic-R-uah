@@ -1,0 +1,427 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom,AER, sandwich, forcats, foreign, dplyr)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+# load libraries
+library(tidyverse)
+library(AER)
+library(sandwich)
+library(forcats)
+
+# download data
+download.file("http://fmwww.bc.edu/ec-p/data/wooldridge/gpa1.dta", 
+              destfile = "gpa1.dta", mode = "wb")
+GPA1 <- haven::read_dta("gpa1.dta")
+
+# run simple linear regression
+model1 <- lm(colGPA ~ hsGPA, data = GPA1)
+
+# create dummy variable for gender
+#GPA1$female <- ifelse(GPA1$gender == "female", 1, 0)
+
+# run simple linear regression with gender as the predictor
+model2 <- lm(colGPA ~ as_factor(male), data = GPA1)
+
+set.seed(123)
+gasto <- exp(rnorm(100))
+voters <- 1 + 2 * log(gasto) + rnorm(100)
+
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Transformación de variables dependientes y independintes
+]
+
+.class-info[
+<br>
+**Sesión N° 9**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-1.medium.sp-after-half[1.Modelo lineal simple]
+
+--
+.box-2.medium.sp-after-half[2.Modelo con variable cualitativa]
+
+--
+
+.box-3.medium.sp-after-half[3.Modelo $y-log  x$]
+
+
+--
+.box-4.medium.sp-after-half[4.Modelo $log  y - x$]
+
+
+--
+
+.box-5.medium.sp-after-half[5.Modelo $log  y - log x$]
+
+---
+class: title title-8
+
+# 1. Hipótesis de investigación
+
+- $H_1$: Modelo simple
+
+- $H_2$: Modelo cuali
+
+- $H_3$: Modelo lineal-log
+
+- $H_4$: Modelo log - lineal 
+
+- $H_5$: Modelo log- log
+
+
+---
+class: center middle main-title section-title-1 top-logo
+
+# 1.Modelo lineal simple
+
+---
+class: title title-1
+
+# 1.Modelo lineal simple
+
+.box-inv-1[ $y = \beta_0 + \beta_1 x_1 + u$
+]
+.box-inv-1[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+
+--
+
+
+.box-1[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ ) , $y$ cambia en $\beta_1$ unidades ( $\triangle y = \beta_1$ )
+]
+
+
+```{r, echo = F}
+set.seed(123)
+
+# Simulate data
+n <- 100
+educ <- rnorm(n, mean = 12, sd = 3)
+age <- rnorm(n, mean = 35, sd = 10)
+wage <- 1000 + 200*educ + 50*age + rnorm(n, mean = 0, sd = 100)
+
+# Create data frame
+data <- data.frame(educ = educ, age = age, wage = wage)
+
+```
+
+
+---
+class: title title-inv-1
+
+# Gráfico
+
+
+```{r, echo = F}
+ggplot(data, aes(x = educ, y = wage)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Years of education", y = "Wage")
+
+```
+
+---
+class: center middle main-title section-title-2 top-logo
+
+# 2. Modelo con variable cualitativa
+
+---
+class: title title-2
+
+# 2. Modelo con variable cualitativa $X_2$
+
+.box-inv-2[ $y = \beta_0 + \beta_1 x_1 + \beta_2 X_2 +  u$
+]
+
+.pull-left[ .box-inv-2[ Si $x_2 = 0$
+]
+.box-inv-2[ $y = \beta_0 + \beta_1 x_1 +  u$
+]
+.box-inv-2[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+]
+
+.pull-right[ .box-inv-2[ Si $x_2 = 1$
+]
+.box-inv-2[ $y = \beta_0 + \beta_2 + \beta_1 x_1 +  u$
+]
+.box-inv-2[ $\beta_0 + \beta_2$= intercepto
+$\beta_1$=pendiente ]
+]
+
+---
+
+class: title title-2
+
+# 2. Modelo con variable cualitativa $X_2$
+
+
+.box-2[ La diferencia promedio entre los grupos $x_2=1$ y $x_2 = 0$ es $\beta_2$, manteniendo $X_1$ constante
+]
+
+
+.box-2[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ ) , $y$ cambia en $\beta_1$ unidades ( $\triangle y = \beta_1$ ), **tanto para $x_1$ como $x_2$
+]
+
+
+```{r, echo = F}
+set.seed(123)
+gender <- factor(rep(c("Male", "Female"), each = 50))
+educ <- rnorm(100, mean = 12, sd = 2)
+wage <- 20 + 5*as.numeric(gender) + 2*educ + rnorm(100, mean = 0, sd = 5)
+data <- data.frame(gender, educ, wage)
+```
+
+
+
+---
+class: title title-inv-2
+
+# Gráfico
+
+```{r, echo = F}
+ggplot(data, aes(x = educ, y = wage, color = gender)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("Years of Education") +
+  ylab("Wage") +
+  ggtitle("Wage by Education Level and Gender") +
+  scale_color_manual(values = c("blue", "red"))
+```
+
+
+---
+class: center middle main-title section-title-3 top-logo
+
+# 3. Modelo $y-log  x$
+
+---
+class: title title-3
+
+# 3. Modelo $y-log  x$
+
+.box-inv-3[ $y = \beta_0 + \beta_1 log (x_1) + u$
+]
+.box-inv-3[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+
+--
+
+
+.box-3[ Cuando $x_1$ aumenta **1 %** ( $\triangle x_1 = 1$ % ) , $y$ cambia en $0.01 \cdot \beta_1$ unidades ( $\triangle y = 0.01 \cdot \beta_1$ )
+]
+
+
+---
+class: title title-inv-3
+
+# Gráfico sin log
+
+```{r, echo = F}
+ggplot(data.frame(x = gasto, y = voters), aes(x, y)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  xlab("Gasto") + 
+  ylab("Votantes")
+```
+
+---
+class: title title-inv-3
+
+# Gráfico
+
+```{r, echo = F}
+ggplot(data.frame(x = gasto, y = voters), aes(x, y)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", formula = y ~ log(x)) +
+  xlab("Gasto") + 
+  ylab("Votantes")
+
+```
+
+
+
+---
+class: center middle main-title section-title-4 top-logo
+
+# 4. Modelo $log y-  x$
+
+---
+class: title title-4
+
+# 4. Modelo $log y-  x$
+
+.box-inv-4[ $log(y) = \beta_0 + \beta_1 x_1 + u$
+]
+.box-inv-4[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+
+--
+
+
+.box-4[ Cuando $x_1$ aumenta **1 unidad** ( $\triangle x_1 = 1$ ) , $y$ cambia en $100 \cdot \beta_1 $ % ( $\triangle y = 100 \cdot \beta_1$ )
+]
+
+.box-4[ Si $x_1$ es dummy ( $x_1 = 1$ ) , la diferencia promedio $y$ es $100\cdot [exp(\beta_1)-1]$
+]
+
+```{r, echo = F}
+# Simulate data
+set.seed(123)
+exp <- runif(100, 0, 20)
+wage <- exp^2 + rnorm(100, 0, 1)
+data <- data.frame(exp, wage)
+
+
+```
+
+
+---
+class: title title-inv-4
+
+# Gráfico
+
+```{r, echo = F}
+ggplot(data, aes(x = exp, y = wage)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  geom_smooth(method = "lm", formula = log(y) ~ x, se = FALSE, color = "blue") +
+  labs(title = "Wage vs Experience",
+       x = "Experience",
+     y = "Wage")
+
+```
+
+
+---
+class: center middle main-title section-title-5 top-logo
+
+# 5. Modelo $log y-  log x$
+
+---
+class: title title-5
+
+# 5. Modelo $log y-  log x$
+
+.box-inv-5[ $log(y) = \beta_0 + \beta_1 log(x_1) + u$
+]
+.box-inv-5[ $\beta_0$= intercepto
+$\beta_1$=pendiente ]
+
+--
+
+
+.box-5[ Cuando $x_1$ aumenta **1 %** ( $\triangle x_1 = 1$% ) , $y$ cambia en $\beta_1$ % ( $\triangle y =  \beta_1$ % )
+]
+
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+## Entonces ... el efecto de la variable $x_1$ depende del valor que tome $x_1$
+
+--
+
+## ¿Podría depender este efecto de otras variables?
+--
+
+## ¡Sí! Eso se conoce como **interacción** (*siguiente clase*)
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Transformación de variables dependientes y independintes
+]
+
+.class-info[
+<br>
+**Sesión N° 9**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

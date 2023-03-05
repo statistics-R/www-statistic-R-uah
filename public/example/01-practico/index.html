@@ -29,7 +29,7 @@
   
     
   
-  <meta name="description" content="0. Objetivo del práctico El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, aprenderemos cómo abrir un nuevo script y a crear un nuevo proyecto de R (o Rproject)." />
+  <meta name="description" content="0. Objetivo del práctico El objetivo de este práctico es realizar un breve repaso a ciertos conceptos clave y definiciones básicas de los fundamentos de probabilidad, pasando por la definición de una variable, sus distribuciones, y las formas de medirlas y/o resumirlas." />
 
   
   <link rel="alternate" hreflang="en-us" href="/example/01-practico/" />
@@ -287,8 +287,8 @@
   
   <meta property="og:site_name" content="Estadística II" />
   <meta property="og:url" content="/example/01-practico/" />
-  <meta property="og:title" content="Bienvenido/a a R, RStudio y Github | Estadística II" />
-  <meta property="og:description" content="0. Objetivo del práctico El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, aprenderemos cómo abrir un nuevo script y a crear un nuevo proyecto de R (o Rproject)." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
+  <meta property="og:title" content="Variables aleatorias y distribuciones | Estadística II" />
+  <meta property="og:description" content="0. Objetivo del práctico El objetivo de este práctico es realizar un breve repaso a ciertos conceptos clave y definiciones básicas de los fundamentos de probabilidad, pasando por la definición de una variable, sus distribuciones, y las formas de medirlas y/o resumirlas." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
@@ -324,7 +324,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Bienvenido/a a R, RStudio y Github | Estadística II</title>
+  <title>Variables aleatorias y distribuciones | Estadística II</title>
 </head>
 
 
@@ -660,62 +660,22 @@
     <ul class="nav docs-sidenav">
       
       <li class="active">
-        <a href="/example/01-practico/">1: R, RStudio y Github</a>
+        <a href="/example/01-practico/">1: Variables aleatorias y distribuciones</a>
       </li>
 
       
       <li >
-        <a href="/example/02-practico/">2: RMarkdown</a>
+        <a href="/example/02-practico/">2: Inferencia</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">3: Tipos de datos</a>
+        <a href="/example/032-practico/">3: RMarkdown</a>
       </li>
 
       
       <li >
-        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/05-practico/">5: Limpieza de datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/06-practico/">6: Transformar variables</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/07-practico/">7: Análisis descriptivo univariado</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/08-practico/">8: Análisis descriptivo bivariado</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/09-practico/">9: Muestras complejas y precisión de inferencia estadística</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/10.1-practico/">10.1: Regresiones lineales</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/10.2-practico/">10.2: Regresión logística</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
+        <a href="/example/03-practico/">3: R, RStudio y Github</a>
       </li>
 
       
@@ -737,37 +697,37 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#0-objetivo-del-práctico">0. Objetivo del práctico</a></li>
-    <li><a href="#1-crear-un-nuevo-script-r">1. Crear un nuevo script (.R)</a></li>
-    <li><a href="#2-crear-un-nuevo-proyecto-de-r-rproj">2. Crear un nuevo proyecto de R (.Rproj)</a></li>
-    <li><a href="#3-github">3. GitHub</a>
+    <li><a href="#0-objetivo-del-práctico">0. Objetivo del práctico</a>
       <ul>
-        <li><a href="#ventajas">Ventajas:</a></li>
+        <li><a href="#materiales-de-la-sesión">Materiales de la sesión</a></li>
       </ul>
     </li>
-    <li><a href="#4-github-classroom">4. Github Classroom</a></li>
-    <li><a href="#3-github-desktop">3. Github Desktop</a></li>
-    <li><a href="#4-botones-principales-en-github-desktop">4. Botones principales en GitHub Desktop:</a></li>
-    <li><a href="#5-conceptos-claves-de-github">5. Conceptos claves de Github</a>
+    <li><a href="#1-variables-aleatorias-y-sus-distribuciones-de-probabilidad">1. Variables aleatorias y sus distribuciones de probabilidad</a></li>
+    <li><a href="#2-distribuciones-conjuntas-condicionales-marginales-e-independencia">2. Distribuciones conjuntas, condicionales, marginales e independencia</a>
       <ul>
-        <li>
-          <ul>
-            <li><a href="#flujo-de-trabajo-colectivo-y-de-acceso-abierto">Flujo de trabajo colectivo y de acceso abierto</a></li>
-          </ul>
-        </li>
+        <li><a href="#21-distribución-conjunta">2.1 Distribución Conjunta</a></li>
+        <li><a href="#22-distribución-marginal">2.2 Distribución Marginal</a></li>
+        <li><a href="#23-distribución-condicional">2.3 Distribución Condicional</a></li>
+        <li><a href="#24-media-condicional">2.4. Media condicional</a></li>
+        <li><a href="#25-independencia">2.5. Independencia</a></li>
       </ul>
     </li>
-    <li><a href="#6-github-class-room-del-curso-learn-r-uah">6. GitHub Class Room del curso (learn-R-UAH)</a>
+    <li><a href="#3-características-de-las-distribuciones-de-probabilidad">3. Características de las distribuciones de probabilidad</a>
       <ul>
-        <li><a href="#61-recibir-una-tarea">6.1 Recibir una tarea</a></li>
-        <li><a href="#62-ingresa-el-linkhttpsclassroomgithubcomataoncqa7">6.2 Ingresa el <a href="https://classroom.github.com/a/taONcqa7">link</a></a></li>
-        <li><a href="#63-resolver-una-tarea">6.3 Resolver una tarea</a></li>
-        <li><a href="#64-tarea-0">6.4 Tarea 0</a></li>
-        <li><a href="#65-subir-una-tarea">6.5 Subir una tarea</a></li>
-        <li><a href="#66-recibir-comentarios">6.6 Recibir comentarios</a></li>
+        <li><a href="#31-medidas-de-tendencia-central-valor-esperado-o-esperanza">3.1 Medidas de Tendencia Central: Valor esperado o esperanza</a></li>
+        <li><a href="#32-medidas-de-tendencia-central-mediana">3.2 Medidas de tendencia central: Mediana</a></li>
+        <li><a href="#33-medidas-de-tendencia-central-moda">3.3 Medidas de tendencia central: Moda</a></li>
+        <li><a href="#34-medidas-de-variabilidad-o-dispersión-varianza">3.4 Medidas de Variabilidad o Dispersión: Varianza</a></li>
+        <li><a href="#35-medidas-de-variabilidad-o-dispersión-desviación-estándar">3.5 Medidas de Variabilidad o Dispersión: Desviación Estándar</a></li>
       </ul>
     </li>
-    <li><a href="#7-video-tutorial-en-youtube">7. Video tutorial en Youtube</a></li>
+    <li><a href="#4-características-de-las-distribuciones-conjuntas-y-de-las-condicionales">4. Características de las distribuciones conjuntas y de las condicionales</a>
+      <ul>
+        <li><a href="#41-covarianza">4.1 Covarianza</a></li>
+        <li><a href="#42-correlación">4.2 Correlación</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-resumen">5. Resumen</a></li>
   </ul>
 </nav>
 
@@ -780,7 +740,7 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Bienvenido/a a R, RStudio y Github</h1>
+                    <h1>Variables aleatorias y distribuciones</h1>
 
                     
 
@@ -790,237 +750,181 @@
 
                     <div class="article-style">
                         <h2 id="0-objetivo-del-práctico">0. Objetivo del práctico</h2>
-<p>El objetivo del práctico es introducirnos en herramientas que permiten establecer un flujo de trabajo en R. Para ello, aprenderemos cómo abrir un nuevo <strong>script</strong> y a crear un nuevo <strong>proyecto de R (o Rproject)</strong>. Además, utilizaremos GitHub, que es una plataforma que permite alojar los .Rproj y códigos de cada uno de ustedes. De hecho, tal como mostraremos en el práctico, utilizaremos <strong>GitHub</strong><em>ClassRoom</em> para que ustedes puedan subir sus tareas.</p>
-<p>Previo a esto, deben ver el <a href="https://youtu.be/Zj8yL-nx9vM" target="_blank" rel="noopener">Tutorial de instalación de R</a>.</p>
-<p>Ahora aprenderemos a crear scripts, proyectos, colaborar y resolver las tareas.</p>
-<h2 id="1-crear-un-nuevo-script-r">1. Crear un nuevo script (.R)</h2>
-<p>Para que empecemos a trabajar en el lenguaje R, lo primero es saber cómo abrir un nuevo script; pero <em>¡¿qué es un script?!</em> Dicho en términos simples, el script es la <em>&ldquo;hoja&rdquo;</em> sobre la cual escribiremos y guardaremos cada uno de los códigos que trabajemos cuando estemos trabajando con datos cuantitativos. Si bien podemos ejecutar los códigos directamente desde la <strong>consola</strong>, estos se eliminarán una vez que cerremos la sesión en RStudio:</p>
-<p><img src="/img/example/consola.png" width="60%" /></p>
-<p>Así, cuando escribamos en nuestro <strong>script</strong>, podremos archivar los códigos que vayamos ejecutando, para poder reproducirlos posteriormente, compartirlos con otras personas, entre otros. Ahora, lo que nos convoca: <strong>¿cómo puedo abrir un nuevo script?</strong></p>
-<p>Hacerlo es bastante sencillo. En la sección <em>superior izquierda</em> de RStudio, debe hacerse click en la hoja con un signo + verde y, luego, seleccionar la opción <strong>R Script</strong> en el menú desplegado:</p>
-<p><img src="/img/example/open-script.png" width="60%" /></p>
-<p>Otra manera de abrir un nuevo script es hacer click en la opción <strong>File</strong> de la <em>barra superior</em></p>
-<p><img src="/img/example/file.png" width="60%" /></p>
-<p>para, posteriormente seleccionar <strong>New File &gt; R Script</strong> en los menús desplegados:</p>
-<p><img src="/img/example/new-script.png" width="60%" /></p>
-<p>Por último, podemos mantener presionadas las teclas <strong>Ctrl + Shift + N</strong> en Windows, o <strong>⌘ + Shift + N</strong>
-en <em>Mac</em>.</p>
-<p>Ya hemos abierto un nuevo script (<strong>¡Genial!</strong>), que se debe ver de la siguiente manera:</p>
-<p><img src="/img/example/script.png" width="60%" /></p>
-<p>Podemos escribir en él los códigos, que se ejecutarán en la <strong>consola</strong> una vez mantengamos presionadas las teclas <strong>Control + Enter</strong> al inicio de la línea</p>
-<p><img src="/img/example/script-console.png" width="60%" /></p>
-<p>Ahora, por supuesto, debemos guardar nuestro script una vez terminemos de trabajar en él, a modo de no perder el trabajo avanzado. Para ello, podemos hacer click en el <strong>disquete</strong> situado en la <em>barra que se encuentra sobre el código</em></p>
-<p><img src="/img/example/save.jpg" width="60%" /></p>
-<p>Para luego, elegir el directorio donde deseamos almacenar nuestro script, y asignarle un nombre determinado (en este caso <strong>script1</strong>) que, ojalá, tenga que ver con los procedimientos ejecutados en este (por ejemplo, <em>procesamiento</em> o <em>análisis</em>). La extensión de los archivos que almacenan scripts es <strong>.R</strong> (<em>¡no lo olvides!</em>)</p>
-<p><img src="/img/example/save-script.png" width="60%" /></p>
-<p><img src="/img/example/name-script.png" width="60%" /></p>
-<p>Una vez almacenado en una carpeta, cada vez que clickeemos en los casetes o mantengamos presionadas las teclas <strong>Control + S</strong>, el archivo se actualizará a la última versión que hayamos guardado.</p>
-<h2 id="2-crear-un-nuevo-proyecto-de-r-rproj">2. Crear un nuevo proyecto de R (.Rproj)</h2>
-<p>¡Todavía nos falta algo para iniciarnos en el flujo de trabajo del curso! debemos crear un nuevo <strong>Proyecto de R o R Project (<em>.Rproj</em>)</strong>. ¿Qué es esto, se preguntarán ustedes? en pocas palabras, será la <strong>semilla de nuestra carpeta de trabajo</strong>, es decir, constituye el centro a partir del cual estaremos trabajando el resto de archivos incluidos en nuestro trabajo con los datos, como los <em>scripts</em>, los <em>datos</em> con los que trabajamos, los <em>gráficos</em> que generaremos durante el análisis, y todo aquello vinculado a los procesos que ejecutemos en un trabajo en específico. A lo largo del curso aprenderemos a trabajar adecuadamente con los .Rproj, manteniendo un flujo de trabajo que <em>facilita la reproductibilidad</em> de los procesos con los que aprenderemos los contenidos, así como de las tareas que ustedes rendirán durante el semestre. Sin embargo, ahora nos limitaremos a aprender a crear un nuevo proyecto.</p>
-<p>¿Cómo lo hacemos? Es bastante sencillo, y se asemeja a la creación de scripts. No obstante, esta vez nos dirigiremos a la sección <em>superior derecha de RStudio</em>, donde se encuentra una <em>R inscrita a un cubo</em></p>
-<p><img src="/img/example/rproj.png" width="60%" /></p>
-<p>Haremos click en ella, y se desplegará un panel con opciones. Clickearemos en <strong>New Project&hellip;</strong></p>
-<p><img src="/img/example/new-proj.png" width="60%" /></p>
-<p>Emergerá una ventana que nos preguntará en qué carpeta queremos alojar nuestro nuevo proyecto. Podemos elegir crear una nueva carpeta haciendo click en <strong>New Directory</strong>, o elegir una carpeta ya existente en nuestro computador, clickeando en <strong>Existing Directory</strong></p>
-<p><img src="/img/example/new-proj1.png" width="60%" /></p>
-<p>Si optamos por lo primero, se nos preguntará qué tipo de proyecto deseamos crear. En este caso, elegiremos <strong>New Project</strong></p>
-<p><img src="/img/example/new-proj2.png" width="60%" /></p>
-<p>Aparecerá una ventana que nos pregunta el nombre que queremos asignarle a la nueva carpeta que crearemos, y en qué carpeta se alojará esta. Si hacemos click en <em>Browse</em>, podemos buscar un directorio específico en el cual queramos alojar la nueva carpeta</p>
-<p><img src="/img/example/new-proj3.png" width="60%" /></p>
-<p>En caso de elegir lo segundo, se nos solicitará directamente en qué carpeta (ya existente) queremos alojar nuestro proyecto. Una vez más, podemos utilizar <em>Browse</em> para navegar entre las carpetas de nuestro computador, hasta hallar aquella en que deseamos alojar este nuevo archivo</p>
-<p><img src="/img/example/new-proj4.png" width="60%" /></p>
-<p>¡Listo! ahora sólo debemos ir a nuestra carpeta y buscar el proyecto que hemos creado. Es un archivo de extensión .Rproj, cuyo ícono es una R inscrita en un cubo.</p>
-<p><img src="/img/example/new-proj5.png" width="60%" /></p>
-<p>Es fundamental que, de aquí en adelante, siempre que vayamos a trabajar en alguna tarea con R, <strong>creemos el nuevo proyecto y lo abramos para empezar a trabajar</strong>. Ello setearé nuestro directorio de trabajo directamente en la carpeta donde se encuentra el archivo .Rproj, lo cual nos permitirá trabajar colaborativamente con mayor facilidad (¡algo <strong>fundamental</strong> en el curso!). Además, cada vez que vayamos a retomar nuestro trabajo en algún proyecto, debemos <strong>siempre abrir el proyecto antes que cualquier cosa</strong>, para lo cual debemos hacer doble click sobre su ícono.</p>
-<h2 id="3-github">3. GitHub</h2>
-<p>Es un sistema de control de versiones en línea que rastrea los cambios de códigos, facilita la colaboración y el acceso abierto. En este curso será un programa esencial para el desarrollo tanto de clases como prácticos, por lo que vamos a aprender a utilizarlo repasando aspectos básicos. Esto además será profundizado y detallado en clases.</p>
-<h3 id="ventajas">Ventajas:</h3>
-<p>Las principales ventajas son:</p>
-<ul>
-<li>
-<p>Facilita el flujo del trabajo y la colaboración entre usuarios</p>
-</li>
-<li>
-<p>Es de acceso abierto</p>
-</li>
-<li>
-<p>Permite hacer seguimiento a los errores</p>
-</li>
-<li>
-<p>Tiene variedades de funciones y plataformas</p>
-</li>
-</ul>
-<p>No obstante, la plataforma central en el curso será <strong>GitHub Classroom</strong></p>
-<h2 id="4-github-classroom">4. Github Classroom</h2>
-<p>Es una plataforma de Github que facilita la interacción y aprendizaje entre estudiantes y profesores. Utilizaremos esta plataforma a lo largo del curso, principalmente porque permite que las y los estudiantes trabajen individual y colectivamente usando los repositorios de Github. En esta plataforma entregarán sus tareas, recibirán comentarios y retroalimentaciones pudiendo trabajar colaborativamente.</p>
-<ul>
-<li>Pasos para ingresar a Github classroom</li>
-</ul>
+<p>El objetivo de este práctico es realizar un breve repaso a ciertos conceptos clave y definiciones básicas de los <strong>fundamentos de probabilidad</strong>, pasando por la definición de una variable, sus distribuciones, y las formas de medirlas y/o resumirlas.</p>
+<p>Recordar que la idea principal que se encuentra a la base de la probabilidad refiere a que cuando observamos el comportamiento del azar, este resulta impredecible con pocas repeticiones pero presenta un <strong>comportamiento regular y predecible</strong> con muchas repeticiones.</p>
+<h3 id="materiales-de-la-sesión">Materiales de la sesión</h3>
+<p>Recuerden que los archivos asociados a este práctico los pueden encontrar en: Apéndice A1 y B - Woolridge</p>
+<h2 id="1-variables-aleatorias-y-sus-distribuciones-de-probabilidad">1. Variables aleatorias y sus distribuciones de probabilidad</h2>
+<p>Las Variables Aleatorias (VA) son <strong>variables estadísticas</strong> en la que sus valores se obtienen a partir del resultado de algún tipo de experimento. En otras palabras, son variables cuyos valores son <strong>resultados numéricos</strong> de un fenómeno aleatorio. Un ejemplo de experimento puede ser algo tan simple como lanzar una moneda 20 veces y anotar las veces que obtenemos cara. La cantidad de veces que efectivamente salió cara en el experimento constituye una variable aleatoria. Este experimento puede ser realizado infinitas veces, y en otro ensayo se puede obtener un resultado completamente distinto.</p>
+<p>Las variables aleatorias se dividen en <em>discretas</em> y <em>continuas</em>. Una <strong>variable aleatoria discreta</strong> es una variable que solo toma una cantidad finita o una cantidad infinita contable de valores. <em>¿Qué significa esto?</em> Significa que aunque la variable pueda tener resultados infinitos, estos solo toman valores enteros positivos. Por ejemplo, si lanzamos un dado y anotamos el resultado, solo podemos tener valores del 1 al 6. En ningún caso tendremos un resultado negativo o con decimales.</p>
+<p>En ciertas ocasiones, estimaremos eventos que son cualitativos. Por ejemplo, nos interesa estimar la participación de los alumnos de enseñanza media en manifestaciones del estallido social. En ese caso, la variable también toma valores numéricos. Se puede definir la variable como: <em>X = 1</em> si se participa en la manifestación, <em>X = 0</em> si no se participa. En esta situación, como podrán notar, nos enfrentamos a una variable aleatoria discreta. Además, cuando una variable <strong>solo</strong> puede tomar los valores de 0 y 1, hablamos de una <strong>variable binaria</strong>.</p>
+<p>Las variables aleatorias discretas se describen estadísticamente por su <em>distribución de probabilidad.</em> Esta corresponde a la probabilidad de la ocurrencia de cada valor de la variable. Siguiendo con el ejemplo del lanzamiento de un dado, su distribución de probabilidad consiste en todos los valores que puede tomar la variable (1 al 6) y la probabilidad de obtener cada una de ellas (en este caso, cada valor tiene una probabilidad de 1/6). La suma de la distribución de probabilidad es igual a 1.</p>
+<p>Las variables aleatorias discretas se pueden representar en tablas o cuadros. Por ejemplo, si la variable corresponde a la cantidad de hijos:</p>
+<p><strong>Tabla 1: Distribución de Probabilidad Variable Cantidad de Hijos</strong></p>
+<p><img src="images/tabla00.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p><strong>Gráfico 1: Distribución de Probabilidad Variable Cantidad de Hijos (en porcentaje)</strong></p>
+<p><img src="images/grafico01.png" alt="">{width=&ldquo;549&rdquo;}</p>
+<p>Además de la distribución de probabilidad, también existe la <strong>distribución de probabilidad acumulada</strong>, la cual determina la probabilidad de que una variable sea igual o menor a un valor concreto. Siguiendo con la variable cantidad de hijos:</p>
+<p><strong>Tabla 2: Distribución de Probabilidad Variable Cantidad de Hijos</strong></p>
+<p><img src="images/tabla001.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p><em><strong>Gráfico 2: Distribución de Probabilidad Acumulada (en porcentaje)</strong></em></p>
+<p><img src="images/grafico02-01.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p>Por su parte, las <strong>VA continuas (VAC)</strong> indican que X puede tomar ciertos valores con probabilidad cero, es decir, una variable <code>\(X\)</code> es una variable aleatoria continua si la probabilidad de que la variable aleatoria tome cualquier valor real sea igual a cero. <em>¿Cómo es posible esto?</em> La idea es que los valores que puede tomar una variable aleatoria continua son tantos que es imposible contarlos. Es por esto que la probabilidad de que la variable tome cada uno de estos valores es cero.</p>
+<p>Estas se describen por medio de su <strong>función de densidad de probabilidad (fdp)</strong>, la cual resume la información concerniente a los valores que puede tomar <code>\(X\)</code> y a sus correspondientes probabilidades. La fdp de una variable continua solo se utiliza para calcular eventos que comprenden un <em>rango</em> de valores. Un ejemplo de una variable continua donde nos podría interesar su rango de valores consiste en los ingresos de un hogar.</p>
+<p><em><strong>Gráfico 3: Función de Densidad de Probabilidad</strong></em></p>
+<p><img src="images/grafico03.png" alt="">{width=&ldquo;468&rdquo;}</p>
+<p>En este gráfico podemos observar que:</p>
+<p>$$
+Pr(-2\leq X \leq 1)
+$$</p>
+<p>se encuentra representada por el área debajo de la curva. Es decir, la probabilidad de que X se encuentre entre -2 y 1 es el <em>área bajo la curva</em> entre esos puntos en el gráfico. Como resume probabilidades, toda el área bajo la curva de la fdp debe ser igual a uno.</p>
+<p>Para todas las distribuciones continuas importantes en la probabilidad y en la estadística, las funciones de distribución acumulada ya han sido tabuladas, y la más conocida de estas es la <strong>distribución normal</strong>, la cual tendrá un rol fundamental a lo largo del curso.</p>
+<h2 id="2-distribuciones-conjuntas-condicionales-marginales-e-independencia">2. Distribuciones conjuntas, condicionales, marginales e independencia</h2>
+<h3 id="21-distribución-conjunta">2.1 Distribución Conjunta</h3>
+<p>En muchos casos, resulta interesante estudiar de manera conjunta el comportamiento de las variables. En dichos caso, se construye lo que se denomina <strong>distribución conjunta</strong>. Su objetivo consiste en determinar cómo la variación de una variable se relaciona con la de otra. En el caso de que  <code>\((X,Y)\)</code> sean variables aleatorias discretas, entonces <code>\((X,Y)\)</code> tienen una distribución conjunta, descrita completamente por la <strong>función de densidad de probabilidad conjunta</strong> de <code>\((X,Y)\)</code>.</p>
+<p>En palabras más simples, la distribución conjunta corresponde a la probabilidad de que ocurran dos o más variables aleatorias, al mismo tiempo. Un ejemplo de estudio puede ser la relación entre ingreso y el gasto en vestimentas en un mes.</p>
+<p><em><strong>Tabla 3: Distribución Conjunta del Gasto en Vestimenta</strong></em></p>
+<p><img src="images/tabla01.png" alt="">{width=&ldquo;506&rdquo;}</p>
+<p><em><strong>Tabla 4: Distribución Marginal del Gasto en Vestimenta</strong></em></p>
+<p><img src="images/tabla02.png" alt="">{width=&ldquo;489&rdquo;}</p>
+<p>Las casillas en color rosado nos muestra la <em>distribución marginal</em> del gasto en vestimenta.</p>
+<h3 id="22-distribución-marginal">2.2 Distribución Marginal</h3>
+<p>Las distribuciones de la variable fila y de la variable columna, de forma separada, se llaman <strong>distribuciones marginales</strong>, ya que aparecen en los márgenes derecho e inferior de la tabla de contingencia. La columna de totales y la fila de totales de una tabla de contingencia dan las distribuciones marginales de las dos variables de forma separada. <strong>Las distribuciones marginales no dan información sobre la relación entre las variables.</strong></p>
+<p>Cada componente de una variable aleatoria bidimensional es una variable aleatoria unidimensional en sí misma. Es por esto que nos puede interesar conocer la distribución de un componente por separado, sin tener en cuenta el otro componente. Eso se denomina marginar, y la <strong>distribución de la variable unidimensional</strong> por separado se llama distribución marginal.</p>
+<p>La <strong>distribución marginal</strong> del gasto en vestimenta equivale a su <strong>distribución unidimensional</strong>:</p>
+<p><em><strong>Tabla 5: Distribución Marginal del Gasto en Vestimenta</strong></em></p>
+<p><img src="images/table03.png" alt="">{width=&ldquo;413&rdquo;}</p>
+<p>La <strong>media</strong> es de 2777.5 y la <strong>desviación estándar</strong> es de 1739.</p>
+<h3 id="23-distribución-condicional">2.3 Distribución Condicional</h3>
+<p>En otras ocasiones, es posible que nos interese el <em>efecto</em> que tiene cierta variable sobre otra. Es decir, el efecto que podría tener una variable Y sobre una variable X. Para poder acercarnos a esto recurrimos a la <strong>distribución condicional</strong>, cuya información se encuentra resumida en la <em>función de densidad de probabilidad condicional</em>.</p>
+<p>Para hallar la distribución condicional de la variable fila con relación a un valor determinado de la variable columna, fíjate sólo en esa columna de la tabla. Expresa cada valor de la columna como un porcentaje del total de la columna. Existe una distribución condicional de la variable fila para cada columna de la tabla. La comparación de estas distribuciones condicionales es una manera de mostrar la asociación entre la variable fila y la variable columna. Es especialmente útil cuando la variable columna es la variable explicativa.</p>
+<p>Una característica importante de las distribuciones condicionales es que, si X y Y son variables aleatorias independientes, conocer el valor que toma X no dice nada acerca de la probabilidad de que Y tome diversos valores (y viceversa). Por ejemplo, si queremos conocer el impacto que tiene el ingreso en el gasto en vestimenta, no nos interesa realmente la variable ingreso como tal, solo su aporte al gasto en vestimenta. Si estas dos variables son independientes (propiedad que revisaremos más adelante), conocer el gasto en vestimenta no nos dirá nada acerca de los valores que podrían tomar los ingresos.</p>
+<p><em><strong>Tabla 6: Distribución Condicional del Gasto en Vestimenta</strong></em></p>
+<p><img src="images/tabla04.png" alt="">{width=&ldquo;456&rdquo;}</p>
+<p>La media condicional para la fila amarilla es de 1815, para la fila verde de 1949.2 y para la fila roja es de 3365.8.</p>
+<h3 id="24-media-condicional">2.4. Media condicional</h3>
+<p>Una manera sencilla de resumir la distribución condicional entre dos variables corresponde a la <strong>esperanza o media condicional</strong>. Esta corresponde al valor esperado de una variable aleatoria respecto a una distribución de probabilidad condicional. Pero, <em>¿qué es el valor esperado?</em></p>
+<p>El valor esperado, o esperanza, corresponde a al promedio ponderado de todos los posibles valores de una variable aleatoria X. Este se denota <code>\(E(X)\)</code>, <code>\(μX\)</code> o <code>\(μ\)</code>. Ahondaremos sobre la esperanza más adelante.</p>
+<p><em><strong>Tabla 7: Media vs media condicional</strong></em></p>
+<p><img src="images/tabla06.png" alt="">{width=&ldquo;440&rdquo;}</p>
+<p>[Ventaja:]{.ul} aprovechar la información contenida en la variable ingreso.</p>
+<h3 id="25-independencia">2.5. Independencia</h3>
+<p>La independencia de variables aleatorias es un concepto muy importante. Decimos que X e Y son independientes si conocer el valor de una de las variables no aporta información sobre la otra. En otras palabras, si la <strong>distribución condicional</strong> de Y dado X es igual a la <strong>distribución marginal</strong> de Y. Por ejemplo, si lanzamos una moneda y en el primer intento da cara, luego en el segundo lanzamiento vuelve a dar cara, decimos que los sucesos &ldquo;cara en el primer lanzamiento&rdquo; y &ldquo;cara en el segundo lanzamiento&rdquo; son <strong>independientes.</strong> Esto significa que el resultado del primer lanzamiento no puede influir sobre el del segundo.</p>
+<p>Formalmente,</p>
+<p>$$
+Pr(Y=y|X=x)=Pr(Y=y)
+$$</p>
+<p>Su implicancia es:</p>
+<p>$$
+Pr(X=x,Y=y)=Pr(X=x)*Pr(Y=y)
+$$</p>
+<h2 id="3-características-de-las-distribuciones-de-probabilidad">3. Características de las distribuciones de probabilidad</h2>
+<h3 id="31-medidas-de-tendencia-central-valor-esperado-o-esperanza">3.1 Medidas de Tendencia Central: Valor esperado o esperanza</h3>
+<p>El <strong>valor esperado</strong> o la <strong>esperanza</strong> es uno de los conceptos más importantes de la probabilidad al cual también se le suele llamar media poblacional, en especial cuando se quiere hacer énfasis en que representa una variable poblacional (contenido que revisaremos en el siguiente práctico). Es un <strong>promedio ponderado</strong> de todos los posibles valores de X, es decir, la suma de <strong>todas</strong> las puntuaciones de una variable X dividida por el número de observaciones.</p>
+<p>Para manipular los valores esperados, existen ciertas reglas que denominaremos como propiedades. A continuación se exponen las más importantes:</p>
+<ol>
+<li><strong>Propiedad 1:</strong> Para cualquier constante <code>\(c\)</code> (es decir, cualquier variable que no depende de ninguna otra), su valor esperado será el valor de la misma constante. Matemáticamente:</li>
+</ol>
+<p><code>$$E(c) = c$$</code>
+Recordar que como una constante no depende de ninguna otra variable, su valor es siempre el mismo.</p>
+<ol start="2">
+<li><strong>Propiedad 2:</strong> Para cualquier par de constantes <em>a</em> y <em>b</em>, el valor esperado de la recta <code>\(aX + b\)</code> será igual a:</li>
+</ol>
+<p><code>$$E(aX + b) = aE(X) + b$$</code>
+Asimismo,</p>
+<p><code>$$E(aX) = aE(X)$$</code></p>
+<p>Esta propiedad es muy importante al momento de interpretar los resultados de una <strong>regresión</strong>, lo que veremos más adelante.</p>
+<ol start="3">
+<li><strong>Propiedad 3:</strong> Si tenemos un conjunto de constantes <em>a</em> y un conjunto de variables aleatorias <em>X</em>, entonces se puede expresar que el valor esperado de una suma es la suma de los valores esperados. Esto es:</li>
+</ol>
+<p><code>$$E(a_1X_1 + a_2X_2 + ... +a_nX_n) = a_1E(X_1) + a_2E(X_2) + ... + a_nE(X_n)$$</code></p>
+<h3 id="32-medidas-de-tendencia-central-mediana">3.2 Medidas de tendencia central: Mediana</h3>
+<p>En general, es la puntuación que se encuentra en la mitad de una distribución de puntuaciones x. Indica el valor bajo el cual se encuentra el 50% de los casos. Su cálculo sólo exige orden en las puntuaciones. En definitiva, es el <strong>valor</strong> que se ubica en la <strong>mitad</strong> de la distribución de los datos.</p>
+<p>Si X es continua, entonces la mediana de X, llámese m, es el valor tal que una mitad del área bajo la curva de la Función de Densidad de Probabilidad queda a la izquierda de m y la otra mitad del área queda a la derecha de m. Si X es discreta y toma una cantidad finita de valores, la mediana se obtiene ordenando todos los posibles valores de X y seleccionando después el <strong>valor</strong> que se encuentra al <strong>medio</strong>.</p>
+<p>Por ejemplo, si X toma los valores {-4, 0, 2, 8, 10, 13, 17}, entonces la mediana de X es 8.</p>
+<p>Si X toma un número par de valores, como podran imaginar, hay dos valores en el medio. En esos casos, se deben promediar ambos valores para obtener un único valor para la mediana. Por ejemplo, si X toma los valores {-5, 3, 9, 17}, entonces se deben promediar los valores medianos de 3 y 9. La mediana, por lo tanto, es 6.</p>
+<h3 id="33-medidas-de-tendencia-central-moda">3.3 Medidas de tendencia central: Moda</h3>
+<p>El <strong>atributo</strong> que más se repite o posee <strong>mayor frecuencia</strong> en una muestra.</p>
+<p>Por ejemplo, si X toma los valores {-2, 0, 5, 5, 7, 8, 8, 8, 8, 17, 20, 20}, la moda es 8.</p>
+<h3 id="34-medidas-de-variabilidad-o-dispersión-varianza">3.4 Medidas de Variabilidad o Dispersión: Varianza</h3>
+<p>Aunque conocer la esperanza, la mediana y la moda de una variable es algo valioso, no nos entrega toda la información que deseamos sobre la distribución de una variable aleatoria. Es por esto que también se recurre a las <strong>medidas de variabilidad</strong>, que nos resumen la dispersión de las variables. Como se evidencia en el siguiente gráfico, tres variables pueden tener la misma media, pero sus distribuciones pueden ser <em>muy</em> distintas.</p>
+<p>(foto del woolridge)</p>
+<p>Una de las medidas de variabilidad más importante es la <strong>varianza</strong> ($σ²$). Esta resume que tan lejos se encuentra, en promedio, una variable de su media. Esta se calcula:</p>
+<p><code>$$Var (X) = \frac{(x_1 - μ)^2 + (x_2 - μ)^2 + ...+ (x_n - μ)^2}{n}$$</code>
+Recordemos que <strong>x</strong> representa las observaciones. Por ejemplo, <strong>x_1</strong> representa la observación número 1 de la variable. <strong>μ</strong> representa la media de la variable. <strong>n</strong> es el número total de observaciones. La fórmula de la varianza también se puede resumir de la siguiente forma:</p>
+<p>$$Var(X) = \frac{\sum_{i=1}^{n} (x_i - μ)^2}{n} $$
+A continuación, presentaremos dos propiedades muy importantes de la varianza:</p>
 <ol>
 <li>
-<p>Crear cuenta:</p>
+<p><strong>Propiedad 1:</strong> La varianza de cualquier constante <em>c</em> es cero. Y si <code>\(Var(X) = 0\)</code>, significa que la variable es una constante.</p>
 </li>
 <li>
-<p>Dirigirse al <a href="https://n9.cl/954ne" target="_blank" rel="noopener">Link</a></p>
+<p><strong>Propiedad 2:</strong> Para cualquier constante <em>a</em> y <em>b</em>, <code>\(Var(aX + b) = a^2Var(X)\)</code></p>
 </li>
 </ol>
-<p><img src="/img/example/create.png" width="60%" /></p>
-<ol start="3">
+<p>En palabras simples, esto significa que sumar una constante a una variable aleatoria no modifica la varianza. Por ejemplo, si a todos los valores de una variable le sumo 2, el valor de la varianza se mantiene igual.</p>
+<p>Sin embargo, multiplicar una variable aleatoria por una constante aumenta la varianza en un factor igual al <em>cuadrado</em> de la constante.</p>
+<h3 id="35-medidas-de-variabilidad-o-dispersión-desviación-estándar">3.5 Medidas de Variabilidad o Dispersión: Desviación Estándar</h3>
+<p>La <strong>desviación estándar</strong> (σ) de una variable aleatoria también nos entrega información sobre la dispersión de una variable aleatoria. Esta es siempre igual o mayor que cero. En definitiva, no es más que la raíz cuadrada de la varianza. O bien, la varianza es la desviación estándar elevada al cuadrado. Sin embargo, la desviación estándar es mucho más intuitiva cuando llega la hora de interpretar resultados. Una desviación estándar baja indica que la mayor parte de los datos se encuentran agrupados alrededor de su media, mientras que una desviación estándar alta indica que la mayor parte de los datos se alejan de la media, o sea, se extienden sobre un rango de valores más amplio.</p>
+<p><code>$$sd(X)  \equiv + \sqrt{Var(X)}$$</code></p>
+<p>De las propiedades de la varianza, se deducen también dos propiedades sobre la desviacón estándar:</p>
+<ol>
+<li><strong>Propiedad 1:</strong> Para toda constante <em>c</em>, su desviación estándar es igual a 0.</li>
+</ol>
+<p>2.<strong>Propiedad 2:</strong> Para todas las constantes <em>a</em> y <em>b</em> ,</p>
+<p><code>$$sd(aX + b) = |a|sd(X)$$</code>
+Cuando a todos los valores de una variable aleatoria se le suma un número, la desviación típica permanece igual. No obstante, cuando todos los valores de la variable son multiplicados por un mismo número, la desviación típica también quedará multiplicada por ese mismo número.</p>
+<h2 id="4-características-de-las-distribuciones-conjuntas-y-de-las-condicionales">4. Características de las distribuciones conjuntas y de las condicionales</h2>
+<h3 id="41-covarianza">4.1 Covarianza</h3>
+<p>En el primer apartado, introducimos el concepto de probabilidad conjunta, cuando dos VA pueden tomar simultáneamente ciertos valores concretos. A pesar de esto, es útil tener una medida resumida del promedio de la variación de estas dos variables aleatorias, unas respecto a la otra.</p>
+<p>La <strong>covarianza</strong> refleja la <strong>relación lineal</strong> de dos variables aleatorias. Es una medida de dependencia lineal entre dos variables y si es positiva indica que las dos variables aleatorias se mueven en la misma dirección, mientras que si es negativa indica que las dos variables se mueven en direcciones opuestas.</p>
+<p>Formalmente,</p>
+<p>$$
+Cov(X,Y)=E[(X-\mu_x)(Y-\mu_y)]= \sigma_{xy} 
+$$</p>
+<p>Dos propiedades importantes de la covarianza son las siguientes:</p>
+<ol>
+<li><strong>Propiedad 1</strong>: Si X e Y son independientes, entonces su covarianza es 0.</li>
+</ol>
+<p>Es importante recalcar que el inverso <strong>no</strong> es verdad: cero covarianza entre X e Y no implica que X e Y sean independientes. Esto solo implica que no existe una relación <em>lineal</em> entre ellas.</p>
+<ol start="2">
+<li><strong>Propiedad 2</strong>: Para todas las constantes <code>\(a_1, b_1, a_2\)</code> y <code>\(b_2\)</code>,</li>
+</ol>
+<p>$$Cov(a_1X + b_1, a_2Y + b_2) = a_1a_2Cov(X, Y) $$
+De esto se desprende que la covarianza entre dos variables aleatorias puede alterarse simplemente multiplicando una o las dos variables por una constante.</p>
+<h3 id="42-correlación">4.2 Correlación</h3>
+<p>Como vimos en la segunda propiedad de la covarianza, esta se altera fácilmente al multiplicarla por cualquier constante. Por ejemplo, si queremos calcular la covarianza entre ingresos y cantidad de educación, esta dependerá si ingresos se mide en dólares, miles de dólares, miles de pesos, etc. Asimismo, dependerá también si cantidad de educación se mide en años o meses. Esta deficiencia se supera mediante el <strong>coeficiente de correlación</strong>, lo que facilita la interpretación de resultados.</p>
+<p>Formalmente,</p>
+<p>$$ corr(X,Y)=\frac{cov(X,Y)}{\sqrt{var(X)var(Y)}}=\frac{\sigma_{xy}}{\sigma_{x}\sigma_{y}}$$
+Si X e Y son independientes, entonces su correlación es igual a 0. Pero la correlación cero no implica independencia, solo significa que no existe una relación lineal entre las variables.</p>
+<p>Dos propiedades importantes de la correlación son:</p>
+<ol>
+<li><strong>Propiedad 1</strong>: $-1\leq corr(X,Y) \leq1 $</li>
+</ol>
+<p>Esto significa que los valores del coeficiente de correlación van desde -1 a 1. Si <code>\(Corr(X, Y) = 0\)</code>, se dice que X e Y son variables aleatorias no correlacionadas. De lo contrario, están correlacionadas.</p>
+<p><code>\(Corr(X, Y) = 1\)</code> implica una relación lineal positiva perfecta, mientras <code>\(Corr(X, Y) = -1\)</code> implica una relación lineal negativa perfecta. Rara vez se obtienen estos valores, pero mientras más cerca esté la correlación del 1 o el -1, más fuerte es la relación lineal.</p>
+<ol start="2">
+<li><strong>Propiedad 2</strong>: Para todas las constantes <code>\(a_1, b_1, a_2\)</code> y <code>\(b_2\)</code>, con <code>\(a_1, a_2 &gt; 0\)</code>:</li>
+</ol>
+<p><code>$$Corr(a_1X + b, a_2Y + b_2) = Corr(X, Y)$$</code>
+Con <code>\(a_1, a_2 &lt; 0\)</code>:</p>
+<p><code>$$Corr(a_1X + b, a_2Y + b_2) = - Corr(X, Y)$$</code>
+Esto significa que, al multiplicar las variables por una constante, la correlación no sufre cambios. Por ejemplo, tenemos que la correlación entre cantidad de educación e ingresos es 0.15. Este resultado no cambia, es independiente si los ingresos se miden en dólares o millones de pesos, o si la educación se mida en años, meses o semestres.</p>
+<p><em><strong>Gráfico 5: Tipos de correlaciones</strong></em></p>
+<p><img src="images/grafico05.png" alt="">{width=&ldquo;468&rdquo;}</p>
+<h2 id="5-resumen">5. Resumen</h2>
+<p>En este práctico realizamos un repaso de algunos <strong>conceptos claves</strong> que son fundamentales estadística básica e inferencial aplicada a la probabilidad, estos se centraron en:</p>
+<ol>
 <li>
-<p>Clickear en “Crea una cuenta”</p>
+<p>Distribución Conjunta, Marginal, y Condicional</p>
 </li>
 <li>
-<p>Introduce tu correo electrónico</p>
+<p>Independencia</p>
 </li>
 <li>
-<p>Crea una contraseña</p>
-</li>
-<li>
-<p>Introduce el nombre de usuario (similar a su nombre)</p>
-</li>
-<li>
-<p>Clickear en Crear una cuenta</p>
+<p>Covarianza y Correlación</p>
 </li>
 </ol>
-<p><img src="/img/example/capt.png" width="60%" /></p>
-<ol start="8">
-<li>
-<p>Ve al correo electrónico que pusiste anteriormente</p>
-</li>
-<li>
-<p>Copia el código e introdúcelo en la página</p>
-</li>
-</ol>
-<div class="note">
-Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos anteriores. <a href="https://youtu.be/9YD-F6-ktes">Ver tutorial 1</a>.
-</div>
-
-<h2 id="3-github-desktop">3. Github Desktop</h2>
-<p>Esta es una aplicación que permite trabajar los repositorios de Github en los computadores, de forma local e intuitiva, facilitando la coordinación entre las modificaciones realizadas a nivel local y en la plataforma web. Para utilizarlo, debemos</p>
-<p>a. Instalar Github Desktop</p>
-<p>b. Dirigirse a <a href="https://desktop.github.com/" target="_blank" rel="noopener">Link</a></p>
-<p><img src="/img/example/deskdown.png" width="60%" /></p>
-<p>c. Crear una carpeta para los contenidos del curso</p>
-<p>d. Vincular la dirección de la carpeta</p>
-<div class="note">
-<h4 id="para-windows">Para Windows</h4>
-<ul>
-<li>
-<p>Clickear en Download for Windows (64bit)</p>
-</li>
-<li>
-<p>Ejecutar el archivo descargado</p>
-</li>
-<li>
-<p>Introduce tu usuario y contraseña</p>
-</li>
-</ul>
-<h4 id="para-mac">Para Mac</h4>
-<ul>
-<li>
-<p>Clickear en Download for macOS</p>
-</li>
-<li>
-<p>Ejecutar el archivo descargado</p>
-</li>
-<li>
-<p>Introduce tu usuario y contraseña</p>
-</li>
-</ul>
-
-</div>
-
-<h2 id="4-botones-principales-en-github-desktop">4. Botones principales en GitHub Desktop:</h2>
-<ul>
-<li>
-<p><strong>Clone repository</strong>: Copia un repositorio a tu computador</p>
-</li>
-<li>
-<p><strong>Create new repository</strong>: crea un nuevo repositorio</p>
-</li>
-<li>
-<p><strong>Add existing repository</strong>: incorpora un repositorio existente</p>
-</li>
-</ul>
-<p><img src="/img/example/con1desk.png" width="60%" /></p>
-<ul>
-<li>
-<p><strong>Open the repository in Rstudio</strong>: Abre todo el proyecto en RStudio</p>
-</li>
-<li>
-<p><strong>View the files of your repository in explorer</strong>: Muestra los archivos en la carpeta que se encuentra</p>
-</li>
-<li>
-<p><strong>Open the repository on Github</strong>: abre el repositorio en la página</p>
-</li>
-<li>
-<p><strong>Commit to master</strong>: forma de guardar los cambios</p>
-</li>
-<li>
-<p><strong>Push origin</strong>: manda los cambios al repositorio en línea</p>
-</li>
-</ul>
-<p><img src="/img/example/con2desk.jpg" width="60%" /></p>
-<h2 id="5-conceptos-claves-de-github">5. Conceptos claves de Github</h2>
-<ul>
-<li>
-<p><strong>Repositorios</strong>: Es donde se alberga el trabajo; una carpeta que contiene todos los archivos y el historial de cambios realizados. Estos se almacenan en la nube.</p>
-</li>
-<li>
-<p><strong>Cloning</strong>: Los repositorios pueden clonarse creando copias locales que extraen toda la información y antiguas versiones del repositorio. Posteriormente podemos modificar los archivos del repositorio clonado, para sincronizar la copia local con la copia en Github.</p>
-</li>
-<li>
-<p><strong>Commit</strong>: Es la forma de guardar el estado de tu proyecto, como una captura en la que se deja un mensaje informativo.</p>
-</li>
-<li>
-<p><strong>Push</strong>: Esta es la forma en la que se puede incorporar (<em>subir</em>) los cambios locales al repositorio de Github.</p>
-</li>
-<li>
-<p><strong>README</strong>: Se utiliza a modo de presentación o introducción de los repositorios.</p>
-</li>
-<li>
-<p><strong>Pull</strong>: Esta es la forma en la que se puede sincronizar (<em>bajar</em>) los cambios del repositorio de Github al repositorio local.</p>
-</li>
-</ul>
-<h4 id="flujo-de-trabajo-colectivo-y-de-acceso-abierto">Flujo de trabajo colectivo y de acceso abierto</h4>
-<ul>
-<li>
-<p><strong>Forks</strong>: Es otra forma de copiar un repositorio, permitiendo hacer cambios sin afectar al proyecto original.</p>
-</li>
-<li>
-<p><strong>Pull requests</strong>: Es una forma de solicitar que sean incorporados los cambios que has hecho desde un repositorio local, al repositorio original.</p>
-</li>
-</ul>
-<p><img src="/img/example/concepclav.png" width="60%" /></p>
-<h2 id="6-github-class-room-del-curso-learn-r-uah">6. GitHub Class Room del curso (learn-R-UAH)</h2>
-<p><strong>Pasos para las dinámicas del curso</strong></p>
-<h3 id="61-recibir-una-tarea">6.1 Recibir una tarea</h3>
-<h3 id="62-ingresa-el-linkhttpsclassroomgithubcomataoncqa7">6.2 Ingresa el <a href="https://classroom.github.com/a/taONcqa7" target="_blank" rel="noopener">link</a></h3>
-<p>a. El link contiene la tarea, ustedes deben aceptar la tarea la cual creará un <em><strong>repositorio</strong></em> que contendrá la <em>información</em> y las <em>instrucciones</em> de la tarea.</p>
-<p><img src="/img/example/ingrestarea.png" width="60%" /></p>
-<p>b. Para eso deben ir a <em><strong>GitHub Desktop</strong></em>, <em><strong>clonar</strong> el respositorio desde internet</em>.</p>
-<p><img src="/img/example/paso2tarea.png" width="60%" /></p>
-<p>c. Luego deben escoger el repositorio de la tarea, escoger la carpeta en la que se encontrará y clonarlo</p>
-<p><img src="/img/example/paso3tarea.png" width="60%" /></p>
-<p>d. Después deben abrir el repositorio creado a través de <em><strong>RStudio</strong></em>, ahí verán el mismo contenido pero en un archivo <em><strong>.md</strong></em></p>
-<p><img src="/img/example/paso4tarea.png" width="60%" /></p>
-<h3 id="63-resolver-una-tarea">6.3 Resolver una tarea</h3>
-<p>a. Ahora resolveremos la <strong>Tarea 0</strong> en conjunto, una vez abierto el <a href="https://classroom.github.com/a/taONcqa7" target="_blank" rel="noopener">repositorio         clonado</a>. Recuerden que es en este repositorio donde deben completar y subir la tarea</p>
-<p>b. La tarea se encuentra en un archivo llamado <code>*README*</code> con información de los conceptos básicos y el flujo de GitHub, deben leerlo detalladamente.</p>
-<p>c. Una vez leido deberán ir al final del archivo en <strong>Tarea 0</strong> y responder las preguntas correspondientes</p>
-<p><img src="/img/example/paso5tarea.png" width="60%" /></p>
-<h3 id="64-tarea-0">6.4 Tarea 0</h3>
-<p>¡Puedes ver las instrucciones de la <a href="/assignment/00-tarea/">tarea en el siguiente link</a> o en <a href="https://classroom.github.com/a/taONcqa7" target="_blank" rel="noopener">GitHub Class Room</a></p>
-<h3 id="65-subir-una-tarea">6.5 Subir una tarea</h3>
-<p>a. Una vez listo, deberán <em><strong>subir</strong></em> la tarea al repositorio remoto a través de GitHub Desktop</p>
-<p><img src="/img/example/paso6tarea.png" width="60%" /></p>
-<h3 id="66-recibir-comentarios">6.6 Recibir comentarios</h3>
-<p>a. Les llegará un correo con los comentarios y retroalimentación de su tarea</p>
-<h2 id="7-video-tutorial-en-youtube">7. Video tutorial en Youtube</h2>
-<p>Recuerden que el <a href="https://www.youtube.com/watch?v=Zj8yL-nx9vM" target="_blank" rel="noopener">video de asociado a este práctico</a> y muchos más podrán encontrarlos en el <a href="https://www.youtube.com/channel/UCqBUeqBttVjS6h8fawK8sWg" target="_blank" rel="noopener">canal de youtube del curso</a></p>
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/watch?v=Zj8yL-nx9vM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
 
                     </div>
 
@@ -1037,14 +941,14 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/example/10.1-practico/" rel="next">Regresiones lineales</a>
+    <a href="/example/032-practico/" rel="next">RStudio, tidyverse y RMarkdown</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/example/05-practico/" rel="prev">Limpieza de datos</a>
+    <a href="/example/02-practico/" rel="prev">Inferencia</a>
   </div>
   
 </div>

@@ -2,7 +2,7 @@ lessons:
   - title: 'Estadística II'
     header: True
 
-  - title: '<span class="content-title">Unidad 1. Muestras probabilísticas en ciencis sociales</span>'
+  - title: '<span class="content-title">Unidad 1. Muestras probabilísticas en ciencias sociales</span>'
     date: "7-16 de agosto"
     date_start: "7 marzo"
     date_end: "16 marzo"
@@ -41,14 +41,14 @@ lessons:
     resource: "r-datatypes"
     bg: 2
 
-  - title: '2.3 Definición regresion lineal simple<br> 2.4 Supuestos'
+  - title: '2.3 Definición regresion lineal simple<br> 2.4 Estimador de MCO y sus propiedades'
     session: "Sesión 4"
     date: "28 y 30 marzo"
     content: "04-content"
     example: "04-practico"
     bg: 2
 
-  - title: '2.5 Interpretacion coeficientes <br> 2.6 Estimador de MCO y sus propiedades.'
+  - title: '2.5 Interpretacion coeficientes <br> 2.6 Supuestos.'
     session: "Sesión 5"
     date: "4 y 6 abril"
     content: "05-content"
@@ -113,14 +113,14 @@ lessons:
     example: "10-practico"
     bg: 1
 
-  - title: '3.3. Heterocedasticidad'
+  - title: '3.3. Supuestos regresiones'
     session: "Sesión 11"
     date: "30 mayo y 1 junio"
     content: "11-content"
     example: "11-practico"
     bg: 1
     
-  - title: '3.4. Errores de medida'
+  - title: '3.4. Errores de medición'
     session: "Sesión 12"
     date: "6 y 8 junio"
     content: "12-content"

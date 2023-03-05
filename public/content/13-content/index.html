@@ -29,7 +29,8 @@
   
     
   
-  <meta name="description" content="Readings   “Generating random numbers”  “The ultimate guide to generating synthetic data for causal inference”  Paul Hünermund and Beyers Louw, “On the Nuisance of Control Variables in Regression Analysis”1 (click on the PDF link in the right sidebar)  “Types of Evaluation,” National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention, Centers for Disease Control (CDC)  Chapters 11–13 in Impact Evaluation in Practice2  Slides The slides for today’s lesson are available online as an HTML file." />
+  <meta name="description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+Introducción¿Cómo ocupar: Si presionas ? (o shift &#43; /) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas." />
 
   
   <link rel="alternate" hreflang="en-us" href="/content/13-content/" />
@@ -55,7 +56,7 @@
   
   
   
-    <meta name="theme-color" content="#5271FF" />
+    <meta name="theme-color" content="#1a9875" />
   
 
   
@@ -238,7 +239,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/wowchemy.563f345701788434b4fee407179620aa.css" />
+  <link rel="stylesheet" href="/css/wowchemy.6c40d5e91ad0908cd1753452468e8c67.css" />
 
   
 
@@ -285,19 +286,20 @@
     <meta property="twitter:site" content="@valentiandrade" />
     <meta property="twitter:creator" content="@valentiandrade" />
   
-  <meta property="og:site_name" content="Análisis Estadístico en R" />
+  <meta property="og:site_name" content="Estadística II" />
   <meta property="og:url" content="/content/13-content/" />
-  <meta property="og:title" content="Choosing and planning ethical evaluations | Análisis Estadístico en R" />
-  <meta property="og:description" content="Readings   “Generating random numbers”  “The ultimate guide to generating synthetic data for causal inference”  Paul Hünermund and Beyers Louw, “On the Nuisance of Control Variables in Regression Analysis”1 (click on the PDF link in the right sidebar)  “Types of Evaluation,” National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention, Centers for Disease Control (CDC)  Chapters 11–13 in Impact Evaluation in Practice2  Slides The slides for today’s lesson are available online as an HTML file." /><meta property="og:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" />
-    <meta property="twitter:image" content="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
+  <meta property="og:title" content="Omision de variables independientes | Estadística II" />
+  <meta property="og:description" content="Slides  Ver las slides en una nueva ventana  Descargar las slides en PDF
+Introducción¿Cómo ocupar: Si presionas ? (o shift &#43; /) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
+    <meta property="twitter:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-04-12T00:00:00&#43;00:00"
+        content="2022-03-14T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-04-12T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2022-03-14T00:00:00&#43;00:00">
   
 
   
@@ -319,12 +321,12 @@
   <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
   <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
-  <meta name="application-name" content="2255: Análisis Estadístico en R" />
+  <meta name="application-name" content=": Estadística II" />
   <meta name="msapplication-TileColor" content="#FFFFFF" />
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>Choosing and planning ethical evaluations | Análisis Estadístico en R</title>
+  <title>Omision de variables independientes | Estadística II</title>
 </head>
 
 
@@ -362,7 +364,7 @@
 
     
     <div class="d-none d-lg-inline-flex">
-      <a class="navbar-brand" href="/"><img src="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_0x70_resize_lanczos_2.png" alt="Análisis Estadístico en R"></a>
+      <a class="navbar-brand" href="/"><img src="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_0x70_resize_lanczos_2.png" alt="Estadística II"></a>
     </div>
     
 
@@ -375,7 +377,7 @@
 
     
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-      <a class="navbar-brand" href="/"><img src="/media/logo_hu02bc8dfe7cae86b2ee03430b67caeaf2_22353_0x70_resize_lanczos_2.png" alt="Análisis Estadístico en R"></a>
+      <a class="navbar-brand" href="/"><img src="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_0x70_resize_lanczos_2.png" alt="Estadística II"></a>
     </div>
     
 
@@ -434,6 +436,22 @@
         
 
         
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Evaluaciones <i class="fab fa-github"></i></span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/assignment/"><span>Controles</span></a>
+            
+              <a class="dropdown-item" href="https://classroom.github.com/classrooms/86887318-learn-r-uah-2021"><span>Github Classroom<i class="fab fa-github"></i></span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
 
         
         
@@ -458,22 +476,6 @@
 
         <li class="nav-item">
           <a class="nav-link " href="/example/"><span>Prácticos</span></a>
-        </li>
-
-        
-        
-
-        
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Tareas <i class="fab fa-github"></i></span><span class="caret"></span>
-          </a>
-          <div class="dropdown-menu">
-            
-              <a class="dropdown-item" href="/assignment/"><span>Tareas</span></a>
-            
-              <a class="dropdown-item" href="https://classroom.github.com/classrooms/86887318-learn-r-uah-2021"><span>Github Classroom<i class="fab fa-github"></i></span></a>
-            
-          </div>
         </li>
 
         
@@ -637,81 +639,11 @@
 
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" >Información general</a>
-
-  </div>
-  
-  <div class="docs-toc-item">
-    <a class="docs-toc-link" >Contenido</a>
-
-  </div>
-  
-  <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/content/01-content/">Course content</a>
+    <a class="docs-toc-link" href="/content/">Información general</a>
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/content/01-content/">1: Evaluation and the causal revolution</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/02-content/">2: Regression and inference</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/03-content/">3: Theories of change and logic models</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/04-content/">4: Measurement and DAGs</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/05-content/">5: DAGs and potential outcomes</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/06-content/">6: Threats to validity</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/07-content/">7: Randomization and matching</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/08-content/">8–9: Diff-in-diff I &#43; II</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/10-content/">10: RDD I</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/11-content/">11: IV I</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/12-content/">12: IV I &amp; II</a>
-      </li>
-
-      
-      <li class="active">
-        <a href="/content/13-content/">13: Choosing and planning ethical evaluations</a>
-      </li>
-
-      
-      <li >
-        <a href="/content/14-content/">14: Ethics, stories, and curiosity</a>
+        <a href="/content/">Clases, prácticos y materiales</a>
       </li>
 
       
@@ -721,11 +653,71 @@
   </div>
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/content/">Overview</a>
+    <a class="docs-toc-link" href="/content/01-content/">Contenido</a>
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/content/">Readings, lectures, and videos</a>
+        <a href="/content/01-content/">1: Introduccion</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/02-content/">2: Muestras</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/03-content/">3: Metodo cientifico - regresiones</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/04-content/">4: Regresion lineal simple</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/05-content/">5: RL - Supuestos</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/06-content/">6: Regresion lineal multiple</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/07-content/">7: Predictores categoricos</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/08-content/">8: Inferencia</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/09-content/">9: Transforsformaciones funcionales</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/10-content/">10: Relaciones no lineales</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/11-content/">11: Supuestos</a>
+      </li>
+
+      
+      <li >
+        <a href="/content/12-content/">12: Errores medicion</a>
+      </li>
+
+      
+      <li class="active">
+        <a href="/content/13-content/">13: Omision de variables</a>
       </li>
 
       
@@ -747,9 +739,7 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#readings">Readings</a></li>
-    <li><a href="#slides">Slides</a></li>
-    <li><a href="#videos">Videos</a></li>
+    <li><a href="#rprojects">Rprojects</a></li>
   </ul>
 </nav>
 
@@ -762,97 +752,46 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>Choosing and planning ethical evaluations</h1>
+                    <h1>Omision de variables independientes</h1>
 
                     
 
                     
                     <div class="due-date p-2 mb-3 bg-content text-white">
-                        Content for week of Monday, April 12, 2021–Friday, April 16, 2021
+                        Contenido de la semana 6, Jun–8,Jun
                     </div>
                     
 
                     
 
                     <div class="article-style">
-                        <h2 id="readings">Readings</h2>
-<ul>
-<li><i class="fas fa-external-link-square-alt"></i> <a href="/example/random-numbers/">“Generating random numbers”</a></li>
-<li><i class="fas fa-external-link-square-alt"></i> <a href="/example/synthetic-data/">“The ultimate guide to generating synthetic data for causal inference”</a></li>
-<li><i class="fas fa-file-pdf"></i> Paul Hünermund and Beyers Louw, <a href="https://arxiv.org/abs/2005.10314" target="_blank" rel="noopener">“On the Nuisance of Control Variables in Regression Analysis”</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> (<strong>click on the PDF link in the right sidebar</strong>)</li>
-<li><i class="fas fa-file-pdf"></i> <a href="https://www.cdc.gov/std/Program/pupestd/Types%20of%20Evaluation.pdf" target="_blank" rel="noopener">“Types of Evaluation,”</a> National Center for HIV/AIDS, Viral Hepatitis, STD, and TB Prevention, Centers for Disease Control (CDC)</li>
-<li><i class="fas fa-book"></i> Chapters 11–13 in <em>Impact Evaluation in Practice</em><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
-</ul>
-<h2 id="slides">Slides</h2>
-<p>The slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.</p>
-<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/13-slides.html"><i class="fas fa-external-link-alt"></i> View all slides in new window</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/13-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Download PDF of all slides</a></p>
+                        <h1 id="slides">Slides</h1>
+<p><a class="btn btn-primary btn-lg" target="_blank" href="/slides/01-slides.html"><i class="fas fa-external-link-alt"></i> Ver las slides en una nueva ventana</a> <a class="btn btn-primary btn-lg" target="_blank" href="/slides/01-slides.pdf" role="button"><i class="far fa-file-pdf"></i> Descargar las slides en PDF</a></p>
 <ul class="nav nav-tabs" id="slide-tabs" role="tablist">
 <li class="nav-item">
-<a class="nav-link active" id="introduction-tab" data-toggle="tab" href="#introduction" role="tab" aria-controls="introduction" aria-selected="true">Introduction</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="types-of-evaluations-tab" data-toggle="tab" href="#types-of-evaluations" role="tab" aria-controls="types-of-evaluations" aria-selected="false">Types of evaluations</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="model-and-designbased-inference-tab" data-toggle="tab" href="#model-and-designbased-inference" role="tab" aria-controls="model-and-designbased-inference" aria-selected="false">Model- and design-based inference</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" id="ethics-and-open-science-tab" data-toggle="tab" href="#ethics-and-open-science" role="tab" aria-controls="ethics-and-open-science" aria-selected="false">Ethics and open science</a>
+<a class="nav-link active" id="introducción-tab" data-toggle="tab" href="#introducción" role="tab" aria-controls="introducción" aria-selected="true">Introducción</a>
 </li>
 </ul>
 <div id="slide-tabs" class="tab-content">
-<div id="introduction" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introduction-tab">
+<div id="introducción" class="tab-pane fade show active" role="tabpanel" aria-labelledby="introducción-tab">
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/13-slides.html#1">
-</iframe>
-</div>
-</div>
-<div id="types-of-evaluations" class="tab-pane fade" role="tabpanel" aria-labelledby="types-of-evaluations-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/13-slides.html#types-evaluations">
-</iframe>
-</div>
-</div>
-<div id="model-and-designbased-inference" class="tab-pane fade" role="tabpanel" aria-labelledby="model-and-designbased-inference-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/13-slides.html#model-design-inference">
-</iframe>
-</div>
-</div>
-<div id="ethics-and-open-science" class="tab-pane fade" role="tabpanel" aria-labelledby="ethics-and-open-science-tab">
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="/slides/13-slides.html#ethics-open-science">
+<iframe class="embed-responsive-item" src="/slides/13-slide.html#1">
 </iframe>
 </div>
 </div>
 </div>
 <div class="fyi">
-<strong>Fun fact</strong>: If you type <kbd>?</kbd> (or <kbd>shift</kbd> + <kbd>/</kbd>) while going through the slides, you can see a list of special slide-specific commands.
+<strong>¿Cómo ocupar</strong>: Si presionas <kbd>?</kbd> (o <kbd>shift</kbd> + <kbd>/</kbd>) mientras estas viendo las slides, podrás ver los comandos específicos para navegar en ellas.
 </div>
-<h2 id="videos">Videos</h2>
-<p>Videos for each section of the lecture are <a href="https://www.youtube.com/playlist?list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" target="_blank" rel="noopener">available at this YouTube playlist</a>.</p>
+<h1 id="materiales-de-la-clase">Materiales de la clase</h1>
+<h2 id="rprojects">Rprojects</h2>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=rMUkZ4PSInY&amp;list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" target="_blank" rel="noopener">Introduction</a></li>
-<li><a href="https://www.youtube.com/watch?v=n2Sbyx0hz6I&amp;list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" target="_blank" rel="noopener">Types of evaluations</a></li>
-<li><a href="https://www.youtube.com/watch?v=bXYPjwSl-Wg&amp;list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" target="_blank" rel="noopener">Model- and design-based inference</a></li>
-<li><a href="https://www.youtube.com/watch?v=XdWbgeeCwZ8&amp;list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" target="_blank" rel="noopener">Ethics and open science</a></li>
+<li><a href="https://statistics-r-uah.netlify.app/example/13-practico/" target="_blank" rel="noopener"><i class="fas fa-laptop-code"></i> Práctico</a></li>
 </ul>
-<p>You can also watch the playlist (and skip around to different sections) here:</p>
-<div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/playlist?list=PLS6tnpTr39sEkOTbIIpoXYu8czSTl1yIh" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-</div>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>Paul Hünermund and Beyers Louw, “On the Nuisance of Control Variables in Regression Analysis,” October 1, 2020, <a href="https://arxiv.org/abs/2005.10314">https://arxiv.org/abs/2005.10314</a>. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2" role="doc-endnote">
-<p>Paul J. Gertler et al., <em>Impact Evaluation in Practice</em>, 2nd ed. (Inter-American Development Bank; World Bank, 2016), <a href="https://openknowledge.worldbank.org/handle/10986/25030">https://openknowledge.worldbank.org/handle/10986/25030</a>. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
+<h1 id="recomendaciones">Recomendaciones</h1>
+<ul>
+<li><i class="fas fa-book"></i> Hadley Wickham, <a href="http://bulletin.imstat.org/2014/09/data-science-how-is-it-different-to-statistics%E2%80%89/" target="_blank" rel="noopener">“Data Science: How is it Different To Statistics?”</a></li>
+</ul>
 
                     </div>
 
@@ -869,14 +808,14 @@
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/content/14-content/" rel="next">Ethics, stories, and curiosity</a>
+    <a href="/content/12-content/" rel="next">Errores medicion</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/content/12-content/" rel="prev">Instrumental variables II &#43; Regression discontinuity II</a>
+    <a href="/content/01-content/" rel="prev">Introduccion</a>
   </div>
   
 </div>
@@ -886,7 +825,7 @@
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on April 12, 2021</p>
+                    <p>Last updated on March 14, 2022</p>
 
                     
 
@@ -908,10 +847,10 @@
     <div class="row course-info">
         <div class="col-md-7">
             <p>
-                <strong>2255: Análisis Estadístico en R (II° Semestre- 2021)</strong><br>
+                <strong>: Estadística II (I° Semestre- 2023)</strong><br>
 
                 <a href="https://www.uahurtado.cl/" target="_blank" rel="noopener">Universidad Alberto Hurtado</a> &emsp;&emsp;
-                <a href="http://sociologia.uahurtado.cl/" target="_blank" rel="noopener">Departamento de Sociología</a>
+                <a href="https://www.uahurtado.cl/carreras/ciencia-politica/" target="_blank" rel="noopener">Departamento de Ciencia Política y Relaciones Internacionales</a>
             </p>
 
             <p>
@@ -922,16 +861,16 @@
             </p>
 
             <p>
-                <i class="far fa-calendar-alt"></i> Clases: Lunes 16.30-17.40 &emsp;&emsp;
-                <i class="fas fa-pencil-alt"></i> Práctico: Lunes 18.00-19.20 
-                <br><i class="fas fa-university"></i> Online, en link de Zoom
+                <i class="far fa-calendar-alt"></i> Clases: Martes o Jueves (1 bloque) &emsp;&emsp;
+                <i class="fas fa-pencil-alt"></i> Práctico: Martes o Jueves (2 bloque) 
+                <br><i class="fas fa-university"></i> Sala por definir
             </p>
         </div>
 
         <div class="col-md-5 credits">
             <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>
             
-            <p>Content <i class="fab fa-creative-commons"></i> 2021. Web developed by Andrew Heiss and custom by <a href="https://valentinaandrade.netlify.app/" target="_blank" rel="noopener">Valentina Andrade</a></p>
+            <p>Content <i class="fab fa-creative-commons"></i> 2023. Web developed by Andrew Heiss and custom by <a href="https://valentinaandrade.netlify.app/" target="_blank" rel="noopener">Valentina Andrade</a></p>
         
             <p>This site created with the <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> in <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">blogdown</a> and <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. </p>
             

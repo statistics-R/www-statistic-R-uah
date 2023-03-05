@@ -1,0 +1,504 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci,wooldrige, broom)
+theme_set(theme_sjplot2())
+
+wages <- tibble(salario = c(0.5, 2, 1, 2.5, 3, 1.5, 2, 2.5, 2, 3),
+                  educ = 1:10)
+wages_data <- wages
+wages_model <- lm(salario ~ educ, data = wages)
+wages_fitted <- augment(wages_model)
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Regresión lineal simple
+]
+
+.class-info[
+<br>
+**Sesión N° 4**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez y Charo Astorga
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-2.medium.sp-after-half[Regresiones]
+--
+.box-8.medium.sp-after-half[Regresión **lineal** simple]
+--
+.box-8.medium.sp-after-half[**Mínimos Cuadrados Ordinarios**]
+
+
+---
+class: center middle main-title section-title-2 top-logo
+name: basics
+
+# Regresiones
+
+---
+class: title title-2
+
+# 1. ¿Qué efecto tiene (...)?
+
+.box-inv-2.medium.sp-after-half[**educación sobre salario**]
+--
+.box-inv-3.small.sp-after-half[**gratuidad transporte público sobre**
+
+**participación en elecciones**]
+--
+.box-inv-4.small.sp-after-half[**ciclo económico sobre el ciclo de protestas sociales**]
+--
+.box-inv-5.medium.sp-after-half[**efecto del presupuesto de campañas políticas sobre el resultado de votaciones**]
+
+
+---
+class: title title-2
+
+# 2. Formalizar el modelo teórico
+
+- **Regresión**: ecuaciones matemáticas que describen las relaciones. 
+
+$$y = f(x)$$
+- ¿Qué es $y$ y $x$?
+
+---
+class: title title-2
+
+# Parte esencial de la regresión
+
+.pull-left[.box-inv-2[Y]
+
+.box-2[Variable explicada] 
+
+.box-2[Variable respuesta]
+
+.box-2[Variable dependiente]
+
+.box-inv-2[Algo que buscamos explicar o predecir]
+
+.box-2[Regresando]]
+
+
+.pull-right[.box-inv-2[X]
+
+.box-2[Variable explicativa]
+
+.box-2[Variable predictores]
+
+.box-2[Variable independiente]
+
+.box-inv-2[Algo que *usamos* para explicar o predecir **Y**)]
+
+.box-2[Regresor]]
+---
+class: title title-8
+
+# Dos propósitos de las regresiones
+
+
+.pull-left[.box-inv-8[Predicción]
+
+.box-8[Predecir *"situación hipotética"*]
+
+.box-8[Focus en el Y] 
+
+.box-inv-8[Si X = 2 años de educación. ¿En promedio, cuál es mi salario?]]
+
+--
+
+.pull-right[.box-inv-8[Explicación]
+
+.box-8[Explicar el efecto de X sobre Y]
+
+.box-8[Focus está en X]
+
+.box-inv-8[En general, ¿cuál es el efecto de un año más de educación sobre el salario?]]
+---
+class: center middle main-title section-title-8 top-logo
+
+# ¿Y cómo hacemos una regresión?
+
+---
+class: title title-8
+
+# Cómo
+
+- **Regresión**: ecuaciones matemáticas que describen las relaciones. 
+
+$$y = f(x)$$
+
+
+1. Queremos hacer una **línea** que aproxime la relación entre X e y
+
+--
+
+2. Encontrar valores matemáticos para esas partes de la línea (efectos)
+
+--
+
+3. Interpretar la matemática
+
+---
+class: title title-8
+
+# Salario y educación
+
+
+```{r, echo=FALSE}
+wages_data
+```
+
+---
+## ¿Efecto de educación sobre salario?
+
+```{r, echo = F,  fig.dim=c(7, 3), out.width="100%"}
+wages_base <- ggplot(wages_fitted, aes(x = educ, y = salario)) +
+  geom_point(size = 3) +
+  coord_cartesian(xlim = c(0, 10), ylim = c(0, 3)) +
+  scale_x_continuous(breaks = 0:10) +
+  labs(x = "Años educacion", y = "Salarios") 
+wages_base
+```
+
+
+
+---
+## 1. Ecuación: ¿Efecto de educación sobre salario?
+
+```{r, echo = F,  fig.dim=c(7, 3), out.width="100%"}
+wages_base +
+  geom_smooth(method = lm, color = "#0074D9", formula = y ~ splines::bs(x, 7), se = FALSE)
+```
+
+
+---
+## 1. Ecuación: ¿Efecto de educación sobre salario?
+
+```{r cookies-loess, echo=FALSE, message=FALSE,  fig.dim=c(7, 3), out.width="100%"}
+wages_base +
+  geom_smooth(method = "loess", color = "#0074D9", se = FALSE)
+```
+---
+
+##  1. Ecuación: ¿Efecto de educación sobre salario?
+
+
+```{r cookies-lm, echo=FALSE, message=FALSE,  fig.dim=c(7, 3), out.width="100%"}
+wages_base +
+  geom_smooth(method = "lm", color = "#0074D9", se = FALSE)
+```
+
+---
+class: title title-8
+
+# 2. Relacionando con las matemáticas
+
+
+$$y = b + mx$$
+
+| y | Un número |
+|---|---|
+| **x** | **Un número** |
+| **m** | **Pendiente** |
+| **b** | **Intercepto** |
+
+---
+class: title title-8
+
+# 2. Relacionando con las matemáticas
+.pull-left[
+
+$$
+y = 2x - 1
+$$
+
+```{r simple-line-1, echo=FALSE, fig.dim=c(4.8, 3.5), out.width="100%"}
+ggplot(data = tibble(x = 0:5), aes(x = x)) +
+  stat_function(fun = function(x) 2 * x - 1, 
+                color = "#BF3984", size = 1.5) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  scale_x_continuous(breaks = 0:5) +
+  scale_y_continuous(breaks = -1:9)
+```
+
+]
+
+--
+
+.pull-right[
+
+$$
+y = -0.5x + 6
+$$
+
+```{r simple-line-2, echo=FALSE, fig.dim=c(4.8, 3.5), out.width="100%"}
+ggplot(data = tibble(x = 0:14), aes(x = x)) +
+  stat_function(fun = function(x) -0.5 * x + 6, 
+                color = "#BF3984", size = 1.5) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  scale_x_continuous(breaks = 0:14) +
+  scale_y_continuous(breaks = -1:9)
+```
+
+]
+---
+class: center middle main-title section-title-8 top-logo
+
+# 🥁🥁
+
+---
+
+class: title title-8
+
+# ¡Regresión lineal simple!
+
+$$y = \beta_0 + \beta_1 x_1 + u$$
+
+--
+
+- $y$ = datos sobre variable dependiente
+
+- $x_1$ = datos sobre variable independiente
+
+- $\beta_1$ = pendiente, parámetro que indica la relación de $x$ e $y$
+
+- $\beta_o$ = intercepto
+
+- $u$ = error
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# Interpretación $\beta_1$
+
+--
+
+##Por cada **unidad** que cambie $x$, $y$ va a cambiar en $\beta_1$, manteniendo **el resto de los factores constantes**. 
+
+$$\triangle y = \beta_1 \triangle x  ~~~ si ~~\triangle u = 0$$
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# Interpretación $\beta_0$
+
+--
+
+## Valor esperado o medio de $y$ cuando $x = 0$ (o en ausencia de variables explicativas)
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# ¿ Error ? 😨
+
+--
+
+## ¡Sí! Contiene todos los factores **relevantes** que afectan a $Y$ pero no son considerados en la regresión por ser **inobservables**
+
+--
+
+### Tiene un supuesto importantísimo que ya conoceremos (**media condicional cero**)
+
+---
+
+class: title title-8
+
+# Tres desafíos a tratar
+
+1. No es una relación **exacta** entre $x$ e $y$ (Sesión 4)
+
+--
+
+2. ¿Cómo podemos estar seguros que estamos capturando la relación **ceteris paribus**? (Sesión 6)
+
+--
+
+3. ¿Cómo sabemos que realmente la mejor forma de representar la relación es **lineal**? (Sesión 9)
+
+
+---
+class: title title-8
+# Regresión lineal simple
+
+```{r, echo = F, fig.dim=c(7, 3), out.width="100%"}
+wages_base +
+    geom_smooth(method = "lm", color = "#0074D9", se = FALSE)
+```
+
+---
+
+class: title title-8
+# Mínimos Cuadrados Ordinarios (OLS)
+
+
+```{r cookies-lm-residual, echo=FALSE, message=FALSE, fig.dim=c(7, 3), out.width="100%"}
+wages_with_residual <- wages_base +
+  geom_smooth(method = "lm", color = "#0074D9", se = FALSE) +
+  geom_segment(aes(xend = educ, yend = .fitted), color = "#FF851B", size = 1)
+wages_with_residual
+```
+
+
+---
+class: title title-8
+# Valor observado y valor predicho
+
+- $y_i$: valor observado
+- $\hat{y_i}$: valor predicho corresponde al valor que predecimos de $y_i$ cuando $x_{1i}$ toma un valor dado
+
+--
+
+$$\hat{y_i} = \beta_o + \beta_1 x_{1i}$$
+
+- Hay un valor predicho para cada observación en la muestra
+
+--
+
+- ¿Qué significará la diferencia entre $y_i$ e $\hat{y_i}$?
+
+
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+# El residuo $\hat{u_i}$
+
+--
+
+## En particular nos interesará que sea la **suma de los residuos** al **cuadrado** sea lo más pequeño posible
+
+---
+class: title title-8
+# Distancia a recta regresión
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/04/03.png" alt="drawing" style="width:700px;"/>
+</center>
+
+
+---dis
+class: title title-8
+# Suma de residuos al cuadrado
+
+
+$$\sum_{i=1}^{n} \hat u_i^2 = \sum_{i=1}^{n}(y_i - \hat{y_i}) ^2= \sum_{i=1}^{n}(y_i - \hat{\beta_0} - \hat{\beta_1})^2$$
+- Encontramos matemáticamente $\hat{\beta_0}$ y $\hat{\beta_1}$ tal que $\sum_{i=1}^{n} \hat u_i^2$ sea lo más pequeño posible.
+
+--
+
+- Varios minutos después ⏱️📝 y ...
+
+---
+class: center middle main-title section-title-8 top-logo
+
+
+## $$\hat \beta_1 = \frac{\sum^n_{i=1} (x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n (x_i-\bar x)^2}$$
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## $$\hat \beta_1 = \frac{\sum^n_{i=1} (x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n (x_i-\bar x)^2} = \frac{Cov(x_1,y)}{Var(x_1)}$$
+
+
+---
+class: center middle main-title section-title-8 top-logo
+
+## $$\hat \beta_0 = \bar y = \hat{\beta_1} \bar x$$
+
+---
+
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Regresión **lineal** simple
+]
+
+.class-info[
+<br>
+**Sesión N° 4**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez y Charo Astorga
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

@@ -1,0 +1,408 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
+theme_set(theme_sjplot2())
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Método de las ciencias sociales: modelo de regresión
+]
+
+.class-info[
+<br>
+**Sesión N° 1**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-8.medium.sp-after-half[**Método científico en ciencias sociales**]
+--
+
+.box-2.medium.sp-after-half[**Organización del curso**]
+
+---
+class: center middle main-title section-title-8 top-logo
+name: basics
+
+# Método científico en ciencias sociales
+
+---
+class: title title-8
+
+# ¿Qué efecto tiene (...)?
+
+.box-inv-2.medium.sp-after-half[**educación sobre salario**]
+--
+.box-inv-3.small.sp-after-half[**gratuidad transporte público sobre**
+
+**participación en elecciones**]
+--
+.box-inv-4.small.sp-after-half[**ciclo económico sobre el ciclo de protestas sociales**]
+--
+.box-inv-5.medium.sp-after-half[**efecto del presupuesto de campañas políticas sobre el resultado de votaciones**]
+
+---
+class: title title-8
+
+# Estadística?
+
+.box-inv-8[Recolectar y **analizar** datos desde **muestras representativas** para poder hacer **inferencia** sobre toda la población]
+
+--
+
+.box-inv-3.medium[(2) ¿Qué tipo de **análisis**?]
+
+--
+
+.box-inv-2.medium[(1) ¿Qué tipo de **muestras**?]
+
+
+---
+class: center middle main-title
+
+# Temas centrales
+
+.pull-left[.box-inv-2[## (1) Muestreo complejo
+]]
+
+.pull-right[.box-inv-3[## (2) Análisis de regresión
+]]
+
+---
+class: title title-8
+
+# Pasos para el análisis empírico
+
+.box-inv-8[(1) Teoría Social]
+
+
+
+.box-inv-8[(2) Formalizar el modelo teórico]
+
+
+
+.box-inv-8[(3) Modelo econométrico]
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Con datos...
+
+--
+
+## ¿Por qué necesitamos datos?
+
+---
+class: title title-8
+
+
+> "Cuando la estadística no se basa en cálculos precisos, confunde en vez de guiamos. La mente se deja llevar fácilmente por la falsa apariencia de exactitud que la estadística mantiene en sus errores, y confiadamente adopta errores escondidos bajo la forma de una verdad matemática"
+
+Tocqueville, La democracia en América
+
+
+---
+
+class: center middle main-title section-title-8 top-logo
+
+## Datos
+
+--
+
+## ¡Qué obtenemos de muestras!
+
+
+???
+Hasta principios del s. XX, estaba
+ampliamente desacreditado el
+uso de muestras
+
+Primaba la idea de estudiar
+poblaciones completas
+
+El uso de muestras proviene de la condición de escasez de recursos (tiempo
+y dinero) en que se desarrolla la investigación social
+
+A comienzos de s. XX una
+comisión multinacional de
+estadísticos identico dos tipos de muestras: intencionadas y aleatorias
+
+Constituye el comienzo de la teoria de muestreo de encuestas
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Representar a una población
+
+--
+
+## El arte de elegir
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Representar a una población
+
+--
+
+## El arte de seleccionar
+
+
+???
+
+- Desafio: Asi como en politica el arte de elegir
+
+- No por preferencias ideologicas
+
+- Si no que en criterio cientifico, calculos precisos que nos permiten saber a quienes no estamos representando (el error)
+
+Técnicamente, uno de los elementos centrales detrás del uso de muestras
+son los mecanismos con que se seleccionan las muestras
+
+---
+class: title title-8
+
+# Muestreo
+
+- Mecanismos de selección
+
+- Identificar el error
+
+--
+
+.box-8[Para **inferir** aspectos de la población]
+
+---
+
+class: title title-8
+
+# Inferencia
+
+- Las verdades absolutas son difíciles de probar
+
+--
+
+- Necesitaríamos toda la información que constituye el fenómeno de estudio
+
+--
+
+- Pero podemos decir que **estadísticamente** hay cosas que ocurren y otras que no. 
+
+???
+
+- "Tu origen social causa donde estudiarás"
+
+- La clave de elegir para conocer el error
+
+---
+class: title title-8 
+
+# Tipos de muestras
+
+- **Probabilístico**: las unidades de la población tienen una probabilidad
+conocida de ser seleccionadas en la muestra (mecanismos de selección
+aleatorios)
+
+- **No probabilístico**: no se conoce la probabilidad de selección de las unidades
+de la población (mecanismos de selección no aleatorios)
+
+???
+
+Problema del no probabilistico es que cuando no todos tienen la misma probabilidad de ser elegido, no podemos saber si se esta cometiendo una "intencion" por seleccionar unos u otros
+
+Ahi hay otro error. Ejemplo con origen social causa donde estudias
+
+---
+class: title title-8
+
+# ¿Qué muestreo es mejor?
+
+- No existe una respuesta general a esa pregunta, ya que la estrategia muestral a escoger depende de la investigación o caso de interés en particular
+
+- En un mismo caso, puede ser pertinente usar distintos tipos de muestreos
+
+- Cada estrategia muestral sirve para conseguir distintos objetivos de investigación
+
+
+???
+
+No siempre tendremos acceso a todo, y tampoco es solo llegar y aletorizarlos a todos. 
+
+---
+class: title title-8
+
+# ¿Qué efecto tiene (...)?
+
+.box-inv-2.medium.sp-after-half[**educación sobre salario**]
+
+.box-inv-3.small.sp-after-half[**gratuidad transporte público sobre**
+
+**participación en elecciones**]
+
+--
+.box-inv-5.medium.sp-after-half[**Preguntas de investigación**]
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Organización del curso
+
+---
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/1.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+---
+
+class: title title-8
+
+# Equipo
+
+Falta imagen
+
+---
+class: title title-8
+
+# Evaluaciones
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/4.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+---
+class: title title-8
+
+# Consultas
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/5.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+
+---
+class: title title-8
+
+# Recursos principales
+
+- Sitio web curso: [https://statistic-r-uah.netlify.app/](https://statistic-r-uah.netlify.app/)
+
+
+- [https://learn-r-uah.netlify.app/](https://learn-r-uah.netlify.app/)
+
+
+class: title title-8
+
+# Softwares principales
+
+
+.box-8[R]
+
+.box-7[GitHub]
+
+
+---
+
+
+Meme final
+
+
+---
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/1.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Método de las ciencias sociales: modelo de regresión
+]
+
+.class-info[
+<br>
+**Sesión N° 1**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

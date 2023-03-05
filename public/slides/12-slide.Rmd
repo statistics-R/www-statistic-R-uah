@@ -1,0 +1,359 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE, echo =FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, broom)
+#library(wooldridge)
+theme_set(theme_sjplot2())
+
+# gpa <- as_tibble(wooldridge::gpa1)
+# 
+# gpa <- gpa %>%  mutate(sex = as_factor(if_else(male== 1, "Hombre", "Mujer")), job = factor(case_when(job19 == 1 ~ "Trabaja <= 19 hrs",
+#                                                                                       job20 == 1 ~ "Trabaja > 19 hrs",
+#                                                                                       TRUE ~  "No trabaja"), levels = c("No trabaja", "Trabaja <= 19 hrs", "Trabaja > 19 hrs")) )
+
+load("data/gpa.RData")
+
+model1 <- lm(colGPA ~ ACT, data = gpa)
+model2 <- lm(colGPA ~ ACT + hsGPA, data = gpa)
+model3 <- lm(colGPA ~ ACT + hsGPA + sex, data = gpa)
+model4 <- lm(colGPA ~ ACT + hsGPA + job, data = gpa)
+model5 <- lm(colGPA ~ ACT + hsGPA + sex + job, data = gpa)
+
+  
+gpa_fitted <- augment(model5)
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Errores de medición
+]
+
+.class-info[
+<br>
+**Sesión N° 12**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+.box-6.medium.sp-after-half[Error en variable dependiente]
+
+--
+
+.box-7.medium.sp-after-half[Error en variable independiente]
+
+
+---
+class: title title-inv-8
+# Errores de medición
+
+.box-inv-8[Hasta ahora solo hemos considerado casos en que las variables X e Y siempre están disponibles]
+
+--
+
+.box-inv-8[Sin embargo, en la mayoría de los casos no tenemos una variable exacta que nos interesa]
+
+--
+
+.box-inv-8[Las razones son diversas]
+
+---
+class: title title-inv-8
+
+# Errores de medida 
+
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/12/01.png" alt="drawing" style="width:1000px;"/>
+</center>
+
+
+---
+
+# Ejemplos
+
+- Ingreso verdadero vs ingreso declarado
+
+- Horas trabajadas a la semana vs promedio de horas trabajadas
+
+- Percepciones de conflicto
+
+---
+class: title title-inv-8
+# Errores de medición
+
+.box-inv-8[Hablaremos de errores de medición en aquellos casos en que se utiliza una *medida imprecisa* como variable (*proxy*)]
+
+--
+
+.box-inv-8[**¿Qué consecuencias tiene esto sobre las estimaciones de MCO**?]
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Variable dependiente
+
+---
+class: title title-inv-8
+
+# Variable dependiente
+
+- Considere el siguiente modelo
+
+$$y^* = \beta_0 + \beta_1 x + \mu$$
+
+- La variable que nos interesa es $y^*$ pero solo tenemos una medida imprecisa de y 
+
+$$y = y ^* + e$$
+$$e = y - y^*$$
+
+- $e$ es el error de medición
+
+---
+class: title title-inv-8
+
+# Variable dependiente
+
+.box-8[¿Qué pasa si estimamos la regresión con $y$ en lugar de $y^*$
+]
+
+--
+
+.box-8[Las propiedades de MCO **dependerán** de la relación entre $e$ y las variables explicativas]
+
+---
+class: title title-inv-8
+
+# Variable dependiente
+
+$$ y ^* = y - e = \beta_0 + \beta_1 X + u$$
+
+$$y = \beta_0 + \beta_1 + v$$
+
+- $v = u + e$
+
+
+---
+class: title title-inv-8
+
+# Insesgamiento
+
+
+$$\hat \beta_1 = \frac{Cov(x,y)}{Var(x)} = \frac{Cov(x, y^* + e)}{var(x)}$$
+
+Con una gran cantidad de datos se puede mostrar que 
+
+$$\hat \beta_1 = \beta_1 + \frac{Cov(x, e)}{var(x)}$$
+
+---
+class: title title-inv-8
+
+# Insesgamiento
+
+- En resumen, el error de medición en la variable dependiente puede causar **sesgo** en MCO, cuando el error esté relacionando con una o más variables explicativas
+
+--
+
+- **Si el error es independiente de las variables explicativas**, entonces MCO es apropiado.
+
+--
+
+- Por ejemplo, digitar mal
+
+---
+class: title title-inv-8
+
+# Menos Eficiencia 
+
+- Sin embargo, el error de medición se traduce en una **mayor varianza del error**, lo que resulta en **varianzas mayores de los estimadores de $\beta$**
+
+--
+
+- Si $e$ y $u$ no están correlacionados
+
+
+$$Var(y|X) = Var(u + e|X) = Var(u|x) + Var(e|x) $$
+
+--
+
+.box-8[Por lo tanto, los estimadores de MCO tendrán varianzas mayores]
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# Variable dependiente
+
+---
+class: title title-inv-8
+
+# Variable independiente
+
+- Considere el siguiente modelo
+
+$$y = \beta_0 + \beta_1 x^* + \mu$$
+
+- La variable que nos interesa es $y^*$ pero solo tenemos una medida imprecisa de y 
+
+$$x = x ^* + e$$
+$$e = x - x^*$$
+
+- $e$ es el error de medición
+
+
+---
+class: title title-inv-8
+
+# Errores clásicos de variable
+
+- $E(e) = 0$
+
+- $Cov(e,u) = 0$
+
+- $Cov(e,x^*) = 0$
+
+---
+class: title title-inv-8
+
+# Variable independiente
+
+ $$y = \beta_0 + \beta_1 (x- e) + u$$
+ 
+ $$y = \beta_0 + \beta_1 x + v$$
+ 
+ - $v = u - \beta_1 e$
+ 
+---
+class: title title-inv-8
+
+# Sesgo
+
+$$\hat \beta_1 =  \frac{Cov(x,y)}{Var(x)} = \frac{Cov(x^* + e, y)}{Var(x^* + e)}$$
+
+
+$$\hat \beta_1 = \frac{\beta_1 Var(x^*)}{Var(x^*) + Var(e)}$$
+
+- El término que acompaña a $\beta_1$ es menor a 1, por ello se dice que **atenua** el efecto de $\beta_1$
+
+---
+class: title title-inv-8
+
+# Sesgo de atenuación
+
+- El error de medición de una variable explicaiva nos lleva a **subestimar** el efecto de una variable
+
+- A esto se le llama **sesgo de atenuación**
+
+- La magnitud del sesgo depende de $Var(x^*)$ y $Var(e)$
+
+---
+class: center middle main-title section-title-8 top-logo
+
+# En resumen
+
+---
+class: title title-inv-8
+
+# Resumen
+
+- En la práctica, es *poco probable que podamos contar con una medicipon precisa de todas las variables del modelo*
+
+--
+
+- Bajo Errores clásicos de variable
+
+
+- Un error en $y^*$ no produce sesgo pero si menos eficiencia
+
+- Un error en $x^*$ produce sesgo de atenuación.
+
+--
+
+- **El sesgo de los coeficientes puede ir en cualquier dirección y es difícil de determinar**
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Errores de medición
+]
+
+.class-info[
+<br>
+**Sesión N° 12**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez, Charo Astorga y Alberto Reyes
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

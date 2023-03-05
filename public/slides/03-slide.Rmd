@@ -1,0 +1,380 @@
+---
+title: "Estadística II"
+author: "Valentina Andrade"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "css/ath-slides.css", "css/ath-inferno-fonts.css", "css/animate.css"]
+    seal: false
+    includes:
+      after_body: "html/insert-logo.html"
+    anchor_sections: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      beforeInit: "libs/macros.js"
+      navigation:
+        scroll: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages-data, include=FALSE}
+pacman::p_load(tidyverse, sjPlot, ggsci, wordcloud2)
+theme_set(theme_sjplot2())
+
+```
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css", "share_again", "scribble", "frezeeframe", "editable", "progress_bar"))
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\">Copiar código</i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\">¡Listo!</i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, eval = F, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Método de las ciencias sociales: modelo de regresión
+]
+
+.class-info[
+<br>
+**Sesión N° 3**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez y Charo Astorga
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]
+
+---
+class: title title-inv-8
+
+# Contenidos Sesión 
+
+--
+.box-8.medium.sp-after-half[**Método científico en ciencias sociales**]
+--
+.box-8.medium.sp-after-half[**Causalidad y ceteris paribus**]
+
+--
+
+.box-2.medium.sp-after-half[**Road map Unidad 2**]
+
+---
+class: center middle main-title section-title-8 top-logo
+name: basics
+
+# Método científico en ciencias sociales
+
+---
+class: title title-8
+
+# ¿Qué efecto tiene (...)?
+
+.box-inv-2.medium.sp-after-half[**educación sobre salario**]
+--
+.box-inv-3.small.sp-after-half[**gratuidad transporte público sobre**
+
+**participación en elecciones**]
+--
+.box-inv-4.small.sp-after-half[**ciclo económico sobre el ciclo de protestas sociales**]
+--
+.box-inv-5.medium.sp-after-half[**efecto del presupuesto de campañas políticas sobre el resultado de votaciones**]
+
+---
+class: title title-8
+
+# Estadística?
+
+.box-inv-8[Recolectar y **analizar** datos desde **muestras representativas** para poder hacer inferencia sobre toda la población]
+
+--
+
+.box-inv-3.medium[(2) ¿Qué tipo de **análisis**?]
+
+--
+
+.box-inv-2.medium[(1) ¿Qué tipo de **muestras**?]
+
+
+---
+class: center middle main-title 
+
+.pull-left[.box-inv-2[## (1) Muestreo complejo
+]]
+
+.pull-right[.box-inv-3[## (2) Análisis de regresión
+]]
+
+---
+class: title title-8
+
+# Pasos para el análisis empírico
+
+.box-inv-8[(1) Teoría Social]
+
+
+
+.box-inv-8[(2) Formalizar el modelo teórico]
+
+
+
+.box-inv-8[(3) Modelo econométrico]
+
+
+---
+class: title title-8
+
+# 1. Teoría social
+
+- Formular pregunta de interés e hipótesis
+
+- Preguntas 
+
+  - ¿Qué factores definen el salario de los trabajadores? 
+  - ¿Qué afecta el resultado de votaciones en elecciones parlamentarias?
+  - ¿Qué efecto tiene la política de alimentación de JUNAEB sobre el rendimiento académico?
+
+---
+class: title title-8
+
+# 2. Formalizar el modelo teórico
+
+- **Regresión**: ecuaciones matemáticas que describen las relaciones. 
+
+$$y = f(x)$$
+- ¿Qué es $y$ y $x$?
+
+---
+class: title title-8
+
+# Parte esencial de la regresión
+
+.pull-left[.box-inv-8[Y]
+
+.box-8[Variable explicada] 
+
+.box-8[Variable respuesta]
+
+.box-8[Variable dependiente]
+
+.box-inv-8[Algo que buscamos explicar o predecir]]
+
+
+.pull-right[.box-inv-8[X]
+
+.box-8[Variable explicativa]
+
+.box-8[Variable predictores]
+
+.box-8[Variable independiente]
+
+.box-inv-8[Algo que *usamos* para explicar o predecir **Y**]]
+
+---
+class: title title-2
+
+# Ejercicio: Identificando variables
+
+.pull-left.small[.box-inv-2[Un estudio busca examinar el efecto del gasto en campañas sobre el resultado en votaciones]
+
+.box-inv-2[Queremos entender si el transporte público gratis aumentó la cantidad de votantes]]
+
+
+.pull-right.small[.box-inv-2[Investigadores predicen un salario promedio $500.000 más alto para personas con magister que pregrado]
+
+.box-inv-2[MINEDUC indica que condicional a asistir a establecimientos públicos, recibir alimentación mejora el desempeño en SIMCE de matemáticas en 5 puntos promedio]]
+
+---
+class: title title-8
+
+# 2. Formalizar el modelo teórico: ejemplo
+
+$$salario = f(educ, exper, training)$$
+
+Donde
+
+- $salario$: salario por mes
+
+- $educ$: años de educación
+
+- $exper$: años de experiencia
+
+- $training$: semanas en capacitación
+
+---
+class: title title-8
+
+# 3. Modelo econométrico
+
+- Hay variables que aon **observables y otras no**. El modelo econométrico tiene **consideración sobre los datos**
+
+- Entonces la regresión tiene una parte observable y otra no
+
+$$y = \underbrace{f(x)}_{~~Observable} + \underbrace{u}_{No~observable}$$
+
+---
+class: title title-8
+
+# 3. Modelo econométrico: ejemplo
+
+$$salario = f(educ, exper, training) + u $$
+
+- $educ$: años de educación
+
+- $exper$: años de experiencia
+
+- $training$: semanas en capacitación
+
+- $u$: podría capturar habilidad innata, calidad en educación, *background* familiar o quizás es dificil obtener el salario de esa persona si es informal. 
+
+---
+
+class: center middle section-title-8 top-logo
+
+.box-inv-8[# ¿Y con esto (...)
+# podemos evaluar efectos causales? 🤔]
+
+
+---
+class: title title-8
+
+# Causalidad
+
+.box-inv-8[Uno de los **objetivos** más buscados es **inferir efectos causales** que tiene una variable sobre otra]
+
+.box-inv-8[Encontrar asociación entre dos variables puede ser sugerente pero esto **no es sinónimo de causalidad**]
+
+---
+class: title title-8
+
+# Causalidad
+
+.small[Para que algo cause a otra cosa se debe cumplir que (Judea Pearl, 2018; Goldthorpe; 2001)
+
+**0. La causa debe estar estadísticamente asociada al efecto**
+
+A. *Análisis de correlación*
+
+B. **Análisis de regresión**
+
+1. La causa debe preceder temporalmente al efecto .pull-right[![](https://raw.githubusercontent.com/statistics-R/slides/main/img/04/causality.png)]
+
+2. **No debe existir una explicación alternativa**] 
+
+---
+class: title title-8
+# Noción de ceteris paribus
+
+.box-inv-8[Cuando se hace el análisis, el resto de los otros factores (relevantes) se mantienen constantes constantes]
+
+--
+
+.box-inv-8[Si no es así, no se puede saber a ciencia cierta si el efecto se debe a la variable indicada u otra cosa]
+
+---
+
+![](https://raw.githubusercontent.com/statistics-R/slides/main/img/04/Estadistica%20II%20.gif)
+
+---
+class: center middle section-title-8
+
+.box-inv-8[Regresión se basa en el cálculo "ceteris paribus" o efecto parcial]
+
+---
+class: title title-8
+# Con esto ya tengo un efecto causal?
+
+.box-inv-8[Es posible pesar que se pueden mantener todos los factores fijos en el análisis?]
+
+--
+
+
+.box-inv-8[**Difícil**, por lo general los fenómenos en ciencias sociales son afectados por múltiples factores. ]
+
+--
+
+.box-inv-8[Ahora bien, las regresiones serán un punta pié enorme para el análisis relacional]
+
+---
+class: title title-2
+
+# Road Map
+
+1. Regresión lineal simple
+
+--
+
+2. Regresión lineal múltiple
+
+--
+
+3. Supuestos y condiciones para su aplicación
+
+--
+
+4. Propiedades de sus estimadores
+
+--
+
+5. **Inferencia**
+
+--
+
+6. Predicción
+
+---
+layout: false
+class: center middle main-title section-title-8 top-logo
+
+.small[
+# Método de las ciencias sociales: modelo de regresión
+]
+
+.class-info[
+<br>
+**Sesión N° 3**<br>
+**Estadísitica II**
+<br>
+
+.pull-right.small[
+**Profesora** Valentina Andrade de la Horra <br>
+**Apoyo docente** Nicolás Godoy <br>
+**Ayudantes** Moira Martinez y Charo Astorga
+.tiny[Universidad Alberto Hurtado<br>
+]
+]
+
+]

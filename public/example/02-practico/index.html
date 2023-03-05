@@ -29,7 +29,7 @@
   
     
   
-  <meta name="description" content="0. Objetivo del práctico El objetivo de este práctico es crear nuestro primer reporte en RMarkdown y contener en este el primer paso de un código en R: cargar paquetes." />
+  <meta name="description" content="0. Objetivo del práctico Este práctico tiene por objetivo el repaso de los contenidos relacionados con la inferencia estadística. Esta hace referencia a los métodos que nos permiten saber algo sobre una población definida, utilizando la información que nos entrega una muestra de esa población." />
 
   
   <link rel="alternate" hreflang="en-us" href="/example/02-practico/" />
@@ -287,17 +287,17 @@
   
   <meta property="og:site_name" content="Estadística II" />
   <meta property="og:url" content="/example/02-practico/" />
-  <meta property="og:title" content="RStudio, tidyverse y RMarkdown | Estadística II" />
-  <meta property="og:description" content="0. Objetivo del práctico El objetivo de este práctico es crear nuestro primer reporte en RMarkdown y contener en este el primer paso de un código en R: cargar paquetes." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
+  <meta property="og:title" content="Inferencia | Estadística II" />
+  <meta property="og:description" content="0. Objetivo del práctico Este práctico tiene por objetivo el repaso de los contenidos relacionados con la inferencia estadística. Esta hace referencia a los métodos que nos permiten saber algo sobre una población definida, utilizando la información que nos entrega una muestra de esa población." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
     <meta property="twitter:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2021-08-16T00:00:00&#43;00:00"
+        content="2021-08-09T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2021-08-16T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2021-08-09T00:00:00&#43;00:00">
   
 
   
@@ -324,7 +324,7 @@
   <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
 
 
-  <title>RStudio, tidyverse y RMarkdown | Estadística II</title>
+  <title>Inferencia | Estadística II</title>
 </head>
 
 
@@ -660,62 +660,22 @@
     <ul class="nav docs-sidenav">
       
       <li >
-        <a href="/example/01-practico/">1: R, RStudio y Github</a>
+        <a href="/example/01-practico/">1: Variables aleatorias y distribuciones</a>
       </li>
 
       
       <li class="active">
-        <a href="/example/02-practico/">2: RMarkdown</a>
+        <a href="/example/02-practico/">2: Inferencia</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">3: Tipos de datos</a>
+        <a href="/example/032-practico/">3: RMarkdown</a>
       </li>
 
       
       <li >
-        <a href="/example/04-practico/">4: Importar, explorar y exportar datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/05-practico/">5: Limpieza de datos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/06-practico/">6: Transformar variables</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/07-practico/">7: Análisis descriptivo univariado</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/08-practico/">8: Análisis descriptivo bivariado</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/09-practico/">9: Muestras complejas y precisión de inferencia estadística</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/10.1-practico/">10.1: Regresiones lineales</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/10.2-practico/">10.2: Regresión logística</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/11-practico/">11 (BONUS): Calidad de modelos y otras técnicas de estimación</a>
+        <a href="/example/03-practico/">3: R, RStudio y Github</a>
       </li>
 
       
@@ -737,38 +697,40 @@
 
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#materiales-de-la-sesión">Materiales de la sesión</a></li>
-    <li><a href="#1-conceptos-clave">1. Conceptos clave</a></li>
-    <li><a href="#2-paso-a-paso-para-crear-un-rmarkdown">2. Paso a paso para crear un RMarkdown</a>
+    <li><a href="#0-objetivo-del-práctico">0. Objetivo del práctico</a></li>
+    <li><a href="#1-propiedades-de-estimadores">1. Propiedades de Estimadores</a>
       <ul>
-        <li><a href="#paso-1-instalación-de-paquetes">Paso 1: Instalación de paquetes</a></li>
-        <li><a href="#paso-2-crear-un-nuevo-archivo-en-rmarkdown">Paso 2: Crear un nuevo archivo en Rmarkdown</a></li>
-        <li><a href="#paso-3-crear-el-archivo-con-formato-desde-el-rmd">Paso 3: Crear el archivo con formato desde el .Rmd</a></li>
-      </ul>
-    </li>
-    <li><a href="#config">3. Configuraciones del RMarkdown</a>
-      <ul>
-        <li><a href="#31-encabezado-yaml">3.1 Encabezado (YAML)</a>
+        <li><a href="#propiedades-en-muestras-finitas">Propiedades en muestras finitas</a>
           <ul>
-            <li><a href="#instrucciones-de-salida-en-yaml-output-formats">Instrucciones de salida en YAML (Output formats)</a></li>
+            <li><a href="#a-insesgamiento">a) Insesgamiento</a></li>
           </ul>
         </li>
-        <li><a href="#32-texto-markdown">3.2 Texto (Markdown)</a></li>
-        <li><a href="#33-código-en-r-chunks">3.3 Código en R (Chunks)</a>
+        <li><a href="#propiedades-asintóticas">Propiedades asintóticas</a>
           <ul>
-            <li><a href="#331-añadir-chunks">3.3.1 Añadir Chunks</a></li>
-            <li><a href="#332-nombrar-chunks">3.3.2 Nombrar chunks</a></li>
-            <li><a href="#333-opciones-de-chunks">3.3.3 Opciones de chunks</a></li>
+            <li><a href="#a-consistencia">a) Consistencia</a></li>
+            <li><a href="#b-precisión">b) Precisión</a></li>
+            <li><a href="#c-teorema-central-del-límite">c) Teorema Central del Límite</a></li>
           </ul>
         </li>
       </ul>
     </li>
-    <li><a href="#4-resumen">4. Resumen</a>
+    <li><a href="#2-test-de-hipótesis">2. Test de Hipótesis</a>
       <ul>
-        <li><a href="#41-actividad-del-práctico">4.1 Actividad del práctico</a></li>
+        <li><a href="#a-planteamiento-de-hipótesis">a) Planteamiento de Hipótesis</a></li>
+        <li><a href="#b-tipos-de-error">b) Tipos de Error</a></li>
+        <li><a href="#c-estadístico-de-contraste">c) Estadístico de contraste</a>
+          <ul>
+            <li><a href="#test-bilateral">Test Bilateral</a></li>
+            <li><a href="#test-unilateral-derecho">Test Unilateral Derecho</a></li>
+            <li><a href="#test-unilateral-izquierdo">Test Unilateral Izquierdo</a></li>
+          </ul>
+        </li>
+        <li><a href="#d-estimación-de-t">d) Estimación de T</a></li>
+        <li><a href="#e-valores--p">e) Valores -p</a></li>
       </ul>
     </li>
-    <li><a href="#5-recursos">5. Recursos</a></li>
+    <li><a href="#3-intervalos-de-confianza">3. Intervalos de Confianza</a></li>
+    <li><a href="#resúmen-prueba-de-hipótesis">Resúmen Prueba de Hipótesis</a></li>
   </ul>
 </nav>
 
@@ -781,7 +743,7 @@
             <article class="article">
 
                 <div class="docs-article-container">
-                    <h1>RStudio, tidyverse y RMarkdown</h1>
+                    <h1>Inferencia</h1>
 
                     
 
@@ -790,352 +752,158 @@
                     
 
                     <div class="article-style">
-                        <h1 id="0-objetivo-del-práctico">0. Objetivo del práctico</h1>
-<p>El objetivo de este práctico es crear nuestro primer reporte en <strong>RMarkdown</strong> y contener en este el <strong>primer paso de un código en R: cargar paquetes</strong>.</p>
-<p>Para ello repasaremos algunos conceptos básicos de R y Markdown, y los pasos necesarios para la creación de su propio archivo en .Rmd. Este práctico será clave para la realización de tu <a href="/assignment/01-tarea/">tarea N°1</a></p>
-<h2 id="materiales-de-la-sesión">Materiales de la sesión</h2>
-<p>Recuerden que los archivos asociados a este práctico se pueden descargar aquí:</p>
-<ul>
-<li><a href="https://github.com/learn-R/02-class/raw/main/02-clase.zip" target="_blank" rel="noopener"><i class="fas fa-file-archive"></i> <code>02-class.zip</code></a></li>
-</ul>
-<h2 id="1-conceptos-clave">1. Conceptos clave</h2>
-<p><a href="https://rmarkdown.rstudio.com/" target="_blank" rel="noopener"><strong>RMarkdown</strong></a> es un archivo que puede integrar código de R (mediante chunks) y texto en <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener"><strong>Markdown</strong></a> a la vez. Todo el sitio web de este curso está creado con RMarkdown (y <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">un paquete llamado <strong>blogdown</strong></a>).</p>
-<div class="note">
-<p><strong>RMarkdown</strong> tienen una estructura de al menos 3 partes</p>
-<ol>
-<li>Encabezado (YAML)</li>
-<li>Texto</li>
-<li>Código de R</li>
-</ol>
-
-</div>
-
-<p><img src="img/02/02rmd-example.jpg" alt=""></p>
-<p>¡Vamos a profundizar en cada una de ellas! Pero antes te iremos mostrando el paso a paso para crear un archivo en .Rmd</p>
-<h2 id="2-paso-a-paso-para-crear-un-rmarkdown">2. Paso a paso para crear un RMarkdown</h2>
-<h3 id="paso-1-instalación-de-paquetes">Paso 1: Instalación de paquetes</h3>
-<p>Como vimos en la sesión, para la creación de un RMarkdown necesitamos dar una extensión a R que le permita &ldquo;compilar&rdquo; los archivos construidos en .Rmd a formatos como <code>.pdf</code>, <code>.html</code>, <code>.doc</code>. Para ello instalaremos 2 paquetes: <code>knitr</code> y <code>rmarkdown</code></p>
-<p>Usualmente para cargar paquetes lo hacemos de la siguiente manera:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">  <span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;paquete&#34;</span>)
-  <span style="color:#a6e22e">library</span>(paquete)
-</code></pre></div><p>Pero en esta ocasión utilizaremos un paquete llamado <strong>pacman</strong>, que facilita y agiliza la lectura de los paquetes a utilizar en R. De esta forma lo instalamos 1 única vez así:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">install.packages</span>(<span style="color:#e6db74">&#34;pacman&#34;</span>)
-<span style="color:#a6e22e">library </span>(pacman)
-</code></pre></div><p>Luego instalaremos y cargaremos los paquetes de R de la siguiente manera, volviendo más eficiente el procedimiento de carga de paquetes. Para este práctico cargaremos el paquete <strong>rmarkdown</strong> y <strong>knit</strong>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">pacman<span style="color:#f92672">::</span><span style="color:#a6e22e">p_load</span>(rmarkdown,
-               knitr)
-</code></pre></div><h3 id="paso-2-crear-un-nuevo-archivo-en-rmarkdown">Paso 2: Crear un nuevo archivo en Rmarkdown</h3>
-<ol>
-<li>Una vez cargados los paquetes deben dirigirse a <code>File &gt; New File &gt; R Markdown</code></li>
-</ol>
-<p><img src="/img/example/02practico/open_rmark_file.png" alt=""><!-- --></p>
-<ol start="2">
-<li>Luego deben darle un título, poner su nombre y especificar un <em>formato de salida</em>, ya sea en <strong>HTML</strong>, <strong>PDF</strong> o <strong>Word</strong></li>
-</ol>
-<p><img src="/img/example/02practico/open_rmark_file2.png" alt=""><!-- --></p>
-<ol start="3">
-<li>Se creará un archivo con un <strong><em>YAML</em></strong>, que tendrá la información general del documento; y un <strong><em>chunk</em></strong>, o trozo de código</li>
-</ol>
-<p><img src="/img/example/02practico/open_rmark_file3.png" alt=""><!-- --></p>
-<ol start="4">
-<li>Ya pueden comenzar a escribir sus informes en RMarkdown. Veremos en seguida las <a href="#config">configuraciones para dejarlo más lindo y presentable</a></li>
-</ol>
-<h3 id="paso-3-crear-el-archivo-con-formato-desde-el-rmd">Paso 3: Crear el archivo con formato desde el .Rmd</h3>
-<p><img src="https://github.com/hadley/r4ds/raw/master/images/RMarkdownFlow.png" alt=""></p>
-<div class="note">
-Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R (insertado en <em>chunks</em>) y como el texto plano, a partir de las instrucciones que dimos en el YAML (¡por eso es tan importante!)
-</div>
-
-<p><img src="/img/assignments/knit-button.png" width="30%" /></p>
-<p>Es <strong>fundamental</strong> que sepan que, cuando se hace <strong>Knit</strong>, RStudio ejecuta cada uno de los trozos <strong>secuencialmente</strong>. No es necesario entender el proceso posterior a cabalidad (aún) <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>: lo importante que debes saber  es que, si todo lo que está dentro de tu .Rmd está bien hecho, deberías ver como resultado un archivo en el formato de salida que definiste en tu YAML (.pdf, .doc o .html).</p>
-<h2 id="config">3. Configuraciones del RMarkdown</h2>
-<h3 id="31-encabezado-yaml">3.1 Encabezado (YAML)</h3>
-<p>Al inicio del Markdown siempre especificar cierta información sobre el documento, por ejemplo, el título, la fecha, autor, entre otras. Esta parte del Markdown se llama <a href="https://learn.getgrav.org/16/advanced/yaml" target="_blank" rel="noopener">YAML</a>.</p>
-<p>Básicamente, con esto establecemos las &ldquo;configuraciones&rdquo; del texto.</p>
-<p>Por ejemplo, si queremos que nuestro archivo esté en PDF, colores, si queremos que incluya bibliografía, entre otros. La &ldquo;cabeza&rdquo; del Markdown o <strong>YAML</strong> está dividida del resto del cuerpo del texto al inicio y al final con tres guiones (<code>---</code>).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Título de mi tesis</span>
-<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;16 de Agosto, 2021&#34;</span>
-<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Estudiante UAH&#34;</span>
----
-</code></pre></div><p>Debes poner el texto entre comillas. Si quieres ocupar comillas dentro de tu título, puedes utilizar comillas simples (e.g. mi tesis se titula  <code>Mi tesis: la más &quot;genial&quot; de Chile</code>), entonces ponemos</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title: `Mi tesis</span>: <span style="color:#ae81ff">la más &#34;genial&#34; de Chile`</span>
----
-</code></pre></div><h4 id="instrucciones-de-salida-en-yaml-output-formats">Instrucciones de salida en YAML (Output formats)</h4>
-<p>Los formatos de salida se ven en el encabezado (<strong>YAML</strong>) del documento: aquí puedes especificar en qué formato quieres que te entregue tu archivo. De esta forma, puedes especificar qué tipo de documento creas cuando <em>&ldquo;Kniteas&rdquo;</em>  (es como <em>&ldquo;tejer&rdquo;</em>, <em>construir</em>)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Mi documento&#34;</span>
-<span style="color:#f92672">output</span>:
-  <span style="color:#f92672">html_document</span>: <span style="color:#ae81ff">default</span>
-  <span style="color:#f92672">pdf_document</span>: <span style="color:#ae81ff">default</span>
-  <span style="color:#f92672">word_document</span>: <span style="color:#ae81ff">default</span>
----
-</code></pre></div><p>También puedes hacer click en la flecha hacia abajo del botón &ldquo;Knit&rdquo; para elegir la salida <em>y</em> generar el YAML apropiado. Si hace click en el icono del engranaje junto al botón &ldquo;Knit&rdquo; y elige &ldquo;Output options&rdquo; (opciones de salida), puede cambiar la configuración para cada tipo de salida en específico, como las dimensiones de las figuras por defecto o si se incluye o no un índice.</p>
-<p><img src="/img/reference/output-options.png" width="35%" /></p>
-<p>El primer tipo de salida que aparece en <code>output:</code> será el que se genere al pulsar el botón <strong>&ldquo;Knit&rdquo;</strong> o al pulsar el atajo de teclado (<code>⌘⇧K</code> en macOS; <code>control + shift + K</code> en Windows). Si elige una salida diferente con el menú del botón &ldquo;Knit&rdquo;, esa salida se moverá a la parte superior de la sección <code>output</code>.</p>
-<h5 id="adicionales-en-yaml">Adicionales en YAML</h5>
-<p>El encabezado o YAML es <strong>importantísimo</strong>, especialmente cuando tienes configuraciones anidadas bajo cada tipo de salida. Cuando uno ya está más avanzado así es como una sección <code>output</code> suele verse:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Mi tesis&#34;</span>
-<span style="color:#f92672">author</span>: <span style="color:#e6db74">&#34;Valentina Andrade&#34;</span>
-<span style="color:#f92672">date</span>: <span style="color:#e6db74">&#34;16 Agosto 2021&#34;</span>
-<span style="color:#f92672">output</span>: 
-  <span style="color:#f92672">html_document</span>:
-    <span style="color:#f92672">theme</span>: <span style="color:#ae81ff">cerulean</span>
-    <span style="color:#f92672">toc</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#f92672">toc_depth</span>: <span style="color:#ae81ff">2</span>
-    <span style="color:#f92672">toc_float</span>: <span style="color:#66d9ef">true</span>
-    <span style="color:#f92672">number_sections</span>: <span style="color:#66d9ef">true</span>
-  <span style="color:#f92672">pdf_document</span>: 
-    <span style="color:#f92672">latex_engine</span>: <span style="color:#ae81ff">xelatex </span> <span style="color:#75715e"># Para hacer pdf</span>
-    <span style="color:#f92672">toc</span>: <span style="color:#66d9ef">true</span>
-  <span style="color:#f92672">word_document</span>: 
-    <span style="color:#f92672">toc</span>: <span style="color:#66d9ef">true</span>
----
-</code></pre></div><p>En el <strong>YAML</strong> o <strong>encabezado</strong> del documento, se puede modificar:</p>
-<ul>
-<li>
-<p><code>title</code> y <code>subtitle</code>: es el título y subtítulo. Como cualquier carácter en R lo mejor es poner entre comillas su contenido</p>
-</li>
-<li>
-<p><code>author</code>: nombre del autor/a</p>
-</li>
-<li>
-<p><code>date</code>: fecha, puede ser escrita como ustedes quieran</p>
-</li>
-<li>
-<p><code>output</code>: opciones de salida (html, pdf, doc, ¡incluso ppt!)</p>
-</li>
-<li>
-<p><code>toc</code>: &ldquo;Table of contents&rdquo; o, en español, índice. El término <code>depth</code> indica &ldquo;profundidad&rdquo; para ver cuántos títulos mostrar y <code>float</code> para ver si se desliza automáticamente</p>
-</li>
-</ul>
-<p>Si quieres ver más opciones, <a href="https://bookdown.org/yihui/rmarkdown/html-document.html" target="_blank" rel="noopener">temas para tu documento puedes ver aquí</a></p>
-<h3 id="32-texto-markdown">3.2 Texto (Markdown)</h3>
-<p>Abajo del YAML ya podrás escribir texto simple. En la siguiente tabla podrás ver un resumen de los formatos básicos de Markdown, sin embargo pueden repasarlo <a href="https://learn-r-uah.netlify.app/resource/markdown/" target="_blank" rel="noopener">en la sección recursos</a> o <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">acá</a></p>
-<table>
-<colgroup>
-<col width="40%" />
-<col width="21%" />
-<col width="38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Escribe…</th>
-<th>…o…</th>
-<th>…para obtener</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre>Algo de texto en el párrafo.<br>
-Más texto
-espacio entre lineas.</pre></td>
-<td></td>
-<td><p>Algo de texto.</p>
-<p>Algo de texto en el párrafo. Siempre utilizando
-espacios para dividir párrafos</p></td>
-</tr>
-<tr class="even">
-<td><code>*Cursivas*</code></td>
-<td><code>_Cursivas_</code></td>
-<td><em>Cursivas</em></td>
-</tr>
-<tr class="odd">
-<td><code>**Negrita**</code></td>
-<td><code>__Negrita__</code></td>
-<td><strong>Negrita</strong></td>
-</tr>
-<tr class="even">
-<td><code># Título 1</code></td>
-<td></td>
-<td><h1 class="smaller-h1">
-Título 1
-</h1></td>
-</tr>
-<tr class="odd">
-<td><code>## Título 2</code></td>
-<td></td>
-<td><h2 class="smaller-h2">
-Título 2
-</h2></td>
-</tr>
-<tr class="even">
-<td><code>### Título 3</code></td>
-<td></td>
-<td><h3 class="smaller-h3">
-Título 3
-</h3></td>
-</tr>
-<tr class="odd">
-<td>(puedes llegar hasta un título N° 6 con <code>######</code>)</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>[Link text](http://www.example.com)</code></td>
-<td></td>
-<td><a href="http://www.example.com">Link text</a></td>
-</tr>
-<tr class="odd">
-<td><code>![Image caption](/path/to/image.png)</code></td>
-<td></td>
-<td><img src="/img/mstile-144x144.png" title="fig:" alt="Class logo" /></td>
-</tr>
-<tr class="even">
-<td>`<code>Inline code` with backticks</code></td>
-<td></td>
-<td><code>Inline code</code> with backticks</td>
-</tr>
-<tr class="odd">
-<td><code>&gt; Citas</code></td>
-<td></td>
-<td><blockquote>
-<p>Citas</p>
-</blockquote></td>
-</tr>
-<tr class="even">
-<td><pre>- Cosas en
-- listas
-- desordenadas</pre></td>
-<td><pre>* Cosas en
-* listas
-* desordenadas</pre></td>
-<td><ul>
-<li>Cosas en</li>
-<li>listas</li>
-<li>desordenadas</li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td><pre>1. Cosas en
-2. listas
-3. ordenadas</pre></td>
-<td><pre>1) Cosas en
-2) listas
-3) ordenadas</pre></td>
-<td><ol style="list-style-type: decimal">
-<li>Cosas en</li>
-<li>listas</li>
-<li>ordenadas</li>
-</ol></td>
-</tr>
-<tr class="even">
-<td><pre>Línea horizontal
-<p>&mdash;</pre></td></p>
-<td><pre>Línea horizontal
-<p>***</pre></td></p>
-<td><p>Línea horizontal</p>
-<hr /></td>
-</tr>
-</tbody>
-</table>
-<h3 id="33-código-en-r-chunks">3.3 Código en R (Chunks)</h3>
-<p>Para ingresar <strong>trozos</strong> de código en R a nuestro documento ocuparemos los <strong>chunks</strong>. Estos permiten hacer análisis estadísticos dentro del documento visualizando los resultados en el documento final</p>
-<p>Los chunks se ven así dentro del .Rmd:</p>
-<pre><code>```{r}
-# El codigo va aquí
-
-````
-</code></pre>
-<h4 id="331-añadir-chunks">3.3.1 Añadir Chunks</h4>
-<p>Hay tres formas de insertar chunks:</p>
-<ol>
-<li>
-<p>Pulsar <code>⌘⌥I</code> en macOS o  <code>Control + Alt + I</code> en Windows</p>
-</li>
-<li>
-<p>Pulsa el botón &ldquo;Insert&rdquo; en la parte superior de la ventana del editor</p>
-</li>
-</ol>
-<p><img src="/img/reference/insert-chunk.png" width="30%" /></p>
-<ol start="3">
-<li>Escribirlo manualmente (no recomendado)</li>
-</ol>
-<h4 id="332-nombrar-chunks">3.3.2 Nombrar chunks</h4>
-<p>Se puede añadir nombres a los chunks para hacer más fácil la navegación por el documento. Si haces clic en el pequeño menú desplegable en la parte inferior de tu editor en RStudio, puedes ver una tabla de contenidos que muestra todos los títulos y chunks. Si nombras los chunks, aparecerán en la lista. Si no incluyes un nombre, el chunk seguirá apareciendo, pero no sabrás lo que hace.</p>
-<p><img src="/img/reference/chunk-toc.png" width="40%" /></p>
-<p>Para añadir un nombre, inclúyelo inmediatamente después de la <code>{r</code> en la primera línea del chunk. Los nombres no pueden contener espacios, pero sí guiones bajos y guiones.</p>
-<p>Importante: <strong>Todos los nombres de chunk de tu documento deben ser únicos.</strong></p>
-<pre><code>```{r nombre-chunk}
-# El codigo va aquí
-
-````
-</code></pre>
-<h4 id="333-opciones-de-chunks">3.3.3 Opciones de chunks</h4>
-<p>Hay un montón de opciones diferentes que puedes establecer para cada chunk. Puedes ver una lista completa en la <a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf" target="_blank" rel="noopener">Guía de referencia de RMarkdown</a> o en el <a href="https://yihui.org/knitr/options/" target="_blank" rel="noopener">sitio web de <strong>knitr</strong></a>.</p>
-<p>Las opciones van dentro de la sección <code>{r}</code> del chunk:</p>
-<pre><code>```{r nombre-chunk, message = F, echo = F}
-# El codigo va aquí
-
-````
-</code></pre>
-<p>Las opciones de chunk más comunes son estas:</p>
+                        <h2 id="0-objetivo-del-práctico">0. Objetivo del práctico</h2>
+<p>Este práctico tiene por objetivo el repaso de los contenidos relacionados con la <strong>inferencia estadística</strong>. Esta hace referencia a los métodos que nos permiten saber algo sobre una población definida, utilizando la información que nos entrega una muestra de esa población.</p>
+<p>Repasaremos, específicamente, las propiedades de los estimadores, test de hipótesis e intervalos de confianza.</p>
+<h2 id="1-propiedades-de-estimadores">1. Propiedades de Estimadores</h2>
+<p>Al trabajar en una investigación, es muy probable que no podamos acceder a los datos de la población entera que nos interesa estudiar. Hasta ahora, hemos estudiado propiedades y estadísticos útiles para sacar conclusiones acerca de los datos que poseemos. Pero, <strong>¿Qué pasa cuando necesitamos saber algo acerca de una población?</strong></p>
+<p>Como <strong>población</strong> se entiende cualquier grupo definido de elementos que buscamos estudiar. Este grupo puede ser las personas de un país, los estudiantes de una ciudad, las empresas de determinado rubro, etc. Una población puede ser de interés para investigaciones, diseños de políticas públicas, sondeos de opinión, investigaciones de mercado, entre muchas otras posibilidades.</p>
+<p>No obstante, resulta muy difícil acceder a una población para estudiarla. Por ejemplo, si buscamos estudiar a la población chilena mayor de 18 años, es imposible aplicar una encuesta a todas las personas que conforman esta población. Es por esto que se recurre a una <strong>muestra</strong>, la que constituye una selección de una parte de la población que nos interesa. A través de una muestra, podemos conocer algo sobre la población.</p>
+<p>Pero, <em>¿qué es ese algo?</em>. A las constantes que determinan direcciones y fortalezas de las relaciones entre variables de una población les denominamos <strong>parámetros</strong>.</p>
+<p>Para conocer estos parámetros, es necesario recurrir a los <strong>estimadores</strong>.</p>
+<p>Dada una muestra aleatoria { <code>\(Y_1,Y_2, ..., Y_n\)</code> } extraída de una población que depende de un parámetro desconocido θ, un <strong>estimador</strong> de θ es un estadístico que asigna a cada resultado posible de la muestra un valor de θ. El valor de un estimador entrega una <strong>estimación puntual</strong> del parámetro poblacional.</p>
+<p>Un ejemplo de estimador es el promedio de una muestra aleatoria, que recibe el nombre de <strong>promedio muestral</strong>. Anteriormente tratamos al promedio como un <em>estadístico descriptivo</em> de un conjunto de datos, pero ahora se trata de un <em>estimador</em>, en el sentido de que funciona como un estadístico que busca acercarse a la media poblacional ($\mu$)</p>
+<p>Formalmente, la media muestral es:
+<code>$$\overline{y} = \frac{1}n\sum_{i=1}^{n}Y_i$$</code></p>
+<p>Otro ejemplo de estimador corresponde a la <strong>varianza muestral</strong>, que busca estimar la varianza poblacional ($σ²$).</p>
+<p>Formalmente, la varianza muestral es:</p>
+<p><code>$$S_Y^2 = \frac{1}{n-1}\sum_{i=1}^{n}(Y_i - \overline{Y})^2$$</code></p>
+<p>Para poder escoger un estimador, es necesario evaluarlos mediante distintas propiedades de su distribución de probabilidades. Estas propiedades dependen de los datos que poseamos: existen propiedades para muestras <em>pequeñas o finitas</em>, y propiedades para <em>muestras grandes</em>. A continuación repasaremos las más importantes.</p>
+<h3 id="propiedades-en-muestras-finitas">Propiedades en muestras finitas</h3>
+<p>Las propiedades que revisaremos a continuación corresponden a muestras <strong>finitas</strong> o <strong>pequeñas</strong>.</p>
+<h4 id="a-insesgamiento">a) Insesgamiento</h4>
+<p>Un estimador es insesgado cuando su valor esperado es igual al parámetro que buscamos estimar. Si pudieramos calcular muestras aleatorias infinitas de nuestra población de interés, calcular el estimador para cada una de ellas y después promediar, obtendríamos el parámetro. Que un estimador sea insesgado es muy importante, pues nos asegura que la estimación calculada sea la más aproximnada al valor poblacional real.</p>
+<p>En otros términos, si <code>\(t(x)\)</code> es un estimador de un parámetro θ, y sea f(<em>t</em>,θ) la función de densidad de probabilidad de <em>t</em>. Entonces, t es <em>insesgado</em> si <code>\(E(t) =\)</code> θ</p>
+<p>La <strong>media muestral</strong> es un ejemplo de estimador insesgado de la media poblacional de una población determinada. Al incrementar el tamaño muestral, su varianza puede acercarse mucho al cero.</p>
+<p>En términos matemáticos,sea <code>\(Y_1, Y_2, ..., Y_n\)</code> una muestra aleatoria de una población media <code>\(\mu_y\)</code>:</p>
+<p>$$ \overline{y} =   \frac{1}{n} (Y_1 +Y_2 + &hellip; + Y_n) = \frac{1}{n}\sum_{i=1}^{n} Y_i $$</p>
+<p>Reemplazamos en la fórmula del valor esperado:</p>
+<p>$$E(\overline{y}) = E(\frac{1}{n}\sum_{i=1}^{n} Y_i) = \frac{1}{n}\sum_{i=1}^{n}E(Y_i) $$ <code>$$=  \frac{1}{n}\sum_{i=1}^{n}\mu_y = \mu_y$$</code></p>
+<p>Para un estimador <code>\(W\)</code> que no es insesgado, o sea, que es <strong>sesgado</strong> de un parámetro θ, su sesgo se define como:</p>
+<p><code>$$Sesgo(W) = E(W) - θ$$</code></p>
+<h3 id="propiedades-asintóticas">Propiedades asintóticas</h3>
+<p>Estas propiedades se encuentran relacionadas con el comportamiento de los estimadores a medida que el tamaño de la muestra aleatoria crece sin límites. También se les suelen denominar <strong>propiedades de muestra grande</strong> ($n → ∞$). Estas se encuentran basadas en la idea de que mientras <em>más</em> grande es el tamaño de la muestra, <em>mejor</em> es el procedimiento de estimación.</p>
+<h4 id="a-consistencia">a) Consistencia</h4>
+<p>La consistencia hace referencia a qué tan lejos es probable que el estimador se encuentre del parámetro, a medida que el tamaño de la muestra aumente de manera indefinida. Es decir, un estimador consistente se concentra cada vez más alrededor del valor del parámetro, lo que significa que en las muestras mayores, es cada vez menos probable que el estimador se aleje del parámetro.</p>
+<p>En otras palabras, un estimador consistente posee un sesgo que se aproxima a cero cuando el tamaño de la muestra es grande o tiende al infinito.</p>
+<p>Si un estimador no es consistente, entonces no es útil saber sobre el parámetro. Es por esta razón que que la consistencia es un <strong>requisito mínimo</strong> de un estimador.</p>
+<p>Un estimador consistente es el promedio de una muestra aleatoria, extraído de una población. Esto es porque, mientras más grande sea el tamaño de la muestra, su varianza se acercará al 0. Por tanto, <code>\(Var(\overline{y}) → 0\)</code> cuando <code>\(n → ∞\)</code>, así que <code>\(\overline{y}_n\)</code> es consistente de <code>\(\mu\)</code>, además de ser insesgado.</p>
+<h4 id="b-precisión">b) Precisión</h4>
+<p>Un estimador es más preciso cuando más pequeña la varianza de su distribución muestral. La precisión del estimador aumentará mientras más grande sea la muestra con la que trabajemos. De hecho, la varianza puede acercarse mucho al cero cuando se incrementa el tamaño muestral.</p>
+<p>Mientras más pequeña sea la varianza, y por lo tanto más precisio nuestro estimador, nuestro <strong>error de estimación</strong> será menor.</p>
+<h4 id="c-teorema-central-del-límite">c) Teorema Central del Límite</h4>
+<p>Si poseemos una muestra aleatoria de determinada población, su distribución de medias muestrales se acercará cada vez más a una <strong>distribución normal</strong> a medida que el tamaño de la muestra aumente y tienda al infinito.</p>
+<p>Sea <code>\(Y_1, Y_2, ..., Y_n\)</code> una muestra aleatoria de una población con media <code>\(\mu\)</code> y varianza <code>\(σ²\)</code>. Entonces,</p>
+<p>$$\sqrt{n}(\overline{y} - \mu) →^d N(0,σ²) $$ donde <code>\(d\)</code> significa que la expresión converge en distribución normal cuando <code>\(n\)</code> tiene al infinito ($n → ∞$)</p>
+<p>Este teorema es muy importante, pues para realizar diversos procesos estadísticos como las <strong>pruebas de hipótesis</strong>, es necesario asumir que las medias muestrales se distribuyen de manera normal.</p>
+<p>Además, es importante recalcar que este teorema se aplica independientemente de la distribución que presente la población.</p>
+<p><img src="input/TLC.png" alt=""></p>
+<h2 id="2-test-de-hipótesis">2. Test de Hipótesis</h2>
+<p>Hasta ahora hemos abordado estimadores <strong>puntuales</strong>, en el sentido de que nos entregan un valor poblacional específico. No obstante, esta información no es suficiente para probar teorías , analizar diversas políticas o realizar una investigación social.</p>
+<p>Cuando necesitamos una respuesta definitiva de &ldquo;sí&rdquo; o &ldquo;no&rdquo;, recurrimos a una prueba o test de hipótesis. Esta técnica permite evaluar la información contenida en los datos, y poder realizar conclusiones acerca de la población que estamos estudiando.</p>
+<p>Una pregunta de investigación que puede ser respondida, por ejemplo, a través de una prueba de hipótesis corresponde a: <strong>¿Las personas negras sufren discriminación en el proceso de contratación?</strong> Mediante esta técnica y un set de datos, podemos llegar a una respuesta.</p>
+<h3 id="a-planteamiento-de-hipótesis">a) Planteamiento de Hipótesis</h3>
+<p>El primer paso para realizar una prueba es establecer una hipótesis. Esta puede ser una respuesta tentativa a una pregunta de investigación, o un planteamiento sobre una población a estudiar. En definitiva, la hipótesis nos dice algo sobre la población, y mediante la prueba de hipótesis podemos evaluar y concluir si ese algo es válido o no.</p>
+<p>Una de las hipótesis es la <strong>hipótesis nula</strong> (H~0~). Esta es la hipótesis que queremos contrastar, y siempre se asume que es verdadera hasta que se pruebe lo contrario de manera contundente a través de los datos. Siguiendo el ejemplo, una hipótesis nula es que las personas negras tienen las misma probabilidad de recibir ofertas de trabajo que las personas blancas. En otras palabras, no existiría diferencia entre las personas negras y las personas blancas en un proceso de contratación laboral.</p>
+<p>Frente a esta hipótesis, se plantea una <strong>hipótesis alternativa</strong> (H~1~), que es la hipótesis que buscamos probar utilizando un set de datos. Esta hipótesis anticipa la existencia de una diferencia entre los grupos. Siguiendo el ejemplo, una hipótesis alternativa es que las personas negras poseen una probabilidad menor de recibir ofertas de trabajo frente a las personas blancas.</p>
+<h3 id="b-tipos-de-error">b) Tipos de Error</h3>
+<p>Cuando se realiza una prueba de hipótesis, se pueden cometer dos tipos de errores. Uno de ellos es rechazar la hipótesis nula H~0~ cuando de hecho es verdadera. Este error recibe el nombre de <strong>error tipo I</strong>. En el ejemplo, un error tipo I sería afirmar que sí existe discriminación hacia las personas negras frente a las personas blancas en un proceso de contratación laboral, cuando en realidad no existe tal cosa.</p>
+<p>Otro tipo de error corresponde a aceptar H~0~ como verdadera cuando en realidad es falsa. A este error se le denomina <strong>error tipo II</strong>. En el ejemplo, un error tipo II sería afirmar que no existe discriminación hacia las personas negras en comparación con las personas blancas en un proceso de contratación laboral, cuando en realidad sí existe tal discriminación.</p>
+<p>En la práctica, nunca sabremos con certeza si cometimos un error o no. No obstante, es posible calcular la <em>probabilidad</em> de cometer un error tipo I. Para aquello, se define el <strong>nivel de significancia</strong> de una prueba, que suele denotarse como <code>\(\alpha\)</code>. Se tiene:</p>
+<p><code>$$\alpha = P(Rechazar H_0 | H_0 verdadero)$$</code></p>
+<p>Esto se lee como &ldquo;la probabilidad de rechazar H~0~ cuando H~0~ es verdadera&rdquo;</p>
+<h3 id="c-estadístico-de-contraste">c) Estadístico de contraste</h3>
+<p>Una vez definidas las hipótesis, es necesario elegir un estadísito de prueba para comparar la información que nos entrega la muestra con la hipótesis nula. El estadístico de prueba (<em>T</em>) es una variable aleatoria que depende de la muestra, y a partir de su cálculo, se puede definir una regla de rechazo. En otras palabras, utilizando el estadístico <em>T</em> podemos establecer cuándo se rechaza H~0~ en favor de H~1~, y viceversa.</p>
+<p>Las reglas del rechazo están basadas en comparar el <strong>valor del estadístico de prueba (<em>t</em>)</strong> con un <strong>valor crítico (<em>c</em>)</strong>. Para determinar este valor, se debe definir el nivel de significancia de la prueba ($\alpha$). Para el nivel de significancia se suelen utilizar los valores de 0,1; 0,05; 0,01. Este valor implica, por ejemplo, que el investigador está dispuesto a rechazar H~0~ incorrectamente un 5% de las veces, si se considera <code>\(\alpha\)</code> = 0,05. En otras palabras, la probabilidad de un error tipo I es de 5%.</p>
+<p>Una vez establecido el nivel de significancia, es posible calcular el valor crítico mediante la distribución de <em>T</em>, <em>suponiendo</em> que H~0~ es verdadera. Los valores de <em>t</em> que resulten en el rechazo de la hipótesis nula se conocen como la <strong>región de rechazo</strong>.</p>
+<p>Teniendo eso en consideración, la hipótesis nula se expresa como <code>\(H_0: \mu = \mu_0\)</code>, donde <code>\(\mu_0\)</code> es un valor que se especifica. Siguiendo el ejemplo expuesto con anterioridad, la hipótesis nula corresponde a <code>\(H_0: \mu = 0\)</code>. Es decir, la diferencia de probabilidades de que las personas negras reciban ofertas de trabajo con relación a las personas blancas es 0.</p>
+<p>Sobre la hipótesis alternativa, existen tres opciones. Dos de ellas son test unilaterales o de &ldquo;una cola&rdquo;:</p>
+<p><code>$$H_1: \mu &gt; \mu_0$$</code></p>
+<p><code>$$H_1: \mu &lt; \mu_0$$</code></p>
+<p>También existe el test bilateral o de &ldquo;dos colas&rdquo;:</p>
+<p><code>$$H_1: \mu ≠ \mu_0$$</code></p>
+<p>Siguiendo el ejemplo, la hipótesis alternativa corresponde a <code>\(H_1: \mu &lt; 0\)</code>. Es decir, la diferencia de probabilidades de que las personas negras reciban ofertas de trabajo con relación a las personas blancas es menor a 0, lo que significaría discriminación en los procesos de contratación. En este caso, $\mu = θ_B - θ_W $ es la diferencia de probabilidades de que las personas negras recibieran ofertas de trabajo con relación a los blancos.</p>
+<p>Siguiendo este ejemplo, correspondería realizar un <em>test unilateral de cola izquierda</em>.</p>
+<h4 id="test-bilateral">Test Bilateral</h4>
+<p><img src="input/test_bilateral.png" alt=""></p>
+<p>En este tipo de test, la regla general para descartar H~0~ es que el valor absoluto del estadístico <em>t</em> sea mayor al valor absoluto crítico <em>c</em>. Es decir:</p>
+<p><code>$$|t| &gt; |c|$$</code></p>
+<h4 id="test-unilateral-derecho">Test Unilateral Derecho</h4>
+<p><img src="input/test_unilateral_derecho.png" alt=""></p>
+<p>En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico <em>t</em> sea mayor al valor crítico <em>c</em>. Es decir:</p>
+<p><code>$$t &gt; c$$</code></p>
+<h4 id="test-unilateral-izquierdo">Test Unilateral Izquierdo</h4>
+<p><img src="input/test_unilateral_izquierdo.png" alt=""></p>
+<p>En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico <em>t</em> sea menor al valor negativo crítico <em>c</em>. Es decir:</p>
+<p><code>$$t &lt;  -c$$</code></p>
+<p>Supongamos que el valor de estadístico <em>t</em> para probar que <code>\(H_0: \mu = 0\)</code> en el ejemplo de discriminación laboral es -4.29. El valor crítico, con un nivel de significancia de 0.05, es -2.58. El valor <em>t</em> de -4.29 es una evidencia grande en contra de la hipótesis nula, pues se encuentra a la izquierda del valor crítico. Por lo tanto, se aprueba <code>\(H_1\)</code> y se concluye que existe discriminación en la contratación entre personas negras y personas blancas.</p>
+<h3 id="d-estimación-de-t">d) Estimación de T</h3>
+<p>Al realizar una prueba de hipótesis sobre la media muestral, nos podemos encontrar con 3 casos distintos.</p>
+<p>Un <strong>primer caso</strong> corresponde a que, al momento de realizar la prueba, conocemos que <em>Y</em> se distribuye normalmente y, además, conocemos el valor de la varianza poblacional <code>\(σ_y^2\)</code>. Entonces, asumiendo que H~0~ es verdadera, tenemos:</p>
+<p><code>$$\overline{y}\sim N(\mu_0,\frac{σ_y^2}{n})$$</code> Por lo tanto, el estadístico de prueba corresponde a:</p>
+<p>$$T = \frac{\overline{Y} - \mu_0}{σ_y/\sqrt{n}} \sim N(0,1) $$ Un <strong>segundo caso</strong> corresponde a realiar una prueba de hipótesis sobre la media <code>\(\mu\)</code> de una población cuando la varianza <code>\(σ_y^2\)</code> es desconocida, y además sabemos que <em>Y</em> distribuye normalmente. Como primer paso, se debe estimar la varianza muestral:</p>
+<p><code>$$S_Y^2 = \frac{1}{n-1}\sum_{i=1}^{n}(Y_i - \overline{Y})^2$$</code> Luego, el estadístico de prueba corresponde a:</p>
+<p>$$T = \frac{\overline{Y} -\mu_0}{S_Y / \sqrt{n}}\sim t_n-1 $$ Un <strong>tercer caso</strong> corresponde a cuando no conocemos ni la distribución de <code>\(Y\)</code> ni su varianza <code>\(σ_y^2\)</code>. En este tipo de casos recordamos la propiedad asintótica para muestras grandes denominada como <em>Teorema Central del Límite</em>. La distribución <code>\(t_{n-1}\)</code> converge en una distribución normal estándar a medida que <code>\(n\)</code> aumenta, por lo que <code>\(t\)</code> y los valores críticos normales estándar estarán muy cerca para un <code>\(n\)</code> muy grande.</p>
+<p>Entonces, basándonos el el Teorema Central del Límite, la elección entre <code>\(t\)</code> y las distribuciones normales estándar suele ser irrelevante debido a que los valores críticos son prácticamente iguales en muestras donde <code>\(n&gt;120\)</code>.</p>
+<p>Por lo tanto, el estadístico de prueba corresponde a:</p>
+<p><code>$$T = \frac{\overline{Y} -\mu_0}{S_Y / \sqrt{n}} →^a N(0,1)$$</code></p>
+<h3 id="e-valores--p">e) Valores -p</h3>
+<p>Debido a que se pueden definir distintos niveles de significancia para realizar una prueba de hipótesis, surge la pregunta: <strong>¿Cuál es el nivel de significancia máximo al cual se puede realizar la prueba y aún así no rechazar la hipótesis nula</strong>?</p>
+<p>Ante esa problemática, se puede calcular el valor*-p* de una prueba, que se define como la probabilidad mínima con la que podemos rechazar la hipótesis nula H~0~ sin necesidad de definir de antemano un nivel de significacia <code>\(\alpha\)</code>. El valor*-p* depende de la función de distribución del estadístico de contraste.</p>
+<p>Dependiendo del tipo de test de hipótesis que queramos realizar, el valor*-p* se calcula:</p>
+<p><code>$$P-value = P(T &gt; t | H_0)$$</code></p>
+<p><code>$$P-value = P(T &lt; t | H_0)$$</code></p>
+<p><code>$$P-value = 2P(T &gt; |t|  | H_0)$$</code></p>
+<p>Si el <code>\(valor-p &lt; \alpha\)</code>, entonces se rechaza H~0~. En cambio, si el <code>\(valor-p ≥ \alpha\)</code> no se rechaza H~0~. En definitiva, un valor*-p* pequeño es evidencia fuerte en contra de H~0~.</p>
+<h2 id="3-intervalos-de-confianza">3. Intervalos de Confianza</h2>
+<p>Debido al error de muestreo, es imposible conocer el valor exacto de la media poblacional a partir de los datos muestrales. Una estimación puntual puede ser una aproximación, pero esta no nos entrega información sobre que tan probable es que ese valor sea realmente cercano al parámetro poblacional.</p>
+<p>Este problema se soluciona mediante los <strong>intervalos de confianza</strong>. Estos corresponden a un set de valores que contienen el verdadero valor poblacional de un parámetro, para un nivel de probabilidad dado.</p>
+<p>Para el cálculo de intervalos de confianza, se suele usar un nivel de confianza de 95%. Esto significa que, para el 95% de las muestras aleatorias, el intervalo de confianza contendrá a la media poblacional.</p>
+<p>Después de calcular un intervalo de confianza, se puede realizar una prueba de hipótesis de dos colas. Cuando el intervalo pasa por el valor 0, es posible establecer que se confirma la hipótesis nula <code>\(H_0\)</code>. Es decir, no existe significancia estadística.</p>
+<p>Las fórmulas para calcular un intervalo de confianza considerando un test bilateral al 95% de confianza son las siguientes:</p>
 <ul>
 <li>
-<p><code>fig.width=5</code> y <code>fig.height=3</code> (<em>o el número que quieras</em>): Establece las dimensiones de las figuras</p>
+<p>{ <code>\(\overline{y} ± 1.96 * (σ_y) / \sqrt{n}\)</code> }, cuando se conoce la distribución normal de <code>\(Y\)</code> y su varianza <code>\(σ_y^2\)</code></p>
 </li>
 <li>
-<p><code>echo=FALSE</code>: El código no se muestra en el documento final, pero los resultados si</p>
+<p>{ <code>\(\overline{y} ± t^{n-1}_{\alpha/2} * SE(\overline{y})\)</code> }, cuando se conoce la distribución normal de <code>\(Y\)</code>, pero se desconoce su varianza <code>\(σ_y^2\)</code></p>
 </li>
 <li>
-<p><code>message=FALSE</code>: Se omiten los mensajes que genera R (como todas las notas que aparecen después de cargar un paquete)</p>
-</li>
-<li>
-<p><code>warning=FALSE</code>: Se omiten las advertencias que genera R</p>
-</li>
-<li>
-<p><code>include=FALSE</code>: El chunk se sigue ejecutando, pero el código y los resultados no se incluyen en el documento final</p>
+<p>{ <code>\(\overline{y} ± 1.96 * SE(\overline{y})\)</code> }, cuando se desconoce tanto la distribución como la varianza de <code>\(Y\)</code></p>
 </li>
 </ul>
-<p>También puedes configurar las opciones del chunk haciendo clic en el pequeño icono del engranaje en la esquina superior derecha de cualquier chunk:</p>
-<p><img src="/img/reference/chunk-options.png" width="70%" /></p>
-<h2 id="4-resumen">4. Resumen</h2>
-<p>Dentro de la creación de archivos en RMarkdown, hay algunos <strong>conceptos claves</strong> que <em>sí o sií</em> debes manejar para ir construyendo tus documentos en RMarkdown.</p>
+<h2 id="resúmen-prueba-de-hipótesis">Resúmen Prueba de Hipótesis</h2>
+<p>Para finalizar este práctico, haremos un breve repaso acerca del procemiento para realizar una prueba de hipótesis.</p>
 <ol>
 <li>
-<p><strong>YAML</strong>: Es un encabezado al inicio del documento que inicia y acaba con tres guiones <strong>&mdash;</strong>*. Acá se introducen aspectos básicos del documento, como el título, el autor, la fecha y el formato de salida (output)</p>
+<p><strong>Identificar las hipótesis</strong>. De acuerdo al parámetro que estamos buscando y las suposiciones que surgen respecto a él, debemos identificar la <em>hipótesis nula</em> y la <em>hipótesis alternativa</em>. Importante es recordar que la hipótesis que se pondrá aprueba es la nula ($H_0$).</p>
 </li>
 <li>
-<p><strong>Chunk</strong>: son <strong>trozos</strong> de códigos de R, que permiten hacer análisis estadísticos dentro del documento, visualizando los resultados <strong>directamente</strong> en el documento final</p>
+<p><strong>Naturaleza de la prueba</strong>. De acuerdo a la hipótesis alternativa establecida, se define la naturaleza de la prueba. Esta puede ser una <em>prueba de dos colas</em>, <em>prueba de una cola izquierda</em> o una <em>prueba de una cola derecha</em>. De acuerdo a la naturaleza, cambia la regla de rechazo para descartar <code>\(H_0\)</code>.</p>
 </li>
 <li>
-<p><strong>Knit</strong>: Es el botón que permite <em>compilar</em> (tejer o unir) el documento que hemos escrito. Combinará tanto el código de R y el texto, a partir de las instrucciones que dimos en el YAML</p>
+<p><strong>Nivel de confianza de la prueba</strong>. El siguiente paso es establecer el nivel de confianza de la prueba de hipótesis, lo que nos permitirá posteriormente calcular el valor del estadístico de prueba. Para el nivel de significancia se suelen utilizar los valores de 0,1; 0,05; 0,01. En la mayoría de situaciones, utilizaremos un <code>\(\alpha\)</code> igual a 0,05 (95% de confianza)</p>
+</li>
+<li>
+<p><strong>Valor crítico de t</strong>. A continuación, buscaremos el valor crítico del estadístico de prueba de nuestro test. Para conocer este valor, necesitamos saber el <em>nivel de confianza</em> de la prueba (definido en el paso anterior) y los <em>grados de libertad</em>. Estos últimos, para la distribución <em>t de Student</em>, corresponden a <code>\(n-1\)</code>. En otras palabras, los grados de libertad a utilizar serán el valor del tamaño de la muestra, menos 1. Con esa información a mano, podemos buscar el valor crítico de nuestra prueba de hipótesis. Estos ya están calculados y se pueden encontrar en diversos softwares de estadística (como R), o bien seguir el método tradicional que es buscarlo en la <strong>Tabla de la prueba T de Student</strong>.</p>
 </li>
 </ol>
-<h3 id="41-actividad-del-práctico">4.1 Actividad del práctico</h3>
-<p>La actividad tendrá relación con la entrega de la <a href="https://learn-r-uah.netlify.app/assignment/01-tarea/" target="_blank" rel="noopener"><strong>Tarea 1</strong></a>. Esta actividad consiste en la creación de un RMarkdown que contenga lo siguiente:</p>
-<ul>
+<p><img src="input/tabla_pruebat.jpg" alt=""></p>
+<p>Por ejemplo, si establezco un nivel de confianza de 95% (0,05) y el valor de los grados de libertad es 14, el valor crítico para una prueba de una cola corresponde a 1.761. Si este valor es positivo o negativo depende del tipo de prueba que esté realizando. Si es una prueba de <em>cola izquierda</em>, el valor es -1.761, mientras si es una prueba de <em>cola derecha</em>, el valor es 1.761.</p>
+<p>Siguiendo el mismo ejemplo, el valor crítico para una prueba de dos colas corresponde a ±2.145.</p>
+<p><strong>¡Recordar!</strong> Como vimos anteriormente, el valor crítico de muestras superiores a 120 es practicamente igual en la distribución t como en la distribución normal estándar. Es por esto que la tabla termina formalmente en el valor de 120 grados de libertad, y el siguiendo valor corresponde a un símbolo infinito ∞. Esto significa que se considera a los valores mayores a 120 como <em>muestras grandes</em> y, por lo tanto, se aplica el Teorema Central del Límite.</p>
+<ol start="5">
 <li>
-<p>Un encabezado (YAML) con el título: &ldquo;Práctico 2&rdquo;. También deben incorporar su nombre y fecha</p>
+<p><strong>Cálculo estadístico de contraste</strong>. De acuerdo a la información que tengamos disponible, seleccionamos la fórmula para calcular el estadístico de contraste. Esta elección dependerá de si poseemos el valor de la varianza y/o conocemos que la media poblacional se distribuye de manera normal. Como vimos anteriormente, existen 3 casos posibles.</p>
 </li>
 <li>
-<p>Este encabezado debe tener una salida (output), deben elegir <code>html_output</code></p>
-</li>
-<li>
-<p>En el documento  deben incorporarla imagen <code>grafico01</code> (que está en el .zip asociado a la clase)</p>
-</li>
-<li>
-<p>Finalmente, deben crear una tabla simple.</p>
-</li>
-</ul>
-<h2 id="5-recursos">5. Recursos</h2>
-<ul>
-<li><a href="https://es.r4ds.hadley.nz/r-markdown.html" target="_blank" rel="noopener">RMarkdown en Ciencia de Datos - Hadley Whickham</a></li>
-<li><a href="https://rmarkdown.rstudio.com/" target="_blank" rel="noopener">R Markdown</a></li>
-<li><a href="https://rmarkdown.rstudio.com/lesson-1.html" target="_blank" rel="noopener">Tutoriales Markdown</a></li>
-<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank" rel="noopener">cheatsheets</a></li>
-<li>Para practicar ir a <a href="https://www.markdowntutorial.com/es/" target="_blank" rel="noopener">Tutorial de Markdown</a></li>
-</ul>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>Luego de presionar <em>knit</em>, se convierte la salida de cada trozo en un archivo intermedio en Markdown. Posteriormente, RStudio hace &ldquo;pasar&rdquo; ese documento vía <a href="https://pandoc.org/" target="_blank" rel="noopener">pandoc</a> para convertirlo en HTML, PDF o Word (o cualquier salida que haya seleccionado). <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><strong>Comparar estadístico de prueba y valor crítico</strong>. Una vez calculado nuestro estadístico t, corresponde compararlo con el valor crítico de la prueba, siguiendo la regla de rechazo de <code>\(H_0\)</code> anteriormente escogida. De acuerdo a esto, se <em>acepta</em> o <em>rechaza</em> la hipótesis nula.</p>
 </li>
 </ol>
-</section>
+<p><strong>Opcional</strong>. También podemos utilizar el <em>valor-p</em>, como revisamos anteriormente. Para aquello, debemos seguir las fórmulas expuestas arriba y comparar tal valor con nuestro nivel de significancia escogido. Recordar que mientras más pequeño sea el <em>valor-p</em>, más evidencia existe en contra de <code>\(H_0\)</code>.</p>
+<ol start="7">
+<li><strong>Sacar conclusiones</strong>. Si bien ya terminamos con la parte más pesada de la prueba de hipótesis, es muy importante detallar nuestras conclusiones y explicar nuestros hallazgos de manera concreta y sencilla.</li>
+</ol>
 
                     </div>
 
@@ -1152,14 +920,14 @@ Título 3
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/example/04-practico/" rel="next">Importar, explorar y exportar datos</a>
+    <a href="/example/01-practico/" rel="next">Variables aleatorias y distribuciones</a>
   </div>
   
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/example/03-practico/" rel="prev">Tipos de datos</a>
+    <a href="/example/03-practico/" rel="prev">Bienvenido/a a R, RStudio y Github</a>
   </div>
   
 </div>
@@ -1169,7 +937,7 @@ Título 3
                 </div>
 
                 <div class="body-footer">
-                    <p>Last updated on August 16, 2021</p>
+                    <p>Last updated on August 9, 2021</p>
 
                     
 
