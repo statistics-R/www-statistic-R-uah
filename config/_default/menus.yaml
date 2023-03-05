@@ -20,24 +20,24 @@ main:
   - name: Evaluaciones <i class="fab fa-github"></i>
     identifier: assignment
     url: /assignment/
-    weight: 4
+    weight: 5
   - name: Controles
     parent: assignment
     url: /assignment/
-    weight: 4
+    weight: 6
   - name: 'Github Classroom<i class="fab fa-github"></i>'
     parent: assignment
     url: "https://classroom.github.com/classrooms/86887318-learn-r-uah-2021"
-    weight: 8
+    weight: 7
   - name: Recursos
     url: /resource/
-    weight: 6
+    weight: 8
   - name: '<i class="fab fa-slack"></i>'
-    url: "https://join.slack.com/t/learn-r-uah/shared_invite/zt-sh9uysuu-IzEG8~u5k2YYGWgpAFTRFA"
-    weight: 7
+    url: "https://join.slack.com/t/estadisticaii-uah/shared_invite/zt-1qi7am4o2-7pVVgPC~s0IcBKwqSRWSvQ"
+    weight: 9
   - name: '<i class="fab fa-r-project"></i>'
     url: https://rstudio.cloud/
-    weight: 9
+    weight: 10
 
 content:
   - name: Información general
