@@ -91,7 +91,7 @@ Dado el contexto de pandemia se tendrán tres espacios principales de aprendizaj
 | Controles sorpresa | Individual | Sorpresa  | 12% (en total) |
 | Avance proyecto | Grupal | 18-20 abril  | 25%  |
 | Prueba | Individual | 9-11 mayo  | 30% |
-| Final proyecto (Examen) | Grupal | Sorpresa  | 25% |
+| Final proyecto (Examen) | Grupal | 27 junio  | 25% |
 
 
 Los controles sorpresa corresponden a evaluaciones cortas y recurrentes que medirán el nivel de aprendizaje de la materia revisada en clases y ayudantías al momento de rendirlos. Estas evaluaciones se tomarán los días lunes o miércoles durante el horario de clase. Se estima la realización de aproximadamente 6 controles sorpresa, entre los cuales no se considerará la calificación más baja a la hora de calcular el promedio de notas obtenido en estas evaluaciones.

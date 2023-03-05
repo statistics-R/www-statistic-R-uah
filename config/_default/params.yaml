@@ -107,7 +107,7 @@ instructor:
   office: "valentinaandrade.netlify.app/"
   contact_policy: >-
     El canal de contacto de preferencia es [Slack](http://learn-r-uah.slack.com/), y en segunda instancia, email.
-  appointment_url: https://calendly.com/valentinaandrade/
+  appointment_url: "https://calendly.com/valentinaandrade/15min"
 
 apoyo: 
   name: Nicolas Godoy
@@ -117,6 +117,11 @@ apoyo:
   github: nicolasggodoym
   office: INE
   appointment_url: https://calendly.com/nicolas-godoy-m/
+
+apoyo2: 
+  name: Alberto Reyes
+  email: alberto.reyes@ug.uchile.cl
+  appointment_url: https://calendly.com/alberto-reyes-w/
 
 ayudante1: 
   name: Charo Astorga
