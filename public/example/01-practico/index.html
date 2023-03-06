@@ -761,18 +761,18 @@
 <p>Las variables aleatorias discretas se describen estadísticamente por su <em>distribución de probabilidad.</em> Esta corresponde a la probabilidad de la ocurrencia de cada valor de la variable. Siguiendo con el ejemplo del lanzamiento de un dado, su distribución de probabilidad consiste en todos los valores que puede tomar la variable (1 al 6) y la probabilidad de obtener cada una de ellas (en este caso, cada valor tiene una probabilidad de 1/6). La suma de la distribución de probabilidad es igual a 1.</p>
 <p>Las variables aleatorias discretas se pueden representar en tablas o cuadros. Por ejemplo, si la variable corresponde a la cantidad de hijos:</p>
 <p><strong>Tabla 1: Distribución de Probabilidad Variable Cantidad de Hijos</strong></p>
-<p><img src="images/tabla00.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p><img src="images/tabla00.png" width="529" /></p>
 <p><strong>Gráfico 1: Distribución de Probabilidad Variable Cantidad de Hijos (en porcentaje)</strong></p>
-<p><img src="images/grafico01.png" alt="">{width=&ldquo;549&rdquo;}</p>
+<p><img src="images/grafico01.png" width="549" /></p>
 <p>Además de la distribución de probabilidad, también existe la <strong>distribución de probabilidad acumulada</strong>, la cual determina la probabilidad de que una variable sea igual o menor a un valor concreto. Siguiendo con la variable cantidad de hijos:</p>
-<p><strong>Tabla 2: Distribución de Probabilidad Variable Cantidad de Hijos</strong></p>
-<p><img src="images/tabla001.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p><strong>Tabla 2: Distribución de Probabilidad Variable Cantidad de Hijos</strong>
+<img src="images/tabla001.png" width="529" /></p>
 <p><em><strong>Gráfico 2: Distribución de Probabilidad Acumulada (en porcentaje)</strong></em></p>
-<p><img src="images/grafico02-01.png" alt="">{width=&ldquo;529&rdquo;}</p>
+<p><img src="images/grafico02-01.png" width="529" /></p>
 <p>Por su parte, las <strong>VA continuas (VAC)</strong> indican que X puede tomar ciertos valores con probabilidad cero, es decir, una variable <code>\(X\)</code> es una variable aleatoria continua si la probabilidad de que la variable aleatoria tome cualquier valor real sea igual a cero. <em>¿Cómo es posible esto?</em> La idea es que los valores que puede tomar una variable aleatoria continua son tantos que es imposible contarlos. Es por esto que la probabilidad de que la variable tome cada uno de estos valores es cero.</p>
 <p>Estas se describen por medio de su <strong>función de densidad de probabilidad (fdp)</strong>, la cual resume la información concerniente a los valores que puede tomar <code>\(X\)</code> y a sus correspondientes probabilidades. La fdp de una variable continua solo se utiliza para calcular eventos que comprenden un <em>rango</em> de valores. Un ejemplo de una variable continua donde nos podría interesar su rango de valores consiste en los ingresos de un hogar.</p>
-<p><em><strong>Gráfico 3: Función de Densidad de Probabilidad</strong></em></p>
-<p><img src="images/grafico03.png" alt="">{width=&ldquo;468&rdquo;}</p>
+<p><em><strong>Gráfico 3: Función de Densidad de Probabilidad</strong></em>
+<img src="images/grafico03.png" width="468" /></p>
 <p>En este gráfico podemos observar que:</p>
 <p>$$
 Pr(-2\leq X \leq 1)
@@ -783,30 +783,30 @@ $$</p>
 <h3 id="21-distribución-conjunta">2.1 Distribución Conjunta</h3>
 <p>En muchos casos, resulta interesante estudiar de manera conjunta el comportamiento de las variables. En dichos caso, se construye lo que se denomina <strong>distribución conjunta</strong>. Su objetivo consiste en determinar cómo la variación de una variable se relaciona con la de otra. En el caso de que  <code>\((X,Y)\)</code> sean variables aleatorias discretas, entonces <code>\((X,Y)\)</code> tienen una distribución conjunta, descrita completamente por la <strong>función de densidad de probabilidad conjunta</strong> de <code>\((X,Y)\)</code>.</p>
 <p>En palabras más simples, la distribución conjunta corresponde a la probabilidad de que ocurran dos o más variables aleatorias, al mismo tiempo. Un ejemplo de estudio puede ser la relación entre ingreso y el gasto en vestimentas en un mes.</p>
-<p><em><strong>Tabla 3: Distribución Conjunta del Gasto en Vestimenta</strong></em></p>
-<p><img src="images/tabla01.png" alt="">{width=&ldquo;506&rdquo;}</p>
-<p><em><strong>Tabla 4: Distribución Marginal del Gasto en Vestimenta</strong></em></p>
-<p><img src="images/tabla02.png" alt="">{width=&ldquo;489&rdquo;}</p>
+<p><em><strong>Tabla 3: Distribución Conjunta del Gasto en Vestimenta</strong></em>
+<img src="images/tabla01.png" width="506" /></p>
+<p><em><strong>Tabla 4: Distribución Marginal del Gasto en Vestimenta</strong></em>
+<img src="images/tabla02.png" width="489" /></p>
 <p>Las casillas en color rosado nos muestra la <em>distribución marginal</em> del gasto en vestimenta.</p>
 <h3 id="22-distribución-marginal">2.2 Distribución Marginal</h3>
 <p>Las distribuciones de la variable fila y de la variable columna, de forma separada, se llaman <strong>distribuciones marginales</strong>, ya que aparecen en los márgenes derecho e inferior de la tabla de contingencia. La columna de totales y la fila de totales de una tabla de contingencia dan las distribuciones marginales de las dos variables de forma separada. <strong>Las distribuciones marginales no dan información sobre la relación entre las variables.</strong></p>
 <p>Cada componente de una variable aleatoria bidimensional es una variable aleatoria unidimensional en sí misma. Es por esto que nos puede interesar conocer la distribución de un componente por separado, sin tener en cuenta el otro componente. Eso se denomina marginar, y la <strong>distribución de la variable unidimensional</strong> por separado se llama distribución marginal.</p>
 <p>La <strong>distribución marginal</strong> del gasto en vestimenta equivale a su <strong>distribución unidimensional</strong>:</p>
-<p><em><strong>Tabla 5: Distribución Marginal del Gasto en Vestimenta</strong></em></p>
-<p><img src="images/table03.png" alt="">{width=&ldquo;413&rdquo;}</p>
+<p><em><strong>Tabla 5: Distribución Marginal del Gasto en Vestimenta</strong></em>
+<img src="images/table03.png" width="413" /></p>
 <p>La <strong>media</strong> es de 2777.5 y la <strong>desviación estándar</strong> es de 1739.</p>
 <h3 id="23-distribución-condicional">2.3 Distribución Condicional</h3>
 <p>En otras ocasiones, es posible que nos interese el <em>efecto</em> que tiene cierta variable sobre otra. Es decir, el efecto que podría tener una variable Y sobre una variable X. Para poder acercarnos a esto recurrimos a la <strong>distribución condicional</strong>, cuya información se encuentra resumida en la <em>función de densidad de probabilidad condicional</em>.</p>
 <p>Para hallar la distribución condicional de la variable fila con relación a un valor determinado de la variable columna, fíjate sólo en esa columna de la tabla. Expresa cada valor de la columna como un porcentaje del total de la columna. Existe una distribución condicional de la variable fila para cada columna de la tabla. La comparación de estas distribuciones condicionales es una manera de mostrar la asociación entre la variable fila y la variable columna. Es especialmente útil cuando la variable columna es la variable explicativa.</p>
 <p>Una característica importante de las distribuciones condicionales es que, si X y Y son variables aleatorias independientes, conocer el valor que toma X no dice nada acerca de la probabilidad de que Y tome diversos valores (y viceversa). Por ejemplo, si queremos conocer el impacto que tiene el ingreso en el gasto en vestimenta, no nos interesa realmente la variable ingreso como tal, solo su aporte al gasto en vestimenta. Si estas dos variables son independientes (propiedad que revisaremos más adelante), conocer el gasto en vestimenta no nos dirá nada acerca de los valores que podrían tomar los ingresos.</p>
-<p><em><strong>Tabla 6: Distribución Condicional del Gasto en Vestimenta</strong></em></p>
-<p><img src="images/tabla04.png" alt="">{width=&ldquo;456&rdquo;}</p>
+<p><em><strong>Tabla 6: Distribución Condicional del Gasto en Vestimenta</strong></em>
+<img src="images/tabla04.png" width="456" /></p>
 <p>La media condicional para la fila amarilla es de 1815, para la fila verde de 1949.2 y para la fila roja es de 3365.8.</p>
 <h3 id="24-media-condicional">2.4. Media condicional</h3>
 <p>Una manera sencilla de resumir la distribución condicional entre dos variables corresponde a la <strong>esperanza o media condicional</strong>. Esta corresponde al valor esperado de una variable aleatoria respecto a una distribución de probabilidad condicional. Pero, <em>¿qué es el valor esperado?</em></p>
 <p>El valor esperado, o esperanza, corresponde a al promedio ponderado de todos los posibles valores de una variable aleatoria X. Este se denota <code>\(E(X)\)</code>, <code>\(μX\)</code> o <code>\(μ\)</code>. Ahondaremos sobre la esperanza más adelante.</p>
-<p><em><strong>Tabla 7: Media vs media condicional</strong></em></p>
-<p><img src="images/tabla06.png" alt="">{width=&ldquo;440&rdquo;}</p>
+<p><em><strong>Tabla 7: Media vs media condicional</strong></em>
+<img src="images/tabla06.png" width="440" /></p>
 <p>[Ventaja:]{.ul} aprovechar la información contenida en la variable ingreso.</p>
 <h3 id="25-independencia">2.5. Independencia</h3>
 <p>La independencia de variables aleatorias es un concepto muy importante. Decimos que X e Y son independientes si conocer el valor de una de las variables no aporta información sobre la otra. En otras palabras, si la <strong>distribución condicional</strong> de Y dado X es igual a la <strong>distribución marginal</strong> de Y. Por ejemplo, si lanzamos una moneda y en el primer intento da cara, luego en el segundo lanzamiento vuelve a dar cara, decimos que los sucesos &ldquo;cara en el primer lanzamiento&rdquo; y &ldquo;cara en el segundo lanzamiento&rdquo; son <strong>independientes.</strong> Esto significa que el resultado del primer lanzamiento no puede influir sobre el del segundo.</p>
@@ -910,8 +910,8 @@ Si X e Y son independientes, entonces su correlación es igual a 0. Pero la corr
 Con <code>\(a_1, a_2 &lt; 0\)</code>:</p>
 <p><code>$$Corr(a_1X + b, a_2Y + b_2) = - Corr(X, Y)$$</code>
 Esto significa que, al multiplicar las variables por una constante, la correlación no sufre cambios. Por ejemplo, tenemos que la correlación entre cantidad de educación e ingresos es 0.15. Este resultado no cambia, es independiente si los ingresos se miden en dólares o millones de pesos, o si la educación se mida en años, meses o semestres.</p>
-<p><em><strong>Gráfico 5: Tipos de correlaciones</strong></em></p>
-<p><img src="images/grafico05.png" alt="">{width=&ldquo;468&rdquo;}</p>
+<p><em><strong>Gráfico 5: Tipos de correlaciones</strong></em>
+<img src="images/grafico05.png" width="468" /></p>
 <h2 id="5-resumen">5. Resumen</h2>
 <p>En este práctico realizamos un repaso de algunos <strong>conceptos claves</strong> que son fundamentales estadística básica e inferencial aplicada a la probabilidad, estos se centraron en:</p>
 <ol>

@@ -36,29 +36,33 @@ Las variables aleatorias discretas se pueden representar en tablas o cuadros. Po
 
 **Tabla 1: Distribución de Probabilidad Variable Cantidad de Hijos**
 
-![](images/tabla00.png){width="529"}
+<img src="images/tabla00.png" width="529" />
+
+
 
 **Gráfico 1: Distribución de Probabilidad Variable Cantidad de Hijos (en porcentaje)**
 
-![](images/grafico01.png){width="549"}
+<img src="images/grafico01.png" width="549" />
+
 
 Además de la distribución de probabilidad, también existe la **distribución de probabilidad acumulada**, la cual determina la probabilidad de que una variable sea igual o menor a un valor concreto. Siguiendo con la variable cantidad de hijos:
 
 **Tabla 2: Distribución de Probabilidad Variable Cantidad de Hijos**
-
-![](images/tabla001.png){width="529"}
+<img src="images/tabla001.png" width="529" />
 
 ***Gráfico 2: Distribución de Probabilidad Acumulada (en porcentaje)***
 
-![](images/grafico02-01.png){width="529"}
+<img src="images/grafico02-01.png" width="529" />
+
+
 
 Por su parte, las **VA continuas (VAC)** indican que X puede tomar ciertos valores con probabilidad cero, es decir, una variable `\(X\)` es una variable aleatoria continua si la probabilidad de que la variable aleatoria tome cualquier valor real sea igual a cero. *¿Cómo es posible esto?* La idea es que los valores que puede tomar una variable aleatoria continua son tantos que es imposible contarlos. Es por esto que la probabilidad de que la variable tome cada uno de estos valores es cero.
 
 Estas se describen por medio de su **función de densidad de probabilidad (fdp)**, la cual resume la información concerniente a los valores que puede tomar `\(X\)` y a sus correspondientes probabilidades. La fdp de una variable continua solo se utiliza para calcular eventos que comprenden un *rango* de valores. Un ejemplo de una variable continua donde nos podría interesar su rango de valores consiste en los ingresos de un hogar.
 
 ***Gráfico 3: Función de Densidad de Probabilidad***
+<img src="images/grafico03.png" width="468" />
 
-![](images/grafico03.png){width="468"}
 
 En este gráfico podemos observar que:
 
@@ -79,12 +83,12 @@ En muchos casos, resulta interesante estudiar de manera conjunta el comportamien
 En palabras más simples, la distribución conjunta corresponde a la probabilidad de que ocurran dos o más variables aleatorias, al mismo tiempo. Un ejemplo de estudio puede ser la relación entre ingreso y el gasto en vestimentas en un mes.
 
 ***Tabla 3: Distribución Conjunta del Gasto en Vestimenta***
+<img src="images/tabla01.png" width="506" />
 
-![](images/tabla01.png){width="506"}
 
 ***Tabla 4: Distribución Marginal del Gasto en Vestimenta***
+<img src="images/tabla02.png" width="489" />
 
-![](images/tabla02.png){width="489"}
 
 Las casillas en color rosado nos muestra la *distribución marginal* del gasto en vestimenta.
 
@@ -97,8 +101,7 @@ Cada componente de una variable aleatoria bidimensional es una variable aleatori
 La **distribución marginal** del gasto en vestimenta equivale a su **distribución unidimensional**:
 
 ***Tabla 5: Distribución Marginal del Gasto en Vestimenta***
-
-![](images/table03.png){width="413"}
+<img src="images/table03.png" width="413" />
 
 La **media** es de 2777.5 y la **desviación estándar** es de 1739.
 
@@ -111,8 +114,8 @@ Para hallar la distribución condicional de la variable fila con relación a un 
 Una característica importante de las distribuciones condicionales es que, si X y Y son variables aleatorias independientes, conocer el valor que toma X no dice nada acerca de la probabilidad de que Y tome diversos valores (y viceversa). Por ejemplo, si queremos conocer el impacto que tiene el ingreso en el gasto en vestimenta, no nos interesa realmente la variable ingreso como tal, solo su aporte al gasto en vestimenta. Si estas dos variables son independientes (propiedad que revisaremos más adelante), conocer el gasto en vestimenta no nos dirá nada acerca de los valores que podrían tomar los ingresos.
 
 ***Tabla 6: Distribución Condicional del Gasto en Vestimenta***
+<img src="images/tabla04.png" width="456" />
 
-![](images/tabla04.png){width="456"}
 
 La media condicional para la fila amarilla es de 1815, para la fila verde de 1949.2 y para la fila roja es de 3365.8.
 
@@ -123,8 +126,8 @@ Una manera sencilla de resumir la distribución condicional entre dos variables 
 El valor esperado, o esperanza, corresponde a al promedio ponderado de todos los posibles valores de una variable aleatoria X. Este se denota `\(E(X)\)`, `\(μX\)` o `\(μ\)`. Ahondaremos sobre la esperanza más adelante.
 
 ***Tabla 7: Media vs media condicional***
+<img src="images/tabla06.png" width="440" />
 
-![](images/tabla06.png){width="440"}
 
 [Ventaja:]{.ul} aprovechar la información contenida en la variable ingreso.
 
@@ -273,8 +276,7 @@ Con `\(a_1, a_2 < 0\)`:
 Esto significa que, al multiplicar las variables por una constante, la correlación no sufre cambios. Por ejemplo, tenemos que la correlación entre cantidad de educación e ingresos es 0.15. Este resultado no cambia, es independiente si los ingresos se miden en dólares o millones de pesos, o si la educación se mida en años, meses o semestres.
 
 ***Gráfico 5: Tipos de correlaciones***
-
-![](images/grafico05.png){width="468"}
+<img src="images/grafico05.png" width="468" />
 
 ## 5. Resumen
 
