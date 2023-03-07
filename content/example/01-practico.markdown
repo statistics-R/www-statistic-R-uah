@@ -36,21 +36,21 @@ Las variables aleatorias discretas se pueden representar en tablas o cuadros. Po
 
 **Tabla 1: Distribución de Probabilidad Variable Cantidad de Hijos**
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla00.png){width = "529"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla00.png)
 
 
 **Gráfico 1: Distribución de Probabilidad Variable Cantidad de Hijos (en porcentaje)**
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico01.png){width = "549"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico01.png)
 
 Además de la distribución de probabilidad, también existe la **distribución de probabilidad acumulada**, la cual determina la probabilidad de que una variable sea igual o menor a un valor concreto. Siguiendo con la variable cantidad de hijos:
 
 **Tabla 2: Distribución de Probabilidad Variable Cantidad de Hijos**
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla001.png){width = "529"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla001.png)
 
 
 ***Gráfico 2: Distribución de Probabilidad Acumulada (en porcentaje)***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico02-01.png){width = "529"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico02-01.png)
 
 Por su parte, las **VA continuas (VAC)** indican que X puede tomar ciertos valores con probabilidad cero, es decir, una variable `\(X\)` es una variable aleatoria continua si la probabilidad de que la variable aleatoria tome cualquier valor real sea igual a cero. *¿Cómo es posible esto?* La idea es que los valores que puede tomar una variable aleatoria continua son tantos que es imposible contarlos. Es por esto que la probabilidad de que la variable tome cada uno de estos valores es cero.
 
@@ -58,7 +58,7 @@ Estas se describen por medio de su **función de densidad de probabilidad (fdp)*
 
 ***Gráfico 3: Función de Densidad de Probabilidad***
 <img src="images/grafico03.png" width="468" />
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico03.png){width = "468"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico03.png)
 
 
 En este gráfico podemos observar que:
@@ -81,11 +81,11 @@ En palabras más simples, la distribución conjunta corresponde a la probabilida
 
 ***Tabla 3: Distribución Conjunta del Gasto en Vestimenta***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla01.png){width = "506"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla01.png)
 
 
 ***Tabla 4: Distribución Marginal del Gasto en Vestimenta***
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla02.png){width = "489"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla02.png)
 
 
 Las casillas en color rosado nos muestra la *distribución marginal* del gasto en vestimenta.
@@ -100,7 +100,7 @@ La **distribución marginal** del gasto en vestimenta equivale a su **distribuci
 
 ***Tabla 5: Distribución Marginal del Gasto en Vestimenta***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/table03.png){width = "413"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/table03.png)
 
 La **media** es de 2777.5 y la **desviación estándar** es de 1739.
 
@@ -114,7 +114,7 @@ Una característica importante de las distribuciones condicionales es que, si X 
 
 ***Tabla 6: Distribución Condicional del Gasto en Vestimenta***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla04.png){width = "456"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla04.png)
 
 La media condicional para la fila amarilla es de 1815, para la fila verde de 1949.2 y para la fila roja es de 3365.8.
 
@@ -126,7 +126,7 @@ El valor esperado, o esperanza, corresponde a al promedio ponderado de todos los
 
 ***Tabla 7: Media vs media condicional***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla06.png){width = "440"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/tabla06.png)
 
 [Ventaja:]{.ul} aprovechar la información contenida en la variable ingreso.
 
@@ -276,7 +276,7 @@ Esto significa que, al multiplicar las variables por una constante, la correlaci
 
 ***Gráfico 5: Tipos de correlaciones***
 
-![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico05.png){width = "468"}
+![](https://github.com/statistics-R/www-statistic-R-uah/raw/master/content/example/images/grafico05.png)
 
 ## 5. Resumen
 
