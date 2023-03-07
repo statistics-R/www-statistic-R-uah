@@ -328,7 +328,10 @@ class: title title-8
 
 # Equipo
 
-Falta imagen
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/24.png" alt="drawing" style="width:1000px;"/>
+</center>
+
 
 ---
 class: title title-8
@@ -373,7 +376,10 @@ class: title title-8
 ---
 
 
-Meme final
+<center>
+<img src="https://raw.githubusercontent.com/statistics-R/slides/main/img/01/25.png" alt="drawing" style="width:1000px;"/>
+</center>
+
 
 
 ---

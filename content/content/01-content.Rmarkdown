@@ -12,7 +12,7 @@ type: docs
 toc: true
 bibliography: "../../static/bib/references.bib"
 csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
-slides: "01-slides"
+slides: "01-slide"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
