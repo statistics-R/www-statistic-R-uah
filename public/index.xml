@@ -3783,13 +3783,13 @@ enc = wage1 %&amp;gt;%
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 × 2
 ##       x  x_se
 ##   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1  12.6 0.238&lt;/code&gt;&lt;/pre&gt;
+## 1  12.6 0.202&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;enc %&amp;gt;%
   summarise(y=survey_mean(wage))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 × 2
 ##       y  y_se
 ##   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1  5.53 0.212&lt;/code&gt;&lt;/pre&gt;
+## 1  6.01 0.314&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Podemos ver que, a nivel poblacional, los valores estimados eran 12.56 y 5.89 para &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; e &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, respectivamente. Sin embargo, al considerar el diseño muestral en la estimación de estos valores, la media calculada cambia a 12.63 e 6.22, respectivamente. La incorporación de ponderadores en la estimación permite ajustar esta última a la probabilidad de cada uno de los sujetos de ser elegidos en la muestra. De ese modo, podemos estimar los valores de &lt;span class=&#34;math inline&#34;&gt;\(\bar{x}\)&lt;/span&gt; e &lt;span class=&#34;math inline&#34;&gt;\(\bar{y}\)&lt;/span&gt; a nivel poblacional, considerando el error muestral en la estimación.&lt;/p&gt;
 &lt;p&gt;Lo mismo sucede con los valores estimados para &lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt; y &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;: incorporar el diseño muestral en la estimación del modelo de regresión permite ajustar los valores obtenidos para el intercepto y los coeficientes de regresión, acercándolos al parámetro poblacional. Para llevar esto a cabo en R recurrimos a &lt;code&gt;svyglm()&lt;/code&gt; de &lt;code&gt;survey&lt;/code&gt;, que permite estimar distintos modelos de regresión (que no revisaremos en este curso), entre los cuales se encuentra el modelo de regresión lineal, considerando el diseño muestral de los datos. El código se construye de manera muy similar a como lo hacíamos con &lt;code&gt;lm()&lt;/code&gt;. Las únicas salvedades son&lt;/p&gt;
 &lt;ul&gt;
@@ -3804,16 +3804,16 @@ enc = wage1 %&amp;gt;%
 ## ====================================
 ##              Sin         Con        
 ## ------------------------------------
-## (Intercept)   -0.90        -0.31    
-##               (0.68)       (0.74)   
-## educ           0.54 ***     0.47 ***
-##               (0.05)       (0.06)   
+## (Intercept)   -0.90        -0.88    
+##               (0.68)       (1.36)   
+## educ           0.54 ***     0.55 ***
+##               (0.05)       (0.12)   
 ## ------------------------------------
 ## R^2            0.16                 
 ## Adj. R^2       0.16                 
-## Num. obs.    526          524       
-## Deviance                 4113.93    
-## Dispersion                  7.84    
+## Num. obs.    526          526       
+## Deviance                 6626.61    
+## Dispersion                 12.62    
 ## ====================================
 ## *** p &amp;lt; 0.001; ** p &amp;lt; 0.01; * p &amp;lt; 0.05&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Es posible apreciar que los valores estimados difieren ligeramente para ambos modelos. Ello involucra tanto el intercepto y el coeficiente de regresión, como a sus errores estándar y medidas de ajuste. Esto significa que la inclusión del diseño muestral en la estimación del modelo tiene consecuencias para la inferencia estadística que puede hacerse a partir de él. De este modo se puede justificar la incorporación del diseño muestral en la estimación de modelos de regresión siempre que sea posible, pues mejora su validez al mejorar su precisión, acercando el intercepto y los coeficientes generados a los valores que alcanzan en la población.&lt;/p&gt;

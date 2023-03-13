@@ -653,28 +653,8 @@ Analizar la bondad de ajuste de los modelos de regresión lineal simple estimado
   </div>
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/example/10-practico/">Ejemplos</a>
+    <a class="docs-toc-link" href="/example/01-practico/">Ejemplos</a>
     <ul class="nav docs-sidenav">
-      
-      <li >
-        <a href="/example/10-practico/">10: Relaciones no lineales y términos de interacción</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/11-practico/">11: Chequeo de supuestos</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/12-practico/">12: Errores de medida y procesamiento</a>
-      </li>
-
-      
-      <li >
-        <a href="/example/13-practico/">13: Omisión de variables relevantes</a>
-      </li>
-
       
       <li >
         <a href="/example/01-practico/">1: Variables aleatorias y distribuciones</a>
@@ -683,6 +663,16 @@ Analizar la bondad de ajuste de los modelos de regresión lineal simple estimado
       
       <li >
         <a href="/example/02-practico/">2: Inferencia</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/032-practico/">3: RMarkdown</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/03-practico/">3: R, RStudio y Github</a>
       </li>
 
       
@@ -712,12 +702,22 @@ Analizar la bondad de ajuste de los modelos de regresión lineal simple estimado
 
       
       <li >
-        <a href="/example/032-practico/">3: RMarkdown</a>
+        <a href="/example/10-practico/">10: Relaciones no lineales y términos de interacción</a>
       </li>
 
       
       <li >
-        <a href="/example/03-practico/">3: R, RStudio y Github</a>
+        <a href="/example/11-practico/">11: Chequeo de supuestos</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/12-practico/">12: Errores de medida y procesamiento</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/13-practico/">13: Omisión de variables relevantes</a>
       </li>
 
       
@@ -927,13 +927,13 @@ enc = wage1 %&gt;%
 <pre><code>## # A tibble: 1 × 2
 ##       x  x_se
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  12.6 0.238</code></pre>
+## 1  12.6 0.202</code></pre>
 <pre class="r"><code>enc %&gt;%
   summarise(y=survey_mean(wage))</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##       y  y_se
 ##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  5.53 0.212</code></pre>
+## 1  6.01 0.314</code></pre>
 <p>Podemos ver que, a nivel poblacional, los valores estimados eran 12.56 y 5.89 para <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>, respectivamente. Sin embargo, al considerar el diseño muestral en la estimación de estos valores, la media calculada cambia a 12.63 e 6.22, respectivamente. La incorporación de ponderadores en la estimación permite ajustar esta última a la probabilidad de cada uno de los sujetos de ser elegidos en la muestra. De ese modo, podemos estimar los valores de <span class="math inline">\(\bar{x}\)</span> e <span class="math inline">\(\bar{y}\)</span> a nivel poblacional, considerando el error muestral en la estimación.</p>
 <p>Lo mismo sucede con los valores estimados para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>: incorporar el diseño muestral en la estimación del modelo de regresión permite ajustar los valores obtenidos para el intercepto y los coeficientes de regresión, acercándolos al parámetro poblacional. Para llevar esto a cabo en R recurrimos a <code>svyglm()</code> de <code>survey</code>, que permite estimar distintos modelos de regresión (que no revisaremos en este curso), entre los cuales se encuentra el modelo de regresión lineal, considerando el diseño muestral de los datos. El código se construye de manera muy similar a como lo hacíamos con <code>lm()</code>. Las únicas salvedades son</p>
 <ul>
@@ -948,16 +948,16 @@ enc = wage1 %&gt;%
 ## ====================================
 ##              Sin         Con        
 ## ------------------------------------
-## (Intercept)   -0.90        -0.31    
-##               (0.68)       (0.74)   
-## educ           0.54 ***     0.47 ***
-##               (0.05)       (0.06)   
+## (Intercept)   -0.90        -0.88    
+##               (0.68)       (1.36)   
+## educ           0.54 ***     0.55 ***
+##               (0.05)       (0.12)   
 ## ------------------------------------
 ## R^2            0.16                 
 ## Adj. R^2       0.16                 
-## Num. obs.    526          524       
-## Deviance                 4113.93    
-## Dispersion                  7.84    
+## Num. obs.    526          526       
+## Deviance                 6626.61    
+## Dispersion                 12.62    
 ## ====================================
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 <p>Es posible apreciar que los valores estimados difieren ligeramente para ambos modelos. Ello involucra tanto el intercepto y el coeficiente de regresión, como a sus errores estándar y medidas de ajuste. Esto significa que la inclusión del diseño muestral en la estimación del modelo tiene consecuencias para la inferencia estadística que puede hacerse a partir de él. De este modo se puede justificar la incorporación del diseño muestral en la estimación de modelos de regresión siempre que sea posible, pues mejora su validez al mejorar su precisión, acercando el intercepto y los coeficientes generados a los valores que alcanzan en la población.</p>
