@@ -1,0 +1,222 @@
+---
+title: "Regresión lineal simple con diseño muestral y bondad de ajuste"
+linktitle: "5: Regresión lineal simple con diseño muestral y bondad de ajuste"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo-del-práctico" class="section level2">
+<h2>0. Objetivo del práctico</h2>
+<p>El presente práctico tiene tres objetivos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Analizar la bondad de ajuste de los modelos de regresión lineal simple estimados a través del estadístico <span class="math inline">\(R^2\)</span>.</p></li>
+<li><p>Aprender a estimar una regresión lineal simple incorporando el diseño muestral en las estimaciones en R, a través de la función <code>svyglm()</code>.</p></li>
+<li><p>Comprender la importancia y las implicancias de realizar las estimaciones de modelos de regresión lineal, considerando u omitiendo el diseño muestral en el análisis.</p></li>
+</ol>
+<div id="materiales-de-la-sesión" class="section level3">
+<h3>Materiales de la sesión</h3>
+<p>Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre <strong>salarios</strong> utilizados en el capítulo 2 del libro <em>Introducción a la econometría</em> de J.W. Wooldridge (2015).</p>
+<p>Asimismo, la realización de este práctico requiere la carga de diversos <strong>paquetes</strong> que nos permitirán explorar los datos y presentar los modelos estimados.</p>
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;) # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               MCMCpack, #Para crear un ponderador ficticio
+               srvyr, #Para crear un objeto encuesta
+               survey, #Para realizar estimaciones incorporando el diseño muestral
+               texreg) #Para presentar el modelo de regresión estimado
+data(&quot;wage1&quot;) #Cargamos los datos
+wage1 = select(wage1, wage, educ) #Seleccionamos sólo las variables por analizar</code></pre>
+</div>
+</div>
+<div id="recordemos-estimando-un-modelo-de-regresión-lineal-simple-con-lm" class="section level2">
+<h2>1. Recordemos: Estimando un modelo de regresión lineal simple con <code>lm()</code></h2>
+<p>Como recordarán del práctico anterior, lo que buscamos es estimar un modelo de regresión lineal simple de salarios por hora (<strong>wage</strong>) sobre años de escolaridad (<strong>educ</strong>). La siguiente ecuación expresará, entonces, el <strong>efecto promedio</strong> de los años de escolaridad sobre el salario por hora, <em>ceteris paribus</em></p>
+<p><span class="math display">\[
+\begin{equation}
+\hat{wage} = \beta_0 + \beta_1educ_{i}
+\end{equation}
+\]</span></p>
+<p>Utilizando la función <code>lm()</code> del paquete <code>base</code> de <code>R</code> podemos estimar ese modelo de regresión lineal utilizando nuestros datos.</p>
+<pre class="r"><code>mod = lm(wage ~ educ, data = wage1)</code></pre>
+<p>Luego de haber creado el objeto que contiene el modelo de regresión lineal simple estimado, debemos proceder a presentarlo para poder analizar los resultados. Para ello utilizaremos la función <code>summary()</code> de <code>base</code>.</p>
+<pre class="r"><code>summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ educ, data = wage1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.3396 -2.1501 -0.9674  1.1921 16.6085 
+## 
+## Coefficients:
+##             Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept) -0.90485    0.68497  -1.321               0.187    
+## educ         0.54136    0.05325  10.167 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.378 on 524 degrees of freedom
+## Multiple R-squared:  0.1648, Adjusted R-squared:  0.1632 
+## F-statistic: 103.4 on 1 and 524 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<p>La tabla nos informa que los años de escolaridad tienen un efcto <strong>positivo</strong> (<span class="math inline">\(\beta_1 = 0.54\)</span>) sobre el salario por hora. Es decir, se espera que personas con más años de escolaridad tiendan a presentar, en promedio, salarios por hora más altos. Concretamente, por cada año de escolaridad adicional se espera que una persona tenga, en promedio, un salario promedio .54 mil pesos mayor.</p>
+<div id="ajuste-y-residuos" class="section level3">
+<h3>Ajuste y residuos</h3>
+<p>Como podemos recordar, lo que se espera es que exista una relación lineal entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>. La <strong>recta de regresión</strong> presentada en la siguiente figura representa los valores predichos para <span class="math inline">\(y\)</span> por cada valor de <span class="math inline">\(x\)</span>. No obstante, no siempre los modelos que estimamos permiten ajustarse de manera perfecta a la variabilidad de los datos, lo que implica que existirá una <strong>diferencia entre los valores predichos para <span class="math inline">\(y\)</span>, respecto de los valores observados</strong> en la muestra. A esta diferencia entre <span class="math inline">\(\hat{y}\)</span> e <span class="math inline">\(y\)</span> se denomina <strong>residuo</strong>.</p>
+<pre class="r"><code>sjPlot::plot_scatter(wage1, 
+                     x = educ, 
+                     y = wage,
+                     title = &quot;Relación entre salarios (en miles de pesos) por hora y años de escolaridad&quot;,
+                     fit.line = &quot;lm&quot;)</code></pre>
+<p><img src="/example/05-practico_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Aquellas observaciones que estén por sobre la recta serán residuos <strong>positivos</strong> o <strong>subestimaciones</strong>, pues en estos casos <span class="math inline">\(\hat{y}&gt;y\)</span>, de modo que <span class="math inline">\(\hat{y}-y &gt; 0\)</span>. Por el contrario, las observaciones bajo la recta constituyen residuos <strong>negativos</strong> o <strong>sobrestimaciones</strong>. Del mismo modo, los valores que se encuentran sobre la recta de la regresión fueron predichos de forma precisa por el modelo, por lo cual sus residuos tenderán a acercarse a cero.</p>
+<p>En ese sentido, su objetivo como analistas de datos será hallar una recta que minimice lo más que se pueda el valor de los residuos, en tanto ello es indicativo de un modelo que permite explicar adecuadamente la variabilidad en <span class="math inline">\(y\)</span> en razón de la variabilidad en <span class="math inline">\(x\)</span>. Como se señaló al final del práctico anterior, la minimización de la <strong>suma de los residuos al cuadrado</strong> o <span class="math inline">\(SS_{residual}\)</span> permite optimizar la estimación de la recta de regresión: a esto se denomina método de <strong>Mínimos Cuadrados Ordinarios (MCO)</strong> (u <em>OLS</em> en inglés). La suma de los residuos se realiza al cuadrado para evitar que residuos positivos y negativos se anulen entre sí.</p>
+<p>Sin embargo, dado que un mismo modelo de regresión puede representar distintas distribuciones de datos con distintos residuos, es necesario estimar estadísticos que reflejen la <strong>bondad de ajuste</strong> del modelo estimado. Así, podemos encontrar información que nos permita afirmar qué tan bien el modelo representa la distribución de los datos, o qué tan buena es la predicción estimada. Si bien para ello se podría simplemente calcular la cantidad de residuos generados por el modelo, ello desembocaría en un valor de difícil interpretación en términos de ajuste. Para ello se recurre a un estadístico llamado <span class="math inline">\(R^2\)</span>, que permite representar la bondad de ajuste del modelo de forma sencilla.</p>
+<p>Este estadística varía entre 0 y 1, y da cuenta del <strong>porcentaje de la varianza de <span class="math inline">\(y\)</span> que podemos explicar con <span class="math inline">\(x\)</span></strong>. Un modelo que genera menos residuos, en consecuencia, también presenta un mayor valor en el estadístico <span class="math inline">\(R^2\)</span>. Un modelo donde todos los valores observados se ajustan <strong>perfectamente</strong> a la recta de regresión estimada presenta un <span class="math inline">\(R^2 = 1\)</span>.</p>
+</div>
+</div>
+<div id="calculando-r2" class="section level2">
+<h2>2. Calculando <span class="math inline">\(R^2\)</span></h2>
+<p>Este estadístico se puede representar de la siguiente forma</p>
+<p><span class="math display">\[
+\begin{equation}
+R^2 = \frac{SS_{reg}}{SS_{tot}}
+\end{equation}
+\]</span>
+, donde</p>
+<ul>
+<li><span class="math inline">\(SS_{reg}\)</span>: corresponde a la <strong>suma de cuadrados de la regresión</strong>, y expresa la diferencia entre el valor predicho <span class="math inline">\(\hat{y}\)</span> y el promedio de la variable explicada <span class="math inline">\(\bar{y}\)</span>. Esta valor se interpreta como la parte de <span class="math inline">\(y\)</span> que es posible conocer si se conoce <span class="math inline">\(x\)</span>, o ¿qué tan útil resulta <span class="math inline">\(x\)</span> para saber sobre la variabilidad de <span class="math inline">\(y\)</span>, más allá de <span class="math inline">\(\bar{y}\)</span>? Para ello, sustraemos al valor predicho para cada caso el promedio de <span class="math inline">\(y\)</span> y elevamos ese valor al cuadrado, para después sumar todos esos valores:</li>
+</ul>
+<p><span class="math display">\[
+SS_{reg} = \sum_{i=1}^{n}(\hat{y} - \bar{y})^2
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SS_{tot}\)</span>: corresponde a la <strong>suma total de cudrados</strong>, es decir, la suma de las diferencias entre los valores observados de <span class="math inline">\(y\)</span> y su promedio <span class="math inline">\(\bar{y}\)</span>, lo cual representa la varianza total de <span class="math inline">\(y\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+SS_{tot} = \sum_{i=1}^{n}(y - \bar{y})^2
+\]</span></p>
+<p>Considerando la ecuación de la recta de regresión de salario por hora sobre años de escolaridad</p>
+<p><span class="math display">\[
+\begin{equation}
+\hat{y} = -.9 + .54 x_{i}
+\end{equation}
+\]</span>
+Estimamos</p>
+<ul>
+<li><code>predy</code>: los <strong>valores predichos para <span class="math inline">\(y\)</span></strong> para cada una de las observaciones en la muestra,</li>
+<li><code>difpredprom</code>: el cuadrado de la <strong>diferencia</strong> entre los <strong>valores predichos para <span class="math inline">\(y\)</span></strong> y el <strong>promedio de <span class="math inline">\(y\)</span></strong>,</li>
+<li><code>difobsprom</code>: el cuadrado de la <strong>diferencia</strong> entre los <strong>valores observados para <span class="math inline">\(y\)</span></strong> y el <strong>promedio de <span class="math inline">\(y\)</span></strong>,</li>
+</ul>
+<pre class="r"><code>wage1$predy = -.9+(.54*wage1$educ)
+wage1$difpredprom = (wage1$predy-mean(wage1$wage))^2
+wage1$difobsprom = (wage1$wage-mean(wage1$wage))^2</code></pre>
+<p>Utilizamos <code>sum()</code> para estimar <span class="math inline">\(SS_{reg}\)</span> y <span class="math inline">\(SS_{tot}\)</span></p>
+<pre class="r"><code>sum(wage1$difobsprom)</code></pre>
+<pre><code>## [1] 7160.414</code></pre>
+<pre class="r"><code>sum(wage1$difpredprom)</code></pre>
+<pre><code>## [1] 1173.894</code></pre>
+<p>Luego, reemplazamos y obtenemos</p>
+<p><span class="math display">\[
+\begin{equation}
+R^2 = \frac{SS_{reg}}{SS_{tot}} = \frac{1173.894}{7160.414} = 0.164
+\end{equation}
+\]</span></p>
+<p>Entonces, es posible señalar que el porcentaje de la varianza de los salarios por hora <strong>wage</strong> que es posible relacionar a los años de escolaridad <strong>educ</strong> corresponde al <strong><span class="math inline">\(16.4\)</span>%</strong>. Asimismo, un <strong><span class="math inline">\(83.6\)</span>%</strong> de la varianza de los salarios porn hora no está relacionada a los años de escolaridad.</p>
+<p>Por supuesto, no es necesario realizar todo este cálculo manualmente para conocer la bondad de ajuste de nuestro(s) modelos. Funciones como <code>texreg()</code> (utilizada el práctico pasado) o <code>summary</code> presentan este estadístico en su output:</p>
+<pre class="r"><code>summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ educ, data = wage1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.3396 -2.1501 -0.9674  1.1921 16.6085 
+## 
+## Coefficients:
+##             Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept) -0.90485    0.68497  -1.321               0.187    
+## educ         0.54136    0.05325  10.167 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.378 on 524 degrees of freedom
+## Multiple R-squared:  0.1648, Adjusted R-squared:  0.1632 
+## F-statistic: 103.4 on 1 and 524 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<p>En este caso, el estadístico se presenta en la penúltima fila del output, luego del texto <code>Multiple R-squared:</code>. Podemos ver que el valor es bastante similar a la estimación a mano realizada. Como señalamos, lo esperado es obtener un <span class="math inline">\(R^2\)</span> lo más elevado posible. Sin embargo, esto no es lo único que importa a la hora de estimar un modelo de regresión lineal: es fundamental que nuestro modelo esté fundamentado teórica y empíricamente, además de que este y los datos cumplan con una serie de supuestos que permiten asegurar que la estimación realizada es válida en términos estadísticos. Uno de estos supuestos es, por supuesto, que la muestra extraída sea probabilística y representativa de la población, a modo de poder realizar inferencias estadísticamente fundadas respecto de la relación entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> a nivel poblacional.</p>
+<p>Para poder incorporar el efecto del diseño muestral en la población, independiente de si este es simple o complejo, debemos acudir a funciones distintas a <code>lm()</code>. Así, utilizaremos los paquetes <code>srvyr</code> y <code>survey</code> para elaborar un <strong>objeto encuesta</strong> y estimar modelos de regresión</p>
+</div>
+<div id="estimando-un-modelo-de-regresión-lineal-simple-considerando-un-diseño-muestral-simple" class="section level2">
+<h2>3. Estimando un modelo de regresión lineal simple considerando un diseño muestral simple</h2>
+<p>Como hemos visto anteriormente, el modelo de regresión lineal tiene como estadístico base la <strong>media</strong> de <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>. En este caso, <span class="math inline">\(\bar{x} = 12.56\)</span> y <span class="math inline">\(\bar{y} = 5.89\)</span>. De incorporar el diseño muestral en la estimación de la media de ambas variables ¿se presentarán diferencias? Para saberlo, primero debemos crear un <strong>objeto encuesta</strong> que nos permita incorporar el diseño muestral de los datos en la estimación. En este caso, asumiremos que se trabaja con datos producidos a partir de un muestreo aleatorio simple. Además, crearemos un <strong>ponderador ficticio</strong> <code>pond</code> que nos permita realizar este ejercicio adecuadamente. Utilizaremos <code>as_survey_design()</code> de <code>srvyr</code> para crear nuestro objeto encuesta</p>
+<pre class="r"><code>#Creamos el ponderador ficiticio
+npond &lt;- 526
+
+pond &lt;- MCMCpack::rdirichlet(1, runif(npond)) |&gt; 
+  as.vector()
+
+sum(npond)</code></pre>
+<pre><code>## [1] 526</code></pre>
+<pre class="r"><code>all(dplyr::between(pond, 0, 1))</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>wage1 = cbind(wage1, pond)
+enc = wage1 %&gt;% 
+  as_survey_design(weights = pond) #Especificamos la variable del ponderador</code></pre>
+<p>Luego, utilizamos <code>survey_mean()</code> de <code>survey</code> para estimar la media de ambas variables considerando el diseño muestral de los datos</p>
+<pre class="r"><code>enc %&gt;%
+  summarise(x=survey_mean(educ))</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##       x  x_se
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  12.6 0.238</code></pre>
+<pre class="r"><code>enc %&gt;%
+  summarise(y=survey_mean(wage))</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##       y  y_se
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1  5.53 0.212</code></pre>
+<p>Podemos ver que, a nivel poblacional, los valores estimados eran 12.56 y 5.89 para <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>, respectivamente. Sin embargo, al considerar el diseño muestral en la estimación de estos valores, la media calculada cambia a 12.63 e 6.22, respectivamente. La incorporación de ponderadores en la estimación permite ajustar esta última a la probabilidad de cada uno de los sujetos de ser elegidos en la muestra. De ese modo, podemos estimar los valores de <span class="math inline">\(\bar{x}\)</span> e <span class="math inline">\(\bar{y}\)</span> a nivel poblacional, considerando el error muestral en la estimación.</p>
+<p>Lo mismo sucede con los valores estimados para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>: incorporar el diseño muestral en la estimación del modelo de regresión permite ajustar los valores obtenidos para el intercepto y los coeficientes de regresión, acercándolos al parámetro poblacional. Para llevar esto a cabo en R recurrimos a <code>svyglm()</code> de <code>survey</code>, que permite estimar distintos modelos de regresión (que no revisaremos en este curso), entre los cuales se encuentra el modelo de regresión lineal, considerando el diseño muestral de los datos. El código se construye de manera muy similar a como lo hacíamos con <code>lm()</code>. Las únicas salvedades son</p>
+<ul>
+<li>En lugar de especificar los datos, debemos especificar el <strong>objeto encuesta</strong> generado, y</li>
+<li>Dado que esta función permite estimar diversos tipos de modelos lineales generalizados, debemos especificar en el argumento <code>family =</code> que el modelo que deseamos estimar es lineal.</li>
+</ul>
+<pre class="r"><code>mod_enc = svyglm(wage ~ educ, #Especificamos la fórmula
+                 design = enc, #Especificamos el objeto encuesta
+                 family = gaussian(link = &quot;identity&quot;)) #Especificamos el modelo lineal</code></pre>
+<p>Comparemos los modelos con y sin la consideración el diseño muestral en su estimación:</p>
+<pre><code>## 
+## ====================================
+##              Sin         Con        
+## ------------------------------------
+## (Intercept)   -0.90        -0.31    
+##               (0.68)       (0.74)   
+## educ           0.54 ***     0.47 ***
+##               (0.05)       (0.06)   
+## ------------------------------------
+## R^2            0.16                 
+## Adj. R^2       0.16                 
+## Num. obs.    526          524       
+## Deviance                 4113.93    
+## Dispersion                  7.84    
+## ====================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Es posible apreciar que los valores estimados difieren ligeramente para ambos modelos. Ello involucra tanto el intercepto y el coeficiente de regresión, como a sus errores estándar y medidas de ajuste. Esto significa que la inclusión del diseño muestral en la estimación del modelo tiene consecuencias para la inferencia estadística que puede hacerse a partir de él. De este modo se puede justificar la incorporación del diseño muestral en la estimación de modelos de regresión siempre que sea posible, pues mejora su validez al mejorar su precisión, acercando el intercepto y los coeficientes generados a los valores que alcanzan en la población.</p>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>En este práctico aprendimos las diferencias de estimar modelos de regresión lineal simple con y sin la incorporación del diseño muestral complejo en sus estimaciones. Además, a través del estadístico <span class="math inline">\(R^2\)</span>, aprendimos a analizar la bondad de ajuste de los modelos estimados.</p>
+</div>

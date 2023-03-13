@@ -1,0 +1,198 @@
+---
+title: "Regresión lineal múltiple y predictores categóricos"
+linktitle: "7: Regresión lineal múltiple y predictores categóricos"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+```{r, include =F}
+options(scipen = 999)
+```
+
+## 0. Objetivo del práctico
+
+El presente práctico tiene dos objetivos: 
+
+1. Aprender a estimar una regresión lineal múltiple en R con `lm()`.
+
+2. Aprender a interpretar modelos de regresión lineal múltiple con variables explicativas categóricas. 
+
+### Materiales de la sesión 
+
+Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre **salarios** utilizados en el capítulo 2 del libro *Introducción a la econometría* de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados. 
+
+```{r data, echo=TRUE}
+data = readRDS(url("https://github.com/statistics-R/practico-7/raw/main/data.rds"))
+```
+
+Asimismo, la realización de este práctico requiere la carga de diversos **paquetes** que nos permitirán explorar los datos y presentar los modelos estimados.
+
+```{r library, echo=T, message = F}
+if (!require("pacman")) install.packages("pacman") # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               ggplot2,#Para graficar
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               texreg) #Para presentar el modelo de regresión estimado
+
+```
+
+## 1. Volviendo a explorar los datos
+
+Volvemos a encontrarnos con: 
+
+- **wage** ($y$): indica el salario por hora en miles de pesos de cada persona en los datos. 
+- **educ** ($x_1$): indica el número de años de escolaridad de cada persona en los datos. 
+- **exper** ($x_2$): indica los años de experiencia laboral de cada persona en los datos.
+
+Sin embargo, ahora agregamos una variable categórica:
+
+- **rama** ($x_3$) : actividad económica a la que se dedica la empresa donde trabaja. 
+
+Utilicemos `frq()` de `sjmisc` para explorar esta nueva variable. Podemos ver que casi el 50% de la muestra trabaja en comercio.
+
+```{r plot_rama, echo = F}
+sjPlot::plot_frq(data$rama,
+                 title = "Gráfico de barras de rama de actividad económica",
+                 type = "bar")
+```
+
+Las seleccionaremos utilizando la función `select()` de `dplyr`, a modo de trabajar con un set de datos más acotado
+
+
+Recordemos la distribución de estas variables:
+
+```{r plot_wage, echo =F}
+sjPlot::plot_frq(data$wage,
+                 title = "Histograma de salarios por hora en miles de pesos",
+                 type = "histogram")
+```
+
+```{r plot_educ, echo = F, warning=F}
+sjPlot::plot_frq(data$educ,
+                 title = "Histograma de años de escolaridad",
+                 type = "histogram")
+```
+
+```{r plot_exper, echo = F, warning=F}
+sjPlot::plot_frq(data$exper,
+                 title = "Histograma de años de experiencia",
+                 type = "histogram")
+```
+
+Podríamos preguntarnos cómo se distribuyen los **salarios por hora** en cada **actividad económica**
+
+```{r, echo = F}
+data %>% 
+  group_by(rama) %>% 
+  summarise(wage = mean(wage)) %>% 
+  ggplot() +
+  geom_bar(aes(x = rama, y = wage), stat = "identity") +
+  labs(title = "Salario por hora promedio para cada rama de actividad económica") 
+```
+Vemos que Información y comunicaciones presenta el promedio más alto (6.86 mil), seguido por Manufactura (6.65 mil) y Construcción (5.96 mil). Por su parte, los promedios más bajos corresponden a Servicios (4.34 mil) y Comercio (4.79 mil).
+
+En este caso, la variable por explicar sigue siendo **wage** ($y$), a partir de la cual estimaremos un modelo de **regresión lineal múltiple** sobre **educ** ($x_1$), **exper** ($x_2$) y **rama** ($x_3$). Sin embargo, la inclusión de un predictor categórico requiere de una **categoría de referencia** con base en la cual sea posible estimar **diferencias promedio** para cada una de las otras categorías. En el modelo por estimar, esto se reflejará en la estimación de $k-1$ coeficientes de regresión, siendo $k$ el número de categorías que presenta nuestra variable explicativa categórica. En este caso, $k_{rama} = 5$, de modo que el modelo estimado presentará **4 coeficientes de regresión** para la actividad económica, donde cada uno de ellos reflejará las diferencias promedio estimadas respecto de la categoría de referencia.
+
+Pero ¿qué es una **categoría de referencia**? Por defecto, en nuestras variables categóricas corresponde al **primer valor de la variable**, siguiendo una prioridad alfanumérica. Ello quiere decir que las categorías que inicien con el número "1" tiene más prioridad que las que inician con el número "4", así como que las categorías que inician con la letra "a" tienen una mayor prioridad frente a las que inician con "d". Podemos utilizar la función `factor()` para modificar manualmente el orden de nuestras variables categóricas (cuyo tipo de dato debe ser `factor`). A modo de ejemplo, crearemos 
+
+a) Una nueva variable que tenga como categoría de referencia el valor **3. Info. y com.**, utilizando la función `ref_lvl()` de `sjmisc`, y
+b) Una nueva variable factor cuyos niveles sigan el promedio de salarios por hora para cada categoría de actividad económica: 
+
+```{r echo = T}
+#Transformamos nuestra variable en factor
+data$rama = factor(data$rama)
+#Creamos una nueva variable con 3. Info y com. como categoría de referencia
+data$rama_info = ref_lvl(data$rama, lvl = "3. Info. y com.")
+#Y otra con la que ordenamos las categorías de forma ascendente a partir de los promedios en wage
+data$rama_wage = factor(data$rama, levels = c("5. Servicios",
+                                              "4. Comercio", 
+                                              "1. Construccion", 
+                                              "2. Manufactura",
+                                              "3. Info. y com."))
+```
+
+Un modelo de regresión lineal múltiple con predictores categóricos se puede expresar a partir de la siguiente ecuación: 
+
+$$
+\begin{equation}
+\hat{y} = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \beta_3x_{k=k+1}, ..., \beta_3x_{k=k}
+\end{equation}
+$$
+Donde 
+
+- $\beta_0$: Corresponde al intercepto de regresión. 
+
+- $\beta_1$: Corresponde a la **pendiente** estimada para la función de regresión lineal de los **salarios por hora** ($y$) sobre los **años de escolaridad** ($x_1$). Así, por cada unidad que aumente $x_1$ (en este caso, por cada año de escolaridad extra), el valor estimado $\hat{y}$ para los salarios por hora aumentará o disminuirá en $\beta_1$.
+
+- $\beta_2$: Corresponde a la **pendiente** estimada para la función de regresión lineal de los **salarios por hora** ($y$) sobre los **años de experiencia laboral** ($x_2$). Así, por cada unidad que aumente $x_1$ (en este caso, por cada año de experiencia laboral), el valor estimado $\hat{y}$ para los salarios por hora aumentará o disminuirá en $\beta_2$.
+
+- $\beta_3x_{k=k+1}, ..., \beta_3_{k=k}$: Corresponde al coeficiente de regresión estimado para cada una de las categorías de nuestra variable explicativa categórica. En este caso tenemos 5 categorías, de modo que estimaremos 4 coeficientes, que en este caso reflejarán las diferencias promedio de los salarios estimados para quienes se desempeñan en construcción, manufactura, información y comunicaciones, comercio y servicios. Estos, sumados al intercepto $\beta_0$, indican las diferencias promedio estimadas para cada una de las categorías de actividad económica. 
+ 
+En este caso, lo esperable es que los valores predichos para información y comunicaciones sean mayores que aquellos estimados para el resto de categorías ocupacionales, siguiendo lo presentado en el gráfico de barras anteriormente presentado. 
+
+
+## 2. Estimando modelos de regresión lineal múltiple con predictores categóricos con `lm()`
+
+Como vimos en el práctico anterior, para agregar una nueva variable explicativa a nuestros modelos sólo basta con agregar `+ variable` en nuestro primer argumento. Estimaremos también los modelos con distintas categorías de referencia para compararlos: 
+
+$$
+\begin{equation}
+\hat{wage} = \beta_0 + \beta_1educ_{i} + \beta_2exper_{i} + \beta_3rama_{2. Manufactura} + \beta_3rama_{3. Info. y com.} + \beta_3rama_{4.Comercio} + \beta_3rama_{5.Servicios}   
+\end{equation}
+$$
+
+```{r m, echo = T}
+m1 = lm(wage ~ educ + exper +rama, data = data)
+m2 = lm(wage ~ educ + exper +rama_info, data = data)
+m3 = lm(wage ~ educ + exper + rama_wage, data = data)
+#Estimamos también los modelos anteriores para comparar ajustes
+m4 = lm(wage ~ educ, data = data)
+m5 = lm(wage ~ exper, data = data)
+m6 = lm(wage ~ educ + exper, data = data)
+```
+
+```{r texreg1, echo=F}
+screenreg(list(m1, m2, m3, m4, m5, m6), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5", "Modelo 6"))
+```
+
+Lo primero que hay que observar es que, en los tres modelos, $\beta_1$ y $\beta_2$ son iguales. Lo mismo sucede con las medidas de ajuste. Los únicos elementos que se modifican son el intercepto $\beta_0$ y los coeficientes estimados para cada rama de actividad económica. Ello quiere decir que los modelos son esencialmente los mismos, aunque presentan la información de manera diferente. Entonces, ¿cómo ordenar nuestros factores? ello siempre dependerá de nuestros antecedentes teóricos y empíricos. Por ejemplo, nuestra categoría de referencia puede ser aquella de la cual se esperen los valores más bajos o más altos. Asimismo, nuestra categoría de referencia puede ser aquella en la cual queramos centrar nuestro análisis. Por ejemplo, si alguien nos solicitara un análisis para los asalariados del sector servicios, sería recomendable que aquella fuese nuestra categoría de referencia. 
+
+Asimismo, podemos ver que la inclusión de este predictor categórico permite aumentar el porcentaje de la varianza explicada de $y$ con el modelo en 5 puntos. El $R^2$ de los modelos 1, 2 y 3 es mayor al de los modelos 4, 5 y 6. En este caso, a priori podríamos considerar el que la inclusión de la rama de actividad económica en la explicación de los salarios por hora que reciben las personas de la muestra permite analizar su variabilidad de manera más precisa. 
+
+## 3. Predicción
+
+Utilicemos el **modelo 1** para nuestros análisis
+
+$$
+\begin{equation}
+\hat{wage} = -0.3 + .48educ_{i} + .05exper_{i} + -0.18rama_{2. Manufactura} + -0.32rama_{3. Info. y com.} + -1.64rama_{4.Comercio} + -2.14rama_{5.Servicios}   
+\end{equation}
+$$
+
+En base a esa información, podemos señalar que
+
+- Manteniendo constantes los años de escolaridad y de experiencia laboral se espera que, en promedio, los valores predichos para quienes trabajan en construcción sean los más altos en la muestra. Esto, pues **todos los coeficientes de regresión son negativos**.
+- Así, en promedio, una persona que trabaje en manufactura gane .18 mil pesos por hora **menos** que alguien que se emplea en construcción, manteniendo constante el resto de factores. 
+- Del mismo modo, es espera que una persona que trabaja en servicios reciba una remuneración -2.14 mil pesos inferior a alguien que labora en el sector de construcción. 
+
+Como pueden ver, la manera en que ha quedado especificado el modelo permite analizar inmediatamente las diferencias promedio entre la categoría de referencia (en este caso, construcción) respecto de las $k-1$ categorías restantes para las cuales se estimó un coeficiente de regresión. Para comparar el resto de categorías entre sí, podemos a) especificar el modelo con otra categoría de referencia; o b) estimar los valores predichos para cada categoría y comparar *ceteris paribus*. En este caso, los valores predichos son:
+
+1. Construcción = $-0.31$
+2. Manufactura = $-0.31 - 0.18 = -0.49$
+3. Información y comunicaciones = $-0.31 - 0.18 = -0.63$
+4. Comercio = $-0.31 - 1.64 = -1.95$
+5. Servicios = $-0.31 - 2.14 = -2.45$
+
+Como podemos ver, los valores esperados indicarían que quienes trabajan en servicios debiese tender a presentar, en promedio, salarios por hora inferiores al resto de actividades económicas. Asimismo, se espera que quienes se desempeñan obtengan, en promedio, salarios $-0.63 - -1.95 = 1.32$ mil pesos inferiores que quienes se dedican a la información y las comunicaciones; y así. 
+
+## Resumen
+
+En este práctico aprendimos a analizar predictores categóricos en modelos de regresión lineal múltiple. 

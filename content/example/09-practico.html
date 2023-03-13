@@ -1,0 +1,263 @@
+---
+title: "Transformaciones funcionales"
+linktitle: "9: Transformaciones funcionales"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo-del-práctico" class="section level2">
+<h2>0. Objetivo del práctico</h2>
+<p>El objetivo de este práctico es aprender a generar e interpretar modelos con transformaciones cuadrática y logarítmica en las variables <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> con <code>lm()</code>.</p>
+<div id="materiales-de-la-sesión" class="section level3">
+<h3>Materiales de la sesión</h3>
+<p>Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre <strong>precios de casas</strong> utilizados en el capítulo 6 del libro <em>Introducción a la econometría</em> de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados. Asimismo, la realización de este práctico requiere la carga de diversos <strong>paquetes</strong> que nos permitirán explorar los datos y presentar los modelos estimados.</p>
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;) # Instalamos pacman en caso de necesitarlo</code></pre>
+<pre><code>## Loading required package: pacman</code></pre>
+<pre class="r"><code>pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               ggplot2,#Para graficar
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               texreg) #Para presentar el modelo de regresión estimado
+data(&quot;hprice2&quot;)</code></pre>
+</div>
+</div>
+<div id="explorando-los-datos" class="section level2">
+<h2>1. Explorando los datos</h2>
+<p>Esta vez trabajaremos con los datos <code>hprice2</code> sobre precios de casas y medio ambiente. En específico, utilizaremos las variables</p>
+<p>Volvemos a encontrarnos con:</p>
+<ul>
+<li><strong>price</strong> (<span class="math inline">\(y\)</span>): indica el precio mediano de las casas en cada comunidad.</li>
+<li><strong>nox</strong> (<span class="math inline">\(x_1\)</span>): indica la concentración de óxido nitroso de la comunidad en partes por 100 millones.</li>
+<li><strong>rooms</strong> (<span class="math inline">\(x_2\)</span>): indica la media de habitaciones por vivienda en la comunidad.</li>
+</ul>
+<p>También utilizaremos el logaritmo de las dos primeras variables variables: <strong>lprice</strong>, <strong>lnox</strong>.</p>
+<p>Generemos el modelo con <code>lm()</code>, y visualicémoslo</p>
+<pre class="r"><code>m1 = lm(price ~ nox + rooms, data = hprice2)
+screenreg(m1, custom.model.names = &quot;Modelo 1&quot;)</code></pre>
+<pre><code>## 
+## ==========================
+##              Modelo 1     
+## --------------------------
+## (Intercept)  -18423.40 ***
+##               (3346.66)   
+## nox           -1884.68 ***
+##                (253.57)   
+## rooms          8178.56 ***
+##                (418.08)   
+## --------------------------
+## R^2               0.54    
+## Adj. R^2          0.53    
+## Num. obs.       506       
+## ==========================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Podemos ver que, mientras el efecto de la concentración de óxido nitroso sobre el precio mediano de las casas es negativo, el número de habitaciones tiene un efecto positivo sobre el precio mediano de tales. Además, en conjunto, ambas variables explican en torno al 53% de la varianza del precio mediano de las casas.</p>
+</div>
+<div id="las-transformaciones-funcionales-la-transformación-funcional-logarítmica" class="section level2">
+<h2>2. Las transformaciones funcionales: la transformación funcional logarítmica</h2>
+<p>Muchas veces es posible que las relaciones que existen entre nuestra variable explicada y nuestras variables explicativas no es lineal. Para subsanar este problema, recurriremos a diversas fórmulas, una de las cuales es la <strong>transformación logarítmica</strong>. En las siguientes clases estaremos revisando otras dos: la transformación funcional <strong>cuadrática</strong>, y las <strong>interacciones</strong> entre variables explicativas.</p>
+<p>Para la transformación funcional logarítmica, simplemente tenemos que incorporar, bien como variables predictoras o predichas, el <strong>logaritmo natural</strong>. Por supuesto, esto sólo aplica para variables numéricas: no es posible ejecutar una transformación funcional logarítmica a una variable cualitativa.</p>
+<p>Consideremos los parámetros del modelo original:</p>
+<p><span class="math display">\[
+\begin{equation}
+price = \beta_0 + \beta_1nox + \beta_2rooms
+\end{equation}
+\]</span></p>
+<p>Al interpretar este modelo, podemos señalar que, por cada unidad que varíe <span class="math inline">\(nox\)</span>, el valor predicho para <span class="math inline">\(price\)</span> aumentará o disminuirá en <span class="math inline">\(\beta_1\)</span> unidades. Cuando aplicamos transformaciones funcionales logarítmicas, las variaciones y el efecto se deben interpretar <strong>porcentualmente</strong>, según corresponda.</p>
+<p>Una de las limitaciones de esta transformacional funcional es que no puede utilizarse si una variable toma valores negativos o cero.</p>
+<div id="a-transformación-funcional-logarítmica-a-variable-x" class="section level3">
+<h3>a) Transformación funcional logarítmica a variable <span class="math inline">\(x\)</span></h3>
+<p>Una de las variaciones que podemos realizar es estimar el modelo transformando logarítmicamente uno de sus predictores. En este caso, implementaremos la transformación funcional sobre <span class="math inline">\(nox\)</span>.</p>
+<p><span class="math display">\[
+\begin{equation}
+price = \beta_0 + \beta_1log(nox) + \beta_2rooms
+\end{equation}
+\]</span></p>
+<p>Estimemos el modelo con <code>lm()</code> y comparemos con el modelo original:</p>
+<pre class="r"><code>m2 = lm(price ~ lnox + rooms, data = hprice2)
+screenreg(list(m1,m2), custom.model.names = c(&quot;Modelo 1&quot;, &quot;Modelo 2&quot;))</code></pre>
+<pre><code>## 
+## =========================================
+##              Modelo 1       Modelo 2     
+## -----------------------------------------
+## (Intercept)  -18423.40 ***  -10237.60 *  
+##               (3346.66)      (4125.88)   
+## nox           -1884.68 ***               
+##                (253.57)                  
+## rooms          8178.56 ***    8162.07 ***
+##                (418.08)       (417.94)   
+## lnox                        -10951.41 ***
+##                              (1457.92)   
+## -----------------------------------------
+## R^2               0.54           0.54    
+## Adj. R^2          0.53           0.53    
+## Num. obs.       506            506       
+## =========================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>En este caso, ambos modelos presentan los mismos valores en <span class="math inline">\(R^2\)</span> y <span class="math inline">\(R^2\)</span> ajustado. No obstante, es posible apreciar que los coeficientes de <span class="math inline">\(nox\)</span> y <span class="math inline">\(log(nox)\)</span> son diferentes. Lo mismo sucede con los coeficientes estimados para <span class="math inline">\(rooms\)</span>, que no analizaremos en este ejemplo. Interpretemos los dos primeros por separado:</p>
+<ul>
+<li><span class="math inline">\(nox\)</span>: por cada unidad que aumente <span class="math inline">\(nox\)</span>, se espera que el precio mediano de las casas en cada comunidad disminuya en 1884.68 dólares en promedio.</li>
+<li><span class="math inline">\(lnox\)</span>: por cada punto porcentual (1%) que aumente <span class="math inline">\(lnox\)</span>, se espera que el precio mediano de las casas disminuya, en promedio, 10951.41 dólares.</li>
+</ul>
+</div>
+<div id="b-transformación-funcional-logarítmica-a-variable-y" class="section level3">
+<h3>b) Transformación funcional logarítmica a variable <span class="math inline">\(y\)</span></h3>
+<p>¿Y si, en lugar de transformar logarítmicamente al predictor, lo hacemos con la variable predicha?</p>
+<p><span class="math display">\[
+\begin{equation}
+log(price) = \beta_0 + \beta_1nox + \beta_2rooms
+\end{equation}
+\]</span></p>
+<pre class="r"><code>m3 = lm(lprice ~ nox + rooms, data = hprice2)
+screenreg(list(m1,m2, m3), custom.model.names = c(&quot;Modelo 1&quot;, &quot;Modelo 2&quot;, &quot;Modelo 3&quot;))</code></pre>
+<pre><code>## 
+## =====================================================
+##              Modelo 1       Modelo 2       Modelo 3  
+## -----------------------------------------------------
+## (Intercept)  -18423.40 ***  -10237.60 *      8.70 ***
+##               (3346.66)      (4125.88)      (0.15)   
+## nox           -1884.68 ***                  -0.12 ***
+##                (253.57)                     (0.01)   
+## rooms          8178.56 ***    8162.07 ***    0.31 ***
+##                (418.08)       (417.94)      (0.02)   
+## lnox                        -10951.41 ***            
+##                              (1457.92)               
+## -----------------------------------------------------
+## R^2               0.54           0.54        0.51    
+## Adj. R^2          0.53           0.53        0.51    
+## Num. obs.       506            506         506       
+## =====================================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>En este caso, podemos darnos cuenta de dos cosas fundamentales:</p>
+<ul>
+<li>La magnitud de los coeficientes ha disminuido bastante. Esto se debe a que, ahora, las variaciones por unidad de <span class="math inline">\(x\)</span> tendrán un efecto <strong>porcentual</strong> en la variación media de <span class="math inline">\(y\)</span>.</li>
+<li>Los estadísticos <span class="math inline">\(R^2\)</span> de este último modelo son levemente inferiores que los estimados para los modelos previos. Esto nos indica que transformar funcionalmente las variables incorporadas en nuestro modelo puede afectar también su bondad de ajuste.</li>
+</ul>
+<p>Así, podemos señalar que, por cada unidad que aumenta el promedio de habitaciones en las casas de cada comunidad, se espera que el precio de estas aumente, en promedio, un 31%. En estos casos denominamos a <span class="math inline">\(\beta_2*100\)</span> como <strong>semielasticidad</strong> de <span class="math inline">\(price\)</span> respecto a <span class="math inline">\(rooms\)</span>. No obstante, a medida que la variación de <span class="math inline">\(log(y)\)</span> aumenta, se incrementa el error de aproximación que se realiza al estimar el efecto como %<span class="math inline">\(\vartriangle y \approx 100*\vartriangle log(y)\)</span>. Para ello, debemos ejecutar el siguiente procedimiento:</p>
+<p><span class="math display">\[
+\begin{equation}
+\%\vartriangle \hat{y} = 100 * [exp(\beta x) - 1]
+\end{equation}
+\]</span></p>
+<p>En este caso:</p>
+<p><span class="math display">\[
+\begin{equation}
+\%\vartriangle \hat{y} = 100 * [exp(.31*1) - 1] = 100 * [1.363-1] = 100* 0.363 = 36.3 \%
+\end{equation}
+\]</span></p>
+</div>
+<div id="c-transformación-funcional-logarítmica-a-variable-x-e-y" class="section level3">
+<h3>c) Transformación funcional logarítmica a variable <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span></h3>
+<p>Por último, podemos incluso transformar funcionalmente a nuestras variables explicativas y explicada:</p>
+<p><span class="math display">\[
+\begin{equation}
+log(price) = \beta_0 + \beta_1log(nox) + \beta_2rooms
+\end{equation}
+\]</span></p>
+<pre class="r"><code>m4 = lm(lprice ~ lnox + rooms, data = hprice2)
+screenreg(list(m1,m2, m3, m4), custom.model.names = c(&quot;Modelo 1&quot;, &quot;Modelo 2&quot;, &quot;Modelo 3&quot;, &quot;Modelo 4&quot;))</code></pre>
+<pre><code>## 
+## =================================================================
+##              Modelo 1       Modelo 2       Modelo 3    Modelo 4  
+## -----------------------------------------------------------------
+## (Intercept)  -18423.40 ***  -10237.60 *      8.70 ***    9.23 ***
+##               (3346.66)      (4125.88)      (0.15)      (0.19)   
+## nox           -1884.68 ***                  -0.12 ***            
+##                (253.57)                     (0.01)               
+## rooms          8178.56 ***    8162.07 ***    0.31 ***    0.31 ***
+##                (418.08)       (417.94)      (0.02)      (0.02)   
+## lnox                        -10951.41 ***               -0.72 ***
+##                              (1457.92)                  (0.07)   
+## -----------------------------------------------------------------
+## R^2               0.54           0.54        0.51        0.51    
+## Adj. R^2          0.53           0.53        0.51        0.51    
+## Num. obs.       506            506         506         506       
+## =================================================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Podemos notar que, mientras los modelos 3 y 4 comparten los mismos estadísticos <span class="math inline">\(R^2\)</span> y el mismo coeficiente para <span class="math inline">\(rooms\)</span>, los coeficientes estimados para <span class="math inline">\(nox\)</span> y <span class="math inline">\(lnox\)</span> sobre <span class="math inline">\(lprice\)</span> son diferentes. Comparemos sus interpretaciones:</p>
+<ul>
+<li><span class="math inline">\(nox\)</span>: por cada unidad que aumente la concentración de óxido nitroso en el ambiente de la comunidad, el precio mediano de sus casas disminuirá, en promedio, un 12%.</li>
+<li><span class="math inline">\(lnox\)</span>: por cada punto porcentual (1%) que aumente la concentración de óxido nitroso en el ambiente de la comunidad, el precio mediano de sus casas disminuirá, en promedio, en un 72%.</li>
+</ul>
+</div>
+</div>
+<div id="funciones-cuadráticas" class="section level2">
+<h2>3. Funciones cuadráticas</h2>
+<p>Se emplean para captar efectos marginales crecientes o decrecientes. En términos matemáticos, se formula</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2
+\end{equation}
+\]</span>
+En R, creamos una nueva variable con el cuadrado de habitaciones <span class="math inline">\(rooms2\)</span>, y luego la incorporamos al modelo como variable explicativa</p>
+<pre class="r"><code>hprice2$rooms2 = (hprice2$rooms)^2
+m5 = lm(price ~ rooms + rooms2, data = hprice2)
+screenreg(list(m5), custom.model.names = c(&quot;Modelo 5&quot;))</code></pre>
+<pre><code>## 
+## ==========================
+##              Modelo 5     
+## --------------------------
+## (Intercept)   66203.18 ***
+##              (12111.41)   
+## rooms        -22713.18 ***
+##               (3756.83)   
+## rooms2         2477.09 ***
+##                (290.74)   
+## --------------------------
+## R^2               0.55    
+## Adj. R^2          0.55    
+## Num. obs.       506       
+## ==========================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2
+\end{equation}
+\]</span></p>
+<p>Dadas las características de una función cuadrática, en este caso no tiene sentido mantener <span class="math inline">\(x^2\)</span> constante mientras varía <span class="math inline">\(x\)</span>, por lo que <span class="math inline">\(\beta_1\)</span> no mide la variación en y respecto de <span class="math inline">\(x\)</span>. Luego, se tiene la aproximación</p>
+<p><span class="math display">\[
+\begin{equation}
+\vartriangle \hat{y} \approx (\beta_1x + 2\beta_2x)\vartriangle x,
+\end{equation}
+\]</span></p>
+<p>de manera que</p>
+<p><span class="math display">\[
+\begin{equation}
+\vartriangle \hat{y} / \vartriangle x \approx \beta_1x + 2\beta_2x
+\end{equation}
+\]</span></p>
+<p>Así, la pendiente de la relación entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> depende de <span class="math inline">\(x\)</span>, equivaliendo a <span class="math inline">\(\beta_1x + 2\beta_2x\)</span>. Si <span class="math inline">\(x=0\)</span>, es posible señalar que <span class="math inline">\(\beta_1\)</span> puede interpretarse como la pendiente aproximada al pasar de <span class="math inline">\(x=0\)</span> a <span class="math inline">\(x=1\)</span>. Si queremos conocer el efecto de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span>, simplemente interpretamos el coeficiente de la tabla. No obstante, para conocer el efecto de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span>, debemos reemplazar para analizar la variabilidad de <span class="math inline">\(y\)</span> por cada unidad que aumenta <span class="math inline">\(x\)</span>. En este caso:</p>
+<p><span class="math display">\[
+\begin{equation}
+price = 66203.18 + -22713.18rooms + 2477.09rooms^2
+\end{equation}
+\]</span></p>
+<p>Así, si queremois conocer la diferencia de precio estimada para una casa de 4 habitaciones versus una de tres:</p>
+<ul>
+<li><span class="math inline">\(price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45\)</span></li>
+<li><span class="math inline">\(price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9\)</span></li>
+</ul>
+<p>En este caso, el modelo predice que el precio mediano tendería a disminuir en <span class="math inline">\(5373.55\)</span> por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de <span class="math inline">\(x\)</span> el efecto sobre <span class="math inline">\(y\)</span> es negativo, para los valores superiores el efecto de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span> será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula:</p>
+<p><span class="math display">\[
+\begin{equation}
+x^* = |{\hat{\beta1}}/(2\hat{\beta_2})|
+\end{equation}
+\]</span></p>
+<p>En nuestro caso, esto equivale a <span class="math inline">\(|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = -4.58465\)</span>. Es decir, si <span class="math inline">\(x&gt;-4.58465\)</span>, el efecto será negativo; mientras que valores de <span class="math inline">\(x&lt;-4.58465\)</span> tendrán un efecto positivo sobre <span class="math inline">\(y\)</span>.</p>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>En este práctico comprendimos cómo las transformaciones funcionales permiten solucionar problemas de estimación al estimar modelos de regresión lineal. Además, aprendimos a analizar los coeficientes de predictores transformados funcionalmente a través de la logaritmización y la elevación al cuadrado.</p>
+</div>

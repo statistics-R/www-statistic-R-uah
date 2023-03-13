@@ -1,0 +1,217 @@
+---
+title: "Transformaciones funcionales"
+linktitle: "9: Transformaciones funcionales"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+```{r, include =F}
+options(scipen = 999)
+```
+
+## 0. Objetivo del práctico
+
+El objetivo de este práctico es aprender a generar e interpretar modelos con transformaciones cuadrática y logarítmica en las variables $x$ e $y$ con `lm()`. 
+
+### Materiales de la sesión 
+
+Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre **precios de casas** utilizados en el capítulo 6 del libro *Introducción a la econometría* de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados. Asimismo, la realización de este práctico requiere la carga de diversos **paquetes** que nos permitirán explorar los datos y presentar los modelos estimados.
+
+```{r data, echo=TRUE}
+if (!require("pacman")) install.packages("pacman") # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               ggplot2,#Para graficar
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               texreg) #Para presentar el modelo de regresión estimado
+data("hprice2")
+```
+
+## 1. Explorando los datos
+
+Esta vez trabajaremos con los datos `hprice2` sobre precios de casas y medio ambiente. En específico, utilizaremos las variables
+
+Volvemos a encontrarnos con: 
+
+- **price** ($y$): indica el precio mediano de las casas en cada comunidad.
+- **nox** ($x_1$): indica la concentración de óxido nitroso de la comunidad en partes por 100 millones.
+- **rooms** ($x_2$): indica la media de habitaciones por vivienda en la comunidad. 
+
+También utilizaremos el logaritmo de las dos primeras variables variables: **lprice**, **lnox**.
+
+Generemos el modelo con `lm()`, y visualicémoslo
+
+```{r}
+m1 = lm(price ~ nox + rooms, data = hprice2)
+screenreg(m1, custom.model.names = "Modelo 1")
+```
+
+Podemos ver que, mientras el efecto de la concentración de óxido nitroso sobre el precio mediano de las casas es negativo, el número de habitaciones tiene un efecto positivo sobre el precio mediano de tales. Además, en conjunto, ambas variables explican en torno al 53% de la varianza del precio mediano de las casas. 
+
+## 2. Las transformaciones funcionales: la transformación funcional logarítmica
+
+Muchas veces es posible que las relaciones que existen entre nuestra variable explicada y nuestras variables explicativas no es lineal. Para subsanar este problema, recurriremos a diversas fórmulas, una de las cuales es la **transformación logarítmica**. En las siguientes clases estaremos revisando otras dos: la transformación funcional **cuadrática**, y las **interacciones** entre variables explicativas. 
+
+Para la transformación funcional logarítmica, simplemente tenemos que incorporar, bien como variables predictoras o predichas, el **logaritmo natural**. Por supuesto, esto sólo aplica para variables numéricas: no es posible ejecutar una transformación funcional logarítmica a una variable cualitativa. 
+
+Consideremos los parámetros del modelo original: 
+
+$$
+\begin{equation}
+price = \beta_0 + \beta_1nox + \beta_2rooms
+\end{equation}
+$$
+
+Al interpretar este modelo, podemos señalar que, por cada unidad que varíe $nox$, el valor predicho para $price$ aumentará o disminuirá en $\beta_1$ unidades. Cuando aplicamos transformaciones funcionales logarítmicas, las variaciones y el efecto se deben interpretar **porcentualmente**, según corresponda.
+
+Una de las limitaciones de esta transformacional funcional es que no puede utilizarse si una variable toma valores negativos o cero.
+
+### a) Transformación funcional logarítmica a variable $x$
+
+Una de las variaciones que podemos realizar es estimar el modelo transformando logarítmicamente uno de sus predictores. En este caso, implementaremos la transformación funcional sobre $nox$.
+
+$$
+\begin{equation}
+price = \beta_0 + \beta_1log(nox) + \beta_2rooms
+\end{equation}
+$$
+
+Estimemos el modelo con `lm()` y comparemos con el modelo original: 
+
+```{r}
+m2 = lm(price ~ lnox + rooms, data = hprice2)
+screenreg(list(m1,m2), custom.model.names = c("Modelo 1", "Modelo 2"))
+```
+
+En este caso, ambos modelos presentan los mismos valores en $R^2$ y $R^2$ ajustado. No obstante, es posible apreciar que los coeficientes de $nox$ y $log(nox)$ son diferentes. Lo mismo sucede con los coeficientes estimados para $rooms$, que no analizaremos en este ejemplo. Interpretemos los dos primeros por separado: 
+
+- $nox$: por cada unidad que aumente $nox$, se espera que el precio mediano de las casas en cada comunidad disminuya en 1884.68 dólares en promedio. 
+- $lnox$: por cada punto porcentual (1%) que aumente $lnox$, se espera que el precio mediano de las casas disminuya, en promedio, 10951.41 dólares. 
+
+### b) Transformación funcional logarítmica a variable $y$
+
+¿Y si, en lugar de transformar logarítmicamente al predictor, lo hacemos con la variable predicha?
+
+$$
+\begin{equation}
+log(price) = \beta_0 + \beta_1nox + \beta_2rooms
+\end{equation}
+$$
+
+```{r}
+m3 = lm(lprice ~ nox + rooms, data = hprice2)
+screenreg(list(m1,m2, m3), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3"))
+```
+
+En este caso, podemos darnos cuenta de dos cosas fundamentales: 
+
+- La magnitud de los coeficientes ha disminuido bastante. Esto se debe a que, ahora, las variaciones por unidad de $x$ tendrán un efecto **porcentual** en la variación media de $y$. 
+- Los estadísticos $R^2$ de este último modelo son levemente inferiores que los estimados para los modelos previos. Esto nos indica que transformar funcionalmente las variables incorporadas en nuestro modelo puede afectar también su bondad de ajuste. 
+
+Así, podemos señalar que, por cada unidad que aumenta el promedio de habitaciones en las casas de cada comunidad, se espera que el precio de estas aumente, en promedio, un 31%. En estos casos denominamos a $\beta_2*100$ como **semielasticidad** de $price$ respecto a $rooms$. No obstante, a medida que la variación de $log(y)$ aumenta, se incrementa el error de aproximación que se realiza al estimar el efecto como %$\vartriangle y \approx 100*\vartriangle log(y)$. Para ello, debemos ejecutar el siguiente procedimiento: 
+
+$$
+\begin{equation}
+\%\vartriangle \hat{y} = 100 * [exp(\beta x) - 1]
+\end{equation}
+$$
+
+En este caso: 
+
+$$
+\begin{equation}
+\%\vartriangle \hat{y} = 100 * [exp(.31*1) - 1] = 100 * [1.363-1] = 100* 0.363 = 36.3 \%
+\end{equation}
+$$
+
+### c) Transformación funcional logarítmica a variable $x$ e $y$
+
+Por último, podemos incluso transformar funcionalmente a nuestras variables explicativas y explicada:
+
+$$
+\begin{equation}
+log(price) = \beta_0 + \beta_1log(nox) + \beta_2rooms
+\end{equation}
+$$
+
+```{r}
+m4 = lm(lprice ~ lnox + rooms, data = hprice2)
+screenreg(list(m1,m2, m3, m4), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"))
+```
+
+Podemos notar que, mientras los modelos 3 y 4 comparten los mismos estadísticos $R^2$ y el mismo coeficiente para $rooms$, los coeficientes estimados para $nox$ y $lnox$ sobre $lprice$ son diferentes. Comparemos sus interpretaciones:
+
+- $nox$: por cada unidad que aumente la concentración de óxido nitroso en el ambiente de la comunidad, el precio mediano de sus casas disminuirá, en promedio, un 12%. 
+- $lnox$: por cada punto porcentual (1%) que aumente la concentración de óxido nitroso en el ambiente de la comunidad, el precio mediano de sus casas disminuirá, en promedio, en un 72%. 
+
+## 3. Funciones cuadráticas
+
+Se emplean para captar efectos marginales crecientes o decrecientes. En términos matemáticos, se formula
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2
+\end{equation}
+$$
+En R, creamos una nueva variable con el cuadrado de habitaciones $rooms2$, y luego la incorporamos al modelo como variable explicativa
+```{r}
+hprice2$rooms2 = (hprice2$rooms)^2
+m5 = lm(price ~ rooms + rooms2, data = hprice2)
+screenreg(list(m5), custom.model.names = c("Modelo 5"))
+```
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x + \beta_2x^2
+\end{equation}
+$$
+
+Dadas las características de una función cuadrática, en este caso no tiene sentido mantener $x^2$ constante mientras varía $x$, por lo que $\beta_1$ no mide la variación en y respecto de $x$. Luego, se tiene la aproximación
+
+$$
+\begin{equation}
+\vartriangle \hat{y} \approx (\beta_1x + 2\beta_2x)\vartriangle x,
+\end{equation}
+$$
+
+de manera que
+
+$$
+\begin{equation}
+\vartriangle \hat{y} / \vartriangle x \approx \beta_1x + 2\beta_2x
+\end{equation}
+$$
+
+Así, la pendiente de la relación entre $x$ e $y$ depende de $x$, equivaliendo a $\beta_1x + 2\beta_2x$. Si $x=0$, es posible señalar que  $\beta_1$ puede interpretarse como la pendiente aproximada al pasar de $x=0$ a $x=1$. Si queremos conocer el efecto de $x$ sobre $y$, simplemente interpretamos el coeficiente de la tabla. No obstante, para conocer el efecto de $x$ sobre $y$, debemos reemplazar para analizar la variabilidad de $y$ por cada unidad que aumenta $x$. En este caso: 
+
+$$
+\begin{equation}
+price = 66203.18 + -22713.18rooms + 2477.09rooms^2
+\end{equation}
+$$
+
+Así, si queremois conocer la diferencia de precio estimada para una casa de 4 habitaciones versus una de tres: 
+
+- $price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45$
+- $price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9$
+
+En este caso, el modelo predice que el precio mediano tendería a disminuir en $5373.55$ por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de $x$ el efecto sobre $y$ es negativo, para los valores superiores el efecto de $x$ sobre $y$ será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula: 
+
+$$
+\begin{equation}
+x^* = |{\hat{\beta1}}/(2\hat{\beta_2})|
+\end{equation}
+$$
+
+En nuestro caso, esto equivale a $|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = -4.58465$. Es decir, si $x>-4.58465$, el efecto será negativo; mientras que valores de $x<-4.58465$ tendrán un efecto positivo sobre $y$. 
+
+## Resumen
+
+En este práctico comprendimos cómo las transformaciones funcionales permiten solucionar problemas de estimación al estimar modelos de regresión lineal. Además, aprendimos a analizar los coeficientes de predictores transformados funcionalmente a través de la logaritmización y la elevación al cuadrado. 

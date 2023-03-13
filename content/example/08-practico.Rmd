@@ -1,0 +1,234 @@
+---
+title: "Inferencia y predicción"
+linktitle: "8: Inferencia y predicción"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+```{r, include =F}
+options(scipen = 999)
+```
+
+## 0. Objetivo del práctico
+
+El presente práctico tiene dos objetivos: 
+
+1. Aprender a formular y testear hipótesis para coeficientes de regresión lineal. 
+
+2. Aprender a formular y testear hipótesis de significancia global para modelos de regresión lineal. 
+
+### Materiales de la sesión 
+
+Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre **salarios** utilizados en el capítulo 2 del libro *Introducción a la econometría* de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados. 
+
+```{r data, echo=TRUE}
+data = readRDS(url("https://github.com/statistics-R/practico-7/raw/main/data.rds"))
+```
+
+Asimismo, la realización de este práctico requiere la carga de diversos **paquetes** que nos permitirán explorar los datos y presentar los modelos estimados.
+
+```{r library, echo=T, message = F}
+if (!require("pacman")) install.packages("pacman") # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               texreg) #Para presentar el modelo de regresión estimado
+
+```
+
+## 1. Volviendo a formular el modelo de regresión lineal múltiple con `lm()`
+
+Volvemos a encontrarnos con: 
+
+- **wage** ($y$): indica el salario por hora en miles de pesos de cada persona en los datos. 
+- **educ** ($x_1$): indica el número de años de escolaridad de cada persona en los datos. 
+- **exper** ($x_2$): indica los años de experiencia laboral de cada persona en los datos.
+- **rama** ($x_3$) : actividad económica a la que se dedica la empresa donde trabaja. 
+
+Generemos el modelo con `lm()`, y visualicémoslo
+
+```{r}
+m1 = lm(wage ~ educ + exper +rama, data = data)
+screenreg(m1)
+```
+
+Como sabemos, el modelo nos muestra el valor del intercepto, los coeficientes y el $R^2$ estimado. Sin embargo, hay algunos elementos en los cuales no nos hemos detenido en prácticas anteriores: los valores que se encuentran entre paréntesis, y los asteriscos (*) que se encuentran a la derecha de los coeficientes. En el mismo sentido, no nos hemos detenido en los astericos y valores que se encuentran en la última fila de la tabla. Es hora de revisarlos. 
+
+## 2. Los supuestos de Gauss-Markov de la regresión lineal múltiple
+
+Recordemos los supuestos formulados en Wooldridge (2015):
+
+1. Lineal en los parámetros: El modelo poblacional puede expresarse como:
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_kx_k +u
+\end{equation}
+$$
+donde \beta_0, \beta_1,..., \beta_k son los parámetros (constantes) desconocidos de interés, y $u$ el error aleatorio o término de perturbación no observable
+
+2. Muestreo aleatorio: se utilizan datos con muestreo aleatorio con n observaciones, de acuerdo con el modelo poblacional formulado en el punto anterior. 
+3. En la muestra y la población, ninguna variable explicativa es constante, y **no existen relaciones lineal exactas entre las variables explicativas**.
+
+4. Media condicional cero de $u$: el valor esperado del error $u$ para cualquier valor de las variables explicativas es igual a **cero**, o sea:
+
+$$
+\begin{equation}
+E(u|x_1, x_2, ... , x_k) = 0
+\end{equation}
+$$
+5. Homocedasticidad: el error $u$ presenta la misma varianza para cualquier valor de las variables explicativas; es decir: 
+
+$$
+\begin{equation}
+Var(u|x_1, x_2, ... , x_k) = \sigma^2
+\end{equation}
+$$
+
+Siguiendo estos supuestos, es posible asumir que los estimadores $\beta_j$ estimados a partir del método **MCO** son **insesgados** (supuestos 1 a 4) y **eficientes** (supuesto 5). Así, el **Teorema de Gauss-Markov** nos permite afirmar que los $\hat\beta_j$ (valor estimado para la muestra) estimados vía **MCO** son los mejores estimadores lineales insesgados (MELI) para $\beta_j$ (parámetro poblacional desconocido). Ello implica que es el estimador lineal e insesgado ($E(\hat\beta) = \beta$) con la menor varianza; o, en el peor de los casos, otros estimadores presentarán, al menos, tanta varianza como los coeficientes estimados vía MCO. 
+
+No obstante, para poder hacer inferencia tenemos que conocer la distribución muestral de $\hat\beta_j$. Los puntos 1 a 5 no nos indican nada respecto de la distribución del estimador. No obstante, podemos considerar:
+
+6. Normalidad: El error poblacional $u$ se distribuye normalmente, lo cual podemos considerar si a) el modelo está bien especificado, es decir, se incluyen todos los predictores relevantes y se excluyen los no relevantes; y b) tenemos un $n$ lo suficientemente grande para considerar la aplicación del teorema del límite central, según el cual la distribución de los factores no observados es aproximadamente normal. 
+
+## 3. Formulando hipótesis para los coeficientes de regresión
+
+Cuando estimamos un modelo de regresión lineal, esperamos que el efecto de las variables explicativas sobre la variable explicada sea **estadísticamente significativo**. En este caso, ello quiere decir que lo que esperamos es que **exista un efecto** de $x_n$ sobre $y$. Estadísticamente, ello se formula:
+
+$$
+\begin{equation}
+H_0: \beta_n = 0
+\end{equation}
+$$
+
+Es decir, nuestra **hipótesis nula**, que buscamos rechazar, indica que el valor estimado para el coeficiente será igual a cero. O sea, esperamos que el modelo no nos indique que, por cada unidad que aumente $x_n$, el valor esperado de $y$ aumentará en 0. 
+
+$$
+\begin{equation}
+H_1: \beta_n \neq 0
+\end{equation}
+$$
+
+## 4. Test de significancia a través de alternativa de una cola
+
+Por su parte, la **hipótesis alternativa** planteada en caso de rechazar la hipótesis nula es que el valor estimado del coeficiente sea distinto de cero. No obstante, ¿cómo testeamos esto? para ello recurriremos a la **prueba-$t$**. Para ello, debemos estimar el valor $t$ de la siguiente manera:
+
+$$
+\begin{equation}
+t_{\hat\beta_j} \equiv \hat\beta_j/ee(\hat\beta_j)
+\end{equation}
+$$
+
+donde $ee(\hat\beta_j)$ corresponde al **error estándar** del estimador $\hat\beta_j$, que en nuestra tabla se presenta en los valores entre paréntesis bajo los coeficientes. Así, por ejemplo, para **educ**
+
+$$
+\begin{equation}
+t_{\hat\beta_{educ}} = \frac{\hat\beta_{educ}}{ee(\hat\beta_{educ})} = \frac{0.48}{0.06} = 8
+\end{equation}
+$$
+
+Debemos comparar el valor-$t$ calculado con el valor-$t$ crítico para los grados de confianza estimados $n-k-1$, donde $n$ refiere al tamaño muestral y $k$ al número de coeficientes estimados. Para este caso, $gl = 311- 6 -1 = 304$. No olvidemos que si $n>120$, los valores críticos $c$ se aproximarán a los de la distribución normal. Para rechazar la hipótesis nula, esperamos que el valor estimado $t_{\hat\beta_{educ}}>c$. Si consideramos un nivel de confianza del 95% (o, por otra parte, un error $\alpha=0.05$), el valor-$t$ crítico $c= 1.645$. En este caso, $8>1.645$, por lo cual es posible rechazar la hipótesis nula $H_0$ y afirmar, con un nivel de confainza del 95%, que el efecto de **educ** sobre **wage** es distinto de cero; es decir, se acepta la hipótesis alternativa $H_1$. Por el contrario, si ello no se cumple, no podemos rechazar $H_0$, es decir, no podemos afirmar que existe un efecto de los años de escolaridad sobre el salario por hora. 
+
+A esta prueba se le denomina también prueba con alternativas de una cola, pues se estima la probabilidad de que, a determinado nivel de confianza (o de error $\alpha$), $t_{\hat\beta_{educ}}>c$, o de que el estimador se encuentre en la **región de rechazo** de la distribución $t$, lo cual nos permite rechazar la hipótesis nula $H_0$.
+
+## 5. Test de significancia a través de intervalos de confianza
+
+Otra alternativa es estimar los intervalos de confianza para un nivel de confianza determinado, considerado que el estimador es **insesgado** en caso del cumplimiento de los supuestos 1-4 de Gauss-Markov. En este caso estimaremos la probabilidad de que, tolerando un nivel de error $\alpha$, el valor-$t$ estimado se encuentre en la **región de rechazo** a ambos extremos de la distribución teórica $t$. Para ello, estimamos 
+
+$$
+\begin{equation}
+[t_{\hat\beta_-j}, t_{\hat\beta_j}] \equiv [\hat\beta_{j} - ee(\hat\beta_{j}) * t_{n-k-1}^\frac{1-a}{2}, \hat\beta_{j} + ee(\hat\beta_{j}) * t_{n-k-1}^\frac{1-a}{2}]
+\end{equation}
+$$
+Démonos cuenta de que no utilizamos $\alpha$, sino $\alpha/2$, pues ahora buscamos realizar la prueba en ambas colas de la distribución. Por ejemplo, si queremos hacer una prueba de dos colas al 95% de confianza, la región de rechazo de cada cola se encontrará estimando un valor crítico $c$ menor y mayor a un error del 2.5% en cada cola. En este caso, para **educ**: 
+
+$$
+\begin{equation}
+[t_{\hat\beta_{-educ}}, t_{\hat\beta_{educ}}] = [0.48 - (0.06 * 1.96), 0.48 + (0.06 * 1.96)] = [0.3624, 0.5976]
+\end{equation}
+$$
+
+Como podemos observar, el intervalo de confianza estimado no incluye al valor $0$, lo cual nos permite rechazar $H_0$, y aceptar la hipótesis alternativa $H_1$ de que, a un nivel de confianza del 95%, los años de escolaridad tienen un efecto sobre los salarios por hora. 
+
+## 6. Cálculo de valor-$p$ en las pruebas $t$.
+
+Ambos métodos involucran un nivel de arbitrariedad, pues el investigador debe definir de antemano un nivel de confianza que esté dispuesto a tolerar. Ello puede significar ocultar información útil respecto del resultado de la prueba de hipótesis, e.g. tener la posibilidad de rechazar $H_0$ a un nivel de significancia mayor que el escogido. Así, podríamos preguntarnos cual es el nivel más bajo de significancia al que podríamos rechazar $H_0$, lo cual es conocido como **valor-$p$** de la prueba de hipótesis. Para ello estimamos la probabilidad de que una variable aleatoria $t$ con determinados grados de confianza, sea mayor que el valor $t_{\hat\beta_{j}}$ estimado. Este valor es una probabilidad, por lo cual su rango es [0,1]. En este caso, `lm()` estima los valores-$p$ automáticamente, según se especifica en la última fila de la tabla, calculando las áreas bajo la función densidad de probabilidad de la distribución $t$. Usualmente, la prueba se hace considerando ambas colas. 
+
+```{r echo=F}
+screenreg(m1)
+```
+
+En este caso, los valores-$p$ indican que los coeficientes que, si la hipótesis nula es verdadera, un valor absoluto del estadístico $t$ tan grande como el estimado para los coeficientes de **educ** y **exper** se observaría menos del 0.1% de las veces. Asimismo, estimar un estadístico $t$ con un valor absoluto como los observados para **Comercio** y **Servicios** de rama se observaría menos del 1% de las veces. Para el resto de los casos, el valor-$p$ estimado no es lo suficientemente pequeño como para rechazar la hipótesis nula a un nivel de confianza razonable de, al menos, un 95%. 
+
+## 6. Formulando hipótesis de significancia global
+
+Hasta ahora, hemos revisado test de hipótesis que consideran una única restricción (esperamos que $\beta_n \neq 0$). Ahora bien, es posible buscar probar la hipótesis nula de que un **conjunto de variables** no tienen efecto sobre $y$, controlando por otro conjunto de variables. Pensemos, por ejemplo, que queremos probar la hipótesis nula de que, controlando por años de escolaridad **educ**, las variables ocupacionales (**exper** y **rama**) no tendrán un efecto estadísticamente significativo sobre **wage**. En este caso 
+
+$$
+\begin{equation}
+H_0: \beta_{exper} = 0, \beta_{rama_k} = 0
+\end{equation}
+$$
+
+Al poner múltiples restricciones, estamos realizando una **prueba de hipótesis múltiple o conjunta**. En este caso, la hipótesis alternativa sería
+
+
+$H_1: H0$ no es verdadera. 
+
+O sea, **exper** y **rama** sí tienen un efecto sobre **wage**. Para ello, tenemos que ver qué sucede con la suma de los residualdes cuadrados SRC ($SRC = \sum(y_i-\hat{y_i})$). Si este aumenta lo suficiente al eliminar del modelo a **exper** y **rama** (al que denominamos modelo restringido, frente al no restringido), es posible rechazar $H_0$. Comparemos nuestros modelos: 
+
+```{r echo = F}
+m2 = lm(wage ~ educ, data = data)
+screenreg(list(m1,m2), custom.model.names = c("No restringido", "Restringido"))
+```
+
+Podemos ver que el estadístico $R^2$ ajustado del modelo restringido es menor que el del no restringido. 
+
+## 7. Test de significancia global
+
+Debemos, no obstante, combinar la información del SRC de ambos modelos para obtener un estadístico de prueba que tenga una distribución conocida bajo $H_0$. Este será el estadístico $F$
+
+$$
+\begin{equation}
+F \equiv \frac{(SRC_r-SRC_{nr})/q}{SRC_{nr}/(n-k-1)},
+\end{equation}
+$$
+
+Donde $SRC_r$ es la suma total de cuadrados del modelo restringido; $SRC_{nr}$ es la suma total de cuadrados del modelo no restringido; y $q$ es el número de restricciones a probar. Sin embargo, utilizando el output de nuestro modelo con `summary()` podemos identificar el estadístico F calculado para el modelo junto con sus grados de confianza de manera sencilla
+
+```{r}
+summary(m1)
+```
+
+Con esta información es posible estimar el valor-$p$ para el modelo estimado, considerando los grados de confianza del modelo restringido y del modelo no restringido: 
+
+```{r}
+pf(16.19, 6, 304, lower.tail = F)
+```
+
+Como podemos observar, este valor indica que la probabilidad de encontrar un valor para el estadístico F como el estimado es muy baja. Ello nos permite caer en la región de rechazo, acetpando la hipótesis alternativa $H_1$ de que $H_0$ es falsa y, en consecuencia, confirmando la significancia global del modelo. 
+
+## Desafío: estimando la significancia estadística de los coeficientes a mano
+
+A continuación, se propondrá el siguiente desafío. Quienes logren realizarlo obtendrán una bonificación de 5 décimas en la prueba del curso. Para ello, con el siguiente set de datos
+
+```{r}
+x = data[sample(nrow(data), size=100),]
+m3 = lm(wage ~ educ + exper +rama, data = data)
+summary(m3)
+```
+
+
+deben, manualmente:
+
+1. Estimar el valor-$t$ para cada coeficiente del modelo. 
+2. Realizar prueba de hipótesis a una y dos colas.
+
+## Resumen
+
+En este práctico aprendimos a formular y testear hipótesis para poder realizar inferencia con nuestros estimadores de MCO. 

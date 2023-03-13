@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en-us" 
+      xmlns:og="http://ogp.me/ns#" 
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.2.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+    
+  
+  <meta name="description" content="0. ObjetivoLos objetivos de este práctico son comprender a identificar y solucionar problemas asociados a la mala especificación de nuestros modelos.
+1. Paquetes y datos a utilizarUtilizaremos los datos sobre salarios del paquete wooldridge." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="/example/13-practico/" />
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#1a9875" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+
+    
+    
+
+    
+    
+    
+      
+    
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:400,400i,700,700i%7CBarlow:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.6c40d5e91ad0908cd1753452468e8c67.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/index.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_180x180_fill_lanczos_center_2.png" />
+
+  <link rel="canonical" href="/example/13-practico/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@valentiandrade" />
+    <meta property="twitter:creator" content="@valentiandrade" />
+  
+  <meta property="og:site_name" content="Estadística II" />
+  <meta property="og:url" content="/example/13-practico/" />
+  <meta property="og:title" content="Omisión de variables relevantes | Estadística II" />
+  <meta property="og:description" content="0. ObjetivoLos objetivos de este práctico son comprender a identificar y solucionar problemas asociados a la mala especificación de nuestros modelos.
+1. Paquetes y datos a utilizarUtilizaremos los datos sobre salarios del paquete wooldridge." /><meta property="og:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" />
+    <meta property="twitter:image" content="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_300x300_fit_lanczos_2.png" /><meta property="og:locale" content="en-us" />
+  
+    
+    
+  
+
+  
+
+
+
+  
+
+  
+
+  <link rel="stylesheet" type="text/css" href="/custom-css/print.css" media="print" />
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content=": Estadística II" />
+  <meta name="msapplication-TileColor" content="#FFFFFF" />
+  <meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
+
+
+  <title>Omisión de variables relevantes | Estadística II</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.js"></script>
+
+    
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/"><img src="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_0x70_resize_lanczos_2.png" alt="Estadística II"></a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/"><img src="/media/logo_huec1c53a9c99ba801c510916ffbd8bc18_109138_0x70_resize_lanczos_2.png" alt="Estadística II"></a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Organización</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/schedule/"><span>Planificación</span></a>
+            
+              <a class="dropdown-item" href="/syllabus/"><span>Syllabus</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/content/"><span>Clases</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/example/"><span>Prácticos</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Evaluaciones <i class="fab fa-github"></i></span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/assignment/"><span>Controles</span></a>
+            
+              <a class="dropdown-item" href="https://classroom.github.com/classrooms/86887318-learn-r-uah-2021"><span>Github Classroom<i class="fab fa-github"></i></span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/resource/"><span>Recursos</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://join.slack.com/t/estadisticaii-uah/shared_invite/zt-1qi7am4o2-7pVVgPC~s0IcBKwqSRWSvQ" target="_blank" rel="noopener"><span><i class="fab fa-slack"></i></span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+            
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="https://rstudio.cloud/" target="_blank" rel="noopener"><span><i class="fab fa-r-project"></i></span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+
+      
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
+    
+
+<div class="container-fluid docs">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+            
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+    
+  
+
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/example/">Información general</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/example/">Prácticos (códigos de ejemplo)</a>
+      </li>
+
+      
+    </ul>
+    
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" >Datos</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/example/10-practico/">Ejemplos</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/example/10-practico/">10: Relaciones no lineales y términos de interacción</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/11-practico/">11: Chequeo de supuestos</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/12-practico/">12: Errores de medida y procesamiento</a>
+      </li>
+
+      
+      <li class="active">
+        <a href="/example/13-practico/">13: Omisión de variables relevantes</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/01-practico/">1: Variables aleatorias y distribuciones</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/02-practico/">2: Inferencia</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/05-practico/">5: Regresión lineal simple con diseño muestral y bondad de ajuste</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/06-practico/">6: Regresión lineal múltiple</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/07-practico/">7: Regresión lineal múltiple y predictores categóricos</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/08-practico/">8: Inferencia y predicción</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/09-practico/">9: Transformaciones funcionales</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/032-practico/">3: RMarkdown</a>
+      </li>
+
+      
+      <li >
+        <a href="/example/03-practico/">3: R, RStudio y Github</a>
+      </li>
+
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+        </div>
+
+        
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+            <ul class="nav toc-top">
+                <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+            </ul>
+
+            
+
+ 
+        </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+            <article class="article">
+
+                <div class="docs-article-container">
+                    <h1>Omisión de variables relevantes</h1>
+
+                    
+
+                    
+
+                    
+
+                    <div class="article-style">
+                        
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo" class="section level2">
+<h2>0. Objetivo</h2>
+<p>Los objetivos de este práctico son comprender a identificar y solucionar problemas asociados a la mala especificación de nuestros modelos.</p>
+</div>
+<div id="paquetes-y-datos-a-utilizar" class="section level2">
+<h2>1. Paquetes y datos a utilizar</h2>
+<p>Utilizaremos los datos sobre salarios del paquete <code>wooldridge</code>.</p>
+<pre class="r"><code>pacman::p_load(wooldridge,
+               texreg,
+               performance,
+               tidyverse) # Universo de paquetes
+options(scipen=999)
+data(&quot;wage1&quot;)</code></pre>
+</div>
+<div id="introducción" class="section level2">
+<h2>2. Introducción</h2>
+<p>En ocasiones, dada la disponibilidad y calidad de los datos con los que contamos, o por problemas teóricos en el diseño de nuestros modelos, es posible que incluyamos variables que no son relevantes para comprender el fenómeno o, al revés, que omitamos variables que sí lo son. En ambos casos, nuestros modelos pueden presentar problemas de ajuste y validez estadística, o bien, no nos permitirán explicar de manera parsimoniosa y robusta el fenómeno que estamos analizando.</p>
+<p>Trabajaremos con el siguiente modelo a modo de ejemplo:</p>
+<pre class="r"><code>mod = lm(lwage ~ educ+exper+tenure+female, data = wage1)
+screenreg(mod)</code></pre>
+<pre><code>## 
+## =======================
+##              Model 1   
+## -----------------------
+## (Intercept)    0.50 ***
+##               (0.10)   
+## educ           0.09 ***
+##               (0.01)   
+## exper          0.00 ** 
+##               (0.00)   
+## tenure         0.02 ***
+##               (0.00)   
+## female        -0.30 ***
+##               (0.04)   
+## -----------------------
+## R^2            0.39    
+## Adj. R^2       0.39    
+## Num. obs.    526       
+## =======================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+<div id="inclusión-de-variables-irrelevantes-en-un-modelo-de-regresión" class="section level2">
+<h2>3. Inclusión de variables irrelevantes en un modelo de regresión</h2>
+<p>El problema de <strong>sobreespecificación</strong> del modelo significa que al menos una de las variables explicativas que incluimos no tiene ningún efecto parcial sobre <span class="math inline">\(y\)</span>. Pensemos en el siguiente modelo:</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{3}x_{3} + u,
+\end{equation}
+\]</span>
+que satisface los supuestos 1-4 del teorema de Gauss-Markov. No obstante, puede suceder que <span class="math inline">\(x_3\)</span> no tenga ningún efecto sobre <span class="math inline">\(y\)</span> al controlar por <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>. O sea, <span class="math inline">\(\beta_3=0\)</span>. En términos de esperanza condicional: <span class="math inline">\(E(y|x_1,x_2,x_3) = E(y|x_1,x_2) = \beta_0 + \beta_1x_1 + \beta_2x_2\)</span>. Pensando en nuestro modelo, <span class="math inline">\(\beta_{exper}=0\)</span> con un nivel de confianza del 99%, por lo cual podríamos considerar que la experiencia laboral en años es irrelevante para explicar las variaciones en los salarios por hora.</p>
+<p>¿Qué efectos puede tener el incluir variables irrelevantes? Esto no genera sesgos en <span class="math inline">\(\beta_j\)</span>. Por ello, podemos asumir que, pese a incluir variables irrelevantes, <span class="math inline">\(E(\hat\beta_j) = \beta_j\)</span>. Esto puede, sin embargo, tener efectos indeseables en la varianza de los estimadores de MCO, lo cual puede ser perjudicial para nuestras inferencias.</p>
+</div>
+<div id="sesgo-de-variable-omitida" class="section level2">
+<h2>4. Sesgo de variable omitida</h2>
+<p>Si, en lugar de incluir variables irrelevantes, no incluimos variables relevantes, estamos <strong>subespecificando</strong> el modelo. Esto hará que nuestros estimadores sean sesgados. Podemos determinar la dirección y magnitud de este sesgo. Esa identificación es un ejemplo de <strong>análisis de error de especificación</strong>. Pensemos el siguiente modelo, que satisface los supuestos 1-4 del teorema de Gauss-Markov:</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + u.
+\end{equation}
+\]</span></p>
+<p>Pensemos que este modelo busca explicar la variación promedio en los salarios por hora (<span class="math inline">\(y\)</span>) a partir de la variación de los años de escolaridad (<span class="math inline">\(x_1\)</span>) y el CI del individuo (<span class="math inline">\(x_2\)</span>). Si estimamos el modelo de regresión de <span class="math inline">\(y\)</span> sobre <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span>, obtendremos estimadores insesgados de <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_2\)</span>. No obstante, es posible que no contemos con la variable de CI en nuestra base de datos, por lo cual estimamos el modelo considerando sólo a <span class="math inline">\(x_1\)</span>. En cuyo caso, el modelo se especificaría</p>
+<p><span class="math display">\[
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1 + v,
+\end{equation}
+\]</span>
+donde <span class="math inline">\(v = \beta_2x_2 + u\)</span>.</p>
+<p>Para obtener el sesgo de <span class="math inline">\(\tilde\beta_1\)</span>, tenemos que <span class="math inline">\(\tilde\beta_1 = \hat\beta_1 + \hat\beta_2\tilde\delta_1\)</span>, donde <span class="math inline">\(\hat\beta_1\)</span> y <span class="math inline">\(\hat\beta_2\)</span> son los estimadores de la pendiente de regresión múltiple</p>
+<p><span class="math inline">\(y_i\)</span> sobre <span class="math inline">\(x_{i1}, x_{i2}, i = 1, ..., n\)</span></p>
+<p>y <span class="math inline">\(\tilde\delta_1\)</span> es la pendiente de la regresión simple</p>
+<p><span class="math inline">\(x_{i2}\)</span> sobre <span class="math inline">\(x_{i1}, i = 1,...,n.\)</span></p>
+<p>Dado que <span class="math inline">\(\tilde\delta_1\)</span> sólo depende de los predictores de la muestra, al calcular <span class="math inline">\(E(\tilde\beta_1)\)</span> se considera fija o no aleatoria. Dado que suponemos que se cumplen los supuestos del teorema Gauss-Markov, sabemos que <span class="math inline">\(\hat\beta_1\)</span> y <span class="math inline">\(\hat\beta_2\)</span> son estimados insesgados de <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\hat\beta_2\)</span>, respectivamente. Así:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+E(\tilde\beta_1) = E(\hat\beta_1 + \hat\beta_2\tilde\delta_1) = E(\hat\beta_1) + E(\hat\beta_2)\tilde\delta_1
+&amp; = \beta_1 + \beta_2\tilde\delta_1,
+\end{aligned}
+\end{equation}
+\]</span></p>
+<p>de modo que el sesgo en <span class="math inline">\(\tilde\beta_1\)</span> es</p>
+<p><span class="math display">\[
+\begin{equation}
+Bias(\tilde\beta_1) = E(\tilde\beta_1) - \beta_1 = \beta_2\tilde\delta_1.
+\end{equation}
+\]</span></p>
+<p>A este término se le denomina <strong>sesgo de la variable omitida</strong>.</p>
+<p>Hay dos casos en que <span class="math inline">\(\tilde\beta_1\)</span> es insesgado:</p>
+<ol style="list-style-type: decimal">
+<li>Cuando <span class="math inline">\(\beta_2=0\)</span>, o</li>
+<li>Cuando <span class="math inline">\(\tilde\delta_1=0\)</span>, aun cuando <span class="math inline">\(\beta_2\neq0\)</span>. Dado que <span class="math inline">\(\tilde\delta_1\)</span> es la covarianza muestral de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> sobre la varianza muestral de <span class="math inline">\(x_1\)</span>, esta sólo será igual a cero cuando no existe correlación entre ambas variables.</li>
+</ol>
+<p>En caso de que <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> estén correlacionadas, <span class="math inline">\(\tilde\delta_1\)</span> tendrá el mismo signo que su correlación. El signo del sesgo de <span class="math inline">\(\tilde\beta_1\)</span> depende, por su parte, de los signos de <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\tilde\delta_1\)</span>. También es importante cuidar la magnitud del sesgo, que también estará determinada por las magnitudes de <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\tilde\delta_1\)</span>.</p>
+<p>Pese a que no podamos conocer su magnitud y su dirección en cuanto <span class="math inline">\(\beta_2\)</span> es un parámetro desconocido, si la podemos inferir. Por ejemplo, podemos asumir que el efecto del CI sobre el salario por hora es positivo en la medida que permite mejor productividad en los trabajadores, por lo que asumimos que <span class="math inline">\(\beta_2&gt;0\)</span>. Asimismo, podemos inferir que la correlación entre los años de escolaridad y el CI es positiva, en cuanto un mayor nivel educacional puede estar asociado a un mayor desarrollo intelectual. Así, podemos operar bajo el supuesto de que el sesgo es <strong>positivo</strong>, en cuanto los signos de <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\tilde\delta_1\)</span> sean positivos.</p>
+<p>En términos generales, el análisis del sesgo por no incluir variables relevantes se señala:</p>
+<ol style="list-style-type: decimal">
+<li>Si <span class="math inline">\(E(\tilde\beta_1)&gt;\beta_1\)</span>, <span class="math inline">\(\tilde\beta_1\)</span> tiene un sesgo <strong>hacia arriba</strong>, mientras que</li>
+<li>Si <span class="math inline">\(E(\tilde\beta_1)&lt;\beta_1\)</span>, <span class="math inline">\(\tilde\beta_1\)</span> tiene un sesgo <strong>hacia abajo</strong>; y</li>
+<li>Si <span class="math inline">\(E(\tilde\beta_1)\)</span> se encuentra más cerca de cero que <span class="math inline">\(\beta_1\)</span>, está <strong>sesgado hacia cero</strong>.</li>
+</ol>
+<p>El procedimiento anterior se dificulta cuando tenemos modelos múltiples. Para comprenderlo, hemos de recordar que la correlación entre un predictor y el error tiene a generar que <strong>todos</strong> los estimadores de MCO sean sesgados. Si tenemos el modelo poblacional que satisface los supuestos 1-4 de Gauss-Markov</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3 + u,
+\end{equation}
+\]</span></p>
+<p>pero omitimos <span class="math inline">\(x_3\)</span>, obtenemos</p>
+<p><span class="math display">\[
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1 + \tilde\beta_2x_2.
+\end{equation}
+\]</span></p>
+<p>Supongamos que <span class="math inline">\(x_2\)</span> y <span class="math inline">\(x_3\)</span> no están correlacionadas, pero que <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_3\)</span> sí lo están. En este caso, pese a que <span class="math inline">\(x_2\)</span> no esté asociada a la variable omitida, tanto <span class="math inline">\(\tilde\beta_1\)</span> como <span class="math inline">\(\tilde\beta_2\)</span> serán sesgados. Ello ocurre salvo que <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> no estén correlacionadas.</p>
+<p>Sin embargo, si asumimos que <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> no están correlacionadas, podemos estudiar el sesgo de <span class="math inline">\(\tilde\beta_1\)</span> como si <span class="math inline">\(x_2\)</span> no se hubiese incluido en los modelos estimado y poblacional. En este caso, podría demostrarse que</p>
+<p><span class="math display">\[
+\begin{equation}
+E(\tilde\beta_1) = \beta_1 + \beta_3 \frac{\sum_{i=1}^n(x_{i1}-\bar{x_1})x_{i3}}{\sum_{i=1}^n(x_{i1}-\bar{x_1})^2}
+\end{equation}
+\]</span></p>
+<p>Así, el sesgo en <span class="math inline">\(\tilde\beta_1\)</span> será positivo cuando la correlación de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_3\)</span> sea positiva y <span class="math inline">\(\beta_3&gt;0\)</span>; o cuando la correlación de <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_3\)</span> sea negativa y <span class="math inline">\(\beta_3&lt;0\)</span>, y así.</p>
+</div>
+<div id="varianza-de-estimadores-de-mco" class="section level2">
+<h2>5. Varianza de estimadores de MCO</h2>
+<p>Bajo los supuestos 1-5 de Gauss-Markov (es decir, esta vez incluyendo la homocedasticidad), la varianza de los estimadores MCO se calcula</p>
+<p><span class="math display">\[
+\begin{equation}
+Var(\hat\beta_j) = \frac{\sigma^2}{STC(1-R_j^2)},
+\end{equation}
+\]</span>
+para <span class="math inline">\(j=1,2,...,k\)</span>, donde <span class="math inline">\(STC = \sum_{i=1}^n(x_{ij}-\bar{x}_j)^2\)</span> es la variación muestral total en <span class="math inline">\(x_j\)</span> y <span class="math inline">\(R_j^2\)</span> es la <span class="math inline">\(R^2\)</span> de regresión de <span class="math inline">\(x_j\)</span> sobre todas las variables explicativas, incluyendo un intercepto.</p>
+<p>La importancia de la varianza de los estimadores MCO proviene de que, si su valor es alto, el estimador es menos preciso, lo cual se traduce en intervalos de confianza más amplios y pruebas de hipótesis menos exactas.</p>
+</div>
+<div id="varianzas-en-modelos-mal-especificados" class="section level2">
+<h2>6. Varianzas en modelos mal especificados</h2>
+<p>Incluir determinada variable en un modelo de regresión se puede realizar a partir de la disyuntiva entre sesgo y varianza. Cuando dejamos fuera una variable relevante, nuestro modelo presentará un sesgo hacia arriba o hacia abajo. Considerando el modelo poblacional verdadero, que cumple con los supuestos de Gauss-Markov</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + u,
+\end{equation}
+\]</span>
+consideraremos dos estimadores de <span class="math inline">\(\beta_1\)</span>. El primero, <span class="math inline">\(\hat\beta_1\)</span> proviene de</p>
+<p><span class="math display">\[
+\begin{equation}
+\hat{y} = \hat\beta_0 + \hat\beta_1x_1 + \hat\beta_2x_2,
+\end{equation}
+\]</span>
+mientras que el estimador <span class="math inline">\(\tilde\beta_1\)</span> se obtiene omitiendo <span class="math inline">\(x_2\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1.
+\end{equation}
+\]</span></p>
+<p>Como se vio anteriormente, si <span class="math inline">\(\beta_2 \neq 0\)</span>, estamos excluyendo una variable relevante, lo cual induce un sesgo en <span class="math inline">\(\tilde\beta_1\)</span>, salvo que no exista correlacion entre <span class="math inline">\(x_1\)</span> ni <span class="math inline">\(x_2\)</span>. Por su parte, <span class="math inline">\(\hat\beta_1\)</span> es un estimador insesgado de <span class="math inline">\(\beta_1\)</span> para cualquier valor de <span class="math inline">\(\beta_2\)</span>, incluyendo 0. Así, si el sesgo es nuestro único criterio, preferiremos a <span class="math inline">\(\hat\beta_1\)</span> frente a <span class="math inline">\(\tilde\beta_1\)</span>.</p>
+<p>Ello no es válido al considerar la varianza. Tenemos que</p>
+<ul>
+<li><span class="math inline">\(Var(\hat\beta_1) = \sigma^2/[STC_1(1-R_1^2)]\)</span>, y</li>
+<li><span class="math inline">\(Var(\tilde\beta_1) = \sigma^2/STC_1\)</span></li>
+</ul>
+<p>De ese modo, <span class="math inline">\(Var(\tilde\beta_1)\)</span> siempre será menor que <span class="math inline">\(Var(\hat\beta_1)\)</span>, a menos que <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> <strong>no</strong> estén correlacionadas. En ese caso, ambos estimadores son iguales. Si ambas variables están correlacionadas, podemos formular lo siguiente:</p>
+<ol style="list-style-type: decimal">
+<li>Si <span class="math inline">\(\beta_2 \neq 0\)</span>, <span class="math inline">\(\tilde\beta_1\)</span> es sesgado, <span class="math inline">\(\hat\beta_1\)</span> es insesgado y <span class="math inline">\(Var(\tilde\beta_1)\)</span>&lt;<span class="math inline">\(Var(\hat\beta_1)\)</span></li>
+<li>Si <span class="math inline">\(\beta_2 = 0\)</span>, <span class="math inline">\(\tilde\beta_1\)</span> y <span class="math inline">\(\hat\beta_1\)</span> son insesgados y <span class="math inline">\(Var(\tilde\beta_1)\)</span>&lt;<span class="math inline">\(Var(\hat\beta_1)\)</span>.</li>
+</ol>
+<p>Así, si <span class="math inline">\(x_2\)</span> no tiene efecto parcial sobre <span class="math inline">\(y\)</span>, el incluirla sólo puede aumentar la posibilidad de tener un problema de multicolinealidad, lo cual implica un estimador menos eficiente de <span class="math inline">\(\beta_1\)</span>.</p>
+<p>En cambio, si <span class="math inline">\(x_2\)</span> sí tiene un efecto sobre <span class="math inline">\(y\)</span>, dejarla fuera significará un estimador sesgado de <span class="math inline">\(\beta_1\)</span>. Se ha recomendado comparar la magnitud del sesgo al omitir <span class="math inline">\(x_2\)</span> con la disminución de la varianza expresada en <span class="math inline">\(R_1^2\)</span> para decidir si se incluye aquella variable. Si <span class="math inline">\(\beta_2 \neq 0\)</span>, lo recomendable es incluir <span class="math inline">\(x_2\)</span> en el modelo, pues el sesgo en <span class="math inline">\(\tilde\beta_1\)</span> no disminuirá al aumentar el tamaño muestral. Además, tanto <span class="math inline">\(Var(\tilde\beta_1)\)</span> como <span class="math inline">\(Var(\hat\beta_1)\)</span> tienden a cero en la medida que <span class="math inline">\(n\)</span> aumenta, por lo que la colinealidad producida por incorporar <span class="math inline">\(x_2\)</span> pierde relevancia en tanto trabajamos con muestras más grandes. En estos casos, preferiremos <span class="math inline">\(\hat\beta_1\)</span>.</p>
+<p>Comprobemos lo anterior comparando nuestro modelo con otras dos versiones:</p>
+<ol style="list-style-type: decimal">
+<li>Una en la cual eliminamos una variable no relevante, <strong>exper</strong>, y una variable relevante, <strong>educ</strong>;</li>
+<li>una en que sólo eliminamos una variable no relevante; y</li>
+<li>otra donde eliminamos una variable relevante, <strong>educ</strong></li>
+</ol>
+<pre class="r"><code>mod2 = lm(lwage ~ tenure+female, data = wage1)
+mod3 = lm(lwage ~ educ+tenure+female, data = wage1)
+mod4 = lm(lwage ~ exper+tenure+female, data = wage1)
+screenreg(list(mod, mod2, mod3, mod4))</code></pre>
+<pre><code>## 
+## ===========================================================
+##              Model 1     Model 2     Model 3     Model 4   
+## -----------------------------------------------------------
+## (Intercept)    0.50 ***    1.69 ***    0.63 ***    1.71 ***
+##               (0.10)      (0.03)      (0.09)      (0.04)   
+## educ           0.09 ***                0.08 ***            
+##               (0.01)                  (0.01)               
+## exper          0.00 **                            -0.00    
+##               (0.00)                              (0.00)   
+## tenure         0.02 ***    0.02 ***    0.02 ***    0.02 ***
+##               (0.00)      (0.00)      (0.00)      (0.00)   
+## female        -0.30 ***   -0.34 ***   -0.30 ***   -0.34 ***
+##               (0.04)      (0.04)      (0.04)      (0.04)   
+## -----------------------------------------------------------
+## R^2            0.39        0.21        0.38        0.21    
+## Adj. R^2       0.39        0.20        0.38        0.20    
+## Num. obs.    526         526         526         526       
+## ===========================================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Podemos observar dos cosas al comparar los modelos</p>
+<ol style="list-style-type: decimal">
+<li><p>Mientras que el estadístico <span class="math inline">\(R^2\)</span> de los modelos 1 (con todas las variables) y 2 (sin una variable no relevante) alcanza valores similares, este disminuye al excluir del modelo los años de escolaridad, que es una variable relevante para explicar los salarios por hora.</p></li>
+<li><p>Al incluir una nueva variable relevante <strong>educ</strong> en el modelo 3, los errores estándar (<span class="math inline">\(\sigma^2/n\)</span>) se mantienen relativamente similares, por lo que su inclusión no significa un aumento en la varianza de los estimadores.</p></li>
+<li><p>El modelo 4 no presenta diferencias sustantivas respecto del modelo 2: no mejora su ajuste, ni aumenta la varianza en general.</p></li>
+</ol>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>En la clase de hoy aprendimos a comprender los problemas asociados a la mala especificación de nuestros modelos, a partir de dos casos: uno, en que no incluimos variables relevantes; y otro, donde incluimos variables que no lo son. A través de un ejemplo práctico, pudimos constatar qué sucede al incorporar y excluir tales variables de los modelos.</p>
+</div>
+
+                    </div>
+
+                    
+
+
+
+                    
+                    <div class="article-widget">
+                        
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/example/12-practico/" rel="next">Errores de medida y procesamiento</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/example/05-practico/" rel="prev">Regresión lineal simple con diseño muestral y bondad de ajuste</a>
+  </div>
+  
+</div>
+
+                    </div>
+                    
+                </div>
+
+                <div class="body-footer">
+                    <p>Last updated on January 1, 0001</p>
+
+                    
+
+
+
+
+
+                    
+
+
+
+                </div>
+
+            </article>
+
+            <footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>: Estadística II (I° Semestre- 2023)</strong><br>
+
+                <a href="https://www.uahurtado.cl/" target="_blank" rel="noopener">Universidad Alberto Hurtado</a> &emsp;&emsp;
+                <a href="https://www.uahurtado.cl/carreras/ciencia-politica/" target="_blank" rel="noopener">Departamento de Ciencia Política y Relaciones Internacionales</a>
+            </p>
+
+            <p>
+                <a href="https://valentinaandrade.netlify.app/" target="_blank" rel="noopener"><i class="fas fa-user"></i>
+                    Valentina Andrade</a> &emsp;&emsp;
+                <a href="mailto:valentinaandrade@uchile.cl"><i class="fas fa-envelope"></i>
+                    valentinaandrade@uchile.cl</a>
+            </p>
+
+            <p>
+                <i class="far fa-calendar-alt"></i> Clases: Martes o Jueves (1 bloque) &emsp;&emsp;
+                <i class="fas fa-pencil-alt"></i> Práctico: Martes o Jueves (2 bloque) 
+                <br><i class="fas fa-university"></i> Sala por definir
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>All content licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>
+            
+            <p>Content <i class="fab fa-creative-commons"></i> 2023. Web developed by Andrew Heiss and custom by <a href="https://valentinaandrade.netlify.app/" target="_blank" rel="noopener">Valentina Andrade</a></p>
+        
+            <p>This site created with the <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> in <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">blogdown</a> and <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>. </p>
+            
+            <p><a href="https://github.com/valentinaandrade" target="_blank" rel="noopener"><i class="fab fa-github"></i> View the source at GitHub.</a></p>
+        </div>
+    </div>
+</footer>
+
+
+        </main>
+    </div>
+</div>
+
+        
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+
+    
+
+    
+    
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.2/anchor.min.js" integrity="sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg==" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.8b7df62fd2da18ce73e29c13cc0a6198.js"></script>
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/en/js/wowchemy.min.c6ceb5c48772e46156651a48070d6139.js"></script>
+
+    
+
+<script src="/js/math-code.js"></script>
+
+
+    
+    
+
+    
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

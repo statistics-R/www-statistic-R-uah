@@ -1,0 +1,300 @@
+---
+title: "Inferencia y predicción"
+linktitle: "8: Inferencia y predicción"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo-del-práctico" class="section level2">
+<h2>0. Objetivo del práctico</h2>
+<p>El presente práctico tiene dos objetivos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Aprender a formular y testear hipótesis para coeficientes de regresión lineal.</p></li>
+<li><p>Aprender a formular y testear hipótesis de significancia global para modelos de regresión lineal.</p></li>
+</ol>
+<div id="materiales-de-la-sesión" class="section level3">
+<h3>Materiales de la sesión</h3>
+<p>Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre <strong>salarios</strong> utilizados en el capítulo 2 del libro <em>Introducción a la econometría</em> de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados.</p>
+<pre class="r"><code>data = readRDS(url(&quot;https://github.com/statistics-R/practico-7/raw/main/data.rds&quot;))</code></pre>
+<p>Asimismo, la realización de este práctico requiere la carga de diversos <strong>paquetes</strong> que nos permitirán explorar los datos y presentar los modelos estimados.</p>
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;) # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               texreg) #Para presentar el modelo de regresión estimado</code></pre>
+</div>
+</div>
+<div id="volviendo-a-formular-el-modelo-de-regresión-lineal-múltiple-con-lm" class="section level2">
+<h2>1. Volviendo a formular el modelo de regresión lineal múltiple con <code>lm()</code></h2>
+<p>Volvemos a encontrarnos con:</p>
+<ul>
+<li><strong>wage</strong> (<span class="math inline">\(y\)</span>): indica el salario por hora en miles de pesos de cada persona en los datos.</li>
+<li><strong>educ</strong> (<span class="math inline">\(x_1\)</span>): indica el número de años de escolaridad de cada persona en los datos.</li>
+<li><strong>exper</strong> (<span class="math inline">\(x_2\)</span>): indica los años de experiencia laboral de cada persona en los datos.</li>
+<li><strong>rama</strong> (<span class="math inline">\(x_3\)</span>) : actividad económica a la que se dedica la empresa donde trabaja.</li>
+</ul>
+<p>Generemos el modelo con <code>lm()</code>, y visualicémoslo</p>
+<pre class="r"><code>m1 = lm(wage ~ educ + exper +rama, data = data)
+screenreg(m1)</code></pre>
+<pre><code>## 
+## ===============================
+##                      Model 1   
+## -------------------------------
+## (Intercept)           -0.31    
+##                       (0.97)   
+## educ                   0.48 ***
+##                       (0.06)   
+## exper                  0.05 ***
+##                       (0.01)   
+## rama2. Manufactura    -0.18    
+##                       (0.70)   
+## rama3. Info. y com.   -0.33    
+##                       (0.85)   
+## rama4. Comercio       -1.64 ** 
+##                       (0.63)   
+## rama5. Servicios      -2.14 ** 
+##                       (0.71)   
+## -------------------------------
+## R^2                    0.24    
+## Adj. R^2               0.23    
+## Num. obs.            311       
+## ===============================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Como sabemos, el modelo nos muestra el valor del intercepto, los coeficientes y el <span class="math inline">\(R^2\)</span> estimado. Sin embargo, hay algunos elementos en los cuales no nos hemos detenido en prácticas anteriores: los valores que se encuentran entre paréntesis, y los asteriscos (*) que se encuentran a la derecha de los coeficientes. En el mismo sentido, no nos hemos detenido en los astericos y valores que se encuentran en la última fila de la tabla. Es hora de revisarlos.</p>
+</div>
+<div id="los-supuestos-de-gauss-markov-de-la-regresión-lineal-múltiple" class="section level2">
+<h2>2. Los supuestos de Gauss-Markov de la regresión lineal múltiple</h2>
+<p>Recordemos los supuestos formulados en Wooldridge (2015):</p>
+<ol style="list-style-type: decimal">
+<li>Lineal en los parámetros: El modelo poblacional puede expresarse como:</li>
+</ol>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_kx_k +u
+\end{equation}
+\]</span>
+donde _0, _1,…, _k son los parámetros (constantes) desconocidos de interés, y <span class="math inline">\(u\)</span> el error aleatorio o término de perturbación no observable</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Muestreo aleatorio: se utilizan datos con muestreo aleatorio con n observaciones, de acuerdo con el modelo poblacional formulado en el punto anterior.</p></li>
+<li><p>En la muestra y la población, ninguna variable explicativa es constante, y <strong>no existen relaciones lineal exactas entre las variables explicativas</strong>.</p></li>
+<li><p>Media condicional cero de <span class="math inline">\(u\)</span>: el valor esperado del error <span class="math inline">\(u\)</span> para cualquier valor de las variables explicativas es igual a <strong>cero</strong>, o sea:</p></li>
+</ol>
+<p><span class="math display">\[
+\begin{equation}
+E(u|x_1, x_2, ... , x_k) = 0
+\end{equation}
+\]</span>
+5. Homocedasticidad: el error <span class="math inline">\(u\)</span> presenta la misma varianza para cualquier valor de las variables explicativas; es decir:</p>
+<p><span class="math display">\[
+\begin{equation}
+Var(u|x_1, x_2, ... , x_k) = \sigma^2
+\end{equation}
+\]</span></p>
+<p>Siguiendo estos supuestos, es posible asumir que los estimadores <span class="math inline">\(\beta_j\)</span> estimados a partir del método <strong>MCO</strong> son <strong>insesgados</strong> (supuestos 1 a 4) y <strong>eficientes</strong> (supuesto 5). Así, el <strong>Teorema de Gauss-Markov</strong> nos permite afirmar que los <span class="math inline">\(\hat\beta_j\)</span> (valor estimado para la muestra) estimados vía <strong>MCO</strong> son los mejores estimadores lineales insesgados (MELI) para <span class="math inline">\(\beta_j\)</span> (parámetro poblacional desconocido). Ello implica que es el estimador lineal e insesgado (<span class="math inline">\(E(\hat\beta) = \beta\)</span>) con la menor varianza; o, en el peor de los casos, otros estimadores presentarán, al menos, tanta varianza como los coeficientes estimados vía MCO.</p>
+<p>No obstante, para poder hacer inferencia tenemos que conocer la distribución muestral de <span class="math inline">\(\hat\beta_j\)</span>. Los puntos 1 a 5 no nos indican nada respecto de la distribución del estimador. No obstante, podemos considerar:</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Normalidad: El error poblacional <span class="math inline">\(u\)</span> se distribuye normalmente, lo cual podemos considerar si a) el modelo está bien especificado, es decir, se incluyen todos los predictores relevantes y se excluyen los no relevantes; y b) tenemos un <span class="math inline">\(n\)</span> lo suficientemente grande para considerar la aplicación del teorema del límite central, según el cual la distribución de los factores no observados es aproximadamente normal.</li>
+</ol>
+</div>
+<div id="formulando-hipótesis-para-los-coeficientes-de-regresión" class="section level2">
+<h2>3. Formulando hipótesis para los coeficientes de regresión</h2>
+<p>Cuando estimamos un modelo de regresión lineal, esperamos que el efecto de las variables explicativas sobre la variable explicada sea <strong>estadísticamente significativo</strong>. En este caso, ello quiere decir que lo que esperamos es que <strong>exista un efecto</strong> de <span class="math inline">\(x_n\)</span> sobre <span class="math inline">\(y\)</span>. Estadísticamente, ello se formula:</p>
+<p><span class="math display">\[
+\begin{equation}
+H_0: \beta_n = 0
+\end{equation}
+\]</span></p>
+<p>Es decir, nuestra <strong>hipótesis nula</strong>, que buscamos rechazar, indica que el valor estimado para el coeficiente será igual a cero. O sea, esperamos que el modelo no nos indique que, por cada unidad que aumente <span class="math inline">\(x_n\)</span>, el valor esperado de <span class="math inline">\(y\)</span> aumentará en 0.</p>
+<p><span class="math display">\[
+\begin{equation}
+H_1: \beta_n \neq 0
+\end{equation}
+\]</span></p>
+</div>
+<div id="test-de-significancia-a-través-de-alternativa-de-una-cola" class="section level2">
+<h2>4. Test de significancia a través de alternativa de una cola</h2>
+<p>Por su parte, la <strong>hipótesis alternativa</strong> planteada en caso de rechazar la hipótesis nula es que el valor estimado del coeficiente sea distinto de cero. No obstante, ¿cómo testeamos esto? para ello recurriremos a la <strong>prueba-<span class="math inline">\(t\)</span></strong>. Para ello, debemos estimar el valor <span class="math inline">\(t\)</span> de la siguiente manera:</p>
+<p><span class="math display">\[
+\begin{equation}
+t_{\hat\beta_j} \equiv \hat\beta_j/ee(\hat\beta_j)
+\end{equation}
+\]</span></p>
+<p>donde <span class="math inline">\(ee(\hat\beta_j)\)</span> corresponde al <strong>error estándar</strong> del estimador <span class="math inline">\(\hat\beta_j\)</span>, que en nuestra tabla se presenta en los valores entre paréntesis bajo los coeficientes. Así, por ejemplo, para <strong>educ</strong></p>
+<p><span class="math display">\[
+\begin{equation}
+t_{\hat\beta_{educ}} = \frac{\hat\beta_{educ}}{ee(\hat\beta_{educ})} = \frac{0.48}{0.06} = 8
+\end{equation}
+\]</span></p>
+<p>Debemos comparar el valor-<span class="math inline">\(t\)</span> calculado con el valor-<span class="math inline">\(t\)</span> crítico para los grados de confianza estimados <span class="math inline">\(n-k-1\)</span>, donde <span class="math inline">\(n\)</span> refiere al tamaño muestral y <span class="math inline">\(k\)</span> al número de coeficientes estimados. Para este caso, <span class="math inline">\(gl = 311- 6 -1 = 304\)</span>. No olvidemos que si <span class="math inline">\(n&gt;120\)</span>, los valores críticos <span class="math inline">\(c\)</span> se aproximarán a los de la distribución normal. Para rechazar la hipótesis nula, esperamos que el valor estimado <span class="math inline">\(t_{\hat\beta_{educ}}&gt;c\)</span>. Si consideramos un nivel de confianza del 95% (o, por otra parte, un error <span class="math inline">\(\alpha=0.05\)</span>), el valor-<span class="math inline">\(t\)</span> crítico <span class="math inline">\(c= 1.645\)</span>. En este caso, <span class="math inline">\(8&gt;1.645\)</span>, por lo cual es posible rechazar la hipótesis nula <span class="math inline">\(H_0\)</span> y afirmar, con un nivel de confainza del 95%, que el efecto de <strong>educ</strong> sobre <strong>wage</strong> es distinto de cero; es decir, se acepta la hipótesis alternativa <span class="math inline">\(H_1\)</span>. Por el contrario, si ello no se cumple, no podemos rechazar <span class="math inline">\(H_0\)</span>, es decir, no podemos afirmar que existe un efecto de los años de escolaridad sobre el salario por hora.</p>
+<p>A esta prueba se le denomina también prueba con alternativas de una cola, pues se estima la probabilidad de que, a determinado nivel de confianza (o de error <span class="math inline">\(\alpha\)</span>), <span class="math inline">\(t_{\hat\beta_{educ}}&gt;c\)</span>, o de que el estimador se encuentre en la <strong>región de rechazo</strong> de la distribución <span class="math inline">\(t\)</span>, lo cual nos permite rechazar la hipótesis nula <span class="math inline">\(H_0\)</span>.</p>
+</div>
+<div id="test-de-significancia-a-través-de-intervalos-de-confianza" class="section level2">
+<h2>5. Test de significancia a través de intervalos de confianza</h2>
+<p>Otra alternativa es estimar los intervalos de confianza para un nivel de confianza determinado, considerado que el estimador es <strong>insesgado</strong> en caso del cumplimiento de los supuestos 1-4 de Gauss-Markov. En este caso estimaremos la probabilidad de que, tolerando un nivel de error <span class="math inline">\(\alpha\)</span>, el valor-<span class="math inline">\(t\)</span> estimado se encuentre en la <strong>región de rechazo</strong> a ambos extremos de la distribución teórica <span class="math inline">\(t\)</span>. Para ello, estimamos</p>
+<p><span class="math display">\[
+\begin{equation}
+[t_{\hat\beta_-j}, t_{\hat\beta_j}] \equiv [\hat\beta_{j} - ee(\hat\beta_{j}) * t_{n-k-1}^\frac{1-a}{2}, \hat\beta_{j} + ee(\hat\beta_{j}) * t_{n-k-1}^\frac{1-a}{2}]
+\end{equation}
+\]</span>
+Démonos cuenta de que no utilizamos <span class="math inline">\(\alpha\)</span>, sino <span class="math inline">\(\alpha/2\)</span>, pues ahora buscamos realizar la prueba en ambas colas de la distribución. Por ejemplo, si queremos hacer una prueba de dos colas al 95% de confianza, la región de rechazo de cada cola se encontrará estimando un valor crítico <span class="math inline">\(c\)</span> menor y mayor a un error del 2.5% en cada cola. En este caso, para <strong>educ</strong>:</p>
+<p><span class="math display">\[
+\begin{equation}
+[t_{\hat\beta_{-educ}}, t_{\hat\beta_{educ}}] = [0.48 - (0.06 * 1.96), 0.48 + (0.06 * 1.96)] = [0.3624, 0.5976]
+\end{equation}
+\]</span></p>
+<p>Como podemos observar, el intervalo de confianza estimado no incluye al valor <span class="math inline">\(0\)</span>, lo cual nos permite rechazar <span class="math inline">\(H_0\)</span>, y aceptar la hipótesis alternativa <span class="math inline">\(H_1\)</span> de que, a un nivel de confianza del 95%, los años de escolaridad tienen un efecto sobre los salarios por hora.</p>
+</div>
+<div id="cálculo-de-valor-p-en-las-pruebas-t." class="section level2">
+<h2>6. Cálculo de valor-<span class="math inline">\(p\)</span> en las pruebas <span class="math inline">\(t\)</span>.</h2>
+<p>Ambos métodos involucran un nivel de arbitrariedad, pues el investigador debe definir de antemano un nivel de confianza que esté dispuesto a tolerar. Ello puede significar ocultar información útil respecto del resultado de la prueba de hipótesis, e.g. tener la posibilidad de rechazar <span class="math inline">\(H_0\)</span> a un nivel de significancia mayor que el escogido. Así, podríamos preguntarnos cual es el nivel más bajo de significancia al que podríamos rechazar <span class="math inline">\(H_0\)</span>, lo cual es conocido como <strong>valor-<span class="math inline">\(p\)</span></strong> de la prueba de hipótesis. Para ello estimamos la probabilidad de que una variable aleatoria <span class="math inline">\(t\)</span> con determinados grados de confianza, sea mayor que el valor <span class="math inline">\(t_{\hat\beta_{j}}\)</span> estimado. Este valor es una probabilidad, por lo cual su rango es [0,1]. En este caso, <code>lm()</code> estima los valores-<span class="math inline">\(p\)</span> automáticamente, según se especifica en la última fila de la tabla, calculando las áreas bajo la función densidad de probabilidad de la distribución <span class="math inline">\(t\)</span>. Usualmente, la prueba se hace considerando ambas colas.</p>
+<pre><code>## 
+## ===============================
+##                      Model 1   
+## -------------------------------
+## (Intercept)           -0.31    
+##                       (0.97)   
+## educ                   0.48 ***
+##                       (0.06)   
+## exper                  0.05 ***
+##                       (0.01)   
+## rama2. Manufactura    -0.18    
+##                       (0.70)   
+## rama3. Info. y com.   -0.33    
+##                       (0.85)   
+## rama4. Comercio       -1.64 ** 
+##                       (0.63)   
+## rama5. Servicios      -2.14 ** 
+##                       (0.71)   
+## -------------------------------
+## R^2                    0.24    
+## Adj. R^2               0.23    
+## Num. obs.            311       
+## ===============================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>En este caso, los valores-<span class="math inline">\(p\)</span> indican que los coeficientes que, si la hipótesis nula es verdadera, un valor absoluto del estadístico <span class="math inline">\(t\)</span> tan grande como el estimado para los coeficientes de <strong>educ</strong> y <strong>exper</strong> se observaría menos del 0.1% de las veces. Asimismo, estimar un estadístico <span class="math inline">\(t\)</span> con un valor absoluto como los observados para <strong>Comercio</strong> y <strong>Servicios</strong> de rama se observaría menos del 1% de las veces. Para el resto de los casos, el valor-<span class="math inline">\(p\)</span> estimado no es lo suficientemente pequeño como para rechazar la hipótesis nula a un nivel de confianza razonable de, al menos, un 95%.</p>
+</div>
+<div id="formulando-hipótesis-de-significancia-global" class="section level2">
+<h2>6. Formulando hipótesis de significancia global</h2>
+<p>Hasta ahora, hemos revisado test de hipótesis que consideran una única restricción (esperamos que <span class="math inline">\(\beta_n \neq 0\)</span>). Ahora bien, es posible buscar probar la hipótesis nula de que un <strong>conjunto de variables</strong> no tienen efecto sobre <span class="math inline">\(y\)</span>, controlando por otro conjunto de variables. Pensemos, por ejemplo, que queremos probar la hipótesis nula de que, controlando por años de escolaridad <strong>educ</strong>, las variables ocupacionales (<strong>exper</strong> y <strong>rama</strong>) no tendrán un efecto estadísticamente significativo sobre <strong>wage</strong>. En este caso</p>
+<p><span class="math display">\[
+\begin{equation}
+H_0: \beta_{exper} = 0, \beta_{rama_k} = 0
+\end{equation}
+\]</span></p>
+<p>Al poner múltiples restricciones, estamos realizando una <strong>prueba de hipótesis múltiple o conjunta</strong>. En este caso, la hipótesis alternativa sería</p>
+<p><span class="math inline">\(H_1: H0\)</span> no es verdadera.</p>
+<p>O sea, <strong>exper</strong> y <strong>rama</strong> sí tienen un efecto sobre <strong>wage</strong>. Para ello, tenemos que ver qué sucede con la suma de los residualdes cuadrados SRC (<span class="math inline">\(SRC = \sum(y_i-\hat{y_i})\)</span>). Si este aumenta lo suficiente al eliminar del modelo a <strong>exper</strong> y <strong>rama</strong> (al que denominamos modelo restringido, frente al no restringido), es posible rechazar <span class="math inline">\(H_0\)</span>. Comparemos nuestros modelos:</p>
+<pre><code>## 
+## ================================================
+##                      No restringido  Restringido
+## ------------------------------------------------
+## (Intercept)           -0.31            0.13     
+##                       (0.97)          (0.77)    
+## educ                   0.48 ***        0.42 *** 
+##                       (0.06)          (0.06)    
+## exper                  0.05 ***                 
+##                       (0.01)                    
+## rama2. Manufactura    -0.18                     
+##                       (0.70)                    
+## rama3. Info. y com.   -0.33                     
+##                       (0.85)                    
+## rama4. Comercio       -1.64 **                  
+##                       (0.63)                    
+## rama5. Servicios      -2.14 **                  
+##                       (0.71)                    
+## ------------------------------------------------
+## R^2                    0.24            0.13     
+## Adj. R^2               0.23            0.13     
+## Num. obs.            311             311        
+## ================================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Podemos ver que el estadístico <span class="math inline">\(R^2\)</span> ajustado del modelo restringido es menor que el del no restringido.</p>
+</div>
+<div id="test-de-significancia-global" class="section level2">
+<h2>7. Test de significancia global</h2>
+<p>Debemos, no obstante, combinar la información del SRC de ambos modelos para obtener un estadístico de prueba que tenga una distribución conocida bajo <span class="math inline">\(H_0\)</span>. Este será el estadístico <span class="math inline">\(F\)</span></p>
+<p><span class="math display">\[
+\begin{equation}
+F \equiv \frac{(SRC_r-SRC_{nr})/q}{SRC_{nr}/(n-k-1)},
+\end{equation}
+\]</span></p>
+<p>Donde <span class="math inline">\(SRC_r\)</span> es la suma total de cuadrados del modelo restringido; <span class="math inline">\(SRC_{nr}\)</span> es la suma total de cuadrados del modelo no restringido; y <span class="math inline">\(q\)</span> es el número de restricciones a probar. Sin embargo, utilizando el output de nuestro modelo con <code>summary()</code> podemos identificar el estadístico F calculado para el modelo junto con sus grados de confianza de manera sencilla</p>
+<pre class="r"><code>summary(m1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ educ + exper + rama, data = data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7297 -1.8817 -0.5236  1.0960 16.7215 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value           Pr(&gt;|t|)    
+## (Intercept)         -0.30547    0.97387  -0.314            0.75399    
+## educ                 0.48349    0.06166   7.841 0.0000000000000762 ***
+## exper                0.05354    0.01270   4.214 0.0000330823141231 ***
+## rama2. Manufactura  -0.18412    0.70430  -0.261            0.79394    
+## rama3. Info. y com. -0.32825    0.84937  -0.386            0.69942    
+## rama4. Comercio     -1.64280    0.63204  -2.599            0.00980 ** 
+## rama5. Servicios    -2.14411    0.71002  -3.020            0.00274 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.863 on 304 degrees of freedom
+## Multiple R-squared:  0.2422, Adjusted R-squared:  0.2272 
+## F-statistic: 16.19 on 6 and 304 DF,  p-value: 0.0000000000000003541</code></pre>
+<p>Con esta información es posible estimar el valor-<span class="math inline">\(p\)</span> para el modelo estimado, considerando los grados de confianza del modelo restringido y del modelo no restringido:</p>
+<pre class="r"><code>pf(16.19, 6, 304, lower.tail = F)</code></pre>
+<pre><code>## [1] 0.0000000000000003572259</code></pre>
+<p>Como podemos observar, este valor indica que la probabilidad de encontrar un valor para el estadístico F como el estimado es muy baja. Ello nos permite caer en la región de rechazo, acetpando la hipótesis alternativa <span class="math inline">\(H_1\)</span> de que <span class="math inline">\(H_0\)</span> es falsa y, en consecuencia, confirmando la significancia global del modelo.</p>
+</div>
+<div id="desafío-estimando-la-significancia-estadística-de-los-coeficientes-a-mano" class="section level2">
+<h2>Desafío: estimando la significancia estadística de los coeficientes a mano</h2>
+<p>A continuación, se propondrá el siguiente desafío. Quienes logren realizarlo obtendrán una bonificación de 5 décimas en la prueba del curso. Para ello, con el siguiente set de datos</p>
+<pre class="r"><code>x = data[sample(nrow(data), size=100),]
+m3 = lm(wage ~ educ + exper +rama, data = data)
+summary(m3)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ educ + exper + rama, data = data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7297 -1.8817 -0.5236  1.0960 16.7215 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value           Pr(&gt;|t|)    
+## (Intercept)         -0.30547    0.97387  -0.314            0.75399    
+## educ                 0.48349    0.06166   7.841 0.0000000000000762 ***
+## exper                0.05354    0.01270   4.214 0.0000330823141231 ***
+## rama2. Manufactura  -0.18412    0.70430  -0.261            0.79394    
+## rama3. Info. y com. -0.32825    0.84937  -0.386            0.69942    
+## rama4. Comercio     -1.64280    0.63204  -2.599            0.00980 ** 
+## rama5. Servicios    -2.14411    0.71002  -3.020            0.00274 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.863 on 304 degrees of freedom
+## Multiple R-squared:  0.2422, Adjusted R-squared:  0.2272 
+## F-statistic: 16.19 on 6 and 304 DF,  p-value: 0.0000000000000003541</code></pre>
+<p>deben, manualmente:</p>
+<ol style="list-style-type: decimal">
+<li>Estimar el valor-<span class="math inline">\(t\)</span> para cada coeficiente del modelo.</li>
+<li>Realizar prueba de hipótesis a una y dos colas.</li>
+</ol>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>En este práctico aprendimos a formular y testear hipótesis para poder realizar inferencia con nuestros estimadores de MCO.</p>
+</div>

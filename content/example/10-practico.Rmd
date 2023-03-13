@@ -1,0 +1,143 @@
+---
+title: "Relaciones no lineales y términos de interacción"
+linktitle: "10: Relaciones no lineales y términos de interacción"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+```{r, include =F}
+options(scipen = 999)
+```
+
+## 0. Objetivo del práctico
+
+El objetivo de este práctico es aprender a generar e interpretar modelos con términos de interacción entre variables explicativas con `lm()`. 
+
+### Materiales de la sesión 
+
+Tal como en la sesión anterior, en este práctico se utilizarán los datos sobre **precios de casas** utilizados en el libro *Introducción a la econometría* de J.W. Wooldridge (2015). En este caso, cargaremos los datos ya procesados. Asimismo, la realización de este práctico requiere la carga de diversos **paquetes** que nos permitirán explorar los datos y presentar los modelos estimados.
+
+```{r data, echo=TRUE}
+if (!require("pacman")) install.packages("pacman") # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               ggplot2,#Para graficar
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               texreg) #Para presentar el modelo de regresión estimado
+data("attend")#Cargamos datos
+```
+
+## 1. Explorando los datos
+
+Esta vez trabajaremos con los datos `hprice2` sobre precio mediano de las casas. En específico, utilizaremos las variables
+
+Volvemos a encontrarnos con: 
+
+- **price** ($y$): indica el precio mediano de las casas del barrio.
+- **lowstat** ($x_1$): indica el porcentaje de personas de bajo estatus socioeconómico del barrio. 
+- **proptax** ($x_2$): indica el impuesto a la propiedad por cada $1000. 
+- **colonial** ($x_3$): indica el número medio de habitaciones de las casas del barrio. 
+
+
+Generemos el modelo con `lm()`, y visualicémoslo
+
+```{r}
+m1 = lm(lprice ~  lowstat + rooms + proptax, data = hprice2)
+screenreg(m1, custom.model.names = "Modelo 1")
+```
+
+Podemos ver que todas las variables explicativas tienen un efecto significativo sobre los precio mediano de las casas. Además, el efecto de todas las variables sobre los precio mediano de las casas es negativo, salvo el el del número de habitaciones. 
+
+## 2. Relaciones no lineales y efectos de interacción entre predictores
+
+Lo anterior puede deberse a que, en algunas ocasiones, el efecto parcial, la elasticidad o la semielasticidad de la variable dependiente respecto de una variable explicativa depende de la magnitud de una tercera variable explicativa. A ello se le denomina estimar efectos de interacción. En términos de código con `lm()`, lo que debemos realizar para incorporar un efecto de interacción en la estimación del modelo es "multiplicar" los predictores, utilizando el signo __*__. Por ejemplo: 
+
+```{r}
+m2 = lm(lprice ~  lowstat + rooms*proptax, data = hprice2)
+screenreg(list(m1, m2), custom.model.names = c("Modelo 1", "Modelo 2"))
+```
+
+En este caso, el modelo con interacción presenta una bondad de ajuste mayor en 3 décimas a la del modelo sin efectos de interacción. Sin embargo, los coeficientes estimados para $proptax$ y $rooms$ son distintos. Por último, podemos notar que el modelo 2 presenta un coeficiente extra: $proptax:rooms$, que representa el **efecto de interacción** entre ambas variables. Otra cosa interesante es que el efecto de $proptax$ pasa de ser negativo a positivo. 
+
+Este modelo se formula matemáticamente de la siguiente manera
+
+$$
+\begin{equation}
+price = \beta_0 + \beta_1lowstat + \beta_2rooms + \beta_3rooms*proptax + \beta_4proptax
+\end{equation}
+$$
+
+Así, si queremos calcular el efecto parcial de $proptax$ sobre $price$, *ceteris paribus*, lo hemos de hacer de la siguiente manera
+
+$$
+\begin{equation}
+\frac{\vartriangle price}{\vartriangle proptax} = \beta_2 + \beta_3rooms
+\end{equation}
+$$
+
+En este caso, $\beta_3=-0.01<0$; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar su precio en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios. 
+
+Para hacer la comparación, debemos escoger valores útiles de $rooms$, como su mediana o media. Esto, pues \beta_2 indica el efecto promedio del impuesto a la propiedad sobre el precio mediano de las casas de determinado barrio, cuando el número medio de habitaciones por casa en ese barrio es cero, lo cual no tiene sentido. Debemos recurrir a la siguiente re-parametrización 
+
+$$
+\begin{equation}
+price = \beta_0 + \beta_1lowstat + \beta_2proptax + \beta_3(proptax-\bar{proptax})(rooms-\bar{rooms}) + \beta_4rooms
+\end{equation}
+$$
+
+Ello indica que, al estimar el efecto parcial de $proptax$ sobre $price$, lo haremos en la media de $rooms$, y vice-versa. En este caso, la media de $rooms$ es `r mean(hprice2$rooms)`, de modo que el efecto de $proptax$ sobre $price$ para barrios con casas que cuentan, como media, con 6.28 habitaciones, sería
+
+$$
+\begin{equation}
+price = 0.03*-0.01(6.28) = -0.001884,
+\end{equation}
+$$
+
+lo cual es, por supuesto, un efecto relativamente bajo y cercano a cero. 
+
+## 3. Interacción numérico*categórico
+
+¿Qué pasa si nuestro predictor es categórico? Creemos las variables $mlowstat$ y $mrooms$, que indicarán si los valores de $lowstat$ y $rooms$ son superiores o no a su media
+
+```{r}
+hprice2$mlowstat = ifelse(hprice2$lowstat > mean(hprice2$lowstat), 1, 0)
+hprice2$mrooms = ifelse(hprice2$rooms > mean(hprice2$rooms), 1, 0)
+```
+
+Ahora estimemos el modelo con estas variables como predictores
+
+```{r}
+m3 = lm(lprice ~  mlowstat + rooms + proptax, data = hprice2)
+screenreg(list(m1, m2, m3), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3"))
+```
+
+Ahora, generemos un modelo que estime el efecto de interacción entre $mlowstat$ y $rooms$ sobre $price$: 
+
+```{r}
+m4 = lm(lprice ~  mlowstat*proptax + mrooms, data = hprice2)
+screenreg(list(m3, m4), custom.model.names = c("Modelo 3", "Modelo 4"))
+```
+
+En este caso, $\beta_{mlowstat:proptax} = -0.19 < 0$. Ello indica que, en barrios cuyo porcentaje de personas de bajo estatus socioeconómico se encuentra por sobre la media, un mayor impuesto a la propiedad en cada barrio indica un aumento más bajo en los precios medianos de las casas de cada barrio.  
+
+## 4. Interacción categórico*categórico
+
+Por último, revisemos qué pasa cuando estimamos un efecto de interacción de dos variables categóricas
+
+```{r}
+m5 = lm(lprice ~  mlowstat*mrooms + proptax, data = hprice2)
+screenreg(list(m3, m4, m5), custom.model.names = c("Modelo 3", "Modelo 4", "Modelo 5"))
+```
+
+En este último caso, $\beta_{mlowstat:mrooms} = -0.27 < 0$. De ese modo, es posible señalar que, en barrios donde el porcentaje de personas de bajo estatus socioeconómico es superior a la media, el precio mediano de las casas aumenta menos en caso de que la media de habitaciones por casa sea mayor al promedio. 
+
+## Resumen
+
+En este práctico aprendimos cómo estimar y analizar modelos de regresión lineal con términos de interacción entre predictores. 

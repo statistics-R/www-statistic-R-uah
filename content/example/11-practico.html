@@ -1,0 +1,151 @@
+---
+title: "Chequeo de supuestos"
+linktitle: "11: Chequeo de supuestos"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo" class="section level2">
+<h2>0. Objetivo</h2>
+<p>El objetivo de este práctico es aprender cómo analizar el cumplimiento de supuestos de regresión lineal con <code>performance</code>.</p>
+</div>
+<div id="paquetes-y-datos-a-utilizar" class="section level2">
+<h2>1. Paquetes y datos a utilizar</h2>
+<p>En este caso utilizaremos diversos paquetes, entre los cuales el más relevante será <a href="https://easystats.github.io/performance/"><code>performance</code></a>, que se utilizará para evaluar la calidad de los modelos estimados. Utilizaremos los datos sobre precios medianos de casas del paquete <code>wooldridge</code>.</p>
+<pre class="r"><code>pacman::p_load(wooldridge, #Para descargar los datos
+               summarytools, #decriptivos
+               sjPlot, #visualización
+               performance, #evaluación de modelos
+               lmtest, #Para el test RESET de Ramsey
+               see) # herramientas para la visualización
+options(scipen=999)
+data(&quot;hprice2&quot;)</code></pre>
+</div>
+<div id="el-ajuste-y-la-calidad-de-los-modelos-de-regresión-lineal" class="section level2">
+<h2>2. El ajuste y la calidad de los modelos de regresión lineal</h2>
+<p>En prácticos anteriores hemos revisado diversas maneras de abordar el ajuste y la calidad de los modelos que estimamos. En el fondo, estadístico como <span class="math inline">\(R^2\)</span>, <span class="math inline">\(F\)</span>, <span class="math inline">\(p-valores\)</span>, entre otros, entregan información acerca de qué tan bien explica nuestro modelo la variabilidad de <span class="math inline">\(y\)</span>.</p>
+<p>No obstante, como hemos revisado a lo largo del curso, para poder asegurar la calidad y robustez de los modelos de regresión lineal que estimamos, debemos demostrar que esto cumplimen con algunos supuestos fundamentales. En este práctico utilizaremos el paquete <code>performance</code> y sus diversas funciones para aprender cómo chequear, comprender y analizar estos supuestos.</p>
+<p>A lo largo de este práctico analizaremos el siguiente modelo</p>
+<pre class="r"><code>mod = lm(lprice ~ crime + rooms + stratio + lowstat ,data = hprice2)
+summary(mod)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lprice ~ crime + rooms + stratio + lowstat, data = hprice2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.68869 -0.11254 -0.02062  0.10091  0.92711 
+## 
+## Coefficients:
+##              Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept) 10.152054   0.161954  62.685 &lt; 0.0000000000000002 ***
+## crime       -0.009718   0.001253  -7.754    0.000000000000050 ***
+## rooms        0.127981   0.017370   7.368    0.000000000000719 ***
+## stratio     -0.033592   0.004840  -6.940    0.000000000012148 ***
+## lowstat     -0.028348   0.001818 -15.589 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2127 on 501 degrees of freedom
+## Multiple R-squared:  0.7319, Adjusted R-squared:  0.7298 
+## F-statistic:   342 on 4 and 501 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<p>Podemos ver que todos los coeficientes estimados son estadísticamente significativos. Asimismo, salvo <span class="math inline">\(rooms\)</span>, el efecto de todo el resto de variables explicativas sobre los precios medianos de las casas de los barrios analizados es negativo. El estadístico <span class="math inline">\(R^2\)</span> se aproxima a <span class="math inline">\(0.73\)</span>, y el estadístico <span class="math inline">\(F\)</span> es estadísticamente significativo. De tal modo, es posible demostrar evidencia respecto de la validez estadística de nuestro modelo, así como de su bondad de ajuste. Revisemos ahora el cumplimiento de supuestos del modelo de regresión lineal propuestos por <strong>Gauss-Markov</strong> (Wooldridge, 2015).</p>
+</div>
+<div id="linealidad" class="section level2">
+<h2>3. Linealidad</h2>
+<p>El primer supuesto es que la regresión especificada es lineal en sus parámetros. Ello quiere decir que se espera que exista una <strong>relación lineal entre las variables explicada e explicativas</strong>.</p>
+<p>Podemos saber si se cumple este supuesto a partir de un <em>gráfico de dispersión de datos</em>, que relacione ambas variables, y verificar de manera “intuitiva” si la <strong>tendencia</strong> de esta relación se puede describir por una <strong>línea recta</strong>. El paquete <code>performace</code> nos permite hacer esto con su función <code>check_model</code> indicando en el argumento <code>check = "ncv</code></p>
+<pre class="r"><code>check_model(mod, check = c(&quot;ncv&quot;, &quot;linearity&quot;))</code></pre>
+<p><img src="/example/11-practico_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+Este gráfico presenta la relación entre los <strong>valores predichos</strong> para <span class="math inline">\(y\)</span> y los <strong>residuos</strong> estimados. La línea punteada indica cómo debiesen dispersarse los puntos azules (que corresponden a la intersección de los valores predichos y los residuos estimados para cada individuo) en caso de que existiese linealidad. En este caso es posible apreciar que la relación no se aproxima a la linealidad.</p>
+<p>En caso de que el cumplimiento no sea claro, una forma numérica para chequear este supuesto es que el valor promedio de los residuos sea cero. En este caso, ese valor es igual a 0. Si esto no fuera así, los residuos estarían sesgados sistemáticamente, por lo cual el supuesto de linealidad no se cumpliría. De suceder aquello, el modelo debiese re-especificarse (medir de otra manera la variable) en algún término de la ecuación de regresión al cuadrado o al cubo. Un modo que se ocupa para testear la necesidad de esta re-especificación es el test RESET de Ramsey que indica que:</p>
+<p><span class="math inline">\(H_0\)</span> cuando el modelo tiene algún término al cuadrado o cubo, la media de los residuos es cero. Es decir: si no podemos rechazar <span class="math inline">\(H_0\)</span>, nuestro modelo está bien especificado (es decir, es lineal).</p>
+<p>Utilizaremos <code>resettest</code> de <code>lmtest</code> para comprobar el cumplimiento del test RESET, estimando un <span class="math inline">\(p\)</span>-valor con el cual podremos <strong>rechazar</strong> la hipótesis nula</p>
+<pre class="r"><code>lmtest::resettest(mod)</code></pre>
+<pre><code>## 
+##  RESET test
+## 
+## data:  mod
+## RESET = 28.484, df1 = 2, df2 = 499, p-value = 0.000000000001933</code></pre>
+<p>Aquí podemos ver que no podemos rechazar <span class="math inline">\(H_0\)</span>, por lo cual debiésemos re-especificar el modelo.</p>
+</div>
+<div id="homocedasticidad" class="section level2">
+<h2>4. Homocedasticidad</h2>
+<p>Homoce ¿qué? Sí, <em>homocedasticidad</em>. Este concepto indica que <strong>los residuos</strong> se distribuyen de forma <strong>homogénea</strong> (por eso el sufijo <em>homo</em>). Como ya podrás haber notado este supuesto se vincula con el de linealidad. Y, al igual que este, también puede comprobarse con un gráfico de dispersión entre la variable explicada (<span class="math inline">\(y\)</span>) e explicativa (<span class="math inline">\(x\)</span>), donde podamos ver de manera clara la recta de regresión estimada y la distribución de los residuos. Aceptaremos el supuesto de <strong>homocedasticidad</strong> si la variación de los residuos es homogénea: es decir, no veremos un patrón claro, sino más bien se <em>distribuirán de forma aleatoria</em>. De manera gráfica veremos una nube de puntos que tiene una <em>forma similar</em> en todo el rango de las observaciones de la variable explicativa.</p>
+<p>Para comprobar el supuesto de homocedasticidad de manera más certera utilizaremos la prueba Breusch-Pagan Godfrey cuya hipótesis nula indica que</p>
+<p><span class="math inline">\(H_0\)</span>: La varianza de los residuos del modelo de regresión no es constante (<strong>heterocedasticidad</strong>)</p>
+<p>En este caso, buscaremos que rechazar la <span class="math inline">\(H_0\)</span>. Esto implicaría que, <em>“en suma y resta”</em>, si bien hay residuos, estos tienen una variación <strong>homogénea</strong> en todos los tramos de la relación de la variable explicada con la explicativa.</p>
+<p>A partir de la función <code>check_heteroscedasticity</code> verificaremos qué ocurre con la hipótesis nula</p>
+<pre class="r"><code>check_heteroscedasticity(mod)</code></pre>
+<pre><code>## Warning: Heteroscedasticity (non-constant error variance) detected (p &lt; .001).</code></pre>
+<p>En este caso, el test nos indica que la varianza no es homocedástica, por lo cual aceptamos la hipótesis nula de que la varianza de los residuos no es constante.</p>
+</div>
+<div id="normalidad-de-residuos" class="section level2">
+<h2>5. Normalidad de residuos</h2>
+<p>Además de la linealidad (media 0), la homocedasticidad (varianza mínima y constante), el método de estimación de la regresión lineal (<em>OLS</em> o <em>MCO</em> en español) requiere asegurar una <strong>distribución normal</strong> de los residuos pues, en caso contrario, el modelo no es consistente a través de las variables y observaciones. Esto significa que los errores no son aleteatorios, sino sistemáticos.</p>
+<p>Al igual que con los otros supuestos, la <strong>normalidad</strong> de los residuos se puede evaluar con métodos numéricos, utilizando pruebas que ya conocemos de otros cursos como la prueba de <em>Shapiro-Wilk</em> y Kolmogorov-Smirnov</p>
+<p>A partir de la función <code>check_normality</code> utilizaremos la prueba <em>Shapiro-Wilk</em> para ver qué ocurre con la hipótesis nula a</p>
+<pre class="r"><code>check_normality(mod)</code></pre>
+<pre><code>## Warning: Non-normality of residuals detected (p &lt; .001).</code></pre>
+<p>En este caso, no podemos rechazar la hipótesis nula de que los residuos no se distribuyen normalmente, por lo cual no podemos afirmar que los errores en nuestras estimación son aleatorios.</p>
+</div>
+<div id="independencia" class="section level2">
+<h2>6. Independencia</h2>
+<p>Evidentemente si los residuos no siguen una distribución normal, es probable que estos no sean independientes entre sí. Esto significa que buscaremos que los errores asociados a nuestro modelo de regresión sean <strong>independientes</strong>. Para saber si se cumple ese criterio se utiliza la prueba de <em>Durbin-Watson</em>, donde la <span class="math inline">\(H_0\)</span> supone que <strong>los residuos son independientes</strong>.</p>
+<p>A partir de la función <code>check_autocorrelation</code> utilizaremos la prueba <em>Durbin-Watson</em> para ver qué ocurre con la hipótesis nula a</p>
+<pre class="r"><code>check_autocorrelation(mod)</code></pre>
+<pre><code>## Warning: Autocorrelated residuals detected (p &lt; .001).</code></pre>
+<p>El <span class="math inline">\(p-valor\)</span> estimado nos indica que no podemos rechazar la hipótesis nula de que los residuos son independientes.</p>
+<p>En síntesis, sabemos la regresión lineal requiere de una relación lineal entre sus variables explicativas y explicada. Para ello no solo es importante chequear la distribución de los residuos, sino
+dos posibilidades que pueden <em>tendenciar</em> esa relación lineal: como casos influyentes en la muestra y predictores que están altamente relacionados. Revisaremos la última de estas</p>
+</div>
+<div id="multicolinealidad" class="section level2">
+<h2>7. Multicolinealidad</h2>
+<p>La multicolinealidad es la relación de <strong>dependencia lineal fuerte</strong> entre más de dos <strong>predictores</strong> de un modelo.</p>
+<p>El problema que produce es que será <em>difícil cuantificar con exactitud el efecto de cada predictor sobre la variable explicada</em>, precisamente pues puede ocurrir que el efecto que una variable predictora tenga sobre el fenómeno que se busca estudiar dependa del valor de otra variable del modelo.</p>
+<p>Para la regresión múltiple esto implica un problema, pues suponemos que podemos <em>“controlar”</em> por el otro valor de la variable. Si los predictores están correlacionados fuertemente, entonces el efecto de una variable <span class="math inline">\(x_1\)</span> sobre <span class="math inline">\(y\)</span> estará “contaminado” por el efecto de otra variable <span class="math inline">\(x_2\)</span> sobre <span class="math inline">\(y\)</span>, y vice-versa.</p>
+<p>Podemos examinar esta relación <strong>endógena</strong> entre predictores a partir de la existencia de altas correlaciones (<em>lineales</em>) entre variables. La aproximación numérica más utilizada es el <strong>VIF</strong> (factor de inflación de varianza), que indica hasta qué punto la varianza de los coeficientes de regresión se debe a la colinealidad (o dependencia) entre otras variables del modelo.</p>
+<p>Para evaluar esto ocuparemos el comando <code>check_collinearity()</code>. Como podemos ver en el gráfico, todos los valores son menores a 5 (<em>como recomienda el paquete</em>).</p>
+<pre class="r"><code>plot(check_collinearity(mod))</code></pre>
+<p><img src="/example/11-practico_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Ahora bien, dado que sabemos que las correlaciones en ciencias sociales nunca son tan altas, un criterio que se ocupa en nuestras disciplinas para evaluar <em>multicolinealidad</em> es es evitar valores del VIF mayores a 2.5.</p>
+<pre class="r"><code>check_collinearity(mod)</code></pre>
+<pre><code>## # Check for Multicollinearity
+## 
+## Low Correlation
+## 
+##     Term  VIF Increased SE Tolerance
+##    crime 1.29         1.14      0.77
+##    rooms 1.66         1.29      0.60
+##  stratio 1.23         1.11      0.82
+##  lowstat 1.93         1.39      0.52</code></pre>
+<p>Los valores especificados en la columna <code>VIF</code> indican que no existe una fuerte correlación entre las variables explicativas. Para solucionar este problema, se podría eliminar alguno de los predictores problemáticos, o <strong>evaluar si es que estas variables más bien son parte de un mismo constructo</strong>.</p>
+</div>
+<div id="casos-influyentes" class="section level2">
+<h2>8. Casos influyentes</h2>
+<p>Un último supuesto que revisaremos, y es el que probablemente el que más nos enfrentamos en las ciencias sociales, son los <strong>casos influyentes</strong> (también llamados <em>outliers</em> en inglés). Un ejemplo claro de esto son las variables como ingresos, donde muchas veces tenemos casos extremos con muy bajos salarios y otros muy altos, y que pueden tendenciar nuestras rectas de regresión pese a que no es evidente una relación lineal(o algún tipo de relación) entre la variable explicativa y explicada.</p>
+<p>Para verificar si un caso es <em>influyente</em>, examinaremos si la ausencia o presencia de ese caso genera un cambio importante en la estimación del modelo de regresión. Este enfoque se aborda a partir del cálculo de la <strong>Distancia de Cook</strong> (Cook,1977)</p>
+<p>Primero podemos graficar la influencia de los casos con <code>check_outliers()</code> dentro de un <code>plot()</code></p>
+<pre class="r"><code>plot(check_outliers(mod))</code></pre>
+<p><img src="/example/11-practico_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Luego para verificar si la ausencia o presencia de eliminar algunos de estos casos que presentan mayor distancia producen una <strong>diferencia</strong> significativa en la estimación del modelo, realizamos</p>
+<pre class="r"><code>check_outliers(mod)</code></pre>
+<pre><code>## OK: No outliers detected.</code></pre>
+<p>✔️ No se detectaron casos atípicos.</p>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>En este práctico aprendimos a analizar los supuestos del teorma de Gauss-Markov a través del paquete <code>performance</code>.</p>
+</div>

@@ -1,0 +1,299 @@
+---
+title: "Errores de medida y procesamiento"
+linktitle: "12: Errores de medida y procesamiento"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<div id="TOC">
+
+</div>
+
+<div id="objetivo" class="section level2">
+<h2>0. Objetivo</h2>
+<p>Los objetivos de este práctico son</p>
+<ol style="list-style-type: decimal">
+<li><p>Comprender las distintas fuentes que pueden producir errores de medición en un modelo de regresión lineal.</p></li>
+<li><p>Aprender a procesar las variables analizadas para reducir el error de medida.</p></li>
+</ol>
+</div>
+<div id="paquetes-y-datos-a-utilizar" class="section level2">
+<h2>1. Paquetes y datos a utilizar</h2>
+<p>Utilizaremos los datos sobre salarios del paquete <code>wooldridge</code>.</p>
+<pre class="r"><code>pacman::p_load(wooldridge,
+               texreg,
+               performance,
+               tidyverse) # Universo de paquetes
+options(scipen=999)
+data(&quot;wage1&quot;)</code></pre>
+</div>
+<div id="el-error-de-medida" class="section level2">
+<h2>2. El error de medida</h2>
+<p>A veces, las variables con las que trabajamos no necesariamente son una medición precisa de los fenómenos que estamos investigando. Cuando esto sucede, los modelos con los cuales buscaremos analizar la relación de diversas variables contendrán un error de medición. Así, podemos estar en presencia de errores de medición tanto en las variables explicativas como en las explicadas.</p>
+<p>Trabajaremos con el siguiente modelo a modo de ejemplo:</p>
+<pre class="r"><code>mod = lm(lwage ~ educ+exper+tenure+female, data = wage1)
+screenreg(mod)</code></pre>
+<pre><code>## 
+## =======================
+##              Model 1   
+## -----------------------
+## (Intercept)    0.50 ***
+##               (0.10)   
+## educ           0.09 ***
+##               (0.01)   
+## exper          0.00 ** 
+##               (0.00)   
+## tenure         0.02 ***
+##               (0.00)   
+## female        -0.30 ***
+##               (0.04)   
+## -----------------------
+## R^2            0.39    
+## Adj. R^2       0.39    
+## Num. obs.    526       
+## =======================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<div id="a-el-error-de-medición-en-variables-explicadas-y" class="section level3">
+<h3>a) El error de medición en variables explicadas <span class="math inline">\(y\)</span></h3>
+<p>Sea <span class="math inline">\(y*\)</span> la variable que se desea explicar para la población. En este caso, serán los salarios por hora <strong>wage</strong>. Como hemos revisado, este modelo tendría la forma</p>
+<p><span class="math display">\[
+\begin{equation}
+y* = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_{k}x_{k} + u,
+\end{equation}
+\]</span></p>
+<p>suponiendo que satisface los supuestos de Gauss-Markov revisados en clases previas. Sea <span class="math inline">\(y\)</span> el valor <strong>observado</strong> para los salarios por hora. Es razonable considerar que los informantes no necesariamente reportarán sus salarios por hora con exactitud, pudiendo sobre o subestimarlo al aproximar el valor de su salario a lo largo de su proceso cognitivo de respuesta. En ese caso, podríamos esperar que <span class="math inline">\(y \neq y*\)</span>, al menos en un conjunto de los informantes.</p>
+<p>Así, el error de medición en la población está definido como la <strong>diferencia</strong> entre el valor <strong>observado</strong> y el valor <strong>real</strong> que adopta la variable</p>
+<p><span class="math display">\[
+\begin{equation}
+e_{0} = y-y*
+\end{equation}
+\]</span></p>
+<p>Lo relevante será analizar cómo el error de medición en la población se asocia con otros factores. La pregunta en este caso sería los años de escolaridad, los años de experiencia laboral, la antiguedad en la empresa o el género están asociados a un sobre o subreporte de los salarios por parte de los informantes. Para un modelo estimable, tenemos que <span class="math inline">\(y* = y-e_{0}\)</span>, por lo cual</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + ... + \beta_{k}x_{k} + u + e_{0}.
+\end{equation}
+\]</span></p>
+<p>En esta ecuación, el error es <span class="math inline">\(u + e_{0}\)</span>. Como <span class="math inline">\(y,x_1, x_2, ..., x_k\)</span> son observados, podemos estimar el modelo <strong>MCO</strong>, ignorando el error de medición de <span class="math inline">\(y*\)</span>.</p>
+<p>Si el modelo formulado cumple con los supuestos de Gauss-Markov, la media de <span class="math inline">\(u=0\)</span>, y no está corrrelacionada con las <span class="math inline">\(x_j\)</span>. Podemos suponer, entonces, que la media del error de medición <span class="math inline">\(e_0\)</span> sea igual a 0. De no cumplirse esto, tan sólo estimaríamos un estimador sesgado de <span class="math inline">\(\beta_0\)</span>, lo cual no necesariamente es causa de preocupación. En ese sentido, es más relevante el supuesto sobre la relación entre <span class="math inline">\(e_0\)</span> e <span class="math inline">\(x_1, x_2, ..., x_k\)</span>. El supuesto es que el error de medición en <span class="math inline">\(y\)</span> sea estadísticamente independiente de cada una de las variables explicativas incorporadas. De cumplirse esto, entonces los estimadores de MCO son <strong>insesgados</strong> y <strong>consistentes</strong>.</p>
+<p>En caso de que <span class="math inline">\(e_0\)</span> y <span class="math inline">\(u\)</span> no estén correlacionados, entonces <span class="math inline">\(Var(u+e_0) = \sigma_u^2 + \sigma_0^2 &gt; \sigma_u^2\)</span>. Ello implica que el error de medición de la variable explicada significa una mayor varianza del error que cuando no existe error de medición. La consecuencia de lo anterior es una mayor varianza en los estimadores de MCO. Lo único que puede hacerse frente a ello es recolectar datos mejores, es decir, con menor error de medición. No obstante, si el error de medición <strong>no está asociado</strong> con las variables explicativas, entonces la estimación por MCO tiene propiedades adecuadas.</p>
+<p>En caso de que la variable explicada esté en forma logarítmica <span class="math inline">\(log(y*)\)</span>, el error de medición de la ecuación adoptará la forma</p>
+<p><span class="math display">\[
+\begin{equation}
+log(y) = log(y*) + e_0,
+\end{equation}
+\]</span>
+lo cual sigue de un error de medición <strong>multiplicativo</strong> para <span class="math inline">\(y\)</span>: <span class="math inline">\(y = y*a_0\)</span>, donde <span class="math inline">\(a_0&gt;0\)</span> y <span class="math inline">\(e_0 = log(a_0)\)</span>.</p>
+<p>En síntesis, el error de medición en la variable explicada <em>puede</em> causar un sesgo en MCO, en caso de estar correlacionado de manera sistemática con al menos uno de los predictores. Si este es sólo un error aleatorio asociado únicamente al reporte de los datos, entonces MCO es un método de estimación apropiado, pese a <span class="math inline">\(e_0\)</span>.</p>
+</div>
+<div id="b-error-de-medición-en-variables-explicativas-x_j" class="section level3">
+<h3>b) Error de medición en variables explicativas <span class="math inline">\(x_j\)</span></h3>
+<p>En general, un error de medición en <span class="math inline">\(x_j\)</span> tiende a ser un problema mayor a un error de medición en <span class="math inline">\(y\)</span>.</p>
+<p>Para simplificar la explicación, consideremos en modelo simple</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x^*_1 + u,
+\end{equation}
+\]</span>
+que satisface al menos los cuatro primeros supuestos de Gauss-Markov, a partir de lo cual podemos suponer que dará estimadores insesgados y consistentes de <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>. No obstante, tenemos que <span class="math inline">\(x^*_1\)</span> no es observada. En su reemplazo, tenemos la medición <span class="math inline">\(x_1\)</span>. En este caso, <span class="math inline">\(x^*_1\)</span> será el ingreso por hora real, y <span class="math inline">\(x_1\)</span> el ingreso por hora reportado por los informantes. El error de medición sería</p>
+<p><span class="math display">\[
+\begin{equation}
+e_1 = x_1 - x^*_1,
+\end{equation}
+\]</span></p>
+<p>pudiendo adoptar valores positivos y negativos además del cero. Suponemos que, en la población, la media del error de medición es cero: <span class="math inline">\(E(e_1) = 0\)</span>. Asimismo, suponemos que <span class="math inline">\(u\)</span> no está correlacionado con <span class="math inline">\(x^*_1\)</span> ni <span class="math inline">\(x_1\)</span>. O sea, <span class="math inline">\(E(y|x^*_1,x_1) = E(y|x^*_1)\)</span>: <span class="math inline">\(x_1\)</span> no afecta a <span class="math inline">\(y\)</span> cuando controlamos por <span class="math inline">\(x^*_1\)</span>.</p>
+<p>Cuando sustituimos <span class="math inline">\(x^*_1\)</span> por <span class="math inline">\(x_1\)</span>, y queremos conocer las propiedades de MCO, debemos asumir una serie de supuesto sobre el error de medición. El primero es que <span class="math inline">\(e_1\)</span> no está correlacionado con <span class="math inline">\(x_1\)</span>:</p>
+<p><span class="math display">\[
+\begin{equation}
+Cov(x_1, e_1) = 0.
+\end{equation}
+\]</span></p>
+<p>Si esto es verdadero, entonces <span class="math inline">\(e_1\)</span> debe estar correlacionado con <span class="math inline">\(x^*_1\)</span>. Para determinar las propiedades de MCO en este caso, escribimos <span class="math inline">\(x^*_1 = x_1 - e_1\)</span>, sustituyéndolo en la ecuación inicial</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + (u - \beta_1e_1).
+\end{equation}
+\]</span></p>
+<p>Como suponemos que <span class="math inline">\(u\)</span> y <span class="math inline">\(e_1\)</span> tienen media cero y no están correlacionado con <span class="math inline">\(x_1\)</span>, entonces <span class="math inline">\((u - \beta_1e_1)\)</span> tiene media cero y no está correlacionado con <span class="math inline">\(x_1\)</span>. De ello se sigue que nuestra estimación con <span class="math inline">\(x_1\)</span> en lugar de <span class="math inline">\(x^*_1\)</span> produce estimadores consistentes e insesgados para <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_0\)</span>.</p>
+<p>Dado que <span class="math inline">\(u\)</span> y <span class="math inline">\(e_1\)</span> no están correlacionados, la varianza del error será <span class="math inline">\(Var(u-\beta_1e_1) = \sigma^2_u + \beta^2_1\sigma^2_{e_1}\)</span>. De ese modo, salvo cuando <span class="math inline">\(\beta_1=0\)</span>, el error de medición aumentará la varianza del error. Esto no afecta a las propiedades de MCO, salvo que las varianzas de <span class="math inline">\(\hat\beta_j\)</span> sean mayores que si <span class="math inline">\(x_1 = x^*_1\)</span>.</p>
+<p>Por otra parte, el supuesto de <strong>errores clásicos en las variables (ECV)</strong> es que no existe correlación entre el error de medición y la variable explicativa <strong>no observada</strong></p>
+<p><span class="math display">\[
+\begin{equation}
+Cov(x^*_1, e_1) = 0,
+\end{equation}
+\]</span>
+lo cual proviene de expresar la medición observada como la suma de su parámetro y el error de medición:</p>
+<p><span class="math display">\[
+\begin{equation}
+x_1 = x^*_1 + e_1.
+\end{equation}
+\]</span></p>
+<p>Si ello se satisface, entonces <span class="math inline">\(x_1\)</span> y <span class="math inline">\(e_1\)</span> <em>deben</em> estar correlacionadas</p>
+<p><span class="math display">\[
+\begin{equation}
+Cov(x_1, e_1) = E(x_1e_1) = E(x^*_1e_1) + E(e^2_1) = 0 + \sigma^2_{e_1} = \sigma^2_{e_1}.
+\end{equation}
+\]</span></p>
+<p>De este modo, bajo el supuesto ECV, la covarianza entre <span class="math inline">\(x_1\)</span> y <span class="math inline">\(e_1\)</span> es igual a la varianza del error de medición. De ese modo, una correlación entre <span class="math inline">\(x_1\)</span> y <span class="math inline">\(e_1\)</span> generará problemas. Como <span class="math inline">\(u\)</span> y <span class="math inline">\(x_1\)</span> no están correlacionados, la covarianza entre <span class="math inline">\(x_1\)</span> y el error compuesto <span class="math inline">\(u - \beta_1e_1\)</span> es</p>
+<p><span class="math display">\[
+\begin{equation}
+Cov(x_1, u-\beta_1e_1) = -\beta_1Cov(x_1, e_1) = -\beta_1\sigma^2_{e_1}.
+\end{equation}
+\]</span></p>
+<p>Así, en el caso de ECV, la regresión MCO de <span class="math inline">\(y\)</span> sobre <span class="math inline">\(x_1\)</span> da un estimador sesgado e inconsistente. Podemos estimar la magnitud de la inconsistencia de la siguiente forma:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+plim(\hat\beta_1) = \beta_1 + \frac{Cov(x_1, u-\beta_1e_1)}{Var(x_1)} \\
+= \beta_1 - \frac{\beta_1\sigma^2_{e_1}}{\sigma^2_{x^*_1} + \sigma^2_{e_1}} \\
+= \beta_1(1-\frac{\sigma^2_{e_1}}{\sigma^2_{x^*_1} + \sigma^2_{e_1}}) \\
+=\beta_1(\frac{\sigma^2_{x^*_1}}{\sigma^2_{x^*_1} + \sigma^2_{e_1}})
+\end{aligned}
+\end{equation}
+\]</span></p>
+<p>De ello podemos desprender dos elementos:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\frac{Var(x^*_1)}{Var(x_1)}\)</span> es siempre menor a uno, por lo que plim<span class="math inline">\((\hat\beta_1)\)</span> se encuentra más cercano a cero que <span class="math inline">\(\beta_1\)</span>. A ello se le denomina <strong>sesgo de atenuación</strong> en MCO: en promedio, el efecto estimado será atenuado. Por ejemplo, si <span class="math inline">\(\beta_1&gt;0\)</span>, tenderá a subestimarlo.</p></li>
+<li><p>Si la varianza de <span class="math inline">\(x^*_1\)</span> es grande en relación con la varianza del error de medición, la inconsistencia de MCO será pequeña, pues <span class="math inline">\(\frac{Var(x^*_1)}{Var(x_1)}\)</span> tendrá un valor cercano a 1 cuando <span class="math inline">\(\frac{\sigma^2_{x^*_1}}{\sigma^2_{e_1}}\)</span> es grande.</p></li>
+</ol>
+<p>Todo se complica cuando trabajamos con modelos múltiples. Consideremos el modelo ilustrativo</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x^*_1 + \beta_2x_2 + \beta_{3}x_{3} + u,
+\end{equation}
+\]</span></p>
+<p>donde la primera variable se ha medido con error. Suponemos que no eixste correlación entre <span class="math inline">\(e_1\)</span> y <span class="math inline">\(x_2\)</span> y <span class="math inline">\(x_3\)</span>. Lo relevante es saber si <span class="math inline">\(e_1\)</span> está correlacionado con <span class="math inline">\(x_1\)</span>. De ser así, la regresión MCO genera estimadores consistentes. Esto es más sencillo escribiendo</p>
+<p><span class="math display">\[
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{3}x_{3} + u - \beta_1e_1,
+\end{equation}
+\]</span></p>
+<p>donde <span class="math inline">\(u\)</span> ni <span class="math inline">\(e_1\)</span> están relacionados con ningún predictor. Siguiendo el supuesto ECV, MCO será sesgado e inconsistente cuando <span class="math inline">\(e_1\)</span> esté correlacionado con <span class="math inline">\(x_1\)</span>, lo cual tiene como consecuencia que todos los estimadores <span class="math inline">\(\beta_k\)</span> serán sesgados.</p>
+<p>El error de medición puede presentarse en más de una variable explicativa. Lo esperable es que no exista una correlación entre el error de medición <span class="math inline">\(e_1\)</span> y el valor real <span class="math inline">\(x^*_1\)</span>. Por ejemplo, que no exista una correlación entre el valor real de años de escolaridad y el error de medición asociado.</p>
+<p>En síntesis, debemos situarnos en un punto intermedio, de modo que MCO será inconsistente en caso de que <span class="math inline">\(e_1\)</span> esté correlacionado con <span class="math inline">\(x^*_1\)</span> o <span class="math inline">\(x_1\)</span>.</p>
+</div>
+</div>
+<div id="solucionando-los-problemas-ocasionados-por-el-error-de-medida" class="section level2">
+<h2>3. Solucionando los problemas ocasionados por el error de medida</h2>
+<p>El problema del error de medición puede ser considerado como un problema de datos. Además, si <span class="math inline">\(x_1\)</span> está correlacionada con <span class="math inline">\(u - \beta_1e_1\)</span>, se violan los supuestos de Gauss-Markov. Por su parte, la <strong>multicolinealidad</strong> o correlación entre variables explicativas no viola ningún supuesto. Ahora revisaremos algunos de los problemas clásicos que pueden dificultar el cumplimiento del teorema de Gauss-Markov, y cómo solucionarlos.</p>
+<div id="a-datos-faltantes" class="section level3">
+<h3>a) Datos faltantes</h3>
+<p>Es posible que, para alguna de nuestras observaciones, no tengamos algún dato en alguna variable de interés. Por ejemplo, podría suceder que las personas no declaren sus ingresos, por la falta de confianza que existe para entregar información sensible. De ser así, no podemos emplear esta observación en un análisis de regresión múltiple. Por ello, en la mayoría de los casos, ignoraremos las observaciones con ausencia en variables de interés.</p>
+<p>Sin embargo, existen maneras de recuperar casos perdidos. Por ejemplo, para el caso de los ingresos, dado que tiende a ser información sensible para los informantes, se genera una pregunta “salvavidas” con tramos de ingreso, para que las personas se posicionen en alguno de ellos sin necesidad de indicar el monto exacto de sus ingresos.</p>
+<p>Luego, es posible estimar la marca de clase de los intervalos propuestos, a modo de <strong>imputar</strong> el valor de la marca de clase a quienes no hayan declarado sus ingresos en la variable original. La marca de clase se estima como el promedio de los límites inferior y superior de cada intervalo</p>
+<p><span class="math display">\[
+\begin{equation}
+mc = \frac{LI+LS}{2}
+\end{equation}
+\]</span>
+### b) Ausencia de linealidad</p>
+<p>En algunos casos, la relación entre nuestras variables explicativa y explicada no es lineal. Ello viola el supuesto de linealidad del teorema Gauss-Markov, revisado en el práctico anterior. En este caso, el test RESET de Ramsey nos indica la necesidad de una re-especificación de los predictores:</p>
+<pre class="r"><code>lmtest::resettest(mod)</code></pre>
+<pre><code>## 
+##  RESET test
+## 
+## data:  mod
+## RESET = 7.5488, df1 = 2, df2 = 519, p-value = 0.0005867</code></pre>
+<p>Intentemos generando un modelo con la antiguedad al cuadrado:</p>
+<pre class="r"><code>wage1$educ2 = (wage1$educ)^2
+mod2 = lm(lwage ~ educ2+exper+tenure+female, data = wage1)
+screenreg(list(mod, mod2))</code></pre>
+<pre><code>## 
+## ===================================
+##              Model 1     Model 2   
+## -----------------------------------
+## (Intercept)    0.50 ***    0.98 ***
+##               (0.10)      (0.07)   
+## educ           0.09 ***            
+##               (0.01)               
+## exper          0.00 **     0.00 ** 
+##               (0.00)      (0.00)   
+## tenure         0.02 ***    0.02 ***
+##               (0.00)      (0.00)   
+## female        -0.30 ***   -0.29 ***
+##               (0.04)      (0.04)   
+## educ2                      0.00 ***
+##                           (0.00)   
+## -----------------------------------
+## R^2            0.39        0.40    
+## Adj. R^2       0.39        0.40    
+## Num. obs.    526         526       
+## ===================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<p>Podemos ver que los coeficientes y <span class="math inline">\(R^2\)</span> se han ajustado un poco en sus valores. Realizando el test RETEST de Ramsey una vez más, nos daremos cuenta de que ahora el modelo está bien especificado, a partir de su p-valor.</p>
+<pre class="r"><code>lmtest::resettest(mod2)</code></pre>
+<pre><code>## 
+##  RESET test
+## 
+## data:  mod2
+## RESET = 0.97713, df1 = 2, df2 = 519, p-value = 0.3771</code></pre>
+<p>En algunos casos, logaritmizar la variable dependiente también permite solucionar problemas de linealidad.</p>
+</div>
+<div id="c-dicotomizar-variable-dependiente" class="section level3">
+<h3>c) Dicotomizar variable dependiente</h3>
+<p>Muchas veces, en ciencias sociales trabajamos con variables que no siguen una distribución normal, como sucede con las ítems tipo escala Likert. Podemos re-especificar nuestra variable dependiente como dicotómica utilizando la <strong>mediana</strong> o la <strong>media</strong> como punte de corte, según corresponda. Por ejemplo, para <strong>wage</strong>:</p>
+<pre class="r"><code>wage1$med_wage = ifelse(wage1$wage &gt;= median(wage1$wage), 1, 0)
+wage1$mean_wage = ifelse(wage1$wage &gt;= mean(wage1$wage), 1, 0)</code></pre>
+<p>Luego, en lugar de estimar modelos de regresión lineal, estimaremos modelos de regresión logística binomial, lo cual va más allá de los contenidos de este curso.</p>
+</div>
+<div id="d-heterocedasticidad" class="section level3">
+<h3>d) Heterocedasticidad</h3>
+<p>En este caso, podemos robustecer los errores estándar estimados, de la siguiente manera:</p>
+<pre class="r"><code>mod_r &lt;- lmtest::coeftest(mod, vcov=sandwich::vcovHC(mod))</code></pre>
+</div>
+<div id="e-multicolinealidad" class="section level3">
+<h3>e) Multicolinealidad</h3>
+<p>Cuando nuestros predictores están muy correlacionados, lo más probable es que esas distintas variables realmente estén midiendo el mismo <strong>constructo</strong>. Podemos construir índices de distintos tipos para solucionar este problema. Por ejemplo:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Índices sumativos</strong>: variables formativas donde se suma el valor de las distintas variables correlacionadas. Suele ser útil cuando se trabaja con variables categóricas, como <em>dummies</em> o ítems tipo Likert.</p></li>
+<li><p><strong>Índices a través de promedios</strong>: variables formativas donde promediamos los valores observados para los predictores correlacionados. Esto se puede realizar si a) ambas variables son numéricas; y b) el rango de las variables es el mismo. Por ello, siempre es recomendable estandarizar las variables antes de crear un índice a través de promedios.</p></li>
+</ol>
+</div>
+<div id="f-casos-influyentes" class="section level3">
+<h3>f) Casos influyentes</h3>
+<p>Podemos identificar y filtrar a los casos influyentes de la distribución de la sigueinte manera:</p>
+<pre class="r"><code>n&lt;- nobs(mod) #n de observaciones
+k&lt;- length(coef(mod)) # n de parametros
+dcook&lt;- 4/(n-k-1) #Punto de corte
+# Datos donde se filtran los valores sobre el punto de corte
+wage1_ni &lt;- broom::augment_columns(mod,data = wage1) %&gt;% filter(.cooksd&lt;dcook)
+mod_ni = lm(lwage ~ educ+exper+tenure+female, data = wage1_ni)
+screenreg(list(mod, mod_ni))</code></pre>
+<pre><code>## 
+## ===================================
+##              Model 1     Model 2   
+## -----------------------------------
+## (Intercept)    0.50 ***    0.46 ***
+##               (0.10)      (0.09)   
+## educ           0.09 ***    0.09 ***
+##               (0.01)      (0.01)   
+## exper          0.00 **     0.00 ** 
+##               (0.00)      (0.00)   
+## tenure         0.02 ***    0.02 ***
+##               (0.00)      (0.00)   
+## female        -0.30 ***   -0.30 ***
+##               (0.04)      (0.03)   
+## -----------------------------------
+## R^2            0.39        0.47    
+## Adj. R^2       0.39        0.46    
+## Num. obs.    526         496       
+## ===================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
+<div id="resumen" class="section level2">
+<h2>4. Resumen</h2>
+<p>En este práctico aprendimos</p>
+<ol style="list-style-type: decimal">
+<li>Las implicancias conceptuales y empíricas del error de medición en <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>.</li>
+<li>Cómo solucionar algunos problemas que singifican el incumplimiento de los supuestos del teorema Gauss-Markov.</li>
+</ol>
+</div>

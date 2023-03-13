@@ -1,0 +1,224 @@
+---
+title: "Omisión de variables relevantes"
+linktitle: "13: Omisión de variables relevantes"
+date: "2023-28-03"
+menu:
+  example:
+    parent: Ejemplos
+    weight: 1
+type: docs
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## 0. Objetivo
+
+Los objetivos de este práctico son comprender a identificar y solucionar problemas asociados a la mala especificación de nuestros modelos. 
+
+## 1. Paquetes y datos a utilizar
+
+Utilizaremos los datos sobre salarios del paquete `wooldridge`. 
+
+```{r}
+pacman::p_load(wooldridge,
+               texreg,
+               performance,
+               tidyverse) # Universo de paquetes
+options(scipen=999)
+data("wage1")
+```
+
+## 2. Introducción
+
+En ocasiones, dada la disponibilidad y calidad de los datos con los que contamos, o por problemas teóricos en el diseño de nuestros modelos, es posible que incluyamos variables que no son relevantes para comprender el fenómeno o, al revés, que omitamos variables que sí lo son. En ambos casos, nuestros modelos pueden presentar problemas de ajuste y validez estadística, o bien, no nos permitirán explicar de manera parsimoniosa y robusta el fenómeno que estamos analizando. 
+
+Trabajaremos con el siguiente modelo a modo de ejemplo: 
+
+```{r}
+mod = lm(lwage ~ educ+exper+tenure+female, data = wage1)
+screenreg(mod)
+```
+
+## 3. Inclusión de variables irrelevantes en un modelo de regresión
+
+El problema de **sobreespecificación** del modelo significa que al menos una de las variables explicativas que incluimos no tiene ningún efecto parcial sobre $y$. Pensemos en el siguiente modelo: 
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{3}x_{3} + u,
+\end{equation}
+$$
+que satisface los supuestos 1-4 del teorema de Gauss-Markov. No obstante, puede suceder que $x_3$ no tenga ningún efecto sobre $y$ al controlar por $x_1$ y $x_2$. O sea, $\beta_3=0$. En términos de esperanza condicional: $E(y|x_1,x_2,x_3) = E(y|x_1,x_2) = \beta_0 + \beta_1x_1 + \beta_2x_2$. Pensando en nuestro modelo, $\beta_{exper}=0$ con un nivel de confianza del 99%, por lo cual podríamos considerar que la experiencia laboral en años es irrelevante para explicar las variaciones en los salarios por hora. 
+
+¿Qué efectos puede tener el incluir variables irrelevantes? Esto no genera sesgos en $\beta_j$. Por ello, podemos asumir que, pese a incluir variables irrelevantes, $E(\hat\beta_j) = \beta_j$. Esto puede, sin embargo, tener efectos indeseables en la varianza de los estimadores de MCO, lo cual puede ser perjudicial para nuestras inferencias. 
+
+## 4. Sesgo de variable omitida
+
+Si, en lugar de incluir variables irrelevantes, no incluimos variables relevantes, estamos **subespecificando** el modelo. Esto hará que nuestros estimadores sean sesgados. Podemos determinar la dirección y magnitud de este sesgo. Esa identificación es un ejemplo de **análisis de error de especificación**. Pensemos el siguiente modelo, que satisface los supuestos 1-4 del teorema de Gauss-Markov: 
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + u.
+\end{equation}
+$$
+
+Pensemos que este modelo busca explicar la variación promedio en los salarios por hora ($y$) a partir de la variación de los años de escolaridad ($x_1$) y el CI del individuo ($x_2$). Si estimamos el modelo de regresión de $y$ sobre $x_1$ y $x_2$, obtendremos estimadores insesgados de $\beta_0$, $\beta_1$ y $\beta_2$. No obstante, es posible que no contemos con la variable de CI en nuestra base de datos, por lo cual estimamos el modelo considerando sólo a $x_1$. En cuyo caso, el modelo se especificaría
+
+$$
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1 + v,
+\end{equation}
+$$
+donde $v = \beta_2x_2 + u$. 
+
+Para obtener el sesgo de $\tilde\beta_1$, tenemos que $\tilde\beta_1 = \hat\beta_1 + \hat\beta_2\tilde\delta_1$, donde $\hat\beta_1$ y $\hat\beta_2$ son los estimadores de la pendiente de regresión múltiple 
+
+$y_i$ sobre $x_{i1}, x_{i2}, i = 1, ..., n$
+
+y $\tilde\delta_1$ es la pendiente de la regresión simple
+
+$x_{i2}$ sobre $x_{i1}, i = 1,...,n.$
+
+Dado que $\tilde\delta_1$ sólo depende de los predictores de la muestra, al calcular $E(\tilde\beta_1)$ se considera fija o no aleatoria. Dado que suponemos que se cumplen los supuestos del teorema Gauss-Markov, sabemos que $\hat\beta_1$ y $\hat\beta_2$ son estimados insesgados de $\beta_1$ y $\hat\beta_2$, respectivamente. Así: 
+
+$$
+\begin{equation}
+\begin{aligned}
+E(\tilde\beta_1) = E(\hat\beta_1 + \hat\beta_2\tilde\delta_1) = E(\hat\beta_1) + E(\hat\beta_2)\tilde\delta_1
+& = \beta_1 + \beta_2\tilde\delta_1,
+\end{aligned}
+\end{equation}
+$$
+
+de modo que el sesgo en $\tilde\beta_1$ es 
+
+$$
+\begin{equation}
+Bias(\tilde\beta_1) = E(\tilde\beta_1) - \beta_1 = \beta_2\tilde\delta_1.
+\end{equation}
+$$
+
+A este término se le denomina **sesgo de la variable omitida**. 
+
+Hay dos casos en que $\tilde\beta_1$ es insesgado: 
+
+1. Cuando $\beta_2=0$, o
+2. Cuando $\tilde\delta_1=0$, aun cuando $\beta_2\neq0$. Dado que $\tilde\delta_1$ es la covarianza muestral de $x_1$ y $x_2$ sobre la varianza muestral de $x_1$, esta sólo será igual a cero cuando no existe correlación entre ambas variables. 
+
+En caso de que $x_1$ y $x_2$ estén correlacionadas, $\tilde\delta_1$ tendrá el mismo signo que su correlación. El signo del sesgo de $\tilde\beta_1$ depende, por su parte, de los signos de $\beta_2$ y $\tilde\delta_1$. También es importante cuidar la magnitud del sesgo, que también estará determinada por las magnitudes de $\beta_2$ y $\tilde\delta_1$. 
+
+Pese a que no podamos conocer su magnitud y su dirección en cuanto $\beta_2$ es un parámetro desconocido, si la podemos inferir. Por ejemplo, podemos asumir que el efecto del CI sobre el salario por hora es positivo en la medida que permite mejor productividad en los trabajadores, por lo que asumimos que $\beta_2>0$. Asimismo, podemos inferir que la correlación entre los años de escolaridad y el CI es positiva, en cuanto un mayor nivel educacional puede estar asociado a un mayor desarrollo intelectual. Así, podemos operar bajo el supuesto de que el sesgo es **positivo**, en cuanto los signos de $\beta_2$ y $\tilde\delta_1$ sean positivos.
+
+En términos generales, el análisis del sesgo por no incluir variables relevantes se señala: 
+
+1. Si $E(\tilde\beta_1)>\beta_1$, $\tilde\beta_1$ tiene un sesgo **hacia arriba**, mientras que 
+2. Si $E(\tilde\beta_1)<\beta_1$, $\tilde\beta_1$ tiene un sesgo **hacia abajo**; y
+3. Si $E(\tilde\beta_1)$ se encuentra más cerca de cero que $\beta_1$, está **sesgado hacia cero**.
+
+El procedimiento anterior se dificulta cuando tenemos modelos múltiples. Para comprenderlo, hemos de recordar que la correlación entre un predictor y el error tiene a generar que **todos** los estimadores de MCO sean sesgados. Si tenemos el modelo poblacional que satisface los supuestos 1-4 de Gauss-Markov
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_3 + u,
+\end{equation}
+$$
+
+pero omitimos $x_3$, obtenemos 
+
+$$
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1 + \tilde\beta_2x_2.
+\end{equation}
+$$
+
+Supongamos que $x_2$ y $x_3$ no están correlacionadas, pero que $x_1$ y $x_3$ sí lo están. En este caso, pese a que $x_2$ no esté asociada a la variable omitida, tanto $\tilde\beta_1$ como $\tilde\beta_2$ serán sesgados. Ello ocurre salvo que $x_1$ y $x_2$ no estén correlacionadas. 
+
+Sin embargo, si asumimos que $x_1$ y $x_2$ no están correlacionadas, podemos estudiar el sesgo de $\tilde\beta_1$ como si $x_2$ no se hubiese incluido en los modelos estimado y poblacional. En este caso, podría demostrarse que
+
+$$
+\begin{equation}
+E(\tilde\beta_1) = \beta_1 + \beta_3 \frac{\sum_{i=1}^n(x_{i1}-\bar{x_1})x_{i3}}{\sum_{i=1}^n(x_{i1}-\bar{x_1})^2}
+\end{equation}
+$$
+
+
+Así, el sesgo en $\tilde\beta_1$ será positivo cuando la correlación de $x_1$ y $x_3$ sea positiva y $\beta_3>0$; o cuando la correlación de $x_1$ y $x_3$ sea negativa y $\beta_3<0$, y así. 
+
+## 5. Varianza de estimadores de MCO
+
+Bajo los supuestos 1-5 de Gauss-Markov (es decir, esta vez incluyendo la homocedasticidad), la varianza de los estimadores MCO se calcula
+
+$$
+\begin{equation}
+Var(\hat\beta_j) = \frac{\sigma^2}{STC(1-R_j^2)},
+\end{equation}
+$$
+para $j=1,2,...,k$, donde $STC = \sum_{i=1}^n(x_{ij}-\bar{x}_j)^2$ es la variación muestral total en $x_j$ y $R_j^2$ es la $R^2$ de regresión de $x_j$ sobre todas las variables explicativas, incluyendo un intercepto. 
+
+La importancia de la varianza de los estimadores MCO proviene de que, si su valor es alto, el estimador es menos preciso, lo cual se traduce en intervalos de confianza más amplios y pruebas de hipótesis menos exactas. 
+
+## 6. Varianzas en modelos mal especificados
+
+Incluir determinada variable en un modelo de regresión se puede realizar a partir de la disyuntiva entre sesgo y varianza. Cuando dejamos fuera una variable relevante, nuestro modelo presentará un sesgo hacia arriba o hacia abajo. Considerando el modelo poblacional verdadero, que cumple con los supuestos de Gauss-Markov 
+
+$$
+\begin{equation}
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + u,
+\end{equation}
+$$
+consideraremos dos estimadores de $\beta_1$. El primero, $\hat\beta_1$ proviene de 
+
+$$
+\begin{equation}
+\hat{y} = \hat\beta_0 + \hat\beta_1x_1 + \hat\beta_2x_2,
+\end{equation}
+$$
+mientras que el estimador $\tilde\beta_1$ se obtiene omitiendo $x_2$
+
+$$
+\begin{equation}
+\tilde{y} = \tilde\beta_0 + \tilde\beta_1x_1.
+\end{equation}
+$$
+
+Como se vio anteriormente, si $\beta_2 \neq 0$, estamos excluyendo una variable relevante, lo cual induce un sesgo en $\tilde\beta_1$, salvo que no exista correlacion entre $x_1$ ni $x_2$. Por su parte, $\hat\beta_1$ es un estimador insesgado de $\beta_1$ para cualquier valor de $\beta_2$, incluyendo 0. Así, si el sesgo es nuestro único criterio, preferiremos a $\hat\beta_1$ frente a $\tilde\beta_1$.
+
+Ello no es válido al considerar la varianza. Tenemos que 
+
+- $Var(\hat\beta_1) = \sigma^2/[STC_1(1-R_1^2)]$, y
+- $Var(\tilde\beta_1) = \sigma^2/STC_1$
+
+De ese modo, $Var(\tilde\beta_1)$ siempre será menor que $Var(\hat\beta_1)$, a menos que $x_1$ y $x_2$ **no** estén correlacionadas. En ese caso, ambos estimadores son iguales. Si ambas variables están correlacionadas, podemos formular lo siguiente: 
+
+1. Si $\beta_2 \neq 0$, $\tilde\beta_1$ es sesgado, $\hat\beta_1$ es insesgado y $Var(\tilde\beta_1)$<$Var(\hat\beta_1)$
+2. Si $\beta_2 = 0$, $\tilde\beta_1$ y $\hat\beta_1$ son insesgados y $Var(\tilde\beta_1)$<$Var(\hat\beta_1)$.
+
+Así, si $x_2$ no tiene efecto parcial sobre $y$, el incluirla sólo puede aumentar la posibilidad de tener un problema de multicolinealidad, lo cual implica un estimador menos eficiente de $\beta_1$.
+
+En cambio, si $x_2$ sí tiene un efecto sobre $y$, dejarla fuera significará un estimador sesgado de $\beta_1$. Se ha recomendado comparar la magnitud del sesgo al omitir $x_2$ con la disminución de la varianza expresada en $R_1^2$ para decidir si se incluye aquella variable. Si $\beta_2 \neq 0$, lo recomendable es incluir $x_2$ en el modelo, pues el sesgo en $\tilde\beta_1$ no disminuirá al aumentar el tamaño muestral. Además, tanto $Var(\tilde\beta_1)$ como $Var(\hat\beta_1)$ tienden a cero en la medida que $n$ aumenta, por lo que la colinealidad producida por incorporar $x_2$ pierde relevancia en tanto trabajamos con muestras más grandes. En estos casos, preferiremos $\hat\beta_1$.
+
+Comprobemos lo anterior comparando nuestro modelo con otras dos versiones: 
+
+1. Una en la cual eliminamos una variable no relevante, **exper**, y una variable relevante, **educ**;
+2. una en que sólo eliminamos una variable no relevante; y
+3. otra donde eliminamos una variable relevante, **educ**
+
+```{r}
+mod2 = lm(lwage ~ tenure+female, data = wage1)
+mod3 = lm(lwage ~ educ+tenure+female, data = wage1)
+mod4 = lm(lwage ~ exper+tenure+female, data = wage1)
+screenreg(list(mod, mod2, mod3, mod4))
+```
+
+Podemos observar dos cosas al comparar los modelos 
+
+1. Mientras que el estadístico $R^2$ de los modelos 1 (con todas las variables) y 2 (sin una variable no relevante) alcanza valores similares, este disminuye al excluir del modelo los años de escolaridad, que es una variable relevante para explicar los salarios por hora.
+
+2. Al incluir una nueva variable relevante **educ** en el modelo 3, los errores estándar ($\sigma^2/n$) se mantienen relativamente similares, por lo que su inclusión no significa un aumento en la varianza de los estimadores. 
+
+3. El modelo 4 no presenta diferencias sustantivas respecto del modelo 2: no mejora su ajuste, ni aumenta la varianza en general. 
+
+## Resumen
+
+En la clase de hoy aprendimos a comprender los problemas asociados a la mala especificación de nuestros modelos, a partir de dos casos: uno, en que no incluimos variables relevantes; y otro, donde incluimos variables que no lo son. A través de un ejemplo práctico, pudimos constatar qué sucede al incorporar y excluir tales variables de los modelos. 
