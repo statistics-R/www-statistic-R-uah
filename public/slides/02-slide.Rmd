@@ -129,10 +129,6 @@ class: title title-8
 - Nada asegura que la muestra que obtuvimos represente exactamente a la población, pero gracias a que la muestra es probabilística podemos calcular el error de la estimación
 
 ---
-
-Imagen
-
----
 class: title tile-8
 
 # Conceptos
@@ -175,8 +171,7 @@ class: title title-8
 
 - Mecanismo debe asegurar que el error sea mínimo y medible
 
----
-Actividad
+
 ---
 class: center middle main-title section-title-8 top-logo
 
@@ -198,18 +193,15 @@ Opciones
 ---
 
 .pull-left[
-
-```{r, echo = F}
+```{r, echo = F, eval = T}
 data.frame(id = 1:10, letter = letters[1:10])
-
 ```
 ]
 
 .pull-right[
-```{r}
+```{r, echo = F, eval=T}
 sample_n(data.frame(id = 1:10, letter = letters[1:10]), 5)
 ```
-
 ]
 
 ---
@@ -230,10 +222,7 @@ class: title title-8
 
 2. **Ley de grandes números**
 
-
-
----
-Gif y ejercicio (falta)
+(Práctico)
 
 ---
 class: title title-8
@@ -347,7 +336,7 @@ class: title title-8
 .box-1[Proporción de la población que ha sido discriminada en su lugar de trabajo (por sexo)]
 
 
-imagen de tabla (falta)
+![](https://raw.githubusercontent.com/statistics-R/slides/main/img/02/ejemplo.png)
 
 ---
 class: center middle main-title section-title-8 top-logo

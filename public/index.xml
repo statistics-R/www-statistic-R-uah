@@ -3609,6 +3609,276 @@ screenreg(list(mod, mod2, mod3, mod4))&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
+      <title>Regresión lineal simple</title>
+      <link>/example/04-practico/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/example/04-practico/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+
+&lt;/div&gt;
+
+&lt;div id=&#34;objetivo-del-práctico&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;0. Objetivo del práctico&lt;/h2&gt;
+&lt;p&gt;El presente práctico tiene dos objetivos:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Comprender conceptualmente el &lt;strong&gt;análisis de regresión lineal simple&lt;/strong&gt; estimado a través de &lt;strong&gt;Mínimos Cuadrados Ordinarios (MCO)&lt;/strong&gt; (o &lt;em&gt;Ordinary Least Squares&lt;/em&gt; (&lt;em&gt;OLS&lt;/em&gt;) en inglés).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Aprender a estimar una regresión lineal simple en R a través de la función &lt;code&gt;lm()&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div id=&#34;materiales-de-la-sesión&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Materiales de la sesión&lt;/h3&gt;
+&lt;p&gt;En este práctico se utilizarán los datos sobre &lt;strong&gt;salarios&lt;/strong&gt; utilizados en el capítulo 2 del libro &lt;em&gt;Introducción a la econometría&lt;/em&gt; de J.W. Wooldridge (2015).&lt;/p&gt;
+&lt;p&gt;Asimismo, la realización de este práctico requiere la carga de diversos &lt;strong&gt;paquetes&lt;/strong&gt; que nos permitirán explorar los datos y presentar los modelos estimados.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(&amp;quot;pacman&amp;quot;)) install.packages(&amp;quot;pacman&amp;quot;) # Instalamos pacman en caso de necesitarlo
+pacman::p_load(wooldridge, #Para descargar los datos
+               dplyr, #Para procesar datos
+               sjmisc, #Para explorar los datos
+               sjPlot, #Para explorar los datos
+               texreg) #Para presentar el modelo de regresión estimado&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;familiarizándose-con-los-datos&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1. Familiarizándose con los datos&lt;/h2&gt;
+&lt;p&gt;Como se señalo anteriormente, se trabajará con datos sobre &lt;strong&gt;salarios&lt;/strong&gt;. Para cargarlos, utilizamos la función &lt;code&gt;data(&#34;wage1&#34;)&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(&amp;quot;wage1&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nos daremos cuenta de que en nuestro &lt;em&gt;ambiente&lt;/em&gt; ha aparecido un dataframe con 526 observaciones y 24 columnas. Particularmente, en este caso trabajaremos con dos variables:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;wage&lt;/strong&gt;: indica el salario por hora en miles de pesos de cada persona en los datos.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;educ&lt;/strong&gt;: indica el número de años de escolaridad de cada persona en los datos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Las seleccionaremos utilizando la función &lt;code&gt;select()&lt;/code&gt; de &lt;code&gt;dplyr&lt;/code&gt;, a modo de trabajar con un set de datos más acotado&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wage1 = select(wage1, wage, educ)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como se ha revisado en las clases, el análisis de regresión busca cuantificar la relación entre dos variables &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; (independiente, predictora, explicativa, entre otros) e &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; (dependiente, predicha, explicada, entre otros). En particular, se busca&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explicar &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; en términos de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;, o bien&lt;/li&gt;
+&lt;li&gt;Analizar cómo varía &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; cuando varía &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;En este práctico se busca estimar un modelo de regresión lineal de &lt;strong&gt;wage&lt;/strong&gt; (&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, variable explicada) sobre &lt;strong&gt;educ&lt;/strong&gt; (&lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;, variable explicativa). Antes de adentrarse directamente en la comprensión y estimación de los modelos de regresión lineal simple, es relevante explorar &lt;strong&gt;uni&lt;/strong&gt; y &lt;strong&gt;bivariadamente&lt;/strong&gt; los datos por analizar. Para ello, nos valdremos de las funciones &lt;code&gt;descr()&lt;/code&gt; del paquete &lt;code&gt;sjmisc&lt;/code&gt;, que permite describir variables cuantitativas; &lt;code&gt;plot_frq()&lt;/code&gt; y &lt;code&gt;plot_scatter&lt;/code&gt; de &lt;code&gt;sjPlot&lt;/code&gt; para análisis uni y bivariados;y &lt;code&gt;cor()&lt;/code&gt; del paquete &lt;code&gt;base&lt;/code&gt; de &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+&lt;div id=&#34;descriptivos-univariados-con-sjmiscdescr-y-sjplotplot_frq&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Descriptivos univariados con &lt;code&gt;sjmisc::descr()&lt;/code&gt; y &lt;code&gt;sjPlot::plot_frq()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;En general, variables de niveles de medición intervalar o de razón (también denominadas genéricamente como variables &lt;strong&gt;cuantitativas&lt;/strong&gt;) permiten emplear una serie de propiedades de los números que se traducen en la posibilidad de realizar con ellos operaciones aritméticas como sumar, restar, multiplicar y dividir. Así, es posible estimar para ellas no sólo medidas de posición, sino también otras &lt;strong&gt;medidas de tendencia central&lt;/strong&gt; de gran importancia como, en particular, la &lt;strong&gt;media&lt;/strong&gt;, así como &lt;strong&gt;medidas de dispersión&lt;/strong&gt; tales como la &lt;strong&gt;varianza&lt;/strong&gt;. Ambos estadísticos son &lt;strong&gt;fundamentales&lt;/strong&gt; en la estimación de modelos de regresión lineal.&lt;/p&gt;
+&lt;p&gt;En particular, los descriptivos para la variable &lt;strong&gt;wage&lt;/strong&gt; se obtienen&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sjmisc::descr(wage1$wage)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## ## Basic descriptive statistics
+## 
+##  var    type label   n NA.prc mean   sd   se   md trimmed              range
+##   dd numeric    dd 526      0  5.9 3.69 0.16 4.65    5.24 24.45 (0.53-24.98)
+##   iqr skew
+##  3.55 2.01&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Siguiendo lo presentado es posible distinguir que, en la muestra, los salarios por hora oscilan entre los .53 y los 24.98 mil pesos chilenos. El &lt;strong&gt;promedio&lt;/strong&gt; es de 5.9 mil pesos por hora, mientras que la desviación estándar corresponde a 3.69 mil pesos por hora. Además, la mediana (4.65 mil pesos por hora) es inferior a la media, lo cual indicaría una asimetría positiva en los datos. Considerando una jornada laboral de 44 horas semanales, lo anterior nos indica que, en promedio, los trabajadores de la muestra obtienen un salario mensual promedio de 1038400 pesos.&lt;/p&gt;
+&lt;p&gt;Un histograma también puede ser útil para identificar la distribución de la variable:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sjPlot::plot_frq(wage1$wage,
+                 title = &amp;quot;Histograma de salarios por hora en miles de pesos&amp;quot;,
+                 type = &amp;quot;histogram&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/example/04-practico_files/figure-html/plot_wage-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;En este caso, es posible apreciar que la distribución de la variable presente una &lt;strong&gt;asimetría positiva&lt;/strong&gt;, lo cual indica que la mayoría de los datos se concentran en la zona inferior de la distribución (es decir, hay una mayor proporción de salarios por hora bajos en relación con salarios por hora muy altos).&lt;/p&gt;
+&lt;p&gt;En el caso de los años de escolaridad, la media corresponde a 12.56 años, con una mediana de 4.65 años y una desviación estándar de 3.69. Ello indica que al menos un 50% de las personas en la muestra completaron la enseñanza media.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;descr(wage1$educ)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## ## Basic descriptive statistics
+## 
+##  var    type label   n NA.prc  mean   sd   se md trimmed     range iqr  skew
+##   dd integer    dd 526      0 12.56 2.77 0.12 12   12.69 18 (0-18)   2 -0.62&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;En lo que respecta a la distribución de la variable &lt;strong&gt;educ&lt;/strong&gt;, es posible constatar que la mayoría de los casos se encuentran en torno a la media, que corresponde a 12.56 años de escolaridad, lo cual corresponde a un nivel educacional medio.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sjPlot::plot_frq(wage1$educ,
+                 title = &amp;quot;Histograma de años de escolaridad&amp;quot;,
+                 type = &amp;quot;histogram&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/example/04-practico_files/figure-html/plot_educ-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;análisis-bivariado-con-basecor-y-sjplotplot_scatter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Análisis bivariado con &lt;code&gt;base::cor()&lt;/code&gt; y &lt;code&gt;sjPlot::plot_scatter()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Entre otros elementos, algo fundamental que tenemos que considerar a la hora de plantear la estimación de un modelo que busque analizar el efecto de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; es que estas deben estar relacionadas entre sí, al menos de forma moderada. Para estimar la correlación entre dos variables utilizamos &lt;code&gt;base::cor()&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cor(wage1$wage, wage1$educ)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.4059033&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;En este caso la correlación es de 0.41, lo cual corresponde a una relación moderada-fuerte en ciencias sociales. Es posible graficar esta relación con &lt;code&gt;sjPlot::plot_scatter()&lt;/code&gt; para analizar con mayor detalle la asociación entre salarios por hora y años de escolaridad&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sjPlot::plot_scatter(wage1, 
+                     x = educ, 
+                     y = wage,
+                     title = &amp;quot;Relación entre salarios (en miles de pesos) por hora y años de escolaridad&amp;quot;,
+                     fit.line = &amp;quot;lm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/example/04-practico_files/figure-html/plot_cor-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Si bien no hay claridad de que la relación entre ambas variables sea lineal dada la recta de regresión presentada (lo cual es el supuesto fundamental del análisis de regresión lineal), si se puede identificar una relación positiva entre salarios por hora y años de escolaridad. Ello apoya la hipótesis planteada al inicio del práctico: una mayor escolaridad estará asociada, en promedio, a salarios por hora más elevados.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;estimando-un-modelo-de-regresión-lineal-simple-con-lm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2. Estimando un modelo de regresión lineal simple con &lt;code&gt;lm()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;En general, la estimación de modelos de regresión lineal simple en R es sencilla en términos de código. Antes de ello, sin embargo, consideremos la formalización del modelo de regresión lineal por estimar&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{wage} = \beta_0 + \beta_1educ_{i} + u_{i}
+\end{equation}
+\]&lt;/span&gt;
+Es decir: el salario por hora predicho corresponde a la suma del &lt;strong&gt;intercepto de regresión&lt;/strong&gt; &lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt;, más el valor estimado para el coeficiente de regresión &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt; estimado para la variable &lt;strong&gt;educ&lt;/strong&gt; por el valor observado en esa variable para cada sujeto, más el error &lt;span class=&#34;math inline&#34;&gt;\(u_{i}\)&lt;/span&gt; asociado a cada observación. En términos generales:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt;: Corresponde al valor estimado para &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; para alguien con cero años de escolaridad.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;: Corresponde a la &lt;strong&gt;pendiente&lt;/strong&gt; estimada para la función de regresión lineal de &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;. Así, por cada unidad que aumente &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; (en este caso, por cada año de escolaridad extra), el valor estimado &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; para los salarios por hora aumentará o disminuirá en &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(u_{i}\)&lt;/span&gt;: Corresponde al error en la estimación, generado por la no incorporación en el modelo de variables que estén relacionadas con &lt;strong&gt;wage&lt;/strong&gt;. En este caso, incluir variables como el área de actividad económica, la ocupación, la capacidad de liderazgo o resolución de problemas, entre otros, puede disminuir el error causado por la no observación de efectos estadísticamente significativos de estas variables sobre los salarios por hora.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sin embargo, para simplificar el análisis, en el práctico sólo nos enfocaremos en &lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt; y &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;. Para estimar un modelo de regresión simple, debe utilizarse el siguiente código&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mod = lm(wage ~ educ, data = wage1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;En términos sencillos, el anterior código indica a R que&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cree un nuevo objeto llamado &lt;strong&gt;mod&lt;/strong&gt; (recordemos que &lt;code&gt;=&lt;/code&gt; indica &lt;strong&gt;asignación&lt;/strong&gt;);&lt;/li&gt;
+&lt;li&gt;Este nuevo objeto será un modelo de regresión lineal estimado con &lt;code&gt;lm()&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;En el cual la variable explicada &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; corresponde a &lt;strong&gt;wage&lt;/strong&gt; (lo que antecede a &lt;code&gt;~&lt;/code&gt;),&lt;/li&gt;
+&lt;li&gt;Mientras que la variable explicativa &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; corresponde a &lt;strong&gt;educ&lt;/strong&gt; (lo que sucede a &lt;code&gt;~&lt;/code&gt;),&lt;/li&gt;
+&lt;li&gt;Utilizando los datos del objeto &lt;code&gt;wage1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Es decir: lm(&lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; ~ &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt;, datos).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Luego de ejecutar ese código, se generará en el &lt;em&gt;ambiente&lt;/em&gt; un objeto llamado &lt;strong&gt;mod&lt;/strong&gt;, que corresponde a una lista con 12 elementos. No nos adentraremos en ello en esta clase, pues el foco está en la estimación y comprensión estadística de los modelos de regresión lineal simple.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;comprendiendo-el-output-de-lm&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3. Comprendiendo el output de &lt;code&gt;lm()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Luego de haber creado el objeto que contiene el modelo de regresión lineal simple estimado, debemos proceder a presentarlo para poder analizar los resultados. Para ello utilizaremos la función &lt;code&gt;screenreg()&lt;/code&gt; de &lt;code&gt;texreg&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;screenreg(mod)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =======================
+##              Model 1   
+## -----------------------
+## (Intercept)   -0.90    
+##               (0.68)   
+## educ           0.54 ***
+##               (0.05)   
+## -----------------------
+## R^2            0.16    
+## Adj. R^2       0.16    
+## Num. obs.    526       
+## =======================
+## *** p &amp;lt; 0.001; ** p &amp;lt; 0.01; * p &amp;lt; 0.05&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;En la tabla se presentan diversos estadísticos. Revisemos los resultados con mayor atención, fila por fila:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Model 1&lt;/strong&gt;: Indica el modelo presentado. Esto es útil en casos donde presentamos más de un modelo.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;(Intercept)&lt;/strong&gt;: Indica el valor estimado para el intercepto de regresión o &lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt;. Ello indica que, cuando &lt;span class=&#34;math inline&#34;&gt;\(educ_i = 0\)&lt;/span&gt;, el salario por hora predicho corresponde a &lt;strong&gt;-.9&lt;/strong&gt; mil pesos. El valor en paréntesis que le sigue corresponde al &lt;strong&gt;error estándar&lt;/strong&gt; estimado para el intercepto.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;educ&lt;/strong&gt;: Corresponde al coeficiente de regresión estimado para la variable explicativa &lt;strong&gt;educ&lt;/strong&gt;, o &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;. De ese modo el modelo estima que, por cada año de escolaridad que se aumente, el salario por hora predicho aumentará en &lt;strong&gt;.54&lt;/strong&gt; mil pesos. El valor en paréntesis que le sigue corresponde al &lt;strong&gt;error estándar&lt;/strong&gt; estimado para el coeficiente.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;R^2&lt;/strong&gt; y &lt;strong&gt;Adj. R^2&lt;/strong&gt;: Corresponden a las medidas de ajuste del modelo. Esto se revisará con detención en el &lt;strong&gt;práctico 5&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Num. obs&lt;/strong&gt;: Número de observaciones con las cuales se estimó el modelo. En este caso, se utilizó la totalidad de la muestra, que cuenta con 526 casos. Es fundamental considerar que la estimación de modelos de regresión lineal sólo utiliza observaciones que cuenten con casos válidos en &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; &lt;strong&gt;y&lt;/strong&gt; en &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, por lo cual el trabajo de &lt;strong&gt;procesamiento de datos&lt;/strong&gt; es fundamental para lograr un buen análisis.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;*** p &amp;lt; 0.001; ** p &amp;lt; 0.01; * p &amp;lt; 0.05&lt;/strong&gt;: Indican el p-valor estimado para cada coeficiente. Esto se abordará con profundidad en el &lt;strong&gt;práctico 8&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Así, siguiendo la formalización planteada anteriormente y los resultados obtenidos, es posible plantear que&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{wage} = -.9 + .54 educ_{i}
+\end{equation}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;interpretando-un-modelo-de-regresión-lineal-simple&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;4. Interpretando un modelo de regresión lineal simple&lt;/h2&gt;
+&lt;p&gt;Ahora sólo nos falta &lt;strong&gt;interpretar&lt;/strong&gt; el modelo estimado. Para ello hay que tomar en cuenta los valores estimados para &lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt; y &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_0\)&lt;/span&gt;: Como se señaló anteriormente, el intercepto corresponde al valor predicho &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; cuando &lt;span class=&#34;math inline&#34;&gt;\(x_1 = 0\)&lt;/span&gt;. En este caso, indica el salario por hora predicho en promedio para personas con 0 años de escolaridad.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;: en este caso, el valor positivo del coeficiente (&lt;span class=&#34;math inline&#34;&gt;\(\beta_1 &amp;gt; 0\)&lt;/span&gt;) indica que existe un &lt;strong&gt;efecto positivo&lt;/strong&gt; de los años de escolaridad sobre el salario por hora predicho: mientras más años de escolaridad se tengan, más alto debiese ser el salario por hora percibido. En términos concretos: se espera que, en promedio, una persona con 11 años de escolaridad perciba un salario por hora &lt;strong&gt;.54&lt;/strong&gt; mil pesos más alto que alguien con 10 años de escolaridad. Es posible estimar los valores predichos para corroborarlo:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{wage_1} = -.9 + .54 educ_{i} = -.9 + .54*10 = 4.5
+\end{equation}
+\]&lt;/span&gt;
+&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{wage_2} = -.9 + .54 educ_{i} = -.9 + .54*11 = 5.04
+\end{equation}
+\]&lt;/span&gt;
+Luego, &lt;span class=&#34;math inline&#34;&gt;\(5.04-4.5 = .54 = \beta_1\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;De lo anterior se sigue que&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Se espera que &lt;span class=&#34;math inline&#34;&gt;\(\beta_1 \neq 0\)&lt;/span&gt; pues, de lo contrario, no existiría un efecto estadísticamente significativo de &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;Asimismo, mientras mayor sea &lt;span class=&#34;math inline&#34;&gt;\(|\beta_1|\)&lt;/span&gt;, mayor será la magnitud del efecto de &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; y viceversa.&lt;/li&gt;
+&lt;li&gt;Si &lt;span class=&#34;math inline&#34;&gt;\(\beta_1 &amp;gt; 0\)&lt;/span&gt;, el efecto de &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; es &lt;strong&gt;positivo&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Si &lt;span class=&#34;math inline&#34;&gt;\(\beta_1 &amp;lt; 0\)&lt;/span&gt;, el efecto de &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; es &lt;strong&gt;negativo&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cómo-se-estima-beta_1&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;5. ¿Cómo se estima &lt;span class=&#34;math inline&#34;&gt;\(\beta_{1}\)&lt;/span&gt;?&lt;/h2&gt;
+&lt;p&gt;Como es posible constatar, la estimación de modelos de regresión lineal simple en R es bastante sencilla en términos de código: lo más relevante es indicar claramente cuál es la variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt;, y cuál es la variable &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;. Sin embargo, es importante comprender conceptual y matemáticamente cómo se estima &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Como se señaló al inicio del práctico, el método de estimación de &lt;strong&gt;Mínimos Cuadrados Ordinarios (MCO)&lt;/strong&gt; (u &lt;em&gt;OLS&lt;/em&gt; en inglés). Ello indica que la estimación busca optimizar una recta que se ajuste a los datos disminuyendo al máximo la suma de los &lt;strong&gt;residuos&lt;/strong&gt; al cuadrado. Los residuos se elevan al cuadrado para sumarlos, lo cual se denomina &lt;strong&gt;Suma de residuos al cuadrado&lt;/strong&gt; o &lt;span class=&#34;math inline&#34;&gt;\(SS_{residual}\)&lt;/span&gt;. Esto para evitar que residuos positivos y negativos se anulen entre sí.&lt;/p&gt;
+&lt;p&gt;Ahora ¿qué son los residuos? Estos corresponden a la &lt;strong&gt;diferencia&lt;/strong&gt; entre el valor &lt;strong&gt;predicho&lt;/strong&gt; y el valor &lt;strong&gt;observado&lt;/strong&gt;. Si, por ejemplo, el salario por horas predicho corresponde a 4 mil pesos, y el valor observado corresponde a 3.7 mil pesos por hora, entonces el residuo de la estimación para esta observación equivale a -.3 mil pesos.&lt;/p&gt;
+&lt;p&gt;Considérese la ecuación&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{y} = \beta_0 + \beta_1x_{i}
+\end{equation}
+\]&lt;/span&gt;
+, donde&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_0 = \hat{y} - \beta_1\)&lt;/span&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(\beta_1 = \frac{Cov(XY)}{VarX}\)&lt;/span&gt;, donde
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(Cov(XY) = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{n-1}\)&lt;/span&gt;, y&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(VarX = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})}{n-1}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Luego, es posible simplificar de la siguiente manera&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\beta_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})} = \frac{\sum_{i=1}^{n}(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})}
+\end{equation}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;A continuación, crearemos variables que reflejen la diferencia entre los valores observados &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; e &lt;span class=&#34;math inline&#34;&gt;\(y_i\)&lt;/span&gt; y el promedio &lt;span class=&#34;math inline&#34;&gt;\(\bar{x}\)&lt;/span&gt; y &lt;span class=&#34;math inline&#34;&gt;\(\bar{y}\)&lt;/span&gt;, respectivamente:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wage1$difx = wage1$educ-mean(wage1$educ)
+wage1$dify = wage1$wage-mean(wage1$wage)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Con ello procedemos a calcular la diferencia de productos cruzados &lt;span class=&#34;math inline&#34;&gt;\((x_i - \bar{x})(y_i - \bar{y})\)&lt;/span&gt;, y la diferencia de cada valor observado de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; con su promedio al cuadrado &lt;span class=&#34;math inline&#34;&gt;\((x_i - \bar{x})^2\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wage1$difcru = wage1$difx*wage1$dify
+wage1$difx2 = wage1$difx^2
+head(wage1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   wage educ       difx       dify     difcru      difx2
+## 1 3.10   11 -1.5627376 -2.7961028  4.3695751  2.4421489
+## 2 3.24   12 -0.5627376 -2.6561027  1.4946890  0.3166737
+## 3 3.00   11 -1.5627376 -2.8961027  4.5258487  2.4421489
+## 4 6.00    8 -4.5627376  0.1038973 -0.4740562 20.8185748
+## 5 5.30   12 -0.5627376 -0.5961025  0.3354493  0.3166737
+## 6 8.75   16  3.4372624  2.8538973  9.8095938 11.8147725&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Así, es posible obtener la suma de productos cruzados &lt;span class=&#34;math inline&#34;&gt;\((x_i - \bar{x})(y_i - \bar{y})\)&lt;/span&gt;, y la suma de cuadrados de X &lt;span class=&#34;math inline&#34;&gt;\((x_i - \bar{x})^2\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sum(wage1$difcru)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2179.204&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sum(wage1$difx2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 4025.43&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Reemplazamos los valores en la fórmula anterior:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\beta_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})(x_i - \bar{x})} = \frac{2179.204}{4025.43} = 0.54
+\end{equation}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Y estimamos el intercepto reemplazando por valores ficticios&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\beta_0 = \hat{y} - \beta_1x_i = 6.12-(.54*13) = 6.12*7.02 = -.9
+\end{equation}
+\]&lt;/span&gt;
+Así, la ecuación estimada manualmente es idéntica a la estimada a través de &lt;code&gt;lm()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{equation}
+\hat{y} = -.9 + .54 x_{i}
+\end{equation}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&#34;desafío-estimando-beta_1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;strong&gt;Desafío&lt;/strong&gt;: estimando &lt;span class=&#34;math inline&#34;&gt;\(\beta_{1}\)&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;¡Ahora es su turno! Utilizando la tabla presentada a continuación, deben estimar manualmente el valor de &lt;span class=&#34;math inline&#34;&gt;\(\beta_1\)&lt;/span&gt;, siguiendo los pasos detallados recientemente&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(head(wage1[,1:2], 10))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     wage educ
+## 1   3.10   11
+## 2   3.24   12
+## 3   3.00   11
+## 4   6.00    8
+## 5   5.30   12
+## 6   8.75   16
+## 7  11.25   18
+## 8   5.00   12
+## 9   3.60   12
+## 10 18.18   17&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;La correcta realización del desafío significará una bonificación individual de &lt;strong&gt;.5 décimas&lt;/strong&gt; en la nota obtenida en la prueba del curso ¡mucha suerte!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;resumen&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Resumen&lt;/h2&gt;
+&lt;p&gt;En este práctico comprendimos conceptualmente los modelos de regresión lineal simple, con especial atención en los conceptos de intercepto y pendiente. También aprendimos a estimar este tipo de modelos con &lt;code&gt;lm()&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Regresión lineal simple con diseño muestral y bondad de ajuste</title>
       <link>/example/05-practico/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
