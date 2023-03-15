@@ -847,7 +847,7 @@
 <p>$$\sqrt{n}(\overline{y} - \mu) →^d N(0,σ²) $$ donde <code>\(d\)</code> significa que la expresión converge en distribución normal cuando <code>\(n\)</code> tiene al infinito ($n → ∞$)</p>
 <p>Este teorema es muy importante, pues para realizar diversos procesos estadísticos como las <strong>pruebas de hipótesis</strong>, es necesario asumir que las medias muestrales se distribuyen de manera normal.</p>
 <p>Además, es importante recalcar que este teorema se aplica independientemente de la distribución que presente la población.</p>
-<p><img src="input/TLC.png" alt=""></p>
+<p><img src="https://github.com/statistics-R/practico-2/raw/main/input/TLC.png" alt=""></p>
 <h2 id="2-test-de-hipótesis">2. Test de Hipótesis</h2>
 <p>Hasta ahora hemos abordado estimadores <strong>puntuales</strong>, en el sentido de que nos entregan un valor poblacional específico. No obstante, esta información no es suficiente para probar teorías , analizar diversas políticas o realizar una investigación social.</p>
 <p>Cuando necesitamos una respuesta definitiva de &ldquo;sí&rdquo; o &ldquo;no&rdquo;, recurrimos a una prueba o test de hipótesis. Esta técnica permite evaluar la información contenida en los datos, y poder realizar conclusiones acerca de la población que estamos estudiando.</p>
@@ -875,15 +875,15 @@
 <p>Siguiendo el ejemplo, la hipótesis alternativa corresponde a <code>\(H_1: \mu &lt; 0\)</code>. Es decir, la diferencia de probabilidades de que las personas negras reciban ofertas de trabajo con relación a las personas blancas es menor a 0, lo que significaría discriminación en los procesos de contratación. En este caso, $\mu = θ_B - θ_W $ es la diferencia de probabilidades de que las personas negras recibieran ofertas de trabajo con relación a los blancos.</p>
 <p>Siguiendo este ejemplo, correspondería realizar un <em>test unilateral de cola izquierda</em>.</p>
 <h4 id="test-bilateral">Test Bilateral</h4>
-<p><img src="input/test_bilateral.png" alt=""></p>
+<p><img src="https://github.com/statistics-R/practico-2/raw/main/input/test_bilateral.png" alt=""></p>
 <p>En este tipo de test, la regla general para descartar H~0~ es que el valor absoluto del estadístico <em>t</em> sea mayor al valor absoluto crítico <em>c</em>. Es decir:</p>
 <p><code>$$|t| &gt; |c|$$</code></p>
 <h4 id="test-unilateral-derecho">Test Unilateral Derecho</h4>
-<p><img src="input/test_unilateral_derecho.png" alt=""></p>
+<p><img src="https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_derecho.png" alt=""></p>
 <p>En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico <em>t</em> sea mayor al valor crítico <em>c</em>. Es decir:</p>
 <p><code>$$t &gt; c$$</code></p>
 <h4 id="test-unilateral-izquierdo">Test Unilateral Izquierdo</h4>
-<p><img src="input/test_unilateral_izquierdo.png" alt=""></p>
+<p><img src="https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_izquierdo.png" alt=""></p>
 <p>En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico <em>t</em> sea menor al valor negativo crítico <em>c</em>. Es decir:</p>
 <p><code>$$t &lt;  -c$$</code></p>
 <p>Supongamos que el valor de estadístico <em>t</em> para probar que <code>\(H_0: \mu = 0\)</code> en el ejemplo de discriminación laboral es -4.29. El valor crítico, con un nivel de significancia de 0.05, es -2.58. El valor <em>t</em> de -4.29 es una evidencia grande en contra de la hipótesis nula, pues se encuentra a la izquierda del valor crítico. Por lo tanto, se aprueba <code>\(H_1\)</code> y se concluye que existe discriminación en la contratación entre personas negras y personas blancas.</p>
@@ -938,7 +938,7 @@
 <p><strong>Valor crítico de t</strong>. A continuación, buscaremos el valor crítico del estadístico de prueba de nuestro test. Para conocer este valor, necesitamos saber el <em>nivel de confianza</em> de la prueba (definido en el paso anterior) y los <em>grados de libertad</em>. Estos últimos, para la distribución <em>t de Student</em>, corresponden a <code>\(n-1\)</code>. En otras palabras, los grados de libertad a utilizar serán el valor del tamaño de la muestra, menos 1. Con esa información a mano, podemos buscar el valor crítico de nuestra prueba de hipótesis. Estos ya están calculados y se pueden encontrar en diversos softwares de estadística (como R), o bien seguir el método tradicional que es buscarlo en la <strong>Tabla de la prueba T de Student</strong>.</p>
 </li>
 </ol>
-<p><img src="input/tabla_pruebat.jpg" alt=""></p>
+<p><img src="https://github.com/statistics-R/practico-2/raw/main/input/tabla_pruebat.jpg" alt=""></p>
 <p>Por ejemplo, si establezco un nivel de confianza de 95% (0,05) y el valor de los grados de libertad es 14, el valor crítico para una prueba de una cola corresponde a 1.761. Si este valor es positivo o negativo depende del tipo de prueba que esté realizando. Si es una prueba de <em>cola izquierda</em>, el valor es -1.761, mientras si es una prueba de <em>cola derecha</em>, el valor es 1.761.</p>
 <p>Siguiendo el mismo ejemplo, el valor crítico para una prueba de dos colas corresponde a ±2.145.</p>
 <p><strong>¡Recordar!</strong> Como vimos anteriormente, el valor crítico de muestras superiores a 120 es practicamente igual en la distribución t como en la distribución normal estándar. Es por esto que la tabla termina formalmente en el valor de 120 grados de libertad, y el siguiendo valor corresponde a un símbolo infinito ∞. Esto significa que se considera a los valores mayores a 120 como <em>muestras grandes</em> y, por lo tanto, se aplica el Teorema Central del Límite.</p>

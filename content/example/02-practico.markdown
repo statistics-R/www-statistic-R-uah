@@ -101,7 +101,7 @@ Este teorema es muy importante, pues para realizar diversos procesos estadístic
 
 Además, es importante recalcar que este teorema se aplica independientemente de la distribución que presente la población.
 
-![](input/TLC.png)
+![](https://github.com/statistics-R/practico-2/raw/main/input/TLC.png)
 
 ## 2. Test de Hipótesis
 
@@ -157,7 +157,7 @@ Siguiendo este ejemplo, correspondería realizar un *test unilateral de cola izq
 
 #### Test Bilateral
 
-![](input/test_bilateral.png)
+![](https://github.com/statistics-R/practico-2/raw/main/input/test_bilateral.png)
 
 En este tipo de test, la regla general para descartar H~0~ es que el valor absoluto del estadístico *t* sea mayor al valor absoluto crítico *c*. Es decir:
 
@@ -165,7 +165,7 @@ En este tipo de test, la regla general para descartar H~0~ es que el valor absol
 
 #### Test Unilateral Derecho
 
-![](input/test_unilateral_derecho.png)
+![](https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_derecho.png)
 
 En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico *t* sea mayor al valor crítico *c*. Es decir:
 
@@ -173,7 +173,7 @@ En este tipo de test, la regla general para descartar H~0~ es que el valor del e
 
 #### Test Unilateral Izquierdo
 
-![](input/test_unilateral_izquierdo.png)
+![](https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_izquierdo.png)
 
 En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico *t* sea menor al valor negativo crítico *c*. Es decir:
 
@@ -247,7 +247,7 @@ Para finalizar este práctico, haremos un breve repaso acerca del procemiento pa
 
 4. **Valor crítico de t**. A continuación, buscaremos el valor crítico del estadístico de prueba de nuestro test. Para conocer este valor, necesitamos saber el *nivel de confianza* de la prueba (definido en el paso anterior) y los *grados de libertad*. Estos últimos, para la distribución *t de Student*, corresponden a `\(n-1\)`. En otras palabras, los grados de libertad a utilizar serán el valor del tamaño de la muestra, menos 1. Con esa información a mano, podemos buscar el valor crítico de nuestra prueba de hipótesis. Estos ya están calculados y se pueden encontrar en diversos softwares de estadística (como R), o bien seguir el método tradicional que es buscarlo en la **Tabla de la prueba T de Student**.
 
-![](input/tabla_pruebat.jpg)
+![](https://github.com/statistics-R/practico-2/raw/main/input/tabla_pruebat.jpg)
 
 Por ejemplo, si establezco un nivel de confianza de 95% (0,05) y el valor de los grados de libertad es 14, el valor crítico para una prueba de una cola corresponde a 1.761. Si este valor es positivo o negativo depende del tipo de prueba que esté realizando. Si es una prueba de *cola izquierda*, el valor es -1.761, mientras si es una prueba de *cola derecha*, el valor es 1.761. 
 

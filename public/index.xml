@@ -2389,7 +2389,7 @@ Esto significa que, al multiplicar las variables por una constante, la correlaci
 &lt;p&gt;$$\sqrt{n}(\overline{y} - \mu) →^d N(0,σ²) $$ donde &lt;code&gt;\(d\)&lt;/code&gt; significa que la expresión converge en distribución normal cuando &lt;code&gt;\(n\)&lt;/code&gt; tiene al infinito ($n → ∞$)&lt;/p&gt;
 &lt;p&gt;Este teorema es muy importante, pues para realizar diversos procesos estadísticos como las &lt;strong&gt;pruebas de hipótesis&lt;/strong&gt;, es necesario asumir que las medias muestrales se distribuyen de manera normal.&lt;/p&gt;
 &lt;p&gt;Además, es importante recalcar que este teorema se aplica independientemente de la distribución que presente la población.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;input/TLC.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/statistics-R/practico-2/raw/main/input/TLC.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2-test-de-hipótesis&#34;&gt;2. Test de Hipótesis&lt;/h2&gt;
 &lt;p&gt;Hasta ahora hemos abordado estimadores &lt;strong&gt;puntuales&lt;/strong&gt;, en el sentido de que nos entregan un valor poblacional específico. No obstante, esta información no es suficiente para probar teorías , analizar diversas políticas o realizar una investigación social.&lt;/p&gt;
 &lt;p&gt;Cuando necesitamos una respuesta definitiva de &amp;ldquo;sí&amp;rdquo; o &amp;ldquo;no&amp;rdquo;, recurrimos a una prueba o test de hipótesis. Esta técnica permite evaluar la información contenida en los datos, y poder realizar conclusiones acerca de la población que estamos estudiando.&lt;/p&gt;
@@ -2417,15 +2417,15 @@ Esto significa que, al multiplicar las variables por una constante, la correlaci
 &lt;p&gt;Siguiendo el ejemplo, la hipótesis alternativa corresponde a &lt;code&gt;\(H_1: \mu &amp;lt; 0\)&lt;/code&gt;. Es decir, la diferencia de probabilidades de que las personas negras reciban ofertas de trabajo con relación a las personas blancas es menor a 0, lo que significaría discriminación en los procesos de contratación. En este caso, $\mu = θ_B - θ_W $ es la diferencia de probabilidades de que las personas negras recibieran ofertas de trabajo con relación a los blancos.&lt;/p&gt;
 &lt;p&gt;Siguiendo este ejemplo, correspondería realizar un &lt;em&gt;test unilateral de cola izquierda&lt;/em&gt;.&lt;/p&gt;
 &lt;h4 id=&#34;test-bilateral&#34;&gt;Test Bilateral&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;input/test_bilateral.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/statistics-R/practico-2/raw/main/input/test_bilateral.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;En este tipo de test, la regla general para descartar H~0~ es que el valor absoluto del estadístico &lt;em&gt;t&lt;/em&gt; sea mayor al valor absoluto crítico &lt;em&gt;c&lt;/em&gt;. Es decir:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;$$|t| &amp;gt; |c|$$&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;test-unilateral-derecho&#34;&gt;Test Unilateral Derecho&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;input/test_unilateral_derecho.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_derecho.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico &lt;em&gt;t&lt;/em&gt; sea mayor al valor crítico &lt;em&gt;c&lt;/em&gt;. Es decir:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;$$t &amp;gt; c$$&lt;/code&gt;&lt;/p&gt;
 &lt;h4 id=&#34;test-unilateral-izquierdo&#34;&gt;Test Unilateral Izquierdo&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;input/test_unilateral_izquierdo.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/statistics-R/practico-2/raw/main/input/test_unilateral_izquierdo.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;En este tipo de test, la regla general para descartar H~0~ es que el valor del estadístico &lt;em&gt;t&lt;/em&gt; sea menor al valor negativo crítico &lt;em&gt;c&lt;/em&gt;. Es decir:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;$$t &amp;lt;  -c$$&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Supongamos que el valor de estadístico &lt;em&gt;t&lt;/em&gt; para probar que &lt;code&gt;\(H_0: \mu = 0\)&lt;/code&gt; en el ejemplo de discriminación laboral es -4.29. El valor crítico, con un nivel de significancia de 0.05, es -2.58. El valor &lt;em&gt;t&lt;/em&gt; de -4.29 es una evidencia grande en contra de la hipótesis nula, pues se encuentra a la izquierda del valor crítico. Por lo tanto, se aprueba &lt;code&gt;\(H_1\)&lt;/code&gt; y se concluye que existe discriminación en la contratación entre personas negras y personas blancas.&lt;/p&gt;
@@ -2480,7 +2480,7 @@ Esto significa que, al multiplicar las variables por una constante, la correlaci
 &lt;p&gt;&lt;strong&gt;Valor crítico de t&lt;/strong&gt;. A continuación, buscaremos el valor crítico del estadístico de prueba de nuestro test. Para conocer este valor, necesitamos saber el &lt;em&gt;nivel de confianza&lt;/em&gt; de la prueba (definido en el paso anterior) y los &lt;em&gt;grados de libertad&lt;/em&gt;. Estos últimos, para la distribución &lt;em&gt;t de Student&lt;/em&gt;, corresponden a &lt;code&gt;\(n-1\)&lt;/code&gt;. En otras palabras, los grados de libertad a utilizar serán el valor del tamaño de la muestra, menos 1. Con esa información a mano, podemos buscar el valor crítico de nuestra prueba de hipótesis. Estos ya están calculados y se pueden encontrar en diversos softwares de estadística (como R), o bien seguir el método tradicional que es buscarlo en la &lt;strong&gt;Tabla de la prueba T de Student&lt;/strong&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;input/tabla_pruebat.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://github.com/statistics-R/practico-2/raw/main/input/tabla_pruebat.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si establezco un nivel de confianza de 95% (0,05) y el valor de los grados de libertad es 14, el valor crítico para una prueba de una cola corresponde a 1.761. Si este valor es positivo o negativo depende del tipo de prueba que esté realizando. Si es una prueba de &lt;em&gt;cola izquierda&lt;/em&gt;, el valor es -1.761, mientras si es una prueba de &lt;em&gt;cola derecha&lt;/em&gt;, el valor es 1.761.&lt;/p&gt;
 &lt;p&gt;Siguiendo el mismo ejemplo, el valor crítico para una prueba de dos colas corresponde a ±2.145.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¡Recordar!&lt;/strong&gt; Como vimos anteriormente, el valor crítico de muestras superiores a 120 es practicamente igual en la distribución t como en la distribución normal estándar. Es por esto que la tabla termina formalmente en el valor de 120 grados de libertad, y el siguiendo valor corresponde a un símbolo infinito ∞. Esto significa que se considera a los valores mayores a 120 como &lt;em&gt;muestras grandes&lt;/em&gt; y, por lo tanto, se aplica el Teorema Central del Límite.&lt;/p&gt;
