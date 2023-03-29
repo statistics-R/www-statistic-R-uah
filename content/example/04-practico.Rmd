@@ -1,4 +1,4 @@
----
+--- 
 title: "Regresión lineal simple"
 linktitle: "4: Regresión lineal simple"
 date: "2023-28-03"
