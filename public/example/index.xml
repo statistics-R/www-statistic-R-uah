@@ -1910,7 +1910,7 @@ pacman::p_load(wooldridge, #Para descargar los datos
                      y = wage,
                      title = &amp;quot;Relación entre salarios (en miles de pesos) por hora y años de escolaridad&amp;quot;,
                      fit.line = &amp;quot;lm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using formula = &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/example/04-practico_files/figure-html/plot_cor-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Si bien no hay claridad de que la relación entre ambas variables sea lineal dada la recta de regresión presentada (lo cual es el supuesto fundamental del análisis de regresión lineal), si se puede identificar una relación positiva entre salarios por hora y años de escolaridad. Ello apoya la hipótesis planteada al inicio del práctico: una mayor escolaridad estará asociada, en promedio, a salarios por hora más elevados.&lt;/p&gt;
 &lt;/div&gt;
