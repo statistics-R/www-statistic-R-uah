@@ -134,7 +134,7 @@ Donde
 
 - $\beta_2$: Corresponde a la **pendiente** estimada para la función de regresión lineal de los **salarios por hora** ($y$) sobre los **años de experiencia laboral** ($x_2$). Así, por cada unidad que aumente $x_1$ (en este caso, por cada año de experiencia laboral), el valor estimado $\hat{y}$ para los salarios por hora aumentará o disminuirá en $\beta_2$.
 
-- $\beta_3x_{k=k+1}, ..., \beta_3_{k=k}$: Corresponde al coeficiente de regresión estimado para cada una de las categorías de nuestra variable explicativa categórica. En este caso tenemos 5 categorías, de modo que estimaremos 4 coeficientes, que en este caso reflejarán las diferencias promedio de los salarios estimados para quienes se desempeñan en construcción, manufactura, información y comunicaciones, comercio y servicios. Estos, sumados al intercepto $\beta_0$, indican las diferencias promedio estimadas para cada una de las categorías de actividad económica. 
+- $\beta_3x_{k=k+1}$, ..., $\beta_3x_{k=k}$: Corresponde al coeficiente de regresión estimado para cada una de las categorías de nuestra variable explicativa categórica. En este caso tenemos 5 categorías, de modo que estimaremos 4 coeficientes, que en este caso reflejarán las diferencias promedio de los salarios estimados para quienes se desempeñan en construcción, manufactura, información y comunicaciones, comercio y servicios. Estos, sumados al intercepto $\beta_0$, indican las diferencias promedio estimadas para cada una de las categorías de actividad económica. 
  
 En este caso, lo esperable es que los valores predichos para información y comunicaciones sean mayores que aquellos estimados para el resto de categorías ocupacionales, siguiendo lo presentado en el gráfico de barras anteriormente presentado. 
 
