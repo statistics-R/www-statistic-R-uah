@@ -5108,17 +5108,15 @@ price = 66203.18 + -22713.18rooms + 2477.09rooms^2
 \end{equation}
 \]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Así, si queremois conocer la diferencia de precio estimada para una casa de 4 habitaciones versus una de tres:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45\)&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9\)&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;En este caso, el modelo predice que el precio mediano tendería a disminuir en &lt;span class=&#34;math inline&#34;&gt;\(5373.55\)&lt;/span&gt; por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; el efecto sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; es negativo, para los valores superiores el efecto de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;En este caso, el modelo predice que el precio mediano tendería a disminuir en &lt;span class=&#34;math inline&#34;&gt;\(20357.45 - 14983.9\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(5373.55\)&lt;/span&gt; por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; el efecto sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; es negativo, para los valores superiores el efecto de &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \begin{equation}
 x^* = |{\hat{\beta1}}/(2\hat{\beta_2})|
 \end{equation}
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;En nuestro caso, esto equivale a &lt;span class=&#34;math inline&#34;&gt;\(|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = -4.58465\)&lt;/span&gt;. Es decir, si &lt;span class=&#34;math inline&#34;&gt;\(x&amp;gt;-4.58465\)&lt;/span&gt;, el efecto será negativo; mientras que valores de &lt;span class=&#34;math inline&#34;&gt;\(x&amp;lt;-4.58465\)&lt;/span&gt; tendrán un efecto positivo sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;En nuestro caso, esto equivale a &lt;span class=&#34;math inline&#34;&gt;\(|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = 4.58465\)&lt;/span&gt;. Es decir, si &lt;span class=&#34;math inline&#34;&gt;\(x&amp;gt;4.58465\)&lt;/span&gt;, el efecto será negativo; mientras que valores de &lt;span class=&#34;math inline&#34;&gt;\(x&amp;lt;4.58465\)&lt;/span&gt; tendrán un efecto positivo sobre &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;resumen&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Resumen&lt;/h2&gt;

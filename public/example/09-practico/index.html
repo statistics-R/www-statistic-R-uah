@@ -994,17 +994,15 @@ price = 66203.18 + -22713.18rooms + 2477.09rooms^2
 \end{equation}
 \]</span></p>
 <p>Así, si queremois conocer la diferencia de precio estimada para una casa de 4 habitaciones versus una de tres:</p>
-<ul>
-<li><span class="math inline">\(price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45\)</span></li>
-<li><span class="math inline">\(price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9\)</span></li>
-</ul>
-<p>En este caso, el modelo predice que el precio mediano tendería a disminuir en <span class="math inline">\(5373.55\)</span> por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de <span class="math inline">\(x\)</span> el efecto sobre <span class="math inline">\(y\)</span> es negativo, para los valores superiores el efecto de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span> será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula:</p>
+<p><span class="math inline">\(price = 66203.18 + -22713.18*3 + 2477.09*(3)^2 = 66203.18 + -68139.54 + 22293.81 = 20357.45\)</span></p>
+<p><span class="math inline">\(price = 66203.18 + -22713.18*4 + 2477.09*(4)^2 = 66203.18 + -90852.72 + 39633.44 = 14983.9\)</span></p>
+<p>En este caso, el modelo predice que el precio mediano tendería a disminuir en <span class="math inline">\(20357.45 - 14983.9\)</span> <span class="math inline">\(5373.55\)</span> por cada habitación extra, lo cual sería contraintuitivo. Recordemos que las funciones cuadráticas tienen forma de parábolas, por lo que, pasado un punto máximo o mínimo, la relación se invertirá. Es decir, si para los valores inferiores de <span class="math inline">\(x\)</span> el efecto sobre <span class="math inline">\(y\)</span> es negativo, para los valores superiores el efecto de <span class="math inline">\(x\)</span> sobre <span class="math inline">\(y\)</span> será positivo, y viceversa. Para estimarlo, seguimos la siguiente fórmula:</p>
 <p><span class="math display">\[
 \begin{equation}
 x^* = |{\hat{\beta1}}/(2\hat{\beta_2})|
 \end{equation}
 \]</span></p>
-<p>En nuestro caso, esto equivale a <span class="math inline">\(|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = -4.58465\)</span>. Es decir, si <span class="math inline">\(x&gt;-4.58465\)</span>, el efecto será negativo; mientras que valores de <span class="math inline">\(x&lt;-4.58465\)</span> tendrán un efecto positivo sobre <span class="math inline">\(y\)</span>.</p>
+<p>En nuestro caso, esto equivale a <span class="math inline">\(|{\hat{\beta1}}/(2\hat{\beta_2})| = |-22713.18/2*(2477.09)| = 4.58465\)</span>. Es decir, si <span class="math inline">\(x&gt;4.58465\)</span>, el efecto será negativo; mientras que valores de <span class="math inline">\(x&lt;4.58465\)</span> tendrán un efecto positivo sobre <span class="math inline">\(y\)</span>.</p>
 </div>
 <div id="resumen" class="section level2">
 <h2>Resumen</h2>
