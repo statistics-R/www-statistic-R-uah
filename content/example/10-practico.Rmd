@@ -43,7 +43,7 @@ Volvemos a encontrarnos con:
 - **price** ($y$): indica el precio mediano de las casas del barrio.
 - **lowstat** ($x_1$): indica el porcentaje de personas de bajo estatus socioeconómico del barrio. 
 - **proptax** ($x_2$): indica el impuesto a la propiedad por cada $1000. 
-- **colonial** ($x_3$): indica el número medio de habitaciones de las casas del barrio. 
+- **rooms** ($x_3$): indica el número medio de habitaciones de las casas del barrio. 
 
 
 Generemos el modelo con `lm()`, y visualicémoslo
@@ -82,7 +82,7 @@ $$
 \end{equation}
 $$
 
-En este caso, $\beta_3=-0.01<0$; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar su precio en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios. 
+En este caso, $\beta_3=-0.01<0$; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios. 
 
 Para hacer la comparación, debemos escoger valores útiles de $rooms$, como su mediana o media. Esto, pues \beta_2 indica el efecto promedio del impuesto a la propiedad sobre el precio mediano de las casas de determinado barrio, cuando el número medio de habitaciones por casa en ese barrio es cero, lo cual no tiene sentido. Debemos recurrir a la siguiente re-parametrización 
 
@@ -118,14 +118,14 @@ m3 = lm(lprice ~  mlowstat + rooms + proptax, data = hprice2)
 screenreg(list(m1, m2, m3), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3"))
 ```
 
-Ahora, generemos un modelo que estime el efecto de interacción entre $mlowstat$ y $rooms$ sobre $price$: 
+Ahora, generemos un modelo que estime el efecto de interacción entre $mlowstat$ y $proptax$ sobre $price$: 
 
 ```{r}
 m4 = lm(lprice ~  mlowstat*proptax + mrooms, data = hprice2)
 screenreg(list(m3, m4), custom.model.names = c("Modelo 3", "Modelo 4"))
 ```
 
-En este caso, $\beta_{mlowstat:proptax} = -0.19 < 0$. Ello indica que, en barrios cuyo porcentaje de personas de bajo estatus socioeconómico se encuentra por sobre la media, un mayor impuesto a la propiedad en cada barrio indica un aumento más bajo en los precios medianos de las casas de cada barrio.  
+En este caso, $\beta_{mlowstat:proptax} = -0.01 < 0$. Ello indica que, en barrios cuyo porcentaje de personas de bajo estatus socioeconómico se encuentra por sobre la media, un mayor impuesto a la propiedad en cada barrio indica un aumento más bajo en los precios medianos de las casas de cada barrio.  
 
 ## 4. Interacción categórico*categórico
 

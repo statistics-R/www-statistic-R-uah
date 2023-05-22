@@ -793,7 +793,7 @@ data(&quot;attend&quot;)#Cargamos datos</code></pre>
 <li><strong>price</strong> (<span class="math inline">\(y\)</span>): indica el precio mediano de las casas del barrio.</li>
 <li><strong>lowstat</strong> (<span class="math inline">\(x_1\)</span>): indica el porcentaje de personas de bajo estatus socioeconómico del barrio.</li>
 <li><strong>proptax</strong> (<span class="math inline">\(x_2\)</span>): indica el impuesto a la propiedad por cada $1000.</li>
-<li><strong>colonial</strong> (<span class="math inline">\(x_3\)</span>): indica el número medio de habitaciones de las casas del barrio.</li>
+<li><strong>rooms</strong> (<span class="math inline">\(x_3\)</span>): indica el número medio de habitaciones de las casas del barrio.</li>
 </ul>
 <p>Generemos el modelo con <code>lm()</code>, y visualicémoslo</p>
 <pre class="r"><code>m1 = lm(lprice ~  lowstat + rooms + proptax, data = hprice2)

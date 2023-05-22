@@ -42,7 +42,7 @@ data(&quot;attend&quot;)#Cargamos datos</code></pre>
 <li><strong>price</strong> (<span class="math inline">\(y\)</span>): indica el precio mediano de las casas del barrio.</li>
 <li><strong>lowstat</strong> (<span class="math inline">\(x_1\)</span>): indica el porcentaje de personas de bajo estatus socioeconómico del barrio.</li>
 <li><strong>proptax</strong> (<span class="math inline">\(x_2\)</span>): indica el impuesto a la propiedad por cada $1000.</li>
-<li><strong>colonial</strong> (<span class="math inline">\(x_3\)</span>): indica el número medio de habitaciones de las casas del barrio.</li>
+<li><strong>rooms</strong> (<span class="math inline">\(x_3\)</span>): indica el número medio de habitaciones de las casas del barrio.</li>
 </ul>
 <p>Generemos el modelo con <code>lm()</code>, y visualicémoslo</p>
 <pre class="r"><code>m1 = lm(lprice ~  lowstat + rooms + proptax, data = hprice2)
@@ -105,7 +105,7 @@ price = \beta_0 + \beta_1lowstat + \beta_2rooms + \beta_3rooms*proptax + \beta_4
 \frac{\vartriangle price}{\vartriangle proptax} = \beta_2 + \beta_3rooms
 \end{equation}
 \]</span></p>
-<p>En este caso, <span class="math inline">\(\beta_3=-0.01&lt;0\)</span>; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar su precio en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios.</p>
+<p>En este caso, <span class="math inline">\(\beta_3=-0.01&lt;0\)</span>; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios.</p>
 <p>Para hacer la comparación, debemos escoger valores útiles de <span class="math inline">\(rooms\)</span>, como su mediana o media. Esto, pues _2 indica el efecto promedio del impuesto a la propiedad sobre el precio mediano de las casas de determinado barrio, cuando el número medio de habitaciones por casa en ese barrio es cero, lo cual no tiene sentido. Debemos recurrir a la siguiente re-parametrización</p>
 <p><span class="math display">\[
 \begin{equation}
