@@ -2740,6 +2740,89 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
     </item>
     
     <item>
+      <title>Pauta proyecto de investigación</title>
+      <link>/example/14-practico/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      <guid>/example/14-practico/</guid>
+      <description>
+
+&lt;div id=&#34;TOC&#34;&gt;
+
+&lt;/div&gt;
+
+&lt;div id=&#34;pauta-proyecto-de-investigación-examen-del-curso&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Pauta proyecto de investigación, examen del curso&lt;/h1&gt;
+&lt;p&gt;El objetivo central del proyecto de investigación es analizar un fenómeno que consideran de interés y que puede ser trabajado desde la información disponible en bases de datos. El centro de su trabajo, no obstante, es el análisis de datos mediante modelos de regresión lineal utilizando los &lt;em&gt;softwares R&lt;/em&gt; y &lt;em&gt;RStudio&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Se deben construir al menos dos regresiones lineales múltiples y compararlas entre sí. El foco debe estar en considerar el ajuste de ambos modelos y sus errores de especificación. Por ejemplo, incluir en un modelo variables irrelevantes u omitir variables relevantes. A partir de aquello, realizar test de significancia estadística para cada coeficiente y de manera global.&lt;/p&gt;
+&lt;p&gt;La aplicación de transformaciones funcionales (logarítmica, cuadrática o efectos de interacción) y el chequeo de los supuestos de regresión no son obligatorios, pero de realizarse, tendrán una bonificación de puntaje.&lt;/p&gt;
+&lt;p&gt;A partir de su análisis, deben redactar un informe que contenga los siguientes apartados:&lt;/p&gt;
+&lt;div id=&#34;título&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1. Título&lt;/h2&gt;
+&lt;p&gt;El título debe ser breve y referir a la temática escogida.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;introducción-800-1000-palabras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;2. Introducción (800-1000 palabras)&lt;/h2&gt;
+&lt;p&gt;Definir la temática escogida, explicar por qué es relevante su estudio y presentar sus conceptos principales, además de definirlos. Estos deben ahondar el objeto de estudio (su origen, definición e investigaciones principales) además de los posibles factores que explican al objeto. Se debe considerar al menos 1 referencia bibliográfica por cada uno de los factores.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;objetivo-general-e-hipótesis-300-palabras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;3. Objetivo general e hipótesis (300 palabras)&lt;/h2&gt;
+&lt;div id=&#34;objetivo-general-50-palabras&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.1. Objetivo general (50 palabras)&lt;/h3&gt;
+&lt;p&gt;Esclarecer la relación entre los conceptos, distinguiendo entre variable dependiente y variables independientes. El objetivo general se formula utilizando un verbo en infinitivo, identifica en su formulación un objeto de estudio, sujetos de estudio y el espacio y tiempo del fenómeno estudiado.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hipótesis-250-palabras&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3.2. Hipótesis (250 palabras)&lt;/h3&gt;
+&lt;p&gt;Elaborar una hipótesis por cada variable independiente relacionándola con la variable dependiente. Considerar el sentido y magnitud de la relación.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;metodología-400-palabras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;6. Metodología (400 palabras)&lt;/h2&gt;
+&lt;div id=&#34;datos&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;6.1. Datos&lt;/h3&gt;
+&lt;p&gt;Identificar la población de estudio, la muestra utilizada y el número de casos. Se debe explicitar el(los) tema(s) del que trata la encuesta seleccionada, así como la institución u organismo que produjo los datos. Además, el objetivo general de la encuesta seleccionada y el año de publicación o levantamiento de los datos.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;variables&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;6.2. Variables&lt;/h3&gt;
+&lt;p&gt;Identificar la selección de variables dependiente (cuantitativa) e independientes (cuantitativas o categóricas, mínimo 3).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;métodos-utilizados&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;6.3. Métodos utilizados&lt;/h3&gt;
+&lt;p&gt;Describir brevemente el método de regresión utilizado.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;análisis-máximo-1500-palabras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;7. Análisis (máximo 1500 palabras)&lt;/h2&gt;
+&lt;div id=&#34;análisis-descriptivos&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;7.1. Análisis descriptivos&lt;/h3&gt;
+&lt;p&gt;Exponer e interpretar brevemente las principales medidas de tendencia central (media, moda o mediana) de cada una de las variables seleccionadas.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;modelos-de-regresión&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;7.2. Modelos de regresión&lt;/h3&gt;
+&lt;p&gt;Presentar los modelos de regresión realizados mediante una tabla en formato APA (la que trabajamos en los prácticos).&lt;/p&gt;
+&lt;p&gt;Para cada modelo, interpretar sus coeficientes en cuanto a su magnitud como también de significancia estadística y ajuste global del modelo (&lt;span class=&#34;math inline&#34;&gt;\(R^2\)&lt;/span&gt;). Se debe hacer referencia a cada hipótesis al momento de analizar los coeficientes, además de indicar cuál modelo presenta mayor bondad de ajuste.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusiones-350-palabras&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;8. Conclusiones (350 palabras)&lt;/h2&gt;
+&lt;p&gt;Resumir sus resultados principales enfatizando en la relación entre variable dependiente y variables independientes. Señalar limitaciones del estudio y proponer investigaciones sobre la temática hacia el futuro.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;referencias&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;9. Referencias&lt;/h2&gt;
+&lt;p&gt;Listado de bibliografía utilizada en formato APA.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;formato&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;10. Formato&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Archivo .pdf en tamaño carta&lt;/li&gt;
+&lt;li&gt;Fuente &lt;em&gt;Times New Roman&lt;/em&gt;, tamaño 12, interlineado 1,5 y márgenes normales (2,5 cm * superior e inferior, 3 cm derecho e izquierdo)&lt;/li&gt;
+&lt;li&gt;Incluir páginas de portada e índice&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Relaciones no lineales y términos de interacción</title>
       <link>/example/10-practico/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -2838,7 +2921,7 @@ price = \beta_0 + \beta_1lowstat + \beta_2rooms + \beta_3rooms*proptax + \beta_4
 \frac{\vartriangle price}{\vartriangle proptax} = \beta_2 + \beta_3rooms
 \end{equation}
 \]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;En este caso, &lt;span class=&#34;math inline&#34;&gt;\(\beta_3=-0.01&amp;lt;0\)&lt;/span&gt;; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar su precio en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios.&lt;/p&gt;
+&lt;p&gt;En este caso, &lt;span class=&#34;math inline&#34;&gt;\(\beta_3=-0.01&amp;lt;0\)&lt;/span&gt;; o sea, negativo y más bien bajo en magnitud, aunque significativo en términos estadísticos. En términos analíticos, esto implica que, en barrios con más habitaciones en promedio, un aumento en los impuestos a la propiedad tiende a aumentar en menor proporción el precio mediano de las casas que en barrios con menor número de habitaciones por casa en promedio. Es decir, existe un efecto de interacción (aunque bajo en magnitud) entre el impuesto a la propiedad y el número de habitaciones sobre el precio mediano de las casas de diversos barrios.&lt;/p&gt;
 &lt;p&gt;Para hacer la comparación, debemos escoger valores útiles de &lt;span class=&#34;math inline&#34;&gt;\(rooms\)&lt;/span&gt;, como su mediana o media. Esto, pues _2 indica el efecto promedio del impuesto a la propiedad sobre el precio mediano de las casas de determinado barrio, cuando el número medio de habitaciones por casa en ese barrio es cero, lo cual no tiene sentido. Debemos recurrir a la siguiente re-parametrización&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \begin{equation}
