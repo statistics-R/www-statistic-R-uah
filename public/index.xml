@@ -2752,7 +2752,7 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 
 &lt;div id=&#34;pauta-proyecto-de-investigación-examen-del-curso&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Pauta proyecto de investigación, examen del curso&lt;/h1&gt;
-&lt;p&gt;El objetivo central del proyecto de investigación es analizar un fenómeno que consideran de interés y que puede ser trabajado desde la información disponible en bases de datos. El centro de su trabajo, no obstante, es el análisis de datos mediante modelos de regresión lineal utilizando los &lt;em&gt;softwares R&lt;/em&gt; y &lt;em&gt;RStudio&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;El objetivo central del proyecto de investigación es analizar un fenómeno que consideran de interés y que puede ser trabajado desde la información disponible en bases de datos. El centro de su trabajo, no obstante, es el análisis de datos mediante modelos de regresión lineal utilizando los &lt;em&gt;softwares R&lt;/em&gt; y &lt;em&gt;RStudio&lt;/em&gt;. Este trabajo debe ser entregado el &lt;strong&gt;martes 27 de junio hasta las 23:59 hrs.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Se deben construir al menos dos regresiones lineales múltiples y compararlas entre sí. El foco debe estar en considerar el ajuste de ambos modelos y sus errores de especificación. Por ejemplo, incluir en un modelo variables irrelevantes u omitir variables relevantes. A partir de aquello, realizar test de significancia estadística para cada coeficiente y de manera global.&lt;/p&gt;
 &lt;p&gt;La aplicación de transformaciones funcionales (logarítmica, cuadrática o efectos de interacción) y el chequeo de los supuestos de regresión no son obligatorios, pero de realizarse, tendrán una bonificación de puntaje.&lt;/p&gt;
 &lt;p&gt;A partir de su análisis, deben redactar un informe que contenga los siguientes apartados:&lt;/p&gt;
@@ -2816,6 +2816,8 @@ Recuerda que el correo que uses debe ser el mismo correo que usaste en pasos ant
 &lt;li&gt;Archivo .pdf en tamaño carta&lt;/li&gt;
 &lt;li&gt;Fuente &lt;em&gt;Times New Roman&lt;/em&gt;, tamaño 12, interlineado 1,5 y márgenes normales (2,5 cm * superior e inferior, 3 cm derecho e izquierdo)&lt;/li&gt;
 &lt;li&gt;Incluir páginas de portada e índice&lt;/li&gt;
+&lt;li&gt;Códigos &lt;strong&gt;separados&lt;/strong&gt; de &lt;strong&gt;procesamiento&lt;/strong&gt; y &lt;strong&gt;análisis&lt;/strong&gt; en formato .R.&lt;/li&gt;
+&lt;li&gt;Base de datos utilizada.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;

@@ -14,7 +14,7 @@ editor_options:
 
 # Pauta proyecto de investigación, examen del curso
 
-El objetivo central del proyecto de investigación es analizar un fenómeno que consideran de interés y que puede ser trabajado desde la información disponible en bases de datos. El centro de su trabajo, no obstante, es el análisis de datos mediante modelos de regresión lineal utilizando los *softwares R* y *RStudio*.
+El objetivo central del proyecto de investigación es analizar un fenómeno que consideran de interés y que puede ser trabajado desde la información disponible en bases de datos. El centro de su trabajo, no obstante, es el análisis de datos mediante modelos de regresión lineal utilizando los *softwares R* y *RStudio*. Este trabajo debe ser entregado el **martes 27 de junio hasta las 23:59 hrs.**
 
 Se deben construir al menos dos regresiones lineales múltiples y compararlas entre sí. El foco debe estar en considerar el ajuste de ambos modelos y sus errores de especificación. Por ejemplo, incluir en un modelo variables irrelevantes u omitir variables relevantes. A partir de aquello, realizar test de significancia estadística para cada coeficiente y de manera global.
 
@@ -77,5 +77,7 @@ Listado de bibliografía utilizada en formato APA.
 ## 10. Formato
 
 -   Archivo .pdf en tamaño carta
--   Fuente *Times New Roman*, tamaño 12, interlineado 1,5 y márgenes normales (2,5 cm \* superior e inferior, 3 cm derecho e izquierdo)
--   Incluir páginas de portada e índice
+  +   Fuente *Times New Roman*, tamaño 12, interlineado 1,5 y márgenes normales (2,5 cm \* superior e inferior, 3 cm derecho e izquierdo)
+  +   Incluir páginas de portada e índice
+- Códigos **separados** de **procesamiento** y **análisis** en formato .R. 
+- Base de datos utilizada. 
