@@ -951,12 +951,14 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{3}x_{3} + u - \beta_1e_1,
 \begin{equation}
 mc = \frac{LI+LS}{2}
 \end{equation}
-\]</span>
-### b) Ausencia de linealidad</p>
+\]</span></p>
+</div>
+<div id="b-ausencia-de-linealidad" class="section level3">
+<h3>b) Ausencia de linealidad</h3>
 <p>En algunos casos, la relación entre nuestras variables explicativa y explicada no es lineal. Ello viola el supuesto de linealidad del teorema Gauss-Markov, revisado en el práctico anterior. En este caso, el test RESET de Ramsey nos indica la necesidad de una re-especificación de los predictores:</p>
 <pre class="r"><code>lmtest::resettest(mod)</code></pre>
 <pre><code>## 
-##  RESET test
+## 	RESET test
 ## 
 ## data:  mod
 ## RESET = 7.5488, df1 = 2, df2 = 519, p-value = 0.0005867</code></pre>
@@ -989,7 +991,7 @@ screenreg(list(mod, mod2))</code></pre>
 <p>Podemos ver que los coeficientes y <span class="math inline">\(R^2\)</span> se han ajustado un poco en sus valores. Realizando el test RETEST de Ramsey una vez más, nos daremos cuenta de que ahora el modelo está bien especificado, a partir de su p-valor.</p>
 <pre class="r"><code>lmtest::resettest(mod2)</code></pre>
 <pre><code>## 
-##  RESET test
+## 	RESET test
 ## 
 ## data:  mod2
 ## RESET = 0.97713, df1 = 2, df2 = 519, p-value = 0.3771</code></pre>

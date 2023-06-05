@@ -219,6 +219,7 @@ $$
 mc = \frac{LI+LS}{2}
 \end{equation}
 $$
+
 ### b) Ausencia de linealidad
 
 En algunos casos, la relación entre nuestras variables explicativa y explicada no es lineal. Ello viola el supuesto de linealidad del teorema Gauss-Markov, revisado en el práctico anterior. En este caso, el test RESET de Ramsey nos indica la necesidad de una re-especificación de los predictores:
