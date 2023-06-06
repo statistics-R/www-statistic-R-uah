@@ -964,23 +964,23 @@ mc = \frac{LI+LS}{2}
 ## RESET = 7.5488, df1 = 2, df2 = 519, p-value = 0.0005867</code></pre>
 <p>Intentemos generando un modelo con la antiguedad al cuadrado:</p>
 <pre class="r"><code>wage1$educ2 = (wage1$educ)^2
-mod2 = lm(lwage ~ educ2+exper+tenure+female, data = wage1)
+mod2 = lm(lwage ~ educ+educ2+exper+tenure+female, data = wage1)
 screenreg(list(mod, mod2))</code></pre>
 <pre><code>## 
 ## ===================================
 ##              Model 1     Model 2   
 ## -----------------------------------
-## (Intercept)    0.50 ***    0.98 ***
-##               (0.10)      (0.07)   
-## educ           0.09 ***            
-##               (0.01)               
+## (Intercept)    0.50 ***    1.03 ***
+##               (0.10)      (0.19)   
+## educ           0.09 ***   -0.01    
+##               (0.01)      (0.03)   
 ## exper          0.00 **     0.00 ** 
 ##               (0.00)      (0.00)   
 ## tenure         0.02 ***    0.02 ***
 ##               (0.00)      (0.00)   
 ## female        -0.30 ***   -0.29 ***
 ##               (0.04)      (0.04)   
-## educ2                      0.00 ***
+## educ2                      0.00 ** 
 ##                           (0.00)   
 ## -----------------------------------
 ## R^2            0.39        0.40    
@@ -994,7 +994,7 @@ screenreg(list(mod, mod2))</code></pre>
 ## 	RESET test
 ## 
 ## data:  mod2
-## RESET = 0.97713, df1 = 2, df2 = 519, p-value = 0.3771</code></pre>
+## RESET = 0.86008, df1 = 2, df2 = 518, p-value = 0.4237</code></pre>
 <p>En algunos casos, logaritmizar la variable dependiente también permite solucionar problemas de linealidad.</p>
 </div>
 <div id="c-dicotomizar-variable-dependiente" class="section level3">

@@ -232,7 +232,7 @@ Intentemos generando un modelo con la antiguedad al cuadrado:
 
 ```{r}
 wage1$educ2 = (wage1$educ)^2
-mod2 = lm(lwage ~ educ2+exper+tenure+female, data = wage1)
+mod2 = lm(lwage ~ educ+educ2+exper+tenure+female, data = wage1)
 screenreg(list(mod, mod2))
 ```
 
@@ -261,6 +261,7 @@ En este caso, podemos robustecer los errores estándar estimados, de la siguient
 
 ```{r}
 mod_r <- lmtest::coeftest(mod, vcov=sandwich::vcovHC(mod))
+screenreg(list(mod, mod_r))
 ```
 
 ### e) Multicolinealidad
